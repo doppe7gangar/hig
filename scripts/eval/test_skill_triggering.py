@@ -91,7 +91,10 @@ def probe(query, root, model, timeout):
             ev = json.loads(line)
         except Exception:
             continue
-        for b in (ev.get("message") or {}).get("content") or []:
+        msg = ev.get("message")
+        if not isinstance(msg, dict):
+            continue
+        for b in msg.get("content") or []:
             if isinstance(b, dict) and b.get("type") == "tool_use" and b.get("name") == "Skill":
                 s = str(b.get("input", {}).get("skill", ""))
                 if s and s not in picked:
