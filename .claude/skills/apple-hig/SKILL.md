@@ -1,84 +1,85 @@
 ---
 name: apple-hig
-description: Apple's Human Interface Guidelines (HIG) as searchable local reference — design principles and platform conventions for iOS, iPadOS, macOS, tvOS, visionOS, and watchOS, covering foundations (accessibility, color, typography, layout, materials, motion, Dark Mode, Liquid Glass, SF Symbols, app icons), UI components (buttons, alerts, sheets, sidebars, tab bars, lists, pickers, toolbars, widgets), interaction patterns (onboarding, notifications, modality, drag and drop, undo, search, settings), inputs (gestures, keyboards, Digital Crown, Apple Pencil, eyes, game controls), and technologies (Apple Pay, HomeKit, SharePlay, Sign in with Apple, Live Activities, Siri). Each page also names the exact SwiftUI/UIKit/AppKit API for what it describes. Use this whenever designing, building, reviewing, or critiquing UI for an Apple platform — including SwiftUI or UIKit code review — even when the user never says "HIG" or "Apple guidelines". Covers questions about control styling and sizing, sheet/modal/alert behavior, navigation structure (tab bar vs sidebar vs split view), spacing and tap targets, Dynamic Type and VoiceOver support, contrast ratios, Dark Mode, app icon specs, and "how should this differ on iPad vs Mac vs Vision Pro".
+description: Apple Human Interface Guidelines as a working reference — review UI code or designs against Apple's actual rules, pick the right control or presentation (sheet vs popover vs alert vs full-screen, tab bar vs sidebar vs split view), look up exact specs (tap targets, type sizes, contrast ratios, icon dimensions, safe areas), and adapt a design across iOS, iPadOS, macOS, tvOS, visionOS, and watchOS. Contains all 2,280 HIG rules as a greppable checklist, every spec table in one file, and the full 178-page corpus. Use whenever building, reviewing, critiquing, or fixing UI for an Apple platform — including SwiftUI, UIKit, and AppKit code review — and whenever a question turns on what Apple actually specifies rather than general UI instinct. Trigger on Apple platform UI work even when the HIG is never mentioned: "is this button too small", "should this be a sheet or a popover", "why does my Mac app feel wrong", "make this work on iPad", "is this accessible", app icons, Dark Mode, Dynamic Type, VoiceOver, SF Symbols, Liquid Glass.
 ---
 
 # Apple Human Interface Guidelines
 
-A complete local mirror of Apple's HIG (`developer.apple.com/design/human-interface-guidelines`), plus Apple's design-tool pages, scraped 2026-08-11 — 178 pages in `references/`.
+Apple's design guidance, restructured for doing work rather than browsing. Four references, each for a different question:
 
-Use it so design answers carry Apple's actual current numbers and wording (tap targets, contrast ratios, type sizes, platform rules) instead of half-remembered general UI knowledge. The specifics genuinely change between OS releases, and stale advice here is worse than no advice — it sounds authoritative while being wrong.
+| File | Use it for |
+|---|---|
+| `references/rules.md` | **2,280 rules as one-line imperatives**, by topic. The review checklist. |
+| `references/specs.md` | **Every number** — sizes, ratios, limits — with its source table. |
+| `references/platform-diffs.md` | **What changes per platform**, grouped by platform. |
+| `references/pages/<slug>.md` | Full prose when a rule's *reasoning* matters. |
 
-## Finding the right page
+Grep first. `grep -A1 -i "sheet" references/rules.md` returns every sheet rule in seconds; reading `pages/sheets.md` to find the same thing costs far more context. Reach for the full page when you need the *why*, not the *what*.
 
-**Grep first when the topic is cross-cutting; use the index when it maps to one thing.**
+## Reviewing UI
 
-Many important topics are spread across dozens of pages rather than living in one: "Liquid Glass" appears in 19 files, SF Symbols in 31, VoiceOver in 20, contrast in 64. For those, the index below will send you to one page and you'll miss the rest — so search instead:
+The failure mode here is dumping 40 observations of mixed importance. Scope it:
 
-```
-grep -ril "liquid glass" references/
-grep -rn "44x44\|hit region" references/
-```
+1. **Inventory what's actually there.** List the components and patterns in the code — a `TabView`, a `.sheet`, a destructive `Button`, a custom control replacing a system one. Review those, not the whole HIG.
+2. **Pull their rules.** `grep -A1 -i "<component>" references/rules.md` for each. Check numbers against `specs.md`.
+3. **Check the target platforms** in `platform-diffs.md`. A layout that's right on iPhone can be wrong on Mac, and the general rule won't say so.
+4. **Sort findings by force**, and say which is which:
+   - **Violations** — a stated rule with a number attached. *"44×44 pt minimum hit region; this is 30×30."* Objective, fix it.
+   - **Guidance** — Apple says prefer/avoid without a threshold. *"Prefer a tab bar for iPad navigation."* Defensible to deviate with reason.
+   - **Judgment** — the HIG is silent. Say so rather than inventing a rule to justify a preference.
 
-When the question maps cleanly onto a component, pattern, or platform ("how do sheets work", "designing for watchOS"), skip the search and read that page directly.
+Flagging a preference as a violation is the fastest way to lose the reviewer's trust in the whole review.
 
-Filenames are the page title in kebab-case, so you can usually guess the path without consulting the index: Tab bars → `references/tab-bars.md`, Live Activities → `references/live-activities.md`. Five exceptions: `gyro-and-accelerometer.md` (Gyroscope and accelerometer), `resources.md` (Apple Design Resources), `sf-symbols-app.md` (the SF Symbols *app*, vs `sf-symbols.md` for symbol usage guidance), `pass-designer.md`, `design.md`.
+## Choosing a presentation
 
-## How the pages are structured
+The most common design question, and Apple defines these by *purpose* — match the purpose, not the visual.
 
-Nearly every page follows the same shape, so you can jump straight to the part that answers the question:
+| Use | When | Source |
+|---|---|---|
+| **Alert** | Critical information needed right away; an uncommon, destructive, unrecoverable action | `pages/alerts.md` |
+| **Action sheet** | Choices related to an action *the person just initiated* — "not an alert", explicitly | `pages/action-sheets.md` |
+| **Sheet** | A scoped task closely tied to the current context | `pages/sheets.md` |
+| **Popover** | A small amount of information or functionality, transient, anchored to a control | `pages/popovers.md` |
+| **Full-screen modal** | In-depth content or a complex task | `pages/modality.md` |
 
-- **Intro + Best practices** — the bolded lead sentences are the actual rules; the text after each explains the reasoning. When citing guidance, the bolded sentence is usually the quotable line.
-- **Platform considerations** (148 of 178 pages) — where iOS/iPadOS/macOS/tvOS/visionOS/watchOS differences live. **Always read this section before answering anything platform-specific.** A page's main body often describes the iOS behavior, and the Mac or visionOS rule differs in ways the intro never hints at.
-- **Resources → Developer documentation** (147 pages) — the exact SwiftUI, UIKit, and AppKit APIs implementing that guidance. See below.
-- **Change log** — dates when guidance changed. Useful for judging whether something is new (e.g. Liquid Glass guidance landed in 2025) or long-standing.
+Rules that resolve most real cases:
+- **Don't alert for common, undoable destructive actions.** Deleting an email needs no confirmation. Alert when the action is uncommon *and* unrecoverable.
+- **Offering choices after an intentional action → action sheet, not alert.**
+- **Warnings don't belong in popovers.**
+- **Only one sheet at a time** from the main interface.
 
-## Connecting guidance to code
+## Choosing navigation
 
-This is the part that makes the HIG useful inside a coding session rather than just a design conversation. Each page's **Developer documentation** section names the real API for the thing being described — `sheets.md`, for instance, lists `sheet(item:onDismiss:content:)` (SwiftUI), `UISheetPresentationController` (UIKit), and `presentAsSheet(_:)` (AppKit).
+- **iPad: prefer a tab bar.** If the app has more sections than fit, use the tab bar that converts to a sidebar (`sidebarAdaptable`) rather than choosing one outright. Sidebar-only means `NavigationSplitView`, not a tab view.
+- **Tab bars are for navigation, not actions.** Controls acting on the current view belong in a toolbar.
+- **Keep the tab bar visible** as people navigate; a modal covering it is the exception.
+- **Five or fewer tabs** when tabs are customizable, to stay consistent across size classes.
 
-So when you're implementing or reviewing, read the page for the rule *and* pull the API name from that section. It saves guessing at the right modifier or class, and it keeps the recommendation concrete: "use a sheet, and on iOS that's `UISheetPresentationController` with detents" beats "consider a sheet here."
+Details and platform variations: `grep -A1 -i "tab bar\|sidebar" references/rules.md`.
 
-## Reviewing existing UI code
+## Looking up a spec
 
-When asked to check SwiftUI/UIKit code or a design against the HIG, resist reviewing against everything — a 178-page checklist produces noise. Instead:
+`specs.md` is grouped by topic with the source table intact. The values people ask for most:
 
-1. Identify which components and patterns the code actually uses (a `TabView`, a `.sheet`, a destructive `Button`).
-2. Read those specific pages, including their Platform considerations for the platforms this code targets.
-3. Report only real conflicts with Apple's stated guidance, quoting the relevant line. Distinguish firm rules ("a button needs a hit region of at least 44x44 pt") from softer preferences ("prefer a tab bar") — presenting a preference as a violation erodes trust in the whole review.
-4. Say when something is a judgment call the HIG doesn't settle. The guidelines deliberately leave a lot open, and inventing a rule to fill the gap is the main failure mode here.
+- **Hit region:** 44×44 pt minimum (60×60 in visionOS)
+- **Text:** 17 pt default / 11 pt minimum on iOS and iPadOS — differs per platform, see the table
+- **Contrast:** 4.5:1 up to 17 pt; 3:1 at 18 pt or bold
 
-## Reference index
+Quote the number *and* its platform. Most of these tables have a different value per platform, and quoting one row as universal is the easiest way to be confidently wrong.
 
-All paths are `references/<name>.md`.
+## Adapting across platforms
 
-**Overview** — `human-interface-guidelines.md` (top-level), `design.md` (Apple's design landing page)
+Read the platform's section in `platform-diffs.md`, then apply the general rules underneath it — the diffs are exceptions, not a complete spec. Answering only from the diffs produces a confident, incomplete answer.
 
-**Getting started** — `getting-started.md`, `design-principles.md`, and `designing-for-` + `ios`, `ipados`, `macos`, `tvos`, `visionos`, `watchos`, `games`
+Two things that catch people out:
+- **Framework:** macOS means SwiftUI or AppKit (UIKit only via Catalyst); visionOS pairs SwiftUI with RealityKit; watchOS with WatchKit. Recommending a `UI…` class for a Mac app is an obvious tell.
+- **Interaction model:** tvOS has no cursor — it's a focus model driven by a remote. visionOS is eyes plus hands. Layouts that assume touch or pointer don't transfer.
 
-**Foundations** — `foundations.md`, `accessibility`, `app-icons`, `branding`, `color`, `dark-mode`, `icons`, `images`, `immersive-experiences`, `inclusion`, `layout`, `materials`, `motion`, `privacy`, `right-to-left`, `sf-symbols`, `spatial-layout`, `typography`, `writing`
+When a platform has no entry for a topic, the HIG states no exception and the general rule applies. Say that; it's a real answer.
 
-**Patterns** — `patterns.md`, `charting-data`, `collaboration-and-sharing`, `drag-and-drop`, `entering-data`, `feedback`, `file-management`, `going-full-screen`, `launching`, `live-viewing-apps`, `loading`, `managing-accounts`, `managing-notifications`, `modality`, `multitasking`, `offering-help`, `onboarding`, `playing-audio`, `playing-haptics`, `playing-video`, `printing`, `ratings-and-reviews`, `searching`, `settings`, `undo-and-redo`, `workouts`
+## Accuracy
 
-**Components** — `components.md`, grouped into eight sections (each section hub is its own page too):
-- *Content* (`content`) — `charts`, `image-views`, `text-views`, `web-views`
-- *Layout and organization* (`layout-and-organization`) — `boxes`, `collections`, `column-views`, `disclosure-controls`, `labels`, `lists-and-tables`, `lockups`, `outline-views`, `split-views`, `tab-views`
-- *Menus and actions* (`menus-and-actions`) — `activity-views`, `buttons`, `context-menus`, `dock-menus`, `edit-menus`, `home-screen-quick-actions`, `menus`, `ornaments`, `pop-up-buttons`, `pull-down-buttons`, `the-menu-bar`, `toolbars`
-- *Navigation and search* (`navigation-and-search`) — `path-controls`, `search-fields`, `sidebars`, `tab-bars`, `token-fields`
-- *Presentation* (`presentation`) — `action-sheets`, `alerts`, `page-controls`, `panels`, `popovers`, `scroll-views`, `sheets`, `windows`
-- *Selection and input* (`selection-and-input`) — `color-wells`, `combo-boxes`, `digit-entry-views`, `image-wells`, `pickers`, `segmented-controls`, `sliders`, `steppers`, `text-fields`, `toggles`, `virtual-keyboards`
-- *Status* (`status`) — `activity-rings`, `gauges`, `progress-indicators`, `rating-indicators`
-- *System experiences* (`system-experiences`) — `app-shortcuts`, `complications`, `controls`, `live-activities`, `notifications`, `snippets`, `status-bars`, `top-shelf`, `watch-faces`, `widgets`
-
-**Inputs** — `inputs.md`, `action-button`, `apple-pencil-and-scribble`, `camera-control`, `digital-crown`, `eyes`, `focus-and-selection`, `game-controls`, `gestures`, `gyro-and-accelerometer`, `keyboards`, `nearby-interactions`, `pointing-devices`, `remotes`
-
-**Technologies** — `technologies.md`, `airplay`, `always-on`, `app-clips`, `apple-pay`, `augmented-reality`, `carekit`, `carplay`, `game-center`, `generative-ai`, `healthkit`, `homekit`, `icloud`, `id-verifier`, `imessage-apps-and-stickers`, `in-app-purchase`, `live-photos`, `mac-catalyst`, `machine-learning`, `maps`, `nfc`, `photo-editing`, `researchkit`, `shareplay`, `shazamkit`, `sign-in-with-apple`, `siri`, `tap-to-pay-on-iphone`, `voiceover`, `wallet`
-
-**Apple's design tools** — `icon-composer`, `sf-symbols-app`, `pass-designer`, `reality-composer-pro`, `resources` (downloadable Figma/Sketch/Photoshop kits, fonts, product bezels)
-
-## Things worth getting right
-
-- **`sf-symbols.md` vs `sf-symbols-app.md`** — the first is HIG guidance on using symbols in a UI; the second is the SF Symbols app's product page. Design questions want the first.
-- **The tool pages link to downloads, they aren't the downloads.** `resources.md`, `icon-composer.md`, and friends point at `.dmg`/Figma/Sketch files on Apple's servers. Give the user the link; don't imply the assets are local.
-- **Images are hotlinked, not mirrored.** Pages embed real Apple CDN image URLs inline. If a visual detail matters, the URL is right there to hand over or fetch — but the bytes aren't in this repo.
-- **This is a snapshot, not a live feed.** If a question touches something likely to have shifted since the scrape date — a brand-new OS, a component that's been redesigned — answer from the reference but say it's a point-in-time copy and point at developer.apple.com to confirm.
+- **Quote, don't paraphrase from memory.** These files carry Apple's current wording and exact numbers; the value here is not restating what the model already half-remembers.
+- **Cite the page** so the claim is checkable — `pages/buttons.md`.
+- **Snapshot dated 2026-08-11.** If a question turns on something a recent OS release may have changed, answer from the corpus and say it's a point-in-time copy worth confirming at developer.apple.com.
+- **Images are hotlinked** to Apple's CDN, not stored locally.

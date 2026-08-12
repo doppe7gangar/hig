@@ -208,46 +208,55 @@ python3 scripts/scrape_resources.py
 python3 scripts/scrape_marketing_page.py <url> <out-path>
 ```
 
-## Claude Code skills
+## The skill
 
-`.claude/skills/` packages this content as seven Claude Code skills, so Claude answers from Apple's actual guidance when you're designing or reviewing UI for an Apple platform — including SwiftUI/UIKit/AppKit code review — rather than from general UI knowledge that may be an OS release or two stale.
+`.claude/skills/apple-hig/` turns this content into something usable for actual
+work, rather than a search index over 178 pages. Copy the `apple-hig` directory
+into a project's `.claude/skills/`, or into `~/.claude/skills/` to have it
+everywhere. Inside this repo it's picked up automatically.
 
-Each skill is self-contained: copy a directory into any project's `.claude/skills/`, or into `~/.claude/skills/` to have it everywhere. Working inside this repo they're picked up automatically.
+Apple states every guideline as a bolded imperative followed by its reasoning,
+and puts every hard number in a table. Both are mechanically extractable, and
+both are far more usable in that form than as prose spread across the corpus:
 
-### `apple-hig` — the whole corpus
+| Reference | What it holds |
+|---|---|
+| `rules.md` | All **2,280 guidelines** as one-line imperatives, by topic, platform-tagged. A greppable review checklist. |
+| `specs.md` | **Every number** in the corpus — sizes, ratios, limits — with source tables intact. |
+| `platform-diffs.md` | What actually changes per platform, grouped by platform. |
+| `pages/` | The full 178 pages, for when a rule's *reasoning* matters. |
 
-All 178 pages. `SKILL.md` is a router rather than a document dump: it teaches grep-first lookup (topics like Liquid Glass and SF Symbols are spread across 19–31 pages and map to no single one), the shared page anatomy (Best practices / Platform considerations / Developer documentation / Change log), how to get from a guideline to the exact SwiftUI/UIKit/AppKit API implementing it, and a scoped workflow for reviewing existing UI code.
+`SKILL.md` carries the procedure rather than an index: how to scope a UI review
+and sort findings into violations (a stated number, objective), guidance
+(prefer/avoid, deviable with reason), and judgment (the HIG is silent — say so
+instead of inventing a rule); decision tables for the recurring choices, like
+sheet vs popover vs alert vs action sheet; and what to watch when adapting a
+design to another platform.
 
-### `apple-hig-{ios,ipados,macos,tvos,visionos,watchos}` — one platform each
+An earlier version shipped seven skills — one general, six per-platform. The
+platform skills carried only each platform's *deltas*, which meant they could
+win a question whose answer lived in the general guidance they omitted. Folding
+them into `platform-diffs.md` alongside the full rules removes that failure mode
+and leaves one skill to install.
 
-The HIG is written cross-platform, so when you're building a Mac app the Mac rules are scattered one section at a time across 48 files. Each platform skill carries:
-
-- `references/platform-notes.md` — every rule the HIG states for that platform, collected from every page stating one, keyed by page title. This doesn't exist upstream.
-- That platform's `designing-for-*` overview.
-- Pages Apple's `supported-platforms` metadata marks as that platform alone, in full (`panels` and `dock-menus` for macOS, `ornaments` and `eyes` for visionOS, `watch-faces` and `complications` for watchOS).
-
-Shared guidance stays out on purpose — duplicating 178 pages six times would add ~13MB and make each skill worse at its one job. Total footprint is 832K, every entry links back to the full page, and each `SKILL.md` warns that platform deltas alone give a confidently incomplete answer.
-
-### Rebuilding
-
-After re-running any scraper:
+Rebuild after re-scraping:
 
 ```
-python3 scripts/build_skill.py              # sync content/ -> apple-hig, verify
-python3 scripts/build_platform_skills.py    # regenerate the six platform skills
+python3 scripts/build_skill.py
 ```
 
-Both take `--check` to verify without writing, and both exit non-zero on drift, so a newly scraped page can't end up invisible to a skill and a deleted one can't linger as a dead pointer.
+### Checking that it works
 
-### Checking that they actually get used
-
-A reference skill can be well written and still worthless, because skills are pull-based — Claude decides whether to consult one, and this corpus competes with what the model already believes it knows:
+A reference skill can be well written and still worthless, since skills are
+pull-based — Claude decides whether to consult one, and this corpus competes
+with what the model already believes it knows:
 
 ```
 python3 scripts/eval/test_skill_triggering.py
 ```
 
-It installs the real skills into a throwaway project and reports which one fires per query. `scripts/eval/README.md` documents two measurement traps that produced clean, plausible, entirely fictional numbers while this was being built — worth reading before trusting any triggering result, including a good one.
+`scripts/eval/README.md` documents measurement traps worth knowing before
+trusting any triggering result, including a favourable one.
 
 ## Notes
 
