@@ -5,10 +5,11 @@ description: Apple Human Interface Guidelines as a working reference — review 
 
 # Apple Human Interface Guidelines
 
-Apple's design guidance, restructured for doing work rather than browsing. Seven references, each for a different question:
+Apple's design guidance, restructured for doing work rather than browsing. Eight references, each for a different question:
 
 | File | Use it for |
 |---|---|
+| `references/patterns.md` | **What to actually write** — correct-by-default SwiftUI scaffolding with the right API and numbers already in place. |
 | `references/rules.md` | **2,280 rules as one-line imperatives**, by topic. The review checklist. |
 | `references/specs.md` | **Every number** — sizes, ratios, limits — with its source table. |
 | `references/platform-diffs.md` | **What changes per platform**, grouped by platform. |
@@ -19,6 +20,14 @@ Apple's design guidance, restructured for doing work rather than browsing. Seven
 | `references/pages/<slug>.md` | Full prose when a rule's *reasoning* matters. |
 
 Grep first. `grep -A1 -i "sheet" references/rules.md` returns every sheet rule in seconds; reading `pages/sheets.md` to find the same thing costs far more context. Reach for the full page when you need the *why*, not the *what*.
+
+## Writing new UI
+
+Start from `references/patterns.md` rather than from scratch — it has correct-by-default scaffolding for the things people build most (text that scales, tappable targets, each presentation type, adaptive navigation, empty states), with the real API and real numbers already in place, each citing its source.
+
+It also ends with a pre-ship checklist. The items on it are the violations that recur: fixed font sizes that break Dynamic Type, hit regions under 44 pt, destructive styling applied backwards, and states that only exist in the happy path.
+
+`patterns.md` is synthesis assembled from the other references, not extracted from Apple's pages like they are. Anything it can't source is marked **[not in corpus]** — don't quote those as Apple's word.
 
 ## Reviewing UI
 
