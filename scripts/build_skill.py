@@ -474,10 +474,24 @@ def extract_concept_index(by_page):
     return "\n".join(out).rstrip() + "\n", len(CONCEPTS)
 
 
+# Files this script owns. Anything else in references/ belongs to another
+# builder (assets-index.md comes from build_ui_kit_index.py) and must
+# survive a rebuild -- an earlier version rmtree'd the whole directory,
+# which silently deleted the UI-kit index whenever this ran on its own.
+OWNED = ["rules.md", "specs.md", "platform-diffs.md", "api-map.md",
+         "components.md", "concepts.md"]
+
 if __name__ == "__main__":
-    if os.path.isdir(REFS):
-        shutil.rmtree(REFS)
-    os.makedirs(os.path.join(REFS, "pages"), exist_ok=True)
+    # Clear only what we regenerate, so a co-resident file from another
+    # builder isn't destroyed as a side effect.
+    for name in OWNED:
+        p = os.path.join(REFS, name)
+        if os.path.exists(p):
+            os.remove(p)
+    pages_dir = os.path.join(REFS, "pages")
+    if os.path.isdir(pages_dir):
+        shutil.rmtree(pages_dir)
+    os.makedirs(pages_dir, exist_ok=True)
 
     by_page, total = extract_rules()
     open(os.path.join(REFS, "rules.md"), "w", encoding="utf-8").write(
