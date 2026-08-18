@@ -351,6 +351,129 @@ def extract_component_index():
     return "\n".join(out).rstrip() + "\n", len(rows)
 
 
+# Design concerns that recur across the corpus. Guidance for these is filed
+# by topic, not by component, so searching component pages for them fails --
+# the empty-state rule lives in writing.md, contrast rules are spread over
+# 12 pages.
+#
+# Each entry is (label, regex, home_page_slug). home_page_slug is stated
+# explicitly rather than derived from the label: substring-matching a label
+# against slugs gets it wrong in both directions (first-word-only misses
+# motion.md for "animation & motion"; loose matching hits menus-and-actions
+# for "destructive actions" and wrongly implies a home page exists). None
+# means the concept has no page of its own, which is the case worth
+# flagging. Every slug here is verified to exist at build time.
+CONCEPTS = [
+    ("empty state", r"empty state|blank screen", None),
+    ("loading", r"\bloading\b|progress indicator", "loading"),
+    ("error handling", r"\berror\b", None),
+    ("onboarding", r"\bonboarding\b|first launch", "onboarding"),
+    ("dark mode", r"dark mode", "dark-mode"),
+    ("Dynamic Type", r"dynamic type", None),          # lives in typography
+    ("VoiceOver", r"voiceover", "voiceover"),
+    ("contrast", r"contrast", None),                  # accessibility + color
+    ("color blindness", r"color blind|colorblind", None),
+    ("haptics", r"haptic", "playing-haptics"),
+    ("animation & motion", r"\banimat|\bmotion\b", "motion"),
+    ("gestures", r"\bgesture", "gestures"),
+    ("keyboard shortcuts", r"keyboard shortcut", "keyboards"),
+    ("focus & selection", r"\bfocus\b", "focus-and-selection"),
+    ("safe area", r"safe area", None),                # lives in layout
+    ("landscape & orientation", r"landscape|orientation", None),
+    ("multitasking", r"multitask|split view|stage manager", "multitasking"),
+    ("offline & connectivity", r"offline|no connection|network", None),
+    ("permissions", r"\bpermission|authoriz", None),  # lives in privacy
+    ("privacy", r"\bprivacy\b", "privacy"),
+    ("notifications", r"notification", "notifications"),
+    ("search", r"\bsearch\b", "searching"),
+    ("undo & redo", r"\bundo\b|\bredo\b", "undo-and-redo"),
+    ("drag and drop", r"drag and drop|drag-and-drop", "drag-and-drop"),
+    ("destructive actions", r"destructive", None),
+    ("confirmation", r"confirm", None),
+    ("Liquid Glass", r"liquid glass", None),          # discussed in materials
+    ("SF Symbols", r"sf symbol", "sf-symbols"),
+    ("localization & RTL", r"right-to-left|right to left|localiz", "right-to-left"),
+    ("data entry & validation", r"\bvalidat|data entry", "entering-data"),
+]
+
+
+def extract_concept_index(by_page):
+    """Concept -> the rules about it, wherever they're filed.
+
+    rules.md is organized by page, which mirrors how Apple files things and
+    inherits the same blind spot: a concern that isn't a component has no
+    obvious page to look under. This inverts that -- ask "what does the HIG
+    say about empty states" and get the answer even though it lives under
+    Writing.
+
+    Counts rules, not word occurrences: a page that merely mentions
+    "contrast" in passing isn't where the contrast guidance lives.
+    """
+    slugs = {slug for (_page, slug) in by_page}
+    out = [
+        "# Concept index: where guidance actually lives",
+        "",
+        "Design concerns mapped to the rules about them, wherever those "
+        "rules are filed. Apple organizes the HIG by component, so a concern "
+        "that isn't a component — empty states, error handling, offline "
+        "behavior — has no page to look under, and searching component pages "
+        "for it comes up empty even when the guidance exists.",
+        "",
+        "The empty-state rule, for instance, lives in **Writing**. Nothing "
+        "about the page list suggests that.",
+        "",
+        "Counts are **rules**, not mentions — a page that says \"contrast\" "
+        "in passing isn't where the contrast guidance is. Grep `rules.md` "
+        "for the concept to read the rules themselves.",
+        "",
+        "---",
+        "",
+    ]
+
+    bad_home = []
+    for label, pattern, home in CONCEPTS:
+        rx = re.compile(pattern, re.I)
+        hits = []
+        for (page, slug), rows in by_page.items():
+            n = sum(1 for rule, why, _p in rows if rx.search(rule) or rx.search(why))
+            if n:
+                hits.append((n, page, slug))
+        if not hits:
+            continue
+        hits.sort(key=lambda h: (-h[0], h[1]))
+        total = sum(n for n, _, _ in hits)
+
+        # Fail loudly if a declared home page doesn't exist, rather than
+        # silently emitting a link to nothing.
+        if home and home not in slugs:
+            bad_home.append((label, home))
+
+        out.append(f"## {label}")
+        out.append("")
+        if home:
+            out.append(f"{total} rule(s) across {len(hits)} page(s). "
+                       f"Home page: `pages/{home}.md`.")
+        else:
+            out.append(f"{total} rule(s) across {len(hits)} page(s). "
+                       "⚠︎ **No page of its own — the guidance is filed "
+                       "under the topics below.**")
+        out.append("")
+        for n, page, slug in hits[:8]:
+            out.append(f"- **{page}** — {n} rule(s) · `pages/{slug}.md`")
+        if len(hits) > 8:
+            rest = ", ".join(p for _n, p, _s in hits[8:])
+            out.append(f"- <sub>also: {rest}</sub>")
+        out.append("")
+
+    if bad_home:
+        raise SystemExit(
+            "concept index declares home pages that don't exist: "
+            + ", ".join(f"{lbl} -> {h}" for lbl, h in bad_home)
+        )
+
+    return "\n".join(out).rstrip() + "\n", len(CONCEPTS)
+
+
 if __name__ == "__main__":
     if os.path.isdir(REFS):
         shutil.rmtree(REFS)
@@ -367,6 +490,8 @@ if __name__ == "__main__":
     open(os.path.join(REFS, "api-map.md"), "w", encoding="utf-8").write(api_map)
     comp_index, comp_total = extract_component_index()
     open(os.path.join(REFS, "components.md"), "w", encoding="utf-8").write(comp_index)
+    concept_index, concept_total = extract_concept_index(by_page)
+    open(os.path.join(REFS, "concepts.md"), "w", encoding="utf-8").write(concept_index)
 
     for fn in sorted(os.listdir(CONTENT)):
         if fn.endswith(".md"):
@@ -380,4 +505,5 @@ if __name__ == "__main__":
     print(f"platform-diffs.md {kb('platform-diffs.md')} KB")
     print(f"api-map.md        {api_total} symbols, {kb('api-map.md')} KB")
     print(f"components.md     {comp_total} components, {kb('components.md')} KB")
+    print(f"concepts.md       {concept_total} concepts, {kb('concepts.md')} KB")
     print(f"pages/            {len(os.listdir(os.path.join(REFS, 'pages')))} files")

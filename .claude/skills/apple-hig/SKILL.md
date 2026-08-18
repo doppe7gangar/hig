@@ -14,6 +14,7 @@ Apple's design guidance, restructured for doing work rather than browsing. Seven
 | `references/platform-diffs.md` | **What changes per platform**, grouped by platform. |
 | `references/api-map.md` | **HIG concept → exact API symbol** — SwiftUI, UIKit, AppKit, and 30+ other frameworks (HealthKit, PassKit, StoreKit...). |
 | `references/components.md` | **One-line purpose for every page** — the fastest way to find the right component before reading anything else. |
+| `references/concepts.md` | **Where guidance actually lives** for cross-cutting concerns (empty states, error handling, contrast, offline) that have no page of their own. |
 | `references/assets-index.md` | **What components actually look like** — 947 screenshots from Apple's iOS 27 UI kit, every interaction state. |
 | `references/pages/<slug>.md` | Full prose when a rule's *reasoning* matters. |
 
@@ -81,7 +82,15 @@ Reach for this when the question is visual rather than propositional:
 
 Three folders use the Figma export's names rather than HIG terms, so the index maps them explicitly with a note: **System** is iPad Lock Screen widgets (→ `widgets.md`), **Face ID** is biometric authenticating/success states (→ `privacy.md`, where the HIG files biometrics), and **Empty States** is the no-content screen (→ `writing.md`, under *"Provide clear next steps on any blank screens"*).
 
-That last one is worth internalizing as a search habit: guidance is often filed by *concern* rather than by component. Empty-state rules live under Writing, not under a component page — so when a component search comes up dry, search `rules.md` for the concept before concluding the HIG is silent on it.
+That last one is worth internalizing as a search habit: guidance is often filed by *concern* rather than by component. Empty-state rules live under Writing, not under a component page — so when a component search comes up dry, check `concepts.md` before concluding the HIG is silent on it.
+
+## When the topic isn't a component
+
+`concepts.md` exists because the HIG is organized by component, and a lot of real design concerns aren't components. There's no `errors.md`, no `contrast.md`, no `empty-states.md` — but there are 16 error rules across 14 pages, and 11 rules on destructive actions across 8. Searching the page list for those finds nothing and invites the wrong conclusion.
+
+Each entry gives the rule count, the pages holding them, and either a home page or an explicit **"no page of its own"** flag. Twelve of the thirty concepts are homeless, including error handling, contrast, permissions, safe areas, and Dynamic Type.
+
+So: **"the HIG doesn't cover X" needs a `concepts.md` check first.** It's a claim that's easy to make and often wrong — the guidance usually exists, filed somewhere the page list doesn't suggest.
 
 ## Looking up a spec
 
