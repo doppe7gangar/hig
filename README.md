@@ -245,6 +245,25 @@ Rebuild after re-scraping:
 python3 scripts/build_skill.py
 ```
 
+### Before trusting a re-scrape
+
+```
+python3 scripts/audit_block_coverage.py
+```
+
+Walks Apple's live JSON, enumerates every block type it emits, and reports
+any the scraper doesn't render — exiting non-zero if an unhandled type
+carries prose or tables.
+
+This exists because every other check here compares extracted output against
+what the parser saw, which makes a block type the parser never recognized
+structurally invisible. `tabNavigator` went unrendered from the first scrape:
+151 panes across 28 pages, including the entire iOS Dynamic Type scale, and
+no parity audit could detect it because those tables were never produced to
+be counted. Run this after any scraper change, and prefer the full corpus
+over `--quick` — tabNavigator appears on 28 of 172 pages, so a sample
+reports a clean bill of health.
+
 ### Using it outside Claude Code
 
 The references are plain Markdown, so any tool that can read files in the
