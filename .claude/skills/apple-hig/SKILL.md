@@ -79,7 +79,7 @@ Reach for this when the question is visual rather than propositional:
 - *"What should the pressed state look like?"* — the rules rarely describe appearance in enough detail to reproduce it.
 - *"Why does this feel off?"* when the specs all check out — the answer is often visual: wrong material, wrong contrast between states, missing state entirely.
 
-Three folders — Empty States, Face ID, System — have **no** corresponding HIG page. They're visual reference only, so don't cite them as written guidance.
+Three folders aren't named after a HIG component, so the index maps them explicitly: **System** is iPad Lock Screen widgets (→ `widgets.md`), **Face ID** is biometric authenticating/success states (→ `privacy.md`, where the HIG treats biometrics). **Empty States** — the no-content screen — is the one pattern with no dedicated page; the nearest written guidance is `loading.md` and `feedback.md`, so treat those images as layout reference Apple never wrote down, and don't cite a rule that doesn't exist.
 
 ## Looking up a spec
 

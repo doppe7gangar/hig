@@ -294,7 +294,7 @@ Matching HIG guidance: [Edit menus](pages/edit-menus.md) (`rules.md`/`components
 ## Empty States
 <sub>`assets/ui-kit/Empty States/` — 10 file(s)</sub>
 
-*No corresponding page in the HIG corpus — this component isn't covered by Apple's written guidelines, only shown here visually.*
+*The no-content screen — centered message, description, and a primary action. The HIG has no dedicated page for this pattern; the closest written guidance is `pages/loading.md` (placeholder content) and `pages/feedback.md` (communicating state). Treat these images as the layout reference Apple doesn't write down.*
 
 - `Dark_Large Symbol_Empty States.png` `[Dark]`
 - `Dark_Symbol in Circle_Empty States.png` `[Dark]`
@@ -310,7 +310,7 @@ Matching HIG guidance: [Edit menus](pages/edit-menus.md) (`rules.md`/`components
 ## Face ID
 <sub>`assets/ui-kit/Face ID/` — 4 file(s)</sub>
 
-*No corresponding page in the HIG corpus — this component isn't covered by Apple's written guidelines, only shown here visually.*
+Matching HIG guidance: [Privacy](pages/privacy.md) (`rules.md`/`components.md` under "Privacy")
 
 - `Dark_Authenticating_Face ID.png` `[Dark]`
 - `Dark_Success_Face ID.png` `[Dark]`
@@ -965,7 +965,7 @@ Matching HIG guidance: [Steppers](pages/steppers.md) (`rules.md`/`components.md`
 ## System
 <sub>`assets/ui-kit/System/` — 1 file(s)</sub>
 
-*No corresponding page in the HIG corpus — this component isn't covered by Apple's written guidelines, only shown here visually.*
+Matching HIG guidance: [Widgets](pages/widgets.md) (`rules.md`/`components.md` under "Widgets"); [Complications](pages/complications.md) (`rules.md`/`components.md` under "Complications")
 
 - `Lock Screen Widgets/Examples/Light/iPad.png` `[Light, iPad]`
 
@@ -1113,4 +1113,4 @@ Matching HIG guidance: [Windows](pages/windows.md) (`rules.md`/`components.md` u
 
 ---
 
-<sub>3 folder(s) with no matching HIG page: Empty States, Face ID, System — shown for visual reference only, not backed by written guidance.</sub>
+<sub>1 folder(s) with no matching HIG page: Empty States. Each carries a note above explaining what the component is and where the nearest written guidance sits — an absent page means Apple documents no dedicated rules for it, not that the component is unidentified.</sub>

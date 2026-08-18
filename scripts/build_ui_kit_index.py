@@ -64,10 +64,30 @@ PAGE_MAP = {
     "Text Fields": ["text-fields"],
     "Toggles": ["toggles"],
     "Windows": ["windows"],
-    # No corresponding HIG page in the corpus -- left unmapped deliberately.
+    # These three aren't named after a HIG page, so their contents were
+    # inspected rather than guessed from the folder name:
+    #   System    -> Lock Screen Widgets (nested 3 levels down), covered by
+    #                widgets.md, which discusses the Lock Screen directly.
+    #   Face ID   -> biometric authenticating/success states; the HIG treats
+    #                biometrics under privacy.md rather than as a component.
+    "System": ["widgets", "complications"],
+    "Face ID": ["privacy"],
+    # Genuinely uncovered: Apple has no dedicated empty-state page. Only a
+    # passing "placeholder" mention in loading.md, so it stays unmapped
+    # rather than pointing at a page that doesn't actually answer for it.
     "Empty States": [],
-    "Face ID": [],
-    "System": [],
+}
+
+# Folders with no matching page, annotated so the index explains what the
+# component *is* rather than leaving a bare gap.
+UNMAPPED_NOTES = {
+    "Empty States": (
+        "The no-content screen — centered message, description, and a "
+        "primary action. The HIG has no dedicated page for this pattern; "
+        "the closest written guidance is `pages/loading.md` (placeholder "
+        "content) and `pages/feedback.md` (communicating state). Treat "
+        "these images as the layout reference Apple doesn't write down."
+    ),
 }
 
 # Substrings worth surfacing as tags when present in a filename, checked
@@ -195,10 +215,11 @@ def build():
         out.append("")
         if page_links:
             out.append("Matching HIG guidance: " + "; ".join(page_links))
+        elif folder in UNMAPPED_NOTES:
+            out.append(f"*{UNMAPPED_NOTES[folder]}*")
         else:
-            out.append("*No corresponding page in the HIG corpus — this "
-                       "component isn't covered by Apple's written "
-                       "guidelines, only shown here visually.*")
+            out.append("*No corresponding page in the HIG corpus — visual "
+                       "reference only, not backed by written guidance.*")
         out.append("")
 
         for rel in entries:
@@ -211,9 +232,15 @@ def build():
 
     out.append("---")
     out.append("")
-    out.append(f"<sub>{len(unmapped)} folder(s) with no matching HIG page: "
-               + ", ".join(unmapped) + " — shown for visual reference only, "
-               "not backed by written guidance.</sub>")
+    if unmapped:
+        out.append(f"<sub>{len(unmapped)} folder(s) with no matching HIG "
+                   "page: " + ", ".join(unmapped) + ". Each carries a note "
+                   "above explaining what the component is and where the "
+                   "nearest written guidance sits — an absent page means "
+                   "Apple documents no dedicated rules for it, not that the "
+                   "component is unidentified.</sub>")
+    else:
+        out.append("<sub>Every folder maps to at least one HIG page.</sub>")
 
     os.makedirs(REFS, exist_ok=True)
     with open(os.path.join(REFS, "assets-index.md"), "w", encoding="utf-8") as f:
