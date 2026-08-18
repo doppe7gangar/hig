@@ -2,7 +2,7 @@
 
 Modality is a design technique that presents content in a separate, dedicated mode that prevents interaction with the parent view and requires an explicit action to dismiss.
 
-![A sketch of an active window above an inactive window, suggesting focus on the frontmost window. The image is overlaid with rectangular and circular grid lines and is tinted orange to subtly reflect the orange in the original six-color Apple logo.](https://docs-assets.developer.apple.com/published/9efb35fd7fafa01ce3447dc6f13ae2d8/patterns-modality-intro%402x.png)
+![A sketch of an active window above an inactive window, suggesting focus on the frontmost window. The image is overlaid with rectangular and circular grid lines and is tinted orange to subtly reflect the orange in the original six-color Apple logo.](/images/com.apple.HIG/patterns-modality-intro@2x.png)
 
 Presenting content modally can:
 
@@ -53,11 +53,11 @@ To provide a temporary experience, like viewing media, or to help people perform
 
 #### Developer documentation
 
-[Presentation modifiers](https://developer.apple.com/documentation/SwiftUI/View-Presentation) — SwiftUI
+[Presentation modifiers](https://developer.apple.com/documentation/swiftui/view-presentation) — SwiftUI
 
-[UIModalPresentationStyle](https://developer.apple.com/documentation/UIKit/UIModalPresentationStyle) — UIKit
+[UIModalPresentationStyle](https://developer.apple.com/documentation/uikit/uimodalpresentationstyle) — UIKit
 
-[Modal Windows and Panels](https://developer.apple.com/documentation/AppKit/modal-windows-and-panels) — AppKit
+[Modal Windows and Panels](https://developer.apple.com/documentation/appkit/modal-windows-and-panels) — AppKit
 
 #### Videos
 

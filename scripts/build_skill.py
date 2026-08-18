@@ -41,22 +41,32 @@ def title_of(text):
 
 
 def sections(text):
-    """Yield (heading_path, body) so a rule can be tagged with its platform."""
-    cur_h2, cur_h3 = None, None
+    """Yield (heading_path, body) so a rule can be tagged with its platform.
+
+    Tracks h4 as well as h2/h3: tabbed content renders each pane's title as
+    an h4, and without it the seven Dynamic Type tables all carry the same
+    label ("iOS, iPadOS Dynamic Type sizes") with no way to tell which size
+    setting each one is -- including which is the default.
+    """
+    cur_h2, cur_h3, cur_h4 = None, None, None
     buf = []
     for line in text.split("\n"):
         if line.startswith("## "):
             if buf:
-                yield (cur_h2, cur_h3), "\n".join(buf)
-            cur_h2, cur_h3, buf = line[3:].strip(), None, []
+                yield (cur_h2, cur_h3, cur_h4), "\n".join(buf)
+            cur_h2, cur_h3, cur_h4, buf = line[3:].strip(), None, None, []
         elif line.startswith("### "):
             if buf:
-                yield (cur_h2, cur_h3), "\n".join(buf)
-            cur_h3, buf = line[4:].strip(), []
+                yield (cur_h2, cur_h3, cur_h4), "\n".join(buf)
+            cur_h3, cur_h4, buf = line[4:].strip(), None, []
+        elif line.startswith("#### "):
+            if buf:
+                yield (cur_h2, cur_h3, cur_h4), "\n".join(buf)
+            cur_h4, buf = line[5:].strip(), []
         else:
             buf.append(line)
     if buf:
-        yield (cur_h2, cur_h3), "\n".join(buf)
+        yield (cur_h2, cur_h3, cur_h4), "\n".join(buf)
 
 
 def platform_tag(h2, h3):
@@ -79,7 +89,7 @@ def extract_rules():
         text = open(os.path.join(CONTENT, fn), encoding="utf-8").read()
         page = title_of(text)
         rows = []
-        for (h2, h3), body in sections(text):
+        for (h2, h3, h4), body in sections(text):
             plats = platform_tag(h2, h3)
             for line in body.split("\n"):
                 m = RULE_RE.match(line.strip())
@@ -132,6 +142,11 @@ def write_rules(by_page, total):
 TABLE_RE = re.compile(r"(?:^\|.*\|\s*$\n?)+", re.M)
 NUM_RE = re.compile(r"\b\d+(?:\.\d+)?\s?(?:x\s?\d+(?:\.\d+)?)?\s?(?:pt|px|points|pixels)\b|\b\d+(?:\.\d+)?:1\b|\b\d+\s?(?:percent|%)")
 
+# A table header declaring a measurement column -- "Size (points)",
+# "Leading (points)", "Width (pt)". Cells under these are bare numbers,
+# so the table only looks unit-less line by line.
+HEADER_UNIT_RE = re.compile(r"\((?:points?|pt|px|pixels?)\)|\b(?:size|leading|width|height|weight)\b", re.I)
+
 
 def extract_specs():
     out = [
@@ -155,10 +170,19 @@ def extract_specs():
         page, slug = title_of(text), fn[:-3]
         chunks = []
 
-        for (h2, h3), body in sections(text):
-            where = " → ".join(x for x in (h2, h3) if x)
+        for (h2, h3, h4), body in sections(text):
+            where = " → ".join(x for x in (h2, h3, h4) if x)
             for tbl in TABLE_RE.findall(body):
-                if NUM_RE.search(tbl):
+                # NUM_RE wants a number next to its unit ("17 pt"), but the
+                # most valuable spec tables -- the Dynamic Type scales --
+                # put the unit in the column header ("Size (points)") and
+                # leave cells as bare numbers. Those tables failed the
+                # filter entirely, so the type scale was absent from specs
+                # even once the corpus had it. Accept a table whose header
+                # row declares a measurement column.
+                header = tbl.strip().split("\n", 1)[0]
+                header_declares_units = HEADER_UNIT_RE.search(header)
+                if NUM_RE.search(tbl) or header_declares_units:
                     chunks.append((where, tbl.strip()))
             for line in body.split("\n"):
                 s = line.strip()
@@ -191,7 +215,7 @@ def extract_platform_diffs():
             continue
         text = open(os.path.join(CONTENT, fn), encoding="utf-8").read()
         page, slug = title_of(text), fn[:-3]
-        for (h2, h3), body in sections(text):
+        for (h2, h3, h4), body in sections(text):
             plats = platform_tag(h2, h3)
             body = body.strip()
             if not plats or not body:

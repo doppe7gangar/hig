@@ -190,6 +190,40 @@ def render_block(b, refs, depth=0):
             if url:
                 lines.append(f"- [{title}]({url})")
         lines.append("")
+    elif t == "tabNavigator":
+        # Tabbed panes. Apple uses these for content that varies along an
+        # axis -- most importantly the Dynamic Type scales, where each tab
+        # is one text-size setting (xSmall...xxxLarge) holding a full table.
+        # This block type was unhandled, so every pane fell through to the
+        # fallback and vanished: 151 panes across 28 pages, including 26
+        # tables on typography and 8 on layout. That is why the corpus had
+        # macOS and tvOS type scales but no iOS one.
+        #
+        # The tab title is real data (it names the size setting or platform),
+        # so it becomes a heading rather than being flattened away.
+        for tab in b.get("tabs", []):
+            title = " ".join(str(tab.get("title", "")).split())
+            content = tab.get("content", [])
+            # Panes often open with a heading repeating the tab title; emit
+            # the title only when it isn't already the first heading, so the
+            # label isn't printed twice.
+            first = content[0] if content else {}
+            dup = (isinstance(first, dict) and first.get("type") == "heading"
+                   and " ".join(str(first.get("text", "")).split()) == title)
+            if title and not dup:
+                lines.append(f"**{title}**")
+                lines.append("")
+            lines.extend(render_blocks(content, refs, depth))
+        lines.append("")
+    elif t == "video":
+        # Poster image + media reference; keep the caption if there is one so
+        # the surrounding prose still reads, but there is no text to mirror.
+        ident = b.get("identifier") or b.get("poster")
+        ref = refs.get(ident, {}) if ident else {}
+        alt = ref.get("alt")
+        if alt:
+            lines.append(f"*(video: {alt})*")
+            lines.append("")
     else:
         # Best-effort fallback for unknown block types with inlineContent/content
         if "inlineContent" in b:

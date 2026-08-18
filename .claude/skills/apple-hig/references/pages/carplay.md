@@ -2,7 +2,7 @@
 
 CarPlay lets people get directions, make calls, send and receive messages, listen to music, and more from their car’s built-in display, all while staying focused on the road.
 
-![A sketch of the CarPlay icon. The image is overlaid with rectangular and circular grid lines and is tinted blue to subtly reflect the blue in the original six-color Apple logo.](https://docs-assets.developer.apple.com/published/a1087b54e07bb75c8e79e0f764d21ca1/technologies-CarPlay-intro%402x.png)
+![A sketch of the CarPlay icon. The image is overlaid with rectangular and circular grid lines and is tinted blue to subtly reflect the blue in the original six-color Apple logo.](/images/com.apple.HIG/technologies-CarPlay-intro@2x.png)
 
 People download CarPlay apps from the App Store and install them on iPhone like any other app. When people connect their iPhone with their vehicle, app icons for installed CarPlay apps appear on the CarPlay Home screen.
 
