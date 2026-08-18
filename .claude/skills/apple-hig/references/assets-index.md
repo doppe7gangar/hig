@@ -294,7 +294,9 @@ Matching HIG guidance: [Edit menus](pages/edit-menus.md) (`rules.md`/`components
 ## Empty States
 <sub>`assets/ui-kit/Empty States/` — 10 file(s)</sub>
 
-*The no-content screen — centered message, description, and a primary action. The HIG has no dedicated page for this pattern; the closest written guidance is `pages/loading.md` (placeholder content) and `pages/feedback.md` (communicating state). Treat these images as the layout reference Apple doesn't write down.*
+Matching HIG guidance: [Writing](pages/writing.md) (`rules.md`/`components.md` under "Writing")
+
+> The screen shown when a list or container has no content — a message, description, and a next-step action, instead of blank space that reads as broken. The rule is **"Provide clear next steps on any blank screens"** in `pages/writing.md` (also in `rules.md` under Writing) — it's filed under writing rather than as a component, which is easy to miss. Key points: guide people to an action and give them a button or link to take it, and don't put crucial information here, since empty states are temporary by definition. SwiftUI implements this as `ContentUnavailableView`, which the HIG corpus doesn't name.
 
 - `Dark_Large Symbol_Empty States.png` `[Dark]`
 - `Dark_Symbol in Circle_Empty States.png` `[Dark]`
@@ -311,6 +313,8 @@ Matching HIG guidance: [Edit menus](pages/edit-menus.md) (`rules.md`/`components
 <sub>`assets/ui-kit/Face ID/` — 4 file(s)</sub>
 
 Matching HIG guidance: [Privacy](pages/privacy.md) (`rules.md`/`components.md` under "Privacy")
+
+> Biometric authentication states (authenticating, success). The HIG treats biometrics under privacy rather than as a component, so there's no Face ID page to cite.
 
 - `Dark_Authenticating_Face ID.png` `[Dark]`
 - `Dark_Success_Face ID.png` `[Dark]`
@@ -967,6 +971,8 @@ Matching HIG guidance: [Steppers](pages/steppers.md) (`rules.md`/`components.md`
 
 Matching HIG guidance: [Widgets](pages/widgets.md) (`rules.md`/`components.md` under "Widgets"); [Complications](pages/complications.md) (`rules.md`/`components.md` under "Complications")
 
+> iPad Lock Screen widgets — the folder name is the Figma export's, not a HIG term. Contents sit at `System/Lock Screen Widgets/Examples/`.
+
 - `Lock Screen Widgets/Examples/Light/iPad.png` `[Light, iPad]`
 
 ## Tab Bars
@@ -1113,4 +1119,4 @@ Matching HIG guidance: [Windows](pages/windows.md) (`rules.md`/`components.md` u
 
 ---
 
-<sub>1 folder(s) with no matching HIG page: Empty States. Each carries a note above explaining what the component is and where the nearest written guidance sits — an absent page means Apple documents no dedicated rules for it, not that the component is unidentified.</sub>
+<sub>Every folder maps to at least one HIG page.</sub>

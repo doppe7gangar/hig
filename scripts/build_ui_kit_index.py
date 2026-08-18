@@ -72,21 +72,39 @@ PAGE_MAP = {
     #                biometrics under privacy.md rather than as a component.
     "System": ["widgets", "complications"],
     "Face ID": ["privacy"],
-    # Genuinely uncovered: Apple has no dedicated empty-state page. Only a
-    # passing "placeholder" mention in loading.md, so it stays unmapped
-    # rather than pointing at a page that doesn't actually answer for it.
-    "Empty States": [],
+    #   Empty States -> the guidance lives in writing.md ("Provide clear next
+    #                steps on any blank screens"), not on any component page.
+    #                Easy to miss by grepping component pages only.
+    "Empty States": ["writing"],
 }
 
-# Folders with no matching page, annotated so the index explains what the
-# component *is* rather than leaving a bare gap.
-UNMAPPED_NOTES = {
+UNMAPPED_NOTES = {}
+
+# Extra context for folders whose guidance isn't where you'd expect, or
+# whose implementing API the corpus doesn't name. Appended under the
+# normal page links rather than replacing them.
+FOLDER_NOTES = {
     "Empty States": (
-        "The no-content screen — centered message, description, and a "
-        "primary action. The HIG has no dedicated page for this pattern; "
-        "the closest written guidance is `pages/loading.md` (placeholder "
-        "content) and `pages/feedback.md` (communicating state). Treat "
-        "these images as the layout reference Apple doesn't write down."
+        "The screen shown when a list or container has no content — a "
+        "message, description, and a next-step action, instead of blank "
+        "space that reads as broken. The rule is **\"Provide clear next "
+        "steps on any blank screens\"** in `pages/writing.md` (also in "
+        "`rules.md` under Writing) — it's filed under writing rather than "
+        "as a component, which is easy to miss. Key points: guide people "
+        "to an action and give them a button or link to take it, and "
+        "don't put crucial information here, since empty states are "
+        "temporary by definition. SwiftUI implements this as "
+        "`ContentUnavailableView`, which the HIG corpus doesn't name."
+    ),
+    "Face ID": (
+        "Biometric authentication states (authenticating, success). The "
+        "HIG treats biometrics under privacy rather than as a component, "
+        "so there's no Face ID page to cite."
+    ),
+    "System": (
+        "iPad Lock Screen widgets — the folder name is the Figma export's, "
+        "not a HIG term. Contents sit at "
+        "`System/Lock Screen Widgets/Examples/`."
     ),
 }
 
@@ -220,6 +238,9 @@ def build():
         else:
             out.append("*No corresponding page in the HIG corpus — visual "
                        "reference only, not backed by written guidance.*")
+        if folder in FOLDER_NOTES:
+            out.append("")
+            out.append(f"> {FOLDER_NOTES[folder]}")
         out.append("")
 
         for rel in entries:
