@@ -1,6 +1,6 @@
 # API map: guidance to implementation
 
-226 symbol references pulled from every page's 'Developer documentation' section — the exact SwiftUI, UIKit, AppKit, and framework-specific API that implements each piece of guidance.
+240 symbol references pulled from every page's 'Developer documentation' section — the exact SwiftUI, UIKit, AppKit, and framework-specific API that implements each piece of guidance.
 
 Use this to go from a design decision straight to the right API instead of guessing at a class or modifier name. When reviewing code, check the symbol used against what the HIG actually names here — a hand-rolled view where a system API exists is itself worth flagging.
 
@@ -9,6 +9,7 @@ Use this to go from a design decision straight to the right API instead of guess
 ## By component
 
 **Action sheets** <sub>`pages/action-sheets.md`</sub>
+- [confirmationDialog(_:isPresented:titleVisibility:actions:)](https://developer.apple.com/documentation/SwiftUI/View/confirmationDialog(_:isPresented:titleVisibility:actions:)-46zbb) — SwiftUI
 - [UIAlertController.Style.actionSheet](https://developer.apple.com/documentation/UIKit/UIAlertController/Style/actionSheet) — UIKit
 
 **Activity rings** <sub>`pages/activity-rings.md`</sub>
@@ -20,6 +21,7 @@ Use this to go from a design decision straight to the right API instead of guess
 - [App Extension Support](https://developer.apple.com/documentation/Foundation/app-extension-support) — Foundation
 
 **Alerts** <sub>`pages/alerts.md`</sub>
+- [alert(_:isPresented:actions:)](https://developer.apple.com/documentation/SwiftUI/View/alert(_:isPresented:actions:)-1bkka) — SwiftUI
 - [UIAlertController](https://developer.apple.com/documentation/UIKit/UIAlertController) — UIKit
 - [NSAlert](https://developer.apple.com/documentation/AppKit/NSAlert) — AppKit
 
@@ -74,7 +76,9 @@ Use this to go from a design decision straight to the right API instead of guess
 - [NSComboBox](https://developer.apple.com/documentation/AppKit/NSComboBox) — AppKit
 
 **Context menus** <sub>`pages/context-menus.md`</sub>
+- [contextMenu(menuItems:)](https://developer.apple.com/documentation/SwiftUI/View/contextMenu(menuItems:)) — SwiftUI
 - [UIContextMenuInteraction](https://developer.apple.com/documentation/UIKit/UIContextMenuInteraction) — UIKit
+- [popUpContextMenu(_:with:for:)](https://developer.apple.com/documentation/AppKit/NSMenu/popUpContextMenu(_:with:for:)) — AppKit
 
 **Digit entry views** <sub>`pages/digit-entry-views.md`</sub>
 - [TVDigitEntryViewController](https://developer.apple.com/documentation/TVUIKit/TVDigitEntryViewController) — TVUIKit
@@ -86,6 +90,9 @@ Use this to go from a design decision straight to the right API instead of guess
 - [DisclosureGroup](https://developer.apple.com/documentation/SwiftUI/DisclosureGroup) — SwiftUI
 - [NSButton.BezelStyle.disclosure](https://developer.apple.com/documentation/AppKit/NSButton/BezelStyle-swift.enum/disclosure) — AppKit
 - [NSButton.BezelStyle.pushDisclosure](https://developer.apple.com/documentation/AppKit/NSButton/BezelStyle-swift.enum/pushDisclosure) — AppKit
+
+**Dock menus** <sub>`pages/dock-menus.md`</sub>
+- [applicationDockMenu(_:)](https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationDockMenu(_:)) — AppKit
 
 **Drag and drop** <sub>`pages/drag-and-drop.md`</sub>
 - [Drag and drop](https://developer.apple.com/documentation/UIKit/drag-and-drop) — UIKit
@@ -121,6 +128,7 @@ Use this to go from a design decision straight to the right API instead of guess
 - [UITouch](https://developer.apple.com/documentation/UIKit/UITouch) — UIKit
 
 **Going full screen** <sub>`pages/going-full-screen.md`</sub>
+- [fullScreenCover(item:onDismiss:content:)](https://developer.apple.com/documentation/SwiftUI/View/fullScreenCover(item:onDismiss:content:)) — SwiftUI
 - [NSScreen](https://developer.apple.com/documentation/AppKit/NSScreen) — AppKit
 - [NSWindow.CollectionBehavior](https://developer.apple.com/documentation/AppKit/NSWindow/CollectionBehavior-swift.struct) — AppKit
 - [Managing your game window for Metal in macOS](https://developer.apple.com/documentation/Metal/managing-your-game-window-for-metal-in-macos) — Swift, Objective-C
@@ -206,6 +214,7 @@ Use this to go from a design decision straight to the right API instead of guess
 - [Supporting passkeys](https://developer.apple.com/documentation/AuthenticationServices/supporting-passkeys) — Authentication Services
 
 **Materials** <sub>`pages/materials.md`</sub>
+- [glassEffect(_:in:)](https://developer.apple.com/documentation/SwiftUI/View/glassEffect(_:in:)) — SwiftUI
 - [Material](https://developer.apple.com/documentation/SwiftUI/Material) — SwiftUI
 - [UIVisualEffectView](https://developer.apple.com/documentation/UIKit/UIVisualEffectView) — UIKit
 - [NSVisualEffectView](https://developer.apple.com/documentation/AppKit/NSVisualEffectView) — AppKit
@@ -232,6 +241,9 @@ Use this to go from a design decision straight to the right API instead of guess
 
 **Offering help** <sub>`pages/offering-help.md`</sub>
 - [NSHelpManager](https://developer.apple.com/documentation/AppKit/NSHelpManager) — AppKit
+
+**Ornaments** <sub>`pages/ornaments.md`</sub>
+- [ornament(visibility:attachmentAnchor:contentAlignment:ornament:)](https://developer.apple.com/documentation/SwiftUI/View/ornament(visibility:attachmentAnchor:contentAlignment:ornament:)) — SwiftUI
 
 **Outline views** <sub>`pages/outline-views.md`</sub>
 - [OutlineGroup](https://developer.apple.com/documentation/SwiftUI/OutlineGroup) — SwiftUI
@@ -273,6 +285,7 @@ Use this to go from a design decision straight to the right API instead of guess
 - [NSPopUpButton](https://developer.apple.com/documentation/AppKit/NSPopUpButton) — AppKit
 
 **Popovers** <sub>`pages/popovers.md`</sub>
+- [popover(isPresented:attachmentAnchor:arrowEdge:content:)](https://developer.apple.com/documentation/SwiftUI/View/popover(isPresented:attachmentAnchor:arrowEdge:content:)) — SwiftUI
 - [UIPopoverPresentationController](https://developer.apple.com/documentation/UIKit/UIPopoverPresentationController) — UIKit
 - [NSPopover](https://developer.apple.com/documentation/AppKit/NSPopover) — AppKit
 
@@ -322,6 +335,7 @@ Use this to go from a design decision straight to the right API instead of guess
 
 **Search fields** <sub>`pages/search-fields.md`</sub>
 - [Adding a search interface to your app](https://developer.apple.com/documentation/SwiftUI/Adding-a-search-interface-to-your-app) — SwiftUI
+- [searchable(text:placement:prompt:)](https://developer.apple.com/documentation/SwiftUI/View/searchable(text:placement:prompt:)) — SwiftUI
 - [UISearchBar](https://developer.apple.com/documentation/UIKit/UISearchBar) — UIKit
 - [UISearchTextField](https://developer.apple.com/documentation/UIKit/UISearchTextField) — UIKit
 - [NSSearchField](https://developer.apple.com/documentation/AppKit/NSSearchField) — AppKit
@@ -339,7 +353,9 @@ Use this to go from a design decision straight to the right API instead of guess
 - [UserDefaults](https://developer.apple.com/documentation/Foundation/UserDefaults) — Foundation
 
 **Sheets** <sub>`pages/sheets.md`</sub>
+- [sheet(item:onDismiss:content:)](https://developer.apple.com/documentation/SwiftUI/View/sheet(item:onDismiss:content:)) — SwiftUI
 - [UISheetPresentationController](https://developer.apple.com/documentation/UIKit/UISheetPresentationController) — UIKit
+- [presentAsSheet(_:)](https://developer.apple.com/documentation/AppKit/NSViewController/presentAsSheet(_:)) — AppKit
 
 **Sidebars** <sub>`pages/sidebars.md`</sub>
 - [sidebarAdaptable](https://developer.apple.com/documentation/SwiftUI/TabViewStyle/sidebarAdaptable) — SwiftUI
@@ -427,6 +443,8 @@ Use this to go from a design decision straight to the right API instead of guess
 - [UndoManager](https://developer.apple.com/documentation/Foundation/UndoManager) — Foundation
 
 **Virtual keyboards** <sub>`pages/virtual-keyboards.md`</sub>
+- [keyboardType(_:)](https://developer.apple.com/documentation/SwiftUI/View/keyboardType(_:)) — SwiftUI
+- [textContentType(_:)](https://developer.apple.com/documentation/SwiftUI/View/textContentType(_:)) — SwiftUI
 - [UIKeyboardType](https://developer.apple.com/documentation/UIKit/UIKeyboardType) — UIKit
 
 **Watch faces** <sub>`pages/watch-faces.md`</sub>
@@ -478,8 +496,10 @@ Same data, grouped the other direction — everything the HIG cites for a given 
 - [Color](https://developer.apple.com/documentation/AppKit/color) — Color (`pages/color.md`)
 - [NSBrowser](https://developer.apple.com/documentation/AppKit/NSBrowser) — Column views (`pages/column-views.md`)
 - [NSComboBox](https://developer.apple.com/documentation/AppKit/NSComboBox) — Combo boxes (`pages/combo-boxes.md`)
+- [popUpContextMenu(_:with:for:)](https://developer.apple.com/documentation/AppKit/NSMenu/popUpContextMenu(_:with:for:)) — Context menus (`pages/context-menus.md`)
 - [NSButton.BezelStyle.disclosure](https://developer.apple.com/documentation/AppKit/NSButton/BezelStyle-swift.enum/disclosure) — Disclosure controls (`pages/disclosure-controls.md`)
 - [NSButton.BezelStyle.pushDisclosure](https://developer.apple.com/documentation/AppKit/NSButton/BezelStyle-swift.enum/pushDisclosure) — Disclosure controls (`pages/disclosure-controls.md`)
+- [applicationDockMenu(_:)](https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationDockMenu(_:)) — Dock menus (`pages/dock-menus.md`)
 - [Drag and Drop](https://developer.apple.com/documentation/AppKit/drag-and-drop) — Drag and drop (`pages/drag-and-drop.md`)
 - [NSMenu](https://developer.apple.com/documentation/AppKit/NSMenu) — Edit menus (`pages/edit-menus.md`)
 - [NSLevelIndicator](https://developer.apple.com/documentation/AppKit/NSLevelIndicator) — Gauges (`pages/gauges.md`)
@@ -510,6 +530,7 @@ Same data, grouped the other direction — everything the HIG cites for a given 
 - [NSScrollView](https://developer.apple.com/documentation/AppKit/NSScrollView) — Scroll views (`pages/scroll-views.md`)
 - [NSSearchField](https://developer.apple.com/documentation/AppKit/NSSearchField) — Search fields (`pages/search-fields.md`)
 - [NSSegmentedControl](https://developer.apple.com/documentation/AppKit/NSSegmentedControl) — Segmented controls (`pages/segmented-controls.md`)
+- [presentAsSheet(_:)](https://developer.apple.com/documentation/AppKit/NSViewController/presentAsSheet(_:)) — Sheets (`pages/sheets.md`)
 - [NSSplitViewController](https://developer.apple.com/documentation/AppKit/NSSplitViewController) — Sidebars (`pages/sidebars.md`)
 - [NSSlider](https://developer.apple.com/documentation/AppKit/NSSlider) — Sliders (`pages/sliders.md`)
 - [NSSplitViewController](https://developer.apple.com/documentation/AppKit/NSSplitViewController) — Split views (`pages/split-views.md`)
@@ -582,15 +603,19 @@ Same data, grouped the other direction — everything the HIG cites for a given 
 - [Managing your game window for Metal in macOS](https://developer.apple.com/documentation/Metal/managing-your-game-window-for-metal-in-macos) — Going full screen (`pages/going-full-screen.md`)
 
 ### SwiftUI
+- [confirmationDialog(_:isPresented:titleVisibility:actions:)](https://developer.apple.com/documentation/SwiftUI/View/confirmationDialog(_:isPresented:titleVisibility:actions:)-46zbb) — Action sheets (`pages/action-sheets.md`)
+- [alert(_:isPresented:actions:)](https://developer.apple.com/documentation/SwiftUI/View/alert(_:isPresented:actions:)-1bkka) — Alerts (`pages/alerts.md`)
 - [GroupBox](https://developer.apple.com/documentation/SwiftUI/GroupBox) — Boxes (`pages/boxes.md`)
 - [Button](https://developer.apple.com/documentation/SwiftUI/Button) — Buttons (`pages/buttons.md`)
 - [ShareLink](https://developer.apple.com/documentation/SwiftUI/ShareLink) — Collaboration and sharing (`pages/collaboration-and-sharing.md`)
 - [Color](https://developer.apple.com/documentation/SwiftUI/Color) — Color (`pages/color.md`)
+- [contextMenu(menuItems:)](https://developer.apple.com/documentation/SwiftUI/View/contextMenu(menuItems:)) — Context menus (`pages/context-menus.md`)
 - [DisclosureGroup](https://developer.apple.com/documentation/SwiftUI/DisclosureGroup) — Disclosure controls (`pages/disclosure-controls.md`)
 - [Input events](https://developer.apple.com/documentation/SwiftUI/Input-events) — Entering data (`pages/entering-data.md`)
 - [Documents](https://developer.apple.com/documentation/SwiftUI/Documents) — File management (`pages/file-management.md`)
 - [Gauge](https://developer.apple.com/documentation/SwiftUI/Gauge) — Gauges (`pages/gauges.md`)
 - [Gestures](https://developer.apple.com/documentation/SwiftUI/Gestures) — Gestures (`pages/gestures.md`)
+- [fullScreenCover(item:onDismiss:content:)](https://developer.apple.com/documentation/SwiftUI/View/fullScreenCover(item:onDismiss:content:)) — Going full screen (`pages/going-full-screen.md`)
 - [Image](https://developer.apple.com/documentation/SwiftUI/Image) — Image views (`pages/image-views.md`)
 - [Images](https://developer.apple.com/documentation/SwiftUI/Images) — Images (`pages/images.md`)
 - [Immersive spaces](https://developer.apple.com/documentation/SwiftUI/Immersive-spaces) — Immersive experiences (`pages/immersive-experiences.md`)
@@ -601,23 +626,28 @@ Same data, grouped the other direction — everything the HIG cites for a given 
 - [Composing custom layouts with SwiftUI](https://developer.apple.com/documentation/SwiftUI/composing-custom-layouts-with-swiftui) — Layout (`pages/layout.md`)
 - [List](https://developer.apple.com/documentation/SwiftUI/List) — Lists and tables (`pages/lists-and-tables.md`)
 - [Tables](https://developer.apple.com/documentation/SwiftUI/Tables) — Lists and tables (`pages/lists-and-tables.md`)
+- [glassEffect(_:in:)](https://developer.apple.com/documentation/SwiftUI/View/glassEffect(_:in:)) — Materials (`pages/materials.md`)
 - [Material](https://developer.apple.com/documentation/SwiftUI/Material) — Materials (`pages/materials.md`)
 - [Menu](https://developer.apple.com/documentation/SwiftUI/Menu) — Menus (`pages/menus.md`)
 - [Presentation modifiers](https://developer.apple.com/documentation/SwiftUI/View-Presentation) — Modality (`pages/modality.md`)
 - [Animating views and transitions](https://developer.apple.com/tutorials/SwiftUI/animating-views-and-transitions) — Motion (`pages/motion.md`)
+- [ornament(visibility:attachmentAnchor:contentAlignment:ornament:)](https://developer.apple.com/documentation/SwiftUI/View/ornament(visibility:attachmentAnchor:contentAlignment:ornament:)) — Ornaments (`pages/ornaments.md`)
 - [OutlineGroup](https://developer.apple.com/documentation/SwiftUI/OutlineGroup) — Outline views (`pages/outline-views.md`)
 - [PageTabViewStyle](https://developer.apple.com/documentation/SwiftUI/PageTabViewStyle) — Page controls (`pages/page-controls.md`)
 - [Picker](https://developer.apple.com/documentation/SwiftUI/Picker) — Pickers (`pages/pickers.md`)
 - [Input events](https://developer.apple.com/documentation/SwiftUI/Input-events) — Pointing devices (`pages/pointing-devices.md`)
 - [MenuPickerStyle](https://developer.apple.com/documentation/SwiftUI/MenuPickerStyle) — Pop-up buttons (`pages/pop-up-buttons.md`)
+- [popover(isPresented:attachmentAnchor:arrowEdge:content:)](https://developer.apple.com/documentation/SwiftUI/View/popover(isPresented:attachmentAnchor:arrowEdge:content:)) — Popovers (`pages/popovers.md`)
 - [ProgressView](https://developer.apple.com/documentation/SwiftUI/ProgressView) — Progress indicators (`pages/progress-indicators.md`)
 - [MenuPickerStyle](https://developer.apple.com/documentation/SwiftUI/MenuPickerStyle) — Pull-down buttons (`pages/pull-down-buttons.md`)
 - [Preparing views for localization](https://developer.apple.com/documentation/SwiftUI/Preparing-views-for-localization) — Right to left (`pages/right-to-left.md`)
 - [ScrollView](https://developer.apple.com/documentation/SwiftUI/ScrollView) — Scroll views (`pages/scroll-views.md`)
 - [look](https://developer.apple.com/documentation/SwiftUI/ScrollInputKind/look) — Scroll views (`pages/scroll-views.md`)
 - [Adding a search interface to your app](https://developer.apple.com/documentation/SwiftUI/Adding-a-search-interface-to-your-app) — Search fields (`pages/search-fields.md`)
+- [searchable(text:placement:prompt:)](https://developer.apple.com/documentation/SwiftUI/View/searchable(text:placement:prompt:)) — Search fields (`pages/search-fields.md`)
 - [segmented](https://developer.apple.com/documentation/SwiftUI/PickerStyle/segmented) — Segmented controls (`pages/segmented-controls.md`)
 - [Settings](https://developer.apple.com/documentation/SwiftUI/Settings) — Settings (`pages/settings.md`)
+- [sheet(item:onDismiss:content:)](https://developer.apple.com/documentation/SwiftUI/View/sheet(item:onDismiss:content:)) — Sheets (`pages/sheets.md`)
 - [sidebarAdaptable](https://developer.apple.com/documentation/SwiftUI/TabViewStyle/sidebarAdaptable) — Sidebars (`pages/sidebars.md`)
 - [NavigationSplitView](https://developer.apple.com/documentation/SwiftUI/NavigationSplitView) — Sidebars (`pages/sidebars.md`)
 - [sidebar](https://developer.apple.com/documentation/SwiftUI/ListStyle/sidebar) — Sidebars (`pages/sidebars.md`)
@@ -634,6 +664,8 @@ Same data, grouped the other direction — everything the HIG cites for a given 
 - [Toggle](https://developer.apple.com/documentation/SwiftUI/Toggle) — Toggles (`pages/toggles.md`)
 - [Toolbars](https://developer.apple.com/documentation/SwiftUI/Toolbars) — Toolbars (`pages/toolbars.md`)
 - [Text input and output](https://developer.apple.com/documentation/SwiftUI/Text-input-and-output) — Typography (`pages/typography.md`)
+- [keyboardType(_:)](https://developer.apple.com/documentation/SwiftUI/View/keyboardType(_:)) — Virtual keyboards (`pages/virtual-keyboards.md`)
+- [textContentType(_:)](https://developer.apple.com/documentation/SwiftUI/View/textContentType(_:)) — Virtual keyboards (`pages/virtual-keyboards.md`)
 - [Windows](https://developer.apple.com/documentation/SwiftUI/Windows) — Windows (`pages/windows.md`)
 - [WindowGroup](https://developer.apple.com/documentation/SwiftUI/WindowGroup) — Windows (`pages/windows.md`)
 

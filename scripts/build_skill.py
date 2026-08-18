@@ -231,7 +231,13 @@ def extract_platform_diffs():
     return "\n".join(out).rstrip() + "\n"
 
 
-DEVDOC_RE = re.compile(r"^\[([^\]]+)\]\(([^)]+)\)\s*—\s*(.+)$")
+# The URL group must be greedy: Swift symbol URLs embed parentheses
+# (.../View/sheet(item:onDismiss:content:)), so a lazy [^)]+ stops at the
+# first inner ')' and drops the line entirely. That silently lost 14
+# symbols -- disproportionately the SwiftUI modifiers most worth having
+# (confirmationDialog, alert(_:isPresented:actions:), fullScreenCover).
+# Greedy .+ backtracks to the final ') — ', which is the real delimiter.
+DEVDOC_RE = re.compile(r"^\[([^\]]+)\]\((.+)\)\s*—\s*(.+)$")
 
 
 def extract_api_map():

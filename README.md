@@ -245,6 +245,33 @@ Rebuild after re-scraping:
 python3 scripts/build_skill.py
 ```
 
+### Using it outside Claude Code
+
+The references are plain Markdown, so any tool that can read files in the
+repo can use them. Only the discovery mechanism differs.
+
+**Claude Code** — `.claude/skills/apple-hig/` is picked up automatically in
+this repo. To use it in another project, copy that directory into the
+project's `.claude/skills/`, or into `~/.claude/skills/` for every project.
+
+**Cursor, Windsurf, aider, Zed, Copilot** and other agents that read
+`AGENTS.md` — the `AGENTS.md` at the repo root points at the same
+references. Copy it plus `.claude/skills/apple-hig/references/` into the
+project; nothing else is Claude-specific. Tools reading `.cursorrules` or
+`.github/copilot-instructions.md` instead can use `AGENTS.md` as the source
+text for those files.
+
+**Any CLI or editor** — the references work as plain files:
+
+```
+grep -A1 -i "sheet" references/rules.md        # every sheet rule
+grep -A6 "^## Toggles" references/specs.md     # the numbers
+grep -A4 "^\*\*Sheets\*\*" references/api-map.md  # the API
+```
+
+`references/patterns.md` is the entry point for writing new UI —
+correct-by-default SwiftUI with the constraints already applied.
+
 ### Checking that it works
 
 A reference skill can be well written and still worthless, since skills are
