@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
 """Build a task-oriented HIG skill from the scraped corpus.
 
-The first version shipped the corpus with an index on top. That answers
-"what does Apple say about X" if you already know to ask about X, which
-makes it a search tool rather than a skill -- it carries no procedure, no
-decision criteria, and nothing you'd check without being told to.
-
-Apple states every guideline as a bolded imperative followed by rationale,
-and puts every hard number in a table. Both are mechanically extractable,
-and both are far more usable as a checklist and a spec sheet than as prose
-spread over 178 pages. This produces:
+Shipping the corpus with an index on top answers "what does Apple say about
+X" if you already know to ask about X -- a search tool, not a skill. Apple's
+pages have exploitable structure that turns into actual working references
+instead: every guideline is a bolded imperative with rationale, every hard
+number sits in a table, every page opens with a one-line purpose statement,
+and 147 pages list the exact API that implements the guidance. All four
+extract mechanically:
 
   rules.md          every guideline as a one-line imperative, grouped by
                     topic and tagged with the platform it applies to.
@@ -17,6 +15,10 @@ spread over 178 pages. This produces:
   specs.md          every table and measurement in the corpus, with source,
                     so "what size / what ratio" is one lookup.
   platform-diffs.md what actually changes per platform, by topic.
+  api-map.md        HIG concept -> exact SwiftUI/UIKit/AppKit/etc symbol,
+                    so guidance connects to the code that implements it.
+  components.md      one-line purpose for every page -- the fastest way to
+                    find the right component before reading anything else.
   pages/            the full prose, for when the rule needs its rationale.
 """
 
@@ -58,7 +60,6 @@ def sections(text):
 
 
 def platform_tag(h2, h3):
-    """Which platforms a section is scoped to, if any."""
     if h2 and "Platform considerations" in h2 and h3:
         found = [p for p in PLATFORMS if re.search(rf"\b{re.escape(p)}\b", h3)]
         if found:
@@ -70,7 +71,6 @@ RULE_RE = re.compile(r"^\*\*(.+?)\*\*\s*(.*)$")
 
 
 def extract_rules():
-    """Every bolded imperative, with a trimmed rationale and platform tag."""
     by_page = {}
     total = 0
     for fn in sorted(os.listdir(CONTENT)):
@@ -86,7 +86,6 @@ def extract_rules():
                 if not m:
                     continue
                 rule = " ".join(m.group(1).split())
-                # a rule reads as an instruction; skip table cells and labels
                 if len(rule) < 12 or not re.search(r"[a-z]", rule):
                     continue
                 why = " ".join(m.group(2).split())
@@ -135,7 +134,6 @@ NUM_RE = re.compile(r"\b\d+(?:\.\d+)?\s?(?:x\s?\d+(?:\.\d+)?)?\s?(?:pt|px|points
 
 
 def extract_specs():
-    """Tables and number-bearing rules -- the 'what size / what ratio' lookups."""
     out = [
         "# Specs: every concrete number in the HIG",
         "",
@@ -187,7 +185,6 @@ def extract_specs():
 
 
 def extract_platform_diffs():
-    """What actually changes per platform, grouped by platform then topic."""
     per = {p: [] for p in PLATFORMS}
     for fn in sorted(os.listdir(CONTENT)):
         if not fn.endswith(".md"):
@@ -234,6 +231,126 @@ def extract_platform_diffs():
     return "\n".join(out).rstrip() + "\n"
 
 
+DEVDOC_RE = re.compile(r"^\[([^\]]+)\]\(([^)]+)\)\s*—\s*(.+)$")
+
+
+def extract_api_map():
+    """HIG concept -> exact API symbol, from each page's Developer documentation section."""
+    by_page = {}
+    by_framework = {}
+    total = 0
+    for fn in sorted(os.listdir(CONTENT)):
+        if not fn.endswith(".md"):
+            continue
+        text = open(os.path.join(CONTENT, fn), encoding="utf-8").read()
+        page, slug = title_of(text), fn[:-3]
+        if "#### Developer documentation" not in text:
+            continue
+        section_text = text.split("#### Developer documentation", 1)[1]
+        section_text = re.split(r"\n#### |\n## ", section_text, 1)[0]
+        rows = []
+        for line in section_text.split("\n"):
+            m = DEVDOC_RE.match(line.strip())
+            if not m:
+                continue
+            symbol, url, framework = m.group(1), m.group(2), m.group(3).strip()
+            rows.append((symbol, url, framework))
+            by_framework.setdefault(framework, []).append((symbol, url, page, slug))
+            total += 1
+        if rows:
+            by_page[(page, slug)] = rows
+
+    out = [
+        "# API map: guidance to implementation",
+        "",
+        f"{total} symbol references pulled from every page's 'Developer "
+        "documentation' section — the exact SwiftUI, UIKit, AppKit, and "
+        "framework-specific API that implements each piece of guidance.",
+        "",
+        "Use this to go from a design decision straight to the right API "
+        "instead of guessing at a class or modifier name. When reviewing code, "
+        "check the symbol used against what the HIG actually names here — a "
+        "hand-rolled view where a system API exists is itself worth flagging.",
+        "",
+        "---",
+        "",
+        "## By component",
+        "",
+    ]
+    for (page, slug), rows in sorted(by_page.items()):
+        out.append(f"**{page}** <sub>`pages/{slug}.md`</sub>")
+        for symbol, url, framework in rows:
+            out.append(f"- [{symbol}]({url}) — {framework}")
+        out.append("")
+
+    out.append("---")
+    out.append("")
+    out.append("## By framework")
+    out.append("")
+    out.append("Same data, grouped the other direction — everything the HIG "
+                "cites for a given framework.")
+    out.append("")
+    for framework in sorted(by_framework):
+        out.append(f"### {framework}")
+        for symbol, url, page, slug in by_framework[framework]:
+            out.append(f"- [{symbol}]({url}) — {page} (`pages/{slug}.md`)")
+        out.append("")
+
+    return "\n".join(out).rstrip() + "\n", total
+
+
+LINK_LIST_LINE = re.compile(r"^\s*-\s*\[")
+
+
+def extract_component_index():
+    """One-line purpose for every page that has one -- the fastest lookup for
+    'which component do I use', at full coverage rather than a hand-picked few."""
+    rows = []
+    skipped = []
+    for fn in sorted(os.listdir(CONTENT)):
+        if not fn.endswith(".md"):
+            continue
+        text = open(os.path.join(CONTENT, fn), encoding="utf-8").read()
+        lines = text.split("\n")
+        page, slug = title_of(text), fn[:-3]
+        purpose = lines[2].strip() if len(lines) > 2 else ""
+        if not purpose or LINK_LIST_LINE.match(purpose) or purpose.startswith("!["):
+            skipped.append((page, slug))
+            continue
+        if len(purpose) > 200:
+            purpose = purpose[:197].rsplit(" ", 1)[0] + "..."
+        rows.append((page, slug, purpose))
+
+    out = [
+        "# Component index: one line each",
+        "",
+        f"Every page's opening purpose statement, {len(rows)} of them, so "
+        "finding the right component doesn't require opening pages one at a "
+        "time. Sorted alphabetically — grep or scan for a keyword.",
+        "",
+        "This is coverage, not a decision procedure: it tells you what each "
+        "thing *is*, not which one to pick when two are plausible. For the "
+        "recurring hard choices (sheet vs popover vs alert vs action sheet, "
+        "tab bar vs sidebar), see the decision tables in SKILL.md — those "
+        "encode Apple's actual stated preference, which a purpose line alone "
+        "won't.",
+        "",
+        "| Component | Purpose | Page |",
+        "|---|---|---|",
+    ]
+    for page, slug, purpose in rows:
+        purpose_escaped = purpose.replace("|", "\\|")
+        out.append(f"| **{page}** | {purpose_escaped} | `pages/{slug}.md` |")
+
+    if skipped:
+        out.append("")
+        out.append(f"<sub>{len(skipped)} pages omitted — hub/category pages "
+                    "that open with a link list rather than a purpose "
+                    "statement: " + ", ".join(p for p, _ in skipped) + "</sub>")
+
+    return "\n".join(out).rstrip() + "\n", len(rows)
+
+
 if __name__ == "__main__":
     if os.path.isdir(REFS):
         shutil.rmtree(REFS)
@@ -246,6 +363,10 @@ if __name__ == "__main__":
         extract_specs())
     open(os.path.join(REFS, "platform-diffs.md"), "w", encoding="utf-8").write(
         extract_platform_diffs())
+    api_map, api_total = extract_api_map()
+    open(os.path.join(REFS, "api-map.md"), "w", encoding="utf-8").write(api_map)
+    comp_index, comp_total = extract_component_index()
+    open(os.path.join(REFS, "components.md"), "w", encoding="utf-8").write(comp_index)
 
     for fn in sorted(os.listdir(CONTENT)):
         if fn.endswith(".md"):
@@ -257,4 +378,6 @@ if __name__ == "__main__":
     print(f"rules.md          {total} rules across {len(by_page)} topics, {kb('rules.md')} KB")
     print(f"specs.md          {kb('specs.md')} KB")
     print(f"platform-diffs.md {kb('platform-diffs.md')} KB")
+    print(f"api-map.md        {api_total} symbols, {kb('api-map.md')} KB")
+    print(f"components.md     {comp_total} components, {kb('components.md')} KB")
     print(f"pages/            {len(os.listdir(os.path.join(REFS, 'pages')))} files")

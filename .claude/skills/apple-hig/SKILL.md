@@ -1,17 +1,19 @@
 ---
 name: apple-hig
-description: Apple Human Interface Guidelines as a working reference — review UI code or designs against Apple's actual rules, pick the right control or presentation (sheet vs popover vs alert vs full-screen, tab bar vs sidebar vs split view), look up exact specs (tap targets, type sizes, contrast ratios, icon dimensions, safe areas), and adapt a design across iOS, iPadOS, macOS, tvOS, visionOS, and watchOS. Contains all 2,280 HIG rules as a greppable checklist, every spec table in one file, and the full 178-page corpus. Use whenever building, reviewing, critiquing, or fixing UI for an Apple platform — including SwiftUI, UIKit, and AppKit code review — and whenever a question turns on what Apple actually specifies rather than general UI instinct. Trigger on Apple platform UI work even when the HIG is never mentioned: "is this button too small", "should this be a sheet or a popover", "why does my Mac app feel wrong", "make this work on iPad", "is this accessible", app icons, Dark Mode, Dynamic Type, VoiceOver, SF Symbols, Liquid Glass.
+description: Apple Human Interface Guidelines as a working reference — review UI code or designs against Apple's actual rules, pick the right control or presentation (sheet vs popover vs alert vs full-screen, tab bar vs sidebar vs split view), look up exact specs (tap targets, type sizes, contrast ratios, icon dimensions, safe areas), find the exact SwiftUI/UIKit/AppKit/framework API for a piece of guidance, and adapt a design across iOS, iPadOS, macOS, tvOS, visionOS, and watchOS. Contains all 2,280 HIG rules as a greppable checklist, every spec table, a component-purpose index, an API map covering 30+ Apple frameworks, and the full 178-page corpus. Use whenever building, reviewing, critiquing, or fixing UI for an Apple platform — including SwiftUI, UIKit, and AppKit code review — and whenever a question turns on what Apple actually specifies rather than general UI instinct. Trigger on Apple platform UI work even when the HIG is never mentioned: "is this button too small", "should this be a sheet or a popover", "why does my Mac app feel wrong", "make this work on iPad", "is this accessible", "what SwiftUI view do I use for this", app icons, Dark Mode, Dynamic Type, VoiceOver, SF Symbols, Liquid Glass.
 ---
 
 # Apple Human Interface Guidelines
 
-Apple's design guidance, restructured for doing work rather than browsing. Four references, each for a different question:
+Apple's design guidance, restructured for doing work rather than browsing. Six references, each for a different question:
 
 | File | Use it for |
 |---|---|
 | `references/rules.md` | **2,280 rules as one-line imperatives**, by topic. The review checklist. |
 | `references/specs.md` | **Every number** — sizes, ratios, limits — with its source table. |
 | `references/platform-diffs.md` | **What changes per platform**, grouped by platform. |
+| `references/api-map.md` | **HIG concept → exact API symbol** — SwiftUI, UIKit, AppKit, and 30+ other frameworks (HealthKit, PassKit, StoreKit...). |
+| `references/components.md` | **One-line purpose for every page** — the fastest way to find the right component before reading anything else. |
 | `references/pages/<slug>.md` | Full prose when a rule's *reasoning* matters. |
 
 Grep first. `grep -A1 -i "sheet" references/rules.md` returns every sheet rule in seconds; reading `pages/sheets.md` to find the same thing costs far more context. Reach for the full page when you need the *why*, not the *what*.
@@ -22,8 +24,9 @@ The failure mode here is dumping 40 observations of mixed importance. Scope it:
 
 1. **Inventory what's actually there.** List the components and patterns in the code — a `TabView`, a `.sheet`, a destructive `Button`, a custom control replacing a system one. Review those, not the whole HIG.
 2. **Pull their rules.** `grep -A1 -i "<component>" references/rules.md` for each. Check numbers against `specs.md`.
-3. **Check the target platforms** in `platform-diffs.md`. A layout that's right on iPhone can be wrong on Mac, and the general rule won't say so.
-4. **Sort findings by force**, and say which is which:
+3. **Check the API against `api-map.md`.** A hand-rolled view where a system component already exists (a custom modal built from a `ZStack` instead of `.sheet`, a bespoke button instead of `UIButton`/`NSButton`) is itself worth flagging — Apple's guidance assumes the system component, and a reimplementation usually drifts from it silently.
+4. **Check the target platforms** in `platform-diffs.md`. A layout that's right on iPhone can be wrong on Mac, and the general rule won't say so.
+5. **Sort findings by force**, and say which is which:
    - **Violations** — a stated rule with a number attached. *"44×44 pt minimum hit region; this is 30×30."* Objective, fix it.
    - **Guidance** — Apple says prefer/avoid without a threshold. *"Prefer a tab bar for iPad navigation."* Defensible to deviate with reason.
    - **Judgment** — the HIG is silent. Say so rather than inventing a rule to justify a preference.
@@ -56,6 +59,12 @@ Rules that resolve most real cases:
 - **Five or fewer tabs** when tabs are customizable, to stay consistent across size classes.
 
 Details and platform variations: `grep -A1 -i "tab bar\|sidebar" references/rules.md`.
+
+## Finding a component, or its API
+
+`components.md` is a one-line purpose statement for every page, sorted alphabetically — scan it when you know roughly what you need but not the exact HIG term for it, or to confirm two components aren't the same thing before recommending one.
+
+`api-map.md` goes the other direction: HIG concept → real API. It's organized both by component (`grep -A4 "^\*\*Sheets\*\*" api-map.md`) and by framework (`grep -A10 "^### HealthKit" api-map.md`), and covers more than the obvious three — 30+ frameworks including HealthKit, PassKit, StoreKit, WidgetKit, ClockKit. When implementing, not just designing, this is the difference between "use a sheet" and "use `sheet(item:onDismiss:content:)` in SwiftUI, or `UISheetPresentationController` in UIKit."
 
 ## Looking up a spec
 
