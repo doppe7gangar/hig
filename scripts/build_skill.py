@@ -238,6 +238,9 @@ def extract_platform_diffs():
 # (confirmationDialog, alert(_:isPresented:actions:), fullScreenCover).
 # Greedy .+ backtracks to the final ') — ', which is the real delimiter.
 DEVDOC_RE = re.compile(r"^\[([^\]]+)\]\((.+)\)\s*—\s*(.+)$")
+# A plain link with no framework suffix -- the target is itself a
+# framework or a guide.
+BARE_LINK_RE = re.compile(r"^\[([^\]]+)\]\((.+)\)\s*$")
 
 
 def extract_api_map():
@@ -256,22 +259,36 @@ def extract_api_map():
         section_text = re.split(r"\n#### |\n## ", section_text, 1)[0]
         rows = []
         for line in section_text.split("\n"):
-            m = DEVDOC_RE.match(line.strip())
-            if not m:
+            s = line.strip()
+            m = DEVDOC_RE.match(s)
+            if m:
+                symbol, url, framework = m.group(1), m.group(2), m.group(3).strip()
+                rows.append((symbol, url, framework))
+                by_framework.setdefault(framework, []).append((symbol, url, page, slug))
+                total += 1
                 continue
-            symbol, url, framework = m.group(1), m.group(2), m.group(3).strip()
-            rows.append((symbol, url, framework))
-            by_framework.setdefault(framework, []).append((symbol, url, page, slug))
-            total += 1
+            # Entries without a "— Framework" suffix: the link IS the
+            # framework or a guide (AVFoundation, App Intents, "Building
+            # accessible apps"). 99 of these -- 29% of the section's links --
+            # were being dropped, so "what framework handles AirPlay?" was
+            # unanswerable from api-map despite sitting in the corpus.
+            m2 = BARE_LINK_RE.match(s)
+            if m2:
+                name, url = m2.group(1), m2.group(2)
+                rows.append((name, url, None))
+                total += 1
         if rows:
             by_page[(page, slug)] = rows
 
     out = [
         "# API map: guidance to implementation",
         "",
-        f"{total} symbol references pulled from every page's 'Developer "
-        "documentation' section — the exact SwiftUI, UIKit, AppKit, and "
-        "framework-specific API that implements each piece of guidance.",
+        f"{total} references pulled from every page's 'Developer "
+        "documentation' section: the exact SwiftUI, UIKit, AppKit, and "
+        "framework-specific API that implements each piece of guidance, "
+        "plus the frameworks and guides a page points to. Entries marked "
+        "framework/guide are the framework itself (AVFoundation, App "
+        "Intents) or an Apple how-to, not a single symbol.",
         "",
         "Use this to go from a design decision straight to the right API "
         "instead of guessing at a class or modifier name. When reviewing code, "
@@ -286,7 +303,10 @@ def extract_api_map():
     for (page, slug), rows in sorted(by_page.items()):
         out.append(f"**{page}** <sub>`pages/{slug}.md`</sub>")
         for symbol, url, framework in rows:
-            out.append(f"- [{symbol}]({url}) — {framework}")
+            if framework:
+                out.append(f"- [{symbol}]({url}) — {framework}")
+            else:
+                out.append(f"- [{symbol}]({url}) <sub>framework/guide</sub>")
         out.append("")
 
     out.append("---")

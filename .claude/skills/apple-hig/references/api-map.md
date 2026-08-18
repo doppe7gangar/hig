@@ -1,12 +1,17 @@
 # API map: guidance to implementation
 
-240 symbol references pulled from every page's 'Developer documentation' section — the exact SwiftUI, UIKit, AppKit, and framework-specific API that implements each piece of guidance.
+339 references pulled from every page's 'Developer documentation' section: the exact SwiftUI, UIKit, AppKit, and framework-specific API that implements each piece of guidance, plus the frameworks and guides a page points to. Entries marked framework/guide are the framework itself (AVFoundation, App Intents) or an Apple how-to, not a single symbol.
 
 Use this to go from a design decision straight to the right API instead of guessing at a class or modifier name. When reviewing code, check the symbol used against what the HIG actually names here — a hand-rolled view where a system API exists is itself worth flagging.
 
 ---
 
 ## By component
+
+**Accessibility** <sub>`pages/accessibility.md`</sub>
+- [Building accessible apps](https://developer.apple.com/accessibility/) <sub>framework/guide</sub>
+- [Accessibility](https://developer.apple.com/documentation/Accessibility) <sub>framework/guide</sub>
+- [Overview of Accessibility Nutrition Labels](https://devcms.apple.com/help/app-store-connect/manage-app-accessibility/overview-of-accessibility-nutrition-labels) <sub>framework/guide</sub>
 
 **Action sheets** <sub>`pages/action-sheets.md`</sub>
 - [confirmationDialog(_:isPresented:titleVisibility:actions:)](https://developer.apple.com/documentation/SwiftUI/View/confirmationDialog(_:isPresented:titleVisibility:actions:)-46zbb) — SwiftUI
@@ -20,6 +25,10 @@ Use this to go from a design decision straight to the right API instead of guess
 - [UIActivity](https://developer.apple.com/documentation/UIKit/UIActivity) — UIKit
 - [App Extension Support](https://developer.apple.com/documentation/Foundation/app-extension-support) — Foundation
 
+**AirPlay** <sub>`pages/airplay.md`</sub>
+- [AVFoundation](https://developer.apple.com/documentation/AVFoundation) <sub>framework/guide</sub>
+- [AVKit](https://developer.apple.com/documentation/AVKit) <sub>framework/guide</sub>
+
 **Alerts** <sub>`pages/alerts.md`</sub>
 - [alert(_:isPresented:actions:)](https://developer.apple.com/documentation/SwiftUI/View/alert(_:isPresented:actions:)-1bkka) — SwiftUI
 - [UIAlertController](https://developer.apple.com/documentation/UIKit/UIAlertController) — UIKit
@@ -28,13 +37,31 @@ Use this to go from a design decision straight to the right API instead of guess
 **Always On** <sub>`pages/always-on.md`</sub>
 - [Designing your app for the Always On state](https://developer.apple.com/documentation/watchOS-Apps/designing-your-app-for-the-always-on-state) — watchOS apps
 
+**App Clips** <sub>`pages/app-clips.md`</sub>
+- [App Clips](https://developer.apple.com/documentation/AppClip) <sub>framework/guide</sub>
+- [App Store Connect](https://appstoreconnect.apple.com/) <sub>framework/guide</sub>
+
 **App Shortcuts** <sub>`pages/app-shortcuts.md`</sub>
+- [App Intents](https://developer.apple.com/documentation/AppIntents) <sub>framework/guide</sub>
+- [SiriKit](https://developer.apple.com/documentation/SiriKit) <sub>framework/guide</sub>
 - [Getting started with the App Intents framework](https://developer.apple.com/documentation/AppIntents/getting-started-with-the-app-intents-framework) — App Intents
 - [Defining app entities for your custom data types](https://developer.apple.com/documentation/AppIntents/defining-app-entities-for-your-custom-data-types) — App Intents
 
+**App icons** <sub>`pages/app-icons.md`</sub>
+- [Creating your app icon using Icon Composer](https://developer.apple.com/documentation/Xcode/creating-your-app-icon-using-icon-composer) <sub>framework/guide</sub>
+- [Configuring your app icon using an asset catalog](https://developer.apple.com/documentation/Xcode/configuring-your-app-icon) <sub>framework/guide</sub>
+
 **Apple Pay** <sub>`pages/apple-pay.md`</sub>
 - [Apple Pay](https://developer.apple.com/documentation/PassKit/apple-pay) — PassKit
+- [Apple Pay on the Web](https://developer.apple.com/documentation/ApplePayontheWeb) <sub>framework/guide</sub>
 - [WKInterfacePaymentButton](https://developer.apple.com/documentation/WatchKit/WKInterfacePaymentButton) — WatchKit
+
+**Apple Pencil and Scribble** <sub>`pages/apple-pencil-and-scribble.md`</sub>
+- [PencilKit](https://developer.apple.com/documentation/PencilKit) <sub>framework/guide</sub>
+- [PaperKit](https://developer.apple.com/documentation/PaperKit) <sub>framework/guide</sub>
+
+**Augmented reality** <sub>`pages/augmented-reality.md`</sub>
+- [ARKit](https://developer.apple.com/documentation/ARKit) <sub>framework/guide</sub>
 
 **Boxes** <sub>`pages/boxes.md`</sub>
 - [GroupBox](https://developer.apple.com/documentation/SwiftUI/GroupBox) — SwiftUI
@@ -48,11 +75,26 @@ Use this to go from a design decision straight to the right API instead of guess
 **Camera Control** <sub>`pages/camera-control.md`</sub>
 - [Enhancing your app experience with the Camera Control](https://developer.apple.com/documentation/AVFoundation/enhancing-your-app-experience-with-the-camera-control) — AVFoundation
 - [AVCaptureControl](https://developer.apple.com/documentation/AVFoundation/AVCaptureControl) — AVFoundation
+- [LockedCameraCapture](https://developer.apple.com/documentation/LockedCameraCapture) <sub>framework/guide</sub>
+
+**CarPlay** <sub>`pages/carplay.md`</sub>
+- [CarPlay App Programming Guide](https://developer.apple.com/carplay/documentation/CarPlay-App-Programming-Guide.pdf) <sub>framework/guide</sub>
 
 **CareKit** <sub>`pages/carekit.md`</sub>
+- [CareKit](https://carekit-apple.github.io/CareKit/documentation/carekit) <sub>framework/guide</sub>
+- [Research & Care > Developers](https://www.researchandcare.org/developers/) <sub>framework/guide</sub>
 - [Protecting user privacy](https://developer.apple.com/documentation/HealthKit/protecting-user-privacy) — HealthKit
+- [HealthKit](https://developer.apple.com/documentation/HealthKit) <sub>framework/guide</sub>
+- [ResearchKit GitHub project](https://github.com/ResearchKit/ResearchKit) <sub>framework/guide</sub>
+
+**Charting data** <sub>`pages/charting-data.md`</sub>
+- [Swift Charts](https://developer.apple.com/documentation/Charts) <sub>framework/guide</sub>
+
+**Charts** <sub>`pages/charts.md`</sub>
+- [Swift Charts](https://developer.apple.com/documentation/Charts) <sub>framework/guide</sub>
 
 **Collaboration and sharing** <sub>`pages/collaboration-and-sharing.md`</sub>
+- [Shared with You](https://developer.apple.com/documentation/SharedWithYou) <sub>framework/guide</sub>
 - [ShareLink](https://developer.apple.com/documentation/SwiftUI/ShareLink) — SwiftUI
 
 **Collections** <sub>`pages/collections.md`</sub>
@@ -68,6 +110,7 @@ Use this to go from a design decision straight to the right API instead of guess
 - [UIColorWell](https://developer.apple.com/documentation/UIKit/UIColorWell) — UIKit
 - [UIColorPickerViewController](https://developer.apple.com/documentation/UIKit/UIColorPickerViewController) — UIKit
 - [NSColorWell](https://developer.apple.com/documentation/AppKit/NSColorWell) — AppKit
+- [Color Programming Topics](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/DrawColor/DrawColor.html) <sub>framework/guide</sub>
 
 **Column views** <sub>`pages/column-views.md`</sub>
 - [NSBrowser](https://developer.apple.com/documentation/AppKit/NSBrowser) — AppKit
@@ -75,10 +118,40 @@ Use this to go from a design decision straight to the right API instead of guess
 **Combo boxes** <sub>`pages/combo-boxes.md`</sub>
 - [NSComboBox](https://developer.apple.com/documentation/AppKit/NSComboBox) — AppKit
 
+**Complications** <sub>`pages/complications.md`</sub>
+- [WidgetKit](https://developer.apple.com/documentation/WidgetKit) <sub>framework/guide</sub>
+
 **Context menus** <sub>`pages/context-menus.md`</sub>
 - [contextMenu(menuItems:)](https://developer.apple.com/documentation/SwiftUI/View/contextMenu(menuItems:)) — SwiftUI
 - [UIContextMenuInteraction](https://developer.apple.com/documentation/UIKit/UIContextMenuInteraction) — UIKit
 - [popUpContextMenu(_:with:for:)](https://developer.apple.com/documentation/AppKit/NSMenu/popUpContextMenu(_:with:for:)) — AppKit
+
+**Controls** <sub>`pages/controls.md`</sub>
+- [LockedCameraCapture](https://developer.apple.com/documentation/LockedCameraCapture) <sub>framework/guide</sub>
+- [WidgetKit](https://developer.apple.com/documentation/WidgetKit) <sub>framework/guide</sub>
+
+**Designing for games** <sub>`pages/designing-for-games.md`</sub>
+- [Games Pathway](https://developer.apple.com/games/get-started/) <sub>framework/guide</sub>
+- [Create games for Apple platforms](https://developer.apple.com/games/) <sub>framework/guide</sub>
+
+**Designing for iOS** <sub>`pages/designing-for-ios.md`</sub>
+- [iOS Pathway](https://developer.apple.com/ios/get-started/) <sub>framework/guide</sub>
+
+**Designing for iPadOS** <sub>`pages/designing-for-ipados.md`</sub>
+- [iPadOS Pathway](https://developer.apple.com/ipados/get-started/) <sub>framework/guide</sub>
+
+**Designing for macOS** <sub>`pages/designing-for-macos.md`</sub>
+- [macOS Pathway](https://developer.apple.com/macos/get-started/) <sub>framework/guide</sub>
+
+**Designing for tvOS** <sub>`pages/designing-for-tvos.md`</sub>
+- [tvOS Pathway](https://developer.apple.com/tvos/get-started/) <sub>framework/guide</sub>
+
+**Designing for visionOS** <sub>`pages/designing-for-visionos.md`</sub>
+- [visionOS Pathway](https://developer.apple.com/visionos/get-started/) <sub>framework/guide</sub>
+- [Creating your first visionOS app](https://developer.apple.com/documentation/visionOS/creating-your-first-visionos-app) <sub>framework/guide</sub>
+
+**Designing for watchOS** <sub>`pages/designing-for-watchos.md`</sub>
+- [watchOS Pathway](https://developer.apple.com/watchos/get-started/) <sub>framework/guide</sub>
 
 **Digit entry views** <sub>`pages/digit-entry-views.md`</sub>
 - [TVDigitEntryViewController](https://developer.apple.com/documentation/TVUIKit/TVDigitEntryViewController) — TVUIKit
@@ -97,6 +170,7 @@ Use this to go from a design decision straight to the right API instead of guess
 **Drag and drop** <sub>`pages/drag-and-drop.md`</sub>
 - [Drag and drop](https://developer.apple.com/documentation/UIKit/drag-and-drop) — UIKit
 - [Drag and Drop](https://developer.apple.com/documentation/AppKit/drag-and-drop) — AppKit
+- [File Provider](https://developer.apple.com/documentation/FileProvider) <sub>framework/guide</sub>
 
 **Edit menus** <sub>`pages/edit-menus.md`</sub>
 - [UIEditMenuInteraction](https://developer.apple.com/documentation/UIKit/UIEditMenuInteraction) — UIKit
@@ -119,9 +193,26 @@ Use this to go from a design decision straight to the right API instead of guess
 - [Focus-based navigation](https://developer.apple.com/documentation/UIKit/focus-based-navigation) — UIKit
 - [About focus interactions for Apple TV](https://developer.apple.com/documentation/UIKit/about-focus-interactions-for-apple-tv) — UIKit
 
+**Game Center** <sub>`pages/game-center.md`</sub>
+- [GameKit](https://developer.apple.com/documentation/GameKit) <sub>framework/guide</sub>
+- [Creating activities for your game](https://developer.apple.com/documentation/GameKit/creating-activities-for-your-game) <sub>framework/guide</sub>
+- [Creating engaging challenges from leaderboards](https://developer.apple.com/documentation/GameKit/creating-engaging-challenges-from-leaderboards) <sub>framework/guide</sub>
+- [Create games for Apple platforms](https://developer.apple.com/games/) <sub>framework/guide</sub>
+- [Game Porting Toolkit](https://developer.apple.com/games/game-porting-toolkit/) <sub>framework/guide</sub>
+
+**Game controls** <sub>`pages/game-controls.md`</sub>
+- [Create games for Apple platforms](https://developer.apple.com/games/) <sub>framework/guide</sub>
+- [Touch Controller](https://developer.apple.com/documentation/TouchController) <sub>framework/guide</sub>
+- [Game Controller](https://developer.apple.com/documentation/GameController) <sub>framework/guide</sub>
+
 **Gauges** <sub>`pages/gauges.md`</sub>
 - [Gauge](https://developer.apple.com/documentation/SwiftUI/Gauge) — SwiftUI
 - [NSLevelIndicator](https://developer.apple.com/documentation/AppKit/NSLevelIndicator) — AppKit
+
+**Generative AI** <sub>`pages/generative-ai.md`</sub>
+- [Apple Intelligence and machine learning](https://developer.apple.com/documentation/TechnologyOverviews/ai-machine-learning) <sub>framework/guide</sub>
+- [Foundation Models](https://developer.apple.com/documentation/FoundationModels) <sub>framework/guide</sub>
+- [Core AI](https://developer.apple.com/documentation/CoreAI) <sub>framework/guide</sub>
 
 **Gestures** <sub>`pages/gestures.md`</sub>
 - [Gestures](https://developer.apple.com/documentation/SwiftUI/Gestures) — SwiftUI
@@ -137,10 +228,14 @@ Use this to go from a design decision straight to the right API instead of guess
 - [Getting processed device-motion data](https://developer.apple.com/documentation/CoreMotion/getting-processed-device-motion-data) — Core Motion
 
 **HealthKit** <sub>`pages/healthkit.md`</sub>
+- [HealthKit](https://developer.apple.com/documentation/HealthKit) <sub>framework/guide</sub>
 - [Protecting user privacy](https://developer.apple.com/documentation/HealthKit/protecting-user-privacy) — HealthKit
 
 **Home Screen quick actions** <sub>`pages/home-screen-quick-actions.md`</sub>
 - [Add Home Screen quick actions](https://developer.apple.com/documentation/UIKit/add-home-screen-quick-actions) — UIKit
+
+**HomeKit** <sub>`pages/homekit.md`</sub>
+- [HomeKit](https://developer.apple.com/documentation/HomeKit) <sub>framework/guide</sub>
 
 **ID Verifier** <sub>`pages/id-verifier.md`</sub>
 - [Adopting the Verifier API in your iPhone app](https://developer.apple.com/documentation/ProximityReader/adopting-the-verifier-api-in-your-iphone-app) — ProximityReader
@@ -197,11 +292,17 @@ Use this to go from a design decision straight to the right API instead of guess
 - [NSTableView](https://developer.apple.com/documentation/AppKit/NSTableView) — AppKit
 
 **Live Activities** <sub>`pages/live-activities.md`</sub>
+- [ActivityKit](https://developer.apple.com/documentation/ActivityKit) <sub>framework/guide</sub>
+- [SwiftUI](https://developer.apple.com/documentation/SwiftUI) <sub>framework/guide</sub>
+- [WidgetKit](https://developer.apple.com/documentation/WidgetKit) <sub>framework/guide</sub>
 - [Developing a WidgetKit strategy](https://developer.apple.com/documentation/WidgetKit/Developing-a-WidgetKit-strategy) — WidgetKit
 
 **Live Photos** <sub>`pages/live-photos.md`</sub>
 - [PHLivePhoto](https://developer.apple.com/documentation/Photos/PHLivePhoto) — PhotoKit
 - [LivePhotosKit JS](https://developer.apple.com/documentation/LivePhotosKitJS) — LivePhotosKit JS
+
+**Loading** <sub>`pages/loading.md`</sub>
+- [Background Assets](https://developer.apple.com/documentation/BackgroundAssets) <sub>framework/guide</sub>
 
 **Lockups** <sub>`pages/lockups.md`</sub>
 - [TVLockupView](https://developer.apple.com/documentation/TVUIKit/TVLockupView) — TVUIKit
@@ -210,10 +311,24 @@ Use this to go from a design decision straight to the right API instead of guess
 **Mac Catalyst** <sub>`pages/mac-catalyst.md`</sub>
 - [Mac Catalyst](https://developer.apple.com/documentation/UIKit/mac-catalyst) — UIKit
 
+**Machine learning** <sub>`pages/machine-learning.md`</sub>
+- [Apple Intelligence and machine learning](https://developer.apple.com/documentation/TechnologyOverviews/ai-machine-learning) <sub>framework/guide</sub>
+- [Create ML](https://developer.apple.com/documentation/CreateML) <sub>framework/guide</sub>
+- [Core ML](https://developer.apple.com/documentation/CoreML) <sub>framework/guide</sub>
+
 **Managing accounts** <sub>`pages/managing-accounts.md`</sub>
 - [Supporting passkeys](https://developer.apple.com/documentation/AuthenticationServices/supporting-passkeys) — Authentication Services
 
+**Managing notifications** <sub>`pages/managing-notifications.md`</sub>
+- [User Notifications](https://developer.apple.com/documentation/UserNotifications) <sub>framework/guide</sub>
+
+**Maps** <sub>`pages/maps.md`</sub>
+- [MapKit](https://developer.apple.com/documentation/MapKit) <sub>framework/guide</sub>
+- [MapKit JS](https://developer.apple.com/documentation/MapKitJS) <sub>framework/guide</sub>
+- [Indoor Mapping Data Format](https://register.apple.com/resources/imdf/) <sub>framework/guide</sub>
+
 **Materials** <sub>`pages/materials.md`</sub>
+- [Adopting Liquid Glass](https://developer.apple.com/documentation/TechnologyOverviews/adopting-liquid-glass) <sub>framework/guide</sub>
 - [glassEffect(_:in:)](https://developer.apple.com/documentation/SwiftUI/View/glassEffect(_:in:)) — SwiftUI
 - [Material](https://developer.apple.com/documentation/SwiftUI/Material) — SwiftUI
 - [UIVisualEffectView](https://developer.apple.com/documentation/UIKit/UIVisualEffectView) — UIKit
@@ -236,10 +351,19 @@ Use this to go from a design decision straight to the right API instead of guess
 - [Responding to the launch of your app](https://developer.apple.com/documentation/UIKit/responding-to-the-launch-of-your-app) — UIKit
 - [Multitasking on iPad, Mac, and Apple Vision Pro](https://developer.apple.com/documentation/UIKit/multitasking-on-ipad-mac-and-apple-vision-pro) — UIKit
 
+**NFC** <sub>`pages/nfc.md`</sub>
+- [Core NFC](https://developer.apple.com/documentation/CoreNFC) <sub>framework/guide</sub>
+
+**Nearby interactions** <sub>`pages/nearby-interactions.md`</sub>
+- [Nearby Interaction](https://developer.apple.com/documentation/NearbyInteraction) <sub>framework/guide</sub>
+
 **Notifications** <sub>`pages/notifications.md`</sub>
 - [Asking permission to use notifications](https://developer.apple.com/documentation/UserNotifications/asking-permission-to-use-notifications) — User Notifications
+- [User Notifications UI](https://developer.apple.com/documentation/UserNotificationsUI) <sub>framework/guide</sub>
+- [User Notifications](https://developer.apple.com/documentation/UserNotifications) <sub>framework/guide</sub>
 
 **Offering help** <sub>`pages/offering-help.md`</sub>
+- [TipKit](https://developer.apple.com/documentation/TipKit) <sub>framework/guide</sub>
 - [NSHelpManager](https://developer.apple.com/documentation/AppKit/NSHelpManager) — AppKit
 
 **Ornaments** <sub>`pages/ornaments.md`</sub>
@@ -260,6 +384,10 @@ Use this to go from a design decision straight to the right API instead of guess
 **Path controls** <sub>`pages/path-controls.md`</sub>
 - [NSPathControl](https://developer.apple.com/documentation/AppKit/NSPathControl) — AppKit
 
+**Photo editing** <sub>`pages/photo-editing.md`</sub>
+- [App extensions](https://developer.apple.com/app-extensions/) <sub>framework/guide</sub>
+- [PhotoKit](https://developer.apple.com/documentation/PhotoKit) <sub>framework/guide</sub>
+
 **Pickers** <sub>`pages/pickers.md`</sub>
 - [Picker](https://developer.apple.com/documentation/SwiftUI/Picker) — SwiftUI
 - [UIDatePicker](https://developer.apple.com/documentation/UIKit/UIDatePicker) — UIKit
@@ -271,8 +399,13 @@ Use this to go from a design decision straight to the right API instead of guess
 - [AVAudioSession](https://developer.apple.com/documentation/AVFAudio/AVAudioSession) — AVFAudio
 - [MusicKit](https://developer.apple.com/documentation/MusicKit) — MusicKit
 
+**Playing haptics** <sub>`pages/playing-haptics.md`</sub>
+- [Core Haptics](https://developer.apple.com/documentation/CoreHaptics) <sub>framework/guide</sub>
+
 **Playing video** <sub>`pages/playing-video.md`</sub>
 - [Configuring your app for media playback](https://developer.apple.com/documentation/AVFoundation/configuring-your-app-for-media-playback) — AVFoundation
+- [AVKit](https://developer.apple.com/documentation/AVKit) <sub>framework/guide</sub>
+- [HTTP Live Streaming](https://developer.apple.com/streaming/) <sub>framework/guide</sub>
 
 **Pointing devices** <sub>`pages/pointing-devices.md`</sub>
 - [Input events](https://developer.apple.com/documentation/SwiftUI/Input-events) — SwiftUI
@@ -295,7 +428,9 @@ Use this to go from a design decision straight to the right API instead of guess
 
 **Privacy** <sub>`pages/privacy.md`</sub>
 - [Requesting access to protected resources](https://developer.apple.com/documentation/UIKit/requesting-access-to-protected-resources) — UIKit
+- [Security](https://developer.apple.com/documentation/Security) <sub>framework/guide</sub>
 - [Requesting authorization to use location services](https://developer.apple.com/documentation/CoreLocation/requesting-authorization-to-use-location-services) — CoreLocation
+- [App Tracking Transparency](https://developer.apple.com/documentation/AppTrackingTransparency) <sub>framework/guide</sub>
 
 **Progress indicators** <sub>`pages/progress-indicators.md`</sub>
 - [ProgressView](https://developer.apple.com/documentation/SwiftUI/ProgressView) — SwiftUI
@@ -316,9 +451,12 @@ Use this to go from a design decision straight to the right API instead of guess
 - [RequestReviewAction](https://developer.apple.com/documentation/StoreKit/RequestReviewAction) — StoreKit
 
 **ResearchKit** <sub>`pages/researchkit.md`</sub>
+- [Research & Care > Developers](https://www.researchandcare.org/developers/) <sub>framework/guide</sub>
 - [Protecting user privacy](https://developer.apple.com/documentation/HealthKit/protecting-user-privacy) — HealthKit
+- [ResearchKit GitHub project](https://github.com/ResearchKit/ResearchKit) <sub>framework/guide</sub>
 
 **Right to left** <sub>`pages/right-to-left.md`</sub>
+- [Localization](https://developer.apple.com/localization/) <sub>framework/guide</sub>
 - [Preparing views for localization](https://developer.apple.com/documentation/SwiftUI/Preparing-views-for-localization) — SwiftUI
 
 **SF Symbols** <sub>`pages/sf-symbols.md`</sub>
@@ -351,6 +489,13 @@ Use this to go from a design decision straight to the right API instead of guess
 **Settings** <sub>`pages/settings.md`</sub>
 - [Settings](https://developer.apple.com/documentation/SwiftUI/Settings) — SwiftUI
 - [UserDefaults](https://developer.apple.com/documentation/Foundation/UserDefaults) — Foundation
+- [Preference Panes](https://developer.apple.com/documentation/PreferencePanes) <sub>framework/guide</sub>
+
+**SharePlay** <sub>`pages/shareplay.md`</sub>
+- [Group Activities](https://developer.apple.com/documentation/GroupActivities) <sub>framework/guide</sub>
+
+**ShazamKit** <sub>`pages/shazamkit.md`</sub>
+- [ShazamKit](https://developer.apple.com/documentation/ShazamKit) <sub>framework/guide</sub>
 
 **Sheets** <sub>`pages/sheets.md`</sub>
 - [sheet(item:onDismiss:content:)](https://developer.apple.com/documentation/SwiftUI/View/sheet(item:onDismiss:content:)) — SwiftUI
@@ -365,12 +510,21 @@ Use this to go from a design decision straight to the right API instead of guess
 - [NSSplitViewController](https://developer.apple.com/documentation/AppKit/NSSplitViewController) — AppKit
 
 **Sign in with Apple** <sub>`pages/sign-in-with-apple.md`</sub>
+- [Authentication Services](https://developer.apple.com/documentation/AuthenticationServices) <sub>framework/guide</sub>
 - [Displaying Sign in with Apple buttons on the web](https://developer.apple.com/documentation/signinwithapple/displaying-sign-in-with-apple-buttons-on-the-web) — Sign in with Apple
+
+**Siri** <sub>`pages/siri.md`</sub>
+- [App Intents](https://developer.apple.com/documentation/AppIntents) <sub>framework/guide</sub>
+- [App schema domains](https://developer.apple.com/documentation/AppIntents/app-schema-domains) <sub>framework/guide</sub>
+- [Apple Intelligence and Siri AI](https://developer.apple.com/documentation/AppIntents/apple-intelligence-and-siri-ai) <sub>framework/guide</sub>
 
 **Sliders** <sub>`pages/sliders.md`</sub>
 - [Slider](https://developer.apple.com/documentation/SwiftUI/Slider) — SwiftUI
 - [UISlider](https://developer.apple.com/documentation/UIKit/UISlider) — UIKit
 - [NSSlider](https://developer.apple.com/documentation/AppKit/NSSlider) — AppKit
+
+**Snippets** <sub>`pages/snippets.md`</sub>
+- [App Intents](https://developer.apple.com/documentation/AppIntents) <sub>framework/guide</sub>
 
 **Spatial layout** <sub>`pages/spatial-layout.md`</sub>
 - [Presenting windows and spaces](https://developer.apple.com/documentation/visionOS/presenting-windows-and-spaces) — visionOS
@@ -447,6 +601,18 @@ Use this to go from a design decision straight to the right API instead of guess
 - [textContentType(_:)](https://developer.apple.com/documentation/SwiftUI/View/textContentType(_:)) — SwiftUI
 - [UIKeyboardType](https://developer.apple.com/documentation/UIKit/UIKeyboardType) — UIKit
 
+**VoiceOver** <sub>`pages/voiceover.md`</sub>
+- [Accessibility](https://developer.apple.com/documentation/Accessibility) <sub>framework/guide</sub>
+- [VoiceOver](https://developer.apple.com/documentation/Accessibility/voiceover) <sub>framework/guide</sub>
+- [Supporting VoiceOver in your app](https://developer.apple.com/documentation/UIKit/supporting-voiceover-in-your-app) <sub>framework/guide</sub>
+
+**Wallet** <sub>`pages/wallet.md`</sub>
+- [FinanceKitUI](https://developer.apple.com/documentation/FinanceKitUI) <sub>framework/guide</sub>
+- [FinanceKit](https://developer.apple.com/documentation/FinanceKit) <sub>framework/guide</sub>
+- [PassKit (Apple Pay and Wallet)](https://developer.apple.com/documentation/PassKit) <sub>framework/guide</sub>
+- [Wallet Passes](https://developer.apple.com/documentation/WalletPasses) <sub>framework/guide</sub>
+- [Wallet Orders](https://developer.apple.com/documentation/WalletOrders) <sub>framework/guide</sub>
+
 **Watch faces** <sub>`pages/watch-faces.md`</sub>
 - [Sharing an Apple Watch face](https://developer.apple.com/documentation/ClockKit/sharing-an-apple-watch-face) — ClockKit
 
@@ -454,6 +620,7 @@ Use this to go from a design decision straight to the right API instead of guess
 - [WKWebView](https://developer.apple.com/documentation/WebKit/WKWebView) — WebKit
 
 **Widgets** <sub>`pages/widgets.md`</sub>
+- [WidgetKit](https://developer.apple.com/documentation/WidgetKit) <sub>framework/guide</sub>
 - [Developing a WidgetKit strategy](https://developer.apple.com/documentation/WidgetKit/Developing-a-WidgetKit-strategy) — WidgetKit
 
 **Windows** <sub>`pages/windows.md`</sub>
@@ -463,9 +630,15 @@ Use this to go from a design decision straight to the right API instead of guess
 - [NSWindow](https://developer.apple.com/documentation/AppKit/NSWindow) — AppKit
 
 **Workouts** <sub>`pages/workouts.md`</sub>
+- [WorkoutKit](https://developer.apple.com/documentation/WorkoutKit) <sub>framework/guide</sub>
 - [Workouts and activity rings](https://developer.apple.com/documentation/HealthKit/workouts-and-activity-rings) — HealthKit
 
+**iCloud** <sub>`pages/icloud.md`</sub>
+- [CloudKit](https://developer.apple.com/documentation/CloudKit) <sub>framework/guide</sub>
+- [GameSave](https://developer.apple.com/documentation/GameSave) <sub>framework/guide</sub>
+
 **iMessage apps and stickers** <sub>`pages/imessage-apps-and-stickers.md`</sub>
+- [Messages](https://developer.apple.com/documentation/Messages) <sub>framework/guide</sub>
 - [Adding Sticker packs and iMessage apps to the system Stickers app, Messages camera, and FaceTime](https://developer.apple.com/documentation/Messages/adding-sticker-packs-and-imessage-apps-to-the-system-stickers-app-messages-camera-and-facetime) — Messages
 
 ---
