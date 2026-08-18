@@ -2,7 +2,7 @@
 
 A page control displays a row of indicator images, each of which represents a page in a flat list.
 
-![A stylized representation of a page control with an indicator denoting the active page. The image is tinted red to subtly reflect the red in the original six-color Apple logo.](https://docs-assets.developer.apple.com/published/0135697bbba4e127172d4a8289afefc3/components-page-dots-intro%402x.png)
+![A stylized representation of a page control with an indicator denoting the active page. The image is tinted red to subtly reflect the red in the original six-color Apple logo.](/images/com.apple.HIG/components-page-dots-intro@2x.png)
 
 The scrolling row of indicators helps people navigate the list to find the page they want. Page controls can handle an arbitrary number of pages, making them particularly useful in situations where people can create custom lists.
 
@@ -20,7 +20,7 @@ Page controls appear as a series of small indicator dots by default, representin
 
 By default, a page control uses the system-provided dot image for all indicators, but it can also display a unique image to help people identify a specific page. For example, Weather uses the `location.fill` symbol to distinguish the current location’s page.
 
-If it enhances your app or game, you can provide a custom image to use as the default image for all indicators and you can also supply a different image for a specific page. For developer guidance, see [preferredIndicatorImage](https://developer.apple.com/documentation/UIKit/UIPageControl/preferredIndicatorImage) and [setIndicatorImage(_:forPage:)](https://developer.apple.com/documentation/UIKit/UIPageControl/setIndicatorImage(_:forPage:)).
+If it enhances your app or game, you can provide a custom image to use as the default image for all indicators and you can also supply a different image for a specific page. For developer guidance, see [preferredIndicatorImage](https://developer.apple.com/documentation/uikit/uipagecontrol/preferredindicatorimage) and [setIndicatorImage(_:forPage:)](https://developer.apple.com/documentation/uikit/uipagecontrol/setindicatorimage(_:forpage:)).
 
 **Make sure custom indicator images are simple and clear.** Avoid complex shapes, and don’t include negative space, text, or inner lines, because these details can make an icon muddy and indecipherable at very small sizes. Consider using simple [SF Symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols) as indicators or design your own icons. For guidance, see [Icons](https://developer.apple.com/design/human-interface-guidelines/icons).
 
@@ -28,13 +28,13 @@ If it enhances your app or game, you can provide a custom image to use as the de
 
 **Avoid using more than two different indicator images in a page control.** If your list contains one page with special meaning — like the current-location page in Weather — you can make the page easy to find by giving it a unique indicator image. In contrast, a page control that uses several unique images to mark several important pages is hard to use because people must memorize the meaning of each image. A page control that displays more than two types of indicator images tends to look messy and haphazard, even when each image is clear.
 
-![An illustration that represents the Weather app highlighted to show a page control at the bottom edge of the screen. The page control displays a mix of icons, such as weak sun, cloud, cloud with sun, and cloud with drizzle.](https://docs-assets.developer.apple.com/published/5be72709badc300ee3d35a226fcebff7/page-indicator-customization-incorrect%402x.png)
+![An illustration that represents the Weather app highlighted to show a page control at the bottom edge of the screen. The page control displays a mix of icons, such as weak sun, cloud, cloud with sun, and cloud with drizzle.](/images/com.apple.HIG/page-indicator-customization-incorrect@2x.png)
 
-![An X in a circle to indicate an incorrect example.](https://docs-assets.developer.apple.com/published/209f6f0fc8ad99d9bf59e12d82d06584/crossout%402x.png)
+![An X in a circle to indicate an incorrect example.](/images/com.apple.HIG/crossout@2x.png)
 
-![An illustration that represents the Weather app highlighted to show a page control at the bottom edge of the screen. The page control displays the location symbol on the leading side followed by a series of dots.](https://docs-assets.developer.apple.com/published/2838857a116375bbf1e0f275cedf9e4a/page-indicator-customization-correct%402x.png)
+![An illustration that represents the Weather app highlighted to show a page control at the bottom edge of the screen. The page control displays the location symbol on the leading side followed by a series of dots.](/images/com.apple.HIG/page-indicator-customization-correct@2x.png)
 
-![A checkmark in a circle to indicate a correct example.](https://docs-assets.developer.apple.com/published/88662da92338267bb64cd2275c84e484/checkmark%402x.png)
+![A checkmark in a circle to indicate a correct example.](/images/com.apple.HIG/checkmark@2x.png)
 
 **Avoid coloring indicator images.** Custom colors can reduce the contrast that differentiates the current-page indicator and makes the page control visible on the screen. To ensure that your page control is easy to use and looks good in different contexts, let the system automatically color the indicators.
 
@@ -46,11 +46,11 @@ If it enhances your app or game, you can provide a custom image to use as the de
 
 A page control can adjust the appearance of indicators to provide more information about the list. For example, the control highlights the indicator of the current page so people can estimate the page’s relative position in the list. When there are more indicators than fit in the space, the control can shrink indicators at both sides to suggest that more pages are available.
 
-![An illustration of a page control. The page control displays a total of 9 dots. The center 5 dots use the default size; the second and eighth dots are about half the default size and the first and ninth dots are about one quarter the default size. The center dot is filled, indicating the location of the current page in the list.](https://docs-assets.developer.apple.com/published/35dd1a1f9dfe863502d77151eaf5d1f2/page-controls-many-indicators%402x.png)
+![An illustration of a page control. The page control displays a total of 9 dots. The center 5 dots use the default size; the second and eighth dots are about half the default size and the first and ninth dots are about one quarter the default size. The center dot is filled, indicating the location of the current page in the list.](/images/com.apple.HIG/page-controls-many-indicators@2x.png)
 
 People interact with page controls by tapping or scrubbing (to *scrub*, people touch the control and drag left or right). Tapping on the leading or trailing side of the current-page indicator reveals the next or previous page; in iPadOS, people can also use the pointer to target a specific indicator. Scrubbing opens pages in sequence, and scrubbing past the leading or trailing edge of the control helps people quickly reach the first or last page.
 
-> **Note:** In the API, *tapping* is a *discrete interaction*, whereas *scrubbing* is a *continuous interaction*; for developer guidance, see [UIPageControl.InteractionState](https://developer.apple.com/documentation/UIKit/UIPageControl/InteractionState-swift.enum).
+> **Note:** In the API, *tapping* is a *discrete interaction*, whereas *scrubbing* is a *continuous interaction*; for developer guidance, see [UIPageControl.InteractionState](https://developer.apple.com/documentation/uikit/uipagecontrol/interactionstate-swift.enum).
 
 **Avoid animating page transitions during scrubbing.** People can scrub very quickly, and using the scrolling animation for every transition can make your app lag and cause distracting visual flashes. Use the animated scrolling transition only for tapping.
 
@@ -60,7 +60,7 @@ A page control can include a translucent, rounded-rectangle background appearanc
 - Prominent — Always displays the background. Use this style only when the control is the primary navigational control in the screen.
 - Minimal — Never displays the background. Use this style when you just want to show the position of the current page in the list and you don’t need to provide visual feedback during scrubbing.
 
-For developer guidance, see [backgroundStyle](https://developer.apple.com/documentation/UIKit/UIPageControl/backgroundStyle-swift.property).
+For developer guidance, see [backgroundStyle](https://developer.apple.com/documentation/uikit/uipagecontrol/backgroundstyle-swift.property).
 
 **Avoid supporting the scrubber when you use the minimal background style.** The minimal style doesn’t provide visual feedback during scrubbing. If you want to let people scrub a list of pages in your app, use the automatic or prominent background styles.
 
@@ -76,9 +76,9 @@ In visionOS, page controls represent available pages and indicate the current pa
 
 In watchOS, page controls can be displayed at the bottom of the screen for horizontal pagination, or next to the Digital Crown when presenting a vertical [tab view](https://developer.apple.com/design/human-interface-guidelines/components/layout-and-organization/tab-views). When using vertical tab views, the page indicator shows people where they are in the navigation, both within the current page and within the set of pages. The page control transitions between scrolling through a page’s content and scrolling to other pages.
 
-![An illustration representing a screen that includes a vertical tab view on Apple Watch. A page control next to the Digital Crown shows that the fourth tab is currently selected.](https://docs-assets.developer.apple.com/published/13d0909bd0df2e26693f76b6bfbcd428/page-controls-watch-vertical%402x.png)
+![An illustration representing a screen that includes a vertical tab view on Apple Watch. A page control next to the Digital Crown shows that the fourth tab is currently selected.](/images/com.apple.HIG/page-controls-watch-vertical@2x.png)
 
-![An illustration representing a screen that includes a horizontal tab view on Apple Watch. A page control at the bottom shows that the second tab is currently selected.](https://docs-assets.developer.apple.com/published/0f915ec7b0e8755a2d60845617746f71/page-controls-watch-horizontal%402x.png)
+![An illustration representing a screen that includes a horizontal tab view on Apple Watch. A page control at the bottom shows that the second tab is currently selected.](/images/com.apple.HIG/page-controls-watch-horizontal@2x.png)
 
 **Use vertical pagination to separate multiple views into distinct, purposeful pages.** Give each page a clear purpose, and let people scroll through the pages using the Digital Crown. In watchOS, this design is more effective than horizontal pagination or many levels of hierarchical navigation.
 
@@ -92,9 +92,9 @@ In watchOS, page controls can be displayed at the bottom of the screen for horiz
 
 #### Developer documentation
 
-[PageTabViewStyle](https://developer.apple.com/documentation/SwiftUI/PageTabViewStyle) — SwiftUI
+[PageTabViewStyle](https://developer.apple.com/documentation/swiftui/pagetabviewstyle) — SwiftUI
 
-[UIPageControl](https://developer.apple.com/documentation/UIKit/UIPageControl) — UIKit
+[UIPageControl](https://developer.apple.com/documentation/uikit/uipagecontrol) — UIKit
 
 ## Change log
 

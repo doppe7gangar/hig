@@ -2,7 +2,7 @@
 
 HomeKit lets people securely control connected accessories in their homes using Siri or the Home app on iPhone, iPad, Apple Watch, and Mac.
 
-![A sketch of the HomeKit icon. The image is overlaid with rectangular and circular grid lines and is tinted blue to subtly reflect the blue in the original six-color Apple logo.](https://docs-assets.developer.apple.com/published/ebafbd857c1881bf0f090c3592d8a2d6/technologies-HomeKit-intro%402x.png)
+![A sketch of the HomeKit icon. The image is overlaid with rectangular and circular grid lines and is tinted blue to subtly reflect the blue in the original six-color Apple logo.](/images/com.apple.HIG/technologies-HomeKit-intro@2x.png)
 
 In iOS, the Home app also lets people manage and configure accessories.
 
@@ -14,7 +14,7 @@ Your iOS, tvOS, or watchOS app can integrate with HomeKit (and by extension the 
 - Show people how to create powerful, hands-free automations
 - Provide support
 
-For developer guidance, see [HomeKit](https://developer.apple.com/documentation/HomeKit). If you’re an MFi licensee, visit the [MFi portal](https://mfi.apple.com) for guidance on naming and messaging for accessory packaging.
+For developer guidance, see [HomeKit](https://developer.apple.com/documentation/homekit). If you’re an MFi licensee, visit the [MFi portal](https://mfi.apple.com) for guidance on naming and messaging for accessory packaging.
 
 ## Terminology and layout
 
@@ -68,7 +68,7 @@ A *zone* represents an area in the home that contains multiple rooms, such as *u
 
 ## Setup
 
-**Use the system-provided setup flow to give people a familiar experience.** The HomeKit setup flow works more quickly than traditional setup flows because it lets people name accessories, join networks, pair with HomeKit, assign room and service categories, and designate favorites in just a few steps. Using the system-provided setup flow lets you concentrate on promoting the custom functionality that makes your accessory unique. For developer guidance, see [performAccessorySetup(using:completionHandler:)](https://developer.apple.com/documentation/HomeKit/HMAccessorySetupManager/performAccessorySetup(using:completionHandler:)).
+**Use the system-provided setup flow to give people a familiar experience.** The HomeKit setup flow works more quickly than traditional setup flows because it lets people name accessories, join networks, pair with HomeKit, assign room and service categories, and designate favorites in just a few steps. Using the system-provided setup flow lets you concentrate on promoting the custom functionality that makes your accessory unique. For developer guidance, see [performAccessorySetup(using:completionHandler:)](https://developer.apple.com/documentation/homekit/hmaccessorysetupmanager/performaccessorysetup(using:completionhandler:)).
 
 **Provide context to explain why you need access to people’s Home data.** Create a purpose string with a phrase that describes why you’re asking for permission to access data, such as “Lets you control this accessory with the Apple Home app and Siri across your Apple devices.”
 
@@ -90,10 +90,10 @@ A *zone* represents an area in the home that contains multiple rooms, such as *u
 
 |  | Example service names |
 | --- | --- |
-| ![A checkmark in a circle to indicate correct usage.](https://docs-assets.developer.apple.com/published/88662da92338267bb64cd2275c84e484/checkmark%402x.png) | Reading lamp |
-| ![An X in a circle to indicate incorrect usage.](https://docs-assets.developer.apple.com/published/209f6f0fc8ad99d9bf59e12d82d06584/crossout%402x.png) | 📚 lamp |
-| ![A checkmark in a circle to indicate correct usage.](https://docs-assets.developer.apple.com/published/88662da92338267bb64cd2275c84e484/checkmark%402x.png) | 2nd garage door |
-| ![An X in a circle to indicate incorrect usage.](https://docs-assets.developer.apple.com/published/209f6f0fc8ad99d9bf59e12d82d06584/crossout%402x.png) | #2 garage door |
+| ![A checkmark in a circle to indicate correct usage.](/images/com.apple.HIG/checkmark@2x.png) | Reading lamp |
+| ![An X in a circle to indicate incorrect usage.](/images/com.apple.HIG/crossout@2x.png) | 📚 lamp |
+| ![A checkmark in a circle to indicate correct usage.](/images/com.apple.HIG/checkmark@2x.png) | 2nd garage door |
+| ![An X in a circle to indicate incorrect usage.](/images/com.apple.HIG/crossout@2x.png) | #2 garage door |
 
 **Help people avoid creating names that include location information.** Although it’s natural for someone to use “kitchen light” to name a light in the kitchen, including the room name in the service name can lead to unpredictable results when controlling the accessory by voice. Your app can detect service names that duplicate location information and help people fix them. For example, you might present a post-setup experience that removes the room or zone from a service name and encourages people to assign the accessory to that room or zone instead.
 
@@ -165,11 +165,11 @@ Your app can display still images or streaming video from a connected HomeKit IP
 
 Use the HomeKit icon in setup or instructional communications related to HomeKit technology.
 
-![The HomeKit icon.](https://docs-assets.developer.apple.com/published/f114e2d0f56342d88fc6f25363af6488/homekit-glyph%402x.png)
+![The HomeKit icon.](/images/com.apple.HIG/homekit-glyph@2x.png)
 
 In addition, you can use the Apple Home app icon when referencing the Apple Home app or in a button that opens the Apple Home app [product page](https://itunes.apple.com/us/app/home/id1110145103?mt=8) in the App Store.
 
-![The Apple Home app icon, which includes a stylized house with a chimney on the right side of its roof, depicted in graduated shades of orange.](https://docs-assets.developer.apple.com/published/d8123a998b3844e8d71c062c251fae5e/homeapp-icon%402x.png)
+![The Apple Home app icon, which includes a stylized house with a chimney on the right side of its roof, depicted in graduated shades of orange.](/images/com.apple.HIG/homeapp-icon@2x.png)
 
 **Use only Apple-provided icons.** Don’t create your own HomeKit or Home app icon design or attempt to mimic the Apple-provided designs. Download HomeKit icons in [Resources](https://developer.apple.com/design/resources/).
 
@@ -181,53 +181,53 @@ You have several options for displaying the HomeKit icon.
 
 Use the HomeKit icon on white or light backgrounds when other technology icons appear in black.
 
-![A black outlined HomeKit icon.](https://docs-assets.developer.apple.com/published/734a593ddf666fd5eaddc0d9abbdd403/homekit-black-icon-set%402x.png)
+![A black outlined HomeKit icon.](/images/com.apple.HIG/homekit-black-icon-set@2x.png)
 
 #### White HomeKit icon
 
 Use the HomeKit icon on black or dark backgrounds when other technology icons appear in white.
 
-![A white outlined HomeKit icon.](https://docs-assets.developer.apple.com/published/1f5d7481c18daf8e688ec7d6e4bd4b9f/homekit-white-icon-set%402x.png)
+![A white outlined HomeKit icon.](/images/com.apple.HIG/homekit-white-icon-set@2x.png)
 
 #### Custom color HomeKit icon
 
 Use a custom color when other technology icons appear in the same color.
 
-![A blue outlined HomeKit icon.](https://docs-assets.developer.apple.com/published/5541850d7ee548fa37a31512cb506fe5/homekit-custom-color-icon-set%402x.png)
+![A blue outlined HomeKit icon.](/images/com.apple.HIG/homekit-custom-color-icon-set@2x.png)
 
 **Position the HomeKit icon consistently with other technology icons.** When other technology icons are contained within shapes, treat the HomeKit icon in the same manner.
 
-![An illustration of three app icons listed in a horizontal row. Text above the icons reads 'Integrate with'. The leftmost app icon is the HomeKit icon in a circle, above the text 'Apple HomeKit'. The remaining two app icons contain squares with dashed frames witihn circles, above text that reads 'Technology'.](https://docs-assets.developer.apple.com/published/780c18285e647d74b16b21858c7f3a72/homekit-settings%402x.png)
+![An illustration of three app icons listed in a horizontal row. Text above the icons reads 'Integrate with'. The leftmost app icon is the HomeKit icon in a circle, above the text 'Apple HomeKit'. The remaining two app icons contain squares with dashed frames witihn circles, above text that reads 'Technology'.](/images/com.apple.HIG/homekit-settings@2x.png)
 
 **Use the HomeKit icon noninteractively.** Don’t use the icon and the name *HomeKit* in custom interactive elements or buttons. You can use the Apple Home app icon to open the app’s product page in the App Store.
 
-![An illustration of an incorrectly used HomeKit icon in a circular button styled with a chrome appearance.](https://docs-assets.developer.apple.com/published/08c6b1888cd04ea864bfe8d037eb1814/homekit-donot1%402x.png)
+![An illustration of an incorrectly used HomeKit icon in a circular button styled with a chrome appearance.](/images/com.apple.HIG/homekit-donot1@2x.png)
 
-![An X in a circle to indicate incorrect usage.](https://docs-assets.developer.apple.com/published/209f6f0fc8ad99d9bf59e12d82d06584/crossout%402x.png)
+![An X in a circle to indicate incorrect usage.](/images/com.apple.HIG/crossout@2x.png)
 
-![An illustration of a button incorrectly titled 'HomeKit' with a custom gradient background.](https://docs-assets.developer.apple.com/published/be2601b345959282abc8eb059d1fa20b/homekit-donot2%402x.png)
+![An illustration of a button incorrectly titled 'HomeKit' with a custom gradient background.](/images/com.apple.HIG/homekit-donot2@2x.png)
 
-![An X in a circle to indicate incorrect usage.](https://docs-assets.developer.apple.com/published/209f6f0fc8ad99d9bf59e12d82d06584/crossout%402x.png)
+![An X in a circle to indicate incorrect usage.](/images/com.apple.HIG/crossout@2x.png)
 
 **Don’t use the HomeKit icon within text or as a replacement for the word HomeKit.** See [Referring to HomeKit](https://developer.apple.com/design/human-interface-guidelines/homekit#Referring-to-HomeKit) to learn how to properly reference HomeKit in text.
 
-![The first in a series of images showing examples of the HomeKit icon when used in text. In this example, the icon correctly appears first in the line, and then the text 'Lights set with HomeKit.'](https://docs-assets.developer.apple.com/published/697f960d80077a7eb5da11a933993daf/homekit-lights-right%402x.png)
+![The first in a series of images showing examples of the HomeKit icon when used in text. In this example, the icon correctly appears first in the line, and then the text 'Lights set with HomeKit.'](/images/com.apple.HIG/homekit-lights-right@2x.png)
 
-![A checkmark in a circle to indicate correct usage.](https://docs-assets.developer.apple.com/published/88662da92338267bb64cd2275c84e484/checkmark%402x.png)
+![A checkmark in a circle to indicate correct usage.](/images/com.apple.HIG/checkmark@2x.png)
 
-![The second in a series of images showing examples of the HomeKit icon when used in text. This example depicts the icon incorrectly positioned after the word 'with' in the text 'Lights set with HomeKit.'](https://docs-assets.developer.apple.com/published/b794dc3d8b4482b76e86fe934f84325d/homekit-lights-wrong1%402x.png)
+![The second in a series of images showing examples of the HomeKit icon when used in text. This example depicts the icon incorrectly positioned after the word 'with' in the text 'Lights set with HomeKit.'](/images/com.apple.HIG/homekit-lights-wrong1@2x.png)
 
-![An X in a circle to indicate incorrect usage.](https://docs-assets.developer.apple.com/published/209f6f0fc8ad99d9bf59e12d82d06584/crossout%402x.png)
+![An X in a circle to indicate incorrect usage.](/images/com.apple.HIG/crossout@2x.png)
 
-![The third in a series of images showing examples of the HomeKit icon when used in text. This example depicts the icon incorrectly positioned at the end of the line of text that reads 'Lights set with'.](https://docs-assets.developer.apple.com/published/0cf15b1bf31151210ef109bb0cd06a1a/homekit-lights-wrong2%402x.png)
+![The third in a series of images showing examples of the HomeKit icon when used in text. This example depicts the icon incorrectly positioned at the end of the line of text that reads 'Lights set with'.](/images/com.apple.HIG/homekit-lights-wrong2@2x.png)
 
-![An X in a circle to indicate incorrect usage.](https://docs-assets.developer.apple.com/published/209f6f0fc8ad99d9bf59e12d82d06584/crossout%402x.png)
+![An X in a circle to indicate incorrect usage.](/images/com.apple.HIG/crossout@2x.png)
 
 **Pair the icon with the name *HomeKit* correctly.** You can show the name below or beside the icon if other technologies are referenced in this way. Use the same font that’s used on the rest of your layout. For related guidance, see [Referring to HomeKit](https://developer.apple.com/design/human-interface-guidelines/homekit#Referring-to-HomeKit).
 
-![An illustration of a view containing setup information within an app. The top of the view includes the title 'Setup' above a divider line. Three rows with icons, text, and disclosure buttons for displaying additional information appear below the divider. The first row includes the HomeKit icon followed by the word 'HomeKit'. The other  two rows display dashed squares representing other app icons, each followed by the word 'Name'.](https://docs-assets.developer.apple.com/published/59eda1e5a9cbb00c8a2755a49ce78191/homekit-setup%402x.png)
+![An illustration of a view containing setup information within an app. The top of the view includes the title 'Setup' above a divider line. Three rows with icons, text, and disclosure buttons for displaying additional information appear below the divider. The first row includes the HomeKit icon followed by the word 'HomeKit'. The other  two rows display dashed squares representing other app icons, each followed by the word 'Name'.](/images/com.apple.HIG/homekit-setup@2x.png)
 
-![An illustration of a view containing a grid of four app buttons. The top of the view includes the title 'Apps' above a divider line. Two rows of buttons and labels appear below the divider. The first button in the first row includes the Apple Home app icon, and appears above the text 'Apple Home'. The remaining buttons include dashed squares representing other app icons, and each appears above the text 'App Name'.](https://docs-assets.developer.apple.com/published/49f89cfa33f62aa16f1a93673ec1a2bd/homekit-apps%402x.png)
+![An illustration of a view containing a grid of four app buttons. The top of the view includes the title 'Apps' above a divider line. Two rows of buttons and labels appear below the divider. The first button in the first row includes the Apple Home app icon, and appears above the text 'Apple Home'. The remaining buttons include dashed squares representing other app icons, and each appears above the text 'App Name'.](/images/com.apple.HIG/homekit-apps@2x.png)
 
 ## Referring to HomeKit
 
@@ -244,8 +244,8 @@ Use a custom color when other technology icons appear in the same color.
 
 |  | Example text |
 | --- | --- |
-| ![A checkmark in a circle to indicate correct usage.](https://docs-assets.developer.apple.com/published/88662da92338267bb64cd2275c84e484/checkmark%402x.png) | Use HomeKit to turn on your lights from your iPhone or iPad. |
-| ![An X in a circle to indicate incorrect usage.](https://docs-assets.developer.apple.com/published/209f6f0fc8ad99d9bf59e12d82d06584/crossout%402x.png) | Use HomeKit to turn on your lights from your iOS devices. |
+| ![A checkmark in a circle to indicate correct usage.](/images/com.apple.HIG/checkmark@2x.png) | Use HomeKit to turn on your lights from your iPhone or iPad. |
+| ![An X in a circle to indicate incorrect usage.](/images/com.apple.HIG/crossout@2x.png) | Use HomeKit to turn on your lights from your iOS devices. |
 
 See [Guidelines for Using Apple Trademarks](https://www.apple.com/legal/intellectual-property/guidelinesfor3rdparties.html).
 
@@ -257,37 +257,37 @@ See [Guidelines for Using Apple Trademarks](https://www.apple.com/legal/intellec
 
 |  | Example text |
 | --- | --- |
-| ![A checkmark in a circle to indicate correct usage.](https://docs-assets.developer.apple.com/published/88662da92338267bb64cd2275c84e484/checkmark%402x.png) | [Brand] lightbulbs work with HomeKit. |
-| ![A checkmark in a circle to indicate correct usage.](https://docs-assets.developer.apple.com/published/88662da92338267bb64cd2275c84e484/checkmark%402x.png) | HomeKit-enabled thermostat. |
-| ![A checkmark in a circle to indicate correct usage.](https://docs-assets.developer.apple.com/published/88662da92338267bb64cd2275c84e484/checkmark%402x.png) | You can use HomeKit with [App Name]. |
-| ![An X in a circle to indicate incorrect usage.](https://docs-assets.developer.apple.com/published/209f6f0fc8ad99d9bf59e12d82d06584/crossout%402x.png) | HomeKit lightbulbs. |
+| ![A checkmark in a circle to indicate correct usage.](/images/com.apple.HIG/checkmark@2x.png) | [Brand] lightbulbs work with HomeKit. |
+| ![A checkmark in a circle to indicate correct usage.](/images/com.apple.HIG/checkmark@2x.png) | HomeKit-enabled thermostat. |
+| ![A checkmark in a circle to indicate correct usage.](/images/com.apple.HIG/checkmark@2x.png) | You can use HomeKit with [App Name]. |
+| ![An X in a circle to indicate incorrect usage.](/images/com.apple.HIG/crossout@2x.png) | HomeKit lightbulbs. |
 
 **Don’t suggest that HomeKit is performing an action or function.**
 
 |  | Example text |
 | --- | --- |
-| ![A checkmark in a circle to indicate correct usage.](https://docs-assets.developer.apple.com/published/88662da92338267bb64cd2275c84e484/checkmark%402x.png) | Back door is unlocked with HomeKit. |
-| ![An X in a circle to indicate incorrect usage.](https://docs-assets.developer.apple.com/published/209f6f0fc8ad99d9bf59e12d82d06584/crossout%402x.png) | HomeKit unlocked the back door. |
+| ![A checkmark in a circle to indicate correct usage.](/images/com.apple.HIG/checkmark@2x.png) | Back door is unlocked with HomeKit. |
+| ![An X in a circle to indicate incorrect usage.](/images/com.apple.HIG/crossout@2x.png) | HomeKit unlocked the back door. |
 
 **Use the name *Apple* with the name *HomeKit*, if desired.**
 
 |  | Example text |
 | --- | --- |
-| ![A checkmark in a circle to indicate correct usage.](https://docs-assets.developer.apple.com/published/88662da92338267bb64cd2275c84e484/checkmark%402x.png) | Compatible with Apple HomeKit. |
+| ![A checkmark in a circle to indicate correct usage.](/images/com.apple.HIG/checkmark@2x.png) | Compatible with Apple HomeKit. |
 
 **Use the name *HomeKit* for setup, configuration, and instructions, if desired.**
 
 |  | Example text |
 | --- | --- |
-| ![A checkmark in a circle to indicate correct usage.](https://docs-assets.developer.apple.com/published/88662da92338267bb64cd2275c84e484/checkmark%402x.png) | Open HomeKit settings. |
+| ![A checkmark in a circle to indicate correct usage.](/images/com.apple.HIG/checkmark@2x.png) | Open HomeKit settings. |
 
 **Use the app name *Apple Home* whenever referring specifically to the app.** On the first mention of the app in body copy, use the complete name *Apple Home*. Subsequent mentions can refer to the Home app.
 
 |  | Example text |
 | --- | --- |
-| ![A checkmark in a circle to indicate correct usage.](https://docs-assets.developer.apple.com/published/88662da92338267bb64cd2275c84e484/checkmark%402x.png) | Open the Apple Home app. |
-| ![A checkmark in a circle to indicate correct usage.](https://docs-assets.developer.apple.com/published/88662da92338267bb64cd2275c84e484/checkmark%402x.png) | Open the Apple Home app. Your accessory and room will now appear in the Home app. |
-| ![An X in a circle to indicate incorrect usage.](https://docs-assets.developer.apple.com/published/209f6f0fc8ad99d9bf59e12d82d06584/crossout%402x.png) | Open Home. |
+| ![A checkmark in a circle to indicate correct usage.](/images/com.apple.HIG/checkmark@2x.png) | Open the Apple Home app. |
+| ![A checkmark in a circle to indicate correct usage.](/images/com.apple.HIG/checkmark@2x.png) | Open the Apple Home app. Your accessory and room will now appear in the Home app. |
+| ![An X in a circle to indicate incorrect usage.](/images/com.apple.HIG/crossout@2x.png) | Open Home. |
 
 ## Platform considerations
 
@@ -303,7 +303,7 @@ See [Guidelines for Using Apple Trademarks](https://www.apple.com/legal/intellec
 
 #### Developer documentation
 
-[HomeKit](https://developer.apple.com/documentation/HomeKit)
+[HomeKit](https://developer.apple.com/documentation/homekit)
 
 #### Videos
 

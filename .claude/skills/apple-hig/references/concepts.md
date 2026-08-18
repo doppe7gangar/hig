@@ -113,9 +113,9 @@ Counts are **rules**, not mentions — a page that says "contrast" in passing is
 
 ## haptics
 
-14 rule(s) across 8 page(s). Home page: `pages/playing-haptics.md`.
+15 rule(s) across 8 page(s). Home page: `pages/playing-haptics.md`.
 
-- **Playing haptics** — 7 rule(s) · `pages/playing-haptics.md`
+- **Playing haptics** — 8 rule(s) · `pages/playing-haptics.md`
 - **Accessibility** — 1 rule(s) · `pages/accessibility.md`
 - **Augmented reality** — 1 rule(s) · `pages/augmented-reality.md`
 - **Buttons** — 1 rule(s) · `pages/buttons.md`
@@ -260,7 +260,7 @@ Counts are **rules**, not mentions — a page that says "contrast" in passing is
 
 ## notifications
 
-53 rule(s) across 18 page(s). Home page: `pages/notifications.md`.
+55 rule(s) across 19 page(s). Home page: `pages/notifications.md`.
 
 - **Notifications** — 23 rule(s) · `pages/notifications.md`
 - **Managing notifications** — 5 rule(s) · `pages/managing-notifications.md`
@@ -269,8 +269,8 @@ Counts are **rules**, not mentions — a page that says "contrast" in passing is
 - **Wallet** — 3 rule(s) · `pages/wallet.md`
 - **Always On** — 2 rule(s) · `pages/always-on.md`
 - **CareKit** — 2 rule(s) · `pages/carekit.md`
-- **Activity rings** — 1 rule(s) · `pages/activity-rings.md`
-- <sub>also: Collaboration and sharing, Controls, Feedback, HealthKit, In-app purchase, Multitasking, Playing video, ResearchKit, SharePlay, iCloud</sub>
+- **Playing haptics** — 2 rule(s) · `pages/playing-haptics.md`
+- <sub>also: Activity rings, Collaboration and sharing, Controls, Feedback, HealthKit, In-app purchase, Multitasking, Playing video, ResearchKit, SharePlay, iCloud</sub>
 
 ## search
 
