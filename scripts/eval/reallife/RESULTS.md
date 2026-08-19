@@ -106,5 +106,28 @@ accessibility labels on icon-only buttons, and empty states after
 `resetAll()` — and kept the alert-role nuance (Apple's destructive style
 is for actions people *didn't* deliberately choose).
 
-**Not verified:** the iPad prompt hit the session quota before running,
-so the fix is confirmed on one of the two prompts, not both.
+## Both prompts, after the fix
+
+The iPad prompt was re-run once quota allowed. It now reconciles the two
+sources the same way, from the other direction -- it had been the run
+that filed the buttons flatly under `## Violations`:
+
+> "There is a lower accessibility floor of 28x28, but Apple splits it by
+> frequency: 'Make sure frequently used controls are a minimum size of
+> 44x44 pt, and less important controls, such as menus, are a minimum
+> size of 28x28 pt' (`pages/game-controls.md`). A trash button on every
+> row is frequently used, so 44 applies. The toolbar buttons at 30x30
+> are below the general rule and above the floor -- defensible only if
+> you consider them rarely used."
+
+The two runs still weigh the trash button differently -- the review run
+leads with its adjacency to a 44 pt toggle, the iPad run argues
+frequency of use puts it at 44. That is a reasoned difference over the
+same two facts, which is what was wanted; before the fix they disagreed
+because each had seen only one of them.
+
+Quotes across both runs: **31/31 sound, zero altered, zero truncated.**
+
+`rules.md` was the only generated file that truncated; specs.md,
+platform-diffs.md, api-map.md, components.md and concepts.md carry no
+truncated bodies, so the fix covers the whole exposure.
