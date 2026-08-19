@@ -26,13 +26,22 @@ import sys
 try:
     from playwright.sync_api import sync_playwright
 except ImportError:
-    sys.exit("needs playwright:  pip install playwright")
+    sys.exit("needs playwright:\n"
+             "  pip install playwright && playwright install chromium")
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 SKILL = os.path.join(REPO, ".claude", "skills", "apple-web-ui")
 PAGE = "file://" + os.path.join(SKILL, "example.html")
-CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+
+# Where Chromium lives varies by machine. Playwright finds its own copy
+# after `playwright install chromium`, which is the normal case; this
+# only overrides that when a specific binary is pointed at, so the script
+# runs unchanged on a laptop and in a container that ships its own.
+CHROME = os.environ.get("CHROME_PATH") or None
+if CHROME is None:
+    _bundled = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+    CHROME = _bundled if os.path.exists(_bundled) else None
 
 # Dynamic Type at the Large (default) setting, from specs.md. These are
 # the whole point of the type tokens, so they are checked to the pixel.
@@ -89,7 +98,10 @@ def contrast(fg, bg):
 
 
 def run(pw, scheme, c, contrast_more=False):
-    b = pw.chromium.launch(executable_path=CHROME, args=["--no-sandbox"])
+    launch = {"args": ["--no-sandbox"]}
+    if CHROME:
+        launch["executable_path"] = CHROME
+    b = pw.chromium.launch(**launch)
     pg = b.new_page(viewport={"width": 430, "height": 932},
                     color_scheme=scheme,
                     contrast="more" if contrast_more else "no-preference")
