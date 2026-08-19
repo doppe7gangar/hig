@@ -115,6 +115,44 @@ def classify(q, corpus):
     return "ALTERED"
 
 
+FENCE_RE = re.compile(r"^```.*?^```", re.M | re.S)
+INLINE_CODE_RE = re.compile(r"`[^`\n]*`")
+
+
+def segments(text):
+    """Split into stretches within which quote pairing is meaningful.
+
+    A `"` only marks a quotation if it pairs with another one, and the
+    regex pairs whatever two quote characters it meets. That makes
+    pairing fragile in both directions:
+
+    Source code is full of string literals, so the regex spans from one
+    literal's closing quote to the next one's opening quote --
+    `Toggle("Allow Notifications", isOn: $on)` followed by
+    `Text("Notifications")` yields `, isOn: $on) Text(` as a
+    "quotation." Seven false alarms out of ten on a SwiftUI answer.
+
+    And deleting the code to avoid that is worse: a fenced block holding
+    an odd number of quotes flips the parity of everything after it, so
+    the *gaps between* real quotations start getting captured instead of
+    the quotations themselves.
+
+    Both go away if pairing simply never crosses a boundary it has no
+    business crossing. Code blocks are dropped, and each blank-line
+    paragraph is scanned on its own -- a real quotation never spans a
+    paragraph break -- so an unbalanced quote can only corrupt the
+    paragraph it appears in.
+    """
+    text = FENCE_RE.sub("\n\n", text)
+    # Inline code keeps its text -- Apple's own rules contain symbol names
+    # ("Use the `.prominent` style for key actions"), so blanking it out
+    # would break the very quotes being checked. Only the quote characters
+    # inside it are dropped, since those are what corrupt pairing.
+    text = INLINE_CODE_RE.sub(
+        lambda m: re.sub(r'["“”]', "", m.group(0).strip("`")), text)
+    return [s for s in re.split(r"\n\s*\n", text) if s.strip()]
+
+
 def answer_body(text):
     i = text.find(SKILL_MD_MARKER)
     return text[i:] if i != -1 else text
@@ -129,16 +167,16 @@ def main(paths):
         else:
             label = os.path.basename(path)
             raw = open(path, encoding="utf-8", errors="replace").read()
-        text = answer_body(raw)
         seen, graded = set(), []
-        for m in QUOTE_RE.finditer(text):
-            q = norm(m.group(1))
-            if len(q) < MIN_LEN or q in seen:
-                continue
-            seen.add(q)
-            verdict = classify(q, corpus)
-            tally[verdict] += 1
-            graded.append((verdict, m.group(1).strip()))
+        for seg in segments(answer_body(raw)):
+            for m in QUOTE_RE.finditer(seg):
+                q = norm(m.group(1))
+                if len(q) < MIN_LEN or q in seen:
+                    continue
+                seen.add(q)
+                verdict = classify(q, corpus)
+                tally[verdict] += 1
+                graded.append((verdict, m.group(1).strip()))
         clean = sum(1 for v, _ in graded if v in ("VERBATIM", "ELIDED"))
         print(f"{label:32} {clean:3}/{len(graded):3} sound")
         for verdict, q in graded:
