@@ -22,7 +22,10 @@ Misses are graded, because they are not equally bad:
              reads "essential commands that people use frequently." A
              quote ending mid-clause on a comma is not flagged; that's
              ordinary inline quotation and claims nothing.
-  ALTERED    not found in any form. Either a paraphrase presented inside
+  SOURCE     not in the corpus but present in the code under review. A
+             code review quotes the code too -- a UI string, a label it's
+             criticizing -- and those aren't claims about Apple.
+  ALTERED    not found in either. Either a paraphrase presented inside
              quotation marks, or two separate rules merged into one
              sentence Apple never wrote. This is the one that matters.
 
@@ -30,12 +33,17 @@ Point it at any text that quotes the HIG -- a draft answer, a design review,
 a PR description:
 
     python3 verify_quotes.py review.md
+    python3 verify_quotes.py review.md --project ~/src/MyApp
     cat draft.md | python3 verify_quotes.py -
+
+`--project` defaults to the current directory, so running it from the repo
+being reviewed already does the right thing.
 
 Exits non-zero if anything is ALTERED, so it can gate a document the same
 way a linter gates code.
 """
 
+import argparse
 import os
 import re
 import sys
@@ -76,9 +84,45 @@ def load_corpus():
     return "\n".join(blob)
 
 
-def classify(q, corpus):
+SOURCE_EXT = (".swift", ".m", ".mm", ".h", ".js", ".jsx", ".ts", ".tsx",
+              ".kt", ".java", ".py", ".strings", ".json", ".yaml", ".yml")
+SKIP_DIRS = {".git", ".claude", "node_modules", "build", ".build",
+             "DerivedData", "Pods", "__pycache__"}
+
+
+def load_project(root):
+    """Text of the code under review, for telling code quotes apart."""
+    if not root or not os.path.isdir(root):
+        return ""
+    blob = []
+    for dirpath, dirnames, files in os.walk(root):
+        dirnames[:] = [d for d in dirnames if d not in SKIP_DIRS]
+        for f in files:
+            if not f.endswith(SOURCE_EXT):
+                continue
+            p = os.path.join(dirpath, f)
+            try:
+                if os.path.getsize(p) > 2_000_000:
+                    continue
+                blob.append(norm(open(p, encoding="utf-8",
+                                      errors="replace").read()))
+            except OSError:
+                continue
+    return "\n".join(blob)
+
+
+def classify(q, corpus, project=""):
     if q in corpus:
         return "VERBATIM"
+
+    # A code review quotes the code as well as the HIG -- UI strings, a
+    # label it's criticizing, its own scare-quoted phrase. Those aren't
+    # claims about what Apple wrote, and reporting them as altered Apple
+    # quotes makes the tool useless exactly where it's most wanted: on a
+    # real review of a real project. If the text is in the reviewed
+    # source, that's what it is.
+    if project and q.rstrip(" .,;:-") in project:
+        return "SOURCE"
 
     # Explicit elision: "a... b" is fine if a and b both appear, in order,
     # close enough together to plausibly be the same passage.
@@ -153,14 +197,55 @@ def segments(text):
     return [s for s in re.split(r"\n\s*\n", text) if s.strip()]
 
 
+QUOTE_CHAR_RE = re.compile(r'["“”]')
+
+
+def resolve(seg, corpus, project):
+    """Pick the quote pairing the evidence supports.
+
+    Which quote character opens and which closes is genuinely ambiguous
+    for straight quotes, and one stray or unbalanced quote flips the
+    parity of the whole paragraph -- after which the checker reads the
+    *gaps between* real quotations as if they were the quotations, and
+    calls every one of them altered.
+
+    There's no way to settle that lexically, but there is an empirical
+    way: try both pairings and keep whichever produces more spans that
+    actually exist in the corpus or the code. A pairing that lines up
+    with reality is the right one; the off-by-one alternative yields
+    fragments starting mid-clause that match nothing.
+    """
+    marks = [m.start() for m in QUOTE_CHAR_RE.finditer(seg)]
+    best = []
+    best_score = -1
+    for offset in (0, 1):
+        spans = []
+        for a, b in zip(marks[offset::2], marks[offset + 1::2]):
+            text = seg[a + 1:b]
+            q = norm(text)
+            if MIN_LEN <= len(q) <= 400:
+                spans.append((text, classify(q, corpus, project)))
+        score = sum(1 for _, v in spans if v in SOUND)
+        # Prefer the pairing with more grounded spans; on a tie keep the
+        # natural one, so a clean document isn't reinterpreted.
+        if score > best_score:
+            best, best_score = spans, score
+    return best
+
+
 def answer_body(text):
     i = text.find(SKILL_MD_MARKER)
     return text[i:] if i != -1 else text
 
 
-def main(paths):
+SOUND = ("VERBATIM", "ELIDED", "SOURCE")
+
+
+def main(paths, project_dir=""):
     corpus = load_corpus()
-    tally = {"VERBATIM": 0, "ELIDED": 0, "TRUNCATED": 0, "ALTERED": 0}
+    project = load_project(project_dir)
+    tally = {"VERBATIM": 0, "ELIDED": 0, "SOURCE": 0,
+             "TRUNCATED": 0, "ALTERED": 0}
     for path in paths:
         if path == "-":
             label, raw = "(stdin)", sys.stdin.read()
@@ -169,34 +254,39 @@ def main(paths):
             raw = open(path, encoding="utf-8", errors="replace").read()
         seen, graded = set(), []
         for seg in segments(answer_body(raw)):
-            for m in QUOTE_RE.finditer(seg):
-                q = norm(m.group(1))
-                if len(q) < MIN_LEN or q in seen:
+            for text, verdict in resolve(seg, corpus, project):
+                q = norm(text)
+                if q in seen:
                     continue
                 seen.add(q)
-                verdict = classify(q, corpus)
                 tally[verdict] += 1
-                graded.append((verdict, m.group(1).strip()))
-        clean = sum(1 for v, _ in graded if v in ("VERBATIM", "ELIDED"))
+                graded.append((verdict, text.strip()))
+        clean = sum(1 for v, _ in graded if v in SOUND)
         print(f"{label:32} {clean:3}/{len(graded):3} sound")
         for verdict, q in graded:
-            if verdict in ("VERBATIM", "ELIDED"):
+            if verdict in SOUND:
                 continue
             snip = q if len(q) < 140 else q[:137] + "..."
             print(f"    {verdict}: {snip}")
 
     n = sum(tally.values())
     if n:
-        sound = tally["VERBATIM"] + tally["ELIDED"]
+        sound = sum(tally[k] for k in SOUND)
         print(f"\n{sound}/{n} sound ({100*sound//n}%)  |  "
               f"verbatim {tally['VERBATIM']}, elided {tally['ELIDED']}, "
-              f"truncated {tally['TRUNCATED']}, altered {tally['ALTERED']}")
+              f"source {tally['SOURCE']}, truncated {tally['TRUNCATED']}, "
+              f"altered {tally['ALTERED']}")
     return 1 if tally["ALTERED"] else 0
 
 
 if __name__ == "__main__":
-    args = sys.argv[1:]
-    if not args:
-        print(__doc__)
-        sys.exit(2)
-    sys.exit(main(args))
+    ap = argparse.ArgumentParser(
+        description="Grade quoted spans in a draft against the HIG corpus.")
+    ap.add_argument("paths", nargs="+",
+                    help="files to check, or - for stdin")
+    ap.add_argument("--project", default=".", metavar="DIR",
+                    help="source tree under review; quotes of its own text "
+                         "are reported as SOURCE rather than altered "
+                         "(default: current directory)")
+    a = ap.parse_args()
+    sys.exit(main(a.paths, a.project))
