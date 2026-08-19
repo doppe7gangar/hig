@@ -35,6 +35,37 @@
   }
 }
 
+/* Increase Contrast, ported.
+ *
+ * Apple's light-mode palette does not clear Apple's own contrast table.
+ * Measured on white: secondary label 3.44:1, accent as text 3.52:1, red
+ * 3.57:1 -- all under the 4.5:1 that accessibility.md requires up to
+ * 17 pt. Dark mode is fine; light is where it bites.
+ *
+ * On iOS that is survivable because Increase Contrast adapts the system
+ * colours at render time. The web has no such thing running for you, so
+ * these are the same adjustment done explicitly: darkened just far
+ * enough to clear 4.5:1 on the grouped page background, hue kept.
+ *
+ * Filled buttons are not overridden -- white on the accent is 3.52:1
+ * with a semibold label, and Apple's table allows 3:1 at bold. */
+@media (prefers-contrast: more) {
+  :root {
+    --ios-accent: #006ECF;                   /* 4.55:1 on --ios-bg */
+    --ios-red: #D12E31;                      /* 4.54:1 */
+    --ios-label-secondary: rgba(60, 60, 67, 0.72);  /* 4.74:1 on card */
+  }
+}
+
+@media (prefers-contrast: more) and (prefers-color-scheme: dark) {
+  :root {
+    /* Dark already clears 4.5:1 on every pair; keep the measured values. */
+    --ios-accent: #0091FF;
+    --ios-red: #FF4245;
+    --ios-label-secondary: rgba(235, 235, 245, 0.698);
+  }
+}
+
 body {
   margin: 0;
   font: var(--ios-text-body);

@@ -92,6 +92,40 @@ Most "iOS-style" web UI fails on these rather than on colour:
   the browser silently drops it, leaving everything at 16px while still
   looking broadly plausible.
 
+## Contrast: Apple's light palette does not clear Apple's own table
+
+Worth knowing before you ship text in it. `accessibility.md` requires
+**4.5:1 up to 17 pt**, 3:1 at 18 pt or bold. Measured, on the light
+grouped background:
+
+| Pair | Ratio | |
+|---|---|---|
+| `--ios-label` on card | **17.4:1** | fine |
+| `--ios-label-secondary` on card | **3.44:1** | under 4.5 |
+| `--ios-accent` as text on page | **3.15:1** | under 4.5 |
+| `--ios-red` as text on card | **3.57:1** | under 4.5 |
+| `--ios-label-tertiary` on card | **1.73:1** | placeholder only, never content |
+| white on filled accent button | **3.52:1** | passes — the label is semibold, so 3:1 applies |
+
+Dark mode clears 4.5:1 on every one of these. Light is where it bites.
+
+This is a property of Apple's real values, not a mistake in the recipes,
+and it is survivable on iOS because Increase Contrast adapts the system
+colours at render time. Nothing does that for you on the web. So:
+
+- **Body-size text carrying meaning → `--ios-label`.** Secondary and
+  tertiary are for supporting text, and even then they are under the
+  threshold in light mode.
+- **Accent-coloured text** (plain buttons, links) is at 3.15–3.52:1.
+  Fine for a short interactive label people expect to be blue; not fine
+  for a paragraph.
+- **`prefers-contrast: more` is wired up** and darkens accent, red, and
+  secondary just enough to clear 4.5:1 with the hue kept. That is the
+  web port of Increase Contrast — leave it in.
+
+`scripts/verify_web_ui.py` asserts all of this in a real browser, so a
+change that breaks it fails rather than merely looking fine.
+
 ## What does not transfer, and don't pretend it does
 
 - **SF Pro.** Its licence does not cover general web use. `--ios-font`
@@ -132,12 +166,21 @@ Components measured include Alerts, Action Sheets, Tab Bars, Keyboards,
 Notifications, Date & Time Pickers, Steppers, Sliders, Text Fields,
 Materials, Page Controls, Pop-up Buttons, Context Menus and App Icons.
 
-Re-measure after changing the kit:
+Re-measure after changing the kit, then re-verify:
 
 ```bash
 python3 scripts/extract_ui_kit_tokens.py   # PNGs  -> ui-kit-tokens.json
 python3 scripts/build_web_tokens.py        # JSON  -> ios-web-tokens.css
+python3 scripts/verify_web_ui.py           # asserts the rendered result
 ```
+
+`verify_web_ui.py` drives a real browser over `example.html` and checks
+computed values, not appearance: every token resolves, the type scale
+lands on the specs.md numbers to the pixel, the switch measures 64x28
+with a 36px knob travel, hit targets clear 44px, separators skip each
+list's first row, the grouped backgrounds are the right way round, and
+every colour pair meets the contrast it should. 155 checks across light,
+dark, and increased contrast.
 
 ## Rules, not just looks
 
