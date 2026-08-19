@@ -1,0 +1,54 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Apple web UI — reference implementation</title>
+<!-- Working example of every recipe in ios-web-components.css.
+     Open it in a browser, or screenshot it, to check a change didn't
+     break the look. Verified at 430px wide in light and dark. -->
+<link rel="stylesheet" href="ios-web-tokens.css">
+<link rel="stylesheet" href="ios-web-components.css">
+<style>main{padding:24px 0 0}h1{font:var(--ios-text-large-title);font-family:var(--ios-font);font-weight:700;margin:0 16px 16px}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin:0 16px 20px}</style>
+</head><body>
+<main>
+<h1>Settings</h1>
+<div class="row">
+  <button class="ios-btn ios-btn--filled">Continue</button>
+  <button class="ios-btn ios-btn--tinted">Learn More</button>
+  <button class="ios-btn">Cancel</button>
+  <button class="ios-btn ios-btn--filled ios-btn--destructive">Delete</button>
+  <button class="ios-btn ios-btn--filled" disabled>Disabled</button>
+</div>
+
+<div class="ios-list__header">Notifications</div>
+<ul class="ios-list">
+  <li class="ios-list__row"><span class="ios-list__title">Allow Notifications</span>
+    <label class="ios-switch"><input type="checkbox" checked><span class="ios-switch__track"></span></label></li>
+  <li class="ios-list__row"><span class="ios-list__title">Sounds</span>
+    <label class="ios-switch"><input type="checkbox"><span class="ios-switch__track"></span></label></li>
+  <li class="ios-list__row ios-list__row--tappable"><span class="ios-list__title">Alert Style</span>
+    <span class="ios-list__value">Banners</span><span class="ios-list__chevron">›</span></li>
+  <li class="ios-list__row"><span class="ios-list__title">Badge</span>
+    <label class="ios-switch"><input type="checkbox" checked disabled><span class="ios-switch__track"></span></label></li>
+</ul>
+<div class="ios-list__footer">Alerts appear on the Lock Screen and in Notification Center.</div>
+
+<div class="ios-list__header">Account</div>
+<ul class="ios-list">
+  <li class="ios-list__row"><input class="ios-field" placeholder="Email address"></li>
+</ul>
+
+<div class="row" style="margin-top:20px">
+  <div class="ios-segmented">
+    <label><input type="radio" name="s" checked><span></span>Day</label>
+    <label><input type="radio" name="s"><span></span>Week</label>
+    <label><input type="radio" name="s"><span></span>Month</label>
+  </div>
+</div>
+<div style="height:40px"></div>
+</main>
+<nav class="ios-tabbar">
+  <button class="ios-tabbar__item" aria-selected="true"><span>◉</span>Today</button>
+  <button class="ios-tabbar__item"><span>▤</span>History</button>
+  <button class="ios-tabbar__item"><span>⚙</span>Settings</button>
+</nav>
+</body></html>
