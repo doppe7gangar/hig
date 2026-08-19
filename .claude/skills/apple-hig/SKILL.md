@@ -1,6 +1,6 @@
 ---
 name: apple-hig
-description: Apple Human Interface Guidelines as a working reference — review UI code or designs against Apple's actual rules, pick the right control or presentation (sheet vs popover vs alert vs full-screen, tab bar vs sidebar vs split view), look up exact specs (tap targets, type sizes, contrast ratios, icon dimensions, safe areas), find the exact SwiftUI/UIKit/AppKit/framework API for a piece of guidance, see the real system appearance of a component (light/dark, pressed/idle, on/off, enabled/disabled) from Apple's actual iOS 27 UI kit, and adapt a design across iOS, iPadOS, macOS, tvOS, visionOS, and watchOS. Contains all 2,280 HIG rules as a greppable checklist, every spec table, a component-purpose index, an API map covering 30+ Apple frameworks, 947 real component screenshots across every interaction state, and the full 178-page corpus. Use whenever building, reviewing, critiquing, or fixing UI for an Apple platform — including SwiftUI, UIKit, and AppKit code review — and whenever a question turns on what Apple actually specifies or actually looks like, rather than general UI instinct. Trigger on Apple platform UI work even when the HIG is never mentioned: "is this button too small", "should this be a sheet or a popover", "why does my Mac app feel wrong", "make this work on iPad", "is this accessible", "what SwiftUI view do I use for this", "what does a disabled toggle look like", app icons, Dark Mode, Dynamic Type, VoiceOver, SF Symbols, Liquid Glass.
+description: Apple Human Interface Guidelines as a working reference — review UI code or designs against Apple's actual rules, pick the right control or presentation (sheet vs popover vs alert vs full-screen, tab bar vs sidebar vs split view), look up exact specs (tap targets, type sizes, contrast ratios, icon dimensions, safe areas), find the exact SwiftUI/UIKit/AppKit/framework API for a piece of guidance, see the real system appearance of a component (light/dark, pressed/idle, on/off, enabled/disabled) from Apple's actual iOS 27 UI kit, and adapt a design across iOS, iPadOS, macOS, tvOS, visionOS, and watchOS. Contains all 2,326 HIG rules as a greppable checklist, every spec table, a component-purpose index, an API map covering 32+ Apple frameworks, 949 real component screenshots across every interaction state, and the full 178-page corpus. Use whenever building, reviewing, critiquing, or fixing UI for an Apple platform — including SwiftUI, UIKit, and AppKit code review — and whenever a question turns on what Apple actually specifies or actually looks like, rather than general UI instinct. Trigger on Apple platform UI work even when the HIG is never mentioned: "is this button too small", "should this be a sheet or a popover", "why does my Mac app feel wrong", "make this work on iPad", "is this accessible", "what SwiftUI view do I use for this", "what does a disabled toggle look like", app icons, Dark Mode, Dynamic Type, VoiceOver, SF Symbols, Liquid Glass.
 ---
 
 # Apple Human Interface Guidelines
@@ -10,13 +10,13 @@ Apple's design guidance, restructured for doing work rather than browsing. Eight
 | File | Use it for |
 |---|---|
 | `references/patterns.md` | **What to actually write** — correct-by-default SwiftUI scaffolding with the right API and numbers already in place. |
-| `references/rules.md` | **2,280 rules as one-line imperatives**, by topic. The review checklist. |
+| `references/rules.md` | **2,326 rules as one-line imperatives**, by topic. The review checklist. |
 | `references/specs.md` | **Every number** — sizes, ratios, limits — with its source table. |
 | `references/platform-diffs.md` | **What changes per platform**, grouped by platform. |
-| `references/api-map.md` | **HIG concept → exact API symbol** — SwiftUI, UIKit, AppKit, and 30+ other frameworks (HealthKit, PassKit, StoreKit...). |
+| `references/api-map.md` | **HIG concept → exact API symbol** — SwiftUI, UIKit, AppKit, and 32+ other frameworks (HealthKit, PassKit, StoreKit...). |
 | `references/components.md` | **One-line purpose for every page** — the fastest way to find the right component before reading anything else. |
 | `references/concepts.md` | **Where guidance actually lives** for cross-cutting concerns (empty states, error handling, contrast, offline) that have no page of their own. |
-| `references/assets-index.md` | **What components actually look like** — 947 screenshots from Apple's iOS 27 UI kit, every interaction state. |
+| `references/assets-index.md` | **What components actually look like** — 949 screenshots from Apple's iOS 27 UI kit, every interaction state. |
 | `references/pages/<slug>.md` | Full prose when a rule's *reasoning* matters. |
 
 Grep first. `grep -A1 -i "sheet" references/rules.md` returns every sheet rule in seconds; reading `pages/sheets.md` to find the same thing costs far more context. Reach for the full page when you need the *why*, not the *what*.
@@ -76,11 +76,11 @@ Details and platform variations: `grep -A1 -i "tab bar\|sidebar" references/rule
 
 `components.md` is a one-line purpose statement for every page, sorted alphabetically — scan it when you know roughly what you need but not the exact HIG term for it, or to confirm two components aren't the same thing before recommending one.
 
-`api-map.md` goes the other direction: HIG concept → real API. It's organized both by component (`grep -A4 "^\*\*Sheets\*\*" api-map.md`) and by framework (`grep -A10 "^### HealthKit" api-map.md`), and covers more than the obvious three — 30+ frameworks including HealthKit, PassKit, StoreKit, WidgetKit, ClockKit. When implementing, not just designing, this is the difference between "use a sheet" and "use `sheet(item:onDismiss:content:)` in SwiftUI, or `UISheetPresentationController` in UIKit."
+`api-map.md` goes the other direction: HIG concept → real API. It's organized both by component (`grep -A4 "^\*\*Sheets\*\*" api-map.md`) and by framework (`grep -A10 "^### HealthKit" api-map.md`), and covers more than the obvious three — 32+ frameworks including HealthKit, PassKit, StoreKit, WidgetKit, ClockKit. When implementing, not just designing, this is the difference between "use a sheet" and "use `sheet(item:onDismiss:content:)` in SwiftUI, or `UISheetPresentationController` in UIKit."
 
 ## Seeing what a component actually looks like
 
-Everything else here is text. `assets-index.md` indexes 947 screenshots from Apple's iOS 27 UI kit under `assets/ui-kit/<Component>/`, covering the state matrix rather than one shot per component — light and dark, idle and pressed, on and off, enabled and disabled, plus accessibility-label variants. Detected states are tagged in the index (`[Dark, Idle, On, Enabled]`), so you can find one specific state without opening files at random.
+Everything else here is text. `assets-index.md` indexes 949 screenshots from Apple's iOS 27 UI kit under `assets/ui-kit/<Component>/`, covering the state matrix rather than one shot per component — light and dark, idle and pressed, on and off, enabled and disabled, plus accessibility-label variants. Detected states are tagged in the index (`[Dark, Idle, On, Enabled]`), so you can find one specific state without opening files at random.
 
 **Read the image** with the Read tool rather than guessing from the filename — the point is seeing the actual rendering.
 

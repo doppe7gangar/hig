@@ -531,6 +531,57 @@ def extract_concept_index(by_page):
 OWNED = ["rules.md", "specs.md", "platform-diffs.md", "api-map.md",
          "components.md", "concepts.md"]
 
+
+def sync_skill_md_counts(rule_total, framework_count):
+    """Rewrite derived counts in the hand-authored SKILL.md.
+
+    SKILL.md quotes figures that come from the corpus -- rule count, API
+    count, screenshot count. They go stale the moment anything is
+    re-scraped: the tabNavigator fix moved rules 2,280 -> 2,326 while
+    SKILL.md kept claiming 2,280, in its description as well as its body.
+    A skill that misreports its own contents is a small thing, but it is
+    exactly the kind of quiet wrongness this project keeps tripping over,
+    so the numbers are now derived rather than typed.
+
+    Only numeric claims are touched; the surrounding prose is left alone.
+    """
+    path = os.path.join(OUT, "SKILL.md")
+    if not os.path.exists(path):
+        return
+    text = open(path, encoding="utf-8").read()
+    before = text
+
+    shots = 0
+    idx = os.path.join(REFS, "assets-index.md")
+    if os.path.exists(idx):
+        m = re.search(r"^(\d[\d,]*) screenshots", open(idx, encoding="utf-8").read(), re.M)
+        if m:
+            shots = int(m.group(1).replace(",", ""))
+
+    pages = len([f for f in os.listdir(CONTENT) if f.endswith(".md")])
+
+    subs = [
+        (r"\b[\d,]+ HIG rules\b", f"{rule_total:,} HIG rules"),
+        (r"\*\*[\d,]+ rules as one-line imperatives\*\*",
+         f"**{rule_total:,} rules as one-line imperatives**"),
+        (r"\b\d+\+ Apple frameworks\b", f"{framework_count}+ Apple frameworks"),
+        (r"\b\d+\+ other frameworks\b", f"{framework_count}+ other frameworks"),
+        (r"\b\d+\+ frameworks including\b", f"{framework_count}+ frameworks including"),
+        (r"\b[\d,]+-page corpus\b", f"{pages}-page corpus"),
+    ]
+    if shots:
+        subs += [(r"\b[\d,]+ real component screenshots\b",
+                  f"{shots:,} real component screenshots"),
+                 (r"\b[\d,]+ screenshots\b", f"{shots:,} screenshots")]
+
+    for pat, rep in subs:
+        text = re.sub(pat, rep, text)
+
+    if text != before:
+        open(path, "w", encoding="utf-8").write(text)
+        print("SKILL.md       counts synced")
+
+
 if __name__ == "__main__":
     # Clear only what we regenerate, so a co-resident file from another
     # builder isn't destroyed as a side effect.
@@ -571,3 +622,5 @@ if __name__ == "__main__":
     print(f"components.md     {comp_total} components, {kb('components.md')} KB")
     print(f"concepts.md       {concept_total} concepts, {kb('concepts.md')} KB")
     print(f"pages/            {len(os.listdir(os.path.join(REFS, 'pages')))} files")
+    frameworks = api_map.count("\n### ")
+    sync_skill_md_counts(total, frameworks)
