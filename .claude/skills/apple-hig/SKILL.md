@@ -124,6 +124,10 @@ When a platform has no entry for a topic, the HIG states no exception and the ge
 ## Accuracy
 
 - **Quote, don't paraphrase from memory.** These files carry Apple's current wording and exact numbers; the value here is not restating what the model already half-remembers.
+- **Quotation marks mean character-exact.** Copy the sentence from the file into the answer; don't retype it from what you just read. This is the failure that's hardest to catch by eye, because a smoothed-over quote reads *more* like Apple than the original. Measured on real answers, roughly one quote in twelve had been reworded — including `pages/toolbars.md`'s warning that without the standard highlight effect "people might think they're **broken**," quoted back as "not interactive." Different claim, same confident voice.
+- **Shorten honestly.** Trailing `…` when you stop early, `[…]` when you cut from the middle. Ending a quote with a period Apple didn't write silently moves where the rule ends — Apple's "essential commands *that people use frequently*" becomes a blanket "essential commands." Never merge two rules into one set of quotation marks: square buttons, image buttons, and help buttons each have their own toolbar rule, and fusing them invents a sentence Apple never wrote.
+- **Paraphrase in your own voice instead.** Outside quotation marks, summarizing is fine and often better. The rule is only that quoted text is Apple's, verbatim.
 - **Cite the page** so the claim is checkable — `pages/buttons.md`.
+- **Check the quotes when it matters.** `python3 verify_quotes.py -` reads a draft on stdin and grades every quoted span against the corpus: VERBATIM, ELIDED (honest `...`), TRUNCATED (ends early), ALTERED (reworded or two rules fused). Worth running before a review someone will act on, or any answer built mostly of quotations.
 - **Snapshot dated 2026-08-11.** If a question turns on something a recent OS release may have changed, answer from the corpus and say it's a point-in-time copy worth confirming at developer.apple.com.
 - **Images are hotlinked** to Apple's CDN, not stored locally.
