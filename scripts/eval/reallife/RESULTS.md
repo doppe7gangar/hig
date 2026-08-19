@@ -70,3 +70,41 @@ Fixed in 39e050c: SKILL.md now carries both numbers and how to choose.
 4. The 44 vs 28 contradiction above.
 5. Dogfooding the checker on SKILL.md caught a quote I had closed with a
    period Apple doesn't have.
+
+---
+
+# Verification of the hit-target fix
+
+Re-ran the same prompt against the same fixture with the corrected build.
+
+**Before** — the two runs cited different sources and reached different
+verdicts on the same buttons:
+
+> *review run:* "the trash button is 28×28. That's exactly the iOS floor
+> (`specs.md`: 44×44 default, 28×28 minimum), **so not strictly a
+> violation**"
+
+> *iPad run, under `## Violations`:* "**Toolbar buttons are 30×30 pt.**
+> […] 'A button needs a hit region of at least 44x44 pt'" — and it lumped
+> the 28×28 trash button in with them.
+
+**After** — one run, both sources, and a verdict that separates the two
+controls:
+
+> "**Hit targets.** Two sources apply and they don't agree, so both:
+> `pages/buttons.md` says […] while the accessibility table gives iOS a
+> 44×44 default and 28×28 minimum, split by frequency […]
+> (`pages/game-controls.md`).
+> - Toolbar buttons at 30×30 — below the 44 target, above the floor.
+> - Delete at 28×28 — sitting exactly on the accessibility floor,
+>   immediately beside a 44×44 toggle. That adjacency is the concern."
+
+Quotes: **19/19 sound, zero altered.**
+
+The re-run also picked up two findings the earlier one missed —
+accessibility labels on icon-only buttons, and empty states after
+`resetAll()` — and kept the alert-role nuance (Apple's destructive style
+is for actions people *didn't* deliberately choose).
+
+**Not verified:** the iPad prompt hit the session quota before running,
+so the fix is confirmed on one of the two prompts, not both.
