@@ -74,6 +74,10 @@ def norm(s):
     s = re.sub(r"\[\s*(?:\.\.\.|…)\s*\]|…", "...", s)
     s = re.sub(r"[*_`]", "", s)                      # markdown emphasis
     s = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", s)   # links -> label
+    # A quote often keeps the link text and drops the URL, leaving a
+    # bare "[Color]" where the source has "[Color](https://...)".
+    # Without this the brackets alone read as a reworded quote.
+    s = re.sub(r"\[([^\]\n]*)\]", r"\1", s)
     s = re.sub(r"\s+", " ", s)
     return s.strip().lower()
 
