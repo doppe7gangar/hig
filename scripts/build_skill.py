@@ -79,6 +79,36 @@ def platform_tag(h2, h3):
 
 RULE_RE = re.compile(r"^\*\*(.+?)\*\*\s*(.*)$")
 
+# Measurements: sizes, ratios, durations, percentages.
+SPEC_NUM_RE = re.compile(
+    r"\d+(?:\.\d+)?\s*(?:x\s*\d+(?:\.\d+)?)?\s*"
+    r"(?:pt\b|px\b|points?\b|pixels?\b|percent\b|%|:\s*\d|"
+    r"seconds?\b|minutes?\b|degrees?\b|characters?\b|words?\b)",
+    re.I)
+
+
+def shorten(why, limit=240):
+    """Trim a rule's rationale without throwing away its numbers.
+
+    rules.md is the review checklist, so a rule that arrives without the
+    figure it turns on is worse than absent -- it sends the reader
+    somewhere else to find the number, and the somewhere else may not
+    agree. That is exactly how two reviews of the same 30x30 button
+    reached opposite verdicts: buttons.md says a button "needs a hit
+    region of at least 44x44 pt", but that clause sat past the cutoff, so
+    the checklist carried the rule with no figure at all and the reader
+    fell through to the 28x28 accessibility floor in specs.md.
+
+    Prose still gets trimmed. A body whose measurements would not survive
+    the trim is kept whole; roughly one rule in twenty-five has one.
+    """
+    if len(why) <= limit:
+        return why
+    short = why[:limit - 3].rsplit(" ", 1)[0] + "..."
+    if SPEC_NUM_RE.findall(why) != SPEC_NUM_RE.findall(short):
+        return why
+    return short
+
 
 def extract_rules():
     by_page = {}
@@ -100,7 +130,7 @@ def extract_rules():
                     continue
                 why = " ".join(m.group(2).split())
                 if len(why) > 240:
-                    why = why[:237].rsplit(" ", 1)[0] + "..."
+                    why = shorten(why)
                 rows.append((rule, why, plats))
                 total += 1
         if rows:
