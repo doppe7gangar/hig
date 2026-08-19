@@ -17,10 +17,11 @@ Misses are graded, because they are not equally bad:
   ELIDED     quote uses "..." and every segment is present, in order.
              Honest shortening. Not a defect.
   TRUNCATED  the quote is a true prefix of a real sentence but closes with
-             a period Apple didn't put there. Apple's sentence continues,
-             usually with a qualifier -- "essential commands." where the
-             source reads "essential commands that people use frequently."
-             Changes where the rule ends. Mild but real.
+             a period Apple didn't put there, asserting the rule stops
+             where it doesn't -- "essential commands." where the source
+             reads "essential commands that people use frequently." A
+             quote ending mid-clause on a comma is not flagged; that's
+             ordinary inline quotation and claims nothing.
   ALTERED    not found in any form. Either a paraphrase presented inside
              quotation marks, or two separate rules merged into one
              sentence Apple never wrote. This is the one that matters.
@@ -96,11 +97,19 @@ def classify(q, corpus):
             else:
                 return "ELIDED"
 
-    # Truncation: drop the closing punctuation and see if what remains is
-    # a real prefix. The quote is accurate as far as it goes, but Apple's
-    # sentence didn't stop there.
+    # A quote that is a true prefix of a real sentence is accurate as far
+    # as it goes. Whether that's a defect depends entirely on how it ends.
     stripped = q.rstrip(" .,;:-")
     if len(stripped) >= MIN_LEN and stripped in corpus:
+        # Ending on a comma or mid-clause is ordinary inline quotation --
+        # "the system automatically generates variants you don't provide,"
+        # dropped into a sentence of your own claims nothing about where
+        # Apple's sentence ended.
+        if not q.rstrip().endswith((".", "!", "?")):
+            return "VERBATIM"
+        # A terminal period the source doesn't have is different: it
+        # asserts the rule stops there, and Apple's qualifier is usually
+        # what got cut.
         return "TRUNCATED"
 
     return "ALTERED"
