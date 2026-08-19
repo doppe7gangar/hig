@@ -39,7 +39,7 @@ The failure mode here is dumping 40 observations of mixed importance. Scope it:
 4. **Check the target platforms** in `platform-diffs.md`. A layout that's right on iPhone can be wrong on Mac, and the general rule won't say so.
 5. **For custom controls, compare against the real thing** in `assets-index.md`. A reimplemented toggle or button usually gets the default state right and the others wrong — check pressed and disabled specifically, since those are the ones people skip and the ones the written rules describe least.
 6. **Sort findings by force**, and say which is which:
-   - **Violations** — a stated rule with a number attached. *"44×44 pt minimum hit region; this is 30×30."* Objective, fix it.
+   - **Violations** — a stated rule with a number attached. *"4.5:1 contrast required below 17 pt; this pair is 4.05:1."* Objective, fix it. (Hit targets look like this but aren't — see *Looking up a spec*.)
    - **Guidance** — Apple says prefer/avoid without a threshold. *"Prefer a tab bar for iPad navigation."* Defensible to deviate with reason.
    - **Judgment** — the HIG is silent. Say so rather than inventing a rule to justify a preference.
 
@@ -105,11 +105,15 @@ So: **"the HIG doesn't cover X" needs a `concepts.md` check first.** It's a clai
 
 `specs.md` is grouped by topic with the source table intact. The values people ask for most:
 
-- **Hit region:** 44×44 pt minimum (60×60 in visionOS)
+- **Hit region:** 44×44 pt as the general rule (60×60 in visionOS) — but see below
 - **Text:** 17 pt default / 11 pt minimum on iOS and iPadOS — differs per platform, see the table
 - **Contrast:** 4.5:1 up to 17 pt; 3:1 at 18 pt or bold
 
 Quote the number *and* its platform. Most of these tables have a different value per platform, and quoting one row as universal is the easiest way to be confidently wrong.
+
+**Hit targets are stated twice, and the two don't say the same thing.** `pages/buttons.md`: *"As a general rule, a button needs a hit region of at least 44x44 pt — in visionOS, 60x60 pt — to ensure that people can select it easily […]"* The accessibility *Mobility* table in `specs.md` instead gives iOS/iPadOS a **44×44 default** and a **28×28 minimum**. So a 30×30 control is below the general rule and above the stated floor — whichever source you grep first decides the verdict, and reviews have gone both ways on the same button.
+
+Give both, and let the context decide: a primary, frequently-used control at 30×30 is worth fixing; a secondary one is defensible, with spacing mattering more than size at that point (*"Consider spacing between controls as important as size"*). What's not defensible is calling it a flat violation of a 44 pt *minimum* — that's not what the table says.
 
 ## Adapting across platforms
 
