@@ -30,7 +30,7 @@ What this pulls out, per component and state:
              0.239 -> 0.18, so it has to be read per component rather
              than assumed.
 
-Output is JSON, consumed by build_web_tokens.py:
+Output is JSON, consumed by build_design_tokens.py:
 
     python3 scripts/extract_ui_kit_tokens.py
     python3 scripts/extract_ui_kit_tokens.py --only Toggles Buttons
@@ -51,7 +51,7 @@ except ImportError:
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 KIT = os.path.join(REPO, "ios-27-ui-kit_assets")
-SKILL = os.path.join(REPO, ".claude", "skills", "apple-web-ui")
+SKILL = os.path.join(REPO, ".claude", "skills", "apple-ui-kit")
 REFS = SKILL
 
 # Figma exported these at 4x: the switch lands on 256x112 px, and 64x28 pt
