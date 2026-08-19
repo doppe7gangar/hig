@@ -1,13 +1,13 @@
 /* iOS 27 component recipes for the web.
  *
- * Hand-authored, built on the measured values in ios-web-tokens.css --
+ * Hand-authored, built on the measured values in tokens/ios-tokens.css --
  * load that first. Colours and control geometry come from the kit; the
  * layout numbers (padding, gaps, list insets) come from the HIG corpus
  * where it states them, and are marked where it doesn't.
  *
  * Load order:
- *     <link rel="stylesheet" href="ios-web-tokens.css">
- *     <link rel="stylesheet" href="ios-web-components.css">
+ *     <link rel="stylesheet" href="tokens/ios-tokens.css">
+ *     <link rel="stylesheet" href="ios-components.css">
  */
 
 :root {

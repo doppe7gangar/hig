@@ -1,6 +1,6 @@
 ---
-name: apple-web-ui
-description: Build web and cross-platform UI that genuinely looks and behaves like Apple's — iOS 27 colours, type scale, control geometry and states, as CSS custom properties and ready component recipes (buttons, switches, grouped lists, text fields, segmented controls, tab bars, materials). Use whenever someone wants a web app, landing page, dashboard, React/Vue/Svelte component, or design system that should feel like iOS or macOS, whether they say "make it look like Apple", "iOS style", "Apple aesthetic", "clean like an Apple app", or just ask for a polished app UI and Apple is the obvious reference. Values are measured from Apple's real iOS 27 UI kit renderings, not remembered — the accent is #0088FF, not the #007AFF that circulates online, and the primary label is #1A1A1A, not black. Also use when reviewing a web UI that is trying to look Apple-like and getting details wrong. For native Apple platform work (SwiftUI, UIKit, AppKit) and for the actual HIG rules, use the apple-hig skill instead.
+name: apple-ui-kit
+description: Apple's iOS 27 design values — colour, type scale, control geometry, interaction states — measured from Apple's real UI kit and exported for every platform: CSS custom properties, Design Tokens JSON, SwiftUI, Jetpack Compose, Android XML, Flutter/Dart, and TypeScript for React Native. Plus ready web component recipes (buttons, switches, grouped lists, fields, segmented controls, tab bars, materials). Use whenever UI should look like Apple's on a target that has no system palette to ask — a web app, landing page, dashboard, React/Vue/Svelte component, Android or Flutter or React Native app, or a design system — and whenever someone says "make it look like Apple", "iOS style", "Apple aesthetic", or asks for a polished app UI with Apple as the obvious reference. Values are measured, not remembered: the accent is #0088FF, not the #007AFF that circulates online, and the primary label is #1A1A1A, not black. Also use when reviewing UI that is trying to look Apple-like and getting details wrong. For Apple's actual rules — which control to use, how layouts adapt, platform differences — and for native SwiftUI/UIKit/AppKit work, use the apple-hig skill.
 ---
 
 # Apple UI for the web
@@ -18,17 +18,43 @@ the file it came from.
 
 | File | What it is |
 |---|---|
-| `ios-web-tokens.css` | **Measured values** as custom properties — colour, type scale, control geometry. Generated; don't hand-edit. |
-| `ios-web-components.css` | **Component recipes** built on those tokens — buttons, switch, grouped list, field, segmented, tab bar, material. |
+| `tokens/` | **The measured values**, one file per target — see below. Generated; don't hand-edit. |
+| `ios-components.css` | **Web component recipes** built on the CSS tokens — buttons, switch, grouped list, field, segmented, tab bar, material. |
+| `example.html` | Working reference page. Open it to see every recipe, light and dark. |
 | `ui-kit-tokens.json` | **Every measurement**, 945 renderings × colours + geometry + state. Query it for anything the recipes don't cover. |
+
+## Picking a target
+
+| Building for | Use | Note |
+|---|---|---|
+| Web, any framework | `tokens/ios-tokens.css` + `ios-components.css` | Recipes included |
+| React Native / JS | `tokens/tokens.ts` | Colours + metrics, typed |
+| Android (Compose) | `tokens/AppleKitTokens.kt` | Light and dark objects |
+| Android (views) | `tokens/colors.xml` | Light values |
+| Flutter | `tokens/apple_kit_tokens.dart` | Light and dark classes |
+| SwiftUI / UIKit | `tokens/AppleKitTokens.swift` | **Usually the wrong answer — read on** |
+| Figma, Style Dictionary | `tokens/tokens.json` | Design Tokens format, with provenance |
+
+**On Apple platforms, don't paste these literals.** `Color.accentColor`,
+`UIColor.systemBlue`, `.primary` already resolve to the right value and
+adapt to Dark Mode and Increase Contrast for free — and they'll track
+whatever Apple changes next, which a hardcoded `#0088FF` won't. The Swift
+export exists for the cases the semantic API can't reach: custom Core
+Graphics drawing, a canvas, or matching Apple's palette deliberately. For
+native work you almost certainly want **apple-hig** instead.
+
+**On Android, think before reaching for this.** Material has its own
+colour roles, its own switch, and its own conventions that users expect.
+An iOS palette on Android is a legitimate choice when cross-platform
+brand consistency is the deliberate goal; it is a bad default.
 
 ## Using it
 
-Copy both CSS files into the project and load tokens first:
+For the web, copy the two CSS files in and load tokens first:
 
 ```html
-<link rel="stylesheet" href="ios-web-tokens.css">
-<link rel="stylesheet" href="ios-web-components.css">
+<link rel="stylesheet" href="tokens/ios-tokens.css">
+<link rel="stylesheet" href="ios-components.css">
 ```
 
 Then use the tokens rather than literals. `var(--ios-accent)` adapts to

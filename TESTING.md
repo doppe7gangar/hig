@@ -10,7 +10,7 @@ Paths below assume the repo is where GitHub Desktop puts it,
 ## 1. Look at it (no setup)
 
 ```bash
-open ~/Documents/GitHub/hig/.claude/skills/apple-web-ui/example.html
+open ~/Documents/GitHub/hig/.claude/skills/apple-ui-kit/example.html
 ```
 
 Every component in one page. To check dark mode, flip
@@ -23,13 +23,13 @@ edge.
 
 ---
 
-## 2. Test the web skill in Claude Code (the real test)
+## 2. Test the UI-kit skill in Claude Code (the real test)
 
 Install it once, for every project:
 
 ```bash
 mkdir -p ~/.claude/skills
-cp -R ~/Documents/GitHub/hig/.claude/skills/apple-web-ui ~/.claude/skills/
+cp -R ~/Documents/GitHub/hig/.claude/skills/apple-ui-kit ~/.claude/skills/
 ```
 
 Then in any empty folder:
@@ -46,10 +46,10 @@ Ask for something ordinary:
 
 **What tells you it worked:**
 
-- It reads `apple-web-ui/SKILL.md` early on, before writing any CSS.
+- It reads `apple-ui-kit/SKILL.md` early on, before writing any CSS.
 - The files it writes reference `var(--ios-accent)` and friends, not
   raw hex codes.
-- It copies `ios-web-tokens.css` and `ios-web-components.css` in rather
+- It copies `tokens/ios-tokens.css` and `ios-components.css` in rather
   than reinventing them.
 
 **What tells you it didn't:** hardcoded `#007AFF` anywhere. That's the
@@ -89,10 +89,14 @@ edit to the CSS. Drop `-v` to see only failures.
 To re-measure from the PNGs after changing the kit:
 
 ```bash
-python3 scripts/extract_ui_kit_tokens.py
-python3 scripts/build_web_tokens.py
-python3 scripts/verify_web_ui.py
+python3 scripts/extract_ui_kit_tokens.py   # PNGs -> measurements
+python3 scripts/build_design_tokens.py     # -> CSS, Swift, Kotlin, XML,
+                                           #    Dart, TS, Design Tokens JSON
+python3 scripts/verify_web_ui.py           # asserts the rendered result
 ```
+
+The exports all come from the same measurements, so a value can't drift
+between platforms. Each one names the file it was measured from.
 
 ---
 
@@ -136,7 +140,8 @@ Apple never wrote. Anything reported as ALTERED is worth reading twice.
 
 ## What "working" does not mean
 
-The web skill carries Apple's *appearance*, and it can't carry:
+`apple-ui-kit` carries Apple's *appearance* to platforms that have no
+system palette to ask. On the web specifically it can't carry:
 
 - **SF Pro** — not licensed for general web use. Pages get SF on Apple
   devices via `system-ui` and a native fallback elsewhere, so it will

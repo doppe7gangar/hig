@@ -31,7 +31,7 @@ except ImportError:
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
-SKILL = os.path.join(REPO, ".claude", "skills", "apple-web-ui")
+SKILL = os.path.join(REPO, ".claude", "skills", "apple-ui-kit")
 PAGE = "file://" + os.path.join(SKILL, "example.html")
 
 # Where Chromium lives varies by machine. Playwright finds its own copy
