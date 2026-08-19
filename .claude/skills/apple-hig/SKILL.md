@@ -113,7 +113,9 @@ Quote the number *and* its platform. Most of these tables have a different value
 
 **Hit targets are stated twice, and the two don't say the same thing.** `pages/buttons.md`: *"As a general rule, a button needs a hit region of at least 44x44 pt — in visionOS, 60x60 pt — to ensure that people can select it easily […]"* The accessibility *Mobility* table in `specs.md` instead gives iOS/iPadOS a **44×44 default** and a **28×28 minimum**. So a 30×30 control is below the general rule and above the stated floor — whichever source you grep first decides the verdict, and reviews have gone both ways on the same button.
 
-Give both, and let the context decide: a primary, frequently-used control at 30×30 is worth fixing; a secondary one is defensible, with spacing mattering more than size at that point (*"Consider spacing between controls as important as size"*). What's not defensible is calling it a flat violation of a 44 pt *minimum* — that's not what the table says.
+Both are real, so give both rather than picking the one you found first. 44×44 is the target; 28×28 is an accessibility floor, and Apple's framing around the table is *"Strive to meet the recommended minimum control size for each platform"* — clearing 28 is not the same as being fine. Where Apple explains which applies, it splits on how often the control is used: *"Make sure frequently used controls are a minimum size of 44x44 pt, and less important controls, such as menus, are a minimum size of 28x28 pt"* (`pages/game-controls.md` — a games context, the only place the split is stated outright).
+
+So a frequently-used control at 30×30 is a real finding against the 44 pt general rule; a rarely-used one at 28×28 sits on the floor and is defensible, with spacing carrying more weight than size at that point (*"Consider spacing between controls as important as size"*). What's wrong is citing one number as though the other doesn't exist.
 
 ## Adapting across platforms
 

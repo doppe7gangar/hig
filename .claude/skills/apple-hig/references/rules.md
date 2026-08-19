@@ -34,7 +34,7 @@ Grep this file to review something against the guidelines without reading 178 pa
 - **Offer sufficiently sized controls.**
   Controls that are too small are hard for many people to interact with and select. Strive to meet the recommended minimum control size for each platform to ensure controls and menus are comfortable for all when tapping and clicking.
 - **Consider spacing between controls as important as size.**
-  Include enough padding between elements to reduce the chance that someone taps the wrong control. In general, it works well to add about 12 points of padding around elements that include a bezel. For elements without a bezel, about 24...
+  Include enough padding between elements to reduce the chance that someone taps the wrong control. In general, it works well to add about 12 points of padding around elements that include a bezel. For elements without a bezel, about 24 points of padding works well around the element’s visible edges.
 - **Support simple gestures for common interactions.**
   For many people, with or without disabilities, complex gestures can be challenging. For interactions people do frequently in your app or game, use the simplest gesture possible — avoid custom multifinger and multihand gestures — so...
 - **Offer alternatives to gestures.**
@@ -138,7 +138,7 @@ Grep this file to review something against the guidelines without reading 178 pa
 - **Avoid creating duplicate versions of common actions that are already available in the activity view.**
   For example, providing a duplicate Print action is unnecessary and confusing because people wouldn’t know how to distinguish your action from the system-provided one. If you need to provide app-specific functionality that’s similar to...
 - **Consider using a symbol to represent your custom activity.**
-  [SF Symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols) provides a comprehensive set of configurable symbols you can use to communicate items and concepts in an activity view. If you need to create a...
+  [SF Symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols) provides a comprehensive set of configurable symbols you can use to communicate items and concepts in an activity view. If you need to create a custom interface icon, center it in an area measuring about 70x70 pixels. For guidance, see [Icons](https://developer.apple.com/design/human-interface-guidelines/icons).
 - **Write a succinct, descriptive title for each custom action you provide.**
   If a title is too long, the system wraps it and may truncate it. Prefer a single verb or a brief verb phrase that clearly communicates what the action does. Avoid including your company or product name in an action title. In contrast,...
 - **Make sure activities are appropriate for the current context.**
@@ -305,7 +305,7 @@ Grep this file to review something against the guidelines without reading 178 pa
 - **Adhere to image requirements.**
   Use a 1800x1200 px PNG or JPEG image without transparency.
 - **Use concise copy.**
-  An App Clip card requires both a title and a subtitle. Clearly express the purpose of your App Clip within the available space so people can read and understand it at a glance. Create a title that has no more than 30 characters and a...
+  An App Clip card requires both a title and a subtitle. Clearly express the purpose of your App Clip within the available space so people can read and understand it at a glance. Create a title that has no more than 30 characters and a subtitle that has no more than 56 characters.
 - **Pick a verb for the action button that best fits your App Clip.**
   Possible verbs are *View*, *Play*, or *Open*. Pick *View* for media, or if your App Clip provides informational or educational content. Pick *Play* for games. Choose *Open* for all other App Clips.
 - **Include the App Clip logo when space allows.**
@@ -489,7 +489,7 @@ Grep this file to review something against the guidelines without reading 178 pa
 - **Accurately report problems to the system.**
   When a problem occurs, provide a custom error message and the correct status code so the system can show the most relevant error on the payment sheet. For developer guidance, see...
 - **Explain the problem clearly and succinctly when data is invalid or incorrectly formatted.**
-  Reference the relevant field and indicate exactly what’s expected. For example, if people enter an invalid zip code, instead of showing “Address is invalid,” show a specific message like “Zip code doesn’t match city.” If the shipping...
+  Reference the relevant field and indicate exactly what’s expected. For example, if people enter an invalid zip code, instead of showing “Address is invalid,” show a specific message like “Zip code doesn’t match city.” If the shipping address is unserviceable, indicate why with a message like “Shipping not available for this state.” Use noun phrases with sentence-style capitalization and no ending punctuation. Aim to keep messages at 128 characters or fewer to avoid truncation.
 - **Handle interruptions correctly.**
   An event like a cancellation or timeout might interrupt the payment flow, causing the payment sheet to dismiss. When such an event occurs, you must cancel any in-progress payment. After the payment sheet dismisses, people can restart...
 - **Clarify subscription details before showing the payment sheet.**
@@ -729,7 +729,7 @@ Grep this file to review something against the guidelines without reading 178 pa
 <sub>`pages/buttons.md`</sub>
 
 - **Make buttons easy for people to use.**
-  It’s essential to include enough space around a button so that people can visually distinguish it from surrounding components and content. Giving a button enough space is also critical for helping people select or activate it,...
+  It’s essential to include enough space around a button so that people can visually distinguish it from surrounding components and content. Giving a button enough space is also critical for helping people select or activate it, regardless of the method of input they use. As a general rule, a button needs a hit region of at least 44x44 pt — in visionOS, 60x60 pt — to ensure that people can select it easily, whether they use a fingertip, a pointer, their eyes, or a remote.
 - **Always include a press state for a custom button.**
   Without a press state, a button can feel unresponsive, making people wonder if it’s accepting their input.
 - **In general, use a button that has a prominent visual style for the most likely action in a view.**
@@ -951,7 +951,7 @@ Grep this file to review something against the guidelines without reading 178 pa
 - **Consider combining mark types when it adds clarity to your chart.**
   For example, if you use a line chart to show a change over time, you might want to add point marks on top of the line to highlight individual data points. By combining points with a line, you can help people understand the overall trend...
 - **Use a fixed or dynamic axis range depending on the meaning of your chart.**
-  In a *fixed* range, the upper and lower bounds of the axis never change, whereas in a *dynamic* range, the upper and lower bounds can vary with the current data. Consider using a fixed range when specific minimum and maximum values are...
+  In a *fixed* range, the upper and lower bounds of the axis never change, whereas in a *dynamic* range, the upper and lower bounds can vary with the current data. Consider using a fixed range when specific minimum and maximum values are meaningful for all possible data values. For example, people expect a chart that shows a battery’s current charge to have a minimum value of 0% (completely empty) and a maximum value of 100% (completely full).
 - **Define the value of the lower bound based on mark type and chart usage.**
   For example, bar charts can work well when you use zero for the lower bound of the Y axis, because doing so lets people visually compare the relative heights of individual bars to get a reasonable estimate of their values. In contrast,...
 - **Prefer familiar sequences of values in the tick and grid-line labels for an axis.**
@@ -1215,7 +1215,7 @@ Grep this file to review something against the guidelines without reading 178 pa
 - **Embrace colors that adapt to the current appearance.**
   Semantic colors (like [labelColor](https://developer.apple.com/documentation/appkit/nscolor/labelcolor) and [controlColor](https://developer.apple.com/documentation/appkit/nscolor/controlcolor) in macOS or...
 - **Aim for sufficient color contrast in all appearances.**
-  Using system-defined colors can help you achieve a good contrast ratio between your foreground and background content. At a minimum, make sure the contrast ratio between colors is no lower than 4.5:1. For custom foreground and...
+  Using system-defined colors can help you achieve a good contrast ratio between your foreground and background content. At a minimum, make sure the contrast ratio between colors is no lower than 4.5:1. For custom foreground and background colors, strive for a contrast ratio of 7:1, especially in small text. This ratio ensures that your foreground content stands out from the background, and helps your content meet recommended accessibility guidelines.
 - **Soften the color of white backgrounds.**
   If you display a content image that includes a white background, consider slightly darkening the image to prevent the background from glowing in the surrounding Dark Mode context.
 - **Use SF Symbols wherever possible.**
@@ -1307,7 +1307,7 @@ Grep this file to review something against the guidelines without reading 178 pa
 - **Make sure text is always legible.**
   When game text is hard to read, people can struggle to follow the narrative, understand important instructions and information, and stay engaged in the experience. To keep text comfortably legible on each device, ensure that it...
 - **Make sure buttons are always easy to use.**
-  Buttons that are too small or too close together can frustrate players and make gameplay less fun. Each platform defines a recommended minimum button size based on its default interaction method. For example, buttons in iOS must be at...
+  Buttons that are too small or too close together can frustrate players and make gameplay less fun. Each platform defines a recommended minimum button size based on its default interaction method. For example, buttons in iOS must be at least 44x44 pt to accommodate touch interaction. For guidance, see [Buttons](https://developer.apple.com/design/human-interface-guidelines/buttons).
 - **Prefer resolution-independent textures and graphics.**
   If creating resolution-independent assets isn’t possible, match the resolution of your game to the resolution of the device. In visionOS, prefer vector-based art that can continue to look good when the system dynamically scales it as...
 - **Integrate device features into your layout.**
@@ -1565,7 +1565,7 @@ Grep this file to review something against the guidelines without reading 178 pa
 - **Minimize visual distractions.**
   When there’s a lot of visual noise, it can be difficult for people to find the object they’re looking for. Visual movement can be even more distracting: When people sense movement — especially in their peripheral vision — they tend to...
 - **Make it easy for people to look at an item by providing enough space around it.**
-  Because eyes naturally tend to make small, quick adjustments in direction even while people are looking at one place, crowding UI objects together can make it difficult for people to look at one of them without jumping to another. You...
+  Because eyes naturally tend to make small, quick adjustments in direction even while people are looking at one place, crowding UI objects together can make it difficult for people to look at one of them without jumping to another. You can help ensure that there’s enough space between interactive items by using a margin of at least 16 points around the bounds of each item or by placing items so that their centers are always at least 60 points apart. For additional layout guidance, see [Layout](https://developer.apple.com/design/human-interface-guidelines/layout) and [Spatial layout](https://developer.apple.com/design/human-interface-guidelines/spatial-layout).
 - **Avoid using a repeating pattern or texture that fills the field of view.**
   In some cases, people’s eyes can lock onto different elements in a pattern or texture, making the elements appear to have different depths. To avoid this effect, consider using the pattern in a smaller area.
 - **Consider using subtle visual cues to encourage people to look at the item they’re most likely to want.**
@@ -2086,13 +2086,13 @@ Grep this file to review something against the guidelines without reading 178 pa
 - **Designing a single, expressive image for the background fill can be a great way to help people understand and recognize a document type.** `[macOS]`
   For example, Xcode and TextEdit both use rich background images that don’t include a center image.
 - **Consider reducing complexity in the small versions of your document icon.** `[macOS]`
-  Icon details that are clear in large versions can look blurry and be hard to recognize in small versions. For example, to ensure that the grid lines in the custom heart document icon remain clear in intermediate sizes, you might use...
+  Icon details that are clear in large versions can look blurry and be hard to recognize in small versions. For example, to ensure that the grid lines in the custom heart document icon remain clear in intermediate sizes, you might use fewer lines and thicken them by aligning them to the reduced pixel grid. In the 16x16 px size, you might remove the lines altogether.
 - **Avoid placing important content in the top-right corner of your background fill.** `[macOS]`
   The system automatically masks your image to fit the document icon shape and draws the white folded corner on top of the fill. Create a set of background images in the sizes listed below.
 - **If a familiar object can convey a document’s type or its connection with your app, consider creating a center image that depicts it.** `[macOS]`
-  Design a simple, unambiguous image that’s clear and recognizable at every size. The center image measures half the size of the overall document icon canvas. For example, to create a center image for a 32x32 px document icon, use an...
+  Design a simple, unambiguous image that’s clear and recognizable at every size. The center image measures half the size of the overall document icon canvas. For example, to create a center image for a 32x32 px document icon, use an image canvas that measures 16x16 px. You can provide center images in the following sizes:
 - **Define a margin that measures about 10% of the image canvas and keep most of the image within it.** `[macOS]`
-  Although parts of the image can extend into this margin for optical alignment, it’s best when the image occupies about 80% of the image canvas. For example, most of the center image in a 256x256 px canvas would fit in an area that...
+  Although parts of the image can extend into this margin for optical alignment, it’s best when the image occupies about 80% of the image canvas. For example, most of the center image in a 256x256 px canvas would fit in an area that measures 205x205 px.
 - **Specify a succinct term if it helps people understand your document type.** `[macOS]`
   By default, the system displays a document’s extension at the bottom edge of the document icon, but if the extension is unfamiliar you can supply a more descriptive term. For example, the document icon for a SceneKit scene file uses the...
 
@@ -2468,7 +2468,7 @@ Grep this file to review something against the guidelines without reading 178 pa
 - **If you need to display additional controls that don’t belong within a window, use an ornament.** `[visionOS]`
   An ornament lets you offer app controls that remain visually associated with a window without interfering with the system-provided controls. For example, a window’s toolbar and tab bar appear as ornaments. For guidance, see...
 - **Make a window’s interactive components easy for people to look at.** `[visionOS]`
-  You need to include enough space around an interactive component so that visually identifying it is easy and comfortable, and to prevent the system-provided hover effect from obscuring other content. For example, place buttons so their...
+  You need to include enough space around an interactive component so that visually identifying it is easy and comfortable, and to prevent the system-provided hover effect from obscuring other content. For example, place buttons so their centers are at least 60 points apart. For guidance, see [Eyes](https://developer.apple.com/design/human-interface-guidelines/eyes), [Spatial layout](https://developer.apple.com/design/human-interface-guidelines/spatial-layout), and [visionOS](https://developer.apple.com/design/human-interface-guidelines/buttons#visionOS).
 - **Design your content to extend from one edge of the screen to the other.** `[watchOS]`
   The Apple Watch bezel provides a natural visual padding around your content. To avoid wasting valuable space, consider minimizing the padding between elements.
 - **Avoid placing more than two or three controls side by side in your interface.** `[watchOS]`
@@ -2574,7 +2574,7 @@ Grep this file to review something against the guidelines without reading 178 pa
 - **Let people track multiple events efficiently with a single Live Activity.**
   Instead of creating separate Live Activities people need to jump between to track different events, prefer a single Live Activity that uses a dynamic layout and rotates through events. For example, a sports app could offer a single Live...
 - **Always end a Live Activity immediately when the task or event ends, and consider setting a custom dismissal time.**
-  When a Live Activity ends, the system immediately removes it from the Dynamic Island and in CarPlay. On the Lock Screen, in the Mac menu bar, and the watchOS Smart Stack, it remains for up to four hours. Depending on the Live Activity,...
+  When a Live Activity ends, the system immediately removes it from the Dynamic Island and in CarPlay. On the Lock Screen, in the Mac menu bar, and the watchOS Smart Stack, it remains for up to four hours. Depending on the Live Activity, showing a summary may only be relevant for a brief time after it ends. Consider choosing a custom dismissal time that’s proportional to the duration of your Live Activity. In most cases, 15 to 30 minutes is adequate. For example, a rideshare app could end its Live Activity when a ride completes and remain visible for 30 minutes to allow people to view the ride summary and leave a tip. For developer guidance, refer to [Displaying live data with Live Activities](https://developer.apple.com/documentation/activitykit/displaying-live-data-with-live-activities).
 - **Start with the iPhone design, then refine it for other contexts.**
   Create standard designs for each presentation first. Then, depending on the functionality that your Live Activity provides, design additional custom layouts for specific contexts like iPhone in StandBy, CarPlay, or Apple Watch. For more...
 - **Focus on the most important information.**
@@ -2830,7 +2830,7 @@ Grep this file to review something against the guidelines without reading 178 pa
 - **Know what your confidence values mean before you decide how to present them.**
   For example, people may forgive low-quality results from [critical or complementary](#Critical-or-complementary) features — especially when results are accompanied by [attribution](#Attribution) or other contextual information — but...
 - **In general, translate confidence values into concepts that people already understand.**
-  Simply displaying a confidence value doesn’t necessarily help people understand how it relates to a result. For example, a feature that suggests new music based on a person’s listening habits might calculate that there’s a 97% match...
+  Simply displaying a confidence value doesn’t necessarily help people understand how it relates to a result. For example, a feature that suggests new music based on a person’s listening habits might calculate that there’s a 97% match between a new song and the songs they usually listen to. However, displaying “97% match” next to the new song as an attribution doesn’t communicate enough information to help people make a choice. In contrast, providing an attribution that clearly identifies the behavior — such as “Because you listen to pop music” — can be more actionable.
 - **In situations where attributions aren’t helpful, consider ranking or ordering the results in a way that implies confidence levels.**
   If you must display confidence directly, consider expressing it in terms of semantic categories. For example, a feature that predicts travel prices might replace ranges of confidence numbers with categories like “high chance” and “low...
 - **In scenarios where people expect statistical or numerical information, display confidence values that help them interpret the results.**
@@ -3207,7 +3207,7 @@ Grep this file to review something against the guidelines without reading 178 pa
 - **Provide up to four custom actions below the content area.** `[watchOS]`
   For each long look, the system uses the notification’s type to determine which of your custom actions to display as buttons in the notification UI. In addition, the system always displays a Dismiss button at the bottom of the long-look...
 - **Keep double tap in mind when choosing the order of custom actions you present as responses to a notification.** `[watchOS]`
-  Because a double tap runs the first nondestructive action, consider placing the action that people use most frequently at the top of the list. For example, a parking app that provides custom actions for extending the time on a paid...
+  Because a double tap runs the first nondestructive action, consider placing the action that people use most frequently at the top of the list. For example, a parking app that provides custom actions for extending the time on a paid parking spot could offer options to extend the time by 5 minutes, 15 minutes, or an hour, with the most common choice listed first.
 
 ## Offering help
 <sub>`pages/offering-help.md`</sub>
@@ -3219,7 +3219,7 @@ Grep this file to review something against the guidelines without reading 178 pa
 - **Make sure all help content is inclusive.**
   For guidance, see [Inclusion](https://developer.apple.com/design/human-interface-guidelines/inclusion).
 - **Avoid bloating your help content by explaining how standard components or patterns work.**
-  Instead, describe the specific action or task that a standard element performs in your app or game. If your experience introduces a unique control or expects people to use an input device in a nonstandard way — such as holding the Siri...
+  Instead, describe the specific action or task that a standard element performs in your app or game. If your experience introduces a unique control or expects people to use an input device in a nonstandard way — such as holding the Siri Remote rotated 90 degrees — orient people quickly, preferring animation or graphics to educate instead of a lengthy description.
 - **Use the most appropriate tip type for your app’s user interface.**
   Display a popover tip when you want to preserve the content flow, or an inline tip when you want to ensure that surrounding information is visible. You can use an annotation-style inline tip when pointing to a specific UI element, or a...
 - **Use tips for simple features.**
@@ -3552,7 +3552,7 @@ Grep this file to review something against the guidelines without reading 178 pa
 - **Prefer the system-provided pointer appearances for standard buttons and text-entry areas.** `[iPadOS]`
   You can help people feel more comfortable with your app when the pointer behaves in ways they expect.
 - **Add padding around interactive elements to create comfortable hit regions.** `[iPadOS]`
-  You might need to experiment to determine the right size for an element’s hit region. If the hit region is too small, it can make people feel that they have to be extra precise when interacting with the element. On the other hand, when...
+  You might need to experiment to determine the right size for an element’s hit region. If the hit region is too small, it can make people feel that they have to be extra precise when interacting with the element. On the other hand, when an element’s hit region is too large, people can feel that it takes a lot of effort to pull the pointer away from the element. In general, it works well to add about 12 points of padding around elements that include a bezel; for elements without a bezel, it works well to add about 24 points of padding around the element’s visible edges.
 - **Create contiguous hit regions for custom bar buttons.** `[iPadOS]`
   If there’s space between the hit regions of adjacent buttons in a bar, people may experience a distracting motion when the pointer reverts briefly to its default shape as it moves between buttons.
 - **Specify the corner radius of a nonstandard element that receives the lift effect.** `[iPadOS]`
@@ -3831,7 +3831,7 @@ Grep this file to review something against the guidelines without reading 178 pa
 - **Preserve the direction of a control that refers to an actual direction or points to an onscreen area.**
   For example, if you provide a control that means “to the right,” it must always point right, regardless of the current context.
 - **Visually balance adjacent Latin and RTL scripts when necessary.**
-  In buttons, labels, and titles, Arabic or Hebrew text can appear too small when next to uppercased Latin text, because Arabic and Hebrew don’t include uppercase letters. To visually balance Arabic or Hebrew text with Latin text that...
+  In buttons, labels, and titles, Arabic or Hebrew text can appear too small when next to uppercased Latin text, because Arabic and Hebrew don’t include uppercase letters. To visually balance Arabic or Hebrew text with Latin text that uses all capitals, it often works well to increase the RTL font size by about 2 points.
 - **Avoid flipping images like photographs, illustrations, and general artwork.**
   Flipping an image often changes the image’s meaning; flipping a copyrighted image could be a violation. If an image’s content is strongly connected to reading direction, consider creating a new version of the image instead of flipping...
 - **Reverse the positions of images when their order is meaningful.**
@@ -4216,7 +4216,7 @@ Grep this file to review something against the guidelines without reading 178 pa
 - **Choose the format of the logo file based on the height of your button.**
   Because SVG and PDF are vector-based formats, you can use these files in buttons of any height. Use the PNG files only in buttons that are 44 points tall, which is the default (and recommended) button height in iOS. Logos are available...
 - **Prefer the system font for the title — that is, Sign in with Apple, Sign up with Apple, or Continue with Apple.**
-  Regardless of the font you choose, the title and button height of your custom button need to use the same proportions that the system uses. Using the system font for example, the title’s font size would be 43% of the button’s height —...
+  Regardless of the font you choose, the title and button height of your custom button need to use the same proportions that the system uses. Using the system font for example, the title’s font size would be 43% of the button’s height — in other words, the button’s height would be 233% of the title’s font size, rounded to the nearest integer. Here are two examples that show these proportions using different sizes of the system font.
 - **In general, preserve the capitalization style of the title.**
   By default, all variants of the button title capitalize the first word — that is, *Sign* or *Continue* — and *Apple*; all other letters are lowercase. Avoid changing this style unless your interface uses only uppercase.
 - **Keep the title and logo vertically aligned within the button.**
@@ -4280,7 +4280,7 @@ Grep this file to review something against the guidelines without reading 178 pa
 - **Customize a slider’s appearance if it adds value.**
   You can adjust a slider’s appearance — including track color, thumb image and tint color, and left and right icons — to blend with your app’s design and communicate intent. A slider that adjusts image size, for example, could show a...
 - **Use familiar slider directions.**
-  People expect the minimum and maximum sides of sliders to be consistent in all apps, with minimum values on the leading side and maximum values on the trailing side (for horizontal sliders) and minimum values at the bottom and maximum...
+  People expect the minimum and maximum sides of sliders to be consistent in all apps, with minimum values on the leading side and maximum values on the trailing side (for horizontal sliders) and minimum values at the bottom and maximum values at the top (for vertical sliders). For example, people expect to be able to move a horizontal slider that represents a percentage from 0 percent on the leading side to 100 percent on the trailing side.
 - **Consider supplementing a slider with a corresponding text field and stepper.**
   Especially when a slider represents a wide range of values, people may appreciate seeing the exact slider value and having the ability to enter a specific value in a text field. Adding a stepper provides a convenient way for people to...
 - **Don’t use a slider to adjust audio volume.** `[iOS, iPadOS]`
@@ -4288,7 +4288,7 @@ Grep this file to review something against the guidelines without reading 178 pa
 - **Consider giving live feedback as the value of a slider changes.** `[macOS]`
   Live feedback shows people results in real time. For example, your Dock icons are dynamically scaled when adjusting the Size slider in Dock settings.
 - **Choose a slider style that matches peoples’ expectations.** `[macOS]`
-  A horizontal slider is ideal when moving between a fixed starting and ending point. For example, a graphics app might offer a horizontal slider for setting the opacity level of an object between 0 and 100 percent. Use circular sliders...
+  A horizontal slider is ideal when moving between a fixed starting and ending point. For example, a graphics app might offer a horizontal slider for setting the opacity level of an object between 0 and 100 percent. Use circular sliders when values repeat or continue indefinitely. For example, a graphics app might use a circular slider to adjust the rotation of an object between 0 and 360 degrees. An animation app might use a circular slider to adjust how many times an object spins when animated — four complete rotations equals four spins, or 1440 degrees of rotation.
 - **Consider using a label to introduce a slider.** `[macOS]`
   Labels generally use [sentence-style capitalization](https://help.apple.com/applestyleguide/#/apsgb744e4a3?sub=apdca93e113f1d64) and end with a colon. For guidance, see...
 - **Use tick marks to increase clarity and accuracy.** `[macOS]`
@@ -4338,7 +4338,7 @@ Grep this file to review something against the guidelines without reading 178 pa
 - **Rely on the Digital Crown to help people recenter windows in their field of view.**
   When people move or turn their head, content might no longer appear where they want it to. If this happens, people can press the [Digital Crown](https://developer.apple.com/design/human-interface-guidelines/digital-crown) when they want...
 - **Include enough space around interactive components to make them easy for people to look at.**
-  When people look at an interactive element, visionOS displays a visual hover effect that helps them confirm the element is the one they want. It’s crucial to include enough space around an interactive component so that looking at it is...
+  When people look at an interactive element, visionOS displays a visual hover effect that helps them confirm the element is the one they want. It’s crucial to include enough space around an interactive component so that looking at it is easy and comfortable, while preventing the hover effect from crowding other content. For example, place multiple, regular-size [visionOS](https://developer.apple.com/design/human-interface-guidelines/buttons#visionOS) so their centers are at least 60 points apart, leaving 16 points or more of space between them. Also, don’t let controls overlap other interactive elements or views, because doing so can make selecting a single element difficult.
 - **Let people use your app with minimal or no physical movement.**
   Unless some physical movement is essential to your experience, help everyone enjoy it while remaining stationary.
 - **Use the floor to help you place a large immersive experience.**
@@ -4586,7 +4586,7 @@ Grep this file to review something against the guidelines without reading 178 pa
 - **Consider grouping menu items into submenus to conserve vertical space.** `[iPadOS]`
   Menu item rows on iPad use more space than on Mac to make them easier to tap. Because of this, and the smaller screen sizes of some iPads, it can be helpful to group related items into submenus more frequently than in the menu bar on Mac.
 - **Consider using a symbol to represent your menu bar extra.** `[macOS]`
-  You can create an [Icons](https://developer.apple.com/design/human-interface-guidelines/icons) or you can choose one of the [SF Symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols), using it as-is or...
+  You can create an [Icons](https://developer.apple.com/design/human-interface-guidelines/icons) or you can choose one of the [SF Symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols), using it as-is or customizing it to suit your needs. Both interface icons and symbols use black and clear colors to define their shapes; the system can apply other colors to the black areas in each image so it looks good on both dark and light menu bars, and when your menu bar extra is selected. The menu bar’s height is 24 pt.
 - **Display a menu — not a popover — when people click your menu bar extra.** `[macOS]`
   Unless the app functionality you want to expose is too complex for a menu, avoid presenting it in a [Popovers](https://developer.apple.com/design/human-interface-guidelines/popovers).
 - **Let people — not your app — decide whether to put your menu bar extra in the menu bar.** `[macOS]`
@@ -4915,7 +4915,7 @@ Grep this file to review something against the guidelines without reading 178 pa
 - **Supply a high-resolution logo image that uses a nontransparent background.**
   The system displays your logo image in the dashboard and detail view, so you want to make sure that people can instantly recognize it at various sizes. Use the PNG or JPEG format to create a logo image that measures 300x300 pixels. To...
 - **Supply distinct, high-resolution product images that use nontransparent backgrounds.**
-  The system displays a product’s image — along with descriptive information you supply — in the detail views, order dashboard, and notifications for an order or a fulfillment. When creating a product image, use a straightforward...
+  The system displays a product’s image — along with descriptive information you supply — in the detail views, order dashboard, and notifications for an order or a fulfillment. When creating a product image, use a straightforward depiction and a solid, nontransparent background. Showing a product in a “lifestyle” context or against a busy background can make the item hard to distinguish at small sizes. For each product, use the PNG or JPEG format to create an image that measures 300x300 pixels.
 - **In general, keep text brief.**
   People appreciate being able to read text at a glance, and the system can truncate text that’s too long.
 - **Use clear, approachable language, and localize the text you provide.**
@@ -5019,7 +5019,7 @@ Grep this file to review something against the guidelines without reading 178 pa
 - **Offer interactivity while remaining glanceable and uncluttered.**
   Multiple interaction targets — SwiftUI links, buttons, and toggles — might make sense for your content, but avoid creating app-like layouts in your widgets. Pay attention to the size of targets and make sure people can tap or click them...
 - **In general, use standard margins to ensure legibility.**
-  Use the standard margin width for widgets — 16 points for most widgets — to avoid crowding their edges and creating a cluttered appearance. If you need to use tighter margins — for example, to create content groupings for graphics,...
+  Use the standard margin width for widgets — 16 points for most widgets — to avoid crowding their edges and creating a cluttered appearance. If you need to use tighter margins — for example, to create content groupings for graphics, buttons, or background shapes — setting margins of 11 points can work well. Additionally, note that widgets use smaller margins on the desktop on Mac and on the Lock Screen, including in StandBy. For developer guidance, see [padding(_:_:)](https://developer.apple.com/documentation/swiftui/view/padding(_:_:)).
 - **Coordinate the corner radius of your content with the corner radius of the widget.**
   To ensure that your content looks good within a widget’s rounded corners, use a SwiftUI container to apply the correct corner radius. For developer guidance, see...
 - **Prefer using the system font, text styles, and SF Symbols.**
@@ -5177,7 +5177,7 @@ Grep this file to review something against the guidelines without reading 178 pa
 - **Provide clear next steps on any blank screens.**
   An empty state, like a completed to-do list or bookmarks folder with nothing in it, can provide a good opportunity to make people feel welcome and educate them about your app. Empty states can also showcase your app’s voice, but make...
 - **Write clear error messages.**
-  It’s always best to help people avoid errors. When an error message is necessary, display it as close to the problem as possible, avoid blame, and be clear about what someone can do to fix it. For example, “That password is too short”...
+  It’s always best to help people avoid errors. When an error message is necessary, display it as close to the problem as possible, avoid blame, and be clear about what someone can do to fix it. For example, “That password is too short” isn’t as helpful as “Choose a password with at least 8 characters.” Remember that errors can be frustrating. Interjections like “oops!” or “uh-oh” are typically unnecessary and can sound insincere. If you find that language alone can’t address an error that’s likely to affect many people, use that as an opportunity to rethink the interaction.
 - **Choose the right delivery method.**
   There are many ways to get people’s attention, whether or not they are actively using your app. When there’s something you want to communicate, consider the urgency and importance of the message. Think about the context in which someone...
 - **Keep settings labels clear and simple.**

@@ -92,7 +92,7 @@ Counts are **rules**, not mentions — a page that says "contrast" in passing is
 
 ## contrast
 
-57 rule(s) across 40 page(s). ⚠︎ **No page of its own — the guidance is filed under the topics below.**
+58 rule(s) across 41 page(s). ⚠︎ **No page of its own — the guidance is filed under the topics below.**
 
 - **Color** — 4 rule(s) · `pages/color.md`
 - **Widgets** — 4 rule(s) · `pages/widgets.md`
@@ -102,7 +102,7 @@ Counts are **rules**, not mentions — a page that says "contrast" in passing is
 - **Accessibility** — 2 rule(s) · `pages/accessibility.md`
 - **Buttons** — 2 rule(s) · `pages/buttons.md`
 - **Live Activities** — 2 rule(s) · `pages/live-activities.md`
-- <sub>also: Page controls, Panels, Action sheets, Activity views, App Clips, App icons, Apple Pencil and Scribble, CareKit, Charts, Eyes, Feedback, Home Screen quick actions, Icons, Image views, Images, Immersive experiences, Maps, Motion, Offering help, Onboarding, Playing audio, SF Symbols, Sheets, Snippets, Spatial layout, Split views, Steppers, Toggles, Toolbars, Wallet, Windows, Workouts</sub>
+- <sub>also: Page controls, Panels, Action sheets, Activity views, App Clips, App icons, Apple Pencil and Scribble, CareKit, Charts, Eyes, Feedback, Home Screen quick actions, Icons, Image views, Images, Immersive experiences, Machine learning, Maps, Motion, Offering help, Onboarding, Playing audio, SF Symbols, Sheets, Snippets, Spatial layout, Split views, Steppers, Toggles, Toolbars, Wallet, Windows, Workouts</sub>
 
 ## color blindness
 
@@ -126,7 +126,7 @@ Counts are **rules**, not mentions — a page that says "contrast" in passing is
 
 ## animation & motion
 
-69 rule(s) across 42 page(s). Home page: `pages/motion.md`.
+71 rule(s) across 44 page(s). Home page: `pages/motion.md`.
 
 - **Motion** — 9 rule(s) · `pages/motion.md`
 - **SF Symbols** — 7 rule(s) · `pages/sf-symbols.md`
@@ -136,7 +136,7 @@ Counts are **rules**, not mentions — a page that says "contrast" in passing is
 - **Design principles** — 2 rule(s) · `pages/design-principles.md`
 - **Eyes** — 2 rule(s) · `pages/eyes.md`
 - **Gyroscope and accelerometer** — 2 rule(s) · `pages/gyro-and-accelerometer.md`
-- <sub>also: Image views, Immersive experiences, Loading, Pointing devices, Always On, App Clips, Apple Pencil and Scribble, CarPlay, Charting data, Charts, Collections, Color, Complications, Context menus, Controls, Digital Crown, Drag and drop, Feedback, File management, Generative AI, Gestures, Images, Layout, Live Photos, Notifications, Page controls, Popovers, Progress indicators, Right to left, Scroll views, Tap to Pay on iPhone, Widgets, Workouts, iMessage apps and stickers</sub>
+- <sub>also: Image views, Immersive experiences, Loading, Pointing devices, Always On, App Clips, Apple Pencil and Scribble, CarPlay, Charting data, Charts, Collections, Color, Complications, Context menus, Controls, Digital Crown, Drag and drop, Feedback, File management, Generative AI, Gestures, Images, Layout, Live Photos, Notifications, Offering help, Page controls, Popovers, Progress indicators, Right to left, Scroll views, Sliders, Tap to Pay on iPhone, Widgets, Workouts, iMessage apps and stickers</sub>
 
 ## gestures
 
