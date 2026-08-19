@@ -1,0 +1,365 @@
+/* iOS 27 component recipes for the web.
+ *
+ * Hand-authored, built on the measured values in ios-web-tokens.css --
+ * load that first. Colours and control geometry come from the kit; the
+ * layout numbers (padding, gaps, list insets) come from the HIG corpus
+ * where it states them, and are marked where it doesn't.
+ *
+ * Load order:
+ *     <link rel="stylesheet" href="ios-web-tokens.css">
+ *     <link rel="stylesheet" href="ios-web-components.css">
+ */
+
+:root {
+  /* Not measured. The kit exports components on transparent or
+     placeholder backgrounds, so there is no screenshot to read a page
+     background off. These are the grouped-content pairing iOS Settings
+     uses: a grey page with white cards floating on it, inverting to a
+     black page with near-black cards in dark. Getting this backwards --
+     white page, grey cards -- is the single fastest way to make a web
+     page read as "not quite iOS". */
+  --ios-bg: #F2F2F7;          /* systemGroupedBackground: the page */
+  --ios-bg-card: #FFFFFF;     /* secondarySystemGroupedBackground: rows */
+  --ios-separator: rgba(60, 60, 67, 0.29);
+
+  --ios-radius-card: 10px;
+  --ios-radius-control: 12px;
+  --ios-gutter: 16px;      /* layout.md: standard content margin */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ios-bg: #000000;
+    --ios-bg-card: #1C1C1E;
+    --ios-separator: rgba(84, 84, 88, 0.6);
+  }
+}
+
+body {
+  margin: 0;
+  font: var(--ios-text-body);
+  color: var(--ios-label);
+  background: var(--ios-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------------------------------------------------------------- Buttons
+
+   Four styles, matching what the HIG actually distinguishes: filled for
+   the primary action, tinted and plain for everything else, and a
+   destructive variant that is a *colour* change on any of them rather
+   than a style of its own.
+
+   Every one is at least 44px tall. buttons.md states 44x44 pt as the
+   general rule for a hit region; the accessibility floor of 28x28 is for
+   less important controls, not a licence to shrink the primary action. */
+
+.ios-btn {
+  font: var(--ios-text-body);
+  font-weight: 590;                    /* SF's semibold axis */
+  min-height: var(--ios-hit-target);
+  padding: 11px 20px;
+  border: none;
+  border-radius: 999px;                /* iOS 26+ capsule buttons */
+  color: var(--ios-accent);
+  background: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: opacity .15s ease, background-color .15s ease,
+              transform .1s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ios-btn--filled {
+  background: var(--ios-accent);
+  color: #FFFFFF;
+}
+
+.ios-btn--tinted {
+  /* colour-mix keeps the tint tied to the accent, so re-theming one
+     token re-themes the tint with it */
+  background: color-mix(in srgb, var(--ios-accent) 15%, transparent);
+  color: var(--ios-accent);
+}
+
+.ios-btn--destructive        { color: var(--ios-red); }
+.ios-btn--filled.ios-btn--destructive {
+  background: var(--ios-red);
+  color: #FFFFFF;
+}
+
+/* Pressed. The kit's stepper darkens its fill under press rather than
+   fading it, so this darkens too instead of dropping opacity. */
+.ios-btn:active { transform: scale(.97); }
+.ios-btn--filled:active {
+  background: color-mix(in srgb, var(--ios-accent) 85%, #000);
+}
+.ios-btn--filled.ios-btn--destructive:active {
+  background: color-mix(in srgb, var(--ios-red) 85%, #000);
+}
+
+.ios-btn:disabled {
+  opacity: var(--ios-disabled-opacity);
+  cursor: default;
+  transform: none;
+}
+
+.ios-btn:focus-visible {
+  outline: 3px solid var(--ios-accent);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------- Switch
+
+   64x28 with a 14 radius, measured off the kit. The knob is a white
+   circle inset 2px; "on" is systemGreen, "off" is the translucent grey
+   fill. Built on a real checkbox so it is keyboard- and
+   screen-reader-operable without extra work. */
+
+.ios-switch {
+  position: relative;
+  display: inline-block;
+  width: var(--ios-switch-w);
+  height: var(--ios-switch-h);
+  flex: none;
+}
+
+.ios-switch input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
+}
+
+.ios-switch__track {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--ios-switch-radius);
+  background: var(--ios-fill-track);
+  transition: background-color .2s ease;
+  pointer-events: none;
+}
+
+.ios-switch__track::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: calc(var(--ios-switch-h) - 4px);
+  height: calc(var(--ios-switch-h) - 4px);
+  border-radius: 50%;
+  background: #FFFFFF;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .18);
+  transition: transform .2s ease;
+}
+
+.ios-switch input:checked + .ios-switch__track {
+  background: var(--ios-green);
+}
+
+.ios-switch input:checked + .ios-switch__track::after {
+  transform: translateX(calc(var(--ios-switch-w) - var(--ios-switch-h)));
+}
+
+.ios-switch input:disabled + .ios-switch__track {
+  opacity: var(--ios-disabled-opacity);
+}
+
+.ios-switch input:focus-visible + .ios-switch__track {
+  outline: 3px solid var(--ios-accent);
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------ Grouped list
+
+   The inset grouped list is the single most recognisable iOS layout, and
+   the detail people get wrong is the separator: it starts at the text,
+   not at the card edge, and the last row has none at all. */
+
+.ios-list {
+  list-style: none;
+  margin: 0 var(--ios-gutter);
+  padding: 0;
+  background: var(--ios-bg-card);
+  border-radius: var(--ios-radius-card);
+  overflow: hidden;
+}
+
+.ios-list__row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: var(--ios-hit-target);
+  padding: 11px var(--ios-gutter);
+  position: relative;
+}
+
+.ios-list__row + .ios-list__row::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: var(--ios-gutter);
+  right: 0;
+  height: 1px;
+  background: var(--ios-separator);
+  transform: scaleY(.5);          /* hairline on 2x displays */
+  transform-origin: top;
+}
+
+.ios-list__row--tappable { cursor: pointer; }
+.ios-list__row--tappable:active {
+  background: color-mix(in srgb, var(--ios-label) 8%, transparent);
+}
+
+.ios-list__title { flex: 1; }
+.ios-list__value {
+  color: var(--ios-label-secondary);
+  text-align: right;
+}
+
+.ios-list__chevron {
+  color: var(--ios-label-tertiary);
+  flex: none;
+}
+
+.ios-list__header {
+  font: var(--ios-text-footnote);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--ios-label-secondary);
+  margin: 24px calc(var(--ios-gutter) * 2) 7px;
+}
+
+.ios-list__footer {
+  font: var(--ios-text-footnote);
+  color: var(--ios-label-secondary);
+  margin: 7px calc(var(--ios-gutter) * 2) 0;
+}
+
+/* ------------------------------------------------------------- Text field */
+
+.ios-field {
+  font: var(--ios-text-body);
+  color: var(--ios-label);
+  background: var(--ios-surface);
+  border: none;
+  border-radius: var(--ios-radius-control);
+  padding: 12px var(--ios-gutter);
+  min-height: var(--ios-hit-target);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.ios-field::placeholder { color: var(--ios-label-tertiary); }
+
+.ios-field:focus {
+  outline: 2px solid var(--ios-accent);
+  outline-offset: -2px;
+}
+
+/* -------------------------------------------------------- Segmented control
+
+   A real radiogroup underneath, so arrow keys work and the selection is
+   announced. The selected segment is a raised white pill on the track. */
+
+.ios-segmented {
+  display: inline-flex;
+  background: var(--ios-fill-control);
+  border-radius: 9px;
+  padding: 2px;
+  gap: 2px;
+}
+
+.ios-segmented label {
+  position: relative;
+  flex: 1;
+  text-align: center;
+  padding: 7px 14px;
+  border-radius: 7px;
+  font: var(--ios-text-subhead);
+  color: var(--ios-label);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.ios-segmented input { position: absolute; opacity: 0; inset: 0; margin: 0; }
+
+/* The selected pill is drawn on the label itself rather than a stacked
+   pseudo-element, so it can't drift out of alignment with its own box. */
+.ios-segmented label:has(input:checked) {
+  background: var(--ios-bg-card);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, .12);
+}
+
+.ios-segmented label:has(input:focus-visible) {
+  outline: 3px solid var(--ios-accent);
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------- Tab bar
+
+   Bottom-anchored, safe-area aware. The selected item takes the accent;
+   the rest sit at secondary. */
+
+.ios-tabbar {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  background: color-mix(in srgb, var(--ios-bg) 80%, transparent);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-top: 1px solid var(--ios-separator);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.ios-tabbar__item {
+  flex: 1;
+  min-height: 49px;                 /* iOS tab bar height */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font: var(--ios-text-caption2);
+  color: var(--ios-label-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.ios-tabbar__item[aria-selected="true"] { color: var(--ios-accent); }
+
+/* --------------------------------------------------------------- Material
+
+   Liquid Glass is a real-time refraction the browser cannot reproduce.
+   backdrop-filter gets the blur and the saturation lift, which is the
+   part that reads at a glance, and nothing gets the refraction. Use it
+   over content that actually scrolls behind it, or it just looks like a
+   flat grey. */
+
+.ios-material {
+  background: color-mix(in srgb, var(--ios-bg) 72%, transparent);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .ios-material,
+  .ios-tabbar {
+    background: var(--ios-bg);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ios-btn,
+  .ios-switch__track,
+  .ios-switch__track::after { transition: none; }
+}
