@@ -68,6 +68,10 @@ def norm(s):
     s = s.replace("’", "'").replace("‘", "'")
     s = s.replace("“", '"').replace("”", '"')
     s = re.sub(r"[–—−]", "-", s)
+    # Elision marks, normalized to one spelling. SKILL.md asks for "[…]"
+    # when cutting from the middle of a quote, so a checker that only
+    # understood "..." flagged writers for following its own instruction.
+    s = re.sub(r"\[\s*(?:\.\.\.|…)\s*\]|…", "...", s)
     s = re.sub(r"[*_`]", "", s)                      # markdown emphasis
     s = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", s)   # links -> label
     s = re.sub(r"\s+", " ", s)
