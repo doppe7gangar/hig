@@ -342,10 +342,8 @@ body {
   bottom: 0;
   display: flex;
   justify-content: space-around;
-  background: color-mix(in srgb, var(--ios-bg) 80%, transparent);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border-top: 1px solid var(--ios-separator);
+  border-width: 0.5px 0 0 0;
+  border-radius: 0;
   padding-bottom: env(safe-area-inset-bottom, 0);
 }
 
@@ -368,25 +366,178 @@ body {
 
 /* --------------------------------------------------------------- Material
 
-   Liquid Glass is a real-time refraction the browser cannot reproduce.
-   backdrop-filter gets the blur and the saturation lift, which is the
-   part that reads at a glance, and nothing gets the refraction. Use it
-   over content that actually scrolls behind it, or it just looks like a
-   flat grey. */
+   Liquid Glass. The browser cannot do the real thing -- that is a
+   real-time refraction of what sits behind the surface -- but the parts
+   that make it *read* as glass are all reproducible, and leaving them
+   out is why a plain backdrop-filter looks like flat grey.
 
-.ios-material {
-  background: color-mix(in srgb, var(--ios-bg) 72%, transparent);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
+   Measured off Materials/_Liquid Glass at 4x, the surface has four
+   layers, not one:
+
+     rim        a hairline that is not the same all the way round. Light
+                comes from above, so in dark mode the top edge is #7E7E7E
+                against a #1A1A1A body -- a bright specular line -- while
+                the sides go to #151515, darker than the body. In light
+                mode the whole rim is darker than the body (#C5 top, #97
+                sides on a #F9F9F9 face), so it reads as an outline.
+     falloff    just inside the rim, a band grading back to the body over
+                about 1.5pt: #949494 -> #434343 -> #1F1F1F -> #1A1A1A.
+     body       very slightly darker at the centre than at the edges.
+     ambient    a wide soft shadow, 8% black in light and 15% in dark at
+                the edge, still 3-5% sixteen points out.
+
+   It only works over something. Put it on a flat background and there is
+   nothing to refract and nothing to blur, and it collapses to a grey
+   box. */
+
+.ios-glass,
+.ios-material,
+.ios-navbar,
+.ios-tabbar {
+  position: relative;
+  background: linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--ios-bg-card) 62%, transparent),
+      color-mix(in srgb, var(--ios-bg-card) 78%, transparent));
+  backdrop-filter: saturate(180%) blur(24px);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
+  border: 0.5px solid rgba(0, 0, 0, .14);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .55),
+    inset 0 -1px 0 rgba(255, 255, 255, .18),
+    0 2px 8px rgba(0, 0, 0, .06),
+    0 12px 32px rgba(0, 0, 0, .08);
+}
+
+@media (prefers-color-scheme: dark) {
+  .ios-glass,
+  .ios-material,
+  .ios-navbar,
+  .ios-tabbar {
+    border-color: rgba(255, 255, 255, .10);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, .34),
+      inset 0 -1px 0 rgba(255, 255, 255, .08),
+      0 2px 8px rgba(0, 0, 0, .30),
+      0 12px 32px rgba(0, 0, 0, .15);
+  }
+}
+
+/* The falloff band. A pseudo-element rather than another gradient on the
+   background, so the backdrop-filter underneath is not disturbed. */
+.ios-glass::before,
+.ios-material::before,
+.ios-navbar::before,
+.ios-tabbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, .22) 0,
+      rgba(255, 255, 255, 0) 6px);
+}
+
+/* The kit ships the tint as named variants, not as one value. Measured
+   from Materials/_Liquid Glass small swatches, "Light" and "Dark" Liquid
+   Glass turn out to be the same neutral grey at two strengths rather
+   than a white-versus-black pair, and "Prominent" is not a tint at all --
+   it is the accent filled in solid, which is what a primary action gets.
+
+   Pick by what is behind the surface: --light over busy or bright
+   content so the colour survives, --dark over quiet content where the
+   control needs to separate from it. */
+.ios-glass--light {
+  background: rgba(115, 115, 128, .078);   /* Inactive Light, a=20/255 */
+}
+
+.ios-glass--dark {
+  background: rgba(116, 116, 128, .18);    /* Inactive Dark, a=46/255 */
+}
+
+.ios-glass--prominent {
+  background: var(--ios-accent);           /* Active Prominent, opaque */
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, .22);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .38),
+    0 2px 8px rgba(0, 0, 0, .12),
+    0 12px 32px rgba(0, 0, 0, .16);
+}
+
+.ios-glass--prominent::before { opacity: .5; }
+
+/* Clear: the variant with almost no tint, for glass over vivid content
+   where a milky fill would kill the colour underneath. */
+.ios-glass--clear {
+  background: color-mix(in srgb, var(--ios-bg-card) 22%, transparent);
+  backdrop-filter: saturate(200%) blur(12px);
+  -webkit-backdrop-filter: saturate(200%) blur(12px);
+}
+
+.ios-glass--capsule { border-radius: 999px; }
+.ios-glass--card    { border-radius: 22px; }
+
+/* A floating glass button -- the iOS 26 shape that reads as glass fastest,
+   because it sits over scrolling content rather than over a flat panel. */
+.ios-glass-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: var(--ios-hit-target);
+  min-width: var(--ios-hit-target);
+  padding: 11px 20px;
+  border-radius: 999px;
+  font: var(--ios-text-body);
+  font-weight: 590;
+  color: var(--ios-label);
+  cursor: pointer;
+  transition: transform .12s ease;
+}
+
+.ios-glass-btn:active { transform: scale(.96); }
+
+.ios-glass-btn:focus-visible {
+  outline: 3px solid var(--ios-accent);
+  outline-offset: 2px;
+}
+
+/* Bars are the other place glass belongs: content scrolls underneath, so
+   there is always something to refract. */
+.ios-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px var(--ios-gutter);
+  padding-top: calc(10px + env(safe-area-inset-top, 0px));
+  border-width: 0 0 0.5px 0;
+  border-radius: 0;
+  color: var(--ios-accent);
+  font: var(--ios-text-body);
+}
+
+.ios-navbar__title {
+  color: var(--ios-label);
+  font: var(--ios-text-headline);
 }
 
 @media (prefers-reduced-transparency: reduce) {
-  .ios-material,
+  .ios-glass,
+  .ios-glass--clear,
+  .ios-navbar,
   .ios-tabbar {
-    background: var(--ios-bg);
+    background: var(--ios-bg-card);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }
+  .ios-glass::before { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

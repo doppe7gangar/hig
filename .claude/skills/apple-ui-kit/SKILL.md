@@ -118,6 +118,51 @@ Most "iOS-style" web UI fails on these rather than on colour:
   the browser silently drops it, leaving everything at 16px while still
   looking broadly plausible.
 
+## Liquid Glass
+
+A plain `backdrop-filter` is why most "iOS 26 style" web UI looks flat.
+Measured off `Materials/_Liquid Glass` at 4×, the surface is four layers,
+and the blur is the least of them:
+
+- **Rim.** Not uniform. Light comes from above, so in dark mode the top
+  edge is `#7E7E7E` against a `#1A1A1A` body — a bright specular line —
+  while the sides fall to `#151515`, *darker* than the body. In light
+  mode the whole rim is darker than the face (`#C5` top, `#97` sides on
+  `#F9F9F9`), so it reads as an outline instead.
+- **Falloff.** Just inside the rim, a band grading back to the body over
+  ~1.5 pt: `#949494 → #434343 → #1F1F1F → #1A1A1A`.
+- **Body.** Very slightly darker at the centre than at the edges.
+- **Ambient shadow.** Wide and soft — 8% black in light, 15% in dark at
+  the edge, still 3–5% sixteen points out.
+
+```html
+<button class="ios-glass ios-glass--light ios-glass-btn ios-glass--capsule">
+  Focus
+</button>
+```
+
+Tint variants, measured rather than invented. "Light" and "Dark" Liquid
+Glass are the same neutral grey at two strengths, not a white/black pair,
+and "Prominent" isn't a tint at all — it's the accent filled solid:
+
+| Class | Value | Use |
+|---|---|---|
+| `.ios-glass--light` | `rgba(115,115,128,.078)` | over busy or bright content, so colour survives |
+| `.ios-glass--dark` | `rgba(116,116,128,.18)` | over quiet content, where the control must separate |
+| `.ios-glass--prominent` | `var(--ios-accent)`, opaque | the primary action |
+| `.ios-glass--clear` | minimal tint | over vivid artwork |
+
+`.ios-navbar` and `.ios-tabbar` are glass already.
+
+**It only works over something.** Glass is a refraction; on a flat
+background there is nothing to refract and nothing to blur, and it
+collapses to a grey box. If a design has no photography, gradient, or
+scrolling content behind the bars, glass is the wrong material — reach
+for a plain surface rather than faking it.
+
+`prefers-reduced-transparency` drops every glass surface to an opaque
+one, which is the setting Apple's own Reduce Transparency maps to.
+
 ## Contrast: Apple's light palette does not clear Apple's own table
 
 Worth knowing before you ship text in it. `accessibility.md` requires
@@ -158,10 +203,9 @@ change that breaks it fails rather than merely looking fine.
   starts with `system-ui`, which gets you SF on Apple devices and a sane
   native face elsewhere. Don't self-host SF Pro; don't tell someone a page
   will look identical on Windows.
-- **Liquid Glass.** A real-time refraction the browser has no equivalent
-  for. `.ios-material` gets the blur and saturation lift via
-  `backdrop-filter`, which is the part that reads at a glance. Put it over
-  content that actually scrolls behind it or it's just flat grey.
+- **Liquid Glass — the refraction only.** The live bending of what sits
+  behind the surface has no browser equivalent. Everything else about it
+  does, and is built: see below.
 - **Dynamic Type.** The web equivalent is `rem` plus the browser's own
   text scaling, which the tokens use. It is not the same thing — there is
   no accessibility-size ladder.
