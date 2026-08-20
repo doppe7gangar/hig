@@ -1,0 +1,34 @@
+/* SF Pro, self-hosted.
+ *
+ * Built from the variable SF-Pro.ttf in the repo's Fonts/ folder by
+ * scripts/build_fonts.py, subset to Latin and compressed to woff2:
+ * 6.1 MB of TrueType becomes 212 KB, smaller than Inter.
+ *
+ * The variable file carries both of Apple's axes -- opsz 17-28 and
+ * wght 1-1000 -- so one file covers Text through Display and Ultralight
+ * through Black, and font-optical-sizing: auto makes large type tighten
+ * the way it does on device instead of merely scaling up.
+ *
+ * Order note: -apple-system still comes first in --ios-font, so Macs and
+ * iPhones use the copy already installed and download nothing. This file
+ * is what Windows, Android and Linux get.
+ *
+ * Licence: Apple's font licence covers designing and mocking up
+ * interfaces for Apple platforms. It does not grant webfont embedding or
+ * redistribution, so serving this from a public site is on you, not on
+ * the licence. Inter (fonts/inter.css) is the unrestricted alternative
+ * and is what the skill uses if this file is not linked.
+ */
+
+@font-face {
+  font-family: "SF Pro";
+  font-style: normal;
+  font-weight: 1 1000;
+  font-display: swap;
+  src: url("SF-Pro-latin.woff2") format("woff2");
+}
+
+:root {
+  --ios-font: -apple-system, BlinkMacSystemFont, "SF Pro", "Inter",
+      system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}

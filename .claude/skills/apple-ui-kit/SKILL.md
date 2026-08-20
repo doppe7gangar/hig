@@ -201,31 +201,25 @@ change that breaks it fails rather than merely looking fine.
 
 ## What does not transfer, and don't pretend it does
 
-- **SF Pro.** Its licence covers designing *for* Apple platforms, not
-  self-hosting as a webfont — and it doesn't need shipping, because
-  `-apple-system` already resolves to it on macOS and iOS. Pages here
-  render in real SF on an Apple device with nothing loaded.
+- **SF Pro — now self-hosted.** `fonts/sf.css` serves the real thing,
+  built from the variable `SF-Pro.ttf` by `scripts/build_fonts.py`:
+  subset to Latin and compressed to woff2, 6.1 MB becomes **212 KB**,
+  smaller than Inter. It carries both of Apple's axes (`opsz 17–28`,
+  `wght 1–1000`), so one file spans Text through Display and Ultralight
+  through Black.
 
-  If you want SF on a non-Apple machine for your own mockups, drop a copy
-  in `fonts/sf/` and link `fonts/sf-local.css`. That folder is
-  gitignored, because committing the files is redistribution and serving
-  them to visitors is the use the licence rules out. Bundling SF gains
-  nothing on the platforms that already have it, and on the ones that
-  don't, it's the prohibited case. Everywhere
-  else, bundled **Inter** takes over (`fonts/inter.css`, SIL OFL, 728 KB
-  for both variable faces). It is the closest open face to SF, not the
-  same one; a page will still not look pixel-identical on Windows.
+  Link it **after** `tokens/ios-tokens.css` — it overrides `--ios-font`,
+  and the token sheet will otherwise overwrite it straight back.
+  `-apple-system` still leads the stack, so Macs and iPhones use the
+  copy they already have and download nothing; this is what Windows,
+  Android and Linux get.
 
-  Stack order is load-bearing: `system-ui` resolves to *something* on
-  every platform, so anything after it never loads. `-apple-system` and
-  `BlinkMacSystemFont` resolve only on Apple, then Inter, then
-  `system-ui` as the backstop for when `inter.css` wasn't loaded.
+  Its licence covers designing and mocking up interfaces for Apple
+  platforms, not webfont embedding or redistribution. Serving it from a
+  public site is a call you're making, not one the licence grants.
+  `fonts/inter.css` is the unrestricted alternative and is what the
+  skill uses when `sf.css` isn't linked.
 
-  Inter's variable font carries an optical-size axis (`opsz 14–32`), the
-  same idea as SF's Text and Display cuts — `font-optical-sizing: auto`
-  is on, so a 34 pt title tightens rather than being a scaled-up 17 pt
-  one. That is a large part of why web type stops reading as Apple at
-  display sizes.
 - **Liquid Glass — the refraction only.** The live bending of what sits
   behind the surface has no browser equivalent. Everything else about it
   does, and is built: see below.

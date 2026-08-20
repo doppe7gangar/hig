@@ -22,9 +22,9 @@ What you're looking for: a grey page with white cards, capsule buttons,
 green switches, separators that start at the text rather than the card
 edge.
 
-On a Mac the type renders in SF Pro, because `-apple-system` finds it.
-Everywhere else the bundled Inter takes over. Both are correct; they are
-not identical.
+On a Mac the type renders in SF Pro from your own system copy, because
+`-apple-system` finds it first. Everywhere else it loads the bundled
+SF Pro webfont, falling back to Inter if `fonts/sf.css` isn't linked.
 
 ---
 
@@ -149,10 +149,11 @@ Apple never wrote. Anything reported as ALTERED is worth reading twice.
 `apple-ui-kit` carries Apple's *appearance* to platforms that have no
 system palette to ask. On the web specifically it can't carry:
 
-- **SF Pro** — not licensed for self-hosting, and not needed: Apple
-  devices resolve it through `-apple-system`. Everywhere else the
-  bundled Inter takes over. It is the closest open face, not the same
-  one, so a page will not look pixel-identical on Windows.
+- **SF Pro** — now self-hosted from `fonts/sf.css` (212 KB, Latin
+  subset of the variable file). Apple devices still use their own copy
+  via `-apple-system` and download nothing. Its licence covers designing
+  for Apple platforms, not webfont serving, so shipping it publicly is
+  your call; `fonts/inter.css` is the unrestricted fallback.
 - **Liquid Glass** — the live refraction has no browser equivalent. The
   rim, falloff, tint variants and ambient shadow are all measured and
   built; only the bending of what's behind the surface is missing. It
