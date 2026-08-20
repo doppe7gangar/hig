@@ -1,0 +1,56 @@
+/* SF Pro, loaded from a local copy. Opt-in, and deliberately not linked
+ * by example.html.
+ *
+ * Two things worth knowing before using this.
+ *
+ * On a Mac you do not need it. `-apple-system` is already first in
+ * --ios-font and already resolves to SF Pro, so every page here renders
+ * in the real thing on macOS and iOS with nothing loaded. This file
+ * changes nothing on an Apple device.
+ *
+ * The only thing it adds is serving SF to Windows, Android and Linux --
+ * and that is the use Apple's font licence does not grant. The licence
+ * covers designing and mocking up interfaces for Apple platforms; it
+ * does not cover webfont embedding or redistribution. So:
+ *
+ *   - Fine: your own machine, your own mockups, screenshots of a design
+ *     you are working on for an Apple platform.
+ *   - Not fine: a deployed site serving these files to visitors, or
+ *     committing them anywhere they get redistributed.
+ *
+ * fonts/sf/ is in .gitignore for that reason. Put your copy from
+ * developer.apple.com/fonts there and it stays on your machine.
+ *
+ *     <link rel="stylesheet" href="fonts/sf-local.css">
+ *
+ * Load it after tokens/ios-tokens.css -- it overrides --ios-font to put
+ * SF first. If the files are absent the stack simply falls through to
+ * Inter and then the platform font, so linking it on a machine without
+ * them is harmless.
+ */
+
+@font-face {
+  font-family: "SF Pro Local";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  /* Apple ships a variable SF-Pro.ttf plus static Text/Display cuts;
+     whichever you have, the first that resolves wins. */
+  src: url("sf/SF-Pro.ttf") format("truetype-variations"),
+       url("sf/SF-Pro.ttf") format("truetype"),
+       url("sf/SF-Pro-Text-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "SF Pro Local";
+  font-style: normal;
+  font-weight: 600 900;
+  font-display: swap;
+  src: url("sf/SF-Pro-Display-Semibold.otf") format("opentype"),
+       url("sf/SF-Pro.ttf") format("truetype-variations");
+}
+
+:root {
+  --ios-font: -apple-system, BlinkMacSystemFont, "SF Pro Local", "Inter",
+      system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}

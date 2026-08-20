@@ -203,7 +203,15 @@ change that breaks it fails rather than merely looking fine.
 
 - **SF Pro.** Its licence covers designing *for* Apple platforms, not
   self-hosting as a webfont — and it doesn't need shipping, because
-  `-apple-system` already resolves to it on macOS and iOS. Everywhere
+  `-apple-system` already resolves to it on macOS and iOS. Pages here
+  render in real SF on an Apple device with nothing loaded.
+
+  If you want SF on a non-Apple machine for your own mockups, drop a copy
+  in `fonts/sf/` and link `fonts/sf-local.css`. That folder is
+  gitignored, because committing the files is redistribution and serving
+  them to visitors is the use the licence rules out. Bundling SF gains
+  nothing on the platforms that already have it, and on the ones that
+  don't, it's the prohibited case. Everywhere
   else, bundled **Inter** takes over (`fonts/inter.css`, SIL OFL, 728 KB
   for both variable faces). It is the closest open face to SF, not the
   same one; a page will still not look pixel-identical on Windows.
