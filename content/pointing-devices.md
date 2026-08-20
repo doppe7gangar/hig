@@ -2,7 +2,7 @@
 
 People can use a pointing device like a trackpad or mouse to navigate the interface and initiate actions.
 
-![A sketch of an arrow-shaped pointer, suggesting use of a mouse or trackpad. The image is overlaid with rectangular and circular grid lines and is tinted purple to subtly reflect the purple in the original six-color Apple logo.](https://docs-assets.developer.apple.com/published/d62ce652f0470403da6dfbad1b1ad2b0/inputs-pointing-devices-intro%402x.png)
+![A sketch of an arrow-shaped pointer, suggesting use of a mouse or trackpad. The image is overlaid with rectangular and circular grid lines and is tinted purple to subtly reflect the purple in the original six-color Apple logo.](/images/com.apple.HIG/inputs-pointing-devices-intro@2x.png)
 
 People appreciate the precision and flexibility that pointing devices offer. On a Mac, people typically expect to combine a pointing device with a keyboard as they navigate apps and the system. On iPad and Apple Vision Pro, a pointing device gives people an additional way to interact with apps and content, without replacing touch, eyes, or gestures.
 
@@ -26,7 +26,7 @@ People appreciate the precision and flexibility that pointing devices offer. On 
 
 iPadOS builds on the traditional pointer experience, automatically adapting the pointer to the current context and providing rich visual feedback at a level of precision that enhances productivity and simplifies common tasks on a touchscreen device. The iPadOS pointing system gives people an additional way to interact with apps and content — it doesn’t replace touch.
 
-**Allow multiple selection in custom views when necessary.** In iPadOS 15 and later, people can click and drag the pointer over multiple items to select them. As people use the pointer in this way, it expands into a visible rectangle that selects the items it encompasses. Standard nonlist collection views support this interaction by default; if you want to support multiple selection in custom views, you need to implement it yourself. For developer guidance, see [UIBandSelectionInteraction](https://developer.apple.com/documentation/UIKit/UIBandSelectionInteraction).
+**Allow multiple selection in custom views when necessary.** In iPadOS 15 and later, people can click and drag the pointer over multiple items to select them. As people use the pointer in this way, it expands into a visible rectangle that selects the items it encompasses. Standard nonlist collection views support this interaction by default; if you want to support multiple selection in custom views, you need to implement it yourself. For developer guidance, see [UIBandSelectionInteraction](https://developer.apple.com/documentation/uikit/uibandselectioninteraction).
 
 **Distinguish between pointer and finger input only if it provides value.** For example, a scrubber can give people an additional way to target a location in a video when they’re using the pointer. In this scenario, people can drag the playhead using either the pointer or touch, but they can use the pointer to click a precise seek destination.
 
@@ -36,21 +36,29 @@ iPadOS integrates the appearance and behavior of both the pointer and the elemen
 
 By default, the pointer’s shape is a circle, but it can display a system-defined or custom shape when people move it over specific elements or regions. For example, the pointer automatically uses the familiar I-beam shape when people move it over a text-entry area.
 
+*(video: A video snippet showing the bottom half of a new event popover in Calendar. At the beginning of the video, the pointer is within the URL field and it uses the I-beam shape. As the pointer moves between the URL and Notes fields, it briefly reverts to its default circular shape; when the pointer enters the Notes field, it uses the I-beam shape again.)*
+
 With a *content effect*, the UI element or region beneath the pointer can also change its appearance when people hold the pointer over it. Depending on the type of content effect, the pointer can retain its current shape or transform into a shape that integrates with the element’s new appearance.
 
 iPadOS defines three content effects that bring focus to different types of interactive elements in your app: highlight, lift, and hover.
 
 The *highlight* effect transforms the pointer into a translucent, rounded rectangle that acts as a background for a control and includes a gentle parallax. The subtle highlighting and movement bring focus to the control without distracting people from their task. By default, iPadOS applies the highlight effect to bar buttons, tab bars, segmented controls, and edit menus.
 
+*(video: A video snippet showing a small area at the bottom of a Photos window. Nature photos that show purple flowers, rocks in a stream, and grass are visible just above the tab bar, which shows the Photos and For You tabs. At the beginning of the video, the Photos tab is highlighted. Because bar items receive the highlight effect, the pointer becomes the highlighted rounded rectangle that surrounds the tab’s glyph and title. The highlighted rounded rectangle slides from one tab to the other as the pointer moves.)*
+
 The *lift* effect combines a subtle parallax with the appearance of elevation to make an element seem like it’s floating above the screen. As the pointer fades out beneath the element, iPadOS creates the illusion of lift by scaling the element up while adding a shadow below it and a soft specular highlight on top of it. By default, iPadOS applies the lift effect to app icons and to buttons in Control Center.
 
+*(video: A video snippet showing the left end of the Dock in front of the Home Screen. From the left, the visible app icons are Messages, Safari, Music, Mail, and Files. As the pointer moves across the first three icons from the left, it disappears beneath each icon in turn, lifting it slightly and letting it return to its original position before moving to the next icon.)*
+
 *Hover* is a generic effect that lets you apply custom scale, tint, or shadow values to an element as the pointer moves over it. The hover effect combines your custom values to bring focus to an item, but it doesn’t transform the default pointer shape.
+
+*(video: A video snippet showing an alert floating above the top half of a new event popover in Calendar. The alert contains text that reads Are you sure you want to discard this new event? and a button titled Discard Changes. As the pointer moves into the alert button, the button background darkens.)*
 
 #### Pointer accessories
 
 Pointer accessories are visual indicators that help people understand how they can use the pointer to interact with the current UI element. For example, a pointer approaching a resizable element might display small arrows to indicate that the element allows resizing along a certain axis.
 
-Unlike pointer shapes and content effects, accessories are secondary items that can combine with any pointer to communicate additional information. For developer guidance, see [UIPointerAccessory](https://developer.apple.com/documentation/UIKit/UIPointerAccessory).
+Unlike pointer shapes and content effects, accessories are secondary items that can combine with any pointer to communicate additional information. For developer guidance, see [UIPointerAccessory](https://developer.apple.com/documentation/uikit/uipointeraccessory).
 
 **Use clear, simple images to create custom accessories.** A pointer accessory is small, so it’s essential to create an image that communicates the pointer interaction without using too many details.
 
@@ -61,6 +69,8 @@ Unlike pointer shapes and content effects, accessories are secondary items that 
 iPadOS helps people use the pointer to target an element by making the element appear to attract the pointer. People can experience this magnetic effect when they move the pointer close to an element and when they flick the pointer toward an element.
 
 When people move the pointer close to an element, the system starts transforming the pointer’s shape as soon as it reaches the element’s hit region. Because an element’s hit region typically extends beyond its visible boundaries, the pointer begins to transform before it appears to touch the element itself, creating the illusion that the element is pulling the pointer toward it.
+
+*(video: A video snippet showing an area at the bottom of Clock. The World Clock tab is selected and clock images and information for San Francisco, New York, and London are partially visible in the window. As the pointer moves in the tab bar, its highlighted rounded rectangle appearance seems to show a slight resistance as it slides from the World Clock tab to the Alarm tab and back again.)*
 
 When people flick the pointer toward an element, iPadOS examines the pointer’s trajectory to discover the element that’s the most likely target. When there’s an element in the pointer’s path, the system uses magnetism to pull the pointer toward the element’s center.
 
@@ -80,15 +90,15 @@ The system also applies magnetism to text-entry areas, where it can help people 
 
 **Add padding around interactive elements to create comfortable hit regions.** You might need to experiment to determine the right size for an element’s hit region. If the hit region is too small, it can make people feel that they have to be extra precise when interacting with the element. On the other hand, when an element’s hit region is too large, people can feel that it takes a lot of effort to pull the pointer away from the element. In general, it works well to add about 12 points of padding around elements that include a bezel; for elements without a bezel, it works well to add about 24 points of padding around the element’s visible edges.
 
-![An illustration of a button that has a filled, rounded-rectangle bezel. The button is centered on top of a shaded rectangle that extends beyond the button by the same distance on all sides. Centered on each side, a callout indicates that the padding between the button and each edge of the shaded rectangle is 12 points.](https://docs-assets.developer.apple.com/published/3993cfe0b8ec1f79e7c27496d92b240e/padding-for-button-with-bezel%402x.png)
+![An illustration of a button that has a filled, rounded-rectangle bezel. The button is centered on top of a shaded rectangle that extends beyond the button by the same distance on all sides. Centered on each side, a callout indicates that the padding between the button and each edge of the shaded rectangle is 12 points.](/images/com.apple.HIG/padding-for-button-with-bezel@2x.png)
 
-![An illustration of a symbol centered on top of a shaded rectangle that extends beyond the symbol by the same distance on all sides. Centered on each side, a callout indicates that the padding between the symbol and each edge of the shaded rectangle is 24 points.](https://docs-assets.developer.apple.com/published/58bee8289c0508cc5b9e83f030925cb6/padding-for-glyph%402x.png)
+![An illustration of a symbol centered on top of a shaded rectangle that extends beyond the symbol by the same distance on all sides. Centered on each side, a callout indicates that the padding between the symbol and each edge of the shaded rectangle is 24 points.](/images/com.apple.HIG/padding-for-glyph@2x.png)
 
-![An illustration of a button without a bezel, centered on top of a shaded rectangle that extends beyond the button by the same distance on all sides. Centered on each side, a callout indicates that the padding between the button and each edge of the shaded rectangle is 24 points.](https://docs-assets.developer.apple.com/published/5a79ca3d0a9d4bbd3bf71c23bf8c5da3/padding-for-button-without-bezel%402x.png)
+![An illustration of a button without a bezel, centered on top of a shaded rectangle that extends beyond the button by the same distance on all sides. Centered on each side, a callout indicates that the padding between the button and each edge of the shaded rectangle is 24 points.](/images/com.apple.HIG/padding-for-button-without-bezel@2x.png)
 
 **Create contiguous hit regions for custom bar buttons.** If there’s space between the hit regions of adjacent buttons in a bar, people may experience a distracting motion when the pointer reverts briefly to its default shape as it moves between buttons.
 
-**Specify the corner radius of a nonstandard element that receives the lift effect.** With the system-provided lift effect, the pointer transforms to match the element’s shape as it fades out. By default, the pointer uses the system-defined corner radius to transform into a rounded rectangle. If your element is a different shape — if it’s a circle, for example — you need to provide the radius so the pointer can animate seamlessly into the shape of the element. For developer guidance, see [UIPointerShape.roundedRect(_:radius:)](https://developer.apple.com/documentation/UIKit/UIPointerShape-swift.enum/roundedRect(_:radius:)).
+**Specify the corner radius of a nonstandard element that receives the lift effect.** With the system-provided lift effect, the pointer transforms to match the element’s shape as it fades out. By default, the pointer uses the system-defined corner radius to transform into a rounded rectangle. If your element is a different shape — if it’s a circle, for example — you need to provide the radius so the pointer can animate seamlessly into the shape of the element. For developer guidance, see [UIPointerShape.roundedRect(_:radius:)](https://developer.apple.com/documentation/uikit/uipointershape-swift.enum/roundedrect(_:radius:)).
 
 #### Customizing pointers
 
@@ -102,7 +112,7 @@ The system also applies magnetism to text-entry areas, where it can help people 
 
 **Consider enhancing the pointer experience by displaying custom annotations that provide useful information.** For example, you could display X and Y values when people hold the pointer over a graphing area in your app. Keynote uses annotations to display the current width and height of a resizable image.
 
-![An illustration of a custom pointer hovering over a resize handle on the edge of a shaded rectangle. Above the pointer is a small annotation that displays the image’s width and height values against a dark background.](https://docs-assets.developer.apple.com/published/291aebad59eee8712e94047fcca4e7cf/useful-pointer-annotation%402x.png)
+![An illustration of a custom pointer hovering over a resize handle on the edge of a shaded rectangle. Above the pointer is a small annotation that displays the image’s width and height values against a dark background.](/images/com.apple.HIG/useful-pointer-annotation@2x.png)
 
 **Avoid displaying instructional text with a pointer.** A pointer that displays instructional text can make an app seem complicated and difficult to use. Instead of providing instructions, prioritize clarity and simplicity in your interface, so that people can quickly grasp how to use your app whether they’re using the pointer or touching the screen.
 
@@ -137,30 +147,32 @@ macOS offers a variety of standard pointer styles, which your app can use to com
 
 | Pointer | Name | Meaning | AppKit API |
 | --- | --- | --- | --- |
-| ![A pointer that resembles a diagonal arrow pointing up and to the left.](https://docs-assets.developer.apple.com/published/5be2c381c17d5d868866b3a5de1013f8/pointers-arrow%402x.png) | Arrow | Standard pointer for selecting and interacting with content and interface elements. | [arrow](https://developer.apple.com/documentation/AppKit/NSCursor/arrow) |
-| ![A closed, gloved hand.](https://docs-assets.developer.apple.com/published/6680cdb870edf5364f84a483fd2bead9/pointers-closed-hand%402x.png) | Closed hand | Dragging to reposition the display of content within a view—for example, dragging a map around in Maps. | [closedHand](https://developer.apple.com/documentation/AppKit/NSCursor/closedHand) |
-| ![A pointer arrow with a small menu-like square to the right of the arrow.](https://docs-assets.developer.apple.com/published/0cb033cee3b55bd4be661b28b928fdc1/pointers-contextual-menu%402x.png) | Contextual menu | A contextual menu is available for the content below the pointer. This pointer is generally shown only when the Control key is pressed. | [contextualMenu](https://developer.apple.com/documentation/AppKit/NSCursor/contextualMenu) |
-| ![A plus symbol.](https://docs-assets.developer.apple.com/published/d55eabe14365af873000aa389e5fad6c/pointers-crosshair%402x.png) | Crosshair | Precise rectangular selection is possible, such as when viewing an image in Preview. | [crosshair](https://developer.apple.com/documentation/AppKit/NSCursor/crosshair) |
-| ![A small pointer arrowhead with a circle underneath; the circle contains an Ex.](https://docs-assets.developer.apple.com/published/528819d511869de26beb1fd5008ac773/pointers-disappearing-item%402x.png) | Disappearing item | A dragged item will disappear when dropped. If the item references an original item, the original is unaffected. For example, when dragging a mailbox out of the favorites bar in Mail, the original mailbox isn’t removed. | [disappearingItem](https://developer.apple.com/documentation/AppKit/NSCursor/disappearingItem) |
-| ![A small pointer arrowhead with a circle underneath; the circle contains a plus symbol.](https://docs-assets.developer.apple.com/published/ccc7052f9bc6fb302d913633c648adcd/pointers-drag-copy%402x.png) | Drag copy | Duplicates a dragged—not moved—item when dropped into the destination. Appears when pressing the Option key during a drag operation. | [dragCopy](https://developer.apple.com/documentation/AppKit/NSCursor/dragCopy) |
-| ![A curved arrow, pointing up and to the right.](https://docs-assets.developer.apple.com/published/47dfbfd5f1bf3141dbf875f47446d1fd/pointers-drag-link%402x.png) | Drag link | During a drag and drop operation, creates an alias of the selected file when dropped. The alias points to the original file, which remains unmoved. Appears when pressing the Option and Command keys during a drag operation. | [dragLink](https://developer.apple.com/documentation/AppKit/NSCursor/dragLink) |
-| ![Opposing veritcal braces, used to form an insertion marker.](https://docs-assets.developer.apple.com/published/060f443dee8d260a1a1191d7831e36b7/pointers-horizontal-beam%402x.png) | Horizontal I beam | Selection and insertion of text is possible in a horizontal layout, such as a TextEdit or Pages document. | [iBeam](https://developer.apple.com/documentation/AppKit/NSCursor/iBeam) |
-| ![An open, gloved hand.](https://docs-assets.developer.apple.com/published/a5daee642ccc8fb3ac550d176b2d1932/pointers-open-hand%402x.png) | Open hand | Dragging to reposition content within a view is possible. | [openHand](https://developer.apple.com/documentation/AppKit/NSCursor/openHand) |
-| ![A small pointer arrowhead with a do not enter symbol underneath.](https://docs-assets.developer.apple.com/published/2daaf47bef26569f92f30a9016095dde/pointers-operation-not-allowed%402x.png) | Operation not allowed | A dragged item can’t be dropped in the current location. | [operationNotAllowed](https://developer.apple.com/documentation/AppKit/NSCursor/operationNotAllowed) |
-| ![A gloved hand, with the index finger extended.](https://docs-assets.developer.apple.com/published/25193808b5e72d5983ff26764889718a/pointers-pointing-hand%402x.png) | Pointing hand | The content beneath the pointer is a URL link to a webpage, document, or other item. | [pointingHand](https://developer.apple.com/documentation/AppKit/NSCursor/pointingHand) |
-| ![A horizontal bar with a downward-pointing arrow at its midpoint.](https://docs-assets.developer.apple.com/published/328443ed3b5dd85c84de91a60ed30b43/pointers-resize-down%402x.png) | Resize down | Resize or move a window, view, or element downward. | [resizeDown](https://developer.apple.com/documentation/AppKit/NSCursor/resizeDown) |
-| ![A vertical bar with a left-pointing arrow at its midpoint.](https://docs-assets.developer.apple.com/published/34113d73f24c003f4b3715e0cef8fbf6/pointers-resize-left%402x.png) | Resize left | Resize or move a window, view, or element to the left. | [resizeLeft](https://developer.apple.com/documentation/AppKit/NSCursor/resizeLeft) |
-| ![A vertical bar with left- and right-pointing arrows extending from its midpoint.](https://docs-assets.developer.apple.com/published/478726bb1a630013de1f77b3bccde9e0/pointers-resize-left-right%402x.png) | Resize left/right | Resize or move a window, view, or element to the left or right. | [resizeLeftRight](https://developer.apple.com/documentation/AppKit/NSCursor/resizeLeftRight) |
-| ![A vertical bar with a right-pointing arrow at its midpoint.](https://docs-assets.developer.apple.com/published/6045fce093cc242bf438393155b77992/pointers-resize-right%402x.png) | Resize right | Resize or move a window, view, or element to the right. | [resizeRight](https://developer.apple.com/documentation/AppKit/NSCursor/resizeRight) |
-| ![A horizontal bar with an up-pointing arrow at its midpoint.](https://docs-assets.developer.apple.com/published/34576a4ab42dea114abf11b3ee57a4f8/pointers-resize-up%402x.png) | Resize up | Resize or move a window, view, or element upward. | [resizeUp](https://developer.apple.com/documentation/AppKit/NSCursor/resizeUp) |
-| ![A horizontal bar with up- and down-pointing arrows extending from its midpoint.](https://docs-assets.developer.apple.com/published/d55d0d01c955105a957231266affb447/pointers-resize-up-down%402x.png) | Resize up/down | Resize or move a window, view, or element upward or downward. | [resizeUpDown](https://developer.apple.com/documentation/AppKit/NSCursor/resizeUpDown) |
-| ![Opposing horizontal braces, used to form an insertion marker.](https://docs-assets.developer.apple.com/published/15923a8cac833b5bb1fd69b4a395c4a9/pointers-vertical-beam%402x.png) | Vertical I beam | Selection and insertion of text is possible in a vertical layout. | [iBeamCursorForVerticalLayout](https://developer.apple.com/documentation/AppKit/NSCursor/iBeamCursorForVerticalLayout) |
+| ![A pointer that resembles a diagonal arrow pointing up and to the left.](/images/com.apple.HIG/pointers-arrow@2x.png) | Arrow | Standard pointer for selecting and interacting with content and interface elements. | [arrow](https://developer.apple.com/documentation/appkit/nscursor/arrow) |
+| ![A closed, gloved hand.](/images/com.apple.HIG/pointers-closed-hand@2x.png) | Closed hand | Dragging to reposition the display of content within a view—for example, dragging a map around in Maps. | [closedHand](https://developer.apple.com/documentation/appkit/nscursor/closedhand) |
+| ![A pointer arrow with a small menu-like square to the right of the arrow.](/images/com.apple.HIG/pointers-contextual-menu@2x.png) | Contextual menu | A contextual menu is available for the content below the pointer. This pointer is generally shown only when the Control key is pressed. | [contextualMenu](https://developer.apple.com/documentation/appkit/nscursor/contextualmenu) |
+| ![A plus symbol.](/images/com.apple.HIG/pointers-crosshair@2x.png) | Crosshair | Precise rectangular selection is possible, such as when viewing an image in Preview. | [crosshair](https://developer.apple.com/documentation/appkit/nscursor/crosshair) |
+| ![A small pointer arrowhead with a circle underneath; the circle contains an Ex.](/images/com.apple.HIG/pointers-disappearing-item@2x.png) | Disappearing item | A dragged item will disappear when dropped. If the item references an original item, the original is unaffected. For example, when dragging a mailbox out of the favorites bar in Mail, the original mailbox isn’t removed. | [disappearingItem](https://developer.apple.com/documentation/appkit/nscursor/disappearingitem) |
+| ![A small pointer arrowhead with a circle underneath; the circle contains a plus symbol.](/images/com.apple.HIG/pointers-drag-copy@2x.png) | Drag copy | Duplicates a dragged—not moved—item when dropped into the destination. Appears when pressing the Option key during a drag operation. | [dragCopy](https://developer.apple.com/documentation/appkit/nscursor/dragcopy) |
+| ![A curved arrow, pointing up and to the right.](/images/com.apple.HIG/pointers-drag-link@2x.png) | Drag link | During a drag and drop operation, creates an alias of the selected file when dropped. The alias points to the original file, which remains unmoved. Appears when pressing the Option and Command keys during a drag operation. | [dragLink](https://developer.apple.com/documentation/appkit/nscursor/draglink) |
+| ![Opposing veritcal braces, used to form an insertion marker.](/images/com.apple.HIG/pointers-horizontal-beam@2x.png) | Horizontal I beam | Selection and insertion of text is possible in a horizontal layout, such as a TextEdit or Pages document. | [iBeam](https://developer.apple.com/documentation/appkit/nscursor/ibeam) |
+| ![An open, gloved hand.](/images/com.apple.HIG/pointers-open-hand@2x.png) | Open hand | Dragging to reposition content within a view is possible. | [openHand](https://developer.apple.com/documentation/appkit/nscursor/openhand) |
+| ![A small pointer arrowhead with a do not enter symbol underneath.](/images/com.apple.HIG/pointers-operation-not-allowed@2x.png) | Operation not allowed | A dragged item can’t be dropped in the current location. | [operationNotAllowed](https://developer.apple.com/documentation/appkit/nscursor/operationnotallowed) |
+| ![A gloved hand, with the index finger extended.](/images/com.apple.HIG/pointers-pointing-hand@2x.png) | Pointing hand | The content beneath the pointer is a URL link to a webpage, document, or other item. | [pointingHand](https://developer.apple.com/documentation/appkit/nscursor/pointinghand) |
+| ![A horizontal bar with a downward-pointing arrow at its midpoint.](/images/com.apple.HIG/pointers-resize-down@2x.png) | Resize down | Resize or move a window, view, or element downward. | [resizeDown](https://developer.apple.com/documentation/appkit/nscursor/resizedown) |
+| ![A vertical bar with a left-pointing arrow at its midpoint.](/images/com.apple.HIG/pointers-resize-left@2x.png) | Resize left | Resize or move a window, view, or element to the left. | [resizeLeft](https://developer.apple.com/documentation/appkit/nscursor/resizeleft) |
+| ![A vertical bar with left- and right-pointing arrows extending from its midpoint.](/images/com.apple.HIG/pointers-resize-left-right@2x.png) | Resize left/right | Resize or move a window, view, or element to the left or right. | [resizeLeftRight](https://developer.apple.com/documentation/appkit/nscursor/resizeleftright) |
+| ![A vertical bar with a right-pointing arrow at its midpoint.](/images/com.apple.HIG/pointers-resize-right@2x.png) | Resize right | Resize or move a window, view, or element to the right. | [resizeRight](https://developer.apple.com/documentation/appkit/nscursor/resizeright) |
+| ![A horizontal bar with an up-pointing arrow at its midpoint.](/images/com.apple.HIG/pointers-resize-up@2x.png) | Resize up | Resize or move a window, view, or element upward. | [resizeUp](https://developer.apple.com/documentation/appkit/nscursor/resizeup) |
+| ![A horizontal bar with up- and down-pointing arrows extending from its midpoint.](/images/com.apple.HIG/pointers-resize-up-down@2x.png) | Resize up/down | Resize or move a window, view, or element upward or downward. | [resizeUpDown](https://developer.apple.com/documentation/appkit/nscursor/resizeupdown) |
+| ![Opposing horizontal braces, used to form an insertion marker.](/images/com.apple.HIG/pointers-vertical-beam@2x.png) | Vertical I beam | Selection and insertion of text is possible in a vertical layout. | [iBeamCursorForVerticalLayout](https://developer.apple.com/documentation/appkit/nscursor/ibeamcursorforverticallayout) |
 
 ### visionOS
 
 In visionOS, people can attach an external pointing device or keyboard, and use both devices while they continue to use their eyes and hands. If people look at an element and then move the pointer, the system brings focus to the element under the pointer. Your app doesn’t have to do anything to support this behavior.
 
 When a pointing device is attached, the area people are looking at determines the pointer’s context. For example, when people shift their eyes from one window to another, the pointer’s context seamlessly transitions to the new window.
+
+*(video: A recording that shows a pointer moving around, highlighting items, and scrolling content within a Safari window in visionOS. A picture-in-picture window is visible in the bottom left corner of the recording. It shows a person's hand operating a trackpad next to a keyboard outside the field of view. The person's gestures on the trackpad correspond to the pointer movements.)*
 
 When people use an attached pointing device that supports gestures, like a trackpad or mouse, the pointer hides while people are gesturing, minimizing visual distraction. In this scenario, the pointer remains hidden until people move it, when it reappears in the location they’re looking at.
 
@@ -174,11 +186,11 @@ When people use an attached pointing device that supports gestures, like a track
 
 #### Developer documentation
 
-[Input events](https://developer.apple.com/documentation/SwiftUI/Input-events) — SwiftUI
+[Input events](https://developer.apple.com/documentation/swiftui/input-events) — SwiftUI
 
-[Pointer interactions](https://developer.apple.com/documentation/UIKit/pointer-interactions) — UIKit
+[Pointer interactions](https://developer.apple.com/documentation/uikit/pointer-interactions) — UIKit
 
-[Mouse, Keyboard, and Trackpad](https://developer.apple.com/documentation/AppKit/mouse-keyboard-and-trackpad) — AppKit
+[Mouse, Keyboard, and Trackpad](https://developer.apple.com/documentation/appkit/mouse-keyboard-and-trackpad) — AppKit
 
 #### Videos
 

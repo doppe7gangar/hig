@@ -2,7 +2,7 @@
 
 An edit menu lets people make changes to selected content in the current view, in addition to offering related commands like Copy, Select, Translate, and Look Up.
 
-![A stylized representation of an edit menu extending from selected text. The image is tinted red to subtly reflect the red in the original six-color Apple logo.](https://docs-assets.developer.apple.com/published/52c46f9f0810da1210c2f004ce2bc1ed/components-edit-menu-intro%402x.png)
+![A stylized representation of an edit menu extending from selected text. The image is tinted red to subtly reflect the red in the original six-color Apple logo.](/images/com.apple.HIG/components-edit-menu-intro@2x.png)
 
 In addition to text, an edit menu’s commands can apply to many types of selectable content, such as images, files, and objects like contact cards, charts, or map locations. In iOS, iPadOS, and visionOS, the system automatically detects the data type of a selected item, which can result in the addition of a related action to the edit menu. For example, selecting an address can add an  item like *Get directions* to the edit menu.
 
@@ -17,7 +17,7 @@ Editing content is rare in tvOS and watchOS experiences, so the system doesn’t
 
 ## Best practices
 
-**Prefer the system-provided edit menu.** People are familiar with the contents and behavior of the system-provided component, so creating a custom menu that presents the same commands is redundant and likely to be confusing. For a list of standard edit menu commands, see [UIResponderStandardEditActions](https://developer.apple.com/documentation/UIKit/UIResponderStandardEditActions).
+**Prefer the system-provided edit menu.** People are familiar with the contents and behavior of the system-provided component, so creating a custom menu that presents the same commands is redundant and likely to be confusing. For a list of standard edit menu commands, see [UIResponderStandardEditActions](https://developer.apple.com/documentation/uikit/uiresponderstandardeditactions).
 
 **Let people reveal an edit menu using the system-defined interactions they already know.** For example, people expect to touch and hold on a touchscreen, pinch and hold in visionOS, or use a secondary click with an attached trackpad or keyboard. Although the interactions to reveal an edit menu can differ based on platform, people don’t appreciate having to learn a custom interaction to perform a standard task.
 
@@ -65,9 +65,9 @@ To learn about the order of items in a macOS app’s Edit menu, see [Edit menu](
 
 #### Developer documentation
 
-[UIEditMenuInteraction](https://developer.apple.com/documentation/UIKit/UIEditMenuInteraction) — UIKit
+[UIEditMenuInteraction](https://developer.apple.com/documentation/uikit/uieditmenuinteraction) — UIKit
 
-[NSMenu](https://developer.apple.com/documentation/AppKit/NSMenu) — AppKit
+[NSMenu](https://developer.apple.com/documentation/appkit/nsmenu) — AppKit
 
 ## Change log
 

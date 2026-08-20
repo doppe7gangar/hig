@@ -245,6 +245,52 @@ Rebuild after re-scraping:
 python3 scripts/build_skill.py
 ```
 
+### Before trusting a re-scrape
+
+```
+python3 scripts/audit_block_coverage.py
+```
+
+Walks Apple's live JSON, enumerates every block type it emits, and reports
+any the scraper doesn't render — exiting non-zero if an unhandled type
+carries prose or tables.
+
+This exists because every other check here compares extracted output against
+what the parser saw, which makes a block type the parser never recognized
+structurally invisible. `tabNavigator` went unrendered from the first scrape:
+151 panes across 28 pages, including the entire iOS Dynamic Type scale, and
+no parity audit could detect it because those tables were never produced to
+be counted. Run this after any scraper change, and prefer the full corpus
+over `--quick` — tabNavigator appears on 28 of 172 pages, so a sample
+reports a clean bill of health.
+
+### Using it outside Claude Code
+
+The references are plain Markdown, so any tool that can read files in the
+repo can use them. Only the discovery mechanism differs.
+
+**Claude Code** — `.claude/skills/apple-hig/` is picked up automatically in
+this repo. To use it in another project, copy that directory into the
+project's `.claude/skills/`, or into `~/.claude/skills/` for every project.
+
+**Cursor, Windsurf, aider, Zed, Copilot** and other agents that read
+`AGENTS.md` — the `AGENTS.md` at the repo root points at the same
+references. Copy it plus `.claude/skills/apple-hig/references/` into the
+project; nothing else is Claude-specific. Tools reading `.cursorrules` or
+`.github/copilot-instructions.md` instead can use `AGENTS.md` as the source
+text for those files.
+
+**Any CLI or editor** — the references work as plain files:
+
+```
+grep -A1 -i "sheet" references/rules.md        # every sheet rule
+grep -A6 "^## Toggles" references/specs.md     # the numbers
+grep -A4 "^\*\*Sheets\*\*" references/api-map.md  # the API
+```
+
+`references/patterns.md` is the entry point for writing new UI —
+correct-by-default SwiftUI with the constraints already applied.
+
 ### Checking that it works
 
 A reference skill can be well written and still worthless, since skills are

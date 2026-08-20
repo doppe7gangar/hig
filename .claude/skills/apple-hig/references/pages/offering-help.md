@@ -2,7 +2,7 @@
 
 Although the most effective experiences are approachable and intuitive, you can provide contextual help when necessary.
 
-![A sketch of a question mark, suggesting help is available. The image is overlaid with rectangular and circular grid lines and is tinted orange to subtly reflect the orange in the original six-color Apple logo.](https://docs-assets.developer.apple.com/published/c09494b87143553d5b544aade5282148/patterns-offering-help-intro%402x.png)
+![A sketch of a question mark, suggesting help is available. The image is overlaid with rectangular and circular grid lines and is tinted orange to subtly reflect the orange in the original six-color Apple logo.](/images/com.apple.HIG/patterns-offering-help-intro@2x.png)
 
 ## Best practices
 
@@ -20,11 +20,11 @@ A tip is a small, transient view that briefly describes how to use a feature in 
 
 **Use the most appropriate tip type for your app’s user interface.** Display a popover tip when you want to preserve the content flow, or an inline tip when you want to ensure that surrounding information is visible. You can use an annotation-style inline tip when pointing to a specific UI element, or a hint-style tip when it’s not related to a specific piece of UI.
 
-![An illustration of a popover-style tip on iPhone. The tip appears atop nearby content, and points to a feature depicted by a blue star icon. The content beneath the tip is obscured.](https://docs-assets.developer.apple.com/published/ab51094a5f139510326bc64c0b5f9aab/offering-help-tip-popover%402x.png)
+![An illustration of a popover-style tip on iPhone. The tip appears atop nearby content, and points to a feature depicted by a blue star icon. The content beneath the tip is obscured.](/images/com.apple.HIG/offering-help-tip-popover@2x.png)
 
-![An illustration of an annotation-style tip on iPhone. The tip is embedded among the surrounding content, and points to a feature depicted by a blue star icon. Displaced text appears above and below the tip.](https://docs-assets.developer.apple.com/published/22ff250dbd2558ca27c27798c1e2baea/offering-help-tip-annotation%402x.png)
+![An illustration of an annotation-style tip on iPhone. The tip is embedded among the surrounding content, and points to a feature depicted by a blue star icon. Displaced text appears above and below the tip.](/images/com.apple.HIG/offering-help-tip-annotation@2x.png)
 
-![An illustration of an hint-style tip on iPhone. The tip is embedded among the surrounding content. Displaced text appears above and below the tip.](https://docs-assets.developer.apple.com/published/46f93cebedb065a1bea12a5b82b7d015/offering-help-tip-hint%402x.png)
+![An illustration of an hint-style tip on iPhone. The tip is embedded among the surrounding content. Displaced text appears above and below the tip.](/images/com.apple.HIG/offering-help-tip-hint@2x.png)
 
 **Use tips for simple features.** Tips work best on features that are easy to describe and that people can complete with a few simple steps. If a feature requires more than three actions, it’s probably too complicated for a tip.
 
@@ -34,23 +34,23 @@ A tip is a small, transient view that briefly describes how to use a feature in 
 
 **If there’s an image or symbol that people associate with the feature, consider including it in the tip, and prefer the filled variant.** For example, a tip with a star can help people understand that the tip is related to favorites.
 
-![An illustration of a hint-style tip with an unfilled blue star symbol on the leading side.](https://docs-assets.developer.apple.com/published/bf71dfba62045883c64f850b56851cf3/offering-help-tip-symbol-usage-unfilled-incorrect%402x.png)
+![An illustration of a hint-style tip with an unfilled blue star symbol on the leading side.](/images/com.apple.HIG/offering-help-tip-symbol-usage-unfilled-incorrect@2x.png)
 
-![An X in a circle to indicate incorrect usage.](https://docs-assets.developer.apple.com/published/209f6f0fc8ad99d9bf59e12d82d06584/crossout%402x.png)
+![An X in a circle to indicate incorrect usage.](/images/com.apple.HIG/crossout@2x.png)
 
-![An illustration of a hint-style tip with a filled blue star symbol on the leading side.](https://docs-assets.developer.apple.com/published/1b1fb26d619cc031ae207a3df12c8dec/offering-help-tip-symbol-usage-filled-correct%402x.png)
+![An illustration of a hint-style tip with a filled blue star symbol on the leading side.](/images/com.apple.HIG/offering-help-tip-symbol-usage-filled-correct@2x.png)
 
-![A checkmark in a circle to indicate correct usage.](https://docs-assets.developer.apple.com/published/88662da92338267bb64cd2275c84e484/checkmark%402x.png)
+![A checkmark in a circle to indicate correct usage.](/images/com.apple.HIG/checkmark@2x.png)
 
 If the feature is represented by an image that the tip connects to directly, avoid repeating the same image in both the tip and the UI.
 
-![An illustration of an annotation-style tip pointing to a feature depicted by a blue star icon. The tip includes a similar blue star symbol on its leading side.](https://docs-assets.developer.apple.com/published/54bb0329666e412062cb1ce43817c244/offering-help-tip-symbol-usage-incorrect%402x.png)
+![An illustration of an annotation-style tip pointing to a feature depicted by a blue star icon. The tip includes a similar blue star symbol on its leading side.](/images/com.apple.HIG/offering-help-tip-symbol-usage-incorrect@2x.png)
 
-![An X in a circle to indicate incorrect usage.](https://docs-assets.developer.apple.com/published/209f6f0fc8ad99d9bf59e12d82d06584/crossout%402x.png)
+![An X in a circle to indicate incorrect usage.](/images/com.apple.HIG/crossout@2x.png)
 
-![An illustration of an annotation-style tip pointing to a feature depicted by a blue star icon. The tip is text-only and omits an accompanying symbol.](https://docs-assets.developer.apple.com/published/e4ed2928afa86908322e88f417fd95bc/offering-help-tip-symbol-usage-correct%402x.png)
+![An illustration of an annotation-style tip pointing to a feature depicted by a blue star icon. The tip is text-only and omits an accompanying symbol.](/images/com.apple.HIG/offering-help-tip-symbol-usage-correct@2x.png)
 
-![A checkmark in a circle to indicate correct usage.](https://docs-assets.developer.apple.com/published/88662da92338267bb64cd2275c84e484/checkmark%402x.png)
+![A checkmark in a circle to indicate correct usage.](/images/com.apple.HIG/checkmark@2x.png)
 
 **Use buttons to direct people to information or options.** If your feature has settings people can customize, or you want to redirect people to an area where they can learn more about a feature, consider adding a button. Buttons can take people directly to the settings where they make adjustments. Or if there’s more information people might find useful, add a button to take them to additional resources, such as a setup flow.
 
@@ -60,9 +60,9 @@ If the feature is represented by an image that the tip connects to directly, avo
 
 ### macOS, visionOS
 
-A *tooltip* (called a *help tag* in user documentation) displays a small, transient view that briefly describes how to use a component in the interface. In apps that run on a Mac — including iPhone and iPad apps — tooltips can appear when a person holds the pointer over an element; in visionOS apps, a tooltip can appear when a person looks at an element or holds the pointer over it. For developer guidance, see [help(_:)](https://developer.apple.com/documentation/SwiftUI/View/help(_:)-6oiyb).
+A *tooltip* (called a *help tag* in user documentation) displays a small, transient view that briefly describes how to use a component in the interface. In apps that run on a Mac — including iPhone and iPad apps — tooltips can appear when a person holds the pointer over an element; in visionOS apps, a tooltip can appear when a person looks at an element or holds the pointer over it. For developer guidance, see [help(_:)](https://developer.apple.com/documentation/swiftui/view/help(_:)-6oiyb).
 
-![An illustration of a toolbar in macOS Finder with the pointer over the Back button. A tooltip with the title See folders you viewed previously appears beneath the pointer.](https://docs-assets.developer.apple.com/published/73b93ef4399648628ff79fab1ea92208/offering-help-macos-tooltip-help-tag%402x.png)
+![An illustration of a toolbar in macOS Finder with the pointer over the Back button. A tooltip with the title See folders you viewed previously appears beneath the pointer.](/images/com.apple.HIG/offering-help-macos-tooltip-help-tag@2x.png)
 
 **Describe only the control that people indicate interest in.** When people want to know how to use a specific control, they don’t want to learn how to use nearby controls or how to perform a larger task.
 
@@ -90,9 +90,9 @@ A *tooltip* (called a *help tag* in user documentation) displays a small, transi
 
 #### Developer documentation
 
-[TipKit](https://developer.apple.com/documentation/TipKit)
+[TipKit](https://developer.apple.com/documentation/tipkit)
 
-[NSHelpManager](https://developer.apple.com/documentation/AppKit/NSHelpManager) — AppKit
+[NSHelpManager](https://developer.apple.com/documentation/appkit/nshelpmanager) — AppKit
 
 #### Videos
 

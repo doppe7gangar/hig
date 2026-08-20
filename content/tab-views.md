@@ -2,7 +2,7 @@
 
 A tab view presents multiple mutually exclusive panes of content in the same area, which people can switch between using a tabbed control.
 
-![A stylized representation of a view with three labeled tabs, the first of which is selected. The image is tinted red to subtly reflect the red in the original six-color Apple logo.](https://docs-assets.developer.apple.com/published/38512ae4515e58e5eefbddbd6a8ce7a9/components-tab-view-intro%402x.png)
+![A stylized representation of a view with three labeled tabs, the first of which is selected. The image is tinted red to subtly reflect the red in the original six-color Apple logo.](/images/com.apple.HIG/components-tab-view-intro@2x.png)
 
 ## Best practices
 
@@ -16,13 +16,13 @@ A tab view presents multiple mutually exclusive panes of content in the same are
 
 **Avoid providing more than six tabs in a tab view.** Having more than six tabs can be overwhelming and create layout issues. If you need to present six or more tabs, consider another way to implement the interface. For example, you could instead present each tab as a view option in a pop-up button menu.
 
-For developer guidance, see [NSTabView](https://developer.apple.com/documentation/AppKit/NSTabView).
+For developer guidance, see [NSTabView](https://developer.apple.com/documentation/appkit/nstabview).
 
 ## Anatomy
 
 The tabbed control appears on the top edge of the content area. You can choose to hide the control, which is appropriate for an app that switches between panes programmatically.
 
-![An illustration of a window in which a three-tab tabbed control is centered on the top edge of the content view.](https://docs-assets.developer.apple.com/published/2645395724b0d825463bf6e61701d33f/tab-views-top%402x.png)
+![An illustration of a window in which a three-tab tabbed control is centered on the top edge of the content view.](/images/com.apple.HIG/tab-views-top@2x.png)
 
 When you hide the tabbed control, the content area can be borderless, bezeled, or bordered with a line. A borderless view can be solid or transparent.
 
@@ -38,9 +38,9 @@ For similar functionality, consider using a [segmented control](https://develope
 
 ### watchOS
 
-watchOS displays tab views using [page controls](https://developer.apple.com/design/human-interface-guidelines/components/presentation/page-controls). For developer guidance, see [TabView](https://developer.apple.com/documentation/SwiftUI/TabView).
+watchOS displays tab views using [page controls](https://developer.apple.com/design/human-interface-guidelines/components/presentation/page-controls). For developer guidance, see [TabView](https://developer.apple.com/documentation/swiftui/tabview).
 
-![An illustration showing the page control next to the Digital Crown on Apple Watch. The current dot is enlarged, indicating that people can scroll through the current content, as well as scroll between pages.](https://docs-assets.developer.apple.com/published/c65574d8caec7a02132f9beeee66b84f/tab-view-watch-vertical%402x.png)
+![An illustration showing the page control next to the Digital Crown on Apple Watch. The current dot is enlarged, indicating that people can scroll through the current content, as well as scroll between pages.](/images/com.apple.HIG/tab-view-watch-vertical@2x.png)
 
 ## Resources
 
@@ -52,9 +52,9 @@ watchOS displays tab views using [page controls](https://developer.apple.com/des
 
 #### Developer documentation
 
-[TabView](https://developer.apple.com/documentation/SwiftUI/TabView) — SwiftUI
+[TabView](https://developer.apple.com/documentation/swiftui/tabview) — SwiftUI
 
-[NSTabView](https://developer.apple.com/documentation/AppKit/NSTabView) — AppKit
+[NSTabView](https://developer.apple.com/documentation/appkit/nstabview) — AppKit
 
 ## Change log
 

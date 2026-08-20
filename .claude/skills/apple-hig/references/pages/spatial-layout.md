@@ -2,17 +2,26 @@
 
 Spatial layout techniques help you take advantage of the infinite canvas of Apple Vision Pro and present your content in engaging, comfortable ways.
 
-![A sketch of axes in the X, Y, and Z dimensions, suggesting three-dimensional layout. The image is overlaid with rectangular and circular grid lines and is tinted yellow to subtly reflect the yellow in the original six-color Apple logo.](https://docs-assets.developer.apple.com/published/e13737927c465ae264094aa019129252/foundations-spatial-layout-intro%402x.png)
+![A sketch of axes in the X, Y, and Z dimensions, suggesting three-dimensional layout. The image is overlaid with rectangular and circular grid lines and is tinted yellow to subtly reflect the yellow in the original six-color Apple logo.](/images/com.apple.HIG/foundations-spatial-layout-intro@2x.png)
 
 ## Field of view
 
 A person’s *field of view* is the space they can see without moving their head. The dimensions of an individual’s field of view while wearing Apple Vision Pro vary based on factors like the way people configure the Light Seal and the extent of their peripheral acuity.
 
-![A screenshot of a blank app window in visionOS. A series of concentric circles overlay the image, conveying 30-, 60-, and 90-degree fields of view.](https://docs-assets.developer.apple.com/published/88086621da558b375ed5ef8ea0002283/visionos-field-of-view-layout%402x.png)
+![A screenshot of a blank app window in visionOS. A series of concentric circles overlay the image, conveying 30-, 60-, and 90-degree fields of view.](/images/com.apple.HIG/visionos-field-of-view-layout@2x.png)
 
 > **Important:** The system doesn’t provide information about a person’s field of view.
 
 **Center important content within the field of view.** By default, visionOS launches an app directly in front of people, placing it within their field of view. In an immersive experience, you can help people keep their attention on important content by keeping it centered and not displaying distracting motion or bright, high-contrast objects in the periphery.
+
+**Upright viewing**
+
+*(video: An animation of a person wearing Apple Vision Pro and sitting upright in a chair. The person is directly facing a square that represents an app window in visionOS that's centered in the person's field of view. A dotted line animates from the person's eyes to the center of the window.)*
+
+**Angled viewing**
+
+*(video: An animation of a person wearing Apple Vision Pro and reclining in a chair. The person is looking at a square that represents an app window in visionOS. The app window is positioned a short distance from the person, is raised in the air, and is tilted toward the person so it's centered within the person's field of view. A dotted line animates from the person's eyes to the center of the window.)*
+
 
 **Avoid anchoring content to the wearer’s head.** Although you generally want your app to stay within the field of view, anchoring content so that it remains statically in front of someone can make them feel stuck, confined, and uncomfortable, especially if the content obscures a lot of passthrough and decreases the apparent stability of their surroundings. Instead, anchor content in people’s space, giving them the freedom to look around naturally and view different objects in different locations.
 
@@ -20,11 +29,13 @@ A person’s *field of view* is the space they can see without moving their head
 
 People rely on visual cues like distance, occlusion, and shadow to perceive depth and make sense of their surroundings. On Apple Vision Pro, the system automatically uses visual effects like color temperature, reflections, and shadow to help people perceive the depth of virtual content. When people move a virtual object in space — or when they change their position relative to that object — the visual effects change the object’s apparent depth, making the experience feel more lifelike.
 
-Because people can view your content from any angle, incorporating small amounts of depth throughout your interface — even in standard windows — can help it look more natural. When you use SwiftUI, the system adds visual effects to views in a 2D window, making them appear to have depth. For developer guidance, see [Adding 3D content to your app](https://developer.apple.com/documentation/visionOS/adding-3d-content-to-your-app).
+Because people can view your content from any angle, incorporating small amounts of depth throughout your interface — even in standard windows — can help it look more natural. When you use SwiftUI, the system adds visual effects to views in a 2D window, making them appear to have depth. For developer guidance, see [Adding 3D content to your app](https://developer.apple.com/documentation/visionos/adding-3d-content-to-your-app).
 
-![A screenshot of a 2D Notes window in visionOS. A note titled Nature Walks is open on the trailing side of the view, with sketches of leaves accompanied by handwritten text descriptions.](https://docs-assets.developer.apple.com/published/2b07a7f22124deaea6c2ce31a93d8833/visionos-spatial-layout-2d-window%402x.png)
+![A screenshot of a 2D Notes window in visionOS. A note titled Nature Walks is open on the trailing side of the view, with sketches of leaves accompanied by handwritten text descriptions.](/images/com.apple.HIG/visionos-spatial-layout-2d-window@2x.png)
 
-If you need to present content with additional depth, you use RealityKit to create a 3D object (for developer guidance, see [RealityKit](https://developer.apple.com/documentation/RealityKit)). You can display the 3D object anywhere, or you can use a *volume*, which is a component that displays 3D content. A volume is similar to a window, but without a visible frame. For guidance, see [visionOS volumes](https://developer.apple.com/design/human-interface-guidelines/windows#visionOS-volumes).
+If you need to present content with additional depth, you use RealityKit to create a 3D object (for developer guidance, see [RealityKit](https://developer.apple.com/documentation/realitykit)). You can display the 3D object anywhere, or you can use a *volume*, which is a component that displays 3D content. A volume is similar to a window, but without a visible frame. For guidance, see [visionOS volumes](https://developer.apple.com/design/human-interface-guidelines/windows#visionOS-volumes).
+
+*(video: A recording showing a 3D model of a satellite within a visionOS volume. As the viewer approaches the satellite and manipulates its orientation, light reflections adjust based on the position of the viewer and angle of the satellite.)*
 
 **Provide visual cues that accurately communicate the depth of your content.** If visual cues are missing or they conflict with a person’s real-world experience, people can experience visual discomfort.
 
@@ -40,7 +51,11 @@ visionOS defines two types of scale to preserve the appearance of depth while op
 
 *Dynamic scale* helps content remain comfortably legible and interactive regardless of its proximity to people. Specifically, visionOS automatically increases a window’s scale as it moves away from the wearer and decreases it as the window moves closer, making the window appear to maintain the same size at all distances.
 
+*(video: An animation that shows a square representing an app window in a 3D space. The square animates to move back along its plane from its initial position. As it moves, it dynamically grows in size. A frame representing the original position remains visible for comparison. After the movement is complete, the entire environment rotates to convey that, from the viewer's angle, the window always remains the same size.)*
+
 *Fixed scale* means that an object maintains the same scale regardless of its proximity to people. A fixed-scale object appears smaller when it moves farther from the viewer along the z-axis, similar to the way an object in a person’s physical surroundings looks smaller when it’s far away than it does when it’s close up.
+
+*(video: An animation that shows a square representing an app window in a 3D space. The square animates to move back along its plane from its initial position. As it moves, it becomes smaller. A frame representing the original position remains visible for comparison. After the movement is complete, the entire environment rotates to convey that, from the viewer's angle, the window appears to have receded into the distance.)*
 
 To support dynamic scaling and the appearance of depth, visionOS defines a point as an angle, in contrast to other platforms, which define a point as a number of pixels that can vary with the [Resolution](https://developer.apple.com/design/human-interface-guidelines/images#Resolution) of a 2D display.
 
@@ -78,11 +93,11 @@ To learn more about windows and volumes in visionOS, see [visionOS](https://deve
 
 #### Developer documentation
 
-[Presenting windows and spaces](https://developer.apple.com/documentation/visionOS/presenting-windows-and-spaces) — visionOS
+[Presenting windows and spaces](https://developer.apple.com/documentation/visionos/presenting-windows-and-spaces) — visionOS
 
-[Positioning and sizing windows](https://developer.apple.com/documentation/visionOS/positioning-and-sizing-windows) — visionOS
+[Positioning and sizing windows](https://developer.apple.com/documentation/visionos/positioning-and-sizing-windows) — visionOS
 
-[Adding 3D content to your app](https://developer.apple.com/documentation/visionOS/adding-3d-content-to-your-app) — visionOS
+[Adding 3D content to your app](https://developer.apple.com/documentation/visionos/adding-3d-content-to-your-app) — visionOS
 
 #### Videos
 

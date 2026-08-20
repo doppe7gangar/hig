@@ -1,0 +1,553 @@
+/* iOS 27 component recipes for the web.
+ *
+ * Hand-authored, built on the measured values in tokens/ios-tokens.css --
+ * load that first. Colours and control geometry come from the kit; the
+ * layout numbers (padding, gaps, list insets) come from the HIG corpus
+ * where it states them, and are marked where it doesn't.
+ *
+ * Load order:
+ *     <link rel="stylesheet" href="tokens/ios-tokens.css">
+ *     <link rel="stylesheet" href="ios-components.css">
+ */
+
+:root {
+  /* Not measured. The kit exports components on transparent or
+     placeholder backgrounds, so there is no screenshot to read a page
+     background off. These are the grouped-content pairing iOS Settings
+     uses: a grey page with white cards floating on it, inverting to a
+     black page with near-black cards in dark. Getting this backwards --
+     white page, grey cards -- is the single fastest way to make a web
+     page read as "not quite iOS". */
+  --ios-bg: #F2F2F7;          /* systemGroupedBackground: the page */
+  --ios-bg-card: #FFFFFF;     /* secondarySystemGroupedBackground: rows */
+  --ios-separator: rgba(60, 60, 67, 0.29);
+
+  --ios-radius-card: 10px;
+  --ios-radius-control: 12px;
+  --ios-gutter: 16px;      /* layout.md: standard content margin */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ios-bg: #000000;
+    --ios-bg-card: #1C1C1E;
+    --ios-separator: rgba(84, 84, 88, 0.6);
+  }
+}
+
+/* Increase Contrast, ported.
+ *
+ * Apple's light-mode palette does not clear Apple's own contrast table.
+ * Measured on white: secondary label 3.44:1, accent as text 3.52:1, red
+ * 3.57:1 -- all under the 4.5:1 that accessibility.md requires up to
+ * 17 pt. Dark mode is fine; light is where it bites.
+ *
+ * On iOS that is survivable because Increase Contrast adapts the system
+ * colours at render time. The web has no such thing running for you, so
+ * these are the same adjustment done explicitly: darkened just far
+ * enough to clear 4.5:1 on the grouped page background, hue kept.
+ *
+ * Filled buttons are not overridden -- white on the accent is 3.52:1
+ * with a semibold label, and Apple's table allows 3:1 at bold. */
+@media (prefers-contrast: more) {
+  :root {
+    --ios-accent: #006ECF;                   /* 4.55:1 on --ios-bg */
+    --ios-red: #D12E31;                      /* 4.54:1 */
+    --ios-label-secondary: rgba(60, 60, 67, 0.72);  /* 4.74:1 on card */
+  }
+}
+
+@media (prefers-contrast: more) and (prefers-color-scheme: dark) {
+  :root {
+    /* Dark already clears 4.5:1 on every pair; keep the measured values. */
+    --ios-accent: #0091FF;
+    --ios-red: #FF4245;
+    --ios-label-secondary: rgba(235, 235, 245, 0.698);
+  }
+}
+
+body {
+  margin: 0;
+  font: var(--ios-text-body);
+  color: var(--ios-label);
+  background: var(--ios-bg);
+  -webkit-font-smoothing: antialiased;
+  /* Inter's variable font carries an optical-size axis, the same idea as
+     SF's Text and Display cuts: as type grows it tightens and its
+     apertures close. Left off, a 34pt title is just a scaled-up 17pt
+     one, which is a large part of why web type stops looking Apple-ish
+     at display sizes. */
+  font-optical-sizing: auto;
+}
+
+/* ---------------------------------------------------------------- Buttons
+
+   Four styles, matching what the HIG actually distinguishes: filled for
+   the primary action, tinted and plain for everything else, and a
+   destructive variant that is a *colour* change on any of them rather
+   than a style of its own.
+
+   Every one is at least 44px tall. buttons.md states 44x44 pt as the
+   general rule for a hit region; the accessibility floor of 28x28 is for
+   less important controls, not a licence to shrink the primary action. */
+
+.ios-btn {
+  font: var(--ios-text-body);
+  font-weight: 590;                    /* SF's semibold axis */
+  min-height: var(--ios-hit-target);
+  padding: 11px 20px;
+  border: none;
+  border-radius: 999px;                /* iOS 26+ capsule buttons */
+  color: var(--ios-accent);
+  background: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: opacity .15s ease, background-color .15s ease,
+              transform .1s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ios-btn--filled {
+  background: var(--ios-accent);
+  color: #FFFFFF;
+}
+
+.ios-btn--tinted {
+  /* colour-mix keeps the tint tied to the accent, so re-theming one
+     token re-themes the tint with it */
+  background: color-mix(in srgb, var(--ios-accent) 15%, transparent);
+  color: var(--ios-accent);
+}
+
+.ios-btn--destructive        { color: var(--ios-red); }
+.ios-btn--filled.ios-btn--destructive {
+  background: var(--ios-red);
+  color: #FFFFFF;
+}
+
+/* Pressed. The kit's stepper darkens its fill under press rather than
+   fading it, so this darkens too instead of dropping opacity. */
+.ios-btn:active { transform: scale(.97); }
+.ios-btn--filled:active {
+  background: color-mix(in srgb, var(--ios-accent) 85%, #000);
+}
+.ios-btn--filled.ios-btn--destructive:active {
+  background: color-mix(in srgb, var(--ios-red) 85%, #000);
+}
+
+.ios-btn:disabled {
+  opacity: var(--ios-disabled-opacity);
+  cursor: default;
+  transform: none;
+}
+
+.ios-btn:focus-visible {
+  outline: 3px solid var(--ios-accent);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------- Switch
+
+   64x28 with a 14 radius, measured off the kit. The knob is a white
+   circle inset 2px; "on" is systemGreen, "off" is the translucent grey
+   fill. Built on a real checkbox so it is keyboard- and
+   screen-reader-operable without extra work. */
+
+.ios-switch {
+  position: relative;
+  display: inline-block;
+  width: var(--ios-switch-w);
+  height: var(--ios-switch-h);
+  flex: none;
+}
+
+.ios-switch input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
+}
+
+.ios-switch__track {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--ios-switch-radius);
+  background: var(--ios-fill-track);
+  transition: background-color .2s ease;
+  pointer-events: none;
+}
+
+.ios-switch__track::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: calc(var(--ios-switch-h) - 4px);
+  height: calc(var(--ios-switch-h) - 4px);
+  border-radius: 50%;
+  background: #FFFFFF;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .18);
+  transition: transform .2s ease;
+}
+
+.ios-switch input:checked + .ios-switch__track {
+  background: var(--ios-green);
+}
+
+.ios-switch input:checked + .ios-switch__track::after {
+  transform: translateX(calc(var(--ios-switch-w) - var(--ios-switch-h)));
+}
+
+.ios-switch input:disabled + .ios-switch__track {
+  opacity: var(--ios-disabled-opacity);
+}
+
+.ios-switch input:focus-visible + .ios-switch__track {
+  outline: 3px solid var(--ios-accent);
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------ Grouped list
+
+   The inset grouped list is the single most recognisable iOS layout, and
+   the detail people get wrong is the separator: it starts at the text,
+   not at the card edge, and the last row has none at all. */
+
+.ios-list {
+  list-style: none;
+  margin: 0 var(--ios-gutter);
+  padding: 0;
+  background: var(--ios-bg-card);
+  border-radius: var(--ios-radius-card);
+  overflow: hidden;
+}
+
+.ios-list__row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: var(--ios-hit-target);
+  padding: 11px var(--ios-gutter);
+  position: relative;
+}
+
+.ios-list__row + .ios-list__row::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: var(--ios-gutter);
+  right: 0;
+  height: 1px;
+  background: var(--ios-separator);
+  transform: scaleY(.5);          /* hairline on 2x displays */
+  transform-origin: top;
+}
+
+.ios-list__row--tappable { cursor: pointer; }
+.ios-list__row--tappable:active {
+  background: color-mix(in srgb, var(--ios-label) 8%, transparent);
+}
+
+.ios-list__title { flex: 1; }
+.ios-list__value {
+  color: var(--ios-label-secondary);
+  text-align: right;
+}
+
+.ios-list__chevron {
+  color: var(--ios-label-tertiary);
+  flex: none;
+}
+
+.ios-list__header {
+  font: var(--ios-text-footnote);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--ios-label-secondary);
+  margin: 24px calc(var(--ios-gutter) * 2) 7px;
+}
+
+.ios-list__footer {
+  font: var(--ios-text-footnote);
+  color: var(--ios-label-secondary);
+  margin: 7px calc(var(--ios-gutter) * 2) 0;
+}
+
+/* ------------------------------------------------------------- Text field */
+
+.ios-field {
+  font: var(--ios-text-body);
+  color: var(--ios-label);
+  background: var(--ios-surface);
+  border: none;
+  border-radius: var(--ios-radius-control);
+  padding: 12px var(--ios-gutter);
+  min-height: var(--ios-hit-target);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.ios-field::placeholder { color: var(--ios-label-tertiary); }
+
+.ios-field:focus {
+  outline: 2px solid var(--ios-accent);
+  outline-offset: -2px;
+}
+
+/* -------------------------------------------------------- Segmented control
+
+   A real radiogroup underneath, so arrow keys work and the selection is
+   announced. The selected segment is a raised white pill on the track. */
+
+.ios-segmented {
+  display: inline-flex;
+  background: var(--ios-fill-control);
+  border-radius: 9px;
+  padding: 2px;
+  gap: 2px;
+}
+
+.ios-segmented label {
+  position: relative;
+  flex: 1;
+  text-align: center;
+  padding: 7px 14px;
+  border-radius: 7px;
+  font: var(--ios-text-subhead);
+  color: var(--ios-label);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.ios-segmented input { position: absolute; opacity: 0; inset: 0; margin: 0; }
+
+/* The selected pill is drawn on the label itself rather than a stacked
+   pseudo-element, so it can't drift out of alignment with its own box. */
+.ios-segmented label:has(input:checked) {
+  background: var(--ios-bg-card);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, .12);
+}
+
+.ios-segmented label:has(input:focus-visible) {
+  outline: 3px solid var(--ios-accent);
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------- Tab bar
+
+   Bottom-anchored, safe-area aware. The selected item takes the accent;
+   the rest sit at secondary. */
+
+.ios-tabbar {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  border-width: 0.5px 0 0 0;
+  border-radius: 0;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.ios-tabbar__item {
+  flex: 1;
+  min-height: 49px;                 /* iOS tab bar height */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font: var(--ios-text-caption2);
+  color: var(--ios-label-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.ios-tabbar__item[aria-selected="true"] { color: var(--ios-accent); }
+
+/* --------------------------------------------------------------- Material
+
+   Liquid Glass. The browser cannot do the real thing -- that is a
+   real-time refraction of what sits behind the surface -- but the parts
+   that make it *read* as glass are all reproducible, and leaving them
+   out is why a plain backdrop-filter looks like flat grey.
+
+   Measured off Materials/_Liquid Glass at 4x, the surface has four
+   layers, not one:
+
+     rim        a hairline that is not the same all the way round. Light
+                comes from above, so in dark mode the top edge is #7E7E7E
+                against a #1A1A1A body -- a bright specular line -- while
+                the sides go to #151515, darker than the body. In light
+                mode the whole rim is darker than the body (#C5 top, #97
+                sides on a #F9F9F9 face), so it reads as an outline.
+     falloff    just inside the rim, a band grading back to the body over
+                about 1.5pt: #949494 -> #434343 -> #1F1F1F -> #1A1A1A.
+     body       very slightly darker at the centre than at the edges.
+     ambient    a wide soft shadow, 8% black in light and 15% in dark at
+                the edge, still 3-5% sixteen points out.
+
+   It only works over something. Put it on a flat background and there is
+   nothing to refract and nothing to blur, and it collapses to a grey
+   box. */
+
+.ios-glass,
+.ios-material,
+.ios-navbar,
+.ios-tabbar {
+  position: relative;
+  background: linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--ios-bg-card) 62%, transparent),
+      color-mix(in srgb, var(--ios-bg-card) 78%, transparent));
+  backdrop-filter: saturate(180%) blur(24px);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
+  border: 0.5px solid rgba(0, 0, 0, .14);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .55),
+    inset 0 -1px 0 rgba(255, 255, 255, .18),
+    0 2px 8px rgba(0, 0, 0, .06),
+    0 12px 32px rgba(0, 0, 0, .08);
+}
+
+@media (prefers-color-scheme: dark) {
+  .ios-glass,
+  .ios-material,
+  .ios-navbar,
+  .ios-tabbar {
+    border-color: rgba(255, 255, 255, .10);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, .34),
+      inset 0 -1px 0 rgba(255, 255, 255, .08),
+      0 2px 8px rgba(0, 0, 0, .30),
+      0 12px 32px rgba(0, 0, 0, .15);
+  }
+}
+
+/* The falloff band. A pseudo-element rather than another gradient on the
+   background, so the backdrop-filter underneath is not disturbed. */
+.ios-glass::before,
+.ios-material::before,
+.ios-navbar::before,
+.ios-tabbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, .22) 0,
+      rgba(255, 255, 255, 0) 6px);
+}
+
+/* The kit ships the tint as named variants, not as one value. Measured
+   from Materials/_Liquid Glass small swatches, "Light" and "Dark" Liquid
+   Glass turn out to be the same neutral grey at two strengths rather
+   than a white-versus-black pair, and "Prominent" is not a tint at all --
+   it is the accent filled in solid, which is what a primary action gets.
+
+   Pick by what is behind the surface: --light over busy or bright
+   content so the colour survives, --dark over quiet content where the
+   control needs to separate from it. */
+.ios-glass--light {
+  background: rgba(115, 115, 128, .078);   /* Inactive Light, a=20/255 */
+}
+
+.ios-glass--dark {
+  background: rgba(116, 116, 128, .18);    /* Inactive Dark, a=46/255 */
+}
+
+.ios-glass--prominent {
+  background: var(--ios-accent);           /* Active Prominent, opaque */
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, .22);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .38),
+    0 2px 8px rgba(0, 0, 0, .12),
+    0 12px 32px rgba(0, 0, 0, .16);
+}
+
+.ios-glass--prominent::before { opacity: .5; }
+
+/* Clear: the variant with almost no tint, for glass over vivid content
+   where a milky fill would kill the colour underneath. */
+.ios-glass--clear {
+  background: color-mix(in srgb, var(--ios-bg-card) 22%, transparent);
+  backdrop-filter: saturate(200%) blur(12px);
+  -webkit-backdrop-filter: saturate(200%) blur(12px);
+}
+
+.ios-glass--capsule { border-radius: 999px; }
+.ios-glass--card    { border-radius: 22px; }
+
+/* A floating glass button -- the iOS 26 shape that reads as glass fastest,
+   because it sits over scrolling content rather than over a flat panel. */
+.ios-glass-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: var(--ios-hit-target);
+  min-width: var(--ios-hit-target);
+  padding: 11px 20px;
+  border-radius: 999px;
+  font: var(--ios-text-body);
+  font-weight: 590;
+  color: var(--ios-label);
+  cursor: pointer;
+  transition: transform .12s ease;
+}
+
+.ios-glass-btn:active { transform: scale(.96); }
+
+.ios-glass-btn:focus-visible {
+  outline: 3px solid var(--ios-accent);
+  outline-offset: 2px;
+}
+
+/* Bars are the other place glass belongs: content scrolls underneath, so
+   there is always something to refract. */
+.ios-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px var(--ios-gutter);
+  padding-top: calc(10px + env(safe-area-inset-top, 0px));
+  border-width: 0 0 0.5px 0;
+  border-radius: 0;
+  color: var(--ios-accent);
+  font: var(--ios-text-body);
+}
+
+.ios-navbar__title {
+  color: var(--ios-label);
+  font: var(--ios-text-headline);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .ios-glass,
+  .ios-glass--clear,
+  .ios-navbar,
+  .ios-tabbar {
+    background: var(--ios-bg-card);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .ios-glass::before { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ios-btn,
+  .ios-switch__track,
+  .ios-switch__track::after { transition: none; }
+}

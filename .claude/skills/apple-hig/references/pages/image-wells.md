@@ -2,7 +2,7 @@
 
 An image well is an editable version of an image view.
 
-![A stylized representation of an image well. The image is tinted red to subtly reflect the red in the original six-color Apple logo.](https://docs-assets.developer.apple.com/published/7258755a27eeb801eac265d76d7c7269/components-image-well-intro%402x.png)
+![A stylized representation of an image well. The image is tinted red to subtly reflect the red in the original six-color Apple logo.](/images/com.apple.HIG/components-image-well-intro@2x.png)
 
 After selecting an image well, people can copy and paste its image or delete it. People can also drag a new image into an image well without selecting it first.
 
@@ -26,4 +26,4 @@ For related guidance, see [Image views](https://developer.apple.com/design/human
 
 #### Developer documentation
 
-[NSImageView](https://developer.apple.com/documentation/AppKit/NSImageView) — AppKit
+[NSImageView](https://developer.apple.com/documentation/appkit/nsimageview) — AppKit
