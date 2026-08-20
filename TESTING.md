@@ -86,8 +86,8 @@ contrast. It asserts computed values rather than appearance: every token
 resolves, the type scale lands on the HIG's numbers to the pixel, the
 switch measures 64×28 with 36px of knob travel, hit targets clear 44px,
 separators skip each list's first row, the colour pairs meet the contrast
-they should, and the bundled Inter actually renders rather than silently
-falling through to a substitute.
+they should, and a bundled face actually renders rather than silently
+falling through to whatever the platform substitutes.
 
 It exits non-zero if anything fails, so it's worth running after any
 edit to the CSS. Drop `-v` to see only failures.
@@ -137,7 +137,9 @@ Copy the answer, then from whatever folder your code is in:
 
 ```bash
 pbpaste | python3 ~/.claude/skills/apple-hig/verify_quotes.py -
-``` It grades every quoted span against the corpus:
+```
+
+It grades every quoted span against the corpus:
 **verbatim**, **elided** (honest `[…]`), **truncated** (ends early), or
 **altered** — reworded, or two separate rules fused into one sentence
 Apple never wrote. Anything reported as ALTERED is worth reading twice.
@@ -149,11 +151,6 @@ Apple never wrote. Anything reported as ALTERED is worth reading twice.
 `apple-ui-kit` carries Apple's *appearance* to platforms that have no
 system palette to ask. On the web specifically it can't carry:
 
-- **SF Pro** — now self-hosted from `fonts/sf.css` (212 KB, Latin
-  subset of the variable file). Apple devices still use their own copy
-  via `-apple-system` and download nothing. Its licence covers designing
-  for Apple platforms, not webfont serving, so shipping it publicly is
-  your call; `fonts/inter.css` is the unrestricted fallback.
 - **Liquid Glass** — the live refraction has no browser equivalent. The
   rim, falloff, tint variants and ambient shadow are all measured and
   built; only the bending of what's behind the surface is missing. It
@@ -161,6 +158,14 @@ system palette to ask. On the web specifically it can't carry:
   collapses to a grey box, which is a property of the material, not a
   bug.
 - **Native behaviour** — sheet physics, rubber-banding, haptics.
+
+**SF Pro is no longer on that list.** It is self-hosted from
+`fonts/sf.css` — a 212 KB Latin subset of the variable file — and Apple
+devices still use their own copy via `-apple-system` without
+downloading it. The remaining question there is licensing, not
+capability: the licence covers designing for Apple platforms, not
+webfont serving, so shipping it on a public site is your call.
+`fonts/inter.css` is the unrestricted fallback.
 
 And in light mode Apple's own palette sits under Apple's own contrast
 threshold (secondary label 3.44:1 against a required 4.5:1). That's real,
