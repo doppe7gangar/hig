@@ -1,0 +1,13 @@
+# Dev / build artifacts — never ship these.
+# _research holds Apple's copyrighted reference frames; redistribution is prohibited.
+_validation/
+_planning/
+_research/
+**/reference-only/
+**/SPEC.md
+**/PLAN.md
+
+# OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini
