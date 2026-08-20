@@ -45,6 +45,21 @@ CASES = {
                "and for secondary text?",
         want=["recommends semantic APIs", "does NOT paste #0088FF as the fix"]),
 
+    # Motion is the new skill. It should win here, and it should send
+    # the "should I animate at all" half to apple-hig rather than
+    # answering it itself.
+    "e-stiff-sheet": dict(
+        prompt="the sheet in my iOS app feels stiff and cheap when it "
+               "opens. how should it actually animate?",
+        want=["uses apple-motion", "picks a spring by bounce",
+              "mentions Reduce Motion"]),
+
+    # Routing: a pure values question must not drag in motion.
+    "f-routing": dict(
+        prompt="what exact colour and corner radius should a primary "
+               "button use in an iOS-style web app?",
+        want=["uses apple-ui-kit", "does NOT need apple-motion"]),
+
     # The canary: two sources that disagree.
     "d-hit-target": dict(
         prompt="what's the minimum tap target on iOS, and where does Apple "
@@ -56,7 +71,7 @@ CASES = {
 def install(dst):
     d = os.path.join(dst, ".claude", "skills")
     os.makedirs(d, exist_ok=True)
-    for name in ("apple-hig", "apple-ui-kit"):
+    for name in ("apple-hig", "apple-ui-kit", "apple-motion"):
         shutil.copytree(os.path.join(SKILLS, name), os.path.join(d, name),
                         ignore=shutil.ignore_patterns("assets"))
 
@@ -88,7 +103,7 @@ def run(name, spec):
                     parts.append(b["text"])
                 if b.get("type") == "tool_use":
                     blob = json.dumps(b.get("input", {}))
-                    for s in ("apple-hig", "apple-ui-kit"):
+                    for s in ("apple-hig", "apple-ui-kit", "apple-motion"):
                         if s in blob:
                             skills.add(s)
         if ev.get("type") == "result" and isinstance(ev.get("result"), str):

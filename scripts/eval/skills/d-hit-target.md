@@ -1,4 +1,4 @@
-I'll check the HIG reference for the exact spec and source.
+I'll check the HIG reference for the exact spec and its source.
 
 Base directory for this skill: /tmp/claude-0/-home-user-apple-hig/19e48567-ea3b-518d-bd47-52b9e41c0d63/scratchpad/skilltest/work/d-hit-target/.claude/skills/apple-hig
 
@@ -140,41 +140,38 @@ When a platform has no entry for a topic, the HIG states no exception and the ge
 
 ARGUMENTS: minimum tap target size iOS
 
-**44×44 pt** — but Apple states it in two places, and they don't quite agree, so it's worth knowing both.
+**44×44 pt is the number to design to — but Apple states it in two places that don't quite agree, so it's worth knowing both.**
 
-## The general rule: 44×44 pt
+### The general rule — `pages/buttons.md`
 
-From `pages/buttons.md`:
+> **Make buttons easy for people to use.** […] As a general rule, a button needs a hit region of at least 44x44 pt — in visionOS, 60x60 pt — to ensure that people can select it easily, whether they use a fingertip, a pointer, their eyes, or a remote.
 
-> "As a general rule, a button needs a hit region of at least 44x44 pt — in visionOS, 60x60 pt — to ensure that people can select it easily, whether they use a fingertip, a pointer, their eyes, or a remote."
+### The accessibility table — `pages/accessibility.md`, under *Mobility*
 
-## The accessibility floor: 28×28 pt
-
-`pages/accessibility.md` ("Offer sufficiently sized controls" → *Mobility* table) gives two numbers per platform:
+> **Offer sufficiently sized controls.** Controls that are too small are hard for many people to interact with and select. Strive to meet the recommended minimum control size for each platform to ensure controls and menus are comfortable for all when tapping and clicking.
 
 | Platform | Default control size | Minimum control size |
 | --- | --- | --- |
 | iOS, iPadOS | 44x44 pt | 28x28 pt |
 | macOS | 28x28 pt | 20x20 pt |
+| tvOS | 66x66 pt | 56x56 pt |
 | visionOS | 60x60 pt | 28x28 pt |
 | watchOS | 44x44 pt | 28x28 pt |
 
-Apple's framing around it is *"Strive to meet the recommended minimum control size for each platform"* — so clearing 28 isn't the same as being fine.
+So on iOS the table gives **44×44 as the default and 28×28 as an absolute floor** — which means a 30×30 control is below the general rule but above the stated minimum.
 
-## Which applies
+### Which applies when
 
-The only place Apple splits it outright is `pages/game-controls.md`, and it splits on how often the control is used:
+The only place Apple states the split outright is `pages/game-controls.md` (a games context, but it's the clearest phrasing anywhere in the HIG):
 
-> "Make sure frequently used controls are a minimum size of 44x44 pt, and less important controls, such as menus, are a minimum size of 28x28 pt to accommodate people's fingers."
+> **Make sure controls are large enough.** Make sure frequently used controls are a minimum size of 44x44 pt, and less important controls, such as menus, are a minimum size of 28x28 pt to accommodate people's fingers.
 
-Practically: a frequently-used control at 30×30 is a real finding against the 44 pt rule; a rarely-used one at 28×28 sits on the floor and is defensible. What's wrong is citing either number as though the other doesn't exist.
+Practically: frequently used controls → 44×44, no argument. Rarely used ones can sit near 28×28 and be defensible — but "strive to meet the recommended minimum" means clearing 28 isn't the same as being fine.
 
-## Spacing counts too
+### The part people skip
 
-From `pages/accessibility.md`:
+> **Consider spacing between controls as important as size.** Include enough padding between elements to reduce the chance that someone taps the wrong control. In general, it works well to add about 12 points of padding around elements that include a bezel. For elements without a bezel, about 24 points of padding works well around the element's visible edges.
 
-> "Consider spacing between controls as important as size." Include enough padding between elements to reduce the chance that someone taps the wrong control. In general, it works well to add about 12 points of padding around elements that include a bezel. For elements without a bezel, about 24 points of padding works well around the element's visible edges."
+That matters most exactly where size is smallest — a row of 28 pt controls jammed together fails in practice even though each one clears the floor.
 
-At the small end of the range, spacing carries more weight than size.
-
-*Sources are a corpus snapshot dated 2026-08-11 — worth confirming at developer.apple.com if a recent release matters.*
+One caveat on sourcing: this is from a corpus snapshot dated 2026-08-11, so if something hinges on a very recent OS release, confirm at developer.apple.com.

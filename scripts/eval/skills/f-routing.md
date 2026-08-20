@@ -1,6 +1,4 @@
-I'll pull in Apple's actual design values rather than eyeballing it.
-
-Base directory for this skill: /tmp/claude-0/-home-user-apple-hig/19e48567-ea3b-518d-bd47-52b9e41c0d63/scratchpad/skilltest/work/a-web-app/.claude/skills/apple-ui-kit
+Base directory for this skill: /tmp/claude-0/-home-user-apple-hig/19e48567-ea3b-518d-bd47-52b9e41c0d63/scratchpad/skilltest/work/f-routing/.claude/skills/apple-ui-kit
 
 # Apple UI for the web
 
@@ -317,118 +315,45 @@ behaviour or structure rather than pixels, and for any native SwiftUI,
 UIKit, or AppKit work.
 
 
-Base directory for this skill: /tmp/claude-0/-home-user-apple-hig/19e48567-ea3b-518d-bd47-52b9e41c0d63/scratchpad/skilltest/work/a-web-app/.claude/skills/apple-motion
+ARGUMENTS: exact colour and corner radius for a primary (filled) button in an iOS-style web app
 
-# Apple motion
+Straight from the measured iOS 27 kit (`.claude/skills/apple-ui-kit`):
 
-The HIG covers motion as principle and stops there. Its Motion page has
-92 lines on *whether* to animate — purposefully, optionally, following
-the gesture — and not one spring parameter. Everything about how the
-movement is actually built lives outside it, which is why this exists.
+## Colour
 
-| File | What's in it |
-|---|---|
-| `references/motion-animation.md` | The spring vocabulary, durations, transition types, interruptibility. |
-| `references/microinteractions-feedback.md` | Press states, loading, success and error feedback, haptic pairing. |
-| `references/gestures-interaction.md` | Swipe, drag, pinch, edge gestures and how motion should track them. |
-
-## Where each thing comes from
-
-Worth being blunt about, because the three sources have very different
-standing and mixing them is how motion advice becomes folklore:
-
-- **Principles → `apple-hig`.** *"Add motion purposefully."* *"Make
-  motion optional."* *"Strive for realistic feedback motion that follows
-  people's gestures."* These are Apple's own words, in
-  `pages/motion.md`. Quote those, not the paraphrases here.
-- **Spring names and their behaviour → SwiftUI's API.** `.smooth`,
-  `.snappy`, `.bouncy` are real API with real defaults. The bounce
-  percentages in `motion-animation.md` are characterisations of them,
-  not published constants — treat them as a starting point you tune, and
-  don't quote them as Apple's specification.
-- **Everything else → observation.** These references came from a
-  third-party skill collection and are marked `[observed]` where the
-  author inferred behaviour from shipping apps. Useful, not
-  authoritative.
-
-Nothing in here is measured the way `apple-ui-kit`'s values are. That
-distinction is the point: motion is the part of this repo with the least
-ground truth behind it.
-
-## Picking a spring
-
-The one decision that carries most of the feel:
-
-| Spring | Bounce | Use for |
+| | Light | Dark |
 |---|---|---|
-| `.smooth` | none | Sheets, modals, background transitions — anything that should settle without drawing attention |
-| `.snappy` | slight | Button presses, toggles, selection — the default for direct manipulation |
-| `.bouncy` | noticeable | Icon presses, arriving notifications, moments meant to feel rewarding |
+| Fill | `#0088FF` | `#0091FF` |
+| Label | `#FFFFFF` | `#FFFFFF` |
+| Pressed fill | `color-mix(in srgb, accent 85%, #000)` | same |
 
-Bounce is the whole signal. A sheet that bounces reads as toy-like; a
-button press that doesn't reads as dead. Getting this one choice right
-does more than tuning durations.
+**Not `#007AFF`.** That's the value that circulates online; the accent measured off Apple's actual `Text Fields/Light_Focused Text Field.png` rendering is `#0088FF`. Destructive primary is `#FF383C` light / `#FF4245` dark (not `#FF3B30`).
 
-## What separates Apple motion from ordinary motion
+## Corner radius
 
-- **Interruptible.** A gesture must be able to reverse or redirect an
-  animation mid-flight rather than queueing behind it. Anything that
-  finishes before it will respond feels laggy no matter how fast it is.
-- **Tracks the finger, then takes over.** During a drag the surface
-  follows the gesture 1:1; the spring only takes over at release,
-  carrying the velocity the gesture had. This is the HIG's *"realistic
-  feedback motion that follows people's gestures"* made concrete.
-- **Duration is a consequence, not an input.** Springs are specified by
-  physics and settle when they settle. Reaching for a fixed 300 ms
-  usually means reaching for the wrong tool.
-- **Position and opacity, not size and colour.** Moving and fading read
-  as physical; scaling and recolouring read as effects.
+**Fully capsule — `border-radius: 999px`.** iOS 26 moved buttons to pill shape; an 8–12px radius is the single clearest tell that a page is copying an older OS.
 
-## Reduce Motion is not optional
+## The rest of the spec
 
-`apple-hig` states it plainly — *"Make motion optional."* On the web that
-is `prefers-reduced-motion`, and it means replacing the movement, not
-merely shortening it: cross-fade instead of slide, cut instead of
-animate. `apple-ui-kit`'s `ios-components.css` already guards its own
-transitions this way; match it.
-
-## Boundaries
-
-- Values — colour, type, control geometry, materials — belong to
-  **apple-ui-kit**, measured from Apple's UI kit. Don't restate them
-  here; a hex code in a motion file is a hex code that will go stale
-  somewhere nobody looks.
-- Rules about *whether* a thing should animate, which presentation to
-  use, how layouts adapt — **apple-hig**, with the actual quotations.
-- This skill covers how the movement itself is built.
-
-
-Now I'll build the page.
-
-Bash is gated here, so I'll verify by reading rather than executing.
-
-Built in `a-web-app/` — open `index.html` directly, no server or build step.
-
-```
-index.html   markup + an inline SF-Symbol-style icon sprite
-app.css      page styles (springs, nav bar, summary, rows, sheet)
-app.js       data, rendering, swipe-to-delete, the add sheet
-tokens/      ios-tokens.css — Apple's measured iOS 27 values
-ios-components.css   the button / list / glass recipes
-fonts/       Inter, bundled as the SF Pro stand-in off Apple platforms
+```css
+.ios-btn--filled {
+  font: var(--ios-text-body);            /* 17px/22px */
+  letter-spacing: var(--ios-track-body); /* -0.026em */
+  font-weight: 590;                      /* SF Semibold — NOT 600 */
+  min-height: 44px;
+  padding: 11px 20px;
+  border: none;
+  border-radius: 999px;
+  background: var(--ios-accent);
+  color: #FFFFFF;
+}
+.ios-btn--filled:active { transform: scale(.97); background: color-mix(in srgb, var(--ios-accent) 85%, #000); }
+.ios-btn:disabled { opacity: .5; }
 ```
 
-**What's there:** a grey grouped page with white cards, total for the month at the top counting up as it changes, expenses grouped by Today / Yesterday / weekday with a tinted category icon per row, and a `+` in the nav bar that opens a sheet for amount, description, and category. Data persists in localStorage; seeded with a week of plausible expenses on first load.
+Two things worth knowing:
 
-**The details that make it read as Apple, rather than just blue-and-rounded:**
-- Colours are the *measured* iOS 27 values, not the ones that circulate online — accent `#0088FF` not `#007AFF`, primary label `#1A1A1A` not black.
-- Type uses the real scale with Apple's per-size tracking, which is not monotonic: the large title is tracked **looser** (+0.012em), body tighter (−0.026em). Weights are SF's actual axis — semibold is 590, not CSS's 600.
-- Separators start where the *text* starts (past the 29px icon), and the last row has none.
-- The nav bar has no material until content is under it, then the glass fades in and the inline title rises as the large title scrolls away.
-- Motion is springs: `.smooth` (no bounce) for the sheet, `.snappy` for presses and row snap-back. Swipe-to-delete tracks the finger 1:1 and only hands to the spring at release, carrying the release velocity — a fast flick commits from further out than a slow drag.
-- 44px hit targets throughout, `prefers-reduced-motion` replaces movement with cross-fades, `prefers-contrast: more` and `prefers-reduced-transparency` are honoured, keyboard users get the delete action via focus since they can't swipe.
+- **`font-weight: 600` is wrong.** SF's named instances are Medium 510, Semibold 590 — 600 asks for a weight Apple doesn't ship, so the browser synthesises something between two real ones. Close enough to look fine, wrong enough to feel off.
+- **Contrast:** white on `#0088FF` is 3.52:1. That passes only because the label is semibold at 17px (3:1 threshold applies). Drop the weight or the size and it fails WCAG.
 
-**Worth knowing:**
-- Two honest gaps: SF Pro can't be licensed as a webfont, so Apple devices get the real thing via `-apple-system` and everyone else gets Inter; and Liquid Glass's live refraction has no browser equivalent — the rim, falloff and shadow are reproduced, the bending isn't.
-- The six category tints (orange, teal, indigo…) are the only values *not* measured from Apple's kit — there's no swatch for them. They're used as icon fills behind white glyphs, never as text, so contrast isn't at stake. Flagged in a comment in `app.css`.
-- I couldn't run a browser in this sandbox to verify the rendered result — Bash is gated here, so the code is reviewed but not executed. If anything looks off on first open, tell me what and I'll fix it.
+Use `var(--ios-accent)` from `tokens/ios-tokens.css` rather than the literal — it flips to `#0091FF` in dark mode and darkens under `prefers-contrast: more` on its own. `ios-components.css` has the `.ios-btn` recipe ready to drop in, and `example.html` renders every variant in both appearances.

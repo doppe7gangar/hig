@@ -1,3 +1,5 @@
+I'll pull the measured iOS colour values and set them up as a Compose theme.
+
 Base directory for this skill: /tmp/claude-0/-home-user-apple-hig/19e48567-ea3b-518d-bd47-52b9e41c0d63/scratchpad/skilltest/work/b-compose/.claude/skills/apple-ui-kit
 
 # Apple UI for the web
@@ -16,6 +18,7 @@ the file it came from.
 | File | What it is |
 |---|---|
 | `tokens/` | **The measured values**, one file per target — see below. Generated; don't hand-edit. |
+| `fonts/` | **Inter, bundled** (SIL OFL) — the non-Apple fallback for SF Pro, with its licence. |
 | `ios-components.css` | **Web component recipes** built on the CSS tokens — buttons, switch, grouped list, field, segmented, tab bar, material. |
 | `example.html` | Working reference page. Open it to see every recipe, light and dark. |
 | `ui-kit-tokens.json` | **Every measurement**, 945 renderings × colours + geometry + state. Query it for anything the recipes don't cover. |
@@ -50,6 +53,7 @@ brand consistency is the deliberate goal; it is a bad default.
 For the web, copy the two CSS files in and load tokens first:
 
 ```html
+<link rel="stylesheet" href="fonts/inter.css">     <!-- optional -->
 <link rel="stylesheet" href="tokens/ios-tokens.css">
 <link rel="stylesheet" href="ios-components.css">
 ```
@@ -115,6 +119,89 @@ Most "iOS-style" web UI fails on these rather than on colour:
   the browser silently drops it, leaving everything at 16px while still
   looking broadly plausible.
 
+## Liquid Glass
+
+A plain `backdrop-filter` is why most "iOS 26 style" web UI looks flat.
+Measured off `Materials/_Liquid Glass` at 4×, the surface is four layers,
+and the blur is the least of them:
+
+- **Rim.** Not uniform. Light comes from above, so in dark mode the top
+  edge is `#7E7E7E` against a `#1A1A1A` body — a bright specular line —
+  while the sides fall to `#151515`, *darker* than the body. In light
+  mode the whole rim is darker than the face (`#C5` top, `#97` sides on
+  `#F9F9F9`), so it reads as an outline instead.
+- **Falloff.** Just inside the rim, a band grading back to the body over
+  ~1.5 pt: `#949494 → #434343 → #1F1F1F → #1A1A1A`.
+- **Body.** Very slightly darker at the centre than at the edges.
+- **Ambient shadow.** Wide and soft — 8% black in light, 15% in dark at
+  the edge, still 3–5% sixteen points out.
+
+```html
+<button class="ios-glass ios-glass--light ios-glass-btn ios-glass--capsule">
+  Focus
+</button>
+```
+
+Tint variants, measured rather than invented. "Light" and "Dark" Liquid
+Glass are the same neutral grey at two strengths, not a white/black pair,
+and "Prominent" isn't a tint at all — it's the accent filled solid:
+
+| Class | Value | Use |
+|---|---|---|
+| `.ios-glass--light` | `rgba(115,115,128,.078)` | over busy or bright content, so colour survives |
+| `.ios-glass--dark` | `rgba(116,116,128,.18)` | over quiet content, where the control must separate |
+| `.ios-glass--prominent` | `var(--ios-accent)`, opaque | the primary action |
+| `.ios-glass--clear` | minimal tint | over vivid artwork |
+
+`.ios-navbar` and `.ios-tabbar` are glass already.
+
+**It only works over something.** Glass is a refraction; on a flat
+background there is nothing to refract and nothing to blur, and it
+collapses to a grey box. If a design has no photography, gradient, or
+scrolling content behind the bars, glass is the wrong material — reach
+for a plain surface rather than faking it.
+
+`prefers-reduced-transparency` drops every glass surface to an opaque
+one, which is the setting Apple's own Reduce Transparency maps to.
+
+## Typography is where it stops looking like SF
+
+Getting the family right is the easy half. Two things decide whether the
+type actually reads as Apple, and both are counterintuitive.
+
+**Tracking is not monotonic.** Apple publishes a per-size table
+(`specs.md`, *Tracking values → SF Pro*) and the sign flips:
+
+| Style | Size | Tracking |
+|---|---|---|
+| Large Title | 34 pt | **+0.012em** |
+| Title 1 | 28 pt | **+0.014em** |
+| Title 2 | 22 pt | −0.012em |
+| Body / Headline | 17 pt | −0.026em |
+| Footnote | 13 pt | −0.006em |
+| Caption 2 | 11 pt | +0.006em |
+
+Large type is tracked **looser**, not tighter. The intuition that big
+text tightens is wrong here, and it is wrong on the most prominent text
+on the screen. On Apple platforms the font's `trak` table applies these
+automatically; browsers ignore `trak`, so they must be set as
+`letter-spacing`. Use `var(--ios-track-<style>)` beside every
+`var(--ios-text-<style>)`.
+
+**SF's weight axis is not the CSS ladder.** Read off the variable font's
+named instances:
+
+| | Ultralight | Thin | Light | Regular | Medium | Semibold | Bold | Heavy | Black |
+|---|---|---|---|---|---|---|---|---|---|
+| `wght` | 31 | 111 | 274 | 400 | **510** | **590** | 700 | 860 | 1000 |
+
+Medium is 510 and Semibold is 590. `font-weight: 600` asks for something
+between two real weights that Apple never ships — close enough to look
+fine and wrong enough to feel off. Use `var(--ios-weight-semibold)`.
+
+Both sets are generated, not typed: the tracking is parsed out of
+`specs.md` and the weights come from the font's own `fvar` table.
+
 ## Contrast: Apple's light palette does not clear Apple's own table
 
 Worth knowing before you ship text in it. `accessibility.md` requires
@@ -151,14 +238,28 @@ change that breaks it fails rather than merely looking fine.
 
 ## What does not transfer, and don't pretend it does
 
-- **SF Pro.** Its licence does not cover general web use. `--ios-font`
-  starts with `system-ui`, which gets you SF on Apple devices and a sane
-  native face elsewhere. Don't self-host SF Pro; don't tell someone a page
-  will look identical on Windows.
-- **Liquid Glass.** A real-time refraction the browser has no equivalent
-  for. `.ios-material` gets the blur and saturation lift via
-  `backdrop-filter`, which is the part that reads at a glance. Put it over
-  content that actually scrolls behind it or it's just flat grey.
+- **SF Pro — now self-hosted.** `fonts/sf.css` serves the real thing,
+  built from the variable `SF-Pro.ttf` by `scripts/build_fonts.py`:
+  subset to Latin and compressed to woff2, 6.1 MB becomes **212 KB**,
+  smaller than Inter. It carries both of Apple's axes (`opsz 17–28`,
+  `wght 1–1000`), so one file spans Text through Display and Ultralight
+  through Black.
+
+  Link it **after** `tokens/ios-tokens.css` — it overrides `--ios-font`,
+  and the token sheet will otherwise overwrite it straight back.
+  `-apple-system` still leads the stack, so Macs and iPhones use the
+  copy they already have and download nothing; this is what Windows,
+  Android and Linux get.
+
+  Its licence covers designing and mocking up interfaces for Apple
+  platforms, not webfont embedding or redistribution. Serving it from a
+  public site is a call you're making, not one the licence grants.
+  `fonts/inter.css` is the unrestricted alternative and is what the
+  skill uses when `sf.css` isn't linked.
+
+- **Liquid Glass — the refraction only.** The live bending of what sits
+  behind the surface has no browser equivalent. Everything else about it
+  does, and is built: see below.
 - **Dynamic Type.** The web equivalent is `rem` plus the browser's own
   text scaling, which the tokens use. It is not the same thing — there is
   no accessibility-size ladder.
@@ -216,13 +317,23 @@ behaviour or structure rather than pixels, and for any native SwiftUI,
 UIKit, or AppKit work.
 
 
-Read the measured token export. Setting it up now.
+ARGUMENTS: Jetpack Compose colour setup matching iOS
 
-Set up at `app/src/main/java/design/applekit/`:
+Empty project directory — I'll set up the colour layer from scratch. Let me check what the measured tokens cover, especially the grouped-background pair the skill flags as critical.
 
-**`AppleKitTokens.kt`** — the raw measured iOS 27 values, copied verbatim from the UI-kit export (light + dark objects, plus control geometry). Generated file, so don't hand-edit it.
+Everything I need is measured. Now building the Compose colour layer.
 
-**`AppleColors.kt`** — the layer you actually code against: an `AppleColors` data class, light/dark instances, and an `AppleTheme { }` wrapper exposing `AppleTheme.colors.accent` etc.
+The generated token file covers the palette but not the grouped-background pair or separator — those live in the component recipes. I'll add them in a companion file rather than editing the generated one.
+
+Let me verify my alpha conversions and the contrast claims rather than trusting the arithmetic.
+
+Done. Three files in `app/src/main/java/design/applekit/` — the directory was completely empty, so I used the conventional Android source path; move the package if your module is laid out differently.
+
+**`AppleKitTokens.kt`** — the generated measurements, copied verbatim. Don't hand-edit it; it regenerates.
+
+**`AppleKitColors.kt`** — the semantic layer you actually read from. The token export doesn't include the grouped-background pair or the separator (those are measured in the component recipes), so I filled those in with provenance rather than editing the generated file.
+
+**`AppleKitTheme.kt`** — `AppleTheme { }` wrapper, a `CompositionLocal`, and a bridge into `MaterialTheme.colorScheme`.
 
 ```kotlin
 AppleTheme {
@@ -230,12 +341,16 @@ AppleTheme {
 }
 ```
 
-Three things worth knowing:
+Three things worth knowing, since they're where an iOS-alike usually goes wrong:
 
-**The values aren't the ones that circulate online.** The accent is `#0088FF`, not `#007AFF`; the primary label is `#1A1A1A`, not black; destructive red is `#FF383C`. If your iOS app hardcodes the older numbers anywhere, that's where the two will drift apart — worth a check.
+**The values aren't the ones that circulate online.** The accent is `#0088FF`, not `#007AFF`. The primary label is `#1A1A1A`, not black. Destructive red is `#FF383C`. If these look "wrong" next to a blog post, the blog post is a decade old.
 
-**I bridged the palette into Material 3's colour roles** so stock Compose components inherit the tint rather than defaulting to Material purple. That covers colour only — a Material `Switch` still has Material's shape and animation. `AppleKitMetric` has the measured geometry (64×28 switch, 44dp hit target) for when you build iOS-shaped controls.
+**Apple's light palette fails Apple's own contrast rule.** Secondary label, accent-as-text and red all land between 3.1:1 and 3.6:1 on light backgrounds, under the 4.5:1 required up to 17pt. On iOS this survives because Increase Contrast adapts system colours at render time. Nothing does that for you on Android, so I wired the theme to `UiModeManager.getContrast()` (API 34+, Android's counterpart) and supplied adapted light values that clear 4.5:1 with the hue kept. Dark mode already passes everywhere. Practical upshot: keep body-size meaningful text on `label`, not `labelSecondary`.
 
-**Light mode doesn't clear Apple's own contrast bar.** On the grouped background, `labelSecondary` measures 3.44:1 and accent-as-text 3.15:1, against the 4.5:1 Apple requires up to 17pt. iOS survives this because Increase Contrast adapts system colours at render time; Android won't do that for you. I included `AppleLightColorsHighContrast` with the darkened values and a comment showing how to wire it to `isHighTextContrastEnabled`. Dark mode passes everywhere, so keep body-size text on `label`.
+**The Material bridge tints stock components; it doesn't convert them.** A Material `Switch` painted `#34C759` still has Material's geometry and motion. For the controls that carry the look — switch, grouped list, capsule button — build against `AppleTheme.colors` directly; the measured sizes are already in `AppleKitMetric` (switch is 64×28 with a 13.7 radius).
 
-One flag on the premise, since you didn't ask: an iOS palette on Android is a real choice when cross-platform brand consistency is the goal, but Android users expect Material's roles and switch. Colour is the least jarring part to borrow — if this extends to controls and navigation later, that's where it starts feeling foreign. Also note the grouped backgrounds (`background`/`groupedCard`) are the one set of values not measured — the kit exports components on transparent backgrounds, so those are iOS Settings' grey-page/white-cards pairing. Keep that order; inverting it is the fastest tell.
+Two things I deliberately left alone. I kept the translucent greys translucent — they're one base grey at several opacities, which is what lets them sit correctly on both a white card and a grey page; flattening any to its opaque equivalent breaks that. And `fieldSurface` (`#E6E6E6`) is *not* your page background despite being named `surface` in the generated file — it was measured off a text field. The page is `background` (grey) with white cards on top; inverting that pair is the fastest way to read as not-quite-right.
+
+I couldn't compile-check any of this — there's no Gradle project in the directory yet, only these source files. The token references all resolve, but you'll want a build before trusting it.
+
+Scope was colours, so that's all I did. The same skill has the type scale and control geometry measured if you want those next — the type one has a real trap in it (SF's semibold is 590, not 600, and large text is tracked *looser*, not tighter).

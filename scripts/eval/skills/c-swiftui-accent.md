@@ -138,38 +138,34 @@ When a platform has no entry for a topic, the HIG states no exception and the ge
 
 ARGUMENTS: SwiftUI accent color and secondary text color
 
-Short answer: don't pick hex values for either — both are semantic colors the system already defines.
+No app code in this directory, so here's the general answer for a SwiftUI app — checked against the HIG corpus (snapshot dated 2026-08-11).
+
+The headline: neither should be a hex value you pick. **"Avoid hard-coding system color values in your app."** (`pages/color.md`)
 
 ## Secondary text
 
-```swift
-Text("Subtitle").foregroundStyle(.secondary)
-```
+Use `.foregroundStyle(.secondary)`. It resolves to the same dynamic colour as UIKit's `secondaryLabel` / AppKit's `secondaryLabelColor` — described in Apple's tables as *"A text label that contains secondary content."* and *"The text of a label of lesser importance than a primary label, such as a label used to represent a subheading or additional information."*
 
-`Color.secondary` maps to the system secondary label color. Apple: **"Use the system-provided label colors for labels."** — *"The primary, secondary, tertiary, and quaternary label colors adapt automatically to the light and dark appearances."* (`pages/dark-mode.md`). The set is label → secondaryLabel → tertiaryLabel → quaternaryLabel; secondary is described as *"A text label that contains secondary content"* (`pages/color.md`).
+**"Use the system-provided label colors for labels."** — *"The primary, secondary, tertiary, and quaternary label colors adapt automatically to the light and dark appearances."* There are four levels (`.primary`, `.secondary`, `.tertiary`, `.quaternary`), and Apple frames them as hierarchy rather than decoration: **"Use system-provided label colors to communicate relative importance."** (`references/rules.md`, sourced to `pages/color.md` and `pages/labels.md`)
 
-Two rules that catch people here:
+Two things to avoid:
 
-- **"Avoid hard-coding system color values in your app."** — *"The actual color values may fluctuate from release to release […] Use APIs like [Color] to apply system colors."* (`pages/color.md`). So `.secondary`, not `Color(white: 0.55)`.
-- **"Avoid redefining the semantic meanings of dynamic system colors."** — Apple's own example: *"don't use the separator color as a text color, or secondary text label color as a background color."* (`pages/color.md`)
-
-One check to run: secondary label is a translucent gray, so over a custom or colored background it can drop below **4.5:1 (required up to 17 pt; 3:1 at 18 pt or bold)** — `specs.md`, Vision table. Over the standard system backgrounds it's fine by construction.
+- `.gray` or `.opacity(0.6)` on primary text — it won't track light/dark or accessibility contrast settings the way the semantic colour does.
+- Borrowing a label colour for something that isn't a label. **"Avoid redefining the semantic meanings of dynamic system colors."** Apple's own example is not using the separator colour as text, or the secondary label colour as a background.
 
 ## Accent
 
-Apple's guidance is a *"Consider"*, not a must: **"Consider choosing an accent color."** — *"On most platforms, you can specify a color that the system applies to app elements like interface icons, buttons, and text."* (`pages/branding.md`). If you don't have a brand color worth spending, leaving the system default blue is a legitimate answer.
+**"Consider choosing an accent color."** (`pages/branding.md`) Set it once — an `AccentColor` set in your asset catalog, which Xcode wires up app-wide — and use `.tint(_:)` to override it on a subtree. Buttons, controls, selection and links all follow it. If you have no strong brand reason, leaving it at the system default is a legitimate answer.
 
-If you do set one, use the `AccentColor` color set in your asset catalog (light + dark variants) rather than a modifier — that's what the system reads app-wide. Scope overrides with `.tint(_:)`:
+Which colour depends on your content, and the HIG splits it cleanly:
 
-```swift
-// Asset catalog: "AccentColor" color set, with a Dark Appearance variant.
-// Per-subtree override:
-VStack { … }.tint(.brandTeal)   // .accentColor(_:) is deprecated
-```
+- **Mostly monochromatic content** — your brand colour is a good fit: *"in apps with primarily monochromatic content or backgrounds, choosing your brand color as the app accent color can be an effective way to tailor your app experience and reflect your company's identity."*
+- **Colourful or image-heavy content** — *"prefer a monochromatic appearance for toolbars and tab bars, or choose an accent color with sufficient visual differentiation."*
 
-Picking the value itself is judgment, with two constraints attached:
+Then use it sparingly. **"Apply color sparingly to the Liquid Glass material, and to symbols or text on the material."** — *"To emphasize primary actions, apply color to the background rather than to symbols or text."* — *"Refrain from adding color to the background of multiple controls."* One tinted prominent button per screen, roughly, not a tinted toolbar.
 
-- If your content is colorful, **"prefer a monochromatic appearance for toolbars and tab bars, or choose an accent color with sufficient visual differentiation."** Conversely, *"in apps with primarily monochromatic content or backgrounds, choosing your brand color as the app accent color can be an effective way to tailor your app experience"* (`pages/color.md`).
-- Under Liquid Glass, **"Apply color sparingly […] reserve it for elements that truly benefit from emphasis"** — and *"To emphasize primary actions, apply color to the background rather than to symbols or text […] Refrain from adding color to the background of multiple controls."* (`pages/color.md`). One tinted Done button per toolbar, not five.
+## Two caveats
 
-**If you ship on Mac:** your accent applies only when the user's General → Accent color is set to *multicolor*. Otherwise *"the system applies their chosen color to the relevant items throughout your app, replacing your accent color"* (`pages/color.md`). So the accent can't be load-bearing for meaning — which is also the general rule: **"Avoid relying solely on color to differentiate between objects, indicate interactivity, or communicate essential information."**
+If you ship on macOS, your accent isn't guaranteed: *"If people set their accent color setting to a value other than multicolor, the system applies their chosen color to the relevant items throughout your app, replacing your accent color."* So the accent can't be load-bearing for meaning — which is the general rule anyway: **"Convey information with more than color alone."**
+
+And if a custom accent ends up as *text* colour, it has to clear contrast: **4.5:1 up to 17 pt, 3:1 at 18 pt** (`references/specs.md`, iOS/iPadOS). Brand blues that look fine on a button often fail as 13 pt caption text.
