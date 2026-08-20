@@ -231,14 +231,17 @@ def run(pw, scheme, c, contrast_more=False):
     c(ratio >= 3.0, "contrast white on filled button",
       f"{ratio:.2f}:1 need 3:1 (17pt semibold counts as bold)")
 
-    # 7b. the bundled font actually renders.
+    # 7b. a bundled font actually renders.
     #
-    # font-family listing "Inter" proves nothing -- an unresolved family
+    # font-family listing a face proves nothing -- an unresolved family
     # falls through silently and the page still looks plausible in
     # whatever the platform substitutes. So measure: the rendered text
-    # run has to match Inter's metrics and not the fallback's. A Range
-    # is used rather than the element box, because these labels are
-    # blocks and their box is the container width, not the text.
+    # run has to match one of the faces shipped here and not the
+    # platform fallback. Which one depends on load order, and both are
+    # legitimate: SF Pro when fonts/sf.css is linked after the tokens,
+    # Inter otherwise. A Range is used rather than the element box,
+    # because these labels are blocks and their box is the container
+    # width, not the text.
     font = pg.evaluate(
         """() => { const el = document.querySelector('.hero__label');
              if (!el) return null;
@@ -246,19 +249,22 @@ def run(pw, scheme, c, contrast_more=False):
              const rng = document.createRange(); rng.selectNodeContents(el);
              const real = rng.getBoundingClientRect().width;
              const c = document.createElement('canvas').getContext('2d');
-             const spec = w => cs.fontWeight + ' ' + cs.fontSize + ' ' + w;
-             c.font = spec('Inter');
-             const inter = c.measureText(el.textContent).width;
-             c.font = spec('"DejaVu Sans"');
-             const fallback = c.measureText(el.textContent).width;
-             return {real, inter, fallback,
-                     loaded: document.fonts.check(cs.fontSize + ' Inter')}; }""")
+             const m = w => { c.font = cs.fontWeight + ' ' + cs.fontSize
+                                + ' ' + w;
+                              return c.measureText(el.textContent).width; };
+             return {real, sf: m('"SF Pro"'), inter: m('Inter'),
+                     fallback: m('"DejaVu Sans"')}; }""")
     if font:
-        c(font["loaded"], "bundled Inter is loaded")
-        c(abs(font["real"] - font["inter"]) < 1.0,
-          "text renders in Inter, not a substitute",
-          f"{font['real']:.1f}px vs Inter {font['inter']:.1f}px, "
-          f"fallback {font['fallback']:.1f}px")
+        bundled = {"SF Pro": font["sf"], "Inter": font["inter"]}
+        name, width = min(bundled.items(),
+                          key=lambda kv: abs(kv[1] - font["real"]))
+        c(abs(width - font["real"]) < 1.0,
+          "text renders in a bundled face, not a substitute",
+          f"{name} at {font['real']:.1f}px "
+          f"(fallback would be {font['fallback']:.1f}px)")
+        c(abs(font["real"] - font["fallback"]) > 1.0,
+          "rendered text is not the platform fallback",
+          f"{font['real']:.1f}px vs {font['fallback']:.1f}px")
 
     # 8. no horizontal overflow at a phone width
     c(pg.evaluate("()=>document.documentElement.scrollWidth") <= 430,

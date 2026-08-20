@@ -14,6 +14,9 @@
 <link rel="stylesheet" href="fonts/inter.css">
 <link rel="stylesheet" href="tokens/ios-tokens.css">
 <link rel="stylesheet" href="ios-components.css">
+<!-- After the tokens, not before: sf.css overrides --ios-font, and the
+     token sheet would otherwise overwrite it right back. -->
+<link rel="stylesheet" href="fonts/sf.css">
 <style>
   :root { --gutter: 20px; }
 
