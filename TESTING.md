@@ -171,3 +171,29 @@ And in light mode Apple's own palette sits under Apple's own contrast
 threshold (secondary label 3.44:1 against a required 4.5:1). That's real,
 it's documented in the skill, and `prefers-contrast: more` is wired up to
 fix it. Not a bug to report.
+
+---
+
+## 5. Auditing the third-party skills in `design-skills/`
+
+`design-skills/` holds 106 skills from six collections, several covering
+the same ground as `apple-ui-kit`. Installing them alongside it means two
+sources disagreeing about what systemBlue is, and the model sees both.
+
+```bash
+python3 scripts/audit_design_skills.py
+```
+
+It checks their stated Apple values against this repo's measured ones —
+colours off the UI kit renderings, weights from SF Pro's `fvar` table,
+tracking from the HIG's own table — and reports every contradiction with
+both values.
+
+Current result: **47 disagreements**, all of the same kind. They carry
+the pre-iOS-26 palette (`#007AFF` ×27, `#0A84FF` ×8, `#FF3B30`,
+`#FF453A`), state SF's weights as the CSS ladder (500/600 rather than
+510/590), and one states the tracking rule backwards for display sizes.
+
+None of that makes them bad skills. Those values were correct until
+iOS 26 and are what circulates everywhere. It does mean picking one
+source of truth for values rather than installing both and hoping.
