@@ -48,6 +48,32 @@
   --ios-text-footnote:    400 0.8125rem/1.125rem var(--ios-font);
   --ios-text-caption1:    400 0.75rem/1rem var(--ios-font);
   --ios-text-caption2:    400 0.6875rem/0.8125rem var(--ios-font);
+  --ios-track-large-title: +0.012em;
+  --ios-track-title1: +0.014em;
+  --ios-track-title2: -0.012em;
+  --ios-track-title3: -0.023em;
+  --ios-track-headline: -0.026em;
+  --ios-track-body: -0.026em;
+  --ios-track-callout: -0.020em;
+  --ios-track-subhead: -0.016em;
+  --ios-track-footnote: -0.006em;
+  --ios-track-caption1: +0.000em;
+  --ios-track-caption2: +0.006em;
+
+  /* SF Pro's weight axis, read off the variable font's named
+     instances. It is not the CSS ladder: Medium is 510 and
+     Semibold is 590, so font-weight: 600 asks for a weight
+     between two real ones that Apple never ships. */
+  --ios-weight-ultralight: 31;
+  --ios-weight-thin: 111;
+  --ios-weight-light: 274;
+  --ios-weight-regular: 400;
+  --ios-weight-medium: 510;
+  --ios-weight-semibold: 590;
+  --ios-weight-bold: 700;
+  --ios-weight-heavy: 860;
+  --ios-weight-black: 1000;
+
 
   /* Order matters more than it looks. system-ui resolves to
      *something* on every platform, so anything listed after it is
@@ -66,6 +92,13 @@
   --ios-font: -apple-system, BlinkMacSystemFont, 'Inter', system-ui,
       'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 
+  /* Tracking, from specs.md's SF Pro table, one value per style at
+     its Large-setting size. Not monotonic, which is the trap: body
+     at 17pt is -26/1000 em but Large Title at 34pt is +12, tracked
+     looser rather than tighter. On Apple platforms the font's trak
+     table applies these; browsers ignore trak, so they have to be
+     set as letter-spacing or the most prominent text on the page is
+     the most wrong. */
   /* Hit target. buttons.md states 44x44 pt as the general rule;
      the accessibility Mobility table gives 28x28 as the floor for
      less important controls. 44 is the one to build to. */

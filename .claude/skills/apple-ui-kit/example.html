@@ -29,7 +29,7 @@
 
   .eyebrow {
     font: var(--ios-text-footnote);
-    font-weight: 590;
+    font-weight: var(--ios-weight-semibold);
     letter-spacing: .04em;
     text-transform: uppercase;
     color: var(--ios-label-secondary);
@@ -37,8 +37,10 @@
 
   h1 {
     font: var(--ios-text-large-title);
-    font-weight: 700;
-    letter-spacing: -.022em;   /* SF tightens as it grows; so does Inter */
+    font-weight: var(--ios-weight-bold);
+    /* +0.012em, from Apple's table. Guessing "big text tightens" put
+       this at -0.022em, wrong by 34/1000 em on the largest text here. */
+    letter-spacing: var(--ios-track-large-title);
     margin: 2px 0 0;
   }
 
@@ -86,12 +88,15 @@
   .ring__value {
     position: absolute;
     font: var(--ios-text-title3);
-    font-weight: 680;
-    letter-spacing: -.02em;
+    font-weight: var(--ios-weight-bold);
+    letter-spacing: var(--ios-track-title3);
   }
 
-  .hero__label { font: var(--ios-text-title3); font-weight: 620; }
+  .hero__label { font: var(--ios-text-title3);
+                 font-weight: var(--ios-weight-semibold);
+                 letter-spacing: var(--ios-track-title3); }
   .hero__sub   { font: var(--ios-text-subhead);
+                 letter-spacing: var(--ios-track-subhead);
                  color: var(--ios-label-secondary); margin-top: 3px; }
 
   .rowicon {
