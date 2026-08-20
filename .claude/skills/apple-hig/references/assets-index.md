@@ -1,6 +1,6 @@
 # UI kit: visual reference for iOS 27 components
 
-949 screenshots from Apple's iOS 27 Figma UI kit, under `assets/ui-kit/`, organized by component. Each includes real interaction-state variants — light/dark appearance, idle/pressed, on/off, enabled/disabled, and some accessibility-label variants — not just one static shot per component.
+947 screenshots from Apple's iOS 27 Figma UI kit, under `assets/ui-kit/`, organized by component. Each includes real interaction-state variants — light/dark appearance, idle/pressed, on/off, enabled/disabled, and some accessibility-label variants — not just one static shot per component.
 
 Everything else in this skill is text. This is the visual ground truth: use it when a question turns on how something actually *looks* rather than what the rules *say* — comparing a screenshot against the real system appearance, checking whether a custom control's states match Apple's, or when 'why does this feel wrong' needs a visual answer rather than a spec.
 
