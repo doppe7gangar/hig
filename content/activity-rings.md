@@ -2,7 +2,7 @@
 
 Activity rings show an individual’s daily progress toward Move, Exercise, and Stand goals.
 
-![A stylized representation of a set of move, exercise, and stand activity rings denoting progress. The image is tinted red to subtly reflect the red in the original six-color Apple logo.](https://docs-assets.developer.apple.com/published/1c2efa64e222a1e64a3e81d22d86fe48/components-activity-ring-intro%402x.png)
+![A stylized representation of a set of move, exercise, and stand activity rings denoting progress. The image is tinted red to subtly reflect the red in the original six-color Apple logo.](/images/com.apple.HIG/components-activity-ring-intro@2x.png)
 
 In watchOS, the Activity ring element always contains three rings, whose colors and meanings match those the Activity app provides. In iOS, the Activity ring element contains either a single Move ring representing an approximation of activity, or all three rings if an Apple Watch is paired.
 
@@ -10,7 +10,7 @@ In watchOS, the Activity ring element always contains three rings, whose colors 
 
 **Display Activity rings when they’re relevant to the purpose of your app.** If your app is related to health or fitness, and especially if it contributes information to HealthKit, people generally expect to find Activity rings in your interface. For example, if you structure a workout or health session around the completion of Activity rings, consider displaying the element on a workout metrics screen so that people can track their progress during their session. Similarly, if you provide a summary screen that appears at the conclusion of a workout, you could display Activity rings to help people check on their progress toward their daily goals.
 
-![A screenshot of an in-progress workout screen that displays the current timer value, followed by a list of the current Move, Exercise, and Stand values. The screen also displays an image of the Activity rings, where the state of each ring represents the current value.](https://docs-assets.developer.apple.com/published/748a192f4c81f6f9a7f5901c0d820729/activity-rings-summary%402x.png)
+![A screenshot of an in-progress workout screen that displays the current timer value, followed by a list of the current Move, Exercise, and Stand values. The screen also displays an image of the Activity rings, where the state of each ring represents the current value.](/images/com.apple.HIG/activity-rings-summary@2x.png)
 
 **Use Activity rings only to show Move, Exercise, and Stand information.** Activity rings are designed to consistently represent progress in these specific areas. Don’t replicate or modify Activity rings for other purposes. Never use Activity rings to display other types of data. Never show Move, Exercise, and Stand progress in another ring-like element.
 
@@ -29,7 +29,7 @@ In watchOS, the Activity ring element always contains three rings, whose colors 
 
 | Move | Exercise | Stand |
 | --- | --- | --- |
-| ![R-250,G-17,B-79](https://docs-assets.developer.apple.com/published/44cc123ba5f3c91e1a55e0d7ab06a515/activity-rings-color-swatch-red%402x.png) | ![R-166,G-255,B-0](https://docs-assets.developer.apple.com/published/2eb292e25701116aebd34975a9a8d8a0/activity-rings-color-swatch-green%402x.png) | ![R-0,G-255,B-246](https://docs-assets.developer.apple.com/published/cab66f1b44c33c1ca136c19402dd9a53/activity-rings-color-swatch-blue%402x.png) |
+| ![R-250,G-17,B-79](/images/com.apple.HIG/activity-rings-color-swatch-red@2x.png) | ![R-166,G-255,B-0](/images/com.apple.HIG/activity-rings-color-swatch-green@2x.png) | ![R-0,G-255,B-246](/images/com.apple.HIG/activity-rings-color-swatch-blue@2x.png) |
 
 **Maintain Activity ring margins.** An Activity ring element must include a minimum outer margin of no less than the distance between rings. Never allow other elements to crop, obstruct, or encroach upon this margin or the rings themselves.
 
@@ -47,14 +47,14 @@ In watchOS, the Activity ring element always contains three rings, whose colors 
 
 ### iOS
 
-Activity rings are available in iOS with [HKActivityRingView](https://developer.apple.com/documentation/HealthKitUI/HKActivityRingView). The appearance of the Activity ring element changes automatically depending on whether an Apple Watch is paired:
+Activity rings are available in iOS with [HKActivityRingView](https://developer.apple.com/documentation/healthkitui/hkactivityringview). The appearance of the Activity ring element changes automatically depending on whether an Apple Watch is paired:
 
 - With an Apple Watch paired, iOS shows all three Activity rings.
 - Without an Apple Watch paired, iOS shows the Move ring only, which represents an approximation of a person’s activity based on their steps and workout information from other apps.
 
-![A screenshot of the Activity summary in the iOS Fitness app with Apple Watch paired. All three Activity rings are displayed.](https://docs-assets.developer.apple.com/published/47867ef56f48e103ecb03751a2e2faae/activity-rings-watch-paired%402x.png)
+![A screenshot of the Activity summary in the iOS Fitness app with Apple Watch paired. All three Activity rings are displayed.](/images/com.apple.HIG/activity-rings-watch-paired@2x.png)
 
-![A screenshot of the Activity summary in the iOS Fitness app with no Apple Watch paired. Only the Move ring is displayed.](https://docs-assets.developer.apple.com/published/25295e1487dbbb86501d5afbe8c94274/activity-rings-no-watch-paired%402x.png)
+![A screenshot of the Activity summary in the iOS Fitness app with no Apple Watch paired. Only the Move ring is displayed.](/images/com.apple.HIG/activity-rings-no-watch-paired@2x.png)
 
 Because iOS shows Activity rings whether or not an Apple Watch is paired, activity history can include a combination of both styles. For example, Activity rings in Fitness have three rings when a person exercises with their Apple Watch paired, and only the Move ring when they exercise without their Apple Watch.
 
@@ -66,7 +66,7 @@ Because iOS shows Activity rings whether or not an Apple Watch is paired, activi
 
 #### Developer documentation
 
-[HKActivityRingView](https://developer.apple.com/documentation/HealthKitUI/HKActivityRingView) — HealthKit
+[HKActivityRingView](https://developer.apple.com/documentation/healthkitui/hkactivityringview) — HealthKit
 
 #### Videos
 

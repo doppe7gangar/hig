@@ -2,7 +2,7 @@
 
 Generative AI empowers you to enhance your app or game with dynamic content and offer intelligent features that unlock new levels of creativity, connection, and productivity.
 
-![A sketch of a pencil surrounded by sparkly stars, suggesting generative intelligence. The image is overlaid with rectangular and circular grid lines and is tinted blue to subtly reflect the blue in the original six-color Apple logo.](https://docs-assets.developer.apple.com/published/5b2d1dc127432336c055e1a7ebf09a30/technologies-generative-ai-intro%402x.png)
+![A sketch of a pencil surrounded by sparkly stars, suggesting generative intelligence. The image is overlaid with rectangular and circular grid lines and is tinted blue to subtly reflect the blue in the original six-color Apple logo.](/images/com.apple.HIG/technologies-generative-ai-intro@2x.png)
 
 Generative artificial intelligence uses [machine learning](https://developer.apple.com/design/human-interface-guidelines/machine-learning) models to create and transform text, images, and other content. Use it to offer novel, delightful features that help people express themselves creatively, communicate effectively, and complete tasks more easily. For instance, generative AI can enable people to edit text, create imaginative stories and images, or interact with a character in a game that uses AI-generated dialog.
 
@@ -34,7 +34,7 @@ Generative artificial intelligence uses [machine learning](https://developer.app
 
 ## Models and datasets
 
-**Thoughtfully evaluate model capabilities.** There are different types of generative models, some of which possess general knowledge, while others are trained for specific tasks. It’s important to understand the capabilities of any model you consider. As early as you can, get a hands-on look at the models and data available to help orient your design. Keep in mind that some model types may be unavailable to people in certain situations due to factors like device compatibility, network access, and battery level. For example, the [Foundation Models](https://developer.apple.com/documentation/FoundationModels) framework requires a compatible device with Apple Intelligence turned on.
+**Thoughtfully evaluate model capabilities.** There are different types of generative models, some of which possess general knowledge, while others are trained for specific tasks. It’s important to understand the capabilities of any model you consider. As early as you can, get a hands-on look at the models and data available to help orient your design. Keep in mind that some model types may be unavailable to people in certain situations due to factors like device compatibility, network access, and battery level. For example, the [Foundation Models](https://developer.apple.com/documentation/foundationmodels) framework requires a compatible device with Apple Intelligence turned on.
 
 **Be intentional when choosing or creating a dataset.** Whether you’re training a model from scratch or customizing an existing model, the data you choose greatly impacts the model’s behavior. When you teach and evaluate your AI model, choose datasets that include a diverse range of subject matter representations. Learn where your data comes from and how it was gathered. Ensure you have relevant licenses for all data you don’t personally own, and offer appropriate choices when using people’s data. Most datasets gathered from the real world are imperfect, so allow time for testing and evaluation to proactively mitigate bias and misinformation that a model might learn and replicate.
 
@@ -56,7 +56,7 @@ Generative artificial intelligence uses [machine learning](https://developer.app
 
 **Strive to avoid replicating copyrighted content.** Large AI models are trained using vast datasets from the internet and other sources. This means most generative models are familiar with and can unintentionally produce content similar to published work, including copyrighted content. You can reduce the likelihood of copyright infringement by building upon existing models that already protect against this, and by carefully curating inputs. For example, you might let people choose from a set of pre-approved prompts. You could also explicitly tell the model to avoid mimicking certain content or styles.
 
-**Factor processing time into your design.** *Latency* is how much time it takes for a model to produce an output. Non-generative models, such as [body position tracking in ARKit](https://developer.apple.com/documentation/arkit/capturing-body-motion-in-3d) and the [Vision](https://developer.apple.com/documentation/Vision) machine learning framework, typically have low latency and are suitable to run in real-time. Generative models typically take longer to produce a result, so design a loading experience or generate in the background while a person uses another part of the app. For guidance, see [Loading](https://developer.apple.com/design/human-interface-guidelines/loading).
+**Factor processing time into your design.** *Latency* is how much time it takes for a model to produce an output. Non-generative models, such as [body position tracking in ARKit](https://developer.apple.com/documentation/arkit/capturing-body-motion-in-3d) and the [Vision](https://developer.apple.com/documentation/vision) machine learning framework, typically have low latency and are suitable to run in real-time. Generative models typically take longer to produce a result, so design a loading experience or generate in the background while a person uses another part of the app. For guidance, see [Loading](https://developer.apple.com/design/human-interface-guidelines/loading).
 
 **Consider giving specific, reassuring feedback during generation.** Messages that describe what’s actually happening can be more helpful than a vague status message. For example, instead of “Processing…”, say “Finding substitutions for ingredients” or “Summarizing key themes from your notes.” Specific feedback reduces uncertainty and makes waiting feel purposeful. If something goes wrong, describe what happened in plain language and offer a clear next step.
 
@@ -92,11 +92,11 @@ Generative artificial intelligence uses [machine learning](https://developer.app
 
 #### Developer documentation
 
-[Apple Intelligence and machine learning](https://developer.apple.com/documentation/TechnologyOverviews/ai-machine-learning)
+[Apple Intelligence and machine learning](https://developer.apple.com/documentation/technologyoverviews/ai-machine-learning)
 
-[Foundation Models](https://developer.apple.com/documentation/FoundationModels)
+[Foundation Models](https://developer.apple.com/documentation/foundationmodels)
 
-[Core AI](https://developer.apple.com/documentation/CoreAI)
+[Core AI](https://developer.apple.com/documentation/coreai)
 
 #### Videos
 

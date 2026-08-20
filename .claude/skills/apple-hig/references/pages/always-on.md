@@ -2,7 +2,7 @@
 
 On devices that include the Always On display, the system can continue to display an app’s interface when people suspend their interactions with the device.
 
-![A sketch of an Apple Watch containing a person running, suggesting an Always On display. The image is overlaid with rectangular and circular grid lines and is tinted blue to subtly reflect the blue in the original six-color Apple logo.](https://docs-assets.developer.apple.com/published/b4927d8e754728228fdf9997f28acc35/technologies-always-on-intro%402x.png)
+![A sketch of an Apple Watch containing a person running, suggesting an Always On display. The image is overlaid with rectangular and circular grid lines and is tinted blue to subtly reflect the blue in the original six-color Apple logo.](/images/com.apple.HIG/technologies-always-on-intro@2x.png)
 
 In the Always On state, a device can continue to give people useful, glanceable information in a low-power, privacy-preserving way by dimming the display and minimizing onscreen motion. The system can display different items depending on the device.
 
@@ -35,7 +35,7 @@ On both devices, the system displays notifications while in Always On, and peopl
 
 #### Developer documentation
 
-[Designing your app for the Always On state](https://developer.apple.com/documentation/watchOS-Apps/designing-your-app-for-the-always-on-state) — watchOS apps
+[Designing your app for the Always On state](https://developer.apple.com/documentation/watchos-apps/designing-your-app-for-the-always-on-state) — watchOS apps
 
 #### Videos
 

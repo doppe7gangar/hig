@@ -1,0 +1,199 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Apple web UI — reference implementation</title>
+<!-- A screen, not a component catalogue.
+     Every recipe in ios-components.css appears here, but doing the job it
+     would do in a real app rather than lined up in a row with a label
+     under it. Verified at 430px in light and dark by
+     scripts/verify_web_ui.py.
+
+     The restraint is the point. Apple screens are mostly empty space,
+     one accent colour, and a hard drop from the title to everything
+     else. A page that shows five button styles side by side can be
+     pixel-accurate and still look nothing like an Apple app. -->
+<link rel="stylesheet" href="fonts/inter.css">
+<link rel="stylesheet" href="tokens/ios-tokens.css">
+<link rel="stylesheet" href="ios-components.css">
+<style>
+  :root { --gutter: 20px; }
+
+  body { padding-bottom: 96px; }
+
+  /* Space is the main ingredient. Sections sit far apart; nothing is
+     ever tight against anything else. */
+  .wrap    { padding: 0 var(--gutter); }
+  .section { margin-top: 34px; }
+
+  .eyebrow {
+    font: var(--ios-text-footnote);
+    font-weight: 590;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--ios-label-secondary);
+  }
+
+  h1 {
+    font: var(--ios-text-large-title);
+    font-weight: 700;
+    letter-spacing: -.022em;   /* SF tightens as it grows; so does Inter */
+    margin: 2px 0 0;
+  }
+
+  /* One hero, one number. The ring carries the accent so nothing else
+     has to. */
+  .hero {
+    margin-top: 22px;
+    padding: 28px 24px;
+    background: var(--ios-bg-card);
+    border-radius: 22px;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.05);
+  }
+
+  /* The ring is a conic gradient with a punched-out centre. Masking the
+     middle out beats stacking a filled circle on top: the hole stays
+     transparent, so the ring works on any surface, and the number can be
+     centred normally instead of fighting a sibling for the same cell. */
+  .ring {
+    --pct: 68;
+    --thickness: 11px;
+    flex: none;
+    position: relative;
+    width: 96px; height: 96px;
+    border-radius: 50%;
+    background: conic-gradient(
+        from -90deg,
+        var(--ios-accent) calc(var(--pct) * 1%),
+        color-mix(in srgb, var(--ios-label) 9%, transparent) 0);
+    -webkit-mask: radial-gradient(closest-side, transparent
+                    calc(100% - var(--thickness)), #000 calc(100% - var(--thickness) + 1px));
+    mask: radial-gradient(closest-side, transparent
+            calc(100% - var(--thickness)), #000 calc(100% - var(--thickness) + 1px));
+  }
+
+  .ring-wrap {
+    flex: none;
+    position: relative;
+    display: grid;
+    place-items: center;
+  }
+
+  .ring__value {
+    position: absolute;
+    font: var(--ios-text-title3);
+    font-weight: 680;
+    letter-spacing: -.02em;
+  }
+
+  .hero__label { font: var(--ios-text-title3); font-weight: 620; }
+  .hero__sub   { font: var(--ios-text-subhead);
+                 color: var(--ios-label-secondary); margin-top: 3px; }
+
+  .rowicon {
+    flex: none; width: 30px; height: 30px; border-radius: 8px;
+    display: grid; place-items: center;
+    background: var(--ios-accent); color: #fff; font-size: 15px;
+  }
+  .rowicon--green { background: var(--ios-green); }
+  .rowicon--grey  { background: color-mix(in srgb, var(--ios-label) 34%, transparent); }
+
+  .ios-segmented { width: 100%; }
+
+  .actions { margin-top: 28px; display: grid; gap: 10px; }
+  .ios-btn--wide { width: 100%; }
+</style>
+
+<nav class="ios-navbar">
+  <button class="ios-btn ios-navbar__action">Edit</button>
+  <span class="ios-navbar__title">Summary</span>
+  <button class="ios-btn ios-navbar__action" aria-label="Add">＋</button>
+</nav>
+
+<div class="wrap" style="padding-top:26px">
+  <div class="eyebrow">Wednesday, 20 August</div>
+  <h1>Summary</h1>
+
+  <div class="hero">
+    <div class="ring-wrap"><div class="ring"></div><span class="ring__value">68%</span></div>
+    <div>
+      <div class="hero__label">Three left today</div>
+      <div class="hero__sub">Best week since June. Keep the run going.</div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap section">
+  <div class="ios-segmented">
+    <label><input type="radio" name="range" checked><span></span>Day</label>
+    <label><input type="radio" name="range"><span></span>Week</label>
+    <label><input type="radio" name="range"><span></span>Month</label>
+  </div>
+</div>
+
+<div class="section">
+  <div class="ios-list__header">Today</div>
+  <ul class="ios-list">
+    <li class="ios-list__row ios-list__row--tappable">
+      <span class="rowicon rowicon--green">✓</span>
+      <span class="ios-list__title">Morning run</span>
+      <span class="ios-list__value">3.2 km</span>
+      <span class="ios-list__chevron">›</span>
+    </li>
+    <li class="ios-list__row ios-list__row--tappable">
+      <span class="rowicon">◷</span>
+      <span class="ios-list__title">Read</span>
+      <span class="ios-list__value">20 min</span>
+      <span class="ios-list__chevron">›</span>
+    </li>
+    <li class="ios-list__row ios-list__row--tappable">
+      <span class="rowicon rowicon--grey">◌</span>
+      <span class="ios-list__title">Water</span>
+      <span class="ios-list__value">5 of 8</span>
+      <span class="ios-list__chevron">›</span>
+    </li>
+  </ul>
+</div>
+
+<div class="section">
+  <div class="ios-list__header">Reminders</div>
+  <ul class="ios-list">
+    <li class="ios-list__row">
+      <span class="ios-list__title">Daily nudge</span>
+      <label class="ios-switch"><input type="checkbox" checked><span class="ios-switch__track"></span></label>
+    </li>
+    <li class="ios-list__row">
+      <span class="ios-list__title">Weekly summary</span>
+      <label class="ios-switch"><input type="checkbox"><span class="ios-switch__track"></span></label>
+    </li>
+    <li class="ios-list__row">
+      <span class="ios-list__title">Share to Health</span>
+      <label class="ios-switch"><input type="checkbox" checked disabled><span class="ios-switch__track"></span></label>
+    </li>
+  </ul>
+  <div class="ios-list__footer">Turning this off keeps existing data on your device.</div>
+</div>
+
+<div class="wrap">
+  <div class="actions">
+    <button class="ios-btn ios-btn--filled ios-btn--wide">Log a habit</button>
+    <button class="ios-btn ios-btn--wide">Skip today</button>
+  </div>
+</div>
+
+<div class="wrap section">
+  <div class="ios-list__header" style="margin-left:0">Account</div>
+  <ul class="ios-list" style="margin:0">
+    <li class="ios-list__row"><input class="ios-field" placeholder="Email address"></li>
+  </ul>
+  <div class="actions">
+    <button class="ios-btn ios-btn--destructive ios-btn--wide">Delete all data</button>
+  </div>
+</div>
+
+<nav class="ios-tabbar">
+  <button class="ios-tabbar__item" aria-selected="true"><span>◉</span>Summary</button>
+  <button class="ios-tabbar__item"><span>▤</span>History</button>
+  <button class="ios-tabbar__item"><span>⚙</span>Settings</button>
+</nav>

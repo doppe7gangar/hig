@@ -2,7 +2,7 @@
 
 An alert gives people critical information they need right away.
 
-![A stylized representation of an alert mockup that includes a title, description, primary button, and secondary button. The image is tinted red to subtly reflect the red in the original six-color Apple logo.](https://docs-assets.developer.apple.com/published/f4fdba56c558ef37266a7b9d0a74fae0/components-alert-intro%402x.png)
+![A stylized representation of an alert mockup that includes a title, description, primary button, and secondary button. The image is tinted red to subtly reflect the red in the original six-color Apple logo.](/images/com.apple.HIG/components-alert-intro@2x.png)
 
 For example, an alert can tell people about a problem, warn them when their action might destroy data, and give them an opportunity to confirm a purchase or another important action they initiated.
 
@@ -19,6 +19,27 @@ For example, an alert can tell people about a problem, warn them when their acti
 ## Anatomy
 
 An alert is a modal view that can look different in different platforms and devices.
+
+**iOS**
+
+![An illustration of an alert in the middle of the screen on iPhone.](/images/com.apple.HIG/alert-ios@2x.png)
+
+**macOS**
+
+![An illustration of an alert in the middle of the screen on a Mac.](/images/com.apple.HIG/alert-macos@2x.png)
+
+**tvOS**
+
+![An illustration of an alert on tvOS.](/images/com.apple.HIG/alert-tvos@2x.jpg)
+
+**visionOS**
+
+![An illustration of an alert on Apple Vision Pro.](/images/com.apple.HIG/alert-visionos@2x.png)
+
+**watchOS**
+
+![An illustration of an alert on Apple Watch.](/images/com.apple.HIG/alert-watchos@2x.png)
+
 
 ## Content
 
@@ -73,7 +94,7 @@ In all platforms, alerts display a title, optional informative text, and up to t
 macOS automatically displays your app icon in an alert, but you can supply an alternative icon or symbol. In addition, macOS lets you:
 
 - Configure repeating alerts to let people suppress subsequent occurrences of the same alert.
-- Append a custom view if it’s necessary to provide additional information (for developer guidance, see [accessoryView](https://developer.apple.com/documentation/AppKit/NSAlert/accessoryView)).
+- Append a custom view if it’s necessary to provide additional information (for developer guidance, see [accessoryView](https://developer.apple.com/documentation/appkit/nsalert/accessoryview)).
 - Include a Help button that opens your help documentation (see [Help buttons](https://developer.apple.com/design/human-interface-guidelines/buttons#Help-buttons)).
 
 **Use a caution symbol sparingly.** Using a caution symbol like `exclamationmark.triangle` too frequently in your alerts diminishes its significance. Use the symbol only when extra attention is really needed, as when confirming an action that might result in unexpected loss of data. Don’t use the symbol for tasks whose only purpose is to overwrite or remove data, such as a save or empty trash.
@@ -82,7 +103,11 @@ macOS automatically displays your app icon in an alert, but you can supply an al
 
 When your app is running in the Shared Space, visionOS displays an alert in front of the app’s window, slightly forward along the z-axis.
 
+*(video: A video of an alert in the Freeform app running in the Shared Space in visionOS. When the video plays, someone chooses to permanently delete a recently deleted Freeform board. An alert then appears in front of the Freeform window to ask for confirmation.)*
+
 If someone moves a window without dismissing its alert, the alert remains anchored to the window. If your app is running in a Full Space, the system displays the alert centered in the wearer’s [Field of view](https://developer.apple.com/design/human-interface-guidelines/spatial-layout#Field-of-view).
+
+*(video: A video of an alert in the Freeform app running in the Shared Space in visionOS. When the video plays, someone chooses to permanently delete a recently deleted Freeform board. An alert then appears in front of the Freeform window to ask for confirmation. The alert is not dismissed and remains anchored to the Freeform window as it’s moved around the Shared Space.)*
 
 If you need to display an accessory view in a visionOS alert, create a view that has a maximum height of 154 pt and a 16-pt corner radius.
 
@@ -98,11 +123,11 @@ If you need to display an accessory view in a visionOS alert, create a view that
 
 #### Developer documentation
 
-[alert(_:isPresented:actions:)](https://developer.apple.com/documentation/SwiftUI/View/alert(_:isPresented:actions:)-1bkka) — SwiftUI
+[alert(_:isPresented:actions:)](https://developer.apple.com/documentation/swiftui/view/alert(_:ispresented:actions:)-1bkka) — SwiftUI
 
-[UIAlertController](https://developer.apple.com/documentation/UIKit/UIAlertController) — UIKit
+[UIAlertController](https://developer.apple.com/documentation/uikit/uialertcontroller) — UIKit
 
-[NSAlert](https://developer.apple.com/documentation/AppKit/NSAlert) — AppKit
+[NSAlert](https://developer.apple.com/documentation/appkit/nsalert) — AppKit
 
 ## Change log
 

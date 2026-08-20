@@ -2,13 +2,15 @@
 
 In visionOS, people look at a virtual object to identify it as a target they can interact with.
 
-![A sketch of a human eye. The image is overlaid with rectangular and circular grid lines and is tinted purple to subtly reflect the purple in the original six-color Apple logo.](https://docs-assets.developer.apple.com/published/126393ded1c486236fc7a9feabea30ea/inputs-eyes-intro%402x.png)
+![A sketch of a human eye. The image is overlaid with rectangular and circular grid lines and is tinted purple to subtly reflect the purple in the original six-color Apple logo.](/images/com.apple.HIG/inputs-eyes-intro@2x.png)
 
 When people look at an interactive element, visionOS highlights it, providing visual feedback that helps them confirm the item is one they want. The visual feedback, or *hover effect*, shows people that they can use an [visionOS](https://developer.apple.com/design/human-interface-guidelines/gestures#visionOS) like tap to interact with the element.
 
+*(video: A recording of the Settings app showing the hover effect appear on several individual settings in turn as someone's eyes move from one to another.)*
+
 In some cases, the system can automatically display an expanded view of a component after people look at it. For example, when people look at a tab bar, the entire bar resizes to reveal text labels next to each tab. In this scenario, an individual tab also highlights before the tab bar expansion to let people select it before revealing the labels. Another example is a button that can reveal a tooltip when people look at it.
 
-> **Important:** To help preserve people’s privacy, visionOS doesn’t provide direct information about where people are looking before they tap. When you use system-provided components, visionOS automatically tells you when people tap the component. For developer guidance, see [Adopting best practices for privacy and user preferences](https://developer.apple.com/documentation/visionOS/adopting-best-practices-for-privacy).
+> **Important:** To help preserve people’s privacy, visionOS doesn’t provide direct information about where people are looking before they tap. When you use system-provided components, visionOS automatically tells you when people tap the component. For developer guidance, see [Adopting best practices for privacy and user preferences](https://developer.apple.com/documentation/visionos/adopting-best-practices-for-privacy).
 
 visionOS also supports *focus effects* that help people navigate apps and the system using a connected input device like a keyboard or game controller. Focus effects are unrelated to the hover effect; to learn more, see [Focus and selection](https://developer.apple.com/design/human-interface-guidelines/focus-and-selection).
 
@@ -36,13 +38,13 @@ visionOS also supports *focus effects* that help people navigate apps and the sy
 
 **In general, give an interactive item a rounded shape.** People’s eyes tend to be drawn toward the corners in a shape, making it difficult to keep looking at the shape’s center. The more rounded an item’s shape, the easier it is for people to use their eyes to target it.
 
-![A square button.](https://docs-assets.developer.apple.com/published/d60c5b225c91f041c5ef7e273a9219b6/visionos-eyes-sharp-button-incorrect%402x.png)
+![A square button.](/images/com.apple.HIG/visionos-eyes-sharp-button-incorrect@2x.png)
 
-![An X in a circle to indicate incorrect usage.](https://docs-assets.developer.apple.com/published/209f6f0fc8ad99d9bf59e12d82d06584/crossout%402x.png)
+![An X in a circle to indicate incorrect usage.](/images/com.apple.HIG/crossout@2x.png)
 
-![A circular button.](https://docs-assets.developer.apple.com/published/61afcfc99cebef8a0feae23fc5803edc/visionos-eyes-rounded-button-correct%402x.png)
+![A circular button.](/images/com.apple.HIG/visionos-eyes-rounded-button-correct@2x.png)
 
-![A checkmark in a circle to indicate correct usage.](https://docs-assets.developer.apple.com/published/88662da92338267bb64cd2275c84e484/checkmark%402x.png)
+![A checkmark in a circle to indicate correct usage.](/images/com.apple.HIG/checkmark@2x.png)
 
 **If you create an interactive component that consists of more than one element, be sure to provide an overall containing shape that visionOS can highlight.** For example, if an image and a label below it combine to act as one interactive component, you need to define a custom region that encompasses both elements, allowing visionOS to highlight the entire region when people look at either element.
 
@@ -82,7 +84,7 @@ As an example that shows what a custom hover effect can and can’t do, consider
 
 #### Developer documentation
 
-[Adopting best practices for privacy and user preferences](https://developer.apple.com/documentation/visionOS/adopting-best-practices-for-privacy) — visionOS
+[Adopting best practices for privacy and user preferences](https://developer.apple.com/documentation/visionos/adopting-best-practices-for-privacy) — visionOS
 
 #### Videos
 

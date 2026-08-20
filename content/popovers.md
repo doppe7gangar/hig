@@ -2,7 +2,7 @@
 
 A popover is a transient view that appears above other content when people click or tap a control or interactive area.
 
-![A stylized representation of a popover view. The image is tinted red to subtly reflect the red in the original six-color Apple logo.](https://docs-assets.developer.apple.com/published/e96917a44aa3ccdd2d1b4ddccf2a0e88/components-popover-intro%402x.png)
+![A stylized representation of a popover view. The image is tinted red to subtly reflect the red in the original six-color Apple logo.](/images/com.apple.HIG/components-popover-intro@2x.png)
 
 ## Best practices
 
@@ -42,6 +42,15 @@ A popover is a transient view that appears above other content when people click
 
 You can make a popover detachable in macOS, which becomes a separate panel when people drag it. The panel remains visible onscreen while people interact with other content.
 
+**Attached popover**
+
+![An illustration of an event in Calendar with the attached version of the event's popover next to and pointing to it.](/images/com.apple.HIG/attached-popover@2x.png)
+
+**Detached popover**
+
+![An illustration of an event in Calendar with the detached version of the event's popover next to it.](/images/com.apple.HIG/detached-popover@2x.png)
+
+
 **Consider letting people detach a popover.** People might appreciate being able to convert a popover into a panel if they want to view other information while the popover remains visible.
 
 **Make minimal appearance changes to a detached popover.** A panel that looks similar to the original popover helps people maintain context.
@@ -60,8 +69,8 @@ You can make a popover detachable in macOS, which becomes a separate panel when 
 
 #### Developer documentation
 
-[popover(isPresented:attachmentAnchor:arrowEdge:content:)](https://developer.apple.com/documentation/SwiftUI/View/popover(isPresented:attachmentAnchor:arrowEdge:content:)) — SwiftUI
+[popover(isPresented:attachmentAnchor:arrowEdge:content:)](https://developer.apple.com/documentation/swiftui/view/popover(ispresented:attachmentanchor:arrowedge:content:)) — SwiftUI
 
-[UIPopoverPresentationController](https://developer.apple.com/documentation/UIKit/UIPopoverPresentationController) — UIKit
+[UIPopoverPresentationController](https://developer.apple.com/documentation/uikit/uipopoverpresentationcontroller) — UIKit
 
-[NSPopover](https://developer.apple.com/documentation/AppKit/NSPopover) — AppKit
+[NSPopover](https://developer.apple.com/documentation/appkit/nspopover) — AppKit
