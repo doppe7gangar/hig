@@ -23,7 +23,7 @@ standing and mixing them is how motion advice becomes folklore:
 
 - **Principles → `apple-hig`.** *"Add motion purposefully."* *"Make
   motion optional."* *"Strive for realistic feedback motion that follows
-  people's gestures."* These are Apple's own words, in
+  people's gestures and expectations."* These are Apple's own words, in
   `pages/motion.md`. Quote those, not the paraphrases here.
 - **Spring names and their behaviour → SwiftUI's API.** `.smooth`,
   `.snappy`, `.bouncy` are real API with real defaults. The bounce
@@ -61,7 +61,8 @@ does more than tuning durations.
 - **Tracks the finger, then takes over.** During a drag the surface
   follows the gesture 1:1; the spring only takes over at release,
   carrying the velocity the gesture had. This is the HIG's *"realistic
-  feedback motion that follows people's gestures"* made concrete.
+  feedback motion that follows people's gestures and expectations"* made
+  concrete.
 - **Duration is a consequence, not an input.** Springs are specified by
   physics and settle when they settle. Reaching for a fixed 300 ms
   usually means reaching for the wrong tool.
