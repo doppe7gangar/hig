@@ -13,7 +13,8 @@ Paths below assume the repo is where GitHub Desktop puts it,
 open ~/Documents/GitHub/hig/.claude/skills/apple-ui-kit/example.html
 ```
 
-Every component in one page. To check dark mode, flip
+One screen, using every recipe the way a real app would rather than
+lining them up for inspection. To check dark mode, flip
 **System Settings → Appearance** while it's open — the page follows the
 system, so it should switch without a reload.
 
@@ -80,12 +81,13 @@ cd ~/Documents/GitHub/hig
 python3 scripts/verify_web_ui.py -v
 ```
 
-155 checks in a real browser, across light, dark, and increased
+163 checks in a real browser, across light, dark, and increased
 contrast. It asserts computed values rather than appearance: every token
 resolves, the type scale lands on the HIG's numbers to the pixel, the
 switch measures 64×28 with 36px of knob travel, hit targets clear 44px,
-separators skip each list's first row, and the colour pairs meet the
-contrast they should.
+separators skip each list's first row, the colour pairs meet the contrast
+they should, and the bundled Inter actually renders rather than silently
+falling through to a substitute.
 
 It exits non-zero if anything fails, so it's worth running after any
 edit to the CSS. Drop `-v` to see only failures.
@@ -147,11 +149,16 @@ Apple never wrote. Anything reported as ALTERED is worth reading twice.
 `apple-ui-kit` carries Apple's *appearance* to platforms that have no
 system palette to ask. On the web specifically it can't carry:
 
-- **SF Pro** — not licensed for general web use. Pages get SF on Apple
-  devices via `system-ui` and a native fallback elsewhere, so it will
-  look different on Windows. That's expected.
-- **Liquid Glass** — real-time refraction with no browser equivalent.
-  `.ios-material` approximates the blur, not the refraction.
+- **SF Pro** — not licensed for self-hosting, and not needed: Apple
+  devices resolve it through `-apple-system`. Everywhere else the
+  bundled Inter takes over. It is the closest open face, not the same
+  one, so a page will not look pixel-identical on Windows.
+- **Liquid Glass** — the live refraction has no browser equivalent. The
+  rim, falloff, tint variants and ambient shadow are all measured and
+  built; only the bending of what's behind the surface is missing. It
+  needs something behind it to work at all — over a flat background it
+  collapses to a grey box, which is a property of the material, not a
+  bug.
 - **Native behaviour** — sheet physics, rubber-banding, haptics.
 
 And in light mode Apple's own palette sits under Apple's own contrast
