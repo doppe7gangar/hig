@@ -1,122 +1,198 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Apple web UI — reference implementation</title>
-<!-- Working example of every recipe in ios-components.css.
-     Open it in a browser to check a change didn't break the look.
-     Verified at 430px wide in light and dark by scripts/verify_web_ui.py.
+<!-- A screen, not a component catalogue.
+     Every recipe in ios-components.css appears here, but doing the job it
+     would do in a real app rather than lined up in a row with a label
+     under it. Verified at 430px in light and dark by
+     scripts/verify_web_ui.py.
 
-     The artwork behind the bars is deliberate. Liquid Glass is a
-     refraction, so it has nothing to do on a flat page -- put it over a
-     plain background and it collapses to a grey box. Anything with
-     colour and edges moving under it shows what the material is for. -->
+     The restraint is the point. Apple screens are mostly empty space,
+     one accent colour, and a hard drop from the title to everything
+     else. A page that shows five button styles side by side can be
+     pixel-accurate and still look nothing like an Apple app. -->
 <link rel="stylesheet" href="tokens/ios-tokens.css">
 <link rel="stylesheet" href="ios-components.css">
 <style>
-  .hero {
-    height: 300px;
-    margin-top: -64px;
-    background:
-      radial-gradient(90% 70% at 18% 12%, #FF6B9D 0%, transparent 60%),
-      radial-gradient(80% 60% at 85% 8%, #FFB340 0%, transparent 55%),
-      radial-gradient(70% 70% at 70% 80%, #5E5CE6 0%, transparent 60%),
-      linear-gradient(160deg, #0A84FF, #30D158);
-  }
-  .hero__text {
-    padding: 96px var(--ios-gutter) 0;
-    color: #fff;
-    text-shadow: 0 1px 12px rgba(0, 0, 0, .25);
-  }
-  .hero__text h1 { font: var(--ios-text-large-title); font-weight: 700; margin: 0; }
-  .hero__text p  { font: var(--ios-text-subhead); margin: 4px 0 0; opacity: .92; }
+  :root { --gutter: 20px; }
 
-  .float {
-    position: sticky;
-    bottom: 84px;
-    z-index: 9;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin: -22px 0 24px;
+  body { padding-bottom: 96px; }
+
+  /* Space is the main ingredient. Sections sit far apart; nothing is
+     ever tight against anything else. */
+  .wrap    { padding: 0 var(--gutter); }
+  .section { margin-top: 34px; }
+
+  .eyebrow {
+    font: var(--ios-text-footnote);
+    font-weight: 590;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--ios-label-secondary);
   }
-  .row { display: flex; gap: 10px; flex-wrap: wrap; margin: 0 var(--ios-gutter) 20px; }
-  .section-title { font: var(--ios-text-title2); font-weight: 700;
-                   margin: 28px var(--ios-gutter) 12px; }
-  main { padding-bottom: 40px; }
-  /* Nav actions stay 44px tall for the hit region even though they
-     read as plain text -- the padding is horizontal only. */
-  .ios-navbar__action { padding: 0 8px; }
+
+  h1 {
+    font: var(--ios-text-large-title);
+    font-weight: 700;
+    letter-spacing: -.022em;   /* SF tightens as it grows; so does Inter */
+    margin: 2px 0 0;
+  }
+
+  /* One hero, one number. The ring carries the accent so nothing else
+     has to. */
+  .hero {
+    margin-top: 22px;
+    padding: 28px 24px;
+    background: var(--ios-bg-card);
+    border-radius: 22px;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.05);
+  }
+
+  /* The ring is a conic gradient with a punched-out centre. Masking the
+     middle out beats stacking a filled circle on top: the hole stays
+     transparent, so the ring works on any surface, and the number can be
+     centred normally instead of fighting a sibling for the same cell. */
+  .ring {
+    --pct: 68;
+    --thickness: 11px;
+    flex: none;
+    position: relative;
+    width: 96px; height: 96px;
+    border-radius: 50%;
+    background: conic-gradient(
+        from -90deg,
+        var(--ios-accent) calc(var(--pct) * 1%),
+        color-mix(in srgb, var(--ios-label) 9%, transparent) 0);
+    -webkit-mask: radial-gradient(closest-side, transparent
+                    calc(100% - var(--thickness)), #000 calc(100% - var(--thickness) + 1px));
+    mask: radial-gradient(closest-side, transparent
+            calc(100% - var(--thickness)), #000 calc(100% - var(--thickness) + 1px));
+  }
+
+  .ring-wrap {
+    flex: none;
+    position: relative;
+    display: grid;
+    place-items: center;
+  }
+
+  .ring__value {
+    position: absolute;
+    font: var(--ios-text-title3);
+    font-weight: 680;
+    letter-spacing: -.02em;
+  }
+
+  .hero__label { font: var(--ios-text-title3); font-weight: 620; }
+  .hero__sub   { font: var(--ios-text-subhead);
+                 color: var(--ios-label-secondary); margin-top: 3px; }
+
+  .rowicon {
+    flex: none; width: 30px; height: 30px; border-radius: 8px;
+    display: grid; place-items: center;
+    background: var(--ios-accent); color: #fff; font-size: 15px;
+  }
+  .rowicon--green { background: var(--ios-green); }
+  .rowicon--grey  { background: color-mix(in srgb, var(--ios-label) 34%, transparent); }
+
+  .ios-segmented { width: 100%; }
+
+  .actions { margin-top: 28px; display: grid; gap: 10px; }
+  .ios-btn--wide { width: 100%; }
 </style>
 
 <nav class="ios-navbar">
   <button class="ios-btn ios-navbar__action">Edit</button>
-  <span class="ios-navbar__title">Today</span>
+  <span class="ios-navbar__title">Summary</span>
   <button class="ios-btn ios-navbar__action" aria-label="Add">＋</button>
 </nav>
 
-<div class="hero">
-  <div class="hero__text">
-    <h1>Good morning</h1>
-    <p>Three habits left · 68% this week</p>
+<div class="wrap" style="padding-top:26px">
+  <div class="eyebrow">Wednesday, 20 August</div>
+  <h1>Summary</h1>
+
+  <div class="hero">
+    <div class="ring-wrap"><div class="ring"></div><span class="ring__value">68%</span></div>
+    <div>
+      <div class="hero__label">Three left today</div>
+      <div class="hero__sub">Best week since June. Keep the run going.</div>
+    </div>
   </div>
 </div>
 
-<div class="float">
-  <button class="ios-glass ios-glass--light ios-glass-btn ios-glass--capsule">✦ Focus</button>
-  <button class="ios-glass ios-glass--prominent ios-glass-btn ios-glass--capsule" aria-label="Add">＋</button>
+<div class="wrap section">
+  <div class="ios-segmented">
+    <label><input type="radio" name="range" checked><span></span>Day</label>
+    <label><input type="radio" name="range"><span></span>Week</label>
+    <label><input type="radio" name="range"><span></span>Month</label>
+  </div>
 </div>
 
-<main>
-  <div class="row">
-    <button class="ios-btn ios-btn--filled">Continue</button>
-    <button class="ios-btn ios-btn--tinted">Learn More</button>
-    <button class="ios-btn">Cancel</button>
-    <button class="ios-btn ios-btn--filled ios-btn--destructive">Delete</button>
-    <button class="ios-btn ios-btn--filled" disabled>Disabled</button>
-  </div>
-
-  <div class="ios-list__header">Notifications</div>
+<div class="section">
+  <div class="ios-list__header">Today</div>
   <ul class="ios-list">
-    <li class="ios-list__row"><span class="ios-list__title">Allow Notifications</span>
-      <label class="ios-switch"><input type="checkbox" checked><span class="ios-switch__track"></span></label></li>
-    <li class="ios-list__row"><span class="ios-list__title">Sounds</span>
-      <label class="ios-switch"><input type="checkbox"><span class="ios-switch__track"></span></label></li>
-    <li class="ios-list__row ios-list__row--tappable"><span class="ios-list__title">Alert Style</span>
-      <span class="ios-list__value">Banners</span><span class="ios-list__chevron">›</span></li>
-    <li class="ios-list__row"><span class="ios-list__title">Badge</span>
-      <label class="ios-switch"><input type="checkbox" checked disabled><span class="ios-switch__track"></span></label></li>
+    <li class="ios-list__row ios-list__row--tappable">
+      <span class="rowicon rowicon--green">✓</span>
+      <span class="ios-list__title">Morning run</span>
+      <span class="ios-list__value">3.2 km</span>
+      <span class="ios-list__chevron">›</span>
+    </li>
+    <li class="ios-list__row ios-list__row--tappable">
+      <span class="rowicon">◷</span>
+      <span class="ios-list__title">Read</span>
+      <span class="ios-list__value">20 min</span>
+      <span class="ios-list__chevron">›</span>
+    </li>
+    <li class="ios-list__row ios-list__row--tappable">
+      <span class="rowicon rowicon--grey">◌</span>
+      <span class="ios-list__title">Water</span>
+      <span class="ios-list__value">5 of 8</span>
+      <span class="ios-list__chevron">›</span>
+    </li>
   </ul>
-  <div class="ios-list__footer">Alerts appear on the Lock Screen and in Notification Center.</div>
+</div>
 
-  <div class="ios-list__header">Account</div>
+<div class="section">
+  <div class="ios-list__header">Reminders</div>
   <ul class="ios-list">
+    <li class="ios-list__row">
+      <span class="ios-list__title">Daily nudge</span>
+      <label class="ios-switch"><input type="checkbox" checked><span class="ios-switch__track"></span></label>
+    </li>
+    <li class="ios-list__row">
+      <span class="ios-list__title">Weekly summary</span>
+      <label class="ios-switch"><input type="checkbox"><span class="ios-switch__track"></span></label>
+    </li>
+    <li class="ios-list__row">
+      <span class="ios-list__title">Share to Health</span>
+      <label class="ios-switch"><input type="checkbox" checked disabled><span class="ios-switch__track"></span></label>
+    </li>
+  </ul>
+  <div class="ios-list__footer">Turning this off keeps existing data on your device.</div>
+</div>
+
+<div class="wrap">
+  <div class="actions">
+    <button class="ios-btn ios-btn--filled ios-btn--wide">Log a habit</button>
+    <button class="ios-btn ios-btn--wide">Skip today</button>
+  </div>
+</div>
+
+<div class="wrap section">
+  <div class="ios-list__header" style="margin-left:0">Account</div>
+  <ul class="ios-list" style="margin:0">
     <li class="ios-list__row"><input class="ios-field" placeholder="Email address"></li>
   </ul>
-
-  <div class="section-title">Materials</div>
-  <div class="row">
-    <div class="ios-glass ios-glass--card" style="padding:20px;flex:1">
-      <strong>Regular</strong><br>
-      <span style="color:var(--ios-label-secondary);font:var(--ios-text-footnote)">
-        rim, falloff, ambient shadow</span>
-    </div>
-    <div class="ios-glass ios-glass--dark ios-glass--card" style="padding:20px;flex:1">
-      <strong>Dark</strong><br>
-      <span style="color:var(--ios-label-secondary);font:var(--ios-text-footnote)">
-        heavier tint · a=46/255</span>
-    </div>
+  <div class="actions">
+    <button class="ios-btn ios-btn--destructive ios-btn--wide">Delete all data</button>
   </div>
-
-  <div class="row">
-    <div class="ios-segmented">
-      <label><input type="radio" name="s" checked><span></span>Day</label>
-      <label><input type="radio" name="s"><span></span>Week</label>
-      <label><input type="radio" name="s"><span></span>Month</label>
-    </div>
-  </div>
-</main>
+</div>
 
 <nav class="ios-tabbar">
-  <button class="ios-tabbar__item" aria-selected="true"><span>◉</span>Today</button>
+  <button class="ios-tabbar__item" aria-selected="true"><span>◉</span>Summary</button>
   <button class="ios-tabbar__item"><span>▤</span>History</button>
   <button class="ios-tabbar__item"><span>⚙</span>Settings</button>
 </nav>
