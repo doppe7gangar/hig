@@ -72,6 +72,12 @@ body {
   color: var(--ios-label);
   background: var(--ios-bg);
   -webkit-font-smoothing: antialiased;
+  /* Inter's variable font carries an optical-size axis, the same idea as
+     SF's Text and Display cuts: as type grows it tightens and its
+     apertures close. Left off, a 34pt title is just a scaled-up 17pt
+     one, which is a large part of why web type stops looking Apple-ish
+     at display sizes. */
+  font-optical-sizing: auto;
 }
 
 /* ---------------------------------------------------------------- Buttons

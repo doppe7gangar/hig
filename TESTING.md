@@ -21,6 +21,10 @@ What you're looking for: a grey page with white cards, capsule buttons,
 green switches, separators that start at the text rather than the card
 edge.
 
+On a Mac the type renders in SF Pro, because `-apple-system` finds it.
+Everywhere else the bundled Inter takes over. Both are correct; they are
+not identical.
+
 ---
 
 ## 2. Test the UI-kit skill in Claude Code (the real test)
