@@ -1,3 +1,8 @@
 scripts/__pycache__/
 *.pyc
 .DS_Store
+
+# SF Pro is free to download from Apple but its licence covers designing
+# for Apple platforms, not redistribution or webfont serving. Keep any
+# local copy out of the repo; see fonts/sf-local.css.
+.claude/skills/apple-ui-kit/fonts/sf/
