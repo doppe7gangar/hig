@@ -19,6 +19,7 @@ the file it came from.
 | File | What it is |
 |---|---|
 | `tokens/` | **The measured values**, one file per target — see below. Generated; don't hand-edit. |
+| `fonts/` | **Inter, bundled** (SIL OFL) — the non-Apple fallback for SF Pro, with its licence. |
 | `ios-components.css` | **Web component recipes** built on the CSS tokens — buttons, switch, grouped list, field, segmented, tab bar, material. |
 | `example.html` | Working reference page. Open it to see every recipe, light and dark. |
 | `ui-kit-tokens.json` | **Every measurement**, 945 renderings × colours + geometry + state. Query it for anything the recipes don't cover. |
@@ -53,6 +54,7 @@ brand consistency is the deliberate goal; it is a bad default.
 For the web, copy the two CSS files in and load tokens first:
 
 ```html
+<link rel="stylesheet" href="fonts/inter.css">     <!-- optional -->
 <link rel="stylesheet" href="tokens/ios-tokens.css">
 <link rel="stylesheet" href="ios-components.css">
 ```
@@ -199,10 +201,23 @@ change that breaks it fails rather than merely looking fine.
 
 ## What does not transfer, and don't pretend it does
 
-- **SF Pro.** Its licence does not cover general web use. `--ios-font`
-  starts with `system-ui`, which gets you SF on Apple devices and a sane
-  native face elsewhere. Don't self-host SF Pro; don't tell someone a page
-  will look identical on Windows.
+- **SF Pro.** Its licence covers designing *for* Apple platforms, not
+  self-hosting as a webfont — and it doesn't need shipping, because
+  `-apple-system` already resolves to it on macOS and iOS. Everywhere
+  else, bundled **Inter** takes over (`fonts/inter.css`, SIL OFL, 728 KB
+  for both variable faces). It is the closest open face to SF, not the
+  same one; a page will still not look pixel-identical on Windows.
+
+  Stack order is load-bearing: `system-ui` resolves to *something* on
+  every platform, so anything after it never loads. `-apple-system` and
+  `BlinkMacSystemFont` resolve only on Apple, then Inter, then
+  `system-ui` as the backstop for when `inter.css` wasn't loaded.
+
+  Inter's variable font carries an optical-size axis (`opsz 14–32`), the
+  same idea as SF's Text and Display cuts — `font-optical-sizing: auto`
+  is on, so a 34 pt title tightens rather than being a scaled-up 17 pt
+  one. That is a large part of why web type stops reading as Apple at
+  display sizes.
 - **Liquid Glass — the refraction only.** The live bending of what sits
   behind the surface has no browser equivalent. Everything else about it
   does, and is built: see below.
