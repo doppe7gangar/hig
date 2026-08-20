@@ -48,6 +48,23 @@ SF_WEIGHTS = {"medium": 510, "semibold": 590}
 CSS_LADDER = {"medium": 500, "semibold": 600}
 
 
+CAUTION_RE = re.compile(
+    r"hard.?cod|instead of|maintenance trap|contract violation|"
+    r"\bdon'?t\b|\bavoid\b|anti.?pattern|rather than|never ",
+    re.I)
+
+
+def line_text(text, pos):
+    a = text.rfind("\n", 0, pos) + 1
+    b = text.find("\n", pos)
+    return text[a:b if b != -1 else len(text)]
+
+
+def is_cautionary(line):
+    """True when the value is cited as something not to do."""
+    return bool(CAUTION_RE.search(line))
+
+
 def measured_colours():
     """Confirm the claims here still match the generated tokens."""
     if not os.path.exists(TOKENS):
@@ -73,8 +90,18 @@ def scan(root):
 
             for old, (new, what) in SUPERSEDED.items():
                 for m in re.finditer(re.escape(old), text, re.I):
-                    line = text[:m.start()].count("\n") + 1
-                    hits["palette"].append((rel, line, old, new, what))
+                    line_no = text[:m.start()].count("\n") + 1
+                    line = line_text(text, m.start())
+                    # Several of these are the value being named as
+                    # something *not* to hardcode -- "hardcoding #007AFF
+                    # is a maintenance trap, use Color.blue". That is
+                    # correct advice and agrees with this repo; counting
+                    # it as a contradiction would be wrong, and blindly
+                    # rewriting it would corrupt the sentence.
+                    if is_cautionary(line):
+                        hits["cautionary"].append((rel, line_no, old))
+                        continue
+                    hits["palette"].append((rel, line_no, old, new, what))
 
             for name, real in SF_WEIGHTS.items():
                 pat = rf"{name}[^\n]{{0,24}}?\b({CSS_LADDER[name]})\b"
@@ -109,7 +136,7 @@ def main():
                   "re-check SUPERSEDED against ios-tokens.css")
 
     hits = scan(args.dir)
-    n = sum(len(v) for v in hits.values())
+    n = sum(len(v) for k, v in hits.items() if k != "cautionary")
     print(f"scanned {args.dir}\n")
 
     if hits["palette"]:
@@ -143,6 +170,15 @@ def main():
         for f, line, snippet in hits["tracking"][:4]:
             print(f"    {f}:{line}")
             print(f"      {' '.join(snippet.split())[:80]}")
+        print()
+
+    if hits["cautionary"]:
+        print(f"CITED AS ANTI-PATTERN — {len(hits['cautionary'])} occurrences,"
+              " not counted")
+        print("  The old value named as something not to hardcode. Correct"
+              " advice;\n  leave it alone.")
+        for f, line, old in hits["cautionary"][:3]:
+            print(f"    {f}:{line}  ({old})")
         print()
 
     if not n:

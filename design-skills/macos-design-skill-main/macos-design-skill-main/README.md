@@ -1,3 +1,6 @@
+<!-- Apple values in this file were reconciled against the measurements in
+     .claude/skills/apple-ui-kit/tokens/ by scripts/fix_design_skills.py.
+     The originals were the pre-iOS-26 palette and the CSS weight ladder. -->
 # macOS Design Skill
 
 > Build native-feeling macOS applications that look like Apple designed them.
@@ -84,7 +87,7 @@ Only show UI when it's useful. Hide filters/toolbars when there's no content.
 ### Typography
 - **Font Stack**: `-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text"`
 - **Body Size**: 13px (macOS apps use smaller type than web)
-- **Weights**: Regular (400), Medium (500), Semibold (600), Bold (700)
+- **Weights**: Regular (400), Medium (510), Semibold (590), Bold (700)
 
 ### Spacing (8px Grid)
 | Context | Value |

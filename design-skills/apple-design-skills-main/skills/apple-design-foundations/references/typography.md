@@ -1,3 +1,6 @@
+<!-- Apple values in this file were reconciled against the measurements in
+     .claude/skills/apple-ui-kit/tokens/ by scripts/fix_design_skills.py.
+     The originals were the pre-iOS-26 palette and the CSS weight ladder. -->
 # Apple Typography Reference
 **Scope:** San Francisco font family, Dynamic Type system, New York serif, SF Symbols integration, marketing type scale, and faithful web replication patterns. Current era (2019–present) with historical context.
 
@@ -19,8 +22,23 @@ The Apple marketing page grabs attention with headline weights and sizes (~80–
 ### 4. Trust the system, don't fight it
 Dynamic Type is not a constraint — it is the contract. Apple's text style system automatically manages size, weight, leading, and tracking per user preference. Fighting it with hardcoded point sizes removes accessibility guarantees. [documented]
 
-### 5. Tracking (letter-spacing) is inversely proportional to size
-Large type needs tighter tracking to feel solid; small type needs looser tracking to preserve legibility. Apple encodes this as a continuous function, not a manual per-case decision. This is the single most commonly violated principle in third-party apps. [documented]
+### 5. Tracking (letter-spacing) is a U-shaped curve, not a slope
+Apple publishes a per-size tracking table for SF Pro, and it reverses direction twice — so the common shorthand "larger type is tracked tighter" is only true for part of the range. [measured — parsed from the HIG's *Tracking values → SF Pro* table; see `.claude/skills/apple-hig/references/specs.md`]
+
+| Size | Tracking (1/1000 em) | |
+|---|---|---|
+| 6 pt | +41 | loosest |
+| 11 pt | +6 | still loose |
+| 12 pt | 0 | crosses zero |
+| **17 pt** | **−26** | **tightest — body text** |
+| 22 pt | −12 | loosening again |
+| ~23 pt | ~0 | crosses back |
+| 28–30 pt | +14 | loosest of the display sizes |
+| 34 pt | +12 | Large Title |
+
+Tight in the middle, looser at both ends. Small type is tracked out for legibility, body sits at the tightest point, and display type is tracked *out* again — the opposite of the intuition. Getting this backwards is most visible on the largest text on the screen, which is exactly where it matters.
+
+On Apple platforms the font's `trak` table applies these automatically, which is why you rarely think about it. Browsers ignore `trak`, so on the web every value has to be set explicitly as `letter-spacing` or it simply does not happen. `.claude/skills/apple-ui-kit/tokens/ios-tokens.css` exposes one `--ios-track-*` token per text style. [documented]
 
 ### 6. Spacing and rhythm over decoration
 Apple's type layouts rely on generous line-height, careful spacing ratios, and optical margin alignment — not color or decoration — to create visual order. The "Apple feel" in text is 80% spacing discipline. [observed]
@@ -510,7 +528,7 @@ Apple uses gradient-filled text on **single accent words or short phrases** insi
     135deg,
     #bf5af2 0%,    /* Apple purple — matches system purple on Apple platforms [observed] */
     #6e6aee 50%,   /* indigo mid-point */
-    #0a84ff 100%   /* Apple blue — system blue [observed] */
+    #0091ff 100%   /* Apple blue — system blue [observed] */
   );
 
   /* Clip the background to the text glyphs only */

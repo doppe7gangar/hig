@@ -1,3 +1,6 @@
+<!-- Apple values in this file were reconciled against the measurements in
+     .claude/skills/apple-ui-kit/tokens/ by scripts/fix_design_skills.py.
+     The originals were the pre-iOS-26 palette and the CSS weight ladder. -->
 # Apple Color Systems
 Scope: semantic/adaptive color, Display P3 wide gamut, dark-mode strategy, accessibility, and CSS/SwiftUI replication — current iOS 26 / Liquid Glass era with historical rationale.
 
@@ -47,7 +50,7 @@ All values: iOS 13+ / UIKit. Light mode first, dark mode second. Alpha-encoded v
 | `.tertiaryLabel` | `#3C3C434C` (30% alpha) | `#EBEBF54C` (30% alpha) | Placeholder-tier text |
 | `.quaternaryLabel` | `#3C3C432D` (18% alpha) | `#EBEBF52D` (18% alpha) | Disabled / ghost text |
 | `.placeholderText` | `#3C3C434C` | `#EBEBF54C` | Input placeholder |
-| `.link` | `#007AFF` | `#0984FF` | Tappable links |
+| `.link` | `#0088FF` | `#0984FF` | Tappable links |
 
 Note: the secondary/tertiary/quaternary labels use a *single opaque base color* (`#3C3C43` in light, `#EBEBF5` in dark) at different alpha levels, not different gray values. This means they blend cleanly over any background without leaving halo artifacts.
 
@@ -101,9 +104,9 @@ These represent a *semantic intent* (error, confirmation, info) more than a name
 
 | Token | Light | Dark | P3 note |
 |---|---|---|---|
-| `.systemBlue` | `#007AFF` | `#0A84FF` | Native P3 display: more electric, narrowly representable in sRGB |
+| `.systemBlue` | `#0088FF` | `#0091FF` | Native P3 display: more electric, narrowly representable in sRGB |
 | `.systemGreen` | `#34C759` | `#30D158` | P3 version noticeably more vivid green |
-| `.systemRed` | `#FF3B30` | `#FF453A` | P3 shifts to deeper saturated red |
+| `.systemRed` | `#FF383C` | `#FF4245` | P3 shifts to deeper saturated red |
 | `.systemOrange` | `#FF9500` | `#FF9F0A` | |
 | `.systemYellow` | `#FFCC00` | `#FFD60A` | |
 | `.systemPink` | `#FF2D55` | `#FF375F` | |
@@ -120,7 +123,7 @@ The iOS 15+ trio (mint, cyan, brown) was added to fill gaps in the spectrum and 
 
 Apple specifies system accent colors in the Display P3 color space internally. The sRGB hex values above are the *gamut-clipped approximations* you get when reading them on an sRGB display. On P3 hardware:
 
-- `systemBlue` in P3: approximately `color(display-p3 0.0 0.478 1.0)` [inferred — reverse-engineered from #007AFF sRGB]
+- `systemBlue` in P3: approximately `color(display-p3 0.0 0.478 1.0)` [inferred — reverse-engineered from #0088FF sRGB]
 - `systemGreen` in P3: approximately `color(display-p3 0.204 0.780 0.349)` [inferred]
 - `systemRed` in P3: approximately `color(display-p3 1.0 0.231 0.188)` [inferred]
 
@@ -162,7 +165,7 @@ Each material has vibrancy label styles (`.primary`, `.secondary`, `.tertiary`, 
   --color-label-tertiary:     rgba(60, 60, 67, 0.30);
   --color-label-quaternary:   rgba(60, 60, 67, 0.18);
   --color-placeholder:        rgba(60, 60, 67, 0.30);
-  --color-link:               #007AFF;
+  --color-link:               #0088FF;
 
   /* Standard backgrounds */
   --color-bg:                 #FFFFFF;
@@ -193,9 +196,9 @@ Each material has vibrancy label styles (`.primary`, `.secondary`, `.tertiary`, 
   --color-gray-6:             #F2F2F7;
 
   /* System accents */
-  --color-blue:               #007AFF;
+  --color-blue:               #0088FF;
   --color-green:              #34C759;
-  --color-red:                #FF3B30;
+  --color-red:                #FF383C;
   --color-orange:             #FF9500;
   --color-yellow:             #FFCC00;
   --color-pink:               #FF2D55;
@@ -248,9 +251,9 @@ Each material has vibrancy label styles (`.primary`, `.secondary`, `.tertiary`, 
     --color-gray-6:             #1C1C1E;
 
     /* System accents — brightened for dark field */
-    --color-blue:               #0A84FF;
+    --color-blue:               #0091FF;
     --color-green:              #30D158;
-    --color-red:                #FF453A;
+    --color-red:                #FF4245;
     --color-orange:             #FF9F0A;
     --color-yellow:             #FFD60A;
     --color-pink:               #FF375F;
@@ -276,13 +279,13 @@ Each material has vibrancy label styles (`.primary`, `.secondary`, `.tertiary`, 
 /* Pattern 1: cascading property (non-supporting browsers silently ignore
    the color() declaration and fall through to the sRGB value above it) */
 .accent-blue {
-  color: #007AFF;                          /* sRGB fallback */
+  color: #0088FF;                          /* sRGB fallback */
   color: color(display-p3 0.000 0.478 1.000); /* P3 — visibly more electric */
 }
 
 /* Pattern 2: @supports query (recommended for custom properties) */
 :root {
-  --color-blue-vivid: #007AFF;             /* sRGB baseline */
+  --color-blue-vivid: #0088FF;             /* sRGB baseline */
 }
 
 @supports (color: color(display-p3 1 1 1)) {
@@ -396,7 +399,7 @@ Anything that "pops forward" gets a lighter value; anything that "recedes" uses 
 
 ### Replicating dark-mode accent color behavior
 
-In dark mode, system accents *increase* in lightness by roughly 4–6 points and increase slightly in saturation. The visual motivation: a pure `#007AFF` against `#000000` looks fine but reads slightly dim; `#0A84FF` is fractionally lighter and registers as the correct perceived blue weight against black. [documented]
+In dark mode, system accents *increase* in lightness by roughly 4–6 points and increase slightly in saturation. The visual motivation: a pure `#0088FF` against `#000000` looks fine but reads slightly dim; `#0091FF` is fractionally lighter and registers as the correct perceived blue weight against black. [documented]
 
 Never simply use the same hex accent in both light and dark modes.
 
@@ -460,8 +463,8 @@ Never distinguish UI states purely by color (e.g., red vs. green for error/succe
 ### 7. Skipping the `color-scheme` meta tag on web [documented]
 Without `<meta name="color-scheme" content="light dark">` or the CSS `color-scheme` property, the browser's default form controls, scroll bars, and canvas background remain the browser's default (often white), causing a visible flash before your CSS loads and failing to adapt system UI elements.
 
-### 8. Treating sRGB #007AFF as Display P3 #007AFF [documented]
-These are different physical colors. An sRGB `#007AFF` on a P3 display is gamut-expanded and will appear slightly desaturated compared to what Apple intends. On CSS/web, always use `color(display-p3 ...)` inside `@supports` for the intended vividness, with the sRGB value as the fallback — not as an equivalent.
+### 8. Treating sRGB #0088FF as Display P3 #0088FF [documented]
+These are different physical colors. An sRGB `#0088FF` on a P3 display is gamut-expanded and will appear slightly desaturated compared to what Apple intends. On CSS/web, always use `color(display-p3 ...)` inside `@supports` for the intended vividness, with the sRGB value as the fallback — not as an equivalent.
 
 ### 9. Placing text directly on Liquid Glass / blur layers [documented]
 Glass surfaces refract their background. On a light background the glass might appear dark; on a dark background, light. Text placed directly on glass will have unpredictable contrast — fails WCAG at an indeterminate rate. Always keep text on solid semantic-color backing.

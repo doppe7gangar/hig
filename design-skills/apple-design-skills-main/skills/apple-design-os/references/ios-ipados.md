@@ -1,3 +1,6 @@
+<!-- Apple values in this file were reconciled against the measurements in
+     .claude/skills/apple-ui-kit/tokens/ by scripts/fix_design_skills.py.
+     The originals were the pre-iOS-26 palette and the CSS weight ladder. -->
 # iOS / iPadOS Design Reference
 
 Scope: Surface anatomy, navigation patterns, sheet system, iOS 26 Liquid Glass era — with metrics, web analogs, and copy-paste recipes.
@@ -433,8 +436,8 @@ Reproduces the iOS 26 floating pill tab bar that minimizes on scroll.
 
 .tab-item svg { width: 24px; height: 24px; }
 .tab-item span { font-size: 11px; font-weight: 500; letter-spacing: -0.2px; }
-.tab-item--active svg { color: #007AFF; }
-.tab-item--active span { color: #007AFF; }
+.tab-item--active svg { color: #0088FF; }
+.tab-item--active span { color: #0088FF; }
 
 /* Dark OS safety — pin to light theme so glass stays readable */
 @media (prefers-color-scheme: dark) {

@@ -1,3 +1,6 @@
+<!-- Apple values in this file were reconciled against the measurements in
+     .claude/skills/apple-ui-kit/tokens/ by scripts/fix_design_skills.py.
+     The originals were the pre-iOS-26 palette and the CSS weight ladder. -->
 # App Component Anatomy — iOS / iPadOS UIKit & SwiftUI
 Scope: Standard Apple UI component library — anatomy, metrics, when-to-use, SwiftUI recipes, web CSS mimic. Current era including iOS 26 Liquid Glass restyling.
 
@@ -791,7 +794,7 @@ This recipe implements the lightest reasonable interpretation of Apple's observe
 
 /* Active */
 .step-row--active .step-badge {
-  background: #007aff;             /* tint bg */
+  background: #0088ff;             /* tint bg */
 }
 
 .step-row--active .step-number {
@@ -814,7 +817,7 @@ This recipe implements the lightest reasonable interpretation of Apple's observe
   .step-title  { color: #fff; }
   .step-number { color: rgba(235,235,245,0.6); }
   .step-badge  { background: #2c2c2e; }
-  .step-row--active .step-badge { background: #0a84ff; }
+  .step-row--active .step-badge { background: #0091ff; }
   .step-row--active .step-title { color: #fff; }
   .step-row--done .step-title   { color: rgba(235,235,245,0.6); }
   .step-connector-above,
@@ -1127,7 +1130,7 @@ body {
   <div class="ios-section-header">Appearance</div>
   <div class="ios-card">
     <div class="ios-row">
-      <span class="ios-row-icon" style="background:#007aff;color:#fff">🌙</span>
+      <span class="ios-row-icon" style="background:#0088ff;color:#fff">🌙</span>
       <span class="ios-row-label">Dark Mode</span>
       <!-- toggle goes here -->
     </div>
@@ -1195,7 +1198,7 @@ Mirrors UISwitch: 51 × 31 pt, thumb slides, green on / grey off.
 
 /* Focus ring for accessibility */
 .ios-toggle input:focus-visible + .ios-toggle-track {
-  outline: 2px solid #007aff;
+  outline: 2px solid #0088ff;
   outline-offset: 2px;
 }
 ```
@@ -1286,7 +1289,7 @@ Mirrors UISwitch: 51 × 31 pt, thumb slides, green on / grey off.
 | Primary label | `#000000` (light), `#ffffff` (dark) |
 | Secondary label | `#6e6e73` (light), `rgba(235,235,245,0.6)` (dark) |
 | Separator | `rgba(60,60,67,0.18)` (light), `rgba(84,84,88,0.6)` (dark) |
-| Tint / accent | `#007aff` (iOS blue default) |
+| Tint / accent | `#0088ff` (iOS blue default) |
 | Section corner radius | `10px` |
 | Row min-height | `44px` |
 | Row horizontal padding | `16px` |

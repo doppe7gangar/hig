@@ -1,3 +1,6 @@
+<!-- Apple values in this file were reconciled against the measurements in
+     .claude/skills/apple-ui-kit/tokens/ by scripts/fix_design_skills.py.
+     The originals were the pre-iOS-26 palette and the CSS weight ladder. -->
 # macOS Design Reference
 
 Scope: macOS surface anatomy, interaction model, and Liquid Glass (macOS 26 Tahoe) — for faithful native-style implementation and marketing mockups.
@@ -515,7 +518,7 @@ A faithful marketing mockup of a macOS window with Liquid Glass toolbar. Tested 
 .mac-sidebar-item:hover   { background: rgba(0,0,0,0.06); }
 .mac-sidebar-item.active  {
   background: rgba(0,122,255,0.15);
-  color: #007aff;
+  color: #0088ff;
   font-weight: 500;
 }
 

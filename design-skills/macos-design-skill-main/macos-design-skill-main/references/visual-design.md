@@ -1,3 +1,6 @@
+<!-- Apple values in this file were reconciled against the measurements in
+     .claude/skills/apple-ui-kit/tokens/ by scripts/fix_design_skills.py.
+     The originals were the pre-iOS-26 palette and the CSS weight ladder. -->
 # Visual Design Reference
 
 ## Table of Contents
@@ -49,7 +52,7 @@ Dark mode:
   --border: rgba(0, 0, 0, 0.08);
   --border-strong: rgba(0, 0, 0, 0.15);
 
-  --accent: #007AFF;       /* System blue */
+  --accent: #0088FF;       /* System blue */
   --accent-hover: #0066D6;
 
   --surface-hover: rgba(0, 0, 0, 0.04);
@@ -74,7 +77,7 @@ Dark mode:
     --border: rgba(255, 255, 255, 0.08);
     --border-strong: rgba(255, 255, 255, 0.15);
 
-    --accent: #0A84FF;       /* Slightly brighter blue for dark */
+    --accent: #0091FF;       /* Slightly brighter blue for dark */
     --accent-hover: #409CFF;
 
     --surface-hover: rgba(255, 255, 255, 0.06);
@@ -90,9 +93,9 @@ Dark mode:
 **Apple's system accent colors** (use as needed):
 | Color  | Light        | Dark         |
 |--------|-------------|-------------|
-| Blue   | #007AFF     | #0A84FF     |
+| Blue   | #0088FF     | #0091FF     |
 | Green  | #34C759     | #30D158     |
-| Red    | #FF3B30     | #FF453A     |
+| Red    | #FF383C     | #FF4245     |
 | Orange | #FF9500     | #FF9F0A     |
 | Yellow | #FFCC00     | #FFD60A     |
 | Purple | #AF52DE     | #BF5AF2     |
@@ -148,7 +151,7 @@ font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
 **Notes:**
 - macOS apps use smaller type than web or mobile. 13px body is standard.
 - Letter spacing is tight — Apple uses -0.01 to -0.03em for headlines
-- Weight range: Regular (400) for body, Medium (500) for emphasis, Semibold (600) for headings, Bold (700) for large titles
+- Weight range: Regular (400) for body, Medium (510) for emphasis, Semibold (590) for headings, Bold (700) for large titles
 - Use opacity or `--text-secondary` color for de-emphasized text, not lighter font weight
 
 **Monospace (for code, shortcuts, technical):**

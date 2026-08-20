@@ -1,3 +1,6 @@
+<!-- Apple values in this file were reconciled against the measurements in
+     .claude/skills/apple-ui-kit/tokens/ by scripts/fix_design_skills.py.
+     The originals were the pre-iOS-26 palette and the CSS weight ladder. -->
 # Apple Web Front-End Engineering Reference
 Scope: observable architecture of apple.com in the browser — markup patterns, CSS methodology, JS approach, image/font/perf discipline. Visual aesthetics are a sibling document.
 
@@ -401,7 +404,7 @@ Building an apple.com-grade marketing page as Apple engineers it:
   --ac-font-size-headline-xl: clamp(40px, 6vw, 80px);
   --ac-font-size-headline-lg: clamp(28px, 4vw, 56px);
   --ac-font-size-body: 17px;
-  --ac-font-weight-semibold: 600;
+  --ac-font-weight-semibold: 590;
 
   /* Palette */
   --ac-color-page-bg: #000;

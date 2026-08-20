@@ -189,11 +189,36 @@ colours off the UI kit renderings, weights from SF Pro's `fvar` table,
 tracking from the HIG's own table — and reports every contradiction with
 both values.
 
-Current result: **47 disagreements**, all of the same kind. They carry
-the pre-iOS-26 palette (`#007AFF` ×27, `#0A84FF` ×8, `#FF3B30`,
-`#FF453A`), state SF's weights as the CSS ladder (500/600 rather than
-510/590), and one states the tracking rule backwards for display sizes.
+It found 43 real disagreements — the pre-iOS-26 palette, SF's weights
+given as the CSS ladder, and one stating the tracking rule backwards for
+display sizes. All are now reconciled, so it should report **no
+disagreements**. If it reports some again, something upstream was
+re-copied over the corrections.
 
-None of that makes them bad skills. Those values were correct until
-iOS 26 and are what circulates everywhere. It does mean picking one
-source of truth for values rather than installing both and hoping.
+```bash
+python3 scripts/fix_design_skills.py --dry-run   # what it would change
+python3 scripts/fix_design_skills.py             # apply
+```
+
+The fixer only touches straight substitutions, and skips lines where the
+old value is named as an anti-pattern — "hardcoding `#007AFF` is a
+maintenance trap, use `Color.blue`" is correct advice that happens to
+contain the old hex, and rewriting it would turn guidance into nonsense.
+Four such lines are excluded by design. The one prose claim was edited by
+hand, because rewriting an argument mechanically produces something that
+reads like it means something and doesn't.
+
+None of this made them bad skills. Those values were correct until iOS 26
+and are what circulates everywhere.
+
+### What was kept
+
+`apple-motion` is the one addition: the HIG covers motion as principle
+and has no spring parameters at all, so it was a real gap rather than a
+duplicate. It defers values to `apple-ui-kit` and principles to
+`apple-hig`, and says plainly which of its own claims are API fact and
+which are one author's observation.
+
+The rest of `design-skills/` stays as reference material rather than
+installed skills. Installing 106 of them means several all claiming
+"Apple design" and colliding on every request.
