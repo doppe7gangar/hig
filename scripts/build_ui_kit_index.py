@@ -171,7 +171,11 @@ def build():
     out = [
         "# UI kit: visual reference for iOS 27 components",
         "",
-        "949 screenshots from Apple's iOS 27 Figma UI kit, under "
+        # Filled in after the walk, below. It was hardcoded to 949 while
+        # the kit actually holds 947, so a generated file carried a
+        # hand-typed number that nothing would ever correct -- and
+        # SKILL.md copies this figure straight out of here.
+        "{TOTAL} screenshots from Apple's iOS 27 Figma UI kit, under "
         "`assets/ui-kit/`, organized by component. Each includes real "
         "interaction-state variants — light/dark appearance, idle/pressed, "
         "on/off, enabled/disabled, and some accessibility-label variants — "
@@ -262,6 +266,13 @@ def build():
                    "component is unidentified.</sub>")
     else:
         out.append("<sub>Every folder maps to at least one HIG page.</sub>")
+
+    # Substitute before writing, not after -- the first attempt at this
+    # patched `out` below the write and would have put the literal
+    # placeholder in the file.
+    if not any("{TOTAL}" in line for line in out):
+        raise SystemExit("header placeholder missing; the count would go stale")
+    out = [line.replace("{TOTAL}", str(total_files)) for line in out]
 
     os.makedirs(REFS, exist_ok=True)
     with open(os.path.join(REFS, "assets-index.md"), "w", encoding="utf-8") as f:
