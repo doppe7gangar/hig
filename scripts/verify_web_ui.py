@@ -248,10 +248,20 @@ def run(pw, scheme, c, contrast_more=False):
              const cs = getComputedStyle(el);
              const rng = document.createRange(); rng.selectNodeContents(el);
              const real = rng.getBoundingClientRect().width;
-             const c = document.createElement('canvas').getContext('2d');
-             const m = w => { c.font = cs.fontWeight + ' ' + cs.fontSize
-                                + ' ' + w;
-                              return c.measureText(el.textContent).width; };
+             // A probe span rather than canvas measureText: the canvas
+             // ignores CSS letter-spacing, so once tracking was applied
+             // every width disagreed with the rendered run and the check
+             // failed on correct CSS. The span copies the tracking too.
+             const m = fam => {
+               const s = document.createElement('span');
+               s.style.cssText = 'position:absolute;white-space:nowrap;'
+                 + 'font-weight:' + cs.fontWeight + ';font-size:' + cs.fontSize
+                 + ';letter-spacing:' + cs.letterSpacing
+                 + ';font-family:' + fam;
+               s.textContent = el.textContent;
+               document.body.appendChild(s);
+               const w = s.getBoundingClientRect().width; s.remove(); return w;
+             };
              return {real, sf: m('"SF Pro"'), inter: m('Inter'),
                      fallback: m('"DejaVu Sans"')}; }""")
     if font:

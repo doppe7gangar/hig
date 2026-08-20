@@ -69,6 +69,7 @@
 body {
   margin: 0;
   font: var(--ios-text-body);
+  letter-spacing: var(--ios-track-body);
   color: var(--ios-label);
   background: var(--ios-bg);
   -webkit-font-smoothing: antialiased;
@@ -93,7 +94,8 @@ body {
 
 .ios-btn {
   font: var(--ios-text-body);
-  font-weight: 590;                    /* SF's semibold axis */
+  letter-spacing: var(--ios-track-body);
+  font-weight: var(--ios-weight-semibold);   /* 590, not 600 */
   min-height: var(--ios-hit-target);
   padding: 11px 20px;
   border: none;
@@ -266,6 +268,7 @@ body {
 
 .ios-list__header {
   font: var(--ios-text-footnote);
+  letter-spacing: var(--ios-track-footnote);
   text-transform: uppercase;
   letter-spacing: .06em;
   color: var(--ios-label-secondary);
@@ -274,6 +277,7 @@ body {
 
 .ios-list__footer {
   font: var(--ios-text-footnote);
+  letter-spacing: var(--ios-track-footnote);
   color: var(--ios-label-secondary);
   margin: 7px calc(var(--ios-gutter) * 2) 0;
 }

@@ -27,6 +27,7 @@ the digit.
 
 import json
 import os
+import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -88,6 +89,62 @@ GEOMETRY = {
     "tab-pill": ("Tab Bars/_Tab Bar Button/iPad/Dark_Selected Dark Tab Bar"
                  " Button - iPad - Text", "size_pt", "radius_pt"),
 }
+
+
+
+# Type styles and the point size each one is at the Large (default)
+# Dynamic Type setting, from specs.md. Tracking is looked up per size.
+TYPE_SIZES = {
+    "large-title": 34, "title1": 28, "title2": 22, "title3": 20,
+    "headline": 17, "body": 17, "callout": 16, "subhead": 15,
+    "footnote": 13, "caption1": 12, "caption2": 11,
+}
+
+# SF Pro's weight axis does not use the CSS ladder. Read off the named
+# instances in the variable font: Medium is 510 and Semibold is 590, not
+# 500 and 600. Asking for font-weight: 600 gets you a weight between two
+# real ones that Apple does not ship.
+SF_WEIGHTS = {
+    "ultralight": 31, "thin": 111, "light": 274, "regular": 400,
+    "medium": 510, "semibold": 590, "bold": 700, "heavy": 860,
+    "black": 1000,
+}
+
+
+def read_tracking():
+    """Apple's per-size tracking table, parsed out of specs.md.
+
+    Typography is where an otherwise accurate page stops looking like
+    Apple, and tracking is why: the values are not monotonic. Body at
+    17pt is tracked -26/1000 em, but Large Title at 34pt is +12 -- looser,
+    not tighter. Guessing "big text is tight" gets the most prominent
+    text on the screen wrong by about 34/1000 em.
+
+    On Apple platforms the font's own trak table does this. Browsers
+    ignore trak, so it has to be applied as letter-spacing.
+    """
+    specs = os.path.join(REPO, ".claude", "skills", "apple-hig",
+                         "references", "specs.md")
+    if not os.path.exists(specs):
+        return {}
+    text = open(specs, encoding="utf-8").read()
+    i = text.find("Tracking values \u2192 SF Pro")
+    if i == -1:
+        i = text.find("Tracking values → SF Pro")
+    if i == -1:
+        return {}
+    # Stop at the next table. specs.md carries three tracking tables --
+    # SF Pro, SF Pro Rounded, New York -- one after another, and a window
+    # wide enough to hold SF Pro's 96 rows runs into Rounded's. Keyed by
+    # size, the later rows silently overwrite the earlier ones and every
+    # value comes out subtly wrong rather than obviously broken.
+    rest = text[i + 10:]
+    j = rest.find("*Specifications")
+    chunk = rest[:j] if j != -1 else rest[:4000]
+    table = {}
+    for m in re.finditer(r"^\|\s*(\d+)\s*\|\s*([+-]?\d+)\s*\|", chunk, re.M):
+        table[int(m.group(1))] = int(m.group(2))
+    return table
 
 
 def hue_of(hexv):
@@ -234,6 +291,24 @@ def build_css(resolved, geo):
         "  --ios-text-footnote:    400 0.8125rem/1.125rem var(--ios-font);",
         "  --ios-text-caption1:    400 0.75rem/1rem var(--ios-font);",
         "  --ios-text-caption2:    400 0.6875rem/0.8125rem var(--ios-font);",
+    ]
+    track = read_tracking()
+    if track:
+        for style, size in TYPE_SIZES.items():
+            if size in track:
+                L.append(f"  --ios-track-{style}: {track[size]/1000:+.3f}em;")
+        L.append("")
+    L += [
+        "  /* SF Pro's weight axis, read off the variable font's named",
+        "     instances. It is not the CSS ladder: Medium is 510 and",
+        "     Semibold is 590, so font-weight: 600 asks for a weight",
+        "     between two real ones that Apple never ships. */",
+    ]
+    for name, w in SF_WEIGHTS.items():
+        L.append(f"  --ios-weight-{name}: {w};")
+    L.append("")
+    L += [
+
         "",
         "  /* Order matters more than it looks. system-ui resolves to",
         "     *something* on every platform, so anything listed after it is",
@@ -252,6 +327,13 @@ def build_css(resolved, geo):
         "  --ios-font: -apple-system, BlinkMacSystemFont, 'Inter', system-ui,",
         "      'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;",
         "",
+        "  /* Tracking, from specs.md's SF Pro table, one value per style at",
+        "     its Large-setting size. Not monotonic, which is the trap: body",
+        "     at 17pt is -26/1000 em but Large Title at 34pt is +12, tracked",
+        "     looser rather than tighter. On Apple platforms the font's trak",
+        "     table applies these; browsers ignore trak, so they have to be",
+        "     set as letter-spacing or the most prominent text on the page is",
+        "     the most wrong. */",
         "  /* Hit target. buttons.md states 44x44 pt as the general rule;",
         "     the accessibility Mobility table gives 28x28 as the floor for",
         "     less important controls. 44 is the one to build to. */",
