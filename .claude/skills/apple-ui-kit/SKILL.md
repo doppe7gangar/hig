@@ -54,10 +54,23 @@ brand consistency is the deliberate goal; it is a bad default.
 For the web, copy the two CSS files in and load tokens first:
 
 ```html
-<link rel="stylesheet" href="fonts/inter.css">     <!-- optional -->
+<link rel="stylesheet" href="fonts/inter.css">      <!-- or fonts/sf.css -->
 <link rel="stylesheet" href="tokens/ios-tokens.css">
 <link rel="stylesheet" href="ios-components.css">
 ```
+
+**Copy the font files too — don't link a CDN.** The fonts in `fonts/`
+are the point: `SF-Pro-latin.woff2` (212 KB) and the two Inter cuts ship
+here so a page needs no network fetch at all. Reaching for
+`fonts.googleapis.com` to load Inter gives you a slower page, a
+third-party dependency, and nothing offline — and asked to build a
+settings screen, that is exactly what happened in testing while both
+fonts sat unused in the skill directory. If the deliverable is a single
+self-contained file, inline the tokens and base64 the one font you need,
+or copy `fonts/` next to it. Either beats a CDN.
+
+`sf.css` must load **after** `tokens/ios-tokens.css` — it overrides
+`--ios-font`, and the token sheet would otherwise overwrite it back.
 
 Then use the tokens rather than literals. `var(--ios-accent)` adapts to
 dark mode on its own; `#0088FF` does not.
