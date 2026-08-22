@@ -174,7 +174,37 @@ fix it. Not a bug to report.
 
 ---
 
-## 5. Auditing the third-party skills in `design-skills/`
+## 5. One command that checks the rest
+
+```bash
+python3 scripts/doctor.py
+```
+
+Every number and path in this repo that can be resolved against reality
+gets resolved: rule and page and screenshot counts against the corpus,
+framework counts against `api-map.md`, the check total against a real run
+of the verifier, every `scripts/*.py` named in a doc, every file a skill
+promises it will have once installed, leftover placeholders, and
+truncated Apple quotes in the skills' own prose.
+
+It exists because the same class of bug turned up four rounds running and
+was found by hand each time — a hardcoded 949 against 947 files, a
+SKILL.md claiming 2,280 rules after a re-scrape made it 2,326,
+instructions naming a script renamed weeks earlier. All four are numbers
+or paths a machine can resolve.
+
+`build_skill.py` and `build_design_tokens.py` run `--fast` (everything
+but the browser pass) at the end of every build, so a regenerated file
+that no longer matches what the docs claim fails immediately rather than
+months later.
+
+What it will **not** catch: whether the values are right. A confidently
+wrong measurement stated consistently everywhere passes cleanly. That's
+what `verify_web_ui.py` and the eval runs are for.
+
+---
+
+## 6. Auditing the third-party skills in `design-skills/`
 
 `design-skills/` holds 106 skills from six collections, several covering
 the same ground as `apple-ui-kit`. Installing them alongside it means two

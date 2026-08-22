@@ -612,6 +612,25 @@ def sync_skill_md_counts(rule_total, framework_count):
         print("SKILL.md       counts synced")
 
 
+def run_doctor():
+    """Fail the build if a generated file no longer matches its claims.
+
+    Every stale count in this repo's history was written by a build and
+    found by hand weeks later. Checking here closes that gap.
+    """
+    import subprocess
+    doc = os.path.join(HERE, "doctor.py")
+    if not os.path.exists(doc):
+        return
+    r = subprocess.run([sys.executable, doc, "--fast"],
+                       capture_output=True, text=True)
+    if r.returncode:
+        print("\n--- doctor found a problem ---")
+        print(r.stdout.strip()[-800:])
+        sys.exit(1)
+    print("doctor         consistency checks pass")
+
+
 if __name__ == "__main__":
     # Clear only what we regenerate, so a co-resident file from another
     # builder isn't destroyed as a side effect.
@@ -654,3 +673,4 @@ if __name__ == "__main__":
     print(f"pages/            {len(os.listdir(os.path.join(REFS, 'pages')))} files")
     frameworks = api_map.count("\n### ")
     sync_skill_md_counts(total, frameworks)
+    run_doctor()

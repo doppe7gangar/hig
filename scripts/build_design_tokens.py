@@ -240,7 +240,10 @@ def main():
     print()
     for f in written:
         print(f"  wrote tokens/{f}")
-    return 1 if misses else 0
+    if misses:
+        return 1
+    run_doctor()
+    return 0
 
 
 def build_css(resolved, geo):
@@ -576,6 +579,25 @@ def emit_all(resolved, geo, outdir):
         open(os.path.join(outdir, name), "w").write(body)
         written.append(name)
     return written
+
+def run_doctor():
+    """Fail the build if a generated file no longer matches its claims.
+
+    Every stale count in this repo's history was written by a build and
+    found by hand weeks later. Checking here closes that gap.
+    """
+    import subprocess
+    doc = os.path.join(HERE, "doctor.py")
+    if not os.path.exists(doc):
+        return
+    r = subprocess.run([sys.executable, doc, "--fast"],
+                       capture_output=True, text=True)
+    if r.returncode:
+        print("\n--- doctor found a problem ---")
+        print(r.stdout.strip()[-800:])
+        sys.exit(1)
+    print("doctor         consistency checks pass")
+
 
 if __name__ == "__main__":
     sys.exit(main())
