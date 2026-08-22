@@ -308,7 +308,8 @@ Re-measure after changing the kit, then re-verify:
 
 ```bash
 python3 scripts/extract_ui_kit_tokens.py   # PNGs  -> ui-kit-tokens.json
-python3 scripts/build_web_tokens.py        # JSON  -> ios-web-tokens.css
+python3 scripts/build_design_tokens.py     # JSON  -> CSS, Swift, Kotlin,
+                                           #    XML, Dart, TS, tokens.json
 python3 scripts/verify_web_ui.py           # asserts the rendered result
 ```
 
@@ -317,8 +318,9 @@ computed values, not appearance: every token resolves, the type scale
 lands on the specs.md numbers to the pixel, the switch measures 64x28
 with a 36px knob travel, hit targets clear 44px, separators skip each
 list's first row, the grouped backgrounds are the right way round, and
-every colour pair meets the contrast it should. 155 checks across light,
-dark, and increased contrast.
+every colour pair meets the contrast it should, and a bundled face
+actually renders rather than falling through to a substitute. 167 checks
+across light, dark, and increased contrast.
 
 ## Rules, not just looks
 
