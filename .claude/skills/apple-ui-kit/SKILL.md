@@ -102,8 +102,32 @@ obviously broken:
 | Destructive red | `#FF383C` light / `#FF4245` dark | `#FF3B30` / `#FF453A` |
 | Primary label | `#1A1A1A` light / `#F5F5F5` dark | `#000000` / `#FFFFFF` |
 
-The measurements that *do* match Apple's published semantics are what
-make the rest credible — the switch reads `#34C759` in light and
+Two independent things back these up, and they cover different values.
+
+**External agreement** where Apple's semantics are known: the switch
+reads `#34C759` light and `#30D158` dark, exactly systemGreen for each
+appearance, and the secondary-label and placeholder greys land on
+`rgba(60,60,67,0.6)` and `rgba(60,60,67,0.3)` to the digit.
+
+**Internal corroboration** for the values nothing external confirms —
+how many separate components the same hex turns up in:
+
+| Value | Components |
+|---|---|
+| `#1A1A1A` label | **15** |
+| `#0088FF` accent | **9** |
+| `#0091FF` accent dark | **8** |
+| `#FF383C` red | **5** |
+| `#F5F5F5` label dark | **5** |
+
+A misread of one PNG cannot put the same hex in fifteen unrelated
+components. Note the inversion: the values that disagree with the
+palette circulating online are the *best* corroborated, while
+systemGreen — the one with external confirmation — appears in only two.
+`doctor.py` fails the build if any measured colour drops to a single
+component.
+
+The measurements that match Apple's published semantics are what — the switch reads `#34C759` in light and
 `#30D158` in dark, exactly systemGreen for each appearance, and the
 secondary-label and placeholder greys land on `rgba(60,60,67,0.6)` and
 `rgba(60,60,67,0.3)` to the digit.
