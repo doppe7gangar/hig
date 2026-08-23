@@ -231,6 +231,44 @@ def check_quotes(d):
                 f"truncated {m.group(1)}")
 
 
+
+def check_corroboration(d, min_components=2):
+    """Every measured colour should appear in more than one component.
+
+    doctor otherwise proves only that the repo agrees with itself. This
+    is the one check that says something about whether a value is
+    *right*: a measurement error in one PNG cannot make the same hex turn
+    up in fifteen unrelated components. #0088FF appears in nine, #1A1A1A
+    in fifteen -- which is stronger evidence than the fact that they
+    disagree with the palette circulating online.
+
+    A value found in a single component is not necessarily wrong. It does
+    mean nothing else in the kit backs it up, so it should be checked by
+    hand before being trusted.
+    """
+    tokens = os.path.join(SKILLS, "apple-ui-kit", "tokens", "ios-tokens.css")
+    kit = os.path.join(SKILLS, "apple-ui-kit", "ui-kit-tokens.json")
+    if not (os.path.exists(tokens) and os.path.exists(kit)):
+        return
+    # Strip CSS comments first. The header explains that the accent is
+    # #0088FF "not #007AFF", so scraping the raw file picks up the
+    # superseded value and then reports it as uncorroborated -- which is
+    # true, and entirely beside the point.
+    css = re.sub(r"/\*.*?\*/", "", read(tokens), flags=re.S)
+    wanted = sorted({m.group(0).upper()
+                     for m in re.finditer(r"#[0-9A-Fa-f]{6}", css)})
+    rows = json.load(open(kit))
+    for hexv in wanted:
+        comps = {r["component"] for r in rows
+                 for c in r["colours"]
+                 if c["hex"].upper() == hexv and c["alpha"] >= 0.99}
+        if not comps:
+            continue  # translucent or geometry-only; not a flat fill
+        d.check(len(comps) >= min_components,
+                f"colour {hexv} corroborated",
+                f"{len(comps)} component(s)")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("-v", "--verbose", action="store_true")
@@ -249,6 +287,7 @@ def main():
     check_skill_paths(d)
     check_placeholders(d)
     check_quotes(d)
+    check_corroboration(d)
     if not args.fast:
         check_verifier_count(d)
 
