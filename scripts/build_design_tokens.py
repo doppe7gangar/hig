@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 """Turn measured UI-kit values into CSS custom properties.
 
-The HIG corpus has no colour values in it -- Apple documents colour by
-name because on its own platforms you use the semantic API and let the
-system resolve it. On the web there is no system to ask, so the guidance
-alone cannot get you an iOS-looking page. These values only exist in the
-UI kit renderings, which is what makes measuring them worth doing.
+Two sources, kept distinct. Apple publishes the system palette on the
+HIG's Color page, in the alt text of each swatch ("R-0,G-136,B-255"),
+and those values are read straight out. Everything the table does not
+cover -- semantic colours, control geometry, interaction states,
+materials -- is measured off the kit renderings.
+
+The overlap is the point: every measured value that also appears in the
+published table matches it exactly, which is what makes the measured
+values that have no published counterpart worth trusting.
 
 Every token here is traced back to the file it was measured from, and the
 provenance is written into the CSS as a comment. Nothing is filled in
@@ -145,6 +149,56 @@ def read_tracking():
     for m in re.finditer(r"^\|\s*(\d+)\s*\|\s*([+-]?\d+)\s*\|", chunk, re.M):
         table[int(m.group(1))] = int(m.group(2))
     return table
+
+
+
+# Apple does publish the palette after all -- on the Color page, in the
+# alt text of each swatch image: "R-0,G-136,B-255". A grep for hex or
+# rgb() finds nothing, which is how this repo spent its whole life
+# believing the corpus had no colour values in it and measuring them off
+# the PNGs instead. The measurements were right -- every one matches the
+# published table exactly -- but they were never the only source.
+#
+# What the table adds beyond confirmation: the nine colours nobody had
+# measured, the six-step grey ramp, and the Increased Contrast variants,
+# which were previously approximated by darkening until the ratio cleared
+# 4.5:1.
+COLOR_PAGE = os.path.join(REPO, "content", "color.md")
+RGB_ALT_RE = re.compile(r"R-(\d+),G-(\d+),B-(\d+)")
+
+
+def read_published_palette():
+    """name -> [light, dark, ic_light, ic_dark] from the Color page."""
+    if not os.path.exists(COLOR_PAGE):
+        return {}, {}
+    text = open(COLOR_PAGE, encoding="utf-8").read()
+
+    def section(header):
+        i = text.find(header)
+        if i == -1:
+            return ""
+        j = text.find("\n### ", i + len(header))
+        return text[i:j if j != -1 else len(text)]
+
+    def parse(chunk):
+        out = {}
+        for line in chunk.split("\n"):
+            if not line.startswith("| ") or "---" in line or "API |" in line:
+                continue
+            name = line.split("|")[1].strip()
+            trips = RGB_ALT_RE.findall(line)
+            if name and trips:
+                out[name] = [f"#{int(r):02X}{int(g):02X}{int(b):02X}"
+                             for r, g, b in trips]
+        return out
+
+    return (parse(section("### System colors")),
+            parse(section("### iOS, iPadOS system gray colors")))
+
+
+def slug(name):
+    return (name.lower().replace(" (", "-").replace(")", "")
+            .replace(" ", "-"))
 
 
 def hue_of(hexv):
@@ -310,9 +364,8 @@ def build_css(resolved, geo):
     for name, w in SF_WEIGHTS.items():
         L.append(f"  --ios-weight-{name}: {w};")
     L.append("")
-    L += [
 
-        "",
+    L += [
         "  /* Order matters more than it looks. system-ui resolves to",
         "     *something* on every platform, so anything listed after it is",
         "     dead: putting Inter there would mean it never loads anywhere.",
@@ -330,6 +383,24 @@ def build_css(resolved, geo):
         "  --ios-font: -apple-system, BlinkMacSystemFont, 'Inter', system-ui,",
         "      'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;",
         "",
+    ]
+
+    sysc, grays = read_published_palette()
+    if sysc or grays:
+        L += [
+            "  /* Apple's published palette, from the Color page's swatch alt",
+            "     text (R-0,G-136,B-255). Not measured -- stated. Every value",
+            "     the kit was measured for matches this table exactly, which",
+            "     is why the measurements can be trusted; these add the nine",
+            "     colours nobody measured and the grey ramp. */",
+        ]
+        for name, v in sorted(sysc.items()):
+            L.append(f"  --ios-{slug(name)}: {v[0]};")
+        for name, v in sorted(grays.items()):
+            L.append(f"  --ios-{slug(name)}: {v[0]};")
+        L.append("")
+
+    L += [
         "  /* Tracking, from specs.md's SF Pro table, one value per style at",
         "     its Large-setting size. Not monotonic, which is the trap: body",
         "     at 17pt is -26/1000 em but Large Title at 34pt is +12, tracked",

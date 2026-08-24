@@ -74,7 +74,6 @@
   --ios-weight-heavy: 860;
   --ios-weight-black: 1000;
 
-
   /* Order matters more than it looks. system-ui resolves to
      *something* on every platform, so anything listed after it is
      dead: putting Inter there would mean it never loads anywhere.
@@ -91,6 +90,30 @@
      have it -apple-system already found it. */
   --ios-font: -apple-system, BlinkMacSystemFont, 'Inter', system-ui,
       'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  /* Apple's published palette, from the Color page's swatch alt
+     text (R-0,G-136,B-255). Not measured -- stated. Every value
+     the kit was measured for matches this table exactly, which
+     is why the measurements can be trusted; these add the nine
+     colours nobody measured and the grey ramp. */
+  --ios-blue: #0088FF;
+  --ios-brown: #AC7F5E;
+  --ios-cyan: #00C0E8;
+  --ios-green: #34C759;
+  --ios-indigo: #6155F5;
+  --ios-mint: #00C8B3;
+  --ios-orange: #FF8D28;
+  --ios-pink: #FF2D55;
+  --ios-purple: #CB30E0;
+  --ios-red: #FF383C;
+  --ios-teal: #00C3D0;
+  --ios-yellow: #FFCC00;
+  --ios-gray: #8E8E93;
+  --ios-gray-2: #AEAEB2;
+  --ios-gray-3: #C7C7CC;
+  --ios-gray-4: #D1D1D6;
+  --ios-gray-5: #E5E5EA;
+  --ios-gray-6: #F2F2F7;
 
   /* Tracking, from specs.md's SF Pro table, one value per style at
      its Large-setting size. Not monotonic, which is the trap: body

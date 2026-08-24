@@ -258,7 +258,22 @@ def check_corroboration(d, min_components=2):
     wanted = sorted({m.group(0).upper()
                      for m in re.finditer(r"#[0-9A-Fa-f]{6}", css)})
     rows = json.load(open(kit))
+
+    # Values Apple publishes outright, in the Color page's swatch alt
+    # text, do not need corroborating against the kit -- a stated value
+    # beats an inferred one. Several of them (pink, orange, yellow, two
+    # greys) simply never appear in the components that were rendered.
+    color_page = os.path.join(REPO, "content", "color.md")
+    published = set()
+    if os.path.exists(color_page):
+        for r, g, b in re.findall(r"R-(\d+),G-(\d+),B-(\d+)",
+                                  read(color_page)):
+            published.add(f"#{int(r):02X}{int(g):02X}{int(b):02X}")
+
     for hexv in wanted:
+        if hexv in published:
+            d.check(True, f"colour {hexv} published by Apple", "Color page")
+            continue
         comps = {r["component"] for r in rows
                  for c in r["colours"]
                  if c["hex"].upper() == hexv and c["alpha"] >= 0.99}

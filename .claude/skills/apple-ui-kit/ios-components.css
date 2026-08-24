@@ -35,33 +35,39 @@
   }
 }
 
-/* Increase Contrast, ported.
+/* Increase Contrast, using Apple's own published values.
  *
- * Apple's light-mode palette does not clear Apple's own contrast table.
- * Measured on white: secondary label 3.44:1, accent as text 3.52:1, red
- * 3.57:1 -- all under the 4.5:1 that accessibility.md requires up to
- * 17 pt. Dark mode is fine; light is where it bites.
+ * Apple's default light palette does not clear Apple's own contrast
+ * table. Measured on white: secondary label 3.44:1, accent as text
+ * 3.52:1, red 3.57:1 -- all under the 4.5:1 accessibility.md requires up
+ * to 17 pt. Dark mode is fine; light is where it bites.
  *
- * On iOS that is survivable because Increase Contrast adapts the system
- * colours at render time. The web has no such thing running for you, so
- * these are the same adjustment done explicitly: darkened just far
- * enough to clear 4.5:1 on the grouped page background, hue kept.
+ * On iOS, Increase Contrast swaps the system colours at render time, and
+ * Apple publishes exactly what it swaps them to -- the "Increased
+ * contrast (light)" column of the Color page's system-colour table.
+ * These are those values, not an approximation. An earlier version
+ * darkened each colour until it cleared 4.5:1 and landed on #006ECF and
+ * #D12E31, which was reasonable and wasn't Apple's answer.
  *
- * Filled buttons are not overridden -- white on the accent is 3.52:1
- * with a semibold label, and Apple's table allows 3:1 at bold. */
+ * Note where Apple aims them: #1E6EF4 is 4.57:1 on a white card and
+ * 4.10:1 on the grey page behind it. The card is where list text sits,
+ * so that is the surface being cleared. Accent text placed directly on
+ * the page background stays under the threshold even here. */
 @media (prefers-contrast: more) {
   :root {
-    --ios-accent: #006ECF;                   /* 4.55:1 on --ios-bg */
-    --ios-red: #D12E31;                      /* 4.54:1 */
+    --ios-accent: #1E6EF4;                   /* Color page, IC light */
+    --ios-red: #E9152D;                      /* Color page, IC light */
     --ios-label-secondary: rgba(60, 60, 67, 0.72);  /* 4.74:1 on card */
   }
 }
 
 @media (prefers-contrast: more) and (prefers-color-scheme: dark) {
   :root {
-    /* Dark already clears 4.5:1 on every pair; keep the measured values. */
-    --ios-accent: #0091FF;
-    --ios-red: #FF4245;
+    /* Dark clears 4.5:1 on every pair at the default values, but Apple
+       still publishes an Increased Contrast column for it, and matching
+       the platform matters more than the ratio already being fine. */
+    --ios-accent: #5CB8FF;                   /* Color page, IC dark */
+    --ios-red: #FF6165;                      /* Color page, IC dark */
     --ios-label-secondary: rgba(235, 235, 245, 0.698);
   }
 }

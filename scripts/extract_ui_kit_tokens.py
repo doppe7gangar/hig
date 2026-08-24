@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """Measure real design values out of the iOS UI kit PNGs.
 
-The HIG corpus contains no colour values at all -- not one hex, not one
-RGB triple. Apple documents colour by name ("system blue") because on
-Apple platforms you're meant to use the semantic API and let the system
-resolve it. That's fine in SwiftUI and useless anywhere else: you cannot
-build an iOS-looking web page from the written guidance, because the
-guidance never says what the colours are.
+Apple does publish its system palette, on the HIG's Color page, hidden
+in the alt text of each swatch image ("R-0,G-136,B-255") rather than as
+hex in the prose -- which is why grepping for colour values in the
+corpus turns up nothing and why this repo spent a long time believing
+there were none.
 
-The UI kit is the only place in this repo where the actual values exist.
+What that table does not cover is most of what a UI needs: the semantic
+colours are dynamic by design, and control geometry, interaction states
+and materials are stated nowhere at all. The kit is the only source for
+those.
 A toggle screenshot is a rendering of Apple's real components, so the
 pixels *are* the palette. Measuring the "on" switch gives #34C759 in
 light and #30D158 in dark -- exactly Apple's published systemGreen for
