@@ -1,3 +1,6 @@
 scripts/__pycache__/
 *.pyc
 .DS_Store
+
+# Scraper cache: re-fetchable, no reason to version it.
+.cache/

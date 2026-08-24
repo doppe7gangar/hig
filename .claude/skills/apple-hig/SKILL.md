@@ -5,7 +5,7 @@ description: Apple Human Interface Guidelines as a working reference — review 
 
 # Apple Human Interface Guidelines
 
-Apple's design guidance, restructured for doing work rather than browsing. Eight references, each for a different question:
+Apple's design guidance, restructured for doing work rather than browsing. Nine references, each for a different question:
 
 | File | Use it for |
 |---|---|
@@ -16,6 +16,7 @@ Apple's design guidance, restructured for doing work rather than browsing. Eight
 | `references/api-map.md` | **HIG concept → exact API symbol** — SwiftUI, UIKit, AppKit, and 32+ other frameworks (HealthKit, PassKit, StoreKit...). |
 | `references/components.md` | **One-line purpose for every page** — the fastest way to find the right component before reading anything else. |
 | `references/concepts.md` | **Where guidance actually lives** for cross-cutting concerns (empty states, error handling, contrast, offline) that have no page of their own. |
+| `references/framework-index.md` | **What the system already provides** — 3,150 symbols across SwiftUI, UIKit and AppKit with one-line descriptions. The reverse of `api-map.md`. |
 | `references/assets-index.md` | **What components actually look like** — 947 screenshots from Apple's iOS 27 UI kit, every interaction state. |
 | `references/pages/<slug>.md` | Full prose when a rule's *reasoning* matters. |
 
@@ -75,6 +76,14 @@ Details and platform variations: `grep -A1 -i "tab bar\|sidebar" references/rule
 ## Finding a component, or its API
 
 `components.md` is a one-line purpose statement for every page, sorted alphabetically — scan it when you know roughly what you need but not the exact HIG term for it, or to confirm two components aren't the same thing before recommending one.
+
+`framework-index.md` answers the question `api-map.md` cannot: **does a
+system component for this already exist, and what is it called?** api-map
+covers only the 147 pages where an Apple page happened to link a symbol;
+this covers the whole component surface of all three frameworks. Reach
+for it before recommending a custom control, and when reviewing one — a
+hand-rolled modal is only worth flagging if you can name what it should
+have been.
 
 `api-map.md` goes the other direction: HIG concept → real API. It's organized both by component (`grep -A4 "^\*\*Sheets\*\*" api-map.md`) and by framework (`grep -A10 "^### HealthKit" api-map.md`), and covers more than the obvious three — 32+ frameworks including HealthKit, PassKit, StoreKit, WidgetKit, ClockKit. When implementing, not just designing, this is the difference between "use a sheet" and "use `sheet(item:onDismiss:content:)` in SwiftUI, or `UISheetPresentationController` in UIKit."
 

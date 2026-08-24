@@ -188,6 +188,31 @@ def check_skill_paths(d):
                     f"{sk}: {p} present when installed")
 
 
+WORDNUM = {"one":1,"two":2,"three":3,"four":4,"five":5,"six":6,"seven":7,
+           "eight":8,"nine":9,"ten":10,"eleven":11,"twelve":12}
+
+
+def check_reference_count(d):
+    """"Nine references" has to match how many are actually there.
+
+    Added after shipping a framework-index and leaving the sentence above
+    it reading "Eight references" -- the one stale count in this file
+    that nothing else was watching, because it is spelled as a word.
+    """
+    for sk, path in skill_docs():
+        if sk is None:
+            continue
+        refs = os.path.join(SKILLS, sk, "references")
+        if not os.path.isdir(refs):
+            continue
+        actual = len([f for f in os.listdir(refs) if f.endswith(".md")])
+        for m in re.finditer(r"\b(\w+) references,", read(path)):
+            claimed = WORDNUM.get(m.group(1).lower())
+            if claimed:
+                d.check(claimed == actual, f"{sk}: reference count",
+                        f"says {m.group(1)} ({claimed}), actual {actual}")
+
+
 def check_placeholders(d):
     """Generated files must not ship an unsubstituted placeholder."""
     for sk in sorted(os.listdir(SKILLS)):
@@ -301,6 +326,7 @@ def main():
     check_script_refs(d)
     check_skill_paths(d)
     check_placeholders(d)
+    check_reference_count(d)
     check_quotes(d)
     check_corroboration(d)
     if not args.fast:
