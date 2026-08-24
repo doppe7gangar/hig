@@ -1,0 +1,3467 @@
+# Framework index: what the system already provides
+
+3150 component symbols across 3 frameworks, grouped the way Apple groups them, each with its one-line description.
+
+`api-map.md` goes HIG concept → symbol, but only where an Apple page linked one. This goes the other way, and covers the whole surface: **does a system component for this already exist, and what is it called?**
+
+That question is the one worth asking before writing a custom control. A hand-rolled modal is worth flagging in review only if you can name what it should have been — `UISheetPresentationController`, `.sheet(item:onDismiss:content:)`, `NSPanel` — and this is where those names are.
+
+Scraped at category depth: symbol names and abstracts, not method signatures. Grep it.
+
+---
+
+## AppKit
+<sub>569 symbols</sub>
+
+### Accessibility for AppKit
+
+- [`NSAccessibility`](https://developer.apple.com/documentation/appkit/nsaccessibility-swift.struct) — A namespace for accessibility symbols for AppKit apps.
+- [`NSAccessibility.Action`](https://developer.apple.com/documentation/appkit/nsaccessibility-swift.struct/action) — Constants that describe types of actions.
+- [`NSAccessibility.AnnotationAttributeKey`](https://developer.apple.com/documentation/appkit/nsaccessibility-swift.struct/annotationattributekey) — Keys for annotation attributes.
+- [`NSAccessibility.Attribute`](https://developer.apple.com/documentation/appkit/nsaccessibility-swift.struct/attribute) — Constants that describe attributes.
+- [`NSAccessibility.FontAttributeKey`](https://developer.apple.com/documentation/appkit/nsaccessibility-swift.struct/fontattributekey) — Keys for font attributes.
+- [`NSAccessibility.Notification`](https://developer.apple.com/documentation/appkit/nsaccessibility-swift.struct/notification) — The name of the notification.
+- [`NSAccessibility.NotificationUserInfoKey`](https://developer.apple.com/documentation/appkit/nsaccessibility-swift.struct/notificationuserinfokey) — The key in the user info dictionary for a notification.
+- [`NSAccessibility.OrientationValue`](https://developer.apple.com/documentation/appkit/nsaccessibility-swift.struct/orientationvalue) — Values that indicate the orientation of user interface elements, such as scroll bars and split views.
+- [`NSAccessibility.ParameterizedAttribute`](https://developer.apple.com/documentation/appkit/nsaccessibility-swift.struct/parameterizedattribute) — Values that describe parameterized attributes.
+- [`NSAccessibility.Role`](https://developer.apple.com/documentation/appkit/nsaccessibility-swift.struct/role) — Values that describe types of objects that accessibility elements represent.
+- [`NSAccessibility.RulerMarkerTypeValue`](https://developer.apple.com/documentation/appkit/nsaccessibility-swift.struct/rulermarkertypevalue) — Values that describe ruler marker types.
+- [`NSAccessibility.RulerUnitValue`](https://developer.apple.com/documentation/appkit/nsaccessibility-swift.struct/rulerunitvalue) — Values that indicate the unit values of a ruler or layout area.
+- [`NSAccessibility.SortDirectionValue`](https://developer.apple.com/documentation/appkit/nsaccessibility-swift.struct/sortdirectionvalue) — Values that indicate the sort direction of a column.
+- [`NSAccessibility.Subrole`](https://developer.apple.com/documentation/appkit/nsaccessibility-swift.struct/subrole) — Values that describe specialized object subtypes that accessibility elements represent.
+- [`NSAccessibilityAnnotationPosition`](https://developer.apple.com/documentation/appkit/nsaccessibilityannotationposition) — Constants that specify the position where the annotation applies.
+- [`NSAccessibilityButton`](https://developer.apple.com/documentation/appkit/nsaccessibilitybutton) — A role-based protocol that declares the minimum interface necessary for an accessibility element to act as a button.
+- [`NSAccessibilityCheckBox`](https://developer.apple.com/documentation/appkit/nsaccessibilitycheckbox) — A role-based protocol that declares the minimum interface necessary for an accessibility element to act as a checkbox.
+- [`NSAccessibilityColor`](https://developer.apple.com/documentation/appkit/nsaccessibilitycolor) — A role-based protocol that declares the minimum interface necessary for an accessibility element to act as a color.
+- [`NSAccessibilityContainsTransientUI`](https://developer.apple.com/documentation/appkit/nsaccessibilitycontainstransientui) — A role-based protocol that declares the minimum interface necessary for an accessibility element to support dynamic UI changes.
+- [`NSAccessibilityElement`](https://developer.apple.com/documentation/appkit/nsaccessibilityelement-swift.class) — The basic infrastructure necessary for interacting with an assistive app.
+- [`NSAccessibilityElementLoading`](https://developer.apple.com/documentation/appkit/nsaccessibilityelementloading) — A role-based protocol that declares the minimum interface necessary for an accessibility element to support loading.
+- [`NSAccessibilityElementProtocol`](https://developer.apple.com/documentation/appkit/nsaccessibilityelementprotocol) — A role-based protocol that declares the minimum interface necessary to interact with an assistive app.
+- [`NSAccessibilityGroup`](https://developer.apple.com/documentation/appkit/nsaccessibilitygroup) — A role-based protocol that declares the minimum interface necessary to act as a container for other user interface elements.
+- [`NSAccessibilityImage`](https://developer.apple.com/documentation/appkit/nsaccessibilityimage) — A role-based protocol that declares the minimum interface necessary for an accessibility element to act as an image.
+- [`NSAccessibilityLayoutArea`](https://developer.apple.com/documentation/appkit/nsaccessibilitylayoutarea) — A role-based protocol that declares the minimum interface necessary for an accessibility element to act as a layout area.
+- [`NSAccessibilityLayoutItem`](https://developer.apple.com/documentation/appkit/nsaccessibilitylayoutitem) — A role-based protocol that declares the minimum interface necessary for an accessibility element to act as a layout item.
+- [`NSAccessibilityList`](https://developer.apple.com/documentation/appkit/nsaccessibilitylist) — A role-based protocol that declares the minimum interface necessary for an accessibility element to act as a list view.
+- [`NSAccessibilityNavigableStaticText`](https://developer.apple.com/documentation/appkit/nsaccessibilitynavigablestatictext) — A role-based protocol that declares the minimum interface necessary for an accessibility element to act as navigable static text.
+- [`NSAccessibilityOrientation`](https://developer.apple.com/documentation/appkit/nsaccessibilityorientation) — Values that indicate the orientation of accessibility elements, such as scroll bars and split views.
+- [`NSAccessibilityOutline`](https://developer.apple.com/documentation/appkit/nsaccessibilityoutline) — A role-based protocol that declares the minimum interface necessary for an accessibility element to act as an outline view.
+- [`NSAccessibilityProgressIndicator`](https://developer.apple.com/documentation/appkit/nsaccessibilityprogressindicator) — A role-based protocol that declares the minimum interface necessary for an accessibility element to act as a progress indicator.
+- [`NSAccessibilityProtocol`](https://developer.apple.com/documentation/appkit/nsaccessibilityprotocol) — The complete list of properties and methods for accessible elements.
+- [`NSAccessibilityRadioButton`](https://developer.apple.com/documentation/appkit/nsaccessibilityradiobutton) — A role-based protocol that declares the minimum interface necessary for an accessibility element to act as a radio button.
+- [`NSAccessibilityRow`](https://developer.apple.com/documentation/appkit/nsaccessibilityrow) — A role-based protocol that declares the minimum interface necessary for an accessibility element to act as a row for a table, list, or outline view.
+- [`NSAccessibilityRulerMarkerType`](https://developer.apple.com/documentation/appkit/nsaccessibilityrulermarkertype) — Values that indicate the marker type of an accessibility element.
+- [`NSAccessibilitySlider`](https://developer.apple.com/documentation/appkit/nsaccessibilityslider) — A role-based protocol that declares the minimum interface necessary for an accessibility element to act as a slider.
+- [`NSAccessibilitySortDirection`](https://developer.apple.com/documentation/appkit/nsaccessibilitysortdirection) — Values that indicate the sort direction of a column.
+- [`NSAccessibilityStaticText`](https://developer.apple.com/documentation/appkit/nsaccessibilitystatictext) — A role-based protocol that declares the minimum interface necessary for an accessibility element to act as static text.
+- [`NSAccessibilityStepper`](https://developer.apple.com/documentation/appkit/nsaccessibilitystepper) — A role-based protocol that declares the minimum interface necessary for an accessibility element to act as a stepper.
+- [`NSAccessibilitySwitch`](https://developer.apple.com/documentation/appkit/nsaccessibilityswitch) — A role-based protocol that declares the minimum interface necessary for an accessibility element to act as a switch.
+- [`NSAccessibilityTable`](https://developer.apple.com/documentation/appkit/nsaccessibilitytable) — A role-based protocol that declares the minimum interface necessary for an accessibility element to act as a table view.
+- [`NSAccessibilityUnits`](https://developer.apple.com/documentation/appkit/nsaccessibilityunits) — Values that indicate the unit values of a ruler or layout area.
+- [`description`](https://developer.apple.com/documentation/appkit/nsaccessibility-swift.struct/action/description) — Returns a standard description for an action.
+- [`description(for:)`](https://developer.apple.com/documentation/appkit/nsaccessibility-swift.struct/role/description(for:)) — Returns a standard role description for a user interface element.
+- [`description(with:)`](https://developer.apple.com/documentation/appkit/nsaccessibility-swift.struct/role/description(with:)) — Returns a standard description for a role and subrole.
+- [`post(element:notification:)`](https://developer.apple.com/documentation/appkit/nsaccessibility-swift.struct/post(element:notification:)) — Sends a notification to any observing assistive apps.
+- [`post(element:notification:userInfo:)`](https://developer.apple.com/documentation/appkit/nsaccessibility-swift.struct/post(element:notification:userinfo:)) — Sends a notification and an optional user info dictionary to any observing assistive apps.
+- [`screenPoint(fromView:point:)`](https://developer.apple.com/documentation/appkit/nsaccessibility-swift.struct/screenpoint(fromview:point:)) — Returns the point in screen coordinates.
+- [`screenRect(fromView:rect:)`](https://developer.apple.com/documentation/appkit/nsaccessibility-swift.struct/screenrect(fromview:rect:)) — Returns the frame in screen coordinates.
+- [`setMayContainProtectedContent(_:)`](https://developer.apple.com/documentation/appkit/nsaccessibility-swift.struct/setmaycontainprotectedcontent(_:)) — Sets whether the app may have protected content.
+- [`unignoredAncestor(of:)`](https://developer.apple.com/documentation/appkit/nsaccessibility-swift.struct/unignoredancestor(of:)) — Returns an unignored accessibility object, ascending the hierarchy, if necessary.
+- [`unignoredChildren(from:)`](https://developer.apple.com/documentation/appkit/nsaccessibility-swift.struct/unignoredchildren(from:)) — Returns a list of unignored accessibility objects, descending the hierarchy, if necessary.
+- [`unignoredChildrenForOnlyChild(from:)`](https://developer.apple.com/documentation/appkit/nsaccessibility-swift.struct/unignoredchildrenforonlychild(from:)) — Returns a list of unignored accessibility objects, descending the hierarchy, if necessary.
+- [`unignoredDescendant(of:)`](https://developer.apple.com/documentation/appkit/nsaccessibility-swift.struct/unignoreddescendant(of:)) — Returns an unignored accessibility object, descending the hierarchy, if necessary.
+
+### Animation
+
+- [`NSAnimatablePropertyContainer`](https://developer.apple.com/documentation/appkit/nsanimatablepropertycontainer) — A set of methods that defines a way to add animation to an existing class with a minimum of API impact.
+- [`NSAnimation`](https://developer.apple.com/documentation/appkit/nsanimation) — An object that manages the timing and progress of animations in the user interface.
+- [`NSAnimation.Progress`](https://developer.apple.com/documentation/appkit/nsanimation/progress) — The animation progress, as a floating-point number between    and   .
+- [`NSAnimationContext`](https://developer.apple.com/documentation/appkit/nsanimationcontext) — An animation context, which contains information about environment and state.
+- [`NSAnimationDelegate`](https://developer.apple.com/documentation/appkit/nsanimationdelegate) — A set of optional methods implemented by delegates of    objects.
+- [`NSAnimationEffect`](https://developer.apple.com/documentation/appkit/nsanimationeffect) — The type for standard system animation effects, which include both display and sound.
+- [`NSViewAnimation`](https://developer.apple.com/documentation/appkit/nsviewanimation) — An animation of an app’s views, limited to changes in frame location and size, and to fade-in and fade-out effects.
+- [`NSViewControllerPresentationAnimator`](https://developer.apple.com/documentation/appkit/nsviewcontrollerpresentationanimator) — A set of methods that let you define animations to play when transitioning between two view controllers.
+
+### App Extensions
+
+- [`NSExtensionContext`](https://developer.apple.com/documentation/foundation/nsextensioncontext) — The host app context from which an app extension is invoked.
+- [`NSExtensionRequestHandling`](https://developer.apple.com/documentation/foundation/nsextensionrequesthandling) — The interface an app extension uses to respond to a request from a host app.
+- [`NSExtensionServiceAllowsFinderPreviewItem`](https://developer.apple.com/documentation/bundleresources/information-property-list/nsextension/nsextensionattributes/nsextensionserviceallowsfinderpreviewitem) — A Boolean value indicating whether the extension appears in the Finder Preview pane and Quick Actions menu.
+- [`NSExtensionServiceAllowsTouchBarItem`](https://developer.apple.com/documentation/bundleresources/information-property-list/nsextension/nsextensionattributes/nsextensionserviceallowstouchbaritem) — A Boolean value indicating whether the extension appears as a Quick Action in the Touch Bar.
+- [`NSExtensionServiceFinderPreviewIconName`](https://developer.apple.com/documentation/bundleresources/information-property-list/nsextension/nsextensionattributes/nsextensionservicefinderpreviewiconname) — The name of an icon for display when the extension appears in the Finder Preview pane and Quick Actions menu.
+- [`NSExtensionServiceFinderPreviewLabel`](https://developer.apple.com/documentation/bundleresources/information-property-list/nsextension/nsextensionattributes/nsextensionservicefinderpreviewlabel) — A name for display when the extension appears in the Finder Preview pane and Quick Actions menu.
+- [`NSExtensionServiceTouchBarBezelColorName`](https://developer.apple.com/documentation/bundleresources/information-property-list/nsextension/nsextensionattributes/nsextensionservicetouchbarbezelcolorname) — The color to use for the bezel around the extension when it appears as a Quick Action in the Touch Bar.
+- [`NSExtensionServiceTouchBarIconName`](https://developer.apple.com/documentation/bundleresources/information-property-list/nsextension/nsextensionattributes/nsextensionservicetouchbariconname) — The name of an icon for display when the extension appears as a Quick Action in the Touch Bar
+- [`NSExtensionServiceTouchBarLabel`](https://developer.apple.com/documentation/bundleresources/information-property-list/nsextension/nsextensionattributes/nsextensionservicetouchbarlabel) — A name for display when the extension appears as a Quick Action in the Touch Bar.
+- [`NSTypeIdentifierAddressText`](https://developer.apple.com/documentation/appkit/nstypeidentifieraddresstext)
+- [`NSTypeIdentifierDateText`](https://developer.apple.com/documentation/appkit/nstypeidentifierdatetext)
+- [`NSTypeIdentifierPhoneNumberText`](https://developer.apple.com/documentation/appkit/nstypeidentifierphonenumbertext)
+- [`NSTypeIdentifierTransitInformationText`](https://developer.apple.com/documentation/appkit/nstypeidentifiertransitinformationtext)
+
+### App and Environment
+
+- [`LSMinimumSystemVersion`](https://developer.apple.com/documentation/bundleresources/information-property-list/lsminimumsystemversion) — The minimum version of the operating system required for the app to run in macOS.
+- [`NSAppKitVersion`](https://developer.apple.com/documentation/appkit/nsappkitversion) — Constants for determining which version of AppKit is available.
+- [`NSApplication`](https://developer.apple.com/documentation/appkit/nsapplication) — An object that manages an app’s main event loop and resources used by all of that app’s objects.
+- [`NSApplicationDelegate`](https://developer.apple.com/documentation/appkit/nsapplicationdelegate) — A set of methods that manage your app’s life cycle and its interaction with common system services.
+- [`NSApplicationMain(_:_:)`](https://developer.apple.com/documentation/appkit/nsapplicationmain(_:_:)) — Called by the main function to create and run the application.
+- [`NSCloudSharingServiceDelegate`](https://developer.apple.com/documentation/appkit/nscloudsharingservicedelegate) — A set of methods for responding to the life cycle events of the cloud-sharing service.
+- [`NSHelpManager`](https://developer.apple.com/documentation/appkit/nshelpmanager) — An object for displaying online help for an app.
+- [`NSPasteboardCommunicationError`](https://developer.apple.com/documentation/appkit/nspasteboardcommunicationerror)
+- [`NSPasteboardContentsNotAvailableError`](https://developer.apple.com/documentation/appkit/nspasteboardcontentsnotavailableerror)
+- [`NSPasteboardErrorMaximum`](https://developer.apple.com/documentation/appkit/nspasteboarderrormaximum)
+- [`NSPasteboardErrorMinimum`](https://developer.apple.com/documentation/appkit/nspasteboarderrorminimum)
+- [`NSPasteboardInvalidArgumentError`](https://developer.apple.com/documentation/appkit/nspasteboardinvalidargumenterror)
+- [`NSPasteboardMiscellaneousError`](https://developer.apple.com/documentation/appkit/nspasteboardmiscellaneouserror)
+- [`NSPerformService(_:_:)`](https://developer.apple.com/documentation/appkit/nsperformservice(_:_:)) — Programmatically invokes a Services menu service.
+- [`NSPreviewRepresentableActivityItem`](https://developer.apple.com/documentation/appkit/nspreviewrepresentableactivityitem) — An interface you adopt in custom objects that you want to share using the macOS share sheet.
+- [`NSRegisterServicesProvider(_:_:)`](https://developer.apple.com/documentation/appkit/nsregisterservicesprovider(_:_:)) — Registers a service provider.
+- [`NSRunningApplication`](https://developer.apple.com/documentation/appkit/nsrunningapplication) — An object that can manipulate and provide information for a single instance of an app.
+- [`NSServiceProviderName`](https://developer.apple.com/documentation/appkit/nsserviceprovidername)
+- [`NSServicesMenuRequestor`](https://developer.apple.com/documentation/appkit/nsservicesmenurequestor) — A set of methods that support interaction with items users can share through a sharing service.
+- [`NSSharingService`](https://developer.apple.com/documentation/appkit/nssharingservice) — An object that facilitates the sharing of content with social media services, or with apps like Mail or Safari.
+- [`NSSharingServicePicker`](https://developer.apple.com/documentation/appkit/nssharingservicepicker) — A list of sharing services that the user can choose from.
+- [`NSSharingServicePickerToolbarItem`](https://developer.apple.com/documentation/appkit/nssharingservicepickertoolbaritem) — A toolbar item that displays the macOS share sheet.
+- [`NSUnregisterServicesProvider(_:)`](https://developer.apple.com/documentation/appkit/nsunregisterservicesprovider(_:)) — Unregisters a service provider.
+- [`NSUpdateDynamicServices()`](https://developer.apple.com/documentation/appkit/nsupdatedynamicservices()) — Causes the services information for the system to be updated.
+- [`NSUserActivity`](https://developer.apple.com/documentation/foundation/nsuseractivity) — A representation of the state of your app at a moment in time.
+- [`NSUserActivityRestoring`](https://developer.apple.com/documentation/appkit/nsuseractivityrestoring) — A protocol that marks classes to restore the state of your app to continue a user activity.
+- [`NSUserInterfaceItemSearching`](https://developer.apple.com/documentation/appkit/nsuserinterfaceitemsearching) — A set of methods an app can implement to provide Spotlight for Help for its own custom help data.
+- [`NSWindowSharingErrorMaximum`](https://developer.apple.com/documentation/appkit/nswindowsharingerrormaximum)
+- [`NSWindowSharingErrorMinimum`](https://developer.apple.com/documentation/appkit/nswindowsharingerrorminimum)
+- [`NSWindowSharingRequestAlreadyRequested`](https://developer.apple.com/documentation/appkit/nswindowsharingrequestalreadyrequested)
+- [`NSWindowSharingRequestNoEligibleSession`](https://developer.apple.com/documentation/appkit/nswindowsharingrequestnoeligiblesession)
+- [`NSWindowSharingRequestUnspecifiedError`](https://developer.apple.com/documentation/appkit/nswindowsharingrequestunspecifiederror)
+- [`NSWorkspace`](https://developer.apple.com/documentation/appkit/nsworkspace) — A workspace that can launch other apps and perform a variety of file-handling services.
+- [`NSWorkspace.OpenConfiguration`](https://developer.apple.com/documentation/appkit/nsworkspace/openconfiguration) — The configuration options for opening URLs or launching apps.
+- [`NSWorkspaceAuthorizationInvalidError`](https://developer.apple.com/documentation/appkit/nsworkspaceauthorizationinvaliderror) — The provided workspace authorization credentials expired or are invalid.
+- [`NSWorkspaceErrorMaximum`](https://developer.apple.com/documentation/appkit/nsworkspaceerrormaximum)
+- [`NSWorkspaceErrorMinimum`](https://developer.apple.com/documentation/appkit/nsworkspaceerrorminimum)
+
+### Appearance Customization
+
+- [`NSAppearance`](https://developer.apple.com/documentation/appkit/nsappearance) — An object that manages standard appearance attributes for UI elements in an app.
+- [`NSAppearanceCustomization`](https://developer.apple.com/documentation/appkit/nsappearancecustomization) — A set of methods for getting and setting the appearance attributes of a view.
+
+### Cocoa Bindings
+
+- [`NSArrayController`](https://developer.apple.com/documentation/appkit/nsarraycontroller) — A bindings-compatible controller that manages a collection of objects.
+- [`NSBindingInfoKey`](https://developer.apple.com/documentation/appkit/nsbindinginfokey)
+- [`NSBindingInfoKey`](https://developer.apple.com/documentation/appkit/nsbindinginfokey)
+- [`NSBindingName`](https://developer.apple.com/documentation/appkit/nsbindingname) — Values that specify a binding for certain methods.
+- [`NSBindingName`](https://developer.apple.com/documentation/appkit/nsbindingname) — Values that specify a binding for certain methods.
+- [`NSBindingOption`](https://developer.apple.com/documentation/appkit/nsbindingoption)
+- [`NSBindingOption`](https://developer.apple.com/documentation/appkit/nsbindingoption)
+- [`NSBindingSelectionMarker`](https://developer.apple.com/documentation/appkit/nsbindingselectionmarker)
+- [`NSController`](https://developer.apple.com/documentation/appkit/nscontroller) — An abstract class that implements the    and    informal protocols required for controller classes.
+- [`NSDictionaryController`](https://developer.apple.com/documentation/appkit/nsdictionarycontroller) — A bindings-compatible controller that manages the display and editing of a dictionary of key-value pairs.
+- [`NSDictionaryControllerKeyValuePair`](https://developer.apple.com/documentation/appkit/nsdictionarycontrollerkeyvaluepair) — A set of methods implemented by arranged objects to give access to information about those objects.
+- [`NSIsControllerMarker(_:)`](https://developer.apple.com/documentation/appkit/nsiscontrollermarker(_:)) — Tests whether a given object is special marker object used for indicating the state of a selection in relation to a key.
+- [`NSIsControllerMarker(_:)`](https://developer.apple.com/documentation/appkit/nsiscontrollermarker(_:)) — Tests whether a given object is special marker object used for indicating the state of a selection in relation to a key.
+- [`NSObjectController`](https://developer.apple.com/documentation/appkit/nsobjectcontroller) — A controller that can manage an object’s properties referenced by key-value paths.
+- [`NSTreeController`](https://developer.apple.com/documentation/appkit/nstreecontroller) — A bindings-compatible controller that manages a tree of objects.
+- [`NSTreeNode`](https://developer.apple.com/documentation/appkit/nstreenode) — A node in a tree of nodes.
+- [`bind(_:to:withKeyPath:options:)`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/bind(_:to:withkeypath:options:)) — Establishes a binding between a given property of the receiver and the property of a given object specified by a given key path.
+- [`defaultPlaceholder(for:with:)`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/defaultplaceholder(for:with:)) — Returns an object that will be used as the placeholder for the   , when a key value coding compliant property of an instance of the receiving class returns the value specified by   , and no other placeholder has been specified.
+- [`exposeBinding(_:)`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/exposebinding(_:)) — Exposes the specified   , advertising its availability.
+- [`exposedBindings`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/exposedbindings) — Returns an array containing the bindings exposed by the receiver.
+- [`infoForBinding(_:)`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/infoforbinding(_:)) — Returns a dictionary describing the receiver’s   .
+- [`observedKeyPath`](https://developer.apple.com/documentation/appkit/nsbindinginfokey/observedkeypath) — An    object containing the key path of the binding.
+- [`observedObject`](https://developer.apple.com/documentation/appkit/nsbindinginfokey/observedobject) — The object that is the observable controller of the binding.
+- [`optionDescriptionsForBinding(_:)`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/optiondescriptionsforbinding(_:)) — Returns an array describing the options for the specified binding.
+- [`options`](https://developer.apple.com/documentation/appkit/nsbindinginfokey/options) — An    object containing key value pairs as specified in the options   dictionary when the binding was created.
+- [`setDefaultPlaceholder(_:for:with:)`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/setdefaultplaceholder(_:for:with:)) — Sets    as the default placeholder for the   , when a key value coding compliant property of an instance of the receiving class returns the value specified by   , and no other placeholder has been specified.
+- [`unbind(_:)`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/unbind(_:)) — Removes a given binding between the receiver and a controller.
+- [`valueClassForBinding(_:)`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/valueclassforbinding(_:)) — Returns the class of the value that will be returned for the specified binding.
+
+### Color
+
+- [`NSColor`](https://developer.apple.com/documentation/appkit/nscolor) — An object that stores color data and sometimes opacity (alpha value).
+- [`NSColorList`](https://developer.apple.com/documentation/appkit/nscolorlist) — An ordered list of color objects, identified by keys.
+- [`NSColorPicker`](https://developer.apple.com/documentation/appkit/nscolorpicker) — An abstract superclass that implements the default color picking protocol.
+- [`NSColorPickerTouchBarItem`](https://developer.apple.com/documentation/appkit/nscolorpickertouchbaritem) — A bar item that provides a system-defined color picker.
+- [`NSColorSampler`](https://developer.apple.com/documentation/appkit/nscolorsampler) — An object that displays the system’s color-sampling interface and returns the selected color to your app.
+- [`NSColorSpace`](https://developer.apple.com/documentation/appkit/nscolorspace) — An object that represents a custom color space.
+- [`NSColorWell`](https://developer.apple.com/documentation/appkit/nscolorwell) — A control that displays a color value and lets the user change that color value.
+
+### Documents, Data, and Pasteboard
+
+- [`NSDocument`](https://developer.apple.com/documentation/appkit/nsdocument) — An abstract class that defines the interface for macOS documents.
+- [`NSDocumentController`](https://developer.apple.com/documentation/appkit/nsdocumentcontroller) — An object that manages an app’s documents.
+- [`NSEditor`](https://developer.apple.com/documentation/appkit/nseditor)
+- [`NSEditorRegistration`](https://developer.apple.com/documentation/appkit/nseditorregistration) — A set of methods that controllers can implement to enable an editor view to inform the controller when it has uncommitted changes.
+- [`NSFilePromiseProvider`](https://developer.apple.com/documentation/appkit/nsfilepromiseprovider) — An object that provides a promise for the pasteboard.
+- [`NSFilePromiseProviderDelegate`](https://developer.apple.com/documentation/appkit/nsfilepromiseproviderdelegate) — A set of methods that provides the name of the promised file and writes the file to the destination directory when the file promise is fulfilled.
+- [`NSFilePromiseReceiver`](https://developer.apple.com/documentation/appkit/nsfilepromisereceiver) — An object that receives a file promise from the pasteboard.
+- [`NSPasteboard`](https://developer.apple.com/documentation/appkit/nspasteboard) — An object that transfers data to and from the pasteboard server.
+- [`NSPasteboard.ContentsOptions`](https://developer.apple.com/documentation/appkit/nspasteboard/contentsoptions) — Options for preparing the pasteboard.
+- [`NSPasteboardItem`](https://developer.apple.com/documentation/appkit/nspasteboarditem) — An item on a pasteboard.
+- [`NSPasteboardItemDataProvider`](https://developer.apple.com/documentation/appkit/nspasteboarditemdataprovider) — A set of methods implemented by the data provider of a pasteboard item to provide the data for a particular UTI type.
+- [`NSPasteboardReading`](https://developer.apple.com/documentation/appkit/nspasteboardreading) — A set of methods that defines the interface for initializing an object from a pasteboard.
+- [`NSPasteboardTypeOwner`](https://developer.apple.com/documentation/appkit/nspasteboardtypeowner) — An object that serves as a data provider for data types that use lazy data fulfillment from a pasteboard request.
+- [`NSPasteboardWriting`](https://developer.apple.com/documentation/appkit/nspasteboardwriting) — A set of methods that defines the interface for retrieving a representation of an object that can be written to a pasteboard.
+- [`NSPersistentDocument`](https://developer.apple.com/documentation/appkit/nspersistentdocument) — A document object that can integrate with Core Data.
+- [`NSUbiquitousKeyValueStore`](https://developer.apple.com/documentation/foundation/nsubiquitouskeyvaluestore) — An iCloud-based container of key-value pairs you share among instances of your app   running on a person’s devices.
+- [`NSUserDefaultsController`](https://developer.apple.com/documentation/appkit/nsuserdefaultscontroller) — A controller that accesses user preference information for your app from the user’s defaults database.
+
+### Drag and Drop
+
+- [`NSDraggingDestination`](https://developer.apple.com/documentation/appkit/nsdraggingdestination) — A set of methods that the destination object (or recipient) of a dragged image must implement.
+- [`NSDraggingImageComponent`](https://developer.apple.com/documentation/appkit/nsdraggingimagecomponent) — A single object in a dragging item.
+- [`NSDraggingInfo`](https://developer.apple.com/documentation/appkit/nsdragginginfo) — A set of methods that supply information about a dragging session.
+- [`NSDraggingItem`](https://developer.apple.com/documentation/appkit/nsdraggingitem) — A single dragged item within a dragging session.
+- [`NSDraggingSession`](https://developer.apple.com/documentation/appkit/nsdraggingsession) — An object that encapsulates a drag-and-drop action.
+- [`NSDraggingSource`](https://developer.apple.com/documentation/appkit/nsdraggingsource) — A set of methods that are implemented by the source object in a dragging session.
+- [`NSSpringLoadingDestination`](https://developer.apple.com/documentation/appkit/nsspringloadingdestination) — A set of methods that the destination object (or recipient) of a dragged object can implement to support spring-loading.
+
+### Drawing
+
+- [`NSBezierPath`](https://developer.apple.com/documentation/appkit/nsbezierpath) — An object that can create paths using PostScript-style commands.
+- [`NSDrawButton(_:_:)`](https://developer.apple.com/documentation/appkit/nsdrawbutton(_:_:)) — Draws a gray-filled rectangle representing a user-interface button.
+- [`NSDrawDarkBezel(_:_:)`](https://developer.apple.com/documentation/appkit/nsdrawdarkbezel(_:_:)) — Draws a dark gray-filled rectangle with a bezel border.
+- [`NSDrawGrayBezel(_:_:)`](https://developer.apple.com/documentation/appkit/nsdrawgraybezel(_:_:)) — Draws a gray-filled rectangle with a bezel border.
+- [`NSDrawGroove(_:_:)`](https://developer.apple.com/documentation/appkit/nsdrawgroove(_:_:)) — Draws a gray-filled rectangle with a groove border.
+- [`NSDrawLightBezel(_:_:)`](https://developer.apple.com/documentation/appkit/nsdrawlightbezel(_:_:)) — Draws a white-filled rectangle with a bezel border.
+- [`NSDrawNinePartImage(_:_:_:_:_:_:_:_:_:_:_:_:_:)`](https://developer.apple.com/documentation/appkit/nsdrawninepartimage(_:_:_:_:_:_:_:_:_:_:_:_:_:)) — Draws a nine-part tiled image.
+- [`NSDrawThreePartImage(_:_:_:_:_:_:_:_:)`](https://developer.apple.com/documentation/appkit/nsdrawthreepartimage(_:_:_:_:_:_:_:_:)) — Draws a three-part tiled image.
+- [`NSDrawTiledRects(_:_:_:_:_:)`](https://developer.apple.com/documentation/appkit/nsdrawtiledrects(_:_:_:_:_:)) — Draws rectangles with borders.
+- [`NSDrawWhiteBezel(_:_:)`](https://developer.apple.com/documentation/appkit/nsdrawwhitebezel(_:_:)) — Draws a white-filled rectangle with a bezel border.
+- [`NSDrawWindowBackground(_:)`](https://developer.apple.com/documentation/appkit/nsdrawwindowbackground(_:)) — Draws the window’s default background pattern into the specified rectangle of the currently focused view.
+- [`NSEraseRect(_:)`](https://developer.apple.com/documentation/appkit/nseraserect(_:)) — Erases the specified rect by filling it with white.
+- [`NSFocusRingPlacement`](https://developer.apple.com/documentation/appkit/nsfocusringplacement) — Constants that indicate how the system draws the focus ring.
+- [`NSFocusRingType`](https://developer.apple.com/documentation/appkit/nsfocusringtype) — Constants that describe the style of the focus ring.
+- [`NSGradient`](https://developer.apple.com/documentation/appkit/nsgradient) — An object that can draw gradient fill colors
+- [`NSGraphicsContext`](https://developer.apple.com/documentation/appkit/nsgraphicscontext) — An object that represents a graphics context.
+- [`NSShadow`](https://developer.apple.com/documentation/appkit/nsshadow) — An object you use to specify attributes to create and style a drop shadow during drawing operations.
+- [`NSStringDrawingContext`](https://developer.apple.com/documentation/appkit/nsstringdrawingcontext) — An object that manages metrics for drawing attributed strings.
+- [`NSStringDrawingOptions`](https://developer.apple.com/documentation/uikit/nsstringdrawingoptions) — Constants that specify the rendering options for drawing a string.
+- [`set()`](https://developer.apple.com/documentation/appkit/nsfocusringplacement/set()) — Specifies how the system draws the focus ring.
+
+### Fonts
+
+- [`NSFont`](https://developer.apple.com/documentation/appkit/nsfont) — The representation of a font in an app.
+- [`NSFontAssetRequest`](https://developer.apple.com/documentation/appkit/nsfontassetrequest)
+- [`NSFontCollection`](https://developer.apple.com/documentation/appkit/nsfontcollection) — A font collection, which is a group of font descriptors taken together as a single object.
+- [`NSFontCollectionOptions`](https://developer.apple.com/documentation/appkit/nsfontcollectionoptions) — Constants that support font collection management.
+- [`NSFontDescriptor`](https://developer.apple.com/documentation/appkit/nsfontdescriptor) — A dictionary of attributes that describe a font.
+- [`NSFontDescriptor.SymbolicTraits`](https://developer.apple.com/documentation/appkit/nsfontdescriptor/symbolictraits-swift.struct) — A symbolic description of the stylistic aspects of a font.
+- [`NSFontFamilyClass`](https://developer.apple.com/documentation/appkit/nsfontfamilyclass) — Constants that classify certain stylistic qualities of the font.
+- [`NSFontManager`](https://developer.apple.com/documentation/appkit/nsfontmanager) — The center of activity for the font-conversion system.
+- [`NSFontSymbolicTraits`](https://developer.apple.com/documentation/appkit/nsfontsymbolictraits) — A symbolic description of stylistic aspects of a font.
+- [`NSFontTraitMask`](https://developer.apple.com/documentation/appkit/nsfonttraitmask) — Constants for isolating specific traits of a font.
+- [`NSMutableFontCollection`](https://developer.apple.com/documentation/appkit/nsmutablefontcollection) — A mutable collection of font descriptors taken together as a single object.
+
+### Gestures
+
+- [`NSClickGestureRecognizer`](https://developer.apple.com/documentation/appkit/nsclickgesturerecognizer) — A discrete gesture recognizer that tracks a specified number of mouse clicks.
+- [`NSGestureRecognizer`](https://developer.apple.com/documentation/appkit/nsgesturerecognizer) — An object that monitors events and calls its action method when a predefined sequence of events occur.
+- [`NSGestureRecognizerDelegate`](https://developer.apple.com/documentation/appkit/nsgesturerecognizerdelegate) — A set of methods for fine-tuning a gesture recognizer’s behavior.
+- [`NSMagnificationGestureRecognizer`](https://developer.apple.com/documentation/appkit/nsmagnificationgesturerecognizer) — A continuous gesture recognizer that tracks a pinch gesture that magnifies content.
+- [`NSPanGestureRecognizer`](https://developer.apple.com/documentation/appkit/nspangesturerecognizer) — A continuous gesture recognizer for panning gestures.
+- [`NSPressGestureRecognizer`](https://developer.apple.com/documentation/appkit/nspressgesturerecognizer) — A discrete gesture recognizer that tracks whether the user holds down a mouse button for a minimum amount of time before releasing it.
+- [`NSRotationGestureRecognizer`](https://developer.apple.com/documentation/appkit/nsrotationgesturerecognizer) — A continuous gesture recognizer that tracks two trackpad touches moving opposite each other in a circular motion.
+
+### Images and PDF
+
+- [`NSBitmapImageRep`](https://developer.apple.com/documentation/appkit/nsbitmapimagerep) — An object that renders an image from bitmap data.
+- [`NSCIImageRep`](https://developer.apple.com/documentation/appkit/nsciimagerep) — An object that can render an image from a Core Image object.
+- [`NSCustomImageRep`](https://developer.apple.com/documentation/appkit/nscustomimagerep) — An object that uses a delegate object to render an image from a custom format.
+- [`NSEPSImageRep`](https://developer.apple.com/documentation/appkit/nsepsimagerep) — An object that can render an image from encapsulated PostScript (EPS) code.
+- [`NSImage`](https://developer.apple.com/documentation/appkit/nsimage) — A high-level interface for manipulating image data.
+- [`NSImageDelegate`](https://developer.apple.com/documentation/appkit/nsimagedelegate) — A set of optional methods that you can use to respond to drawing failures and manage incremental loads.
+- [`NSImageRep`](https://developer.apple.com/documentation/appkit/nsimagerep) — A semiabstract superclass that provides subclasses that you use to draw an image from a particular type of source data.
+- [`NSPDFImageRep`](https://developer.apple.com/documentation/appkit/nspdfimagerep) — An object that can render an image from a PDF format data stream.
+- [`NSPDFInfo`](https://developer.apple.com/documentation/appkit/nspdfinfo) — An object that stores information associated with the creation of a PDF file, such as its URL, tag names, page orientation, and paper size.
+- [`NSPICTImageRep`](https://developer.apple.com/documentation/appkit/nspictimagerep) — An object that renders an image from a PICT format data stream of version 1, version 2, and extended version 2.
+
+### Menus, Cursors, and the Dock
+
+- [`NSCursor`](https://developer.apple.com/documentation/appkit/nscursor) — A pointer (also called a cursor).
+- [`NSDockTile`](https://developer.apple.com/documentation/appkit/nsdocktile) — The visual representation of your app’s miniaturized windows and app icon as they appear in the Dock.
+- [`NSDockTilePlugIn`](https://developer.apple.com/documentation/appkit/nsdocktileplugin) — A set of methods implemented by plug-ins that allow an app’s Dock tile to be customized while the app is not running.
+- [`NSMenu`](https://developer.apple.com/documentation/appkit/nsmenu) — An object that manages an app’s menus.
+- [`NSMenuDelegate`](https://developer.apple.com/documentation/appkit/nsmenudelegate) — The optional methods implemented by delegates of    objects to manage menu display and handle some events.
+- [`NSMenuItem`](https://developer.apple.com/documentation/appkit/nsmenuitem) — A command item in an app menu.
+- [`NSMenuItemBadge`](https://developer.apple.com/documentation/appkit/nsmenuitembadge) — A control that provides additional quantitative information specific to a menu item, such as the number of available updates.
+- [`NSMenuItemValidation`](https://developer.apple.com/documentation/appkit/nsmenuitemvalidation)
+- [`NSStatusBar`](https://developer.apple.com/documentation/appkit/nsstatusbar) — An object that manages a collection of status items displayed within the system-wide menu bar.
+- [`NSStatusBarButton`](https://developer.apple.com/documentation/appkit/nsstatusbarbutton) — The appearance and behavior of an item in the systemwide menu bar.
+- [`NSStatusItem`](https://developer.apple.com/documentation/appkit/nsstatusitem) — An individual element displayed in the system menu bar.
+- [`NSStatusItemExpandedInterfaceDelegate`](https://developer.apple.com/documentation/appkit/nsstatusitemexpandedinterfacedelegate)
+- [`NSStatusItemExpandedInterfaceSession`](https://developer.apple.com/documentation/appkit/nsstatusitemexpandedinterfacesession)
+- [`NSTrackingArea`](https://developer.apple.com/documentation/appkit/nstrackingarea) — A region of a view that generates mouse-tracking and cursor-update events when the pointer is over that region.
+
+### Mouse, Keyboard, and Trackpad
+
+- [`NSEvent`](https://developer.apple.com/documentation/appkit/nsevent) — An object that contains information about an input action, such as a mouse click or a key press.
+- [`NSEvent.ButtonMask`](https://developer.apple.com/documentation/appkit/nsevent/buttonmask-swift.struct) — Constants you use to identify the activated tablet buttons in an event.
+- [`NSEvent.EventTypeMask`](https://developer.apple.com/documentation/appkit/nsevent/eventtypemask) — Constants that you use to filter out specific event types from the stream of incoming events.
+- [`NSEvent.ModifierFlags`](https://developer.apple.com/documentation/appkit/nsevent/modifierflags-swift.struct) — Flags that represent key states in an event object.
+- [`NSEvent.Phase`](https://developer.apple.com/documentation/appkit/nsevent/phase-swift.struct) — Constants that represent the possible phases during an event phase.
+- [`NSEvent.SwipeTrackingOptions`](https://developer.apple.com/documentation/appkit/nsevent/swipetrackingoptions) — Constants that specify swipe-tracking options.
+- [`NSHapticFeedbackManager`](https://developer.apple.com/documentation/appkit/nshapticfeedbackmanager) — An object that provides access to the haptic feedback management attributes on a system with a Force Touch trackpad.
+- [`NSPressureConfiguration`](https://developer.apple.com/documentation/appkit/nspressureconfiguration) — An encapsulation of the behavior and progression of a Force Touch trackpad as it responds to specific events.
+- [`NSResponder`](https://developer.apple.com/documentation/appkit/nsresponder) — An abstract class that forms the basis of event and command processing in AppKit.
+- [`NSTouch`](https://developer.apple.com/documentation/appkit/nstouch) — A snapshot of a particular touch at an instant in time.
+- [`init(type:)`](https://developer.apple.com/documentation/appkit/nsevent/eventtypemask/init(type:)) — Returns the event mask for the specified type.
+
+### Printing
+
+- [`NSPageLayout`](https://developer.apple.com/documentation/appkit/nspagelayout) — A panel that queries the user for information such as paper type and orientation.
+- [`NSPrintInfo`](https://developer.apple.com/documentation/appkit/nsprintinfo) — An object that stores information that’s used to generate printed output.
+- [`NSPrintOperation`](https://developer.apple.com/documentation/appkit/nsprintoperation) — An object that controls operations that generate Encapsulated PostScript (EPS) code, Portable Document Format (PDF) code, or print jobs.
+- [`NSPrintPanel`](https://developer.apple.com/documentation/appkit/nsprintpanel) — The Print panel that queries the user for information about a print job.
+- [`NSPrinter`](https://developer.apple.com/documentation/appkit/nsprinter) — An object that describes a printer’s capabilities.
+
+### Resource Management
+
+- [`NSDataAsset`](https://developer.apple.com/documentation/appkit/nsdataasset) — An object from a data set type stored in an asset catalog.
+- [`NSNib`](https://developer.apple.com/documentation/appkit/nsnib) — An object wrapper, or container, for an Interface Builder nib file.
+- [`NSSeguePerforming`](https://developer.apple.com/documentation/appkit/nssegueperforming) — A set of methods that support the mediation of a custom segue.
+- [`NSStoryboard`](https://developer.apple.com/documentation/appkit/nsstoryboard) — An encapsulation of the design-time view controller and window controller graph represented in an Interface Builder storyboard resource file.
+- [`NSStoryboardSegue`](https://developer.apple.com/documentation/appkit/nsstoryboardsegue) — A transition or containment relationship between two scenes in a storyboard.
+
+### Sound, Speech, and Haptics
+
+- [`NSAlignmentFeedbackFilter`](https://developer.apple.com/documentation/appkit/nsalignmentfeedbackfilter) — An object that can filter the movement of an object and provides haptic feedback when alignment occurs.
+- [`NSAlignmentFeedbackToken`](https://developer.apple.com/documentation/appkit/nsalignmentfeedbacktoken)
+- [`NSHapticFeedbackManager`](https://developer.apple.com/documentation/appkit/nshapticfeedbackmanager) — An object that provides access to the haptic feedback management attributes on a system with a Force Touch trackpad.
+- [`NSHapticFeedbackPerformer`](https://developer.apple.com/documentation/appkit/nshapticfeedbackperformer) — A set of methods and constants that a haptic feedback performer implements.
+- [`NSSound`](https://developer.apple.com/documentation/appkit/nssound) — A simple interface for loading and playing audio files.
+- [`NSSpeechRecognizer`](https://developer.apple.com/documentation/appkit/nsspeechrecognizer) — The Cocoa interface to speech recognition in macOS.
+- [`NSSpeechSynthesizer`](https://developer.apple.com/documentation/appkit/nsspeechsynthesizer) — The Cocoa interface to speech synthesis in macOS.
+
+### Text Display
+
+- [`NSChangeSpelling`](https://developer.apple.com/documentation/appkit/nschangespelling) — A protocol that responder objects can implement to correct a misspelled word.
+- [`NSIgnoreMisspelledWords`](https://developer.apple.com/documentation/appkit/nsignoremisspelledwords) — A protocol that enables the Ignore button in the Spelling panel to function properly.
+- [`NSSpellChecker`](https://developer.apple.com/documentation/appkit/nsspellchecker) — An interface to the Cocoa spell-checking service.
+- [`NSText`](https://developer.apple.com/documentation/appkit/nstext) — The most general programmatic interface for objects that manage text.
+- [`NSTextAlternatives`](https://developer.apple.com/documentation/appkit/nstextalternatives) — A list of alternative strings for a piece of text.
+- [`NSTextCheckingClient`](https://developer.apple.com/documentation/appkit/nstextcheckingclient)
+- [`NSTextCheckingController`](https://developer.apple.com/documentation/appkit/nstextcheckingcontroller)
+- [`NSTextContent`](https://developer.apple.com/documentation/appkit/nstextcontent) — A protocol that describes specific kinds of input content types.
+- [`NSTextDelegate`](https://developer.apple.com/documentation/appkit/nstextdelegate) — A set of optional methods implemented by the delegate of an    object to edit text and change text formats.
+- [`NSTextField`](https://developer.apple.com/documentation/appkit/nstextfield) — Text the user can select or edit to send an action message to a target when the user presses the Return key.
+- [`NSTextFieldDelegate`](https://developer.apple.com/documentation/appkit/nstextfielddelegate) — A protocol that a text field delegate can use to control its field editor action menu.
+- [`NSTextInput`](https://developer.apple.com/documentation/appkit/nstextinput) — A set of methods that text views need to implement to interact properly with the text input management system.
+- [`NSTextInputClient`](https://developer.apple.com/documentation/appkit/nstextinputclient) — A set of methods that text views need to implement to interact properly with the text input management system.
+- [`NSTextInputContext`](https://developer.apple.com/documentation/appkit/nstextinputcontext) — An object that represents the Cocoa text input system.
+- [`NSTextInputTraitType`](https://developer.apple.com/documentation/appkit/nstextinputtraittype)
+- [`NSTextInputTraits`](https://developer.apple.com/documentation/appkit/nstextinputtraits)
+- [`NSTextInsertionIndicator`](https://developer.apple.com/documentation/appkit/nstextinsertionindicator) — A view that represents the insertion indicator in text.
+- [`NSTextInsertionIndicator.AutomaticModeOptions`](https://developer.apple.com/documentation/appkit/nstextinsertionindicator/automaticmodeoptions-swift.struct) — Options that affect the automatic display mode.
+- [`NSTextInsertionIndicator.DisplayMode`](https://developer.apple.com/documentation/appkit/nstextinsertionindicator/displaymode-swift.enum) — Constants that determine how to display the system text cursor in a custom text UI.
+- [`NSTextView`](https://developer.apple.com/documentation/appkit/nstextview) — A view that draws text and handles user interactions with that text.
+- [`NSTextViewDelegate`](https://developer.apple.com/documentation/appkit/nstextviewdelegate) — A set of optional methods that text view delegates can use to manage selection, set text attributes, work with the spell checker, and more.
+
+### TextKit
+
+- [`NSATSTypesetter`](https://developer.apple.com/documentation/appkit/nsatstypesetter) — A concrete typesetter object that places glyphs during the text layout process.
+- [`NSAdaptiveImageGlyph`](https://developer.apple.com/documentation/appkit/nsadaptiveimageglyph) — A data object for an emoji-like image that can appear in attributed text.
+- [`NSAttributedString`](https://developer.apple.com/documentation/foundation/nsattributedstring) — A string of text that manages data, layout, and stylistic information for ranges of characters to support rendering.
+- [`NSControlGlyph`](https://developer.apple.com/documentation/appkit/nscontrolglyph) — The reserved code for a control glyph.
+- [`NSFontRenderingMode`](https://developer.apple.com/documentation/appkit/nsfontrenderingmode) — The font rendering mode.
+- [`NSGlyph`](https://developer.apple.com/documentation/appkit/nsglyph) — The type used to specify glyphs.
+- [`NSGlyphGenerator`](https://developer.apple.com/documentation/appkit/nsglyphgenerator) — An object that performs the initial, nominal glyph generation phase in the layout process.
+- [`NSGlyphInfo`](https://developer.apple.com/documentation/appkit/nsglyphinfo) — A glyph attribute in an attributed string.
+- [`NSGlyphStorage`](https://developer.apple.com/documentation/appkit/nsglyphstorage) — A set of methods that a glyph storage object must implement to interact properly with   .
+- [`NSLayoutManager`](https://developer.apple.com/documentation/appkit/nslayoutmanager) — An object that coordinates the layout and display of text characters.
+- [`NSMutableAttributedString`](https://developer.apple.com/documentation/foundation/nsmutableattributedstring) — A mutable string with associated attributes (such as visual style, hyperlinks, or accessibility data) for portions of its text.
+- [`NSMutableParagraphStyle`](https://developer.apple.com/documentation/appkit/nsmutableparagraphstyle) — An object for changing the values of the subattributes in a paragraph style attribute.
+- [`NSNullGlyph`](https://developer.apple.com/documentation/appkit/nsnullglyph) — The reserved code for a null glyph.
+- [`NSParagraphStyle`](https://developer.apple.com/documentation/appkit/nsparagraphstyle) — The paragraph or ruler attributes for an attributed string.
+- [`NSTextAttachment`](https://developer.apple.com/documentation/appkit/nstextattachment) — The values for the attachment characteristics of attributed strings and related objects.
+- [`NSTextAttachmentCell`](https://developer.apple.com/documentation/appkit/nstextattachmentcell-swift.class) — An object that implements the functionality of the text attachment cell protocol.
+- [`NSTextAttachmentCellProtocol`](https://developer.apple.com/documentation/appkit/nstextattachmentcellprotocol) — A set of methods that declares the interface for objects that draw text attachment icons and handle mouse events on their icons.
+- [`NSTextAttachmentContainer`](https://developer.apple.com/documentation/appkit/nstextattachmentcontainer) — A set of methods that defines the interface to text attachment objects from a layout manager.
+- [`NSTextAttachmentLayout`](https://developer.apple.com/documentation/appkit/nstextattachmentlayout) — A set of methods that defines the interface to attachment objects from a text layout manager.
+- [`NSTextAttachmentViewProvider`](https://developer.apple.com/documentation/appkit/nstextattachmentviewprovider) — A container object that associates a text attachment at a particular document location with a view object.
+- [`NSTextAttachmentViewProviderReusePolicy`](https://developer.apple.com/documentation/appkit/nstextattachmentviewproviderreusepolicy)
+- [`NSTextBlock`](https://developer.apple.com/documentation/appkit/nstextblock) — A block of text laid out in a subregion of the text container.
+- [`NSTextContainer`](https://developer.apple.com/documentation/appkit/nstextcontainer) — A region where text layout occurs.
+- [`NSTextContentManager`](https://developer.apple.com/documentation/appkit/nstextcontentmanager) — An abstract class that defines the interface and a default implementation for managing the text document contents.
+- [`NSTextContentStorage`](https://developer.apple.com/documentation/appkit/nstextcontentstorage) — A concrete object for managing your view’s text content and generating the text elements necessary for layout.
+- [`NSTextElement`](https://developer.apple.com/documentation/appkit/nstextelement) — An abstract base class that represents the smallest units of text layout such as paragraphs or attachments.
+- [`NSTextElementProvider`](https://developer.apple.com/documentation/appkit/nstextelementprovider) — A protocol the text content manager and its concrete subclasses conform to, which defines the interface for interacting with custom content types of a text document.
+- [`NSTextLayoutFragment`](https://developer.apple.com/documentation/appkit/nstextlayoutfragment) — A class that represents the layout fragment typically corresponding to a rendering surface, such as a layer or view subclass.
+- [`NSTextLayoutManager`](https://developer.apple.com/documentation/appkit/nstextlayoutmanager) — The primary class that you use to manage text layout and presentation for custom text displays.
+- [`NSTextLayoutOrientationProvider`](https://developer.apple.com/documentation/appkit/nstextlayoutorientationprovider) — A set of methods that define the orientation of text for an object.
+- [`NSTextLineFragment`](https://developer.apple.com/documentation/appkit/nstextlinefragment) — A class that represents a line fragment as a single textual layout and rendering unit inside a text layout fragment.
+- [`NSTextList`](https://developer.apple.com/documentation/appkit/nstextlist) — A section of text that forms a single list.
+- [`NSTextListElement`](https://developer.apple.com/documentation/appkit/nstextlistelement) — A class that represents a text list node.
+- [`NSTextLocation`](https://developer.apple.com/documentation/appkit/nstextlocation) — An interface you implement that represents an abstract location inside your document’s content.
+- [`NSTextParagraph`](https://developer.apple.com/documentation/appkit/nstextparagraph) — A class that represents a single paragraph backed by an attributed string as the contents.
+- [`NSTextRange`](https://developer.apple.com/documentation/appkit/nstextrange) — A class that represents a contiguous range between two locations inside document contents.
+- [`NSTextSelection`](https://developer.apple.com/documentation/appkit/nstextselection) — A class that represents a single logical selection context that corresponds to an insertion point.
+- [`NSTextSelectionManager`](https://developer.apple.com/documentation/appkit/nstextselectionmanager) — An object that coordinates text selection behavior for custom text views.
+- [`NSTextSelectionNavigation`](https://developer.apple.com/documentation/appkit/nstextselectionnavigation) — An interface you use to expose methods for obtaining results from actions performed on text selections.
+- [`NSTextStorage`](https://developer.apple.com/documentation/appkit/nstextstorage) — The fundamental storage mechanism of TextKit that contains the text managed by the system.
+- [`NSTextTab`](https://developer.apple.com/documentation/appkit/nstexttab) — A tab in a paragraph.
+- [`NSTextTable`](https://developer.apple.com/documentation/appkit/nstexttable) — An object that represents a text table as a whole.
+- [`NSTextTableBlock`](https://developer.apple.com/documentation/appkit/nstexttableblock) — A text block that appears as a cell in a text table.
+- [`NSTextViewportLayoutController`](https://developer.apple.com/documentation/appkit/nstextviewportlayoutcontroller) — Manages the layout process inside the viewport interacting with its delegate.
+- [`NSTextViewportRenderingSurface`](https://developer.apple.com/documentation/appkit/nstextviewportrenderingsurface) — A protocol that identifies a view or layer as a drawable element for a text layout fragment.
+- [`NSTextViewportRenderingSurfaceKey`](https://developer.apple.com/documentation/appkit/nstextviewportrenderingsurfacekey) — A protocol that lets you use an object to identify a rendering surface when storing or retrieving it.
+- [`NSTypesetter`](https://developer.apple.com/documentation/appkit/nstypesetter) — An abstract class that performs various type layout tasks.
+
+### Touch Bar
+
+- [`NSButtonTouchBarItem`](https://developer.apple.com/documentation/appkit/nsbuttontouchbaritem) — A bar item that provides a button.
+- [`NSCandidateListTouchBarItem`](https://developer.apple.com/documentation/appkit/nscandidatelisttouchbaritem) — A bar item that, along with its delegate, provides a list of textual suggestions for the current text view.
+- [`NSColorPickerTouchBarItem`](https://developer.apple.com/documentation/appkit/nscolorpickertouchbaritem) — A bar item that provides a system-defined color picker.
+- [`NSCustomTouchBarItem`](https://developer.apple.com/documentation/appkit/nscustomtouchbaritem) — A bar item that contains a responder of your choice, such as a view, a button, or a scrubber.
+- [`NSGroupTouchBarItem`](https://developer.apple.com/documentation/appkit/nsgrouptouchbaritem) — A bar item that provides a bar to contain other items.
+- [`NSPickerTouchBarItem`](https://developer.apple.com/documentation/appkit/nspickertouchbaritem) — A bar item that provides a picker control with multiple options.
+- [`NSPickerTouchBarItem.ControlRepresentation`](https://developer.apple.com/documentation/appkit/nspickertouchbaritem/controlrepresentation-swift.enum) — Constants that specify display styles for picker bar items.
+- [`NSPickerTouchBarItem.SelectionMode`](https://developer.apple.com/documentation/appkit/nspickertouchbaritem/selectionmode-swift.enum) — Constants that specify selection modes for picker bar items.
+- [`NSPopoverTouchBarItem`](https://developer.apple.com/documentation/appkit/nspopovertouchbaritem) — A bar item that provides a two-state control that can expand into its second state, showing the contents of a bar that it owns.
+- [`NSScrubber`](https://developer.apple.com/documentation/appkit/nsscrubber) — A customizable item picker control for the Touch Bar.
+- [`NSScrubberArrangedView`](https://developer.apple.com/documentation/appkit/nsscrubberarrangedview) — An abstract base class for the views whose layout is managed by a scrubber.
+- [`NSScrubberDataSource`](https://developer.apple.com/documentation/appkit/nsscrubberdatasource) — A set of methods that a scrubber data source object implements to provide items to the scrubber from an associated data collection in your app.
+- [`NSScrubberDelegate`](https://developer.apple.com/documentation/appkit/nsscrubberdelegate) — A set of methods that a scrubber delegate implements to respond to user interactions.
+- [`NSScrubberFlowLayout`](https://developer.apple.com/documentation/appkit/nsscrubberflowlayout) — A concrete layout object that arranges items end-to-end in a linear strip.
+- [`NSScrubberFlowLayoutDelegate`](https://developer.apple.com/documentation/appkit/nsscrubberflowlayoutdelegate) — A protocol that a scrubber delegate can adopt to provide the size of an item.
+- [`NSScrubberImageItemView`](https://developer.apple.com/documentation/appkit/nsscrubberimageitemview) — A concrete view subclass for displaying images in a scrubber items.
+- [`NSScrubberItemView`](https://developer.apple.com/documentation/appkit/nsscrubberitemview) — An item at a specific index position in the scrubber.
+- [`NSScrubberLayout`](https://developer.apple.com/documentation/appkit/nsscrubberlayout) — An abstract class that describes the layout of items within a scrubber control.
+- [`NSScrubberLayoutAttributes`](https://developer.apple.com/documentation/appkit/nsscrubberlayoutattributes) — The layout of a scrubber item.
+- [`NSScrubberProportionalLayout`](https://developer.apple.com/documentation/appkit/nsscrubberproportionallayout) — A concrete layout object that sizes each item to some fraction of the scrubber’s visible size.
+- [`NSScrubberSelectionStyle`](https://developer.apple.com/documentation/appkit/nsscrubberselectionstyle) — An abstract class that provides decorative accessory views for selected and highlighted items within a scrubber control.
+- [`NSScrubberSelectionView`](https://developer.apple.com/documentation/appkit/nsscrubberselectionview) — An abstract base class for specifying the appearance of a highlighted or selected item in a scrubber.
+- [`NSScrubberTextItemView`](https://developer.apple.com/documentation/appkit/nsscrubbertextitemview) — A concrete view subclass for displaying text for an item in a scrubber.
+- [`NSSharingServicePickerTouchBarItem`](https://developer.apple.com/documentation/appkit/nssharingservicepickertouchbaritem) — A bar item that, along with its delegate, provides a list of objects eligible for sharing.
+- [`NSSliderTouchBarItem`](https://developer.apple.com/documentation/appkit/nsslidertouchbaritem) — A bar item that provides a slider control for choosing a value in a range.
+- [`NSStepperTouchBarItem`](https://developer.apple.com/documentation/appkit/nssteppertouchbaritem) — A bar item that provides a stepper control for incrementing or decrementing a value.
+- [`NSTouchBar`](https://developer.apple.com/documentation/appkit/nstouchbar) — An object that provides dynamic contextual controls in the Touch Bar of supported models of MacBook Pro.
+- [`NSTouchBarDelegate`](https://developer.apple.com/documentation/appkit/nstouchbardelegate) — A protocol that allows you to provide the items for a bar dynamically.
+- [`NSTouchBarItem`](https://developer.apple.com/documentation/appkit/nstouchbaritem) — A UI control shown in the Touch Bar on supported models of MacBook Pro.
+- [`NSTouchBarProvider`](https://developer.apple.com/documentation/appkit/nstouchbarprovider) — A protocol that an object adopts to create a bar object in your app.
+- [`NSUserInterfaceCompressionOptions`](https://developer.apple.com/documentation/appkit/nsuserinterfacecompressionoptions) — An object that specifies how user interface elements resize themselves when space is constrained.
+
+### View Layout
+
+- [`NSLayoutAnchor`](https://developer.apple.com/documentation/appkit/nslayoutanchor) — A factory class for creating layout constraint objects using a fluent API.
+- [`NSLayoutConstraint`](https://developer.apple.com/documentation/appkit/nslayoutconstraint) — The relationship between two user interface objects that must be satisfied by the constraint-based layout system.
+- [`NSLayoutDimension`](https://developer.apple.com/documentation/appkit/nslayoutdimension) — A factory class for creating size-based layout constraint objects using a fluent API.
+- [`NSLayoutGuide`](https://developer.apple.com/documentation/appkit/nslayoutguide) — A rectangular area that can interact with Auto Layout.
+- [`NSLayoutXAxisAnchor`](https://developer.apple.com/documentation/appkit/nslayoutxaxisanchor) — A factory class for creating horizontal layout constraint objects using a fluent API.
+- [`NSLayoutYAxisAnchor`](https://developer.apple.com/documentation/appkit/nslayoutyaxisanchor) — A factory class for creating vertical layout constraint objects using a fluent API.
+- [`NSStackView`](https://developer.apple.com/documentation/appkit/nsstackview) — A view that arranges an array of views horizontally or vertically and updates their placement and sizing when the window size changes.
+- [`NSUserInterfaceCompression`](https://developer.apple.com/documentation/appkit/nsuserinterfacecompression) — A protocol that describes how a UI control should redisplay when space is restricted.
+
+### View Management
+
+- [`NSMediaLibraryBrowserController`](https://developer.apple.com/documentation/appkit/nsmedialibrarybrowsercontroller) — An object that configures and displays a Media Library Browser panel.
+- [`NSPageController`](https://developer.apple.com/documentation/appkit/nspagecontroller) — An object that controls swipe navigation and animations between views or view content.
+- [`NSSplitView`](https://developer.apple.com/documentation/appkit/nssplitview) — A view that arranges two or more views in a linear stack running horizontally or vertically.
+- [`NSSplitViewController`](https://developer.apple.com/documentation/appkit/nssplitviewcontroller) — An object that manages an array of adjacent child views, and has a split view object for managing dividers between those views.
+- [`NSSplitViewItem`](https://developer.apple.com/documentation/appkit/nssplitviewitem) — An item in a split view controller.
+- [`NSStackView`](https://developer.apple.com/documentation/appkit/nsstackview) — A view that arranges an array of views horizontally or vertically and updates their placement and sizing when the window size changes.
+- [`NSTabView`](https://developer.apple.com/documentation/appkit/nstabview) — A multipage interface that displays one page at a time.
+- [`NSTabViewController`](https://developer.apple.com/documentation/appkit/nstabviewcontroller) — A container view controller that manages a tab view interface, which organizes multiple pages of content but displays only one page at a time.
+- [`NSTabViewItem`](https://developer.apple.com/documentation/appkit/nstabviewitem) — An item in a tab view.
+- [`NSTitlebarAccessoryViewController`](https://developer.apple.com/documentation/appkit/nstitlebaraccessoryviewcontroller) — An object that manages a custom view—known as an accessory view—in the title bar–toolbar area of a window.
+- [`NSViewController`](https://developer.apple.com/documentation/appkit/nsviewcontroller) — A controller that manages a view, typically loaded from a nib file.
+- [`NSWindowController`](https://developer.apple.com/documentation/appkit/nswindowcontroller) — A controller that manages a window, usually a window stored in a nib file.
+
+### Views and Controls
+
+- [`NSActionCell`](https://developer.apple.com/documentation/appkit/nsactioncell) — An active area inside a control.
+- [`NSBackgroundExtensionView`](https://developer.apple.com/documentation/appkit/nsbackgroundextensionview) — A view that extends content to fill its own bounds.
+- [`NSBox`](https://developer.apple.com/documentation/appkit/nsbox) — A stylized rectangular box with an optional title.
+- [`NSBrowser`](https://developer.apple.com/documentation/appkit/nsbrowser) — An interface that displays a hierarchically organized list of data items that can be navigated and selected.
+- [`NSBrowserCell`](https://developer.apple.com/documentation/appkit/nsbrowsercell) — The user interface of a browser.
+- [`NSBrowserDelegate`](https://developer.apple.com/documentation/appkit/nsbrowserdelegate) — A set of methods that a browser delegate implements to manage selection, scrolling, sizing, and other behavior.
+- [`NSButton`](https://developer.apple.com/documentation/appkit/nsbutton) — A control that defines an area on the screen that a user clicks to trigger an action.
+- [`NSCell`](https://developer.apple.com/documentation/appkit/nscell) — A mechanism for displaying text or images in a view object without the overhead of a full    subclass.
+- [`NSClipView`](https://developer.apple.com/documentation/appkit/nsclipview) — An object that clips a document view to a scroll view’s frame.
+- [`NSCloudSharingValidation`](https://developer.apple.com/documentation/appkit/nscloudsharingvalidation) — A protocol that a Cloud-sharing toolbar item uses to get validation of an item.
+- [`NSCollectionLayoutAnchor`](https://developer.apple.com/documentation/appkit/nscollectionlayoutanchor) — An object that defines how to attach a supplementary item to an item in a collection view.
+- [`NSCollectionLayoutBoundarySupplementaryItem`](https://developer.apple.com/documentation/appkit/nscollectionlayoutboundarysupplementaryitem) — An object used to add headers or footers to a collection view.
+- [`NSCollectionLayoutContainer`](https://developer.apple.com/documentation/appkit/nscollectionlayoutcontainer) — A protocol used to provide information about the size and content insets of a layout’s container.
+- [`NSCollectionLayoutDecorationItem`](https://developer.apple.com/documentation/appkit/nscollectionlayoutdecorationitem) — An object used to add a background to a section of a collection view.
+- [`NSCollectionLayoutDimension`](https://developer.apple.com/documentation/appkit/nscollectionlayoutdimension) — An individual dimension representing an item’s width or height in a collection view.
+- [`NSCollectionLayoutEdgeSpacing`](https://developer.apple.com/documentation/appkit/nscollectionlayoutedgespacing) — An object that defines the space around the edges of items in a collection view.
+- [`NSCollectionLayoutEnvironment`](https://developer.apple.com/documentation/appkit/nscollectionlayoutenvironment) — A protocol used to provide information about the layout’s container and environment traits, such as size classes and display scale factor.
+- [`NSCollectionLayoutGroup`](https://developer.apple.com/documentation/appkit/nscollectionlayoutgroup) — A container for a set of items that lays out the items along a path.
+- [`NSCollectionLayoutGroupCustomItem`](https://developer.apple.com/documentation/appkit/nscollectionlayoutgroupcustomitem) — An item used in a group with a custom layout arrangement.
+- [`NSCollectionLayoutGroupCustomItemProvider`](https://developer.apple.com/documentation/appkit/nscollectionlayoutgroupcustomitemprovider) — A closure that creates and returns each of the custom group’s items.
+- [`NSCollectionLayoutItem`](https://developer.apple.com/documentation/appkit/nscollectionlayoutitem) — The most basic component of a collection view’s layout.
+- [`NSCollectionLayoutSection`](https://developer.apple.com/documentation/appkit/nscollectionlayoutsection) — A container that combines a set of groups into distinct visual groupings.
+- [`NSCollectionLayoutSectionOrthogonalScrollingBehavior`](https://developer.apple.com/documentation/appkit/nscollectionlayoutsectionorthogonalscrollingbehavior) — The scrolling behavior of the layout’s sections in relation to the main layout axis.
+- [`NSCollectionLayoutSectionVisibleItemsInvalidationHandler`](https://developer.apple.com/documentation/appkit/nscollectionlayoutsectionvisibleitemsinvalidationhandler) — A closure called before each layout cycle to allow modification of items in a section immediately before they’re displayed.
+- [`NSCollectionLayoutSize`](https://developer.apple.com/documentation/appkit/nscollectionlayoutsize) — The width and the height of an item in a collection view.
+- [`NSCollectionLayoutSpacing`](https://developer.apple.com/documentation/appkit/nscollectionlayoutspacing) — An object that defines the space between or around items in a collection view.
+- [`NSCollectionLayoutSupplementaryItem`](https://developer.apple.com/documentation/appkit/nscollectionlayoutsupplementaryitem) — An object used to add an extra visual decoration to an item in a collection view.
+- [`NSCollectionLayoutVisibleItem`](https://developer.apple.com/documentation/appkit/nscollectionlayoutvisibleitem) — An item that’s currently visible within the bounds of a section.
+- [`NSCollectionView`](https://developer.apple.com/documentation/appkit/nscollectionview) — An ordered collection of data items displayed in a customizable layout.
+- [`NSCollectionViewCompositionalLayout`](https://developer.apple.com/documentation/appkit/nscollectionviewcompositionallayout) — A layout object that lets you combine items in highly adaptive and flexible visual arrangements.
+- [`NSCollectionViewCompositionalLayoutConfiguration`](https://developer.apple.com/documentation/appkit/nscollectionviewcompositionallayoutconfiguration) — An object that defines scroll direction, section spacing, and headers or footers for the layout.
+- [`NSCollectionViewCompositionalLayoutSectionProvider`](https://developer.apple.com/documentation/appkit/nscollectionviewcompositionallayoutsectionprovider) — A closure that creates and returns each of the layout’s sections.
+- [`NSCollectionViewDataSource`](https://developer.apple.com/documentation/appkit/nscollectionviewdatasource) — A set of methods that a data source object implements to provide the information and view objects that a collection view requires to present content.
+- [`NSCollectionViewDelegate`](https://developer.apple.com/documentation/appkit/nscollectionviewdelegate) — A set of methods that you use to manage the behavior of a collection view.
+- [`NSCollectionViewDelegateFlowLayout`](https://developer.apple.com/documentation/appkit/nscollectionviewdelegateflowlayout) — A set of methods that a delegate implements to provide layout information to a flow layout object in a collection view.
+- [`NSCollectionViewDiffableDataSource`](https://developer.apple.com/documentation/appkit/nscollectionviewdiffabledatasource-axww) — The object you use to manage data and provide items for a collection view.
+- [`NSCollectionViewElement`](https://developer.apple.com/documentation/appkit/nscollectionviewelement) — A set of methods that you use to manage the content in a collection view.
+- [`NSCollectionViewFlowLayout`](https://developer.apple.com/documentation/appkit/nscollectionviewflowlayout) — A layout that organizes items into a flexible and configurable arrangement.
+- [`NSCollectionViewFlowLayoutInvalidationContext`](https://developer.apple.com/documentation/appkit/nscollectionviewflowlayoutinvalidationcontext) — An object that identifies the portions of a flow layout object that need to be updated.
+- [`NSCollectionViewGridLayout`](https://developer.apple.com/documentation/appkit/nscollectionviewgridlayout) — A layout that displays a single section of items in a row and column grid.
+- [`NSCollectionViewItem`](https://developer.apple.com/documentation/appkit/nscollectionviewitem) — The visual representation for a single data element in a collection view.
+- [`NSCollectionViewLayout`](https://developer.apple.com/documentation/appkit/nscollectionviewlayout) — An abstract base class that you subclass and use to generate layout information for a collection view.
+- [`NSCollectionViewLayoutAttributes`](https://developer.apple.com/documentation/appkit/nscollectionviewlayoutattributes) — An object that contains layout-related attributes for an element in a collection view.
+- [`NSCollectionViewLayoutInvalidationContext`](https://developer.apple.com/documentation/appkit/nscollectionviewlayoutinvalidationcontext) — An object that identifies the portions of your layout that need to be updated.
+- [`NSCollectionViewSectionHeaderView`](https://developer.apple.com/documentation/appkit/nscollectionviewsectionheaderview) — A protocol that defines a button to control the collapse of a collection view’s section.
+- [`NSCollectionViewTransitionLayout`](https://developer.apple.com/documentation/appkit/nscollectionviewtransitionlayout) — An object that implements custom behaviors when changing from one layout to another in a collection view.
+- [`NSCollectionViewUpdateItem`](https://developer.apple.com/documentation/appkit/nscollectionviewupdateitem) — A description of a single change to make to an item in a collection view.
+- [`NSColorWell`](https://developer.apple.com/documentation/appkit/nscolorwell) — A control that displays a color value and lets the user change that color value.
+- [`NSComboBox`](https://developer.apple.com/documentation/appkit/nscombobox) — A view that displays a list of values in a pop-up menu where the user selects a value or types in a custom value.
+- [`NSComboBoxCell`](https://developer.apple.com/documentation/appkit/nscomboboxcell) — The user interface of a combo box.
+- [`NSComboBoxCellDataSource`](https://developer.apple.com/documentation/appkit/nscomboboxcelldatasource)
+- [`NSComboBoxDataSource`](https://developer.apple.com/documentation/appkit/nscomboboxdatasource)
+- [`NSComboBoxDelegate`](https://developer.apple.com/documentation/appkit/nscomboboxdelegate) — A set of optional methods implemented by delegates of combo box objects.
+- [`NSComboButton`](https://developer.apple.com/documentation/appkit/nscombobutton) — A button with a pull-down menu and a default action.
+- [`NSControl`](https://developer.apple.com/documentation/appkit/nscontrol) — A specialized view, such as a button or text field, that notifies your app of relevant events using the target-action design pattern.
+- [`NSControlTextEditingDelegate`](https://developer.apple.com/documentation/appkit/nscontroltexteditingdelegate) — A set of optional methods implemented by delegates of    subclasses to respond to editing actions.
+- [`NSDatePicker`](https://developer.apple.com/documentation/appkit/nsdatepicker) — A display of a calendar date with controls for editing the date value.
+- [`NSDatePickerCell`](https://developer.apple.com/documentation/appkit/nsdatepickercell) — An object that controls the behavior of a date picker, or of a single date picker cell in a matrix.
+- [`NSDatePickerCellDelegate`](https://developer.apple.com/documentation/appkit/nsdatepickercelldelegate) — A set of optional methods implemented by delegates of    objects.
+- [`NSDiffableDataSourceSnapshot`](https://developer.apple.com/documentation/appkit/nsdiffabledatasourcesnapshot-swift.struct) — A representation of the state of the data in a view at a specific point in time.
+- [`NSDirectionalEdgeInsets`](https://developer.apple.com/documentation/appkit/nsdirectionaledgeinsets) — The inset distances for views, taking the user interface layout direction into account.
+- [`NSDirectionalRectEdge`](https://developer.apple.com/documentation/appkit/nsdirectionalrectedge)
+- [`NSGlassEffectContainerView`](https://developer.apple.com/documentation/appkit/nsglasseffectcontainerview) — A view that efficiently merges descendant glass effect views together when they are within a specified proximity to each other.
+- [`NSGlassEffectView`](https://developer.apple.com/documentation/appkit/nsglasseffectview) — A view that embeds its content view in a dynamic glass effect.
+- [`NSGlassEffectView.Style`](https://developer.apple.com/documentation/appkit/nsglasseffectview/style-swift.enum)
+- [`NSGridCell`](https://developer.apple.com/documentation/appkit/nsgridcell) — An individual content area within a grid view, typically at the intersection of a row and a column.
+- [`NSGridColumn`](https://developer.apple.com/documentation/appkit/nsgridcolumn) — A column within a grid view.
+- [`NSGridRow`](https://developer.apple.com/documentation/appkit/nsgridrow) — A row within a grid view.
+- [`NSGridView`](https://developer.apple.com/documentation/appkit/nsgridview) — A container that aligns views in a flexible grid of rows and columns.
+- [`NSImageView`](https://developer.apple.com/documentation/appkit/nsimageview) — A display of image data in a frame.
+- [`NSLevelIndicator`](https://developer.apple.com/documentation/appkit/nslevelindicator) — A visual representation of a level or quantity, using discrete values.
+- [`NSMatrix`](https://developer.apple.com/documentation/appkit/nsmatrix) — A legacy interface for grouping radio buttons or other types of cells together.
+- [`NSMenuToolbarItem`](https://developer.apple.com/documentation/appkit/nsmenutoolbaritem) — A control that presents a menu in a window’s toolbar.
+- [`NSOutlineView`](https://developer.apple.com/documentation/appkit/nsoutlineview) — A view that uses a row-and-column format to display hierarchical data like directories and files that can be expanded and collapsed.
+- [`NSOutlineViewDataSource`](https://developer.apple.com/documentation/appkit/nsoutlineviewdatasource) — A set of methods that an outline view calls to retrieve data and information about it from the data source delegate, and—optionally—to update data values.
+- [`NSOutlineViewDelegate`](https://developer.apple.com/documentation/appkit/nsoutlineviewdelegate) — A set of optional methods implemented by delegates of    objects.
+- [`NSPathCell`](https://developer.apple.com/documentation/appkit/nspathcell) — The user interface of a path control object.
+- [`NSPathCellDelegate`](https://developer.apple.com/documentation/appkit/nspathcelldelegate) — A set of methods that enable the delegate of a path cell object to customize the Open panel or pop-up menu of a path whose style is set to   .
+- [`NSPathComponentCell`](https://developer.apple.com/documentation/appkit/nspathcomponentcell) — A component of a path.
+- [`NSPathControl`](https://developer.apple.com/documentation/appkit/nspathcontrol) — A display of a file system path or virtual path information.
+- [`NSPathControlDelegate`](https://developer.apple.com/documentation/appkit/nspathcontroldelegate) — A set of methods that can be implemented by the delegate of a path control object to support dragging to and from the control.
+- [`NSPathControlItem`](https://developer.apple.com/documentation/appkit/nspathcontrolitem)
+- [`NSPopUpButton`](https://developer.apple.com/documentation/appkit/nspopupbutton) — A control for selecting an item from a list.
+- [`NSPredicateEditor`](https://developer.apple.com/documentation/appkit/nspredicateeditor) — A defined set of rules that allows the editing of predicate objects.
+- [`NSProgressIndicator`](https://developer.apple.com/documentation/appkit/nsprogressindicator) — An interface that provides visual feedback to the user about the status of an ongoing task.
+- [`NSRectAlignment`](https://developer.apple.com/documentation/appkit/nsrectalignment) — Constants that specify alignment to an edge or a set of edges depending on the user interface layout direction.
+- [`NSRefreshController`](https://developer.apple.com/documentation/appkit/nsrefreshcontroller) — A controller that provides pull-to-refresh functionality for scroll views.
+- [`NSRuleEditor`](https://developer.apple.com/documentation/appkit/nsruleeditor) — An interface for configuring a rule-based list of options.
+- [`NSRulerMarker`](https://developer.apple.com/documentation/appkit/nsrulermarker) — A symbol on a ruler view, indicating a location for the graphics element it represents in the client of the ruler view.
+- [`NSRulerView`](https://developer.apple.com/documentation/appkit/nsrulerview) — A ruler and the markers above or to the side of a scroll view’s document view.
+- [`NSScrollView`](https://developer.apple.com/documentation/appkit/nsscrollview) — A view that displays a portion of a document view and provides scroll bars that allow the user to move the document view within the scroll view.
+- [`NSScroller`](https://developer.apple.com/documentation/appkit/nsscroller) — An object that controls scrolling of a document view within a scroll view or other type of container view.
+- [`NSSearchField`](https://developer.apple.com/documentation/appkit/nssearchfield) — A text field optimized for performing text-based searches.
+- [`NSSearchFieldCell`](https://developer.apple.com/documentation/appkit/nssearchfieldcell) — The programmatic interface for text fields that are used for text-based searches.
+- [`NSSearchToolbarItem`](https://developer.apple.com/documentation/appkit/nssearchtoolbaritem) — A toolbar item that contains a search field optimized for performing text-based searches.
+- [`NSSecureTextField`](https://developer.apple.com/documentation/appkit/nssecuretextfield) — A text field that hides the typed text.
+- [`NSSecureTextFieldCell`](https://developer.apple.com/documentation/appkit/nssecuretextfieldcell) — A text field whose value is hidden from the user.
+- [`NSSegmentedControl`](https://developer.apple.com/documentation/appkit/nssegmentedcontrol) — Display one or more buttons in a single horizontal group.
+- [`NSSlider`](https://developer.apple.com/documentation/appkit/nsslider) — A display of a bar representing a continuous range of numerical values and a knob representing the currently selected value.
+- [`NSSliderAccessory`](https://developer.apple.com/documentation/appkit/nsslideraccessory)
+- [`NSSliderAccessory.Width`](https://developer.apple.com/documentation/appkit/nsslideraccessory/width)
+- [`NSSliderAccessoryBehavior`](https://developer.apple.com/documentation/appkit/nsslideraccessorybehavior)
+- [`NSSliderCell`](https://developer.apple.com/documentation/appkit/nsslidercell) — The appearance and behavior of an    object.
+- [`NSSplitView`](https://developer.apple.com/documentation/appkit/nssplitview) — A view that arranges two or more views in a linear stack running horizontally or vertically.
+- [`NSStackView`](https://developer.apple.com/documentation/appkit/nsstackview) — A view that arranges an array of views horizontally or vertically and updates their placement and sizing when the window size changes.
+- [`NSStepper`](https://developer.apple.com/documentation/appkit/nsstepper) — An interface with up and down arrow buttons for incrementing or decrementing a value.
+- [`NSSwitch`](https://developer.apple.com/documentation/appkit/nsswitch) — A control that offers a binary choice.
+- [`NSTabView`](https://developer.apple.com/documentation/appkit/nstabview) — A multipage interface that displays one page at a time.
+- [`NSTableCellView`](https://developer.apple.com/documentation/appkit/nstablecellview) — A reusable container view shown for a particular cell in a table view that uses rows for content.
+- [`NSTableColumn`](https://developer.apple.com/documentation/appkit/nstablecolumn) — The display characteristics and identifier for a column in a table view.
+- [`NSTableColumn.ResizingOptions`](https://developer.apple.com/documentation/appkit/nstablecolumn/resizingoptions)
+- [`NSTableHeaderCell`](https://developer.apple.com/documentation/appkit/nstableheadercell) — An object that a table header view uses to draw the content of the column headers.
+- [`NSTableHeaderView`](https://developer.apple.com/documentation/appkit/nstableheaderview) — An object that draws headers over a table view’s columns and handles mouse events in those headers.
+- [`NSTableRowView`](https://developer.apple.com/documentation/appkit/nstablerowview) — The view shown for a row in a table view.
+- [`NSTableView`](https://developer.apple.com/documentation/appkit/nstableview) — A set of related records, displayed in rows that represent individual records and columns that represent the attributes of those records.
+- [`NSTableViewDataSource`](https://developer.apple.com/documentation/appkit/nstableviewdatasource) — A set of methods that a table view uses to provide data to a table view and to allow the editing of the table view’s data source object.
+- [`NSTableViewDelegate`](https://developer.apple.com/documentation/appkit/nstableviewdelegate) — A set of optional methods you implement in a table view delegate to customize the behavior of the table view.
+- [`NSTableViewDiffableDataSource`](https://developer.apple.com/documentation/appkit/nstableviewdiffabledatasource-c5gl) — The object you use to manage data and provide items for a table view.
+- [`NSTableViewRowAction`](https://developer.apple.com/documentation/appkit/nstableviewrowaction) — A single action to present when the user swipes horizontally on a table row.
+- [`NSTextField`](https://developer.apple.com/documentation/appkit/nstextfield) — Text the user can select or edit to send an action message to a target when the user presses the Return key.
+- [`NSTextFieldCell`](https://developer.apple.com/documentation/appkit/nstextfieldcell) — An object that enhances the text display capabilities of a cell.
+- [`NSTextFieldDelegate`](https://developer.apple.com/documentation/appkit/nstextfielddelegate) — A protocol that a text field delegate can use to control its field editor action menu.
+- [`NSTextFinder`](https://developer.apple.com/documentation/appkit/nstextfinder) — An optional search-and-replace find interface inside a view, usually a scroll view.
+- [`NSTextFinderBarContainer`](https://developer.apple.com/documentation/appkit/nstextfinderbarcontainer) — A protocol that provides a container in which the find bar is displayed.
+- [`NSTextFinderClient`](https://developer.apple.com/documentation/appkit/nstextfinderclient) — A set of methods implemented by objects that support searching using the    class and the in-window text find bar.
+- [`NSTextView`](https://developer.apple.com/documentation/appkit/nstextview) — A view that draws text and handles user interactions with that text.
+- [`NSTokenField`](https://developer.apple.com/documentation/appkit/nstokenfield) — A text field that converts text into visually distinct tokens.
+- [`NSTokenFieldCell`](https://developer.apple.com/documentation/appkit/nstokenfieldcell) — A text field cell subclass that enables tokenized editing of an array of objects.
+- [`NSTokenFieldCellDelegate`](https://developer.apple.com/documentation/appkit/nstokenfieldcelldelegate) — A set of optional methods implemented by delegates of    objects to work with tokenized strings.
+- [`NSTokenFieldDelegate`](https://developer.apple.com/documentation/appkit/nstokenfielddelegate) — A set of optional methods implemented by delegates of    objects.
+- [`NSToolbar`](https://developer.apple.com/documentation/appkit/nstoolbar) — An object that manages the space above your app’s custom content and either below or integrated with the window’s title bar.
+- [`NSToolbarItem`](https://developer.apple.com/documentation/appkit/nstoolbaritem) — A single item that appears in a window’s toolbar.
+- [`NSToolbarItemGroup`](https://developer.apple.com/documentation/appkit/nstoolbaritemgroup) — A group of subitems in a toolbar item.
+- [`NSToolbarItemGroup.ControlRepresentation`](https://developer.apple.com/documentation/appkit/nstoolbaritemgroup/controlrepresentation-swift.enum)
+- [`NSToolbarItemGroup.SelectionMode`](https://developer.apple.com/documentation/appkit/nstoolbaritemgroup/selectionmode-swift.enum) — A value that indicates how a grouped toolbar item selects its subitems.
+- [`NSToolbarItemValidation`](https://developer.apple.com/documentation/appkit/nstoolbaritemvalidation) — Validation of a toolbar item.
+- [`NSTrackingSeparatorToolbarItem`](https://developer.apple.com/documentation/appkit/nstrackingseparatortoolbaritem) — A toolbar separator that aligns with the vertical split view in the same window.
+- [`NSUserInterfaceValidations`](https://developer.apple.com/documentation/appkit/nsuserinterfacevalidations) — A protocol that a custom class can adopt to manage the enabled state of a UI element.
+- [`NSValidatedUserInterfaceItem`](https://developer.apple.com/documentation/appkit/nsvalidateduserinterfaceitem) — A protocol that a custom class can adopt to manage the automatic enablement of a UI control.
+- [`NSView`](https://developer.apple.com/documentation/appkit/nsview) — The infrastructure for drawing, printing, and handling events in an app.
+- [`NSViewCornerConfiguration`](https://developer.apple.com/documentation/appkit/nsviewcornerconfiguration) — A configuration object that defines the corner styles of a view’s overall shape.
+- [`NSViewCornerRadii`](https://developer.apple.com/documentation/appkit/nsviewcornerradii) — Provides a structured way to define custom corner radii for each corner of a view, along with a corner curve.
+- [`NSViewCornerRadius`](https://developer.apple.com/documentation/appkit/nsviewcornerradius) — Represents a radius used to round a corner. It supports fixed and adaptive configurations.
+- [`NSViewToolTipOwner`](https://developer.apple.com/documentation/appkit/nsviewtooltipowner) — A set of methods for dynamically associating a tool tip with a view.
+- [`NSVisualEffectView`](https://developer.apple.com/documentation/appkit/nsvisualeffectview) — A view that adds translucency and vibrancy effects to the views in your interface.
+- [`draw(_:)`](https://developer.apple.com/documentation/appkit/nsview/draw(_:)) — Overridden by subclasses to draw the view’s image within the specified rectangle.
+- [`layout()`](https://developer.apple.com/documentation/appkit/nsview/layout()) — Perform layout in concert with the constraint-based layout system.
+- [`updateConstraints()`](https://developer.apple.com/documentation/appkit/nsview/updateconstraints()) — Update constraints for the view.
+- [`updateLayer()`](https://developer.apple.com/documentation/appkit/nsview/updatelayer()) — Updates the view’s content by modifying its underlying layer.
+- [`updateViewConstraints()`](https://developer.apple.com/documentation/appkit/nsviewcontroller/updateviewconstraints()) — Called during Auto Layout constraint updating to enable the view controller to mediate the process.
+- [`viewDidLayout()`](https://developer.apple.com/documentation/appkit/nsviewcontroller/viewdidlayout()) — Called immediately after the    method of the view controller’s view is called.
+- [`viewWillLayout()`](https://developer.apple.com/documentation/appkit/nsviewcontroller/viewwilllayout()) — Called just before the    method of the view controller’s view is called.
+
+### Windows, Panels, and Screens
+
+- [`NSAlert`](https://developer.apple.com/documentation/appkit/nsalert) — A modal dialog or sheet attached to a document window.
+- [`NSAlertDelegate`](https://developer.apple.com/documentation/appkit/nsalertdelegate) — A set of optional methods implemented by the delegate of an    object to respond to a user’s request for help.
+- [`NSColorPanel`](https://developer.apple.com/documentation/appkit/nscolorpanel) — A standard user interface for selecting color in an app.
+- [`NSColorPicker`](https://developer.apple.com/documentation/appkit/nscolorpicker) — An abstract superclass that implements the default color picking protocol.
+- [`NSColorPickingCustom`](https://developer.apple.com/documentation/appkit/nscolorpickingcustom) — A set of methods that provides a way to add color pickers—custom user interfaces for color selection—to an app’s color panel.
+- [`NSColorPickingDefault`](https://developer.apple.com/documentation/appkit/nscolorpickingdefault) — A set of methods that provides basic behavior for a color picker.
+- [`NSFontChanging`](https://developer.apple.com/documentation/appkit/nsfontchanging)
+- [`NSFontPanel`](https://developer.apple.com/documentation/appkit/nsfontpanel) — The Font panel—a user interface object that displays a list of available fonts, letting the user preview them and change the font used to display text.
+- [`NSFontPanel.ModeMask`](https://developer.apple.com/documentation/appkit/nsfontpanel/modemask)
+- [`NSOpenPanel`](https://developer.apple.com/documentation/appkit/nsopenpanel) — A panel that prompts the user to select a file to open.
+- [`NSOpenSavePanelDelegate`](https://developer.apple.com/documentation/appkit/nsopensavepaneldelegate) — A set of methods for managing interactions with an open or save panel.
+- [`NSPDFPanel`](https://developer.apple.com/documentation/appkit/nspdfpanel) — A Save or Export as PDF panel that’s consistent with the macOS user interface.
+- [`NSPanel`](https://developer.apple.com/documentation/appkit/nspanel) — A special kind of window that typically performs a function that is auxiliary to the main window.
+- [`NSPopover`](https://developer.apple.com/documentation/appkit/nspopover) — A means to display additional content related to existing content on the screen.
+- [`NSPopoverDelegate`](https://developer.apple.com/documentation/appkit/nspopoverdelegate) — A set of optional methods that a popover delegate can implement to provide additional or custom functionality.
+- [`NSPreviewRepresentableActivityItem`](https://developer.apple.com/documentation/appkit/nspreviewrepresentableactivityitem) — An interface you adopt in custom objects that you want to share using the macOS share sheet.
+- [`NSPreviewRepresentingActivityItem`](https://developer.apple.com/documentation/appkit/nspreviewrepresentingactivityitem) — A type that adds metadata to an item you share using the macOS share sheet.
+- [`NSPrintPanelAccessorizing`](https://developer.apple.com/documentation/appkit/nsprintpanelaccessorizing) — A set of methods that a Print panel object can use to get information from a printing accessory controller.
+- [`NSSavePanel`](https://developer.apple.com/documentation/appkit/nssavepanel) — A panel that prompts the user for information about where to save a file.
+- [`NSScreen`](https://developer.apple.com/documentation/appkit/nsscreen) — An object that describes the attributes of a computer’s monitor or screen.
+- [`NSSharingServicePicker`](https://developer.apple.com/documentation/appkit/nssharingservicepicker) — A list of sharing services that the user can choose from.
+- [`NSUserInterfaceItemIdentification`](https://developer.apple.com/documentation/appkit/nsuserinterfaceitemidentification) — A set of methods used to associate a unique identifier with objects in your user interface.
+- [`NSWindow`](https://developer.apple.com/documentation/appkit/nswindow) — A window that an app displays on the screen.
+- [`NSWindowDelegate`](https://developer.apple.com/documentation/appkit/nswindowdelegate) — A set of optional methods that a window’s delegate can implement to respond to events, such as window resizing, moving, exposing, and minimizing.
+- [`NSWindowRestoration`](https://developer.apple.com/documentation/appkit/nswindowrestoration) — A set of methods that restoration classes must implement to handle the recreation of windows.
+- [`NSWindowTab`](https://developer.apple.com/documentation/appkit/nswindowtab) — A tab associated with a window that is part of a tabbing group.
+- [`NSWindowTabGroup`](https://developer.apple.com/documentation/appkit/nswindowtabgroup) — A group of windows that display together as a single tabbed window.
+
+### Writing Tools
+
+- [`NSTextPreview`](https://developer.apple.com/documentation/appkit/nstextpreview) — A snapshot of the text in your view, which the system uses to create   user-visible effects.
+- [`NSWritingToolsBehavior`](https://developer.apple.com/documentation/appkit/nswritingtoolsbehavior) — Constants that specify the Writing Tools experience for the underlying view.
+- [`NSWritingToolsCoordinator`](https://developer.apple.com/documentation/appkit/nswritingtoolscoordinator) — An object that manages interactions between Writing Tools and   your custom text view.
+- [`NSWritingToolsCoordinator.AnimationParameters`](https://developer.apple.com/documentation/appkit/nswritingtoolscoordinator/animationparameters) — An object you use to configure additional tasks or animations to   run alongside the Writing Tools animations.
+- [`NSWritingToolsCoordinator.Context`](https://developer.apple.com/documentation/appkit/nswritingtoolscoordinator/context) — A data object that you use to share your custom view’s text with Writing Tools.
+- [`NSWritingToolsCoordinator.Delegate`](https://developer.apple.com/documentation/appkit/nswritingtoolscoordinator/delegate-swift.protocol) — An interface that you use to manage interactions between Writing Tools   and your custom text view.
+- [`NSWritingToolsResultOptions`](https://developer.apple.com/documentation/appkit/nswritingtoolsresultoptions) — Constants to specify what type of content to allow in Writing Tools   suggestions or rewrites.
+- [`writingToolsItemIdentifier`](https://developer.apple.com/documentation/appkit/nstoolbaritem/identifier/writingtoolsitemidentifier) — A standard item that is configured to send -showWritingTools: to the firstResponder when invoked.
+
+## SwiftUI
+<sub>1710 symbols</sub>
+
+### Accessibility fundamentals
+
+- [`AccessibilityAttachmentModifier`](https://developer.apple.com/documentation/swiftui/accessibilityattachmentmodifier) — A view modifier that adds accessibility properties to the view
+- [`AccessibilityChildBehavior`](https://developer.apple.com/documentation/swiftui/accessibilitychildbehavior) — Defines the behavior for the child elements of the new parent element.
+- [`AccessibilityTechnologies`](https://developer.apple.com/documentation/swiftui/accessibilitytechnologies) — Accessibility technologies available to the system.
+- [`accessibilityChildren(children:)`](https://developer.apple.com/documentation/swiftui/view/accessibilitychildren(children:)) — Replaces the existing accessibility element’s children with one or   more new synthetic accessibility elements.
+- [`accessibilityElement(children:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityelement(children:)) — Creates a new accessibility element, or modifies the     of the existing accessibility element.
+- [`accessibilityHidden(_:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityhidden(_:)) — Specifies whether to hide this view from system accessibility features.
+- [`accessibilityHidden(_:isEnabled:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityhidden(_:isenabled:)) — Specifies whether to hide this view from system accessibility features.
+- [`accessibilityIdentifier(_:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityidentifier(_:)) — Uses the string you specify to identify the view.
+- [`accessibilityIdentifier(_:isEnabled:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityidentifier(_:isenabled:)) — Uses the string you specify to identify the view.
+- [`accessibilityRepresentation(representation:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityrepresentation(representation:)) — Replaces one or more accessibility elements for this view with new   accessibility elements.
+
+### Accessible appearance
+
+- [`AssistiveAccess`](https://developer.apple.com/documentation/swiftui/assistiveaccess) — A scene that presents an interface appropriate for Assistive Access on iOS   and iPadOS. On other platforms, this scene is unused.
+- [`LegibilityWeight`](https://developer.apple.com/documentation/swiftui/legibilityweight) — The Accessibility Bold Text user setting options.
+- [`accessibilityAssistiveAccessEnabled`](https://developer.apple.com/documentation/swiftui/environmentvalues/accessibilityassistiveaccessenabled) — A Boolean value that indicates whether Assistive Access is in use.
+- [`accessibilityDifferentiateWithoutColor`](https://developer.apple.com/documentation/swiftui/environmentvalues/accessibilitydifferentiatewithoutcolor) — Whether the system preference for Differentiate without Color is enabled.
+- [`accessibilityDimFlashingLights`](https://developer.apple.com/documentation/swiftui/environmentvalues/accessibilitydimflashinglights) — Whether the setting to reduce flashing or strobing lights in video   content is on. This setting can also be used to determine if UI in   playback controls should be shown to indicate upcoming content that   includes flashing or strobing lights.
+- [`accessibilityIgnoresInvertColors(_:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityignoresinvertcolors(_:)) — Sets whether this view should ignore the system Smart Invert setting.
+- [`accessibilityInvertColors`](https://developer.apple.com/documentation/swiftui/environmentvalues/accessibilityinvertcolors) — Whether the system preference for Invert Colors is enabled.
+- [`accessibilityLargeContentViewerEnabled`](https://developer.apple.com/documentation/swiftui/environmentvalues/accessibilitylargecontentviewerenabled) — Whether the Large Content Viewer is enabled.
+- [`accessibilityPlayAnimatedImages`](https://developer.apple.com/documentation/swiftui/environmentvalues/accessibilityplayanimatedimages) — Whether the setting for playing animations in an animated image is   on. When this value is false, any presented image that contains   animation should not play automatically.
+- [`accessibilityReduceMotion`](https://developer.apple.com/documentation/swiftui/environmentvalues/accessibilityreducemotion) — Whether the system preference for Reduce Motion is enabled.
+- [`accessibilityReduceTransparency`](https://developer.apple.com/documentation/swiftui/environmentvalues/accessibilityreducetransparency) — Whether the system preference for Reduce Transparency is enabled.
+- [`accessibilityShowButtonShapes`](https://developer.apple.com/documentation/swiftui/environmentvalues/accessibilityshowbuttonshapes) — Whether the system preference for Show Button Shapes is enabled.
+- [`accessibilityShowsLargeContentViewer()`](https://developer.apple.com/documentation/swiftui/view/accessibilityshowslargecontentviewer()) — Adds a default large content view to be shown by   the large content viewer.
+- [`accessibilityShowsLargeContentViewer(_:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityshowslargecontentviewer(_:)) — Adds a custom large content view to be shown by   the large content viewer.
+- [`assistiveAccessNavigationIcon(_:)`](https://developer.apple.com/documentation/swiftui/view/assistiveaccessnavigationicon(_:)) — Configures the view’s icon for purposes of navigation.
+- [`assistiveAccessNavigationIcon(systemImage:)`](https://developer.apple.com/documentation/swiftui/view/assistiveaccessnavigationicon(systemimage:)) — Configures the view’s icon for purposes of navigation.
+- [`legibilityWeight`](https://developer.apple.com/documentation/swiftui/environmentvalues/legibilityweight) — The font weight to apply to text.
+
+### Accessible controls
+
+- [`AccessibilityActionCategory`](https://developer.apple.com/documentation/swiftui/accessibilityactioncategory) — Designates an accessibility action category that is provided and named   by the system.
+- [`AccessibilityActionKind`](https://developer.apple.com/documentation/swiftui/accessibilityactionkind) — The structure that defines the kinds of available accessibility actions.
+- [`AccessibilityAdjustmentDirection`](https://developer.apple.com/documentation/swiftui/accessibilityadjustmentdirection) — A directional indicator you use when making an accessibility adjustment.
+- [`AccessibilityDirectTouchOptions`](https://developer.apple.com/documentation/swiftui/accessibilitydirecttouchoptions) — An option set that defines the functionality of a view’s direct touch area.
+- [`AccessibilityFocusState`](https://developer.apple.com/documentation/swiftui/accessibilityfocusstate) — A property wrapper type that can read and write a value that SwiftUI updates   as the focus of any active accessibility technology, such as VoiceOver,   changes.
+- [`AccessibilityQuickActionStyle`](https://developer.apple.com/documentation/swiftui/accessibilityquickactionstyle) — A type that describes the presentation style of an   accessibility quick action.
+- [`AccessibilityZoomGestureAction`](https://developer.apple.com/documentation/swiftui/accessibilityzoomgestureaction) — Position and direction information of a zoom gesture that someone performs   with an assistive technology like VoiceOver.
+- [`accessibilityAction(_:_:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityaction(_:_:)) — Adds an accessibility action to the view. Actions allow assistive technologies,   such as the VoiceOver, to interact with the view by invoking the action.
+- [`accessibilityAction(_:intent:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityaction(_:intent:)) — Adds an accessibility action representing    to the view.   Actions allow assistive technologies, such as the VoiceOver, to interact   with the view by invoking the action. When the action is performed,   the    will be invoked.
+- [`accessibilityAction(action:label:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityaction(action:label:)) — Adds an accessibility action to the view. Actions allow assistive technologies,   such as the VoiceOver, to interact with the view by invoking the action.
+- [`accessibilityAction(intent:label:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityaction(intent:label:)) — Adds an accessibility action labeled by the contents of    to the view.   Actions allow assistive technologies, such as the VoiceOver, to interact   with the view by invoking the action. When the action is performed, the     will be invoked.
+- [`accessibilityAction(named:_:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityaction(named:_:)) — Adds an accessibility action to the view. Actions allow assistive   technologies, such as the VoiceOver, to interact with the view by   invoking the action.
+- [`accessibilityAction(named:intent:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityaction(named:intent:)) — Adds an accessibility action labeled    to the view. Actions allow   assistive technologies, such as the VoiceOver, to interact with the view   by invoking the action. When the action is performed, the    will   be invoked.
+- [`accessibilityActions(_:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityactions(_:)) — Adds multiple accessibility actions to the view.
+- [`accessibilityActions(category:_:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityactions(category:_:)) — Adds multiple accessibility actions to the view with a specific   category. Actions allow assistive technologies, such as VoiceOver,   to interact with the view by invoking the action and are grouped by   their category. When multiple action modifiers with an equal category   are applied to the view, the actions are combined together.
+- [`accessibilityActivationPoint(_:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityactivationpoint(_:)) — The activation point for an element is the location   assistive technologies use to initiate gestures.
+- [`accessibilityActivationPoint(_:isEnabled:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityactivationpoint(_:isenabled:)) — The activation point for an element is the location   assistive technologies use to initiate gestures.
+- [`accessibilityAdjustableAction(_:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityadjustableaction(_:)) — Adds an accessibility adjustable action to the view. Actions allow   assistive technologies, such as the VoiceOver, to interact with the   view by invoking the action.
+- [`accessibilityDirectTouch(_:options:)`](https://developer.apple.com/documentation/swiftui/view/accessibilitydirecttouch(_:options:)) — Explicitly set whether this accessibility element is a direct touch   area. Direct touch areas passthrough touch events to the app rather   than being handled through an assistive technology, such as VoiceOver.   The modifier accepts an optional     option set to customize the functionality of the direct touch area.
+- [`accessibilityDragPoint(_:description:)`](https://developer.apple.com/documentation/swiftui/view/accessibilitydragpoint(_:description:)) — The point an assistive technology should use to begin a drag interaction.
+- [`accessibilityDragPoint(_:description:isEnabled:)`](https://developer.apple.com/documentation/swiftui/view/accessibilitydragpoint(_:description:isenabled:)) — The point an assistive technology should use to begin a drag interaction.
+- [`accessibilityDropPoint(_:description:)`](https://developer.apple.com/documentation/swiftui/view/accessibilitydroppoint(_:description:)) — The point an assistive technology should use to end a drag interaction.
+- [`accessibilityDropPoint(_:description:isEnabled:)`](https://developer.apple.com/documentation/swiftui/view/accessibilitydroppoint(_:description:isenabled:)) — The point an assistive technology should use to end a drag interaction.
+- [`accessibilityFocused(_:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityfocused(_:)) — Modifies this view by binding its accessibility element’s focus state   to the given boolean state value.
+- [`accessibilityFocused(_:equals:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityfocused(_:equals:)) — Modifies this view by binding its accessibility element’s focus state to   the given state value.
+- [`accessibilityQuickAction(style:content:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityquickaction(style:content:)) — Adds a quick action to be shown by the system when active.
+- [`accessibilityQuickAction(style:isActive:content:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityquickaction(style:isactive:content:)) — Adds a quick action to be shown by the system when active.
+- [`accessibilityRespondsToUserInteraction(_:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityrespondstouserinteraction(_:)) — Explicitly set whether this Accessibility element responds to user   interaction and would thus be interacted with by technologies such as   Switch Control, Voice Control or Full Keyboard Access.
+- [`accessibilityRespondsToUserInteraction(_:isEnabled:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityrespondstouserinteraction(_:isenabled:)) — Explicitly set whether this Accessibility element responds to user   interaction and would thus be interacted with by technologies such as   Switch Control, Voice Control or Full Keyboard Access.
+- [`accessibilityScrollAction(_:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityscrollaction(_:)) — Adds an accessibility scroll action to the view. Actions allow   assistive technologies, such as the VoiceOver, to interact with the   view by invoking the action.
+- [`accessibilityZoomAction(_:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityzoomaction(_:)) — Adds an accessibility zoom action to the view. Actions allow   assistive technologies, such as VoiceOver, to interact with the   view by invoking the action.
+
+### Accessible descriptions
+
+- [`AXChartDescriptorRepresentable`](https://developer.apple.com/documentation/swiftui/axchartdescriptorrepresentable) — A type to generate an    object that you use to provide   information about a chart and its data for an accessible experience   in VoiceOver or other assistive technologies.
+- [`AccessibilityCustomContentKey`](https://developer.apple.com/documentation/swiftui/accessibilitycustomcontentkey) — Key used to specify the identifier and label associated with   an entry of additional accessibility information.
+- [`AccessibilityHeadingLevel`](https://developer.apple.com/documentation/swiftui/accessibilityheadinglevel) — The hierarchy of a heading in relation to other headings.
+- [`AccessibilityLabeledPairRole`](https://developer.apple.com/documentation/swiftui/accessibilitylabeledpairrole) — The role of an accessibility element in a label / content pair.
+- [`AccessibilityTextContentType`](https://developer.apple.com/documentation/swiftui/accessibilitytextcontenttype) — Textual context that assistive technologies can use to improve the   presentation of spoken text.
+- [`AccessibilityTraits`](https://developer.apple.com/documentation/swiftui/accessibilitytraits) — A set of accessibility traits that describe how an element behaves.
+- [`accessibilityAddTraits(_:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityaddtraits(_:)) — Adds the given traits to the view.
+- [`accessibilityChartDescriptor(_:)`](https://developer.apple.com/documentation/swiftui/view/accessibilitychartdescriptor(_:)) — Adds a descriptor to a View that represents a chart to make   the chart’s contents accessible to all users.
+- [`accessibilityCustomContent(_:_:importance:)`](https://developer.apple.com/documentation/swiftui/view/accessibilitycustomcontent(_:_:importance:)) — Add additional accessibility information to the view.
+- [`accessibilityHeading(_:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityheading(_:)) — Sets the accessibility level of this heading.
+- [`accessibilityHint(_:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityhint(_:)) — Communicates to the user what happens after performing the view’s   action.
+- [`accessibilityHint(_:isEnabled:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityhint(_:isenabled:)) — Communicates to the user what happens after performing the view’s   action.
+- [`accessibilityInputLabels(_:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityinputlabels(_:)) — Sets alternate input labels with which users identify a view.
+- [`accessibilityInputLabels(_:isEnabled:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityinputlabels(_:isenabled:)) — Sets alternate input labels with which users identify a view.
+- [`accessibilityLabel(_:)`](https://developer.apple.com/documentation/swiftui/view/accessibilitylabel(_:)) — Adds a label to the view that describes its contents.
+- [`accessibilityLabel(_:isEnabled:)`](https://developer.apple.com/documentation/swiftui/view/accessibilitylabel(_:isenabled:)) — Adds a label to the view that describes its contents.
+- [`accessibilityLabel(content:)`](https://developer.apple.com/documentation/swiftui/view/accessibilitylabel(content:)) — Adds a label to the view that describes its contents.
+- [`accessibilityLabeledPair(role:id:in:)`](https://developer.apple.com/documentation/swiftui/view/accessibilitylabeledpair(role:id:in:)) — Pairs an accessibility element representing a label with the element   for the matching content.
+- [`accessibilityRemoveTraits(_:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityremovetraits(_:)) — Removes the given traits from this view.
+- [`accessibilityTextContentType(_:)`](https://developer.apple.com/documentation/swiftui/view/accessibilitytextcontenttype(_:)) — Sets an accessibility text content type.
+- [`accessibilityValue(_:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityvalue(_:)) — Adds a textual description of the value that the view contains.
+- [`accessibilityValue(_:isEnabled:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityvalue(_:isenabled:)) — Adds a textual description of the value that the view contains.
+- [`speechAdjustedPitch(_:)`](https://developer.apple.com/documentation/swiftui/view/speechadjustedpitch(_:)) — Raises or lowers the pitch of spoken text.
+- [`speechAlwaysIncludesPunctuation(_:)`](https://developer.apple.com/documentation/swiftui/view/speechalwaysincludespunctuation(_:)) — Sets whether VoiceOver should always speak all punctuation in the text   view.
+- [`speechAnnouncementsQueued(_:)`](https://developer.apple.com/documentation/swiftui/view/speechannouncementsqueued(_:)) — Controls whether to queue pending announcements behind existing speech   rather than interrupting speech in progress.
+- [`speechSpellsOutCharacters(_:)`](https://developer.apple.com/documentation/swiftui/view/speechspellsoutcharacters(_:)) — Sets whether VoiceOver should speak the contents of the text view   character by character.
+
+### Accessible navigation
+
+- [`AccessibilityRotorContent`](https://developer.apple.com/documentation/swiftui/accessibilityrotorcontent) — Content within an accessibility rotor.
+- [`AccessibilityRotorContentBuilder`](https://developer.apple.com/documentation/swiftui/accessibilityrotorcontentbuilder) — Result builder you use to generate rotor entry content.
+- [`AccessibilityRotorEntry`](https://developer.apple.com/documentation/swiftui/accessibilityrotorentry) — A struct representing an entry in an Accessibility Rotor.
+- [`AccessibilitySystemRotor`](https://developer.apple.com/documentation/swiftui/accessibilitysystemrotor) — Designates a Rotor that replaces one of the automatic, system-provided   Rotors with a developer-provided Rotor.
+- [`accessibilityLinkedGroup(id:in:)`](https://developer.apple.com/documentation/swiftui/view/accessibilitylinkedgroup(id:in:)) — Links multiple accessibility elements so that the user can quickly   navigate from one element to another, even when the elements are not near   each other in the accessibility hierarchy.
+- [`accessibilityRotor(_:entries:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityrotor(_:entries:)) — Create an Accessibility Rotor with the specified user-visible label,   and entries generated from the content closure.
+- [`accessibilityRotor(_:entries:entryID:entryLabel:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityrotor(_:entries:entryid:entrylabel:)) — Create an Accessibility Rotor with the specified user-visible label   and entries.
+- [`accessibilityRotor(_:entries:entryLabel:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityrotor(_:entries:entrylabel:)) — Create an Accessibility Rotor with the specified user-visible label   and entries.
+- [`accessibilityRotor(_:textRanges:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityrotor(_:textranges:)) — Create an Accessibility Rotor with the specified user-visible label   and entries for each of the specified ranges. The Rotor will be attached   to the current Accessibility element, and each entry will go the   specified range of that element.
+- [`accessibilityRotorEntry(id:in:)`](https://developer.apple.com/documentation/swiftui/view/accessibilityrotorentry(id:in:)) — Defines an explicit identifier tying an Accessibility element for this   view to an entry in an Accessibility Rotor.
+- [`accessibilitySortPriority(_:)`](https://developer.apple.com/documentation/swiftui/view/accessibilitysortpriority(_:)) — Sets the sort priority order for this view’s accessibility element,   relative to other elements at the same level.
+
+### Animations
+
+- [`Animatable`](https://developer.apple.com/documentation/swiftui/animatable) — A type that describes how to animate a property of a view.
+- [`AnimatableModifier`](https://developer.apple.com/documentation/swiftui/animatablemodifier) — A modifier that can create another modifier with animation.
+- [`AnimatablePair`](https://developer.apple.com/documentation/swiftui/animatablepair) — A pair of animatable values, which is itself animatable.
+- [`AnimatableValues`](https://developer.apple.com/documentation/swiftui/animatablevalues)
+- [`Animation`](https://developer.apple.com/documentation/swiftui/animation) — The way a view changes over time to create a smooth visual transition from   one state to another.
+- [`AnimationCompletionCriteria`](https://developer.apple.com/documentation/swiftui/animationcompletioncriteria) — The criteria that determines when an animation is considered finished.
+- [`AnimationContext`](https://developer.apple.com/documentation/swiftui/animationcontext) — Contextual values that a custom animation can use to manage state and   access a view’s environment.
+- [`AnimationState`](https://developer.apple.com/documentation/swiftui/animationstate) — A container that stores the state for a custom animation.
+- [`AnimationStateKey`](https://developer.apple.com/documentation/swiftui/animationstatekey) — A key for accessing animation state values.
+- [`AnyNavigationTransition`](https://developer.apple.com/documentation/swiftui/anynavigationtransition) — A type-erasing navigation transition that allows for providing any   navigation transition value dynamically.
+- [`AnyTransition`](https://developer.apple.com/documentation/swiftui/anytransition) — A type-erased transition.
+- [`AsymmetricTransition`](https://developer.apple.com/documentation/swiftui/asymmetrictransition) — A composite    that uses a different transition for   insertion versus removal.
+- [`ContentTransition`](https://developer.apple.com/documentation/swiftui/contenttransition) — A kind of transition that applies to the content within a single view,   rather than to the insertion or removal of a view.
+- [`CrossFadeNavigationTransition`](https://developer.apple.com/documentation/swiftui/crossfadenavigationtransition) — A navigation transition that cross-fades between the appearing view   and the disappearing view.
+- [`CubicKeyframe`](https://developer.apple.com/documentation/swiftui/cubickeyframe) — A keyframe that uses a cubic curve to smoothly interpolate between values.
+- [`CustomAnimation`](https://developer.apple.com/documentation/swiftui/customanimation) — A type that defines how an animatable value changes over time.
+- [`EmptyAnimatableData`](https://developer.apple.com/documentation/swiftui/emptyanimatabledata) — An empty type for animatable data.
+- [`EmptyMatchedTransitionSourceConfiguration`](https://developer.apple.com/documentation/swiftui/emptymatchedtransitionsourceconfiguration) — An unstyled matched transition source configuration.
+- [`Entry()`](https://developer.apple.com/documentation/swiftui/entry()) — Creates an environment values, transaction, container values,   or focused values entry.
+- [`GeometryEffect`](https://developer.apple.com/documentation/swiftui/geometryeffect) — An effect that changes the visual appearance of a view, largely without   changing its ancestors or descendants.
+- [`KeyframeAnimator`](https://developer.apple.com/documentation/swiftui/keyframeanimator) — A container that animates its content with keyframes.
+- [`KeyframeTimeline`](https://developer.apple.com/documentation/swiftui/keyframetimeline) — A description of how a value changes over time, modeled using keyframes.
+- [`KeyframeTrack`](https://developer.apple.com/documentation/swiftui/keyframetrack) — A sequence of keyframes animating a single property of a root type.
+- [`KeyframeTrackContent`](https://developer.apple.com/documentation/swiftui/keyframetrackcontent) — A group of keyframes that define an interpolation curve of an animatable   value.
+- [`KeyframeTrackContentBuilder`](https://developer.apple.com/documentation/swiftui/keyframetrackcontentbuilder) — The builder that creates keyframe track content from the keyframes   that you define within a closure.
+- [`Keyframes`](https://developer.apple.com/documentation/swiftui/keyframes) — A type that defines changes to a value over time.
+- [`KeyframesBuilder`](https://developer.apple.com/documentation/swiftui/keyframesbuilder) — A builder that combines keyframe content values into a single value.
+- [`LinearKeyframe`](https://developer.apple.com/documentation/swiftui/linearkeyframe) — A keyframe that uses simple linear interpolation.
+- [`MatchedGeometryProperties`](https://developer.apple.com/documentation/swiftui/matchedgeometryproperties) — A set of view properties that may be synchronized between views   using the    function.
+- [`MatchedTransitionSourceConfiguration`](https://developer.apple.com/documentation/swiftui/matchedtransitionsourceconfiguration) — A configuration that defines the appearance of a matched transition   source.
+- [`MoveKeyframe`](https://developer.apple.com/documentation/swiftui/movekeyframe) — A keyframe that immediately moves to the given value without interpolating.
+- [`Namespace`](https://developer.apple.com/documentation/swiftui/namespace) — A dynamic property type that allows access to a namespace defined   by the persistent identity of the object containing the property   (e.g. a view).
+- [`NavigationTransition`](https://developer.apple.com/documentation/swiftui/navigationtransition) — A type that defines the transition to use when navigating to a view.
+- [`PhaseAnimator`](https://developer.apple.com/documentation/swiftui/phaseanimator) — A container that animates its content by automatically cycling through   a collection of phases that you provide, each defining a discrete step   within an animation.
+- [`PlaceholderContentView`](https://developer.apple.com/documentation/swiftui/placeholdercontentview) — A placeholder used to construct an inline modifier, transition, or other   helper type.
+- [`Spring`](https://developer.apple.com/documentation/swiftui/spring) — A representation of a spring’s motion.
+- [`SpringKeyframe`](https://developer.apple.com/documentation/swiftui/springkeyframe) — A keyframe that uses a spring function to interpolate to the given value.
+- [`TimelineSchedule`](https://developer.apple.com/documentation/swiftui/timelineschedule) — A type that provides a sequence of dates for use as a schedule.
+- [`TimelineView`](https://developer.apple.com/documentation/swiftui/timelineview) — A view that updates according to a schedule that you provide.
+- [`TimelineViewDefaultContext`](https://developer.apple.com/documentation/swiftui/timelineviewdefaultcontext) — Information passed to a timeline view’s content callback.
+- [`Transaction`](https://developer.apple.com/documentation/swiftui/transaction) — The context of the current state-processing update.
+- [`TransactionKey`](https://developer.apple.com/documentation/swiftui/transactionkey) — A key for accessing values in a transaction.
+- [`Transition`](https://developer.apple.com/documentation/swiftui/transition) — A description of view changes to apply when a view is added to and removed   from the view hierarchy.
+- [`TransitionPhase`](https://developer.apple.com/documentation/swiftui/transitionphase) — An indication of which the current stage of a transition.
+- [`TransitionProperties`](https://developer.apple.com/documentation/swiftui/transitionproperties) — The properties a    can have.
+- [`UnitCurve`](https://developer.apple.com/documentation/swiftui/unitcurve) — A  function defined by a two-dimensional curve that maps an input   progress in the range [0,1] to an output progress that is also in the   range [0,1]. By changing the shape of the curve, the effective speed   of an animation or other interpolation can be changed.
+- [`VectorArithmetic`](https://developer.apple.com/documentation/swiftui/vectorarithmetic) — A type that can serve as the animatable data of an animatable type.
+- [`animation(_:)`](https://developer.apple.com/documentation/swiftui/view/animation(_:)) — Applies the given animation to this view when this view changes.
+- [`animation(_:body:)`](https://developer.apple.com/documentation/swiftui/view/animation(_:body:)) — Applies the given animation to all animatable values within the     closure.
+- [`animation(_:value:)`](https://developer.apple.com/documentation/swiftui/view/animation(_:value:)) — Applies the given animation to this view when the specified value   changes.
+- [`contentTransition`](https://developer.apple.com/documentation/swiftui/environmentvalues/contenttransition) — The current method of animating the contents of views.
+- [`contentTransition(_:)`](https://developer.apple.com/documentation/swiftui/view/contenttransition(_:)) — Modifies the view to use a given transition as its method of animating   changes to the contents of its views.
+- [`contentTransitionAddsDrawingGroup`](https://developer.apple.com/documentation/swiftui/environmentvalues/contenttransitionaddsdrawinggroup) — A Boolean value that controls whether views that render content   transitions use GPU-accelerated rendering.
+- [`geometryGroup()`](https://developer.apple.com/documentation/swiftui/view/geometrygroup()) — Isolates the geometry (e.g. position and size) of the view   from its parent view.
+- [`keyframeAnimator(initialValue:repeating:content:keyframes:)`](https://developer.apple.com/documentation/swiftui/view/keyframeanimator(initialvalue:repeating:content:keyframes:)) — Loops the given keyframes continuously, updating   the view using the modifiers you apply in   .
+- [`keyframeAnimator(initialValue:trigger:content:keyframes:)`](https://developer.apple.com/documentation/swiftui/view/keyframeanimator(initialvalue:trigger:content:keyframes:)) — Plays the given keyframes when the given trigger value changes, updating   the view using the modifiers you apply in   .
+- [`matchedGeometryEffect(id:in:properties:anchor:isSource:)`](https://developer.apple.com/documentation/swiftui/view/matchedgeometryeffect(id:in:properties:anchor:issource:)) — Defines a group of views with synchronized geometry using an   identifier and namespace that you provide.
+- [`matchedTransitionSource(id:in:)`](https://developer.apple.com/documentation/swiftui/view/matchedtransitionsource(id:in:)) — Identifies this view as the source of a navigation transition, such   as a zoom transition.
+- [`matchedTransitionSource(id:in:configuration:)`](https://developer.apple.com/documentation/swiftui/view/matchedtransitionsource(id:in:configuration:)) — Identifies this view as the source of a navigation transition, such   as a zoom transition.
+- [`navigationTransition(_:)`](https://developer.apple.com/documentation/swiftui/view/navigationtransition(_:)) — Sets the navigation transition style for this view.
+- [`phaseAnimator(_:content:animation:)`](https://developer.apple.com/documentation/swiftui/view/phaseanimator(_:content:animation:)) — Animates effects that you apply to a view over a sequence of phases   that change continuously.
+- [`phaseAnimator(_:trigger:content:animation:)`](https://developer.apple.com/documentation/swiftui/view/phaseanimator(_:trigger:content:animation:)) — Animates effects that you apply to a view over a sequence of phases   that change based on a trigger.
+- [`transaction(_:)`](https://developer.apple.com/documentation/swiftui/view/transaction(_:)) — Applies the given transaction mutation function to all animations used   within the view.
+- [`transaction(_:body:)`](https://developer.apple.com/documentation/swiftui/view/transaction(_:body:)) — Applies the given transaction mutation function to all animations used   within the    closure.
+- [`transaction(value:_:)`](https://developer.apple.com/documentation/swiftui/view/transaction(value:_:)) — Applies the given transaction mutation function to all animations used   within the view.
+- [`transition(_:)`](https://developer.apple.com/documentation/swiftui/view/transition(_:)) — Associates a transition with the view.
+- [`withAnimation(_:_:)`](https://developer.apple.com/documentation/swiftui/withanimation(_:_:)) — Returns the result of recomputing the view’s body with the provided   animation.
+- [`withAnimation(_:completionCriteria:_:completion:)`](https://developer.apple.com/documentation/swiftui/withanimation(_:completioncriteria:_:completion:)) — Returns the result of recomputing the view’s body with the provided   animation, and runs the completion when all animations are complete.
+- [`withTransaction(_:_:)`](https://developer.apple.com/documentation/swiftui/withtransaction(_:_:)) — Executes a closure with the specified transaction and returns the result.
+- [`withTransaction(_:_:_:)`](https://developer.apple.com/documentation/swiftui/withtransaction(_:_:_:)) — Executes a closure with the specified transaction key path and value and   returns the result.
+
+### App extensions
+
+- [`ControlWidget`](https://developer.apple.com/documentation/swiftui/controlwidget) — The configuration and content of a control widget to display in system spaces   such as Control Center, the Lock Screen, and the Action Button.
+- [`ControlWidgetConfiguration`](https://developer.apple.com/documentation/swiftui/controlwidgetconfiguration) — A type that describes a control widget’s content.
+- [`ControlWidgetConfigurationBuilder`](https://developer.apple.com/documentation/swiftui/controlwidgetconfigurationbuilder) — A custom attribute that constructs a control widget’s body.
+- [`ControlWidgetTemplate`](https://developer.apple.com/documentation/swiftui/controlwidgettemplate) — A type that describes a control widget’s content.
+- [`ControlWidgetTemplateBuilder`](https://developer.apple.com/documentation/swiftui/controlwidgettemplatebuilder) — A custom attribute that constructs a control widget template’s body.
+- [`EmptyControlWidgetConfiguration`](https://developer.apple.com/documentation/swiftui/emptycontrolwidgetconfiguration) — An empty control widget configuration.
+- [`EmptyControlWidgetTemplate`](https://developer.apple.com/documentation/swiftui/emptycontrolwidgettemplate) — An empty control widget template.
+- [`EmptyWidgetConfiguration`](https://developer.apple.com/documentation/swiftui/emptywidgetconfiguration) — An empty widget configuration.
+- [`LimitedAvailabilityConfiguration`](https://developer.apple.com/documentation/swiftui/limitedavailabilityconfiguration) — A type-erased widget configuration.
+- [`Widget`](https://developer.apple.com/documentation/swiftui/widget) — The configuration and content of a widget to display on the Home screen or   in Notification Center.
+- [`WidgetBundle`](https://developer.apple.com/documentation/swiftui/widgetbundle) — A container used to expose multiple widgets from a single widget extension.
+- [`WidgetConfiguration`](https://developer.apple.com/documentation/swiftui/widgetconfiguration) — A type that describes a widget’s content.
+- [`accessoryWidgetGroupStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/accessorywidgetgroupstyle(_:)) — The view modifier that can be applied to    to specify the shape the three   content views will be masked with. The value of    is set to   , which is    by default.
+- [`controlWidgetActionHint(_:)`](https://developer.apple.com/documentation/swiftui/view/controlwidgetactionhint(_:)) — The action hint of the control described by the modified label.
+- [`controlWidgetStatus(_:)`](https://developer.apple.com/documentation/swiftui/view/controlwidgetstatus(_:)) — The status of the control described by the modified label.
+- [`dynamicIsland(verticalPlacement:)`](https://developer.apple.com/documentation/swiftui/view/dynamicisland(verticalplacement:)) — Specifies the vertical placement for a view of an expanded Live Activity that appears in the Dynamic   Island.
+- [`widgetAccentable(_:)`](https://developer.apple.com/documentation/swiftui/view/widgetaccentable(_:)) — Adds the view and all of its subviews to the accented group.
+- [`widgetLabel(_:)`](https://developer.apple.com/documentation/swiftui/view/widgetlabel(_:)) — Returns a localized text label that displays additional content outside   the accessory family widget’s main SwiftUI view.
+- [`widgetLabel(label:)`](https://developer.apple.com/documentation/swiftui/view/widgetlabel(label:)) — Creates a label for displaying additional content outside an accessory   family widget’s main SwiftUI view.
+
+### App organization
+
+- [`App`](https://developer.apple.com/documentation/swiftui/app) — A type that represents the structure and behavior of an app.
+- [`NSApplicationDelegateAdaptor`](https://developer.apple.com/documentation/swiftui/nsapplicationdelegateadaptor) — A property wrapper type that you use to create an AppKit app delegate.
+- [`UIApplicationDelegateAdaptor`](https://developer.apple.com/documentation/swiftui/uiapplicationdelegateadaptor) — A property wrapper type that you use to create a UIKit app delegate.
+- [`UILaunchScreen`](https://developer.apple.com/documentation/bundleresources/information-property-list/uilaunchscreen) — The user interface to show while an app launches.
+- [`UILaunchScreens`](https://developer.apple.com/documentation/bundleresources/information-property-list/uilaunchscreens) — The user interfaces to show while an app launches in response to different URL schemes.
+- [`WKApplicationDelegateAdaptor`](https://developer.apple.com/documentation/swiftui/wkapplicationdelegateadaptor) — A property wrapper that is used in    to provide a delegate from   WatchKit.
+- [`WKExtensionDelegateAdaptor`](https://developer.apple.com/documentation/swiftui/wkextensiondelegateadaptor) — A property wrapper type that you use to create a WatchKit extension delegate.
+- [`WorldRecenterPhase`](https://developer.apple.com/documentation/swiftui/worldrecenterphase) — A type that represents information associated with a phase of a   system recenter event. Values of this type are passed to the closure   specified in View.onWorldRecenter(action:).
+
+### AppKit integration
+
+- [`NSGestureRecognizerRepresentable`](https://developer.apple.com/documentation/swiftui/nsgesturerecognizerrepresentable) — A wrapper for an    that you use to integrate that   gesture recognizer into your SwiftUI hierarchy.
+- [`NSGestureRecognizerRepresentableContext`](https://developer.apple.com/documentation/swiftui/nsgesturerecognizerrepresentablecontext) — Contextual information about the state of the system that you use to create   and update a represented gesture recognizer.
+- [`NSGestureRecognizerRepresentableCoordinateSpaceConverter`](https://developer.apple.com/documentation/swiftui/nsgesturerecognizerrepresentablecoordinatespaceconverter) — A structure used to convert locations to and from coordinate spaces in the   hierarchy of the SwiftUI view associated with an    .
+- [`NSHostingController`](https://developer.apple.com/documentation/swiftui/nshostingcontroller) — An AppKit view controller that hosts SwiftUI view hierarchy.
+- [`NSHostingMenu`](https://developer.apple.com/documentation/swiftui/nshostingmenu) — An AppKit menu with menu items that are defined by a SwiftUI View.
+- [`NSHostingSceneBridgingOptions`](https://developer.apple.com/documentation/swiftui/nshostingscenebridgingoptions) — Options for how hosting views and controllers manage aspects of the   associated window.
+- [`NSHostingSceneRepresentation`](https://developer.apple.com/documentation/swiftui/nshostingscenerepresentation) — An AppKit type that hosts and can present SwiftUI scenes
+- [`NSHostingSizingOptions`](https://developer.apple.com/documentation/swiftui/nshostingsizingoptions) — Options for how hosting views and controllers reflect their   content’s size into Auto Layout constraints.
+- [`NSHostingView`](https://developer.apple.com/documentation/swiftui/nshostingview) — An AppKit view that hosts a SwiftUI view hierarchy.
+- [`NSViewControllerRepresentable`](https://developer.apple.com/documentation/swiftui/nsviewcontrollerrepresentable) — A wrapper that you use to integrate an AppKit view controller into your   SwiftUI interface.
+- [`NSViewControllerRepresentableContext`](https://developer.apple.com/documentation/swiftui/nsviewcontrollerrepresentablecontext) — Contextual information about the state of the system that you use to create   and update your AppKit view controller.
+- [`NSViewRepresentable`](https://developer.apple.com/documentation/swiftui/nsviewrepresentable) — A wrapper that you use to integrate an AppKit view into your SwiftUI view   hierarchy.
+- [`NSViewRepresentableContext`](https://developer.apple.com/documentation/swiftui/nsviewrepresentablecontext) — Contextual information about the state of the system that you use to create   and update your AppKit view.
+
+### Clipboard
+
+- [`copyable(_:)`](https://developer.apple.com/documentation/swiftui/view/copyable(_:)) — Specifies a list of items to copy in response to the system’s Copy   command.
+- [`cuttable(for:action:)`](https://developer.apple.com/documentation/swiftui/view/cuttable(for:action:)) — Specifies an action that moves items to the Clipboard in response to   the system’s Cut command.
+- [`onCopyCommand(perform:)`](https://developer.apple.com/documentation/swiftui/view/oncopycommand(perform:)) — Adds an action to perform in response to the system’s Copy command.
+- [`onCutCommand(perform:)`](https://developer.apple.com/documentation/swiftui/view/oncutcommand(perform:)) — Adds an action to perform in response to the system’s Cut command.
+- [`onPasteCommand(of:perform:)`](https://developer.apple.com/documentation/swiftui/view/onpastecommand(of:perform:)) — Adds an action to perform in response to the system’s Paste command.
+- [`onPasteCommand(of:validator:perform:)`](https://developer.apple.com/documentation/swiftui/view/onpastecommand(of:validator:perform:)) — Adds an action to perform in response to the system’s Paste command with   items that you validate.
+- [`pasteDestination(for:action:validator:)`](https://developer.apple.com/documentation/swiftui/view/pastedestination(for:action:validator:)) — Specifies an action that adds validated items to a view in response to   the system’s Paste command.
+
+### Controls and indicators
+
+- [`Button`](https://developer.apple.com/documentation/swiftui/button) — A control that initiates an action.
+- [`ButtonBorderShape`](https://developer.apple.com/documentation/swiftui/buttonbordershape) — A shape used to draw a button’s border.
+- [`ButtonRepeatBehavior`](https://developer.apple.com/documentation/swiftui/buttonrepeatbehavior) — The options for controlling the repeatability of button actions.
+- [`ButtonRole`](https://developer.apple.com/documentation/swiftui/buttonrole) — A value that describes the purpose of a button.
+- [`ButtonSizing`](https://developer.apple.com/documentation/swiftui/buttonsizing) — The sizing behavior of   s and other button-like controls.
+- [`ColorPicker`](https://developer.apple.com/documentation/swiftui/colorpicker) — A control used to select a color from the system color picker UI.
+- [`ContentUnavailableView`](https://developer.apple.com/documentation/swiftui/contentunavailableview) — An interface, consisting of a label and additional content, that you   display when the content of your app is unavailable to users.
+- [`ControlSize`](https://developer.apple.com/documentation/swiftui/controlsize) — The size classes, like regular or small, that you can apply to controls   within a view.
+- [`DatePicker`](https://developer.apple.com/documentation/swiftui/datepicker) — A control for selecting an absolute date.
+- [`DefaultButtonLabel`](https://developer.apple.com/documentation/swiftui/defaultbuttonlabel) — The default label to use for a button.
+- [`DefaultDateProgressLabel`](https://developer.apple.com/documentation/swiftui/defaultdateprogresslabel) — The default type of the current value label when used by a date-relative   progress view.
+- [`EditButton`](https://developer.apple.com/documentation/swiftui/editbutton) — A button that toggles the edit mode environment value.
+- [`Gauge`](https://developer.apple.com/documentation/swiftui/gauge) — A view that shows a value within a range.
+- [`HelpLink`](https://developer.apple.com/documentation/swiftui/helplink) — A button with a standard appearance that opens app-specific help   documentation.
+- [`Link`](https://developer.apple.com/documentation/swiftui/link) — A control for navigating to a URL.
+- [`MultiDatePicker`](https://developer.apple.com/documentation/swiftui/multidatepicker) — A control for picking multiple dates.
+- [`PaletteSelectionEffect`](https://developer.apple.com/documentation/swiftui/paletteselectioneffect) — The selection effect to apply to a palette item.
+- [`PasteButton`](https://developer.apple.com/documentation/swiftui/pastebutton) — A system button that reads items from the pasteboard and delivers it to a   closure.
+- [`Picker`](https://developer.apple.com/documentation/swiftui/picker) — A control for selecting from a set of mutually exclusive values.
+- [`ProgressView`](https://developer.apple.com/documentation/swiftui/progressview) — A view that shows the progress toward completion of a task.
+- [`RenameButton`](https://developer.apple.com/documentation/swiftui/renamebutton) — A button that triggers a standard rename action.
+- [`SensoryFeedback`](https://developer.apple.com/documentation/swiftui/sensoryfeedback) — Represents a type of haptic and/or audio feedback that can be played.
+- [`ShareLink`](https://developer.apple.com/documentation/swiftui/sharelink) — A view that controls a sharing presentation.
+- [`SharePreview`](https://developer.apple.com/documentation/swiftui/sharepreview) — A representation of a type to display in a share preview.
+- [`Slider`](https://developer.apple.com/documentation/swiftui/slider) — A control for selecting a value from a bounded linear range of values.
+- [`Stepper`](https://developer.apple.com/documentation/swiftui/stepper) — A control that performs increment and decrement actions.
+- [`TextFieldLink`](https://developer.apple.com/documentation/swiftui/textfieldlink) — A control that requests text input from the user when pressed.
+- [`Toggle`](https://developer.apple.com/documentation/swiftui/toggle) — A control that toggles between on and off states.
+- [`buttonBorderShape(_:)`](https://developer.apple.com/documentation/swiftui/view/buttonbordershape(_:)) — Sets the border shape for buttons in this view.
+- [`buttonRepeatBehavior`](https://developer.apple.com/documentation/swiftui/environmentvalues/buttonrepeatbehavior) — Whether buttons with this associated environment should repeatedly   trigger their actions on prolonged interactions.
+- [`buttonRepeatBehavior(_:)`](https://developer.apple.com/documentation/swiftui/view/buttonrepeatbehavior(_:)) — Sets whether buttons in this view should repeatedly trigger their   actions on prolonged interactions.
+- [`buttonSizing(_:)`](https://developer.apple.com/documentation/swiftui/view/buttonsizing(_:)) — The preferred sizing behavior of buttons in the view hierarchy.
+- [`buttonStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/buttonstyle(_:)) — Sets the style for buttons within this view to a button style with a   custom appearance and standard interaction behavior.
+- [`calendar`](https://developer.apple.com/documentation/swiftui/environmentvalues/calendar) — The current calendar that views should use when handling dates.
+- [`controlSize`](https://developer.apple.com/documentation/swiftui/environmentvalues/controlsize) — The size to apply to controls within a view.
+- [`controlSize(_:)`](https://developer.apple.com/documentation/swiftui/view/controlsize(_:)) — Sets the size for controls within this view.
+- [`datePickerStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/datepickerstyle(_:)) — Sets the style for date pickers within this view.
+- [`defaultWheelPickerItemHeight`](https://developer.apple.com/documentation/swiftui/environmentvalues/defaultwheelpickeritemheight) — The default height of an item in a wheel-style picker, such as a date   picker.
+- [`defaultWheelPickerItemHeight(_:)`](https://developer.apple.com/documentation/swiftui/view/defaultwheelpickeritemheight(_:)) — Sets the default wheel-style picker item height.
+- [`gaugeStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/gaugestyle(_:)) — Sets the style for gauges within this view.
+- [`horizontalRadioGroupLayout()`](https://developer.apple.com/documentation/swiftui/view/horizontalradiogrouplayout()) — Sets the style for radio group style pickers within this view to be   horizontally positioned with the radio buttons inside the layout.
+- [`paletteSelectionEffect(_:)`](https://developer.apple.com/documentation/swiftui/view/paletteselectioneffect(_:)) — Specifies the selection effect to apply to a palette item.
+- [`pickerStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/pickerstyle(_:)) — Sets the style for pickers within this view.
+- [`progressViewStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/progressviewstyle(_:)) — Sets the style for progress views in this view.
+- [`sensoryFeedback(_:trigger:)`](https://developer.apple.com/documentation/swiftui/view/sensoryfeedback(_:trigger:)) — Plays the specified    when the provided    value   changes.
+- [`sensoryFeedback(_:trigger:condition:)`](https://developer.apple.com/documentation/swiftui/view/sensoryfeedback(_:trigger:condition:)) — Plays the specified    when the provided    value changes   and the    closure returns   .
+- [`sensoryFeedback(trigger:_:)`](https://developer.apple.com/documentation/swiftui/view/sensoryfeedback(trigger:_:)) — Plays feedback when returned from the    closure after the   provided    value changes.
+- [`timeZone`](https://developer.apple.com/documentation/swiftui/environmentvalues/timezone) — The current time zone that views should use when handling dates.
+- [`toggleStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/togglestyle(_:)) — Sets the style for toggles in a view hierarchy.
+
+### Custom layout
+
+- [`AnyLayout`](https://developer.apple.com/documentation/swiftui/anylayout) — A type-erased instance of the layout protocol.
+- [`GridLayout`](https://developer.apple.com/documentation/swiftui/gridlayout) — A grid that you can use in conditional layouts.
+- [`HStackLayout`](https://developer.apple.com/documentation/swiftui/hstacklayout) — A horizontal container that you can use in conditional layouts.
+- [`Layout`](https://developer.apple.com/documentation/swiftui/layout) — A type that defines the geometry of a collection of views.
+- [`LayoutProperties`](https://developer.apple.com/documentation/swiftui/layoutproperties) — Layout-specific properties of a layout container.
+- [`LayoutSubview`](https://developer.apple.com/documentation/swiftui/layoutsubview) — A proxy that represents one subview of a layout.
+- [`LayoutSubviews`](https://developer.apple.com/documentation/swiftui/layoutsubviews) — A collection of proxy values that represent the subviews of a layout view.
+- [`LayoutValueKey`](https://developer.apple.com/documentation/swiftui/layoutvaluekey) — A key for accessing a layout value of a layout container’s subviews.
+- [`ProposedViewSize`](https://developer.apple.com/documentation/swiftui/proposedviewsize) — A proposal for the size of a view.
+- [`VStackLayout`](https://developer.apple.com/documentation/swiftui/vstacklayout) — A vertical container that you can use in conditional layouts.
+- [`ViewSpacing`](https://developer.apple.com/documentation/swiftui/viewspacing) — A collection of the geometric spacing preferences of a view.
+- [`ZStackLayout`](https://developer.apple.com/documentation/swiftui/zstacklayout) — An overlaying container that you can use in conditional layouts.
+- [`layoutValue(key:value:)`](https://developer.apple.com/documentation/swiftui/view/layoutvalue(key:value:)) — Associates a value with a custom layout property.
+
+### Documents
+
+- [`DefaultDocumentGroupLaunchActions`](https://developer.apple.com/documentation/swiftui/defaultdocumentgrouplaunchactions) — The default actions for the document group launch scene and the document launch view.
+- [`DefaultNewDocumentButtonLabel`](https://developer.apple.com/documentation/swiftui/defaultnewdocumentbuttonlabel) — The default label used for a new document button.
+- [`Document`](https://developer.apple.com/documentation/swiftui/document) — A document that supports both reading and writing.
+- [`DocumentBaseBox`](https://developer.apple.com/documentation/swiftui/documentbasebox) — A Box that allows setting its Document base   not requiring the caller to know the exact types of the box and its base.
+- [`DocumentConfiguration`](https://developer.apple.com/documentation/swiftui/documentconfiguration) — The configuration of a document in a   .
+- [`DocumentCreationContext`](https://developer.apple.com/documentation/swiftui/documentcreationcontext) — Context about how a document was created.
+- [`DocumentCreationSource`](https://developer.apple.com/documentation/swiftui/documentcreationsource) — Describes the source used to create a new document.
+- [`DocumentGroup`](https://developer.apple.com/documentation/swiftui/documentgroup) — A scene that enables support for opening, creating, and saving documents.
+- [`DocumentGroupLaunchScene`](https://developer.apple.com/documentation/swiftui/documentgrouplaunchscene) — A launch scene for document-based applications.
+- [`DocumentLaunchGeometryProxy`](https://developer.apple.com/documentation/swiftui/documentlaunchgeometryproxy) — A proxy for access to the frame of the scene and its title view.
+- [`DocumentLaunchView`](https://developer.apple.com/documentation/swiftui/documentlaunchview) — A view to present when launching document-related user experience.
+- [`DocumentReadConfiguration`](https://developer.apple.com/documentation/swiftui/documentreadconfiguration) — The context SwiftUI passes to    .
+- [`DocumentReader`](https://developer.apple.com/documentation/swiftui/documentreader) — A type that reads a document’s content from a file.
+- [`DocumentWriteConfiguration`](https://developer.apple.com/documentation/swiftui/documentwriteconfiguration) — The context SwiftUI passes to    .
+- [`DocumentWriter`](https://developer.apple.com/documentation/swiftui/documentwriter) — A type that writes a document’s content to a file.
+- [`FileDocument`](https://developer.apple.com/documentation/swiftui/filedocument) — A type that you use to serialize documents to and from file.
+- [`FileDocumentConfiguration`](https://developer.apple.com/documentation/swiftui/filedocumentconfiguration) — The properties of an open file document.
+- [`FileDocumentReadConfiguration`](https://developer.apple.com/documentation/swiftui/filedocumentreadconfiguration) — The configuration for reading file contents.
+- [`FileDocumentWriteConfiguration`](https://developer.apple.com/documentation/swiftui/filedocumentwriteconfiguration) — The configuration for serializing file contents.
+- [`FileWrapperDocumentReader`](https://developer.apple.com/documentation/swiftui/filewrapperdocumentreader) — A document reader that deserializes a    into a snapshot.
+- [`FileWrapperDocumentWriter`](https://developer.apple.com/documentation/swiftui/filewrapperdocumentwriter) — A document writer that serializes a snapshot into a   .
+- [`NewDocumentAction`](https://developer.apple.com/documentation/swiftui/newdocumentaction) — An action that presents a new document.
+- [`NewDocumentButton`](https://developer.apple.com/documentation/swiftui/newdocumentbutton) — A button that creates and opens new documents.
+- [`OpenDocumentAction`](https://developer.apple.com/documentation/swiftui/opendocumentaction) — An action that presents an existing document.
+- [`ReadableDocument`](https://developer.apple.com/documentation/swiftui/readabledocument) — A document type that supports reading from file.
+- [`ReferenceFileDocument`](https://developer.apple.com/documentation/swiftui/referencefiledocument) — A type that you use to serialize reference type documents to and from file.
+- [`ReferenceFileDocumentConfiguration`](https://developer.apple.com/documentation/swiftui/referencefiledocumentconfiguration) — The properties of an open reference file document.
+- [`RenameAction`](https://developer.apple.com/documentation/swiftui/renameaction) — An action that activates a standard rename interaction.
+- [`RenameButton`](https://developer.apple.com/documentation/swiftui/renamebutton) — A button that triggers a standard rename action.
+- [`URLDocumentConfiguration`](https://developer.apple.com/documentation/swiftui/urldocumentconfiguration) — The configuration of an open document that stores its file URL,   last modification date, and related metadata.
+- [`WritableDocument`](https://developer.apple.com/documentation/swiftui/writabledocument) — A document type that supports writing to file.
+- [`documentBrowserContextMenu(_:)`](https://developer.apple.com/documentation/swiftui/view/documentbrowsercontextmenu(_:)) — Adds to a    actions that accept   a list of selected files as their parameter.
+- [`documentConfiguration`](https://developer.apple.com/documentation/swiftui/environmentvalues/documentconfiguration) — The configuration of a document in a   .
+- [`documentLaunchSubtitle(_:)`](https://developer.apple.com/documentation/swiftui/scene/documentlaunchsubtitle(_:)) — Sets the subtitle displayed beneath the title on the document   launch card.
+- [`documentLaunchSubtitle(_:)`](https://developer.apple.com/documentation/swiftui/view/documentlaunchsubtitle(_:)) — Sets the subtitle displayed beneath the title on the document   launch card.
+- [`documentLaunchTitle(_:)`](https://developer.apple.com/documentation/swiftui/scene/documentlaunchtitle(_:)) — Sets the title displayed on the document launch card.
+- [`documentLaunchTitle(_:)`](https://developer.apple.com/documentation/swiftui/view/documentlaunchtitle(_:)) — Sets the title displayed on the document launch card.
+- [`newDocument`](https://developer.apple.com/documentation/swiftui/environmentvalues/newdocument) — An action in the environment that presents a new document.
+- [`openDocument`](https://developer.apple.com/documentation/swiftui/environmentvalues/opendocument) — An action in the environment that presents an existing document.
+- [`rename`](https://developer.apple.com/documentation/swiftui/environmentvalues/rename) — An action that activates the standard rename interaction.
+- [`renameAction(_:)`](https://developer.apple.com/documentation/swiftui/view/renameaction(_:)) — Sets a closure to run for the rename action.
+- [`undoManager`](https://developer.apple.com/documentation/swiftui/environmentvalues/undomanager) — The undo manager used to register a view’s undo operations.
+
+### Drag and drop
+
+- [`DragConfiguration`](https://developer.apple.com/documentation/swiftui/dragconfiguration) — The behavior of the drag, proposed by the dragging source.   A value that describes the drag operations a drag source supports.
+- [`DragDropPreviewsFormation`](https://developer.apple.com/documentation/swiftui/dragdroppreviewsformation) — On macOS, describes the way the dragged previews are visually composed.   Both drag sources and drop destination can specify their desired preview formation.
+- [`DragSession`](https://developer.apple.com/documentation/swiftui/dragsession) — Describes the ongoing dragging session.
+- [`DropConfiguration`](https://developer.apple.com/documentation/swiftui/dropconfiguration) — Describes the behavior of the drop.
+- [`DropDelegate`](https://developer.apple.com/documentation/swiftui/dropdelegate) — An interface that you implement to interact with a drop operation in a view   modified to accept drops.
+- [`DropInfo`](https://developer.apple.com/documentation/swiftui/dropinfo) — The current state of a drop.
+- [`DropOperation`](https://developer.apple.com/documentation/swiftui/dropoperation) — Operation types that determine how a drag and drop session resolves when the   user drops a drag item.
+- [`DropProposal`](https://developer.apple.com/documentation/swiftui/dropproposal) — The behavior of a drop.
+- [`DropSession`](https://developer.apple.com/documentation/swiftui/dropsession)
+- [`ReorderDifference`](https://developer.apple.com/documentation/swiftui/reorderdifference) — The difference that a reordering operation produces.
+- [`ReorderableSingleCollectionIdentifier`](https://developer.apple.com/documentation/swiftui/reorderablesinglecollectionidentifier) — An opaque, empty type used to identify reorderable containers and modifiers   with only a single collection.
+- [`SpringLoadingBehavior`](https://developer.apple.com/documentation/swiftui/springloadingbehavior) — The options for controlling the spring loading behavior of views.
+- [`dragConfiguration(_:)`](https://developer.apple.com/documentation/swiftui/view/dragconfiguration(_:)) — Configures a drag session.
+- [`dragContainer(for:in:_:)`](https://developer.apple.com/documentation/swiftui/view/dragcontainer(for:in:_:)) — A container with draggable views where the drag payload is based   on multiple identifiers of dragged items.
+- [`dragContainer(for:itemID:in:_:)`](https://developer.apple.com/documentation/swiftui/view/dragcontainer(for:itemid:in:_:)) — A container with draggable views.
+- [`dragContainerSelection(_:containerNamespace:)`](https://developer.apple.com/documentation/swiftui/view/dragcontainerselection(_:containernamespace:)) — Provides multiple item selection support for drag containers.
+- [`dragPreviewsFormation(_:)`](https://developer.apple.com/documentation/swiftui/view/dragpreviewsformation(_:)) — Describes the way dragged previews are visually composed.
+- [`draggable(_:)`](https://developer.apple.com/documentation/swiftui/view/draggable(_:)) — Activates this view as the source of a drag and drop operation.
+- [`draggable(_:containerNamespace:_:)`](https://developer.apple.com/documentation/swiftui/view/draggable(_:containernamespace:_:)) — Activates this view as the source of a drag and drop operation,   allowing to provide optional identifiable   payload and specify the namespace of the drag container this view   belongs to.
+- [`draggable(_:id:containerNamespace:_:)`](https://developer.apple.com/documentation/swiftui/view/draggable(_:id:containernamespace:_:)) — Activates this view as the source of a drag and drop operation, allowing   to provide optional payload and specify the namespace   of the drag container this view belongs to.
+- [`draggable(_:id:item:containerNamespace:)`](https://developer.apple.com/documentation/swiftui/view/draggable(_:id:item:containernamespace:)) — Activates this view as the source of a drag and drop operation,   allowing to provide optional payload and specify the namespace of   the drag container this view belongs to.
+- [`draggable(_:item:containerNamespace:)`](https://developer.apple.com/documentation/swiftui/view/draggable(_:item:containernamespace:)) — Activates this view as the source of a drag and drop operation, allowing   to provide optional identifiable payload and specify the namespace   of the drag container this view belongs to.
+- [`draggable(_:preview:)`](https://developer.apple.com/documentation/swiftui/view/draggable(_:preview:)) — Activates this view as the source of a drag and drop operation.
+- [`draggable(containerItemID:containerNamespace:)`](https://developer.apple.com/documentation/swiftui/view/draggable(containeritemid:containernamespace:)) — Inside a drag container, activates this view as the source   of a drag and drop operation. Supports lazy drag containers.
+- [`dropConfiguration(_:)`](https://developer.apple.com/documentation/swiftui/view/dropconfiguration(_:)) — Configures a drop session.
+- [`dropPreviewsFormation(_:)`](https://developer.apple.com/documentation/swiftui/view/droppreviewsformation(_:)) — Describes the way previews for a drop are composed.
+- [`itemProvider(_:)`](https://developer.apple.com/documentation/swiftui/view/itemprovider(_:)) — Provides a closure that vends the drag representation to be used for a   particular data element.
+- [`onDrag(_:)`](https://developer.apple.com/documentation/swiftui/view/ondrag(_:)) — Activates this view as the source of a drag and drop operation.
+- [`onDrag(_:preview:)`](https://developer.apple.com/documentation/swiftui/view/ondrag(_:preview:)) — Activates this view as the source of a drag and drop operation.
+- [`onDrop(of:delegate:)`](https://developer.apple.com/documentation/swiftui/view/ondrop(of:delegate:)) — Defines the destination of a drag and drop operation using behavior   controlled by the delegate that you provide.
+- [`onDrop(of:isTargeted:perform:)`](https://developer.apple.com/documentation/swiftui/view/ondrop(of:istargeted:perform:)) — Defines the destination of a drag-and-drop operation that handles the   dropped content with a closure that you specify.
+- [`reorderContainer(for:in:isEnabled:move:)`](https://developer.apple.com/documentation/swiftui/view/reordercontainer(for:in:isenabled:move:)) — Defines a container of reorderable views, with a type you specify to   identify sections.
+- [`reorderContainer(for:isEnabled:move:)`](https://developer.apple.com/documentation/swiftui/view/reordercontainer(for:isenabled:move:)) — Defines a container of reorderable views.
+- [`reorderContainer(for:itemID:in:isEnabled:move:)`](https://developer.apple.com/documentation/swiftui/view/reordercontainer(for:itemid:in:isenabled:move:)) — Defines a container of reorderable views, with a type and keypath you   use to identify items and a type you use to identify collections.
+- [`reorderContainer(for:itemID:isEnabled:move:)`](https://developer.apple.com/documentation/swiftui/view/reordercontainer(for:itemid:isenabled:move:)) — Defines a container of reorderable views, with a type and keypath you   specify to identify items.
+- [`reorderDestination(for:in:)`](https://developer.apple.com/documentation/swiftui/dropsession/reorderdestination(for:in:)) — Provides the destination value of a reordering operation that occurred   in the container associated with this drop destination modifier.
+- [`reorderDestination(for:itemID:in:)`](https://developer.apple.com/documentation/swiftui/dropsession/reorderdestination(for:itemid:in:)) — Provides the destination value of a reordering operation that occurred   in the container associated with this drop destination modifier.
+- [`reorderable()`](https://developer.apple.com/documentation/swiftui/dynamicviewcontent/reorderable()) — Enables reordering of views from this content inside the scope of a   reorderable container modifier.
+- [`reorderable(collectionID:)`](https://developer.apple.com/documentation/swiftui/dynamicviewcontent/reorderable(collectionid:)) — Enables reordering views from this content within and between sections   in the scope of a reorderable container modifier.
+- [`springLoadingBehavior`](https://developer.apple.com/documentation/swiftui/environmentvalues/springloadingbehavior) — The behavior of spring loaded interactions for the views associated   with this environment.
+- [`springLoadingBehavior(_:)`](https://developer.apple.com/documentation/swiftui/view/springloadingbehavior(_:)) — Sets the spring loading behavior this view.
+
+### Drawing and graphics
+
+- [`Alignment3D`](https://developer.apple.com/documentation/swiftui/alignment3d) — An alignment in all three axes.
+- [`Anchor`](https://developer.apple.com/documentation/swiftui/anchor) — An opaque value derived from an anchor source and a particular view.
+- [`Angle`](https://developer.apple.com/documentation/swiftui/angle) — A geometric angle whose value you access in either radians or degrees.
+- [`AnyCompositorContent`](https://developer.apple.com/documentation/swiftui/anycompositorcontent) — Type erased compositor content.
+- [`AnyGradient`](https://developer.apple.com/documentation/swiftui/anygradient) — A color gradient.
+- [`AnyShapeStyle`](https://developer.apple.com/documentation/swiftui/anyshapestyle) — A type-erased ShapeStyle value.
+- [`Axis`](https://developer.apple.com/documentation/swiftui/axis) — The horizontal or vertical dimension in a 2D coordinate system.
+- [`BlendMode`](https://developer.apple.com/documentation/swiftui/blendmode) — Modes for compositing a view with overlapping content.
+- [`Canvas`](https://developer.apple.com/documentation/swiftui/canvas) — A view type that supports immediate mode drawing.
+- [`Color`](https://developer.apple.com/documentation/swiftui/color) — A representation of a color that adapts to a given context.
+- [`ColorMatrix`](https://developer.apple.com/documentation/swiftui/colormatrix) — A matrix to use in an RGBA color transformation.
+- [`ColorRenderingMode`](https://developer.apple.com/documentation/swiftui/colorrenderingmode) — The set of possible working color spaces for color-compositing operations.
+- [`CompositorContent`](https://developer.apple.com/documentation/swiftui/compositorcontent)
+- [`CompositorContentBuilder`](https://developer.apple.com/documentation/swiftui/compositorcontentbuilder) — A result builder for composing a collection of     elements.
+- [`ContentMode`](https://developer.apple.com/documentation/swiftui/contentmode) — Constants that define how a view’s content fills the available space.
+- [`CoordinateSpace`](https://developer.apple.com/documentation/swiftui/coordinatespace) — A resolved coordinate space created by the coordinate space protocol.
+- [`CoordinateSpaceProtocol`](https://developer.apple.com/documentation/swiftui/coordinatespaceprotocol) — A frame of reference within the layout system.
+- [`DepthAlignmentID`](https://developer.apple.com/documentation/swiftui/depthalignmentid)
+- [`EmptyVisualEffect`](https://developer.apple.com/documentation/swiftui/emptyvisualeffect) — The base visual effect that you apply additional effect to.
+- [`GeometryProxy`](https://developer.apple.com/documentation/swiftui/geometryproxy) — A proxy for access to the size and coordinate space (for anchor resolution)   of the container view.
+- [`GeometryProxy3D`](https://developer.apple.com/documentation/swiftui/geometryproxy3d) — A proxy for access to the size and coordinate space of the container view.
+- [`GeometryProxyCoordinateSpace3D`](https://developer.apple.com/documentation/swiftui/geometryproxycoordinatespace3d) — A representation of a    which can be used for     based conversions.
+- [`GeometryReader`](https://developer.apple.com/documentation/swiftui/geometryreader) — A container view that defines its content as a function of its own size and   coordinate space.
+- [`GeometryReader3D`](https://developer.apple.com/documentation/swiftui/geometryreader3d) — A container view that defines its content as a function of its own   size and coordinate space.
+- [`Glass`](https://developer.apple.com/documentation/swiftui/glass) — A structure that defines the configuration of the Liquid Glass material.
+- [`Gradient`](https://developer.apple.com/documentation/swiftui/gradient) — A color gradient represented as an array of color stops, each having a   parametric location value.
+- [`GraphicsContext`](https://developer.apple.com/documentation/swiftui/graphicscontext) — An immediate mode drawing destination, and its current state.
+- [`MaterialActiveAppearance`](https://developer.apple.com/documentation/swiftui/materialactiveappearance) — The behavior for how materials appear active and inactive.
+- [`MeshGradient`](https://developer.apple.com/documentation/swiftui/meshgradient) — A two-dimensional gradient defined by a 2D grid of positioned   colors.
+- [`PhysicalMetric`](https://developer.apple.com/documentation/swiftui/physicalmetric) — Provides access to a value in points that corresponds to the specified   physical measurement.
+- [`PhysicalMetricsConverter`](https://developer.apple.com/documentation/swiftui/physicalmetricsconverter) — A physical metrics converter provides conversion between point values and   their extent in 3D space, in the form of physical length measurements.
+- [`ProjectionTransform`](https://developer.apple.com/documentation/swiftui/projectiontransform)
+- [`Shader`](https://developer.apple.com/documentation/swiftui/shader) — A reference to a function in a Metal shader library, along with its   bound uniform argument values.
+- [`ShaderFunction`](https://developer.apple.com/documentation/swiftui/shaderfunction) — A reference to a function in a Metal shader library.
+- [`ShaderLibrary`](https://developer.apple.com/documentation/swiftui/shaderlibrary) — A Metal shader library.
+- [`ShadowStyle`](https://developer.apple.com/documentation/swiftui/shadowstyle) — A style to use when rendering shadows.
+- [`ShapeStyle`](https://developer.apple.com/documentation/swiftui/shapestyle) — A color or pattern to use when rendering a shape.
+- [`UnitPoint`](https://developer.apple.com/documentation/swiftui/unitpoint) — A normalized 2D point in a view’s coordinate space.
+- [`UnitPoint3D`](https://developer.apple.com/documentation/swiftui/unitpoint3d) — A normalized 3D point in a view’s coordinate space.
+- [`VisualEffect`](https://developer.apple.com/documentation/swiftui/visualeffect) — Visual Effects change the visual appearance of a view without changing its   ancestors or descendents.
+- [`aspectRatio(_:contentMode:)`](https://developer.apple.com/documentation/swiftui/view/aspectratio(_:contentmode:)) — Constrains this view’s dimensions to the specified aspect ratio.
+- [`backgroundStyle`](https://developer.apple.com/documentation/swiftui/environmentvalues/backgroundstyle) — An optional style that overrides the default system background   style when set.
+- [`backgroundStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/backgroundstyle(_:)) — Sets the specified style to render backgrounds within the view.
+- [`blendMode(_:)`](https://developer.apple.com/documentation/swiftui/view/blendmode(_:)) — Sets the blend mode for compositing this view with overlapping views.
+- [`blur(radius:opaque:)`](https://developer.apple.com/documentation/swiftui/view/blur(radius:opaque:)) — Applies a Gaussian blur to this view.
+- [`border(_:width:)`](https://developer.apple.com/documentation/swiftui/view/border(_:width:)) — Adds a border to this view with the specified style and width.
+- [`brightness(_:)`](https://developer.apple.com/documentation/swiftui/view/brightness(_:)) — Brightens this view by the specified amount.
+- [`clipShape(_:style:)`](https://developer.apple.com/documentation/swiftui/view/clipshape(_:style:)) — Sets a clipping shape for this view.
+- [`clipped(antialiased:)`](https://developer.apple.com/documentation/swiftui/view/clipped(antialiased:)) — Clips this view to its bounding rectangular frame.
+- [`colorEffect(_:isEnabled:)`](https://developer.apple.com/documentation/swiftui/view/coloreffect(_:isenabled:)) — Returns a new view that applies    to    as a filter   effect on the color of each pixel.
+- [`colorInvert()`](https://developer.apple.com/documentation/swiftui/view/colorinvert()) — Inverts the colors in this view.
+- [`colorMultiply(_:)`](https://developer.apple.com/documentation/swiftui/view/colormultiply(_:)) — Adds a color multiplication effect to this view.
+- [`compositingGroup()`](https://developer.apple.com/documentation/swiftui/view/compositinggroup()) — Wraps this view in a compositing group.
+- [`contrast(_:)`](https://developer.apple.com/documentation/swiftui/view/contrast(_:)) — Sets the contrast and separation between similar colors in this view.
+- [`coordinateSpace(_:)`](https://developer.apple.com/documentation/swiftui/view/coordinatespace(_:)) — Assigns a name to the view’s coordinate space, so other code can operate   on dimensions like points and sizes relative to the named space.
+- [`distortionEffect(_:maxSampleOffset:isEnabled:)`](https://developer.apple.com/documentation/swiftui/view/distortioneffect(_:maxsampleoffset:isenabled:)) — Returns a new view that applies    to    as a   geometric distortion effect on the location of each pixel.
+- [`drawingGroup(opaque:colorMode:)`](https://developer.apple.com/documentation/swiftui/view/drawinggroup(opaque:colormode:)) — Composites this view’s contents into an offscreen image before final   display.
+- [`foregroundStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/foregroundstyle(_:)) — Sets a view’s foreground elements to use a given style.
+- [`foregroundStyle(_:_:)`](https://developer.apple.com/documentation/swiftui/view/foregroundstyle(_:_:)) — Sets the primary and secondary levels of the foreground   style in the child view.
+- [`foregroundStyle(_:_:_:)`](https://developer.apple.com/documentation/swiftui/view/foregroundstyle(_:_:_:)) — Sets the primary, secondary, and tertiary levels of   the foreground style.
+- [`grayscale(_:)`](https://developer.apple.com/documentation/swiftui/view/grayscale(_:)) — Adds a grayscale effect to this view.
+- [`hueRotation(_:)`](https://developer.apple.com/documentation/swiftui/view/huerotation(_:)) — Applies a hue rotation effect to this view.
+- [`layerEffect(_:maxSampleOffset:isEnabled:)`](https://developer.apple.com/documentation/swiftui/view/layereffect(_:maxsampleoffset:isenabled:)) — Returns a new view that applies    to    as a filter   on the raster layer created from   .
+- [`luminanceToAlpha()`](https://developer.apple.com/documentation/swiftui/view/luminancetoalpha()) — Adds a luminance to alpha effect to this view.
+- [`mask(alignment:_:)`](https://developer.apple.com/documentation/swiftui/view/mask(alignment:_:)) — Masks this view using the alpha channel of the given view.
+- [`materialActiveAppearance`](https://developer.apple.com/documentation/swiftui/environmentvalues/materialactiveappearance) — The behavior materials should use for their active state, defaulting to    .
+- [`materialActiveAppearance(_:)`](https://developer.apple.com/documentation/swiftui/view/materialactiveappearance(_:)) — Sets an explicit active appearance for materials in this view.
+- [`onGeometryChange(for:of:action:)`](https://developer.apple.com/documentation/swiftui/view/ongeometrychange(for:of:action:)) — Adds an action to be performed when a value, created from a   geometry proxy, changes.
+- [`perspectiveRotationEffect(_:axis:anchor:anchorZ:perspective:)`](https://developer.apple.com/documentation/swiftui/view/perspectiverotationeffect(_:axis:anchor:anchorz:perspective:)) — Renders a view’s content as if it’s rotated in three dimensions around   the specified axis.
+- [`projectionEffect(_:)`](https://developer.apple.com/documentation/swiftui/view/projectioneffect(_:)) — Applies a projection transformation to this view’s rendered output.
+- [`rotation3DEffect(_:anchor:)`](https://developer.apple.com/documentation/swiftui/view/rotation3deffect(_:anchor:)) — Rotates the view’s content by the specified 3D rotation value.
+- [`rotation3DEffect(_:axis:anchor:)`](https://developer.apple.com/documentation/swiftui/view/rotation3deffect(_:axis:anchor:)) — Rotates the view’s content by an angle about an axis that you specify   as a tuple of elements.
+- [`rotation3DEffect(_:axis:anchor:anchorZ:perspective:)`](https://developer.apple.com/documentation/swiftui/view/rotation3deffect(_:axis:anchor:anchorz:perspective:)) — Renders a view’s content as if it’s rotated in three dimensions around   the specified axis.
+- [`rotationEffect(_:anchor:)`](https://developer.apple.com/documentation/swiftui/view/rotationeffect(_:anchor:)) — Rotates a view’s rendered output in two dimensions around the specified   point.
+- [`saturation(_:)`](https://developer.apple.com/documentation/swiftui/view/saturation(_:)) — Adjusts the color saturation of this view.
+- [`scaleEffect(_:anchor:)`](https://developer.apple.com/documentation/swiftui/view/scaleeffect(_:anchor:)) — Scales this view uniformly by the specified factor,   relative to an anchor point.
+- [`scaleEffect(x:y:anchor:)`](https://developer.apple.com/documentation/swiftui/view/scaleeffect(x:y:anchor:)) — Scales this view’s rendered output by the given horizontal and vertical   amounts, relative to an anchor point.
+- [`scaleEffect(x:y:z:anchor:)`](https://developer.apple.com/documentation/swiftui/view/scaleeffect(x:y:z:anchor:)) — Scales this view by the specified horizontal, vertical, and depth   factors, relative to an anchor point.
+- [`scaledToFill()`](https://developer.apple.com/documentation/swiftui/view/scaledtofill()) — Scales this view to fill its parent.
+- [`scaledToFit()`](https://developer.apple.com/documentation/swiftui/view/scaledtofit()) — Scales this view to fit its parent.
+- [`shadow(color:radius:x:y:)`](https://developer.apple.com/documentation/swiftui/view/shadow(color:radius:x:y:)) — Adds a shadow to this view.
+- [`tint(_:)`](https://developer.apple.com/documentation/swiftui/view/tint(_:)) — Sets the tint color within this view.
+- [`transform3DEffect(_:)`](https://developer.apple.com/documentation/swiftui/view/transform3deffect(_:)) — Applies a 3D transformation to this view’s rendered output.
+- [`transformEffect(_:)`](https://developer.apple.com/documentation/swiftui/view/transformeffect(_:)) — Applies an affine transformation to this view’s rendered output.
+- [`visualEffect(_:)`](https://developer.apple.com/documentation/swiftui/view/visualeffect(_:)) — Applies effects to this view, while providing access to layout   information through a geometry proxy.
+- [`visualEffect3D(_:)`](https://developer.apple.com/documentation/swiftui/view/visualeffect3d(_:)) — Applies effects to this view, while providing access to layout   information through a 3D geometry proxy.
+
+### Environment values
+
+- [`Entry()`](https://developer.apple.com/documentation/swiftui/entry()) — Creates an environment values, transaction, container values,   or focused values entry.
+- [`Environment`](https://developer.apple.com/documentation/swiftui/environment) — A property wrapper that reads a value from a view’s environment.
+- [`EnvironmentKey`](https://developer.apple.com/documentation/swiftui/environmentkey) — A key for accessing values in the environment.
+- [`EnvironmentValues`](https://developer.apple.com/documentation/swiftui/environmentvalues) — A collection of environment values propagated through a view hierarchy.
+- [`environment(_:)`](https://developer.apple.com/documentation/swiftui/view/environment(_:)) — Places an observable object in the view’s environment.
+- [`environment(_:)`](https://developer.apple.com/documentation/swiftui/scene/environment(_:)) — Places an observable object in the scene’s environment.
+- [`environment(_:_:)`](https://developer.apple.com/documentation/swiftui/view/environment(_:_:)) — Sets the environment value of the specified key path to the given value.
+- [`environment(_:_:)`](https://developer.apple.com/documentation/swiftui/scene/environment(_:_:)) — Sets the environment value of the specified key path to the given value.
+- [`transformEnvironment(_:transform:)`](https://developer.apple.com/documentation/swiftui/view/transformenvironment(_:transform:)) — Transforms the environment value of the specified key path with the   given function.
+- [`transformEnvironment(_:transform:)`](https://developer.apple.com/documentation/swiftui/scene/transformenvironment(_:transform:)) — Transforms the environment value of the specified key path with the   given function.
+
+### Focus
+
+- [`DefaultFocusEvaluationPriority`](https://developer.apple.com/documentation/swiftui/defaultfocusevaluationpriority) — Prioritizations for default focus preferences when evaluating where   to move focus in different circumstances.
+- [`Entry()`](https://developer.apple.com/documentation/swiftui/entry()) — Creates an environment values, transaction, container values,   or focused values entry.
+- [`FocusInteractions`](https://developer.apple.com/documentation/swiftui/focusinteractions) — Values describe different focus interactions that a view can support.
+- [`FocusState`](https://developer.apple.com/documentation/swiftui/focusstate) — A property wrapper type that can read and write a value that SwiftUI updates   as the placement of focus within the scene changes.
+- [`FocusedBinding`](https://developer.apple.com/documentation/swiftui/focusedbinding) — A convenience property wrapper for observing and automatically unwrapping   state bindings from the focused view or one of its ancestors.
+- [`FocusedObject`](https://developer.apple.com/documentation/swiftui/focusedobject) — A property wrapper type for an observable object supplied by the focused   view or one of its ancestors.
+- [`FocusedValue`](https://developer.apple.com/documentation/swiftui/focusedvalue) — A property wrapper for observing values from the focused view or one of its   ancestors.
+- [`FocusedValueKey`](https://developer.apple.com/documentation/swiftui/focusedvaluekey) — A protocol for identifier types used when publishing and observing focused   values.
+- [`FocusedValues`](https://developer.apple.com/documentation/swiftui/focusedvalues) — A collection of state exported by the focused scene or view and its ancestors.
+- [`ResetFocusAction`](https://developer.apple.com/documentation/swiftui/resetfocusaction) — An environment value that provides the ability to reevaluate default   focus.
+- [`defaultFocus(_:_:priority:)`](https://developer.apple.com/documentation/swiftui/view/defaultfocus(_:_:priority:)) — Defines a region of the window in which default focus is evaluated by   assigning a value to a given focus state binding.
+- [`focusEffectDisabled(_:)`](https://developer.apple.com/documentation/swiftui/view/focuseffectdisabled(_:)) — Adds a condition that controls whether this view can display focus   effects, such as a default focus ring or hover effect.
+- [`focusScope(_:)`](https://developer.apple.com/documentation/swiftui/view/focusscope(_:)) — Creates a focus scope that SwiftUI uses to limit default focus   preferences.
+- [`focusSection()`](https://developer.apple.com/documentation/swiftui/view/focussection()) — Indicates that the view’s frame and cohort of focusable descendants   should be used to guide focus movement.
+- [`focusable(_:)`](https://developer.apple.com/documentation/swiftui/view/focusable(_:)) — Specifies if the view is focusable.
+- [`focusable(_:interactions:)`](https://developer.apple.com/documentation/swiftui/view/focusable(_:interactions:)) — Specifies if the view is focusable, and if so, what focus-driven   interactions it supports.
+- [`focused(_:)`](https://developer.apple.com/documentation/swiftui/view/focused(_:)) — Modifies this view by binding its focus state to the given Boolean state   value.
+- [`focused(_:equals:)`](https://developer.apple.com/documentation/swiftui/view/focused(_:equals:)) — Modifies this view by binding its focus state to the given state value.
+- [`focusedObject(_:)`](https://developer.apple.com/documentation/swiftui/view/focusedobject(_:)) — Creates a new view that exposes the provided object to other views whose   whose state depends on the focused view hierarchy.
+- [`focusedSceneObject(_:)`](https://developer.apple.com/documentation/swiftui/view/focusedsceneobject(_:)) — Creates a new view that exposes the provided object to other views whose   whose state depends on the active scene.
+- [`focusedSceneValue(_:)`](https://developer.apple.com/documentation/swiftui/view/focusedscenevalue(_:)) — Sets the focused value for the given object type at a scene-wide scope.
+- [`focusedSceneValue(_:_:)`](https://developer.apple.com/documentation/swiftui/view/focusedscenevalue(_:_:)) — Modifies this view by injecting a value that you provide for use by   other views whose state depends on the focused scene.
+- [`focusedValue(_:)`](https://developer.apple.com/documentation/swiftui/view/focusedvalue(_:)) — Sets the focused value for the given object type.
+- [`focusedValue(_:_:)`](https://developer.apple.com/documentation/swiftui/view/focusedvalue(_:_:)) — Modifies this view by injecting a value that you provide for use by   other views whose state depends on the focused view hierarchy.
+- [`isFocusEffectEnabled`](https://developer.apple.com/documentation/swiftui/environmentvalues/isfocuseffectenabled) — A Boolean value that indicates whether the view associated with this   environment allows focus effects to be displayed.
+- [`isFocused`](https://developer.apple.com/documentation/swiftui/environmentvalues/isfocused) — Returns whether the nearest focusable ancestor has focus.
+- [`prefersDefaultFocus(_:in:)`](https://developer.apple.com/documentation/swiftui/view/prefersdefaultfocus(_:in:)) — Indicates that the view should receive focus by default for a given   namespace.
+- [`resetFocus`](https://developer.apple.com/documentation/swiftui/environmentvalues/resetfocus) — An action that requests the focus system to reevaluate default focus.
+- [`searchFocused(_:)`](https://developer.apple.com/documentation/swiftui/view/searchfocused(_:)) — Modifies this view by binding the focus state of the search field   associated with the nearest searchable modifier to the given   Boolean value.
+- [`searchFocused(_:equals:)`](https://developer.apple.com/documentation/swiftui/view/searchfocused(_:equals:)) — Modifies this view by binding the focus state of the search field   associated with the nearest searchable modifier to the given value.
+
+### Gestures
+
+- [`AnyGesture`](https://developer.apple.com/documentation/swiftui/anygesture) — A type-erased gesture.
+- [`Chirality`](https://developer.apple.com/documentation/swiftui/chirality) — The chirality, or handedness, of a pose.
+- [`DragGesture`](https://developer.apple.com/documentation/swiftui/draggesture) — A dragging motion that invokes an action as the drag-event sequence changes.
+- [`ExclusiveGesture`](https://developer.apple.com/documentation/swiftui/exclusivegesture) — A gesture that consists of two gestures where only one of them can succeed.
+- [`Gesture`](https://developer.apple.com/documentation/swiftui/gesture) — An instance that matches a sequence of events to a gesture, and returns a   stream of values for each of its states.
+- [`GestureInputKinds`](https://developer.apple.com/documentation/swiftui/gestureinputkinds) — An option set that specifies which input kinds a gesture should recognize.
+- [`GestureMask`](https://developer.apple.com/documentation/swiftui/gesturemask) — Options that control how adding a gesture to a view affects other gestures   recognized by the view and its subviews.
+- [`GestureState`](https://developer.apple.com/documentation/swiftui/gesturestate) — A property wrapper type that updates a property while the user performs a   gesture and resets the property back to its initial state when the gesture   ends.
+- [`GestureStateGesture`](https://developer.apple.com/documentation/swiftui/gesturestategesture) — A gesture that updates the state provided by a gesture’s updating callback.
+- [`HandActivationBehavior`](https://developer.apple.com/documentation/swiftui/handactivationbehavior) — An activation behavior specific to hand-driven input.
+- [`HandGestureShortcut`](https://developer.apple.com/documentation/swiftui/handgestureshortcut) — Hand gesture shortcuts describe finger and wrist movements that the user can   perform in order to activate a button or toggle.
+- [`LongPressGesture`](https://developer.apple.com/documentation/swiftui/longpressgesture) — A gesture that succeeds when the user performs a long press.
+- [`MagnificationGesture`](https://developer.apple.com/documentation/swiftui/magnificationgesture) — A gesture that recognizes a magnification motion and tracks the amount of   magnification.
+- [`MagnifyGesture`](https://developer.apple.com/documentation/swiftui/magnifygesture) — A gesture that recognizes a magnification motion and tracks the amount of   magnification.
+- [`PencilDoubleTapGestureValue`](https://developer.apple.com/documentation/swiftui/pencildoubletapgesturevalue) — Describes the value of an Apple Pencil double-tap gesture.
+- [`PencilHoverPose`](https://developer.apple.com/documentation/swiftui/pencilhoverpose) — A value describing the location and distance of an Apple Pencil hovering in   the area above a view’s bounds.
+- [`PencilPreferredAction`](https://developer.apple.com/documentation/swiftui/pencilpreferredaction) — An action that the user prefers to perform after double-tapping their   Apple Pencil.
+- [`PencilSqueezeGesturePhase`](https://developer.apple.com/documentation/swiftui/pencilsqueezegesturephase) — Describes the phase and value of an Apple Pencil squeeze gesture.
+- [`PencilSqueezeGestureValue`](https://developer.apple.com/documentation/swiftui/pencilsqueezegesturevalue) — Describes the value of an Apple Pencil squeeze gesture.
+- [`RotateGesture`](https://developer.apple.com/documentation/swiftui/rotategesture) — A gesture that recognizes a rotation motion and tracks the angle of the   rotation.
+- [`RotateGesture3D`](https://developer.apple.com/documentation/swiftui/rotategesture3d) — A gesture that recognizes 3D rotation motion and tracks the angle and axis   of the rotation.
+- [`RotationGesture`](https://developer.apple.com/documentation/swiftui/rotationgesture) — A gesture that recognizes a rotation motion and tracks the angle of the rotation.
+- [`SequenceGesture`](https://developer.apple.com/documentation/swiftui/sequencegesture) — A gesture that’s a sequence of two gestures.
+- [`SimultaneousGesture`](https://developer.apple.com/documentation/swiftui/simultaneousgesture) — A gesture containing two gestures that can happen at the same time with   neither of them preceding the other.
+- [`SpatialEventCollection`](https://developer.apple.com/documentation/swiftui/spatialeventcollection) — A collection of spatial input events that target a specific view.
+- [`SpatialEventGesture`](https://developer.apple.com/documentation/swiftui/spatialeventgesture) — A gesture that provides information about ongoing spatial events like   clicks and touches.
+- [`SpatialTapGesture`](https://developer.apple.com/documentation/swiftui/spatialtapgesture) — A gesture that recognizes one or more taps and reports their location.
+- [`TapGesture`](https://developer.apple.com/documentation/swiftui/tapgesture) — A gesture that recognizes one or more taps.
+- [`WindowDragGesture`](https://developer.apple.com/documentation/swiftui/windowdraggesture) — A gesture that recognizes the motion of and handles dragging a window.
+- [`allowsWindowActivationEvents(_:)`](https://developer.apple.com/documentation/swiftui/view/allowswindowactivationevents(_:)) — Configures whether gestures in this view hierarchy can handle events   that activate the containing window.
+- [`defersSystemGestures(on:)`](https://developer.apple.com/documentation/swiftui/view/deferssystemgestures(on:)) — Sets the screen edge from which you want your gesture to take   precedence over the system gesture.
+- [`gesture(_:)`](https://developer.apple.com/documentation/swiftui/view/gesture(_:)) — Attaches an    to the view.
+- [`gesture(_:including:)`](https://developer.apple.com/documentation/swiftui/view/gesture(_:including:)) — Attaches a gesture to the view with a lower precedence than gestures   defined by the view.
+- [`gesture(_:isEnabled:)`](https://developer.apple.com/documentation/swiftui/view/gesture(_:isenabled:)) — Attaches a gesture to the view with a lower precedence than gestures   defined by the view.
+- [`gesture(_:name:isEnabled:)`](https://developer.apple.com/documentation/swiftui/view/gesture(_:name:isenabled:)) — Attaches a gesture to the view with a lower precedence than gestures   defined by the view.
+- [`handGestureShortcut(_:isEnabled:)`](https://developer.apple.com/documentation/swiftui/view/handgestureshortcut(_:isenabled:)) — Assigns a hand gesture shortcut to the modified control.
+- [`highPriorityGesture(_:including:)`](https://developer.apple.com/documentation/swiftui/view/highprioritygesture(_:including:)) — Attaches a gesture to the view with a higher precedence than gestures   defined by the view.
+- [`highPriorityGesture(_:isEnabled:)`](https://developer.apple.com/documentation/swiftui/view/highprioritygesture(_:isenabled:)) — Attaches a gesture to the view with a higher precedence than gestures   defined by the view.
+- [`highPriorityGesture(_:name:isEnabled:)`](https://developer.apple.com/documentation/swiftui/view/highprioritygesture(_:name:isenabled:)) — Attaches a gesture to the view with a higher precedence than gestures   defined by the view.
+- [`onLongPressGesture(minimumDuration:maximumDistance:inputKinds:perform:onPressingChanged:)`](https://developer.apple.com/documentation/swiftui/view/onlongpressgesture(minimumduration:maximumdistance:inputkinds:perform:onpressingchanged:)) — Adds an action to perform when this view recognizes a long press   gesture.
+- [`onLongPressGesture(minimumDuration:maximumDistance:perform:onPressingChanged:)`](https://developer.apple.com/documentation/swiftui/view/onlongpressgesture(minimumduration:maximumdistance:perform:onpressingchanged:)) — Adds an action to perform when this view recognizes a long press   gesture.
+- [`onLongPressGesture(minimumDuration:perform:onPressingChanged:)`](https://developer.apple.com/documentation/swiftui/view/onlongpressgesture(minimumduration:perform:onpressingchanged:)) — Adds an action to perform when this view recognizes a long press   gesture.
+- [`onLongTouchGesture(minimumDuration:perform:onTouchingChanged:)`](https://developer.apple.com/documentation/swiftui/view/onlongtouchgesture(minimumduration:perform:ontouchingchanged:)) — Adds an action to perform when this view recognizes a   remote long touch gesture. A long touch gesture is when the finger is   on the remote touch surface without actually pressing.
+- [`onPencilDoubleTap(perform:)`](https://developer.apple.com/documentation/swiftui/view/onpencildoubletap(perform:)) — Adds an action to perform after the user double-taps their Apple Pencil.
+- [`onPencilSqueeze(perform:)`](https://developer.apple.com/documentation/swiftui/view/onpencilsqueeze(perform:)) — Adds an action to perform when the user squeezes their Apple Pencil.
+- [`onTapGesture(count:coordinateSpace:inputKinds:perform:)`](https://developer.apple.com/documentation/swiftui/view/ontapgesture(count:coordinatespace:inputkinds:perform:)) — Adds an action to perform when this view recognizes a tap gesture,   and provides the action with the location of the interaction.
+- [`onTapGesture(count:coordinateSpace:perform:)`](https://developer.apple.com/documentation/swiftui/view/ontapgesture(count:coordinatespace:perform:)) — Adds an action to perform when this view recognizes a tap gesture,   and provides the action with the location of the interaction.
+- [`onTapGesture(count:perform:)`](https://developer.apple.com/documentation/swiftui/view/ontapgesture(count:perform:)) — Adds an action to perform when this view recognizes a tap gesture.
+- [`preferredPencilDoubleTapAction`](https://developer.apple.com/documentation/swiftui/environmentvalues/preferredpencildoubletapaction) — The action that the user prefers to perform after double-tapping their   Apple Pencil, as selected in the Settings app.
+- [`preferredPencilSqueezeAction`](https://developer.apple.com/documentation/swiftui/environmentvalues/preferredpencilsqueezeaction) — The action that the user prefers to perform when squeezing their Apple   Pencil, as selected in the Settings app.
+- [`simultaneousGesture(_:including:)`](https://developer.apple.com/documentation/swiftui/view/simultaneousgesture(_:including:)) — Attaches a gesture to the view to process simultaneously with gestures   defined by the view.
+- [`simultaneousGesture(_:isEnabled:)`](https://developer.apple.com/documentation/swiftui/view/simultaneousgesture(_:isenabled:)) — Attaches a gesture to the view to process simultaneously with gestures   defined by the view.
+- [`simultaneousGesture(_:name:isEnabled:)`](https://developer.apple.com/documentation/swiftui/view/simultaneousgesture(_:name:isenabled:)) — Attaches a gesture to the view to process simultaneously with gestures   defined by the view.
+
+### Images
+
+- [`AsyncImage`](https://developer.apple.com/documentation/swiftui/asyncimage) — A view that asynchronously loads and displays an image.
+- [`AsyncImagePhase`](https://developer.apple.com/documentation/swiftui/asyncimagephase) — The current phase of the asynchronous image loading operation.
+- [`Image`](https://developer.apple.com/documentation/swiftui/image) — A view that displays an image.
+- [`Image.Orientation`](https://developer.apple.com/documentation/swiftui/image/orientation) — The orientation of an image.
+- [`Image.ResizingMode`](https://developer.apple.com/documentation/swiftui/image/resizingmode) — The modes that SwiftUI uses to resize an image to fit within   its containing view.
+- [`Image.Scale`](https://developer.apple.com/documentation/swiftui/image/scale) — A scale to apply to vector images relative to text.
+- [`ImageRenderer`](https://developer.apple.com/documentation/swiftui/imagerenderer) — An object that creates images from SwiftUI views.
+- [`SymbolColorRenderingMode`](https://developer.apple.com/documentation/swiftui/symbolcolorrenderingmode) — A method of filling a layer in a symbol image.
+- [`SymbolEffectTransition`](https://developer.apple.com/documentation/swiftui/symboleffecttransition) — Creates a transition that applies the Appear, Disappear, DrawOn or   DrawOff symbol animation to symbol images within the inserted or   removed view hierarchy.
+- [`SymbolRenderingMode`](https://developer.apple.com/documentation/swiftui/symbolrenderingmode) — A symbol rendering mode.
+- [`SymbolVariableValueMode`](https://developer.apple.com/documentation/swiftui/symbolvariablevaluemode) — A method of rendering the variable value of a symbol image.
+- [`SymbolVariants`](https://developer.apple.com/documentation/swiftui/symbolvariants) — A variant of a symbol.
+- [`imageScale`](https://developer.apple.com/documentation/swiftui/environmentvalues/imagescale) — The image scale for this environment.
+- [`imageScale(_:)`](https://developer.apple.com/documentation/swiftui/view/imagescale(_:)) — Scales images within the view according to one of the relative sizes   available including small, medium, and large images sizes.
+- [`symbolEffect(_:options:isActive:)`](https://developer.apple.com/documentation/swiftui/view/symboleffect(_:options:isactive:)) — Returns a new view with a symbol effect added to it.
+- [`symbolEffect(_:options:value:)`](https://developer.apple.com/documentation/swiftui/view/symboleffect(_:options:value:)) — Returns a new view with a symbol effect added to it.
+- [`symbolEffectsRemoved(_:)`](https://developer.apple.com/documentation/swiftui/view/symboleffectsremoved(_:)) — Returns a new view with its inherited symbol image effects   either removed or left unchanged.
+- [`symbolRenderingMode`](https://developer.apple.com/documentation/swiftui/environmentvalues/symbolrenderingmode) — The current symbol rendering mode, or    denoting that the   mode is picked automatically using the current image and   foreground style as parameters.
+- [`symbolRenderingMode(_:)`](https://developer.apple.com/documentation/swiftui/view/symbolrenderingmode(_:)) — Sets the rendering mode for symbol images within this view.
+- [`symbolVariant(_:)`](https://developer.apple.com/documentation/swiftui/view/symbolvariant(_:)) — Makes symbols within the view show a particular variant.
+- [`symbolVariants`](https://developer.apple.com/documentation/swiftui/environmentvalues/symbolvariants) — The symbol variant to use in this environment.
+
+### Immersive spaces
+
+- [`DismissImmersiveSpaceAction`](https://developer.apple.com/documentation/swiftui/dismissimmersivespaceaction) — An action that dismisses an immersive space.
+- [`ImmersionChangeContext`](https://developer.apple.com/documentation/swiftui/immersionchangecontext) — A structure that represents a state of immersion of your app.
+- [`ImmersionStyle`](https://developer.apple.com/documentation/swiftui/immersionstyle) — The styles that an immersive space can have.
+- [`ImmersiveContentBrightness`](https://developer.apple.com/documentation/swiftui/immersivecontentbrightness) — The content brightness of an immersive space.
+- [`ImmersiveEnvironmentBehavior`](https://developer.apple.com/documentation/swiftui/immersiveenvironmentbehavior) — The behavior of the system-provided immersive environments when a scene is   opened by your app.
+- [`ImmersiveSpace`](https://developer.apple.com/documentation/swiftui/immersivespace) — A scene that presents its content in an unbounded space.
+- [`ImmersiveSpaceContentBuilder`](https://developer.apple.com/documentation/swiftui/immersivespacecontentbuilder) — A result builder for composing a collection of immersive space elements.
+- [`OpenImmersiveSpaceAction`](https://developer.apple.com/documentation/swiftui/openimmersivespaceaction) — An action that presents an immersive space.
+- [`ProgressiveImmersionAspectRatio`](https://developer.apple.com/documentation/swiftui/progressiveimmersionaspectratio)
+- [`RemoteDeviceIdentifier`](https://developer.apple.com/documentation/swiftui/remotedeviceidentifier) — An opaque type that identifies a remote device displaying scene content   in a   .
+- [`RemoteImmersiveSpace`](https://developer.apple.com/documentation/swiftui/remoteimmersivespace) — A scene that presents its content in an unbounded space on a remote device.
+- [`dismissImmersiveSpace`](https://developer.apple.com/documentation/swiftui/environmentvalues/dismissimmersivespace) — An immersive space dismissal action stored in a view’s environment.
+- [`immersionStyle(selection:in:)`](https://developer.apple.com/documentation/swiftui/scene/immersionstyle(selection:in:)) — Sets the style for an immersive space.
+- [`immersiveContentBrightness(_:)`](https://developer.apple.com/documentation/swiftui/scene/immersivecontentbrightness(_:)) — Sets the content brightness of an immersive space.
+- [`immersiveEnvironmentPicker(content:)`](https://developer.apple.com/documentation/swiftui/view/immersiveenvironmentpicker(content:)) — Add menu items to open immersive spaces from a media player’s   environment picker.
+- [`immersiveSpaceDisplacement`](https://developer.apple.com/documentation/swiftui/environmentvalues/immersivespacedisplacement) — The displacement that the system applies to the immersive space when   moving the space away from its default position, in meters.
+- [`onImmersionChange(initial:_:)`](https://developer.apple.com/documentation/swiftui/view/onimmersionchange(initial:_:)) — Performs an action when the immersion state of your app changes.
+- [`openImmersiveSpace`](https://developer.apple.com/documentation/swiftui/environmentvalues/openimmersivespace) — An action that presents an immersive space.
+- [`upperLimbVisibility(_:)`](https://developer.apple.com/documentation/swiftui/scene/upperlimbvisibility(_:)) — Sets the preferred visibility of the user’s upper limbs, while an     scene is presented.
+- [`upperLimbVisibility(_:)`](https://developer.apple.com/documentation/swiftui/view/upperlimbvisibility(_:)) — Sets the preferred visibility of the user’s upper limbs, while an     scene is presented.
+
+### Input events
+
+- [`ContentHoverEffect`](https://developer.apple.com/documentation/swiftui/contenthovereffect) — A    that applies effects to a view on hover using a   closure.
+- [`ContentShapeKinds`](https://developer.apple.com/documentation/swiftui/contentshapekinds) — A kind for the content shape of a view.
+- [`CustomHoverEffect`](https://developer.apple.com/documentation/swiftui/customhovereffect) — A type that represents how a view should change when a pointer hovers   over a view, or when someone looks at the view.
+- [`DigitalCrownEvent`](https://developer.apple.com/documentation/swiftui/digitalcrownevent) — An event emitted when the user rotates the Digital Crown.
+- [`DigitalCrownRotationalSensitivity`](https://developer.apple.com/documentation/swiftui/digitalcrownrotationalsensitivity) — The amount of Digital Crown rotation needed to move between two integer   numbers.
+- [`EmptyHoverEffectContent`](https://developer.apple.com/documentation/swiftui/emptyhovereffectcontent) — An empty base effect that you use to build other effects.
+- [`EventModifiers`](https://developer.apple.com/documentation/swiftui/eventmodifiers) — A set of key modifiers that you can add to a gesture.
+- [`GroupHoverEffect`](https://developer.apple.com/documentation/swiftui/grouphovereffect) — A    that activates a named group of effects.
+- [`HandPointerBehavior`](https://developer.apple.com/documentation/swiftui/handpointerbehavior) — A behavior that can be applied to the hand pointer while the user is   interacting with a view.
+- [`HoverEffect`](https://developer.apple.com/documentation/swiftui/hovereffect) — An effect applied when the pointer hovers over a view.
+- [`HoverEffectContent`](https://developer.apple.com/documentation/swiftui/hovereffectcontent) — A type that describes the effects of a view for a particular hover   effect phase.
+- [`HoverEffectGroup`](https://developer.apple.com/documentation/swiftui/hovereffectgroup) — Describes a grouping of effects that activate together.
+- [`HoverEffectPhaseOverride`](https://developer.apple.com/documentation/swiftui/hovereffectphaseoverride) — Options for overriding a hover effect’s current phase.
+- [`HoverPhase`](https://developer.apple.com/documentation/swiftui/hoverphase) — The current hovering state and value of the pointer.
+- [`KeyEquivalent`](https://developer.apple.com/documentation/swiftui/keyequivalent) — Key equivalents consist of a letter, punctuation, or function key that can   be combined with an optional set of modifier keys to specify a keyboard   shortcut.
+- [`KeyPress`](https://developer.apple.com/documentation/swiftui/keypress)
+- [`KeyboardShortcut`](https://developer.apple.com/documentation/swiftui/keyboardshortcut) — Keyboard shortcuts describe combinations of keys on a keyboard that the user   can press in order to activate a button or toggle.
+- [`MoveCommandDirection`](https://developer.apple.com/documentation/swiftui/movecommanddirection) — Specifies the direction of an arrow key movement.
+- [`OrnamentHoverContentEffect`](https://developer.apple.com/documentation/swiftui/ornamenthovercontenteffect) — Presents an ornament on hover using a custom effect.
+- [`OrnamentHoverEffect`](https://developer.apple.com/documentation/swiftui/ornamenthovereffect) — Presents an ornament on hover.
+- [`PointerStyle`](https://developer.apple.com/documentation/swiftui/pointerstyle) — A style describing the appearance of the pointer (also called a cursor) when   it’s hovered over a view.
+- [`SubmitLabel`](https://developer.apple.com/documentation/swiftui/submitlabel) — A semantic label describing the label of submission within a view hierarchy.
+- [`SubmitTriggers`](https://developer.apple.com/documentation/swiftui/submittriggers) — A type that defines various triggers that result in the firing of a   submission action.
+- [`TouchBar`](https://developer.apple.com/documentation/swiftui/touchbar) — A container for a view that you can show in the Touch Bar.
+- [`TouchBarItemPresence`](https://developer.apple.com/documentation/swiftui/touchbaritempresence) — Options that affect user customization of the Touch Bar.
+- [`allowsTightening(_:)`](https://developer.apple.com/documentation/swiftui/view/allowstightening(_:)) — Sets whether text in this view can compress the space between characters   when necessary to fit text in a line.
+- [`contentShape(_:_:eoFill:)`](https://developer.apple.com/documentation/swiftui/view/contentshape(_:_:eofill:)) — Sets the content shape for this view.
+- [`contentShape(_:eoFill:)`](https://developer.apple.com/documentation/swiftui/view/contentshape(_:eofill:)) — Defines the content shape for hit testing.
+- [`defaultHoverEffect(_:)`](https://developer.apple.com/documentation/swiftui/view/defaulthovereffect(_:)) — Sets the default hover effect to use for views within this view.
+- [`digitalCrownAccessory(_:)`](https://developer.apple.com/documentation/swiftui/view/digitalcrownaccessory(_:)) — Specifies the visibility of Digital Crown accessory Views on Apple Watch.
+- [`digitalCrownAccessory(content:)`](https://developer.apple.com/documentation/swiftui/view/digitalcrownaccessory(content:)) — Places an accessory View next to the Digital Crown on Apple Watch.
+- [`digitalCrownRotation(_:)`](https://developer.apple.com/documentation/swiftui/view/digitalcrownrotation(_:)) — Tracks Digital Crown rotations by updating the specified binding.
+- [`digitalCrownRotation(_:from:through:by:sensitivity:isContinuous:isHapticFeedbackEnabled:)`](https://developer.apple.com/documentation/swiftui/view/digitalcrownrotation(_:from:through:by:sensitivity:iscontinuous:ishapticfeedbackenabled:)) — Tracks Digital Crown rotations by updating the specified binding.
+- [`digitalCrownRotation(_:from:through:sensitivity:isContinuous:isHapticFeedbackEnabled:onChange:onIdle:)`](https://developer.apple.com/documentation/swiftui/view/digitalcrownrotation(_:from:through:sensitivity:iscontinuous:ishapticfeedbackenabled:onchange:onidle:)) — Tracks Digital Crown rotations by updating the specified binding.
+- [`digitalCrownRotation(_:onChange:onIdle:)`](https://developer.apple.com/documentation/swiftui/view/digitalcrownrotation(_:onchange:onidle:)) — Tracks Digital Crown rotations by updating the specified binding.
+- [`digitalCrownRotation(detent:from:through:by:sensitivity:isContinuous:isHapticFeedbackEnabled:onChange:onIdle:)`](https://developer.apple.com/documentation/swiftui/view/digitalcrownrotation(detent:from:through:by:sensitivity:iscontinuous:ishapticfeedbackenabled:onchange:onidle:)) — Tracks Digital Crown rotations by updating the specified binding.
+- [`handPointerBehavior(_:)`](https://developer.apple.com/documentation/swiftui/view/handpointerbehavior(_:)) — Sets the behavior of the hand pointer while the user is interacting with   the view.
+- [`hoverEffect(_:)`](https://developer.apple.com/documentation/swiftui/view/hovereffect(_:)) — Applies a hover effect to this view.
+- [`hoverEffect(_:in:isEnabled:)`](https://developer.apple.com/documentation/swiftui/view/hovereffect(_:in:isenabled:)) — Applies a hover effect to this view, optionally adding it to a    .
+- [`hoverEffect(_:isEnabled:)`](https://developer.apple.com/documentation/swiftui/view/hovereffect(_:isenabled:)) — Applies a hover effect to this view.
+- [`hoverEffect(in:isEnabled:body:)`](https://developer.apple.com/documentation/swiftui/view/hovereffect(in:isenabled:body:)) — Applies a hover effect to this view described by the given closure.
+- [`hoverEffectDisabled(_:)`](https://developer.apple.com/documentation/swiftui/view/hovereffectdisabled(_:)) — Adds a condition that controls whether this view can display hover   effects.
+- [`hoverEffectGroup()`](https://developer.apple.com/documentation/swiftui/view/hovereffectgroup()) — Adds an implicit    to all effects defined on   descendant views, so that all effects added to subviews activate as a   group whenever this view or any descendant views are hovered.
+- [`hoverEffectGroup(_:)`](https://developer.apple.com/documentation/swiftui/view/hovereffectgroup(_:)) — Adds a    to all effects defined on descendant views,   and activates the group whenever this view or any descendant views are   hovered.
+- [`hoverEffectGroup(id:in:behavior:)`](https://developer.apple.com/documentation/swiftui/view/hovereffectgroup(id:in:behavior:)) — Adds a    to all effects defined on descendant views,   and activates the group whenever this view or any descendant views are   hovered.
+- [`isHoverEffectEnabled`](https://developer.apple.com/documentation/swiftui/environmentvalues/ishovereffectenabled) — A Boolean value that indicates whether the view associated with this   environment allows hover effects to be displayed.
+- [`keyboardShortcut`](https://developer.apple.com/documentation/swiftui/environmentvalues/keyboardshortcut) — The keyboard shortcut that buttons in this environment will be triggered   with.
+- [`keyboardShortcut(_:)`](https://developer.apple.com/documentation/swiftui/view/keyboardshortcut(_:)) — Assigns a keyboard shortcut to the modified control.
+- [`keyboardShortcut(_:modifiers:)`](https://developer.apple.com/documentation/swiftui/view/keyboardshortcut(_:modifiers:)) — Defines a keyboard shortcut and assigns it to the modified control.
+- [`keyboardShortcut(_:modifiers:localization:)`](https://developer.apple.com/documentation/swiftui/view/keyboardshortcut(_:modifiers:localization:)) — Defines a keyboard shortcut and assigns it to the modified control.
+- [`modifierKeyAlternate(_:_:)`](https://developer.apple.com/documentation/swiftui/view/modifierkeyalternate(_:_:)) — Builds a view to use in place of the modified view when the user presses   the modifier key(s) indicated by the given set.
+- [`onCameraCaptureEvent(isEnabled:action:)`](https://developer.apple.com/documentation/swiftui/view/oncameracaptureevent(isenabled:action:)) — Used to register an action triggered by system capture events.
+- [`onCameraCaptureEvent(isEnabled:primaryAction:secondaryAction:)`](https://developer.apple.com/documentation/swiftui/view/oncameracaptureevent(isenabled:primaryaction:secondaryaction:)) — Used to register actions triggered by system capture events.
+- [`onCommand(_:perform:)`](https://developer.apple.com/documentation/swiftui/view/oncommand(_:perform:)) — Adds an action to perform in response to the given selector.
+- [`onContinuousHover(coordinateSpace:perform:)`](https://developer.apple.com/documentation/swiftui/view/oncontinuoushover(coordinatespace:perform:)) — Adds an action to perform when the pointer enters, moves within, and   exits the view’s bounds.
+- [`onDeleteCommand(perform:)`](https://developer.apple.com/documentation/swiftui/view/ondeletecommand(perform:)) — Adds an action to perform in response to the system’s Delete command,   or pressing either the ⌫ (backspace) or ⌦ (forward delete) keys while the view has focus.
+- [`onExitCommand(perform:)`](https://developer.apple.com/documentation/swiftui/view/onexitcommand(perform:)) — Sets up an action that triggers in response to receiving the exit   command while the view has focus.
+- [`onHover(perform:)`](https://developer.apple.com/documentation/swiftui/view/onhover(perform:)) — Adds an action to perform when the user moves the pointer over or away   from the view’s frame.
+- [`onKeyPress(_:action:)`](https://developer.apple.com/documentation/swiftui/view/onkeypress(_:action:)) — Performs an action if the user presses a key on a hardware keyboard   while the view has focus.
+- [`onKeyPress(_:phases:action:)`](https://developer.apple.com/documentation/swiftui/view/onkeypress(_:phases:action:)) — Performs an action if the user presses a key on a hardware keyboard   while the view has focus.
+- [`onKeyPress(characters:phases:action:)`](https://developer.apple.com/documentation/swiftui/view/onkeypress(characters:phases:action:)) — Performs an action if the user presses one or more keys on a hardware   keyboard while the view has focus.
+- [`onKeyPress(keys:phases:action:)`](https://developer.apple.com/documentation/swiftui/view/onkeypress(keys:phases:action:)) — Performs an action if the user presses one or more keys on a hardware   keyboard while the view has focus.
+- [`onKeyPress(phases:action:)`](https://developer.apple.com/documentation/swiftui/view/onkeypress(phases:action:)) — Performs an action if the user presses any key on a hardware keyboard   while the view has focus.
+- [`onModifierKeysChanged(mask:initial:_:)`](https://developer.apple.com/documentation/swiftui/view/onmodifierkeyschanged(mask:initial:_:)) — Performs an action whenever the user presses or releases a hardware   modifier key.
+- [`onMoveCommand(perform:)`](https://developer.apple.com/documentation/swiftui/view/onmovecommand(perform:)) — Adds an action to perform in response to a move command, like when the   user presses an arrow key on a Mac keyboard, or taps the edge of the   Siri Remote when controlling an Apple TV.
+- [`onPlayPauseCommand(perform:)`](https://developer.apple.com/documentation/swiftui/view/onplaypausecommand(perform:)) — Adds an action to perform in response to the system’s Play/Pause   command.
+- [`onSubmit(of:_:)`](https://developer.apple.com/documentation/swiftui/view/onsubmit(of:_:)) — Adds an action to perform when the user submits a value to this view.
+- [`pageCommand(value:in:step:)`](https://developer.apple.com/documentation/swiftui/view/pagecommand(value:in:step:)) — Steps a value through a range in response to page up or page down   commands.
+- [`pointerStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/pointerstyle(_:)) — Sets the pointer style to display when the pointer is over the view.
+- [`pointerVisibility(_:)`](https://developer.apple.com/documentation/swiftui/view/pointervisibility(_:)) — Sets the visibility of the pointer when it’s over the view.
+- [`submitLabel(_:)`](https://developer.apple.com/documentation/swiftui/view/submitlabel(_:)) — Sets the submit label for this view.
+- [`submitScope(_:)`](https://developer.apple.com/documentation/swiftui/view/submitscope(_:)) — Prevents submission triggers originating from this view to invoke   a submission action configured by a submission modifier higher up   in the view hierarchy.
+- [`touchBar(_:)`](https://developer.apple.com/documentation/swiftui/view/touchbar(_:)) — Sets the Touch Bar content to be shown in the Touch Bar when applicable.
+- [`touchBar(content:)`](https://developer.apple.com/documentation/swiftui/view/touchbar(content:)) — Sets the content that the Touch Bar displays.
+- [`touchBarCustomizationLabel(_:)`](https://developer.apple.com/documentation/swiftui/view/touchbarcustomizationlabel(_:)) — Sets a user-visible string that identifies the view’s functionality.
+- [`touchBarItemPresence(_:)`](https://developer.apple.com/documentation/swiftui/view/touchbaritempresence(_:)) — Sets the behavior of the user-customized view.
+- [`touchBarItemPrincipal(_:)`](https://developer.apple.com/documentation/swiftui/view/touchbaritemprincipal(_:)) — Sets principal views that have special significance to this Touch Bar.
+
+### Layout adjustments
+
+- [`Alignment`](https://developer.apple.com/documentation/swiftui/alignment) — An alignment in both axes.
+- [`AlignmentID`](https://developer.apple.com/documentation/swiftui/alignmentid) — A type that you use to create custom alignment guides.
+- [`ContentMarginPlacement`](https://developer.apple.com/documentation/swiftui/contentmarginplacement) — The placement of margins.
+- [`DepthAlignment`](https://developer.apple.com/documentation/swiftui/depthalignment) — An alignment position along the depth axis.
+- [`Edge`](https://developer.apple.com/documentation/swiftui/edge) — An enumeration to indicate one edge of a rectangle.
+- [`Edge3D`](https://developer.apple.com/documentation/swiftui/edge3d) — An edge or face of a 3D volume.
+- [`EdgeInsets`](https://developer.apple.com/documentation/swiftui/edgeinsets) — The inset distances for the sides of a rectangle.
+- [`EdgeInsets3D`](https://developer.apple.com/documentation/swiftui/edgeinsets3d) — The inset distances for the faces of a 3D volume.
+- [`HorizontalAlignment`](https://developer.apple.com/documentation/swiftui/horizontalalignment) — An alignment position along the horizontal axis.
+- [`HorizontalEdge`](https://developer.apple.com/documentation/swiftui/horizontaledge) — An edge on the horizontal axis.
+- [`LayoutDirection`](https://developer.apple.com/documentation/swiftui/layoutdirection) — A direction in which SwiftUI can lay out content.
+- [`LayoutDirectionBehavior`](https://developer.apple.com/documentation/swiftui/layoutdirectionbehavior) — A description of what should happen when the layout direction changes.
+- [`LayoutRotationUnaryLayout`](https://developer.apple.com/documentation/swiftui/layoutrotationunarylayout)
+- [`SafeAreaRegions`](https://developer.apple.com/documentation/swiftui/safearearegions) — A set of symbolic safe area regions.
+- [`ScenePadding`](https://developer.apple.com/documentation/swiftui/scenepadding) — The padding used to space a view from its containing scene.
+- [`SpatialContainer`](https://developer.apple.com/documentation/swiftui/spatialcontainer) — A layout container that aligns overlapping content in 3D space.
+- [`UserInterfaceSizeClass`](https://developer.apple.com/documentation/swiftui/userinterfacesizeclass) — A set of values that indicate the visual size available to the view.
+- [`VerticalAlignment`](https://developer.apple.com/documentation/swiftui/verticalalignment) — An alignment position along the vertical axis.
+- [`VerticalEdge`](https://developer.apple.com/documentation/swiftui/verticaledge) — An edge on the vertical axis.
+- [`ViewDimensions`](https://developer.apple.com/documentation/swiftui/viewdimensions) — A view’s size and alignment guides in its own coordinate space.
+- [`ViewDimensions3D`](https://developer.apple.com/documentation/swiftui/viewdimensions3d) — A view’s 3D size and alignment guides in its own coordinate space.
+- [`alignmentGuide(_:computeValue:)`](https://developer.apple.com/documentation/swiftui/view/alignmentguide(_:computevalue:)) — Sets the view’s horizontal alignment.
+- [`containerRelativeFrame(_:alignment:)`](https://developer.apple.com/documentation/swiftui/view/containerrelativeframe(_:alignment:)) — Positions this view within an invisible frame with a size relative   to the nearest container.
+- [`containerRelativeFrame(_:alignment:_:)`](https://developer.apple.com/documentation/swiftui/view/containerrelativeframe(_:alignment:_:)) — Positions this view within an invisible frame with a size relative   to the nearest container.
+- [`containerRelativeFrame(_:count:span:spacing:alignment:)`](https://developer.apple.com/documentation/swiftui/view/containerrelativeframe(_:count:span:spacing:alignment:)) — Positions this view within an invisible frame with a size relative   to the nearest container.
+- [`contentMargins(_:_:for:)`](https://developer.apple.com/documentation/swiftui/view/contentmargins(_:_:for:)) — Configures the content margin for a provided placement.
+- [`contentMargins(_:for:)`](https://developer.apple.com/documentation/swiftui/view/contentmargins(_:for:)) — Configures the content margin for a provided placement.
+- [`displayScale`](https://developer.apple.com/documentation/swiftui/environmentvalues/displayscale) — The display scale of this environment.
+- [`fixedSize()`](https://developer.apple.com/documentation/swiftui/view/fixedsize()) — Fixes this view at its ideal size.
+- [`fixedSize(horizontal:vertical:)`](https://developer.apple.com/documentation/swiftui/view/fixedsize(horizontal:vertical:)) — Fixes this view at its ideal size in the specified dimensions.
+- [`frame(depth:alignment:)`](https://developer.apple.com/documentation/swiftui/view/frame(depth:alignment:)) — Positions this view within an invisible frame with the specified depth.
+- [`frame(minDepth:idealDepth:maxDepth:alignment:)`](https://developer.apple.com/documentation/swiftui/view/frame(mindepth:idealdepth:maxdepth:alignment:)) — Positions this view within an invisible frame having the specified depth   constraints.
+- [`frame(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)`](https://developer.apple.com/documentation/swiftui/view/frame(minwidth:idealwidth:maxwidth:minheight:idealheight:maxheight:alignment:)) — Positions this view within an invisible frame having the specified size   constraints.
+- [`frame(width:height:alignment:)`](https://developer.apple.com/documentation/swiftui/view/frame(width:height:alignment:)) — Positions this view within an invisible frame with the specified size.
+- [`horizontalSizeClass`](https://developer.apple.com/documentation/swiftui/environmentvalues/horizontalsizeclass) — The horizontal size class of this environment.
+- [`ignoresSafeArea(_:edges:)`](https://developer.apple.com/documentation/swiftui/view/ignoressafearea(_:edges:)) — Expands the safe area of a view.
+- [`ignoresSafeArea(_:edges:alignment:)`](https://developer.apple.com/documentation/swiftui/view/ignoressafearea(_:edges:alignment:)) — Expands the safe area of a view aligning content within the new   bounds using the provided alignment.
+- [`isLuminanceReduced`](https://developer.apple.com/documentation/swiftui/environmentvalues/isluminancereduced) — A Boolean value that indicates whether the display or environment currently requires   reduced luminance.
+- [`layoutDirection`](https://developer.apple.com/documentation/swiftui/environmentvalues/layoutdirection) — The layout direction associated with the current environment.
+- [`layoutDirectionBehavior(_:)`](https://developer.apple.com/documentation/swiftui/view/layoutdirectionbehavior(_:)) — Sets the behavior of this view for different layout directions.
+- [`layoutPriority(_:)`](https://developer.apple.com/documentation/swiftui/view/layoutpriority(_:)) — Sets the priority by which a parent layout should apportion space to   this child.
+- [`offset(_:)`](https://developer.apple.com/documentation/swiftui/view/offset(_:)) — Offset this view by the horizontal and vertical amount specified in the   offset parameter.
+- [`offset(x:y:)`](https://developer.apple.com/documentation/swiftui/view/offset(x:y:)) — Offset this view by the specified horizontal and vertical distances.
+- [`offset(z:)`](https://developer.apple.com/documentation/swiftui/view/offset(z:)) — Brings a view forward in Z by the provided distance in points.
+- [`padding(_:)`](https://developer.apple.com/documentation/swiftui/view/padding(_:)) — Adds a different padding amount to each edge of this view.
+- [`padding(_:_:)`](https://developer.apple.com/documentation/swiftui/view/padding(_:_:)) — Adds an equal padding amount to specific edges of this view.
+- [`padding3D(_:)`](https://developer.apple.com/documentation/swiftui/view/padding3d(_:)) — Pads this view using the edge insets you specify.
+- [`padding3D(_:_:)`](https://developer.apple.com/documentation/swiftui/view/padding3d(_:_:)) — Pads this view using the edge insets you specify.
+- [`pixelLength`](https://developer.apple.com/documentation/swiftui/environmentvalues/pixellength) — The size of a pixel on the screen.
+- [`position(_:)`](https://developer.apple.com/documentation/swiftui/view/position(_:)) — Positions the center of this view at the specified point in its parent’s   coordinate space.
+- [`position(x:y:)`](https://developer.apple.com/documentation/swiftui/view/position(x:y:)) — Positions the center of this view at the specified coordinates in its   parent’s coordinate space.
+- [`safeAreaInset(edge:alignment:spacing:content:)`](https://developer.apple.com/documentation/swiftui/view/safeareainset(edge:alignment:spacing:content:)) — Shows the specified content beside the modified view.
+- [`safeAreaPadding(_:)`](https://developer.apple.com/documentation/swiftui/view/safeareapadding(_:)) — Adds the provided insets into the safe area of this view.
+- [`safeAreaPadding(_:_:)`](https://developer.apple.com/documentation/swiftui/view/safeareapadding(_:_:)) — Adds the provided insets into the safe area of this view.
+- [`scenePadding(_:)`](https://developer.apple.com/documentation/swiftui/view/scenepadding(_:)) — Adds padding to the specified edges of this view using an amount that’s   appropriate for the current scene.
+- [`scenePadding(_:edges:)`](https://developer.apple.com/documentation/swiftui/view/scenepadding(_:edges:)) — Adds a specified kind of padding to the specified edges of this view   using an amount that’s appropriate for the current scene.
+- [`verticalSizeClass`](https://developer.apple.com/documentation/swiftui/environmentvalues/verticalsizeclass) — The vertical size class of this environment.
+
+### Layout fundamentals
+
+- [`ContainerBackgroundPlacement`](https://developer.apple.com/documentation/swiftui/containerbackgroundplacement) — The placement of a container background.
+- [`Divider`](https://developer.apple.com/documentation/swiftui/divider) — A visual element that can be used to separate other content.
+- [`Grid`](https://developer.apple.com/documentation/swiftui/grid) — A container view that arranges other views in a two dimensional layout.
+- [`GridItem`](https://developer.apple.com/documentation/swiftui/griditem) — A description of a row or a column in a lazy grid.
+- [`GridRow`](https://developer.apple.com/documentation/swiftui/gridrow) — A horizontal row in a two dimensional grid container.
+- [`HStack`](https://developer.apple.com/documentation/swiftui/hstack) — A view that arranges its subviews in a horizontal line.
+- [`LazyHGrid`](https://developer.apple.com/documentation/swiftui/lazyhgrid) — A container view that arranges its child views in a grid that   grows horizontally, creating items only as needed.
+- [`LazyHStack`](https://developer.apple.com/documentation/swiftui/lazyhstack) — A view that arranges its children in a line that grows horizontally,   creating items only as needed.
+- [`LazyVGrid`](https://developer.apple.com/documentation/swiftui/lazyvgrid) — A container view that arranges its child views in a grid that   grows vertically, creating items only as needed.
+- [`LazyVStack`](https://developer.apple.com/documentation/swiftui/lazyvstack) — A view that arranges its children in a line that grows vertically,   creating items only as needed.
+- [`PinnedScrollableViews`](https://developer.apple.com/documentation/swiftui/pinnedscrollableviews) — A set of view types that may be pinned to the bounds of a scroll view.
+- [`Spacer`](https://developer.apple.com/documentation/swiftui/spacer) — A flexible space that expands along the major axis of its containing stack   layout, or on both axes if not contained in a stack.
+- [`VStack`](https://developer.apple.com/documentation/swiftui/vstack) — A view that arranges its subviews in a vertical line.
+- [`ViewThatFits`](https://developer.apple.com/documentation/swiftui/viewthatfits) — A view that adapts to the available space by providing the first   child view that fits.
+- [`ZStack`](https://developer.apple.com/documentation/swiftui/zstack) — A view that overlays its subviews, aligning them in both axes.
+- [`background(_:ignoresSafeAreaEdges:)`](https://developer.apple.com/documentation/swiftui/view/background(_:ignoressafeareaedges:)) — Sets the view’s background to a style.
+- [`background(_:in:fillStyle:)`](https://developer.apple.com/documentation/swiftui/view/background(_:in:fillstyle:)) — Sets the view’s background to an insettable shape filled with a style.
+- [`background(alignment:content:)`](https://developer.apple.com/documentation/swiftui/view/background(alignment:content:)) — Layers the views that you specify behind this view.
+- [`background(ignoresSafeAreaEdges:)`](https://developer.apple.com/documentation/swiftui/view/background(ignoressafeareaedges:)) — Sets the view’s background to the default background style.
+- [`background(in:fillStyle:)`](https://developer.apple.com/documentation/swiftui/view/background(in:fillstyle:)) — Sets the view’s background to an insettable shape filled with the   default background style.
+- [`backgroundMaterial`](https://developer.apple.com/documentation/swiftui/environmentvalues/backgroundmaterial) — The material underneath the current view.
+- [`containerBackground(_:for:)`](https://developer.apple.com/documentation/swiftui/view/containerbackground(_:for:)) — Sets the container background of the enclosing container using a view.
+- [`containerBackground(for:alignment:content:)`](https://developer.apple.com/documentation/swiftui/view/containerbackground(for:alignment:content:)) — Sets the container background of the enclosing container using a view.
+- [`gridCellAnchor(_:)`](https://developer.apple.com/documentation/swiftui/view/gridcellanchor(_:)) — Specifies a custom alignment anchor for a view that acts as a grid cell.
+- [`gridCellColumns(_:)`](https://developer.apple.com/documentation/swiftui/view/gridcellcolumns(_:)) — Tells a view that acts as a cell in a grid to span the specified   number of columns.
+- [`gridCellUnsizedAxes(_:)`](https://developer.apple.com/documentation/swiftui/view/gridcellunsizedaxes(_:)) — Asks grid layouts not to offer the view extra size in the specified   axes.
+- [`gridColumnAlignment(_:)`](https://developer.apple.com/documentation/swiftui/view/gridcolumnalignment(_:)) — Overrides the default horizontal alignment of the grid column that   the view appears in.
+- [`overlay(_:ignoresSafeAreaEdges:)`](https://developer.apple.com/documentation/swiftui/view/overlay(_:ignoressafeareaedges:)) — Layers the specified style in front of this view.
+- [`overlay(_:in:fillStyle:)`](https://developer.apple.com/documentation/swiftui/view/overlay(_:in:fillstyle:)) — Layers a shape that you specify in front of this view.
+- [`overlay(alignment:content:)`](https://developer.apple.com/documentation/swiftui/view/overlay(alignment:content:)) — Layers the views that you specify in front of this view.
+- [`zIndex(_:)`](https://developer.apple.com/documentation/swiftui/view/zindex(_:)) — Controls the display order of overlapping views.
+
+### Lists
+
+- [`AlternatingRowBackgroundBehavior`](https://developer.apple.com/documentation/swiftui/alternatingrowbackgroundbehavior) — The styling of views with respect to alternating row backgrounds.
+- [`BackgroundProminence`](https://developer.apple.com/documentation/swiftui/backgroundprominence) — The prominence of backgrounds underneath other views.
+- [`BadgeProminence`](https://developer.apple.com/documentation/swiftui/badgeprominence) — The visual prominence of a badge.
+- [`DisclosureGroup`](https://developer.apple.com/documentation/swiftui/disclosuregroup) — A view that shows or hides another content view, based on the state of a   disclosure control.
+- [`EditActions`](https://developer.apple.com/documentation/swiftui/editactions) — A set of edit actions on a collection of data that a view can offer   to a user.
+- [`EditMode`](https://developer.apple.com/documentation/swiftui/editmode) — A mode that indicates whether the user can edit a view’s content.
+- [`EditableCollectionContent`](https://developer.apple.com/documentation/swiftui/editablecollectioncontent) — An opaque wrapper view that adds editing capabilities to a row in a list.
+- [`IndexedIdentifierCollection`](https://developer.apple.com/documentation/swiftui/indexedidentifiercollection) — A collection wrapper that iterates over the indices and identifiers of a   collection together.
+- [`List`](https://developer.apple.com/documentation/swiftui/list) — A container that presents rows of data arranged in a single column,   optionally providing the ability to select one or more members.
+- [`ListItemTint`](https://developer.apple.com/documentation/swiftui/listitemtint) — A tint effect configuration that you can apply to content in a list.
+- [`ListSectionSpacing`](https://developer.apple.com/documentation/swiftui/listsectionspacing) — The spacing options between two adjacent sections in a list.
+- [`OutlineGroup`](https://developer.apple.com/documentation/swiftui/outlinegroup) — A structure that computes views and disclosure groups on demand from an   underlying collection of tree-structured, identified data.
+- [`Prominence`](https://developer.apple.com/documentation/swiftui/prominence) — A type indicating the prominence of a view hierarchy.
+- [`RefreshAction`](https://developer.apple.com/documentation/swiftui/refreshaction) — An action that initiates a refresh operation.
+- [`alternatingRowBackgrounds(_:)`](https://developer.apple.com/documentation/swiftui/view/alternatingrowbackgrounds(_:)) — Overrides whether lists and tables in this view have alternating row   backgrounds.
+- [`backgroundProminence`](https://developer.apple.com/documentation/swiftui/environmentvalues/backgroundprominence) — The prominence of the background underneath views associated with this   environment.
+- [`badge(_:)`](https://developer.apple.com/documentation/swiftui/view/badge(_:)) — Generates a badge for the view from a localized string resource.
+- [`badgeProminence`](https://developer.apple.com/documentation/swiftui/environmentvalues/badgeprominence) — The prominence to apply to badges associated with this environment.
+- [`badgeProminence(_:)`](https://developer.apple.com/documentation/swiftui/view/badgeprominence(_:)) — Specifies the prominence of badges created by this view.
+- [`defaultMinListHeaderHeight`](https://developer.apple.com/documentation/swiftui/environmentvalues/defaultminlistheaderheight) — The default minimum height of a header in a list.
+- [`defaultMinListRowHeight`](https://developer.apple.com/documentation/swiftui/environmentvalues/defaultminlistrowheight) — The default minimum height of rows in a list.
+- [`deleteDisabled(_:)`](https://developer.apple.com/documentation/swiftui/view/deletedisabled(_:)) — Adds a condition for whether the view’s view hierarchy is deletable.
+- [`disclosureGroupStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/disclosuregroupstyle(_:)) — Sets the style for disclosure groups within this view.
+- [`editMode`](https://developer.apple.com/documentation/swiftui/environmentvalues/editmode) — An indication of whether the user can edit the contents of a view   associated with this environment.
+- [`headerProminence`](https://developer.apple.com/documentation/swiftui/environmentvalues/headerprominence) — The prominence to apply to section headers within a view.
+- [`headerProminence(_:)`](https://developer.apple.com/documentation/swiftui/view/headerprominence(_:)) — Sets the header prominence for this view.
+- [`listItemTint(_:)`](https://developer.apple.com/documentation/swiftui/view/listitemtint(_:)) — Sets a fixed tint color for content in a list.
+- [`listRowBackground(_:)`](https://developer.apple.com/documentation/swiftui/view/listrowbackground(_:)) — Places a custom background view behind a list row item.
+- [`listRowHoverEffect(_:)`](https://developer.apple.com/documentation/swiftui/view/listrowhovereffect(_:)) — Requests that the containing list row use the provided hover effect.
+- [`listRowHoverEffectDisabled(_:)`](https://developer.apple.com/documentation/swiftui/view/listrowhovereffectdisabled(_:)) — Requests that the containing list row have its hover effect disabled.
+- [`listRowInsets(_:)`](https://developer.apple.com/documentation/swiftui/view/listrowinsets(_:)) — Applies an inset to the rows in a list.
+- [`listRowInsets(_:_:)`](https://developer.apple.com/documentation/swiftui/view/listrowinsets(_:_:)) — Sets the insets of rows in a list on the specified edges.
+- [`listRowSeparator(_:edges:)`](https://developer.apple.com/documentation/swiftui/view/listrowseparator(_:edges:)) — Sets the display mode for the separator associated with this specific row.
+- [`listRowSeparatorTint(_:edges:)`](https://developer.apple.com/documentation/swiftui/view/listrowseparatortint(_:edges:)) — Sets the tint color associated with a row.
+- [`listRowSpacing(_:)`](https://developer.apple.com/documentation/swiftui/view/listrowspacing(_:)) — Sets the vertical spacing between two adjacent rows in a List.
+- [`listSectionIndexVisibility(_:)`](https://developer.apple.com/documentation/swiftui/view/listsectionindexvisibility(_:)) — Changes the visibility of the list section index.
+- [`listSectionMargins(_:_:)`](https://developer.apple.com/documentation/swiftui/view/listsectionmargins(_:_:)) — Set the section margins for the specific edges.
+- [`listSectionSeparator(_:edges:)`](https://developer.apple.com/documentation/swiftui/view/listsectionseparator(_:edges:)) — Sets whether to hide the separator associated with a list section.
+- [`listSectionSeparatorTint(_:edges:)`](https://developer.apple.com/documentation/swiftui/view/listsectionseparatortint(_:edges:)) — Sets the tint color associated with a section.
+- [`listSectionSpacing(_:)`](https://developer.apple.com/documentation/swiftui/view/listsectionspacing(_:)) — Sets the spacing between adjacent sections in a    to a custom   value.
+- [`listStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/liststyle(_:)) — Sets the style for lists within this view.
+- [`moveDisabled(_:)`](https://developer.apple.com/documentation/swiftui/view/movedisabled(_:)) — Adds a condition for whether the view’s view hierarchy is movable.
+- [`refresh`](https://developer.apple.com/documentation/swiftui/environmentvalues/refresh) — A refresh action stored in a view’s environment.
+- [`refreshable(action:)`](https://developer.apple.com/documentation/swiftui/view/refreshable(action:)) — Adds an asynchronous handler that can update the data the view   displays when a person initiates a request, such as by pulling to refresh.
+- [`sectionIndexLabel(_:)`](https://developer.apple.com/documentation/swiftui/view/sectionindexlabel(_:)) — Sets the label that is used in a section index to point to this   section, typically only a single character long.
+- [`selectionDisabled(_:)`](https://developer.apple.com/documentation/swiftui/view/selectiondisabled(_:)) — Adds a condition that controls whether users can select this view.
+- [`swipeActions(edge:allowsFullSwipe:content:)`](https://developer.apple.com/documentation/swiftui/view/swipeactions(edge:allowsfullswipe:content:)) — Adds custom swipe actions to a row in a list.
+
+### Menus and commands
+
+- [`CommandGroup`](https://developer.apple.com/documentation/swiftui/commandgroup) — Groups of controls that you can add to existing command menus.
+- [`CommandGroupPlacement`](https://developer.apple.com/documentation/swiftui/commandgroupplacement) — The standard locations that you can place new command groups relative to.
+- [`CommandMenu`](https://developer.apple.com/documentation/swiftui/commandmenu) — Command menus are stand-alone, top-level containers for controls that   perform related, app-specific commands.
+- [`Commands`](https://developer.apple.com/documentation/swiftui/commands) — Conforming types represent a group of related commands that can be exposed   to the user via the main menu on macOS and key commands on iOS.
+- [`CommandsBuilder`](https://developer.apple.com/documentation/swiftui/commandsbuilder) — Constructs command sets from multi-expression closures. Like   ,   it supports up to ten expressions in the closure body.
+- [`ContextMenu`](https://developer.apple.com/documentation/swiftui/contextmenu) — A container for views that you present as menu items in a context menu.
+- [`EmptyCommands`](https://developer.apple.com/documentation/swiftui/emptycommands) — An empty group of commands.
+- [`ImportFromDevicesCommands`](https://developer.apple.com/documentation/swiftui/importfromdevicescommands) — A built-in set of commands that enables importing content from nearby   devices.
+- [`InspectorCommands`](https://developer.apple.com/documentation/swiftui/inspectorcommands) — A built-in set of commands for manipulating inspectors.
+- [`Menu`](https://developer.apple.com/documentation/swiftui/menu) — A control for presenting a menu of actions.
+- [`MenuActionDismissBehavior`](https://developer.apple.com/documentation/swiftui/menuactiondismissbehavior) — The set of menu dismissal behavior options.
+- [`MenuButton`](https://developer.apple.com/documentation/swiftui/menubutton) — A button that displays a menu containing a list of choices when pressed.
+- [`MenuOrder`](https://developer.apple.com/documentation/swiftui/menuorder) — The order in which a menu presents its content.
+- [`PullDownButton`](https://developer.apple.com/documentation/swiftui/pulldownbutton)
+- [`SidebarCommands`](https://developer.apple.com/documentation/swiftui/sidebarcommands) — A built-in set of commands for manipulating window sidebars.
+- [`TextEditingCommands`](https://developer.apple.com/documentation/swiftui/texteditingcommands) — A built-in group of commands for searching, editing, and transforming   selections of text.
+- [`TextFormattingCommands`](https://developer.apple.com/documentation/swiftui/textformattingcommands) — A built-in set of commands for transforming the styles applied to selections   of text.
+- [`ToolbarCommands`](https://developer.apple.com/documentation/swiftui/toolbarcommands) — A built-in set of commands for manipulating window toolbars.
+- [`commands(content:)`](https://developer.apple.com/documentation/swiftui/scene/commands(content:)) — Adds commands to the scene.
+- [`commandsRemoved()`](https://developer.apple.com/documentation/swiftui/scene/commandsremoved()) — Removes all commands defined by the modified scene.
+- [`commandsReplaced(content:)`](https://developer.apple.com/documentation/swiftui/scene/commandsreplaced(content:)) — Replaces all commands defined by the modified scene with the commands   from the builder.
+- [`contextMenu(forSelectionType:menu:primaryAction:)`](https://developer.apple.com/documentation/swiftui/view/contextmenu(forselectiontype:menu:primaryaction:)) — Adds an item-based context menu to a view.
+- [`contextMenu(menuItems:)`](https://developer.apple.com/documentation/swiftui/view/contextmenu(menuitems:)) — Adds a context menu to a view.
+- [`contextMenu(menuItems:preview:)`](https://developer.apple.com/documentation/swiftui/view/contextmenu(menuitems:preview:)) — Adds a context menu with a custom preview to a view.
+- [`menuActionDismissBehavior(_:)`](https://developer.apple.com/documentation/swiftui/view/menuactiondismissbehavior(_:)) — Tells a menu whether to dismiss after performing an action.
+- [`menuIndicator(_:)`](https://developer.apple.com/documentation/swiftui/view/menuindicator(_:)) — Sets the menu indicator visibility for controls within this view.
+- [`menuIndicatorVisibility`](https://developer.apple.com/documentation/swiftui/environmentvalues/menuindicatorvisibility) — The menu indicator visibility to apply to controls within a view.
+- [`menuOrder`](https://developer.apple.com/documentation/swiftui/environmentvalues/menuorder) — The preferred order of items for menus presented from this view.
+- [`menuOrder(_:)`](https://developer.apple.com/documentation/swiftui/view/menuorder(_:)) — Sets the preferred order of items for menus presented from this view.
+- [`menuStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/menustyle(_:)) — Sets the style for menus within this view.
+
+### Modal presentations
+
+- [`ActionSheet`](https://developer.apple.com/documentation/swiftui/actionsheet) — A representation of an action sheet presentation.
+- [`Alert`](https://developer.apple.com/documentation/swiftui/alert) — A representation of an alert presentation.
+- [`AlertScene`](https://developer.apple.com/documentation/swiftui/alertscene) — A scene that renders itself as a standalone alert dialog.
+- [`CustomPresentationDetent`](https://developer.apple.com/documentation/swiftui/custompresentationdetent) — The definition of a custom detent with a calculated height.
+- [`DialogSeverity`](https://developer.apple.com/documentation/swiftui/dialogseverity) — The severity of an alert or confirmation dialog.
+- [`DismissAction`](https://developer.apple.com/documentation/swiftui/dismissaction) — An action that dismisses a presentation.
+- [`FileDialogBrowserOptions`](https://developer.apple.com/documentation/swiftui/filedialogbrowseroptions) — The way that file dialogs present the file system.
+- [`PopoverAttachmentAnchor`](https://developer.apple.com/documentation/swiftui/popoverattachmentanchor) — An attachment anchor for a popover.
+- [`PresentationAdaptation`](https://developer.apple.com/documentation/swiftui/presentationadaptation) — Strategies for adapting a presentation to a different size class.
+- [`PresentationBackgroundInteraction`](https://developer.apple.com/documentation/swiftui/presentationbackgroundinteraction) — The kinds of interaction available to views behind a presentation.
+- [`PresentationContentInteraction`](https://developer.apple.com/documentation/swiftui/presentationcontentinteraction) — A behavior that you can use to influence how a presentation responds to   swipe gestures.
+- [`PresentationDetent`](https://developer.apple.com/documentation/swiftui/presentationdetent) — A type that represents a height where a sheet naturally rests.
+- [`PresentationSizing`](https://developer.apple.com/documentation/swiftui/presentationsizing) — A type that defines the size of the presentation content and how the   presentation size adjusts to its content’s size changing.
+- [`PresentationSizingContext`](https://developer.apple.com/documentation/swiftui/presentationsizingcontext) — Contextual information about a presentation.
+- [`PresentationSizingRoot`](https://developer.apple.com/documentation/swiftui/presentationsizingroot) — A proxy to a view provided to the presentation with a   defined presentation size.
+- [`alert(_:isPresented:actions:)`](https://developer.apple.com/documentation/swiftui/view/alert(_:ispresented:actions:)) — Presents an alert when a given condition is true, using a localized   string resource for the title.
+- [`alert(_:isPresented:actions:message:)`](https://developer.apple.com/documentation/swiftui/view/alert(_:ispresented:actions:message:)) — Presents an alert with a message when a given condition is true, using   a localized string resource for a title.
+- [`alert(_:isPresented:presenting:actions:)`](https://developer.apple.com/documentation/swiftui/view/alert(_:ispresented:presenting:actions:)) — Presents an alert using the given data to produce the alert’s content   and a localized string resource for a title.
+- [`alert(_:isPresented:presenting:actions:message:)`](https://developer.apple.com/documentation/swiftui/view/alert(_:ispresented:presenting:actions:message:)) — Presents an alert with a message using the given data to produce the   alert’s content and a localized string resource for a title.
+- [`alert(_:item:actions:)`](https://developer.apple.com/documentation/swiftui/view/alert(_:item:actions:)) — Presents an alert using the given data to produce the alert’s content   and a text view as a title.
+- [`alert(_:item:actions:message:)`](https://developer.apple.com/documentation/swiftui/view/alert(_:item:actions:message:)) — Presents an alert with a message using the given data to produce the   alert’s content and a localized string key for a title.
+- [`alert(error:actions:)`](https://developer.apple.com/documentation/swiftui/view/alert(error:actions:)) — Presents an alert when an error is present.
+- [`alert(error:actions:message:)`](https://developer.apple.com/documentation/swiftui/view/alert(error:actions:message:)) — Presents an alert with a message when an error is present.
+- [`alert(isPresented:error:actions:)`](https://developer.apple.com/documentation/swiftui/view/alert(ispresented:error:actions:)) — Presents an alert when an error is present.
+- [`alert(isPresented:error:actions:message:)`](https://developer.apple.com/documentation/swiftui/view/alert(ispresented:error:actions:message:)) — Presents an alert with a message when an error is present.
+- [`confirmationDialog(_:isPresented:titleVisibility:actions:)`](https://developer.apple.com/documentation/swiftui/view/confirmationdialog(_:ispresented:titlevisibility:actions:)) — Presents a confirmation dialog when a given condition is true, using a   localized string resource for the title.
+- [`confirmationDialog(_:isPresented:titleVisibility:actions:message:)`](https://developer.apple.com/documentation/swiftui/view/confirmationdialog(_:ispresented:titlevisibility:actions:message:)) — Presents a confirmation dialog with a message when a given condition is   true, using a localized string resource for the title.
+- [`confirmationDialog(_:isPresented:titleVisibility:presenting:actions:)`](https://developer.apple.com/documentation/swiftui/view/confirmationdialog(_:ispresented:titlevisibility:presenting:actions:)) — Presents a confirmation dialog using data to produce the dialog’s   content and a localized string resource for the title.
+- [`confirmationDialog(_:isPresented:titleVisibility:presenting:actions:message:)`](https://developer.apple.com/documentation/swiftui/view/confirmationdialog(_:ispresented:titlevisibility:presenting:actions:message:)) — Presents a confirmation dialog with a message using data to produce the   dialog’s content and a localized string resource for the title.
+- [`dialogIcon(_:)`](https://developer.apple.com/documentation/swiftui/view/dialogicon(_:)) — Configures the icon used by dialogs within this view.
+- [`dialogIcon(_:)`](https://developer.apple.com/documentation/swiftui/scene/dialogicon(_:)) — Configures the icon used by alerts.
+- [`dialogPreventsAppTermination(_:)`](https://developer.apple.com/documentation/swiftui/view/dialogpreventsapptermination(_:)) — Whether the alert or confirmation dialog prevents the app   from being quit/terminated by the system or app termination menu item.
+- [`dialogSeverity(_:)`](https://developer.apple.com/documentation/swiftui/view/dialogseverity(_:))
+- [`dialogSeverity(_:)`](https://developer.apple.com/documentation/swiftui/scene/dialogseverity(_:)) — Sets the severity for alerts.
+- [`dialogSuppressionToggle(_:isSuppressed:)`](https://developer.apple.com/documentation/swiftui/view/dialogsuppressiontoggle(_:issuppressed:)) — Enables user suppression of dialogs and alerts presented within   ,   with a custom suppression message on macOS. Unused on other platforms.
+- [`dialogSuppressionToggle(_:isSuppressed:)`](https://developer.apple.com/documentation/swiftui/scene/dialogsuppressiontoggle(_:issuppressed:)) — Enables user suppression of an alert with a custom suppression   message.
+- [`dialogSuppressionToggle(isSuppressed:)`](https://developer.apple.com/documentation/swiftui/view/dialogsuppressiontoggle(issuppressed:)) — Enables user suppression of dialogs and alerts presented within   ,   with a default suppression message on macOS. Unused on other platforms.
+- [`dialogSuppressionToggle(isSuppressed:)`](https://developer.apple.com/documentation/swiftui/scene/dialogsuppressiontoggle(issuppressed:)) — Enables user suppression of an alert with a custom suppression   message.
+- [`dismiss`](https://developer.apple.com/documentation/swiftui/environmentvalues/dismiss) — An action that dismisses the current presentation.
+- [`dismissalConfirmationDialog(_:shouldPresent:actions:)`](https://developer.apple.com/documentation/swiftui/view/dismissalconfirmationdialog(_:shouldpresent:actions:)) — Presents a confirmation dialog when a dismiss action has been triggered.
+- [`dismissalConfirmationDialog(_:shouldPresent:actions:message:)`](https://developer.apple.com/documentation/swiftui/view/dismissalconfirmationdialog(_:shouldpresent:actions:message:)) — Presents a confirmation dialog when a dismiss action has been triggered.
+- [`fileDialogBrowserOptions(_:)`](https://developer.apple.com/documentation/swiftui/view/filedialogbrowseroptions(_:)) — On macOS, configures the   ,   ,   or    to provide a refined URL search experience: include or exclude   hidden files, allow searching by tag, etc.
+- [`fileDialogConfirmationLabel(_:)`](https://developer.apple.com/documentation/swiftui/view/filedialogconfirmationlabel(_:)) — On macOS, configures the   ,   ,   or    with a custom confirmation button label.
+- [`fileDialogCustomizationID(_:)`](https://developer.apple.com/documentation/swiftui/view/filedialogcustomizationid(_:)) — On macOS, configures the   ,   ,   or    to persist and restore the file dialog configuration.
+- [`fileDialogDefaultDirectory(_:)`](https://developer.apple.com/documentation/swiftui/view/filedialogdefaultdirectory(_:)) — Configures the   ,   , or    to   open with the specified default directory.
+- [`fileDialogImportsUnresolvedAliases(_:)`](https://developer.apple.com/documentation/swiftui/view/filedialogimportsunresolvedaliases(_:)) — On macOS, configures the   ,   ,   or    behavior when a user chooses an alias.
+- [`fileDialogMessage(_:)`](https://developer.apple.com/documentation/swiftui/view/filedialogmessage(_:)) — On macOS, configures the   ,   ,   or    with a custom message that is presented to the user,   similar to a title.
+- [`fileDialogURLEnabled(_:)`](https://developer.apple.com/documentation/swiftui/view/filedialogurlenabled(_:)) — On macOS, configures the     or    to conditionally disable presented URLs.
+- [`fileExporter(isPresented:document:contentType:defaultFilename:onCompletion:)`](https://developer.apple.com/documentation/swiftui/view/fileexporter(ispresented:document:contenttype:defaultfilename:oncompletion:)) — Presents a system dialog for exporting a document that’s stored in   a value type, like a structure, to a file on disk.
+- [`fileExporter(isPresented:document:contentType:defaultFilename:onCompletion:onCancellation:)`](https://developer.apple.com/documentation/swiftui/view/fileexporter(ispresented:document:contenttype:defaultfilename:oncompletion:oncancellation:)) — Presents a system dialog for allowing the user to export a     to a file on disk.
+- [`fileExporter(isPresented:document:contentTypes:defaultFilename:onCompletion:onCancellation:)`](https://developer.apple.com/documentation/swiftui/view/fileexporter(ispresented:document:contenttypes:defaultfilename:oncompletion:oncancellation:)) — Presents a system dialog for allowing the user to export a     to a file on disk.
+- [`fileExporter(isPresented:documents:contentType:onCompletion:)`](https://developer.apple.com/documentation/swiftui/view/fileexporter(ispresented:documents:contenttype:oncompletion:)) — Presents a system dialog for exporting a collection of value type   documents to files on disk.
+- [`fileExporter(isPresented:documents:contentTypes:onCompletion:onCancellation:)`](https://developer.apple.com/documentation/swiftui/view/fileexporter(ispresented:documents:contenttypes:oncompletion:oncancellation:)) — Presents a system dialog for allowing the user to export a   collection of objects conforming to    to files   on disk.
+- [`fileExporter(isPresented:item:contentTypes:defaultFilename:onCompletion:onCancellation:)`](https://developer.apple.com/documentation/swiftui/view/fileexporter(ispresented:item:contenttypes:defaultfilename:oncompletion:oncancellation:)) — Presents a system dialog allowing the user to export   a    item to a file on disk.
+- [`fileExporter(isPresented:items:contentTypes:onCompletion:onCancellation:)`](https://developer.apple.com/documentation/swiftui/view/fileexporter(ispresented:items:contenttypes:oncompletion:oncancellation:)) — Presents a system dialog allowing the user to export   a collection of    items to files on disk.
+- [`fileExporterFilenameLabel(_:)`](https://developer.apple.com/documentation/swiftui/view/fileexporterfilenamelabel(_:)) — On macOS, configures the     with a label for the file name field.
+- [`fileImporter(isPresented:allowedContentTypes:allowsMultipleSelection:onCompletion:)`](https://developer.apple.com/documentation/swiftui/view/fileimporter(ispresented:allowedcontenttypes:allowsmultipleselection:oncompletion:)) — Presents a system dialog for allowing the user to import multiple   files.
+- [`fileImporter(isPresented:allowedContentTypes:allowsMultipleSelection:onCompletion:onCancellation:)`](https://developer.apple.com/documentation/swiftui/view/fileimporter(ispresented:allowedcontenttypes:allowsmultipleselection:oncompletion:oncancellation:)) — Presents a system dialog for allowing the user to import multiple   files.
+- [`fileImporter(isPresented:allowedContentTypes:onCompletion:)`](https://developer.apple.com/documentation/swiftui/view/fileimporter(ispresented:allowedcontenttypes:oncompletion:)) — Presents a system dialog for allowing the user to import an existing   file.
+- [`fileMover(isPresented:file:onCompletion:)`](https://developer.apple.com/documentation/swiftui/view/filemover(ispresented:file:oncompletion:)) — Presents a system dialog for allowing the user to move an existing   file to a new location.
+- [`fileMover(isPresented:file:onCompletion:onCancellation:)`](https://developer.apple.com/documentation/swiftui/view/filemover(ispresented:file:oncompletion:oncancellation:)) — Presents a system dialog for allowing the user to move   an existing file to a new location.
+- [`fileMover(isPresented:files:onCompletion:)`](https://developer.apple.com/documentation/swiftui/view/filemover(ispresented:files:oncompletion:)) — Presents a system dialog for allowing the user to move a collection   of existing files to a new location.
+- [`fileMover(isPresented:files:onCompletion:onCancellation:)`](https://developer.apple.com/documentation/swiftui/view/filemover(ispresented:files:oncompletion:oncancellation:)) — Presents a system dialog for allowing the user to move   a collection of existing files to a new location.
+- [`fullScreenCover(isPresented:onDismiss:content:)`](https://developer.apple.com/documentation/swiftui/view/fullscreencover(ispresented:ondismiss:content:)) — Presents a modal view that covers as much of the screen as   possible when binding to a Boolean value you provide is true.
+- [`fullScreenCover(item:onDismiss:content:)`](https://developer.apple.com/documentation/swiftui/view/fullscreencover(item:ondismiss:content:)) — Presents a modal view that covers as much of the screen as   possible using the binding you provide as a data source for the   sheet’s content.
+- [`inspector(isPresented:content:)`](https://developer.apple.com/documentation/swiftui/view/inspector(ispresented:content:)) — Inserts an inspector at the applied position in the view hierarchy.
+- [`inspectorColumnWidth(_:)`](https://developer.apple.com/documentation/swiftui/view/inspectorcolumnwidth(_:)) — Sets a fixed, preferred width for the inspector containing this view   when presented as a trailing column.
+- [`inspectorColumnWidth(min:ideal:max:)`](https://developer.apple.com/documentation/swiftui/view/inspectorcolumnwidth(min:ideal:max:)) — Sets a flexible, preferred width for the inspector in a trailing-column   presentation.
+- [`interactiveDismissDisabled(_:)`](https://developer.apple.com/documentation/swiftui/view/interactivedismissdisabled(_:)) — Conditionally prevents interactive dismissal of presentations like   popovers, sheets, and inspectors.
+- [`isPresented`](https://developer.apple.com/documentation/swiftui/environmentvalues/ispresented) — A Boolean value that indicates whether the view associated with this   environment is currently presented.
+- [`popover(isPresented:attachmentAnchor:arrowEdge:content:)`](https://developer.apple.com/documentation/swiftui/view/popover(ispresented:attachmentanchor:arrowedge:content:)) — Presents a popover when a given condition is true.
+- [`popover(item:attachmentAnchor:arrowEdge:content:)`](https://developer.apple.com/documentation/swiftui/view/popover(item:attachmentanchor:arrowedge:content:)) — Presents a popover using the given item as a data source for the   popover’s content.
+- [`presentationBackground(_:)`](https://developer.apple.com/documentation/swiftui/view/presentationbackground(_:)) — Sets the presentation background of the enclosing sheet using a shape   style.
+- [`presentationBackground(alignment:content:)`](https://developer.apple.com/documentation/swiftui/view/presentationbackground(alignment:content:)) — Sets the presentation background of the enclosing sheet to a custom   view.
+- [`presentationBackgroundInteraction(_:)`](https://developer.apple.com/documentation/swiftui/view/presentationbackgroundinteraction(_:)) — Controls whether people can interact with the view behind a   presentation.
+- [`presentationCompactAdaptation(_:)`](https://developer.apple.com/documentation/swiftui/view/presentationcompactadaptation(_:)) — Specifies how to adapt a presentation to compact size classes.
+- [`presentationCompactAdaptation(horizontal:vertical:)`](https://developer.apple.com/documentation/swiftui/view/presentationcompactadaptation(horizontal:vertical:)) — Specifies how to adapt a presentation to horizontally and vertically   compact size classes.
+- [`presentationContentInteraction(_:)`](https://developer.apple.com/documentation/swiftui/view/presentationcontentinteraction(_:)) — Configures the behavior of swipe gestures on a presentation.
+- [`presentationCornerRadius(_:)`](https://developer.apple.com/documentation/swiftui/view/presentationcornerradius(_:)) — Requests that the presentation have a specific corner radius.
+- [`presentationDetents(_:)`](https://developer.apple.com/documentation/swiftui/view/presentationdetents(_:)) — Sets the available detents for the enclosing sheet.
+- [`presentationDetents(_:selection:)`](https://developer.apple.com/documentation/swiftui/view/presentationdetents(_:selection:)) — Sets the available detents for the enclosing sheet, giving you   programmatic control of the currently selected detent.
+- [`presentationDragIndicator(_:)`](https://developer.apple.com/documentation/swiftui/view/presentationdragindicator(_:)) — Sets the visibility of the drag indicator on top of a sheet.
+- [`presentationSizing(_:)`](https://developer.apple.com/documentation/swiftui/view/presentationsizing(_:)) — Sets the sizing of the containing presentation.
+- [`sheet(isPresented:onDismiss:content:)`](https://developer.apple.com/documentation/swiftui/view/sheet(ispresented:ondismiss:content:)) — Presents a sheet when a binding to a Boolean value that you   provide is true.
+- [`sheet(item:onDismiss:content:)`](https://developer.apple.com/documentation/swiftui/view/sheet(item:ondismiss:content:)) — Presents a sheet using the given item as a data source   for the sheet’s content.
+
+### Model data
+
+- [`Bindable`](https://developer.apple.com/documentation/swiftui/bindable) — A property wrapper type that supports creating bindings to the mutable   properties of observable objects.
+- [`Binding`](https://developer.apple.com/documentation/swiftui/binding) — A property wrapper type that can read and write a value owned by a source of   truth.
+- [`DynamicProperty`](https://developer.apple.com/documentation/swiftui/dynamicproperty) — An interface for a stored variable that updates an external property of a   view.
+- [`EnvironmentObject`](https://developer.apple.com/documentation/swiftui/environmentobject) — A property wrapper type for an observable object that a parent or ancestor   view supplies.
+- [`Observable()`](https://developer.apple.com/documentation/observation/observable()) — Defines and implements conformance of the Observable protocol.
+- [`ObservableObject`](https://developer.apple.com/documentation/combine/observableobject) — A type of object with a publisher that emits before the object has changed.
+- [`ObservedObject`](https://developer.apple.com/documentation/swiftui/observedobject) — A property wrapper type that subscribes to an observable object and   invalidates a view whenever the observable object changes.
+- [`State`](https://developer.apple.com/documentation/swiftui/state) — A property wrapper type that can read and write a value managed by SwiftUI.
+- [`State()`](https://developer.apple.com/documentation/swiftui/state()) — Creates a property that can read and write a value managed by SwiftUI.
+- [`State(initialValue:)`](https://developer.apple.com/documentation/swiftui/state(initialvalue:)) — Creates a property with an initial value that can read and write a value managed by SwiftUI.
+- [`State(wrappedValue:)`](https://developer.apple.com/documentation/swiftui/state(wrappedvalue:)) — Creates a property with a wrapped value that can read and write a value managed by SwiftUI.
+- [`StateObject`](https://developer.apple.com/documentation/swiftui/stateobject) — A property wrapper type that instantiates an observable object.
+- [`environmentObject(_:)`](https://developer.apple.com/documentation/swiftui/view/environmentobject(_:)) — Supplies an observable object to a view’s hierarchy.
+- [`environmentObject(_:)`](https://developer.apple.com/documentation/swiftui/scene/environmentobject(_:)) — Supplies an    to a view subhierarchy.
+- [`onChange(of:initial:_:)`](https://developer.apple.com/documentation/swiftui/view/onchange(of:initial:_:)) — Adds a modifier for this view that fires an action when a specific   value changes.
+- [`onReceive(_:perform:)`](https://developer.apple.com/documentation/swiftui/view/onreceive(_:perform:)) — Adds an action to perform when this view detects data emitted by the   given publisher.
+
+### Navigation
+
+- [`AdaptableTabBarPlacement`](https://developer.apple.com/documentation/swiftui/adaptabletabbarplacement) — A placement for tabs in a tab view using the adaptable sidebar style.
+- [`AnyTabContent`](https://developer.apple.com/documentation/swiftui/anytabcontent) — Type erased tab content.
+- [`HSplitView`](https://developer.apple.com/documentation/swiftui/hsplitview) — A layout container that arranges its children in a horizontal line and   allows the user to resize them using dividers placed between them.
+- [`NavigationBarItem`](https://developer.apple.com/documentation/swiftui/navigationbaritem) — A configuration for a navigation bar that represents a view at the top of a   navigation stack.
+- [`NavigationLink`](https://developer.apple.com/documentation/swiftui/navigationlink) — A view that controls a navigation presentation.
+- [`NavigationPath`](https://developer.apple.com/documentation/swiftui/navigationpath) — A type-erased list of data representing the content of a navigation stack.
+- [`NavigationSplitView`](https://developer.apple.com/documentation/swiftui/navigationsplitview) — A view that presents views in two or three columns, where selections in   leading columns control presentations in subsequent columns.
+- [`NavigationSplitViewColumn`](https://developer.apple.com/documentation/swiftui/navigationsplitviewcolumn) — A view that represents a column in a navigation split view.
+- [`NavigationSplitViewVisibility`](https://developer.apple.com/documentation/swiftui/navigationsplitviewvisibility) — The visibility of the leading columns in a navigation split view.
+- [`NavigationStack`](https://developer.apple.com/documentation/swiftui/navigationstack) — A view that displays a root view and enables you to present additional   views over the root view.
+- [`NavigationView`](https://developer.apple.com/documentation/swiftui/navigationview) — A view for presenting a stack of views that represents a visible path in a   navigation hierarchy.
+- [`SidebarRowSize`](https://developer.apple.com/documentation/swiftui/sidebarrowsize) — The standard sizes of sidebar rows.
+- [`Tab`](https://developer.apple.com/documentation/swiftui/tab) — The content for a tab and the tab’s associated tab item in a tab view.
+- [`TabBarMinimizeBehavior`](https://developer.apple.com/documentation/swiftui/tabbarminimizebehavior)
+- [`TabBarPlacement`](https://developer.apple.com/documentation/swiftui/tabbarplacement) — A placement for tabs in a tab view.
+- [`TabContent`](https://developer.apple.com/documentation/swiftui/tabcontent) — A type that provides content for programmatically selectable tabs in a   tab view.
+- [`TabContentBuilder`](https://developer.apple.com/documentation/swiftui/tabcontentbuilder) — A result builder that constructs tabs for a tab view that supports   programmatic selection. This builder requires that all tabs in the   tab view have the same selection type.
+- [`TabCustomizationBehavior`](https://developer.apple.com/documentation/swiftui/tabcustomizationbehavior) — The customization behavior of customizable tab view content.
+- [`TabPlacement`](https://developer.apple.com/documentation/swiftui/tabplacement) — A place that a tab can appear.
+- [`TabRole`](https://developer.apple.com/documentation/swiftui/tabrole) — A value that defines the purpose of the tab.
+- [`TabSection`](https://developer.apple.com/documentation/swiftui/tabsection) — A container that you can use to add hierarchy within a tab view.
+- [`TabView`](https://developer.apple.com/documentation/swiftui/tabview) — A view that switches between multiple child views using interactive user   interface elements.
+- [`TabViewBottomAccessoryPlacement`](https://developer.apple.com/documentation/swiftui/tabviewbottomaccessoryplacement) — A placement of the bottom accessory in a tab view. You can use this to   adjust the content of the accessory view based on the placement.
+- [`TabViewCustomization`](https://developer.apple.com/documentation/swiftui/tabviewcustomization) — The customizations a person makes to an adaptable sidebar tab view.
+- [`VSplitView`](https://developer.apple.com/documentation/swiftui/vsplitview) — A layout container that arranges its children in a vertical line and allows   the user to resize them using dividers placed between them.
+- [`defaultAdaptableTabBarPlacement(_:)`](https://developer.apple.com/documentation/swiftui/view/defaultadaptabletabbarplacement(_:)) — Specifies the default placement for the tabs in a tab view using the   adaptable sidebar style.
+- [`defaultTabBarPlacement(_:)`](https://developer.apple.com/documentation/swiftui/view/defaulttabbarplacement(_:)) — Specifies the preferred placement for the tabs of a     in the    style on platforms where   the tab bar cannot adapt between different representations, and   only one representation can be shown.
+- [`isTabBarShowingSections`](https://developer.apple.com/documentation/swiftui/environmentvalues/istabbarshowingsections) — A Boolean value that determines whether a tab view shows the   expanded contents of a tab section.
+- [`navigationBarBackButtonHidden(_:)`](https://developer.apple.com/documentation/swiftui/view/navigationbarbackbuttonhidden(_:)) — Hides the navigation bar back button for the view.
+- [`navigationBarTitleDisplayMode(_:)`](https://developer.apple.com/documentation/swiftui/view/navigationbartitledisplaymode(_:)) — Configures the title display mode for this view.
+- [`navigationDestination(for:destination:)`](https://developer.apple.com/documentation/swiftui/view/navigationdestination(for:destination:)) — Associates a destination view with a presented data type for use within   a navigation stack.
+- [`navigationDestination(isPresented:destination:)`](https://developer.apple.com/documentation/swiftui/view/navigationdestination(ispresented:destination:)) — Associates a destination view with a binding that can be used to push   the view onto a   .
+- [`navigationDestination(item:destination:)`](https://developer.apple.com/documentation/swiftui/view/navigationdestination(item:destination:)) — Associates a destination view with a bound value for use within a   navigation stack or navigation split view
+- [`navigationDocument(_:)`](https://developer.apple.com/documentation/swiftui/view/navigationdocument(_:)) — Configures the view’s document for purposes of navigation.
+- [`navigationDocument(_:preview:)`](https://developer.apple.com/documentation/swiftui/view/navigationdocument(_:preview:)) — Configures the view’s document for purposes of navigation.
+- [`navigationSplitViewColumnWidth(_:)`](https://developer.apple.com/documentation/swiftui/view/navigationsplitviewcolumnwidth(_:)) — Sets a fixed, preferred width for the column containing this view.
+- [`navigationSplitViewColumnWidth(min:ideal:max:)`](https://developer.apple.com/documentation/swiftui/view/navigationsplitviewcolumnwidth(min:ideal:max:)) — Sets a flexible, preferred width for the column containing this view.
+- [`navigationSplitViewStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/navigationsplitviewstyle(_:)) — Sets the style for navigation split views within this view.
+- [`navigationSubtitle(_:)`](https://developer.apple.com/documentation/swiftui/view/navigationsubtitle(_:)) — Configures the view’s subtitle for purposes of navigation,   using a localized string resource.
+- [`navigationTitle(_:)`](https://developer.apple.com/documentation/swiftui/view/navigationtitle(_:)) — Configures the view’s title for purposes of navigation,   using a localized string resource.
+- [`sectionActions(content:)`](https://developer.apple.com/documentation/swiftui/view/sectionactions(content:)) — Adds custom actions to a section.
+- [`sidebarRowSize`](https://developer.apple.com/documentation/swiftui/environmentvalues/sidebarrowsize) — The current size of sidebar rows.
+- [`tabBarMinimizeBehavior(_:)`](https://developer.apple.com/documentation/swiftui/view/tabbarminimizebehavior(_:)) — Sets the behavior for tab bar minimization.
+- [`tabBarPlacement`](https://developer.apple.com/documentation/swiftui/environmentvalues/tabbarplacement) — The current placement of the tab bar.
+- [`tabItem(_:)`](https://developer.apple.com/documentation/swiftui/view/tabitem(_:)) — Sets the tab bar item associated with this view.
+- [`tabViewCustomization(_:)`](https://developer.apple.com/documentation/swiftui/view/tabviewcustomization(_:)) — Specifies the customizations to apply to the sidebar representation   of the tab view.
+- [`tabViewSidebarBottomBar(content:)`](https://developer.apple.com/documentation/swiftui/view/tabviewsidebarbottombar(content:)) — Adds a custom bottom bar to the sidebar of a tab view.
+- [`tabViewSidebarFooter(content:)`](https://developer.apple.com/documentation/swiftui/view/tabviewsidebarfooter(content:)) — Adds a custom footer to the sidebar of a tab view.
+- [`tabViewSidebarHeader(content:)`](https://developer.apple.com/documentation/swiftui/view/tabviewsidebarheader(content:)) — Adds a custom header to the sidebar of a tab view.
+- [`tabViewStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/tabviewstyle(_:)) — Sets the style for the tab view within the current environment.
+
+### Persistent storage
+
+- [`AppStorage`](https://developer.apple.com/documentation/swiftui/appstorage) — A property wrapper type that reflects a value from    and   invalidates a view on a change in value in that user default.
+- [`FetchRequest`](https://developer.apple.com/documentation/swiftui/fetchrequest) — A property wrapper type that retrieves entities from a Core Data persistent   store.
+- [`FetchedResults`](https://developer.apple.com/documentation/swiftui/fetchedresults) — A collection of results retrieved from a Core Data store.
+- [`SceneStorage`](https://developer.apple.com/documentation/swiftui/scenestorage) — A property wrapper type that reads and writes to persisted, per-scene   storage.
+- [`SectionedFetchRequest`](https://developer.apple.com/documentation/swiftui/sectionedfetchrequest) — A property wrapper type that retrieves entities, grouped into sections,   from a Core Data persistent store.
+- [`SectionedFetchResults`](https://developer.apple.com/documentation/swiftui/sectionedfetchresults) — A collection of results retrieved from a Core Data persistent store,   grouped into sections.
+- [`defaultAppStorage(_:)`](https://developer.apple.com/documentation/swiftui/view/defaultappstorage(_:)) — The default store used by    contained within the view.
+- [`managedObjectContext`](https://developer.apple.com/documentation/swiftui/environmentvalues/managedobjectcontext)
+
+### Preferences
+
+- [`PreferenceKey`](https://developer.apple.com/documentation/swiftui/preferencekey) — A named value produced by a view.
+- [`anchorPreference(key:value:transform:)`](https://developer.apple.com/documentation/swiftui/view/anchorpreference(key:value:transform:)) — Sets a value for the specified preference key, the value is a   function of a geometry value tied to the current coordinate   space, allowing readers of the value to convert the geometry to   their local coordinates.
+- [`backgroundPreferenceValue(_:_:)`](https://developer.apple.com/documentation/swiftui/view/backgroundpreferencevalue(_:_:)) — Reads the specified preference value from the view, using it to   produce a second view that is applied as the background of the   original view.
+- [`backgroundPreferenceValue(_:alignment:_:)`](https://developer.apple.com/documentation/swiftui/view/backgroundpreferencevalue(_:alignment:_:)) — Reads the specified preference value from the view, using it to   produce a second view that is applied as the background of the   original view.
+- [`onPreferenceChange(_:perform:)`](https://developer.apple.com/documentation/swiftui/view/onpreferencechange(_:perform:)) — Adds an action to perform when the specified preference key’s value   changes.
+- [`overlayPreferenceValue(_:_:)`](https://developer.apple.com/documentation/swiftui/view/overlaypreferencevalue(_:_:)) — Reads the specified preference value from the view, using it to   produce a second view that is applied as an overlay to the   original view.
+- [`overlayPreferenceValue(_:alignment:_:)`](https://developer.apple.com/documentation/swiftui/view/overlaypreferencevalue(_:alignment:_:)) — Reads the specified preference value from the view, using it to   produce a second view that is applied as an overlay to the   original view.
+- [`preference(key:value:)`](https://developer.apple.com/documentation/swiftui/view/preference(key:value:)) — Sets a value for the given preference.
+- [`transformAnchorPreference(key:value:transform:)`](https://developer.apple.com/documentation/swiftui/view/transformanchorpreference(key:value:transform:)) — Sets a value for the specified preference key, the value is a   function of the key’s current value and a geometry value tied   to the current coordinate space, allowing readers of the value   to convert the geometry to their local coordinates.
+- [`transformPreference(_:_:)`](https://developer.apple.com/documentation/swiftui/view/transformpreference(_:_:)) — Applies a transformation to a preference value.
+
+### Scenes
+
+- [`ExternalNonInteractiveAccessory`](https://developer.apple.com/documentation/swiftui/externalnoninteractiveaccessory) — A scene accessory that presents non-interactive content on an external   display.
+- [`MenuBarExtra`](https://developer.apple.com/documentation/swiftui/menubarextra) — A scene that renders itself as a persistent control in the system menu bar.
+- [`MenuBarExtraStyle`](https://developer.apple.com/documentation/swiftui/menubarextrastyle) — A specification for the appearance and behavior of a menu bar extra scene.
+- [`OpenSettingsAction`](https://developer.apple.com/documentation/swiftui/opensettingsaction) — An action that presents the settings scene for an app.
+- [`Scene`](https://developer.apple.com/documentation/swiftui/scene) — A part of an app’s user interface with a life cycle managed by the   system.
+- [`SceneAccessoryContent`](https://developer.apple.com/documentation/swiftui/sceneaccessorycontent) — Conforming types represent items which define content for scene accessories.
+- [`SceneBuilder`](https://developer.apple.com/documentation/swiftui/scenebuilder) — A result builder for composing a collection of scenes into a single   composite scene.
+- [`ScenePhase`](https://developer.apple.com/documentation/swiftui/scenephase) — An indication of a scene’s operational state.
+- [`Settings`](https://developer.apple.com/documentation/swiftui/settings) — A scene that presents an interface for viewing and modifying an app’s   settings.
+- [`SettingsLink`](https://developer.apple.com/documentation/swiftui/settingslink) — A view that opens the Settings scene defined by an app.
+- [`WKNotificationScene`](https://developer.apple.com/documentation/swiftui/wknotificationscene) — A scene which appears in response to receiving the specified   category of remote or local notifications.
+- [`menuBarExtraStyle(_:)`](https://developer.apple.com/documentation/swiftui/scene/menubarextrastyle(_:)) — Sets the style for menu bar extra created by this scene.
+- [`openSettings`](https://developer.apple.com/documentation/swiftui/environmentvalues/opensettings) — A Settings presentation action stored in a view’s environment.
+- [`sceneAccessory(content:)`](https://developer.apple.com/documentation/swiftui/view/sceneaccessory(content:)) — Defines any scene accessories associated with   .
+- [`scenePhase`](https://developer.apple.com/documentation/swiftui/environmentvalues/scenephase) — The current phase of the scene.
+
+### Scroll views
+
+- [`AnyScrollTargetBehavior`](https://developer.apple.com/documentation/swiftui/anyscrolltargetbehavior) — A type-erased scroll target behavior.
+- [`PagingScrollTargetBehavior`](https://developer.apple.com/documentation/swiftui/pagingscrolltargetbehavior) — The scroll behavior that aligns scroll targets to container-based geometry.
+- [`ScrollAnchorRole`](https://developer.apple.com/documentation/swiftui/scrollanchorrole) — A type defining the role of a scroll anchor.
+- [`ScrollBounceBehavior`](https://developer.apple.com/documentation/swiftui/scrollbouncebehavior) — The ways that a scrollable view can bounce when it reaches the end of its   content.
+- [`ScrollContentOffsetAdjustmentBehavior`](https://developer.apple.com/documentation/swiftui/scrollcontentoffsetadjustmentbehavior) — A type that defines the different kinds of content offset adjusting   behaviors a scroll view can have.
+- [`ScrollDismissesKeyboardMode`](https://developer.apple.com/documentation/swiftui/scrolldismisseskeyboardmode) — The ways that scrollable content can interact with the software keyboard.
+- [`ScrollEdgeEffectStyle`](https://developer.apple.com/documentation/swiftui/scrolledgeeffectstyle) — A structure that specifies blur transitions between scrolling content and an   area with controls, such as toolbars.
+- [`ScrollGeometry`](https://developer.apple.com/documentation/swiftui/scrollgeometry) — A type that defines the geometry of a scroll view.
+- [`ScrollIndicatorVisibility`](https://developer.apple.com/documentation/swiftui/scrollindicatorvisibility) — The visibility of scroll indicators of a UI element.
+- [`ScrollInputBehavior`](https://developer.apple.com/documentation/swiftui/scrollinputbehavior) — A type that defines whether input should scroll a view.
+- [`ScrollInputKind`](https://developer.apple.com/documentation/swiftui/scrollinputkind) — Inputs used to scroll views.
+- [`ScrollPhase`](https://developer.apple.com/documentation/swiftui/scrollphase) — A type that describes the state of a scroll gesture of a   scrollable view like a scroll view.
+- [`ScrollPhaseChangeContext`](https://developer.apple.com/documentation/swiftui/scrollphasechangecontext) — A type that provides you with more content when the phase of a scroll   view changes.
+- [`ScrollPosition`](https://developer.apple.com/documentation/swiftui/scrollposition) — A type that defines the semantic position of where a scroll view is   scrolled within its content.
+- [`ScrollTarget`](https://developer.apple.com/documentation/swiftui/scrolltarget) — A type defining the target in which a scroll view should try and scroll to.
+- [`ScrollTargetBehavior`](https://developer.apple.com/documentation/swiftui/scrolltargetbehavior) — A type that defines the scroll behavior of a scrollable view.
+- [`ScrollTargetBehaviorContext`](https://developer.apple.com/documentation/swiftui/scrolltargetbehaviorcontext) — The context in which a scroll target behavior updates its scroll target.
+- [`ScrollTargetBehaviorProperties`](https://developer.apple.com/documentation/swiftui/scrolltargetbehaviorproperties) — Properties influencing the scroll view a scroll target behavior   applies to.
+- [`ScrollTargetBehaviorPropertiesContext`](https://developer.apple.com/documentation/swiftui/scrolltargetbehaviorpropertiescontext) — The context in which a scroll target behavior can decide its properties.
+- [`ScrollTransitionConfiguration`](https://developer.apple.com/documentation/swiftui/scrolltransitionconfiguration) — The configuration of a scroll transition that controls how a transition   is applied as a view is scrolled through the visible region of a containing   scroll view or other container.
+- [`ScrollTransitionPhase`](https://developer.apple.com/documentation/swiftui/scrolltransitionphase) — The phases that a view transitions between when it scrolls among other views.
+- [`ScrollView`](https://developer.apple.com/documentation/swiftui/scrollview) — A scrollable view.
+- [`ScrollViewProxy`](https://developer.apple.com/documentation/swiftui/scrollviewproxy) — A proxy value that supports programmatic scrolling of the scrollable   views within a view hierarchy.
+- [`ScrollViewReader`](https://developer.apple.com/documentation/swiftui/scrollviewreader) — A view that provides programmatic scrolling, by working with a proxy   to scroll to known child views.
+- [`ViewAlignedScrollTargetBehavior`](https://developer.apple.com/documentation/swiftui/viewalignedscrolltargetbehavior) — The scroll behavior that aligns scroll targets to view-based geometry.
+- [`defaultScrollAnchor(_:)`](https://developer.apple.com/documentation/swiftui/view/defaultscrollanchor(_:)) — Associates an anchor to control which part of the scroll view’s   content should be rendered by default.
+- [`defaultScrollAnchor(_:for:)`](https://developer.apple.com/documentation/swiftui/view/defaultscrollanchor(_:for:)) — Associates an anchor to control the position of a scroll view in a   particular circumstance.
+- [`horizontalScrollBounceBehavior`](https://developer.apple.com/documentation/swiftui/environmentvalues/horizontalscrollbouncebehavior) — The scroll bounce mode for the horizontal axis of scrollable views.
+- [`horizontalScrollIndicatorVisibility`](https://developer.apple.com/documentation/swiftui/environmentvalues/horizontalscrollindicatorvisibility) — The visibility to apply to scroll indicators of any   horizontally scrollable content.
+- [`isScrollEnabled`](https://developer.apple.com/documentation/swiftui/environmentvalues/isscrollenabled) — A Boolean value that indicates whether any scroll views associated   with this environment allow scrolling to occur.
+- [`onScrollGeometryChange(for:of:action:)`](https://developer.apple.com/documentation/swiftui/view/onscrollgeometrychange(for:of:action:)) — Adds an action to be performed when a value, created from a   scroll geometry, changes.
+- [`onScrollPhaseChange(_:)`](https://developer.apple.com/documentation/swiftui/view/onscrollphasechange(_:)) — Adds an action to perform when the scroll phase of the first scroll   view in the hierarchy changes.
+- [`onScrollTargetVisibilityChange(idType:threshold:_:)`](https://developer.apple.com/documentation/swiftui/view/onscrolltargetvisibilitychange(idtype:threshold:_:)) — Adds an action to be called with information about what views would   be considered visible.
+- [`onScrollVisibilityChange(threshold:_:)`](https://developer.apple.com/documentation/swiftui/view/onscrollvisibilitychange(threshold:_:)) — Adds an action to be called when the view crosses the threshold to be considered on/off screen.
+- [`safeAreaBar(edge:alignment:spacing:content:)`](https://developer.apple.com/documentation/swiftui/view/safeareabar(edge:alignment:spacing:content:)) — Shows the specified content as a custom bar beside the modified view.
+- [`scrollBounceBehavior(_:axes:)`](https://developer.apple.com/documentation/swiftui/view/scrollbouncebehavior(_:axes:)) — Configures the bounce behavior of scrollable views along the specified   axis.
+- [`scrollClipDisabled(_:)`](https://developer.apple.com/documentation/swiftui/view/scrollclipdisabled(_:)) — Sets whether a scroll view clips its content to its bounds.
+- [`scrollContentBackground(_:)`](https://developer.apple.com/documentation/swiftui/view/scrollcontentbackground(_:)) — Specifies the visibility of the background for scrollable views within   this view.
+- [`scrollDisabled(_:)`](https://developer.apple.com/documentation/swiftui/view/scrolldisabled(_:)) — Disables or enables scrolling in scrollable views.
+- [`scrollDismissesKeyboard(_:)`](https://developer.apple.com/documentation/swiftui/view/scrolldismisseskeyboard(_:)) — Configures the behavior in which scrollable content interacts with   the software keyboard.
+- [`scrollDismissesKeyboardMode`](https://developer.apple.com/documentation/swiftui/environmentvalues/scrolldismisseskeyboardmode) — The way that scrollable content interacts with the software keyboard.
+- [`scrollEdgeEffectHidden(_:for:)`](https://developer.apple.com/documentation/swiftui/view/scrolledgeeffecthidden(_:for:)) — Hides any scroll edge effects for scroll views within this   hierarchy.
+- [`scrollEdgeEffectStyle(_:for:)`](https://developer.apple.com/documentation/swiftui/view/scrolledgeeffectstyle(_:for:)) — Configures the scroll edge effect style for scroll views within this   hierarchy.
+- [`scrollIndicators(_:axes:)`](https://developer.apple.com/documentation/swiftui/view/scrollindicators(_:axes:)) — Sets the visibility of scroll indicators within this view.
+- [`scrollIndicatorsFlash(onAppear:)`](https://developer.apple.com/documentation/swiftui/view/scrollindicatorsflash(onappear:)) — Flashes the scroll indicators of a scrollable view when it appears.
+- [`scrollIndicatorsFlash(trigger:)`](https://developer.apple.com/documentation/swiftui/view/scrollindicatorsflash(trigger:)) — Flashes the scroll indicators of scrollable views when a value changes.
+- [`scrollInputBehavior(_:for:)`](https://developer.apple.com/documentation/swiftui/view/scrollinputbehavior(_:for:)) — Enables or disables scrolling in scrollable views when using particular   inputs.
+- [`scrollPosition(_:anchor:)`](https://developer.apple.com/documentation/swiftui/view/scrollposition(_:anchor:)) — Associates a binding to a scroll position with a scroll view within this   view.
+- [`scrollPosition(id:anchor:)`](https://developer.apple.com/documentation/swiftui/view/scrollposition(id:anchor:)) — Associates a binding to be updated when a scroll view within this   view scrolls.
+- [`scrollTargetBehavior(_:)`](https://developer.apple.com/documentation/swiftui/view/scrolltargetbehavior(_:)) — Sets the scroll behavior of views scrollable in the provided axes.
+- [`scrollTargetLayout(isEnabled:)`](https://developer.apple.com/documentation/swiftui/view/scrolltargetlayout(isenabled:)) — Configures the outermost layout as a scroll target layout.
+- [`scrollTransition(_:axis:transition:)`](https://developer.apple.com/documentation/swiftui/view/scrolltransition(_:axis:transition:)) — Applies the given transition, animating between the phases   of the transition as this view appears and disappears within the   visible region of the containing scroll view.
+- [`scrollTransition(topLeading:bottomTrailing:axis:transition:)`](https://developer.apple.com/documentation/swiftui/view/scrolltransition(topleading:bottomtrailing:axis:transition:)) — Applies the given transition, animating between the phases   of the transition as this view appears and disappears within the   visible region of the containing scroll view.
+- [`verticalScrollBounceBehavior`](https://developer.apple.com/documentation/swiftui/environmentvalues/verticalscrollbouncebehavior) — The scroll bounce mode for the vertical axis of scrollable views.
+- [`verticalScrollIndicatorVisibility`](https://developer.apple.com/documentation/swiftui/environmentvalues/verticalscrollindicatorvisibility) — The visiblity to apply to scroll indicators of any   vertically scrollable content.
+
+### Search
+
+- [`DismissSearchAction`](https://developer.apple.com/documentation/swiftui/dismisssearchaction) — An action that can end a search interaction.
+- [`FindContext`](https://developer.apple.com/documentation/swiftui/findcontext) — The status of the find navigator for views which support text editing.
+- [`SearchFieldPlacement`](https://developer.apple.com/documentation/swiftui/searchfieldplacement) — The placement of a search field in a view hierarchy.
+- [`SearchPresentationToolbarBehavior`](https://developer.apple.com/documentation/swiftui/searchpresentationtoolbarbehavior) — A type that defines how the toolbar behaves when presenting search.
+- [`SearchScopeActivation`](https://developer.apple.com/documentation/swiftui/searchscopeactivation) — The ways that searchable modifiers can show or hide search scopes.
+- [`SearchSuggestionsPlacement`](https://developer.apple.com/documentation/swiftui/searchsuggestionsplacement) — The ways that SwiftUI displays search suggestions.
+- [`dismissSearch`](https://developer.apple.com/documentation/swiftui/environmentvalues/dismisssearch) — An action that ends the current search interaction.
+- [`findDisabled(_:)`](https://developer.apple.com/documentation/swiftui/view/finddisabled(_:)) — Prevents find and replace operations in a text editor.
+- [`findNavigator(isPresented:)`](https://developer.apple.com/documentation/swiftui/view/findnavigator(ispresented:)) — Programmatically presents the find and replace interface for text   editor views.
+- [`isSearching`](https://developer.apple.com/documentation/swiftui/environmentvalues/issearching) — A Boolean value that indicates when the user is searching.
+- [`replaceDisabled(_:)`](https://developer.apple.com/documentation/swiftui/view/replacedisabled(_:)) — Prevents replace operations in a text editor.
+- [`searchCompletion(_:)`](https://developer.apple.com/documentation/swiftui/view/searchcompletion(_:)) — Associates a fully formed string with the value of this view when used   as a search suggestion.
+- [`searchPresentationToolbarBehavior(_:)`](https://developer.apple.com/documentation/swiftui/view/searchpresentationtoolbarbehavior(_:)) — Configures the search toolbar presentation behavior for any   searchable modifiers within this view.
+- [`searchScopes(_:activation:_:)`](https://developer.apple.com/documentation/swiftui/view/searchscopes(_:activation:_:)) — Configures the search scopes for this view with the specified   activation strategy.
+- [`searchScopes(_:scopes:)`](https://developer.apple.com/documentation/swiftui/view/searchscopes(_:scopes:)) — Configures the search scopes for this view.
+- [`searchSuggestions(_:)`](https://developer.apple.com/documentation/swiftui/view/searchsuggestions(_:)) — Configures the search suggestions for this view.
+- [`searchSuggestions(_:for:)`](https://developer.apple.com/documentation/swiftui/view/searchsuggestions(_:for:)) — Configures how to display search suggestions within this view.
+- [`searchable(text:editableTokens:isPresented:placement:prompt:token:)`](https://developer.apple.com/documentation/swiftui/view/searchable(text:editabletokens:ispresented:placement:prompt:token:)) — Marks this view as searchable, which configures the display of a   search field.
+- [`searchable(text:editableTokens:placement:prompt:token:)`](https://developer.apple.com/documentation/swiftui/view/searchable(text:editabletokens:placement:prompt:token:)) — Marks this view as searchable, which configures the display of a   search field.
+- [`searchable(text:isPresented:placement:prompt:)`](https://developer.apple.com/documentation/swiftui/view/searchable(text:ispresented:placement:prompt:)) — Marks this view as searchable with programmatic presentation of the   search field.
+- [`searchable(text:placement:prompt:)`](https://developer.apple.com/documentation/swiftui/view/searchable(text:placement:prompt:)) — Marks this view as searchable, which configures the display of a   search field.
+- [`searchable(text:tokens:isPresented:placement:prompt:token:)`](https://developer.apple.com/documentation/swiftui/view/searchable(text:tokens:ispresented:placement:prompt:token:)) — Marks this view as searchable with text and tokens, as well as   programmatic presentation.
+- [`searchable(text:tokens:placement:prompt:token:)`](https://developer.apple.com/documentation/swiftui/view/searchable(text:tokens:placement:prompt:token:)) — Marks this view as searchable with text and tokens.
+- [`searchable(text:tokens:suggestedTokens:isPresented:placement:prompt:token:)`](https://developer.apple.com/documentation/swiftui/view/searchable(text:tokens:suggestedtokens:ispresented:placement:prompt:token:)) — Marks this view as searchable with text, tokens, and suggestions, as   well as programmatic presentation.
+- [`searchable(text:tokens:suggestedTokens:placement:prompt:token:)`](https://developer.apple.com/documentation/swiftui/view/searchable(text:tokens:suggestedtokens:placement:prompt:token:)) — Marks this view as searchable with text, tokens, and suggestions.
+
+### Shapes
+
+- [`AnyShape`](https://developer.apple.com/documentation/swiftui/anyshape) — A type-erased shape value.
+- [`Capsule`](https://developer.apple.com/documentation/swiftui/capsule) — A capsule shape aligned inside the frame of the view containing it.
+- [`Circle`](https://developer.apple.com/documentation/swiftui/circle) — A circle centered on the frame of the view containing it.
+- [`ConcentricRectangle`](https://developer.apple.com/documentation/swiftui/concentricrectangle) — A shape whose corners you configure, individually or uniformly, to be   squared, rounded, or concentric relative to a container shape’s corners.
+- [`ContainerRelativeShape`](https://developer.apple.com/documentation/swiftui/containerrelativeshape) — A shape whose dimensions the system calculates from an inset version of the current container shape.
+- [`Ellipse`](https://developer.apple.com/documentation/swiftui/ellipse) — An ellipse aligned inside the frame of the view containing it.
+- [`FillShapeView`](https://developer.apple.com/documentation/swiftui/fillshapeview) — A shape provider that fills its shape.
+- [`FillStyle`](https://developer.apple.com/documentation/swiftui/fillstyle) — A style for rasterizing vector shapes.
+- [`InsettableShape`](https://developer.apple.com/documentation/swiftui/insettableshape) — A shape type that is able to inset itself to produce another shape.
+- [`OffsetShape`](https://developer.apple.com/documentation/swiftui/offsetshape) — A shape with a translation offset transform applied to it.
+- [`Path`](https://developer.apple.com/documentation/swiftui/path) — The outline of a 2D shape.
+- [`Rectangle`](https://developer.apple.com/documentation/swiftui/rectangle) — A rectangular shape aligned inside the frame of the view containing it.
+- [`RectangleCornerInsets`](https://developer.apple.com/documentation/swiftui/rectanglecornerinsets) — The inset sizes for the corners of a rectangle.
+- [`RectangleCornerRadii`](https://developer.apple.com/documentation/swiftui/rectanglecornerradii) — Describes the corner radius values of a rounded rectangle with   uneven corners.
+- [`RotatedShape`](https://developer.apple.com/documentation/swiftui/rotatedshape) — A shape with a rotation transform applied to it.
+- [`RoundedCornerStyle`](https://developer.apple.com/documentation/swiftui/roundedcornerstyle) — Defines the shape of a rounded rectangle’s corners.
+- [`RoundedRectangle`](https://developer.apple.com/documentation/swiftui/roundedrectangle) — A rectangular shape with rounded corners, aligned inside the frame of the   view containing it.
+- [`RoundedRectangularShape`](https://developer.apple.com/documentation/swiftui/roundedrectangularshape) — A protocol of    that describes a rounded rectangular   shape.
+- [`RoundedRectangularShapeCorners`](https://developer.apple.com/documentation/swiftui/roundedrectangularshapecorners) — A type describing the corner styles of a   .
+- [`ScaledShape`](https://developer.apple.com/documentation/swiftui/scaledshape) — A shape with a scale transform applied to it.
+- [`Shape`](https://developer.apple.com/documentation/swiftui/shape) — A 2D shape that you can use when drawing a view.
+- [`ShapeRole`](https://developer.apple.com/documentation/swiftui/shaperole) — Ways of styling a shape.
+- [`ShapeView`](https://developer.apple.com/documentation/swiftui/shapeview) — A view that provides a shape that you can use for drawing operations.
+- [`StrokeBorderShapeView`](https://developer.apple.com/documentation/swiftui/strokebordershapeview) — A shape provider that strokes the border of its shape.
+- [`StrokeShapeView`](https://developer.apple.com/documentation/swiftui/strokeshapeview) — A shape provider that strokes its shape.
+- [`StrokeStyle`](https://developer.apple.com/documentation/swiftui/strokestyle) — The characteristics of a stroke that traces a path.
+- [`TransformedShape`](https://developer.apple.com/documentation/swiftui/transformedshape) — A shape with an affine transform applied to it.
+- [`UnevenRoundedRectangle`](https://developer.apple.com/documentation/swiftui/unevenroundedrectangle) — A rectangular shape with rounded corners with different values, aligned   inside the frame of the view containing it.
+- [`containerShape(_:)`](https://developer.apple.com/documentation/swiftui/view/containershape(_:)) — Sets the container shape to use for any container relative shape or   concentric rectangle within this view.
+
+### System events
+
+- [`BackgroundTask`](https://developer.apple.com/documentation/swiftui/backgroundtask) — The kinds of background tasks that your app or extension can handle.
+- [`OpenURLAction`](https://developer.apple.com/documentation/swiftui/openurlaction) — An action that opens a URL.
+- [`SnapshotData`](https://developer.apple.com/documentation/swiftui/snapshotdata) — The associated data of a snapshot background task.
+- [`SnapshotResponse`](https://developer.apple.com/documentation/swiftui/snapshotresponse) — Your application’s response to a snapshot background task.
+- [`backgroundTask(_:action:)`](https://developer.apple.com/documentation/swiftui/scene/backgroundtask(_:action:)) — Runs the specified action when the system provides a background task.
+- [`exportableToServices(_:)`](https://developer.apple.com/documentation/swiftui/view/exportabletoservices(_:)) — Exports items for consumption by shortcuts,   quick actions, and services.
+- [`exportableToServices(_:onEdit:)`](https://developer.apple.com/documentation/swiftui/view/exportabletoservices(_:onedit:)) — Exports read-write items for consumption by shortcuts,   quick actions, and services.
+- [`exportsItemProviders(_:onExport:)`](https://developer.apple.com/documentation/swiftui/view/exportsitemproviders(_:onexport:)) — Exports a read-only item provider for consumption by shortcuts,   quick actions, and services.
+- [`exportsItemProviders(_:onExport:onEdit:)`](https://developer.apple.com/documentation/swiftui/view/exportsitemproviders(_:onexport:onedit:)) — Exports a read-write item provider for consumption by shortcuts,   quick actions, and services.
+- [`handlesExternalEvents(matching:)`](https://developer.apple.com/documentation/swiftui/scene/handlesexternalevents(matching:)) — Specifies the external events for which SwiftUI opens a new instance   of the modified scene.
+- [`handlesExternalEvents(preferring:allowing:)`](https://developer.apple.com/documentation/swiftui/view/handlesexternalevents(preferring:allowing:)) — Specifies the external events that the view’s scene handles   if the scene is already open.
+- [`importableFromServices(for:action:)`](https://developer.apple.com/documentation/swiftui/view/importablefromservices(for:action:)) — Enables importing items from services, such as Continuity Camera   on macOS.
+- [`importsItemProviders(_:onImport:)`](https://developer.apple.com/documentation/swiftui/view/importsitemproviders(_:onimport:)) — Enables importing item providers from services, such as Continuity Camera   on macOS.
+- [`onContinueUserActivity(_:perform:)`](https://developer.apple.com/documentation/swiftui/view/oncontinueuseractivity(_:perform:)) — Registers a handler to invoke in response to a user activity that your   app receives.
+- [`onOpenURL(perform:)`](https://developer.apple.com/documentation/swiftui/view/onopenurl(perform:)) — Registers a handler to invoke in response to a URL that your app   receives.
+- [`openURL`](https://developer.apple.com/documentation/swiftui/environmentvalues/openurl) — An action that opens a URL.
+- [`userActivity(_:element:_:)`](https://developer.apple.com/documentation/swiftui/view/useractivity(_:element:_:)) — Advertises a user activity type.
+- [`userActivity(_:isActive:_:)`](https://developer.apple.com/documentation/swiftui/view/useractivity(_:isactive:_:)) — Advertises a user activity type.
+
+### Tables
+
+- [`DisclosureTableRow`](https://developer.apple.com/documentation/swiftui/disclosuretablerow) — A kind of table row that shows or hides additional rows based on the state   of a disclosure control.
+- [`DynamicTableRowContent`](https://developer.apple.com/documentation/swiftui/dynamictablerowcontent) — A type of table row content that generates table rows from an underlying   collection of data.
+- [`EmptyTableRowContent`](https://developer.apple.com/documentation/swiftui/emptytablerowcontent) — A table row content that doesn’t produce any rows.
+- [`Table`](https://developer.apple.com/documentation/swiftui/table) — A container that presents rows of data arranged in one or more columns,   optionally providing the ability to select one or more members.
+- [`TableColumn`](https://developer.apple.com/documentation/swiftui/tablecolumn) — A column that displays a view for each row in a table.
+- [`TableColumnAlignment`](https://developer.apple.com/documentation/swiftui/tablecolumnalignment) — Describes the alignment of the content of a table column.
+- [`TableColumnBuilder`](https://developer.apple.com/documentation/swiftui/tablecolumnbuilder) — A result builder that creates table column content from closures.
+- [`TableColumnContent`](https://developer.apple.com/documentation/swiftui/tablecolumncontent) — A type used to represent columns within a table.
+- [`TableColumnCustomization`](https://developer.apple.com/documentation/swiftui/tablecolumncustomization) — A representation of the state of the columns in a table.
+- [`TableColumnCustomizationBehavior`](https://developer.apple.com/documentation/swiftui/tablecolumncustomizationbehavior) — A set of customization behaviors of a column that a table can offer to   a user.
+- [`TableColumnForEach`](https://developer.apple.com/documentation/swiftui/tablecolumnforeach) — A structure that computes columns on demand from an underlying collection of   identified data.
+- [`TableForEachContent`](https://developer.apple.com/documentation/swiftui/tableforeachcontent) — A type of table row content that creates table rows created by iterating   over a collection.
+- [`TableHeaderRowContent`](https://developer.apple.com/documentation/swiftui/tableheaderrowcontent) — A table row that displays a single view instead of columned content.
+- [`TableOutlineGroupContent`](https://developer.apple.com/documentation/swiftui/tableoutlinegroupcontent) — An opaque table row type created by a table’s hierarchical initializers.
+- [`TableRow`](https://developer.apple.com/documentation/swiftui/tablerow) — A row that represents a data value in a table.
+- [`TableRowBuilder`](https://developer.apple.com/documentation/swiftui/tablerowbuilder) — A result builder that creates table row content from closures.
+- [`TableRowContent`](https://developer.apple.com/documentation/swiftui/tablerowcontent) — A type used to represent table rows.
+- [`TupleTableRowContent`](https://developer.apple.com/documentation/swiftui/tupletablerowcontent) — A type of table column content that creates table rows created from a   Swift tuple of table rows.
+- [`tableColumnHeaders(_:)`](https://developer.apple.com/documentation/swiftui/view/tablecolumnheaders(_:)) — Controls the visibility of a   ’s column header views.
+- [`tableStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/tablestyle(_:)) — Sets the style for tables within this view.
+
+### Technology-specific views
+
+- [`AddPassToWalletButton`](https://developer.apple.com/documentation/passkit/addpasstowalletbutton) — A type that provides a button that enables people to add a new or existing pass to Apple Wallet.
+- [`AsyncShareablePassConfiguration`](https://developer.apple.com/documentation/passkit/asyncshareablepassconfiguration)
+- [`CameraView`](https://developer.apple.com/documentation/homekit/cameraview) — A SwiftUI view into which a video stream or an image snapshot is rendered.
+- [`Chart`](https://developer.apple.com/documentation/charts/chart) — A SwiftUI view that displays a chart.
+- [`DeviceActivityReport`](https://developer.apple.com/documentation/deviceactivity/deviceactivityreport) — A view that reports the user’s application, category, and web domain activity in a privacy-preserving way.
+- [`DevicePicker`](https://developer.apple.com/documentation/devicediscoveryui/devicepicker) — A SwiftUI view that displays other devices on the network, and creates an encrypted connection to a copy of your app running on that device.
+- [`FamilyActivityPicker`](https://developer.apple.com/documentation/familycontrols/familyactivitypicker) — A view in which users specify applications, web domains,   and categories without revealing their choices to the app.
+- [`LocalAuthenticationView`](https://developer.apple.com/documentation/localauthentication/localauthenticationview) — A SwiftUI view that displays an authentication interface.
+- [`LocationButton`](https://developer.apple.com/documentation/corelocationui/locationbutton) — A SwiftUI button that grants one-time location authorization.
+- [`Map`](https://developer.apple.com/documentation/mapkit/map) — A view that displays an embedded map interface.
+- [`NowPlayingView`](https://developer.apple.com/documentation/watchkit/nowplayingview) — A view that displays the system’s Now Playing interface so that the user can control audio.
+- [`PayWithApplePayButton`](https://developer.apple.com/documentation/passkit/paywithapplepaybutton) — A type that provides a button to pay with Apple pay.
+- [`PhotosPicker`](https://developer.apple.com/documentation/photosui/photospicker) — A view that displays a Photos picker for choosing assets from the photo library.
+- [`SceneView`](https://developer.apple.com/documentation/scenekit/sceneview) — A SwiftUI view for displaying 3D SceneKit content.
+- [`SignInWithAppleButton`](https://developer.apple.com/documentation/authenticationservices/signinwithapplebutton) — A SwiftUI view that creates the Sign in with Apple button for display.
+- [`SpriteView`](https://developer.apple.com/documentation/spritekit/spriteview) — A SwiftUI view that renders a SpriteKit scene.
+- [`VerifyIdentityWithWalletButton`](https://developer.apple.com/documentation/passkit/verifyidentitywithwalletbutton) — A type that displays a button to present the identity verification flow.
+- [`VideoPlayer`](https://developer.apple.com/documentation/avkit/videoplayer) — A view that displays content from a player and a native user interface to control playback.
+- [`WebPage`](https://developer.apple.com/documentation/webkit/webpage) — An object that controls and manages the behavior of interactive web content.
+- [`WebView`](https://developer.apple.com/documentation/webkit/webview-swift.struct) — A view that displays some web content.
+- [`activityBackgroundTint(_:)`](https://developer.apple.com/documentation/swiftui/view/activitybackgroundtint(_:)) — Sets the tint color for the background of a Live Activity that appears on the Lock Screen.
+- [`activityFamily`](https://developer.apple.com/documentation/swiftui/environmentvalues/activityfamily) — The size family of the current Live Activity.
+- [`activitySystemActionForegroundColor(_:)`](https://developer.apple.com/documentation/swiftui/view/activitysystemactionforegroundcolor(_:)) — The text color for the auxiliary action button that the system shows next to a Live Activity on the   Lock Screen.
+- [`addOrderToWalletButtonStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/addordertowalletbuttonstyle(_:)) — Sets the button’s style.
+- [`addPassToWalletButtonStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/addpasstowalletbuttonstyle(_:)) — Sets the style to be used by the button.   (see   ).
+- [`appStoreOverlay(isPresented:configuration:)`](https://developer.apple.com/documentation/swiftui/view/appstoreoverlay(ispresented:configuration:)) — Presents a StoreKit overlay when a given condition is true.
+- [`authorizationController`](https://developer.apple.com/documentation/swiftui/environmentvalues/authorizationcontroller) — A value provided in the SwiftUI environment that views can use   to perform authorization requests.
+- [`automatedDeviceEnrollmentAddition(isPresented:)`](https://developer.apple.com/documentation/swiftui/view/automateddeviceenrollmentaddition(ispresented:)) — Presents a modal view that enables users to add devices to their organization.
+- [`cameraAnchor(isActive:)`](https://developer.apple.com/documentation/swiftui/view/cameraanchor(isactive:)) — Specifies the view that should act as the virtual camera for Apple Vision Pro   2D Persona stream.
+- [`contactAccessButtonCaption(_:)`](https://developer.apple.com/documentation/swiftui/view/contactaccessbuttoncaption(_:))
+- [`contactAccessButtonStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/contactaccessbuttonstyle(_:))
+- [`contactAccessPicker(isPresented:completionHandler:)`](https://developer.apple.com/documentation/swiftui/view/contactaccesspicker(ispresented:completionhandler:)) — Modally present UI which allows the user to select which   contacts your app has access to.
+- [`continuityDevicePicker(isPresented:onDidConnect:)`](https://developer.apple.com/documentation/swiftui/view/continuitydevicepicker(ispresented:ondidconnect:)) — A    should be used to discover and connect   nearby continuity device through a button interface or other form of activation.   On tvOS, this presents a fullscreen continuity device picker experience when selected.   The modal view covers as much the screen of    as possible when a given condition is true.
+- [`currentEntitlementTask(for:priority:action:)`](https://developer.apple.com/documentation/swiftui/view/currententitlementtask(for:priority:action:)) — Declares the view as dependent on the entitlement of an In-App Purchase product, and returns a   modified view.
+- [`devicePickerSupports`](https://developer.apple.com/documentation/swiftui/environmentvalues/devicepickersupports) — Checks for support to present a DevicePicker.
+- [`familyActivityPicker(headerText:footerText:isPresented:selection:)`](https://developer.apple.com/documentation/swiftui/view/familyactivitypicker(headertext:footertext:ispresented:selection:)) — Presents an activity picker view as a sheet.
+- [`familyActivityPicker(isPresented:selection:)`](https://developer.apple.com/documentation/swiftui/view/familyactivitypicker(ispresented:selection:)) — Presents an activity picker view as a sheet.
+- [`familyActivityPicker(title:headerText:footerText:isPresented:selection:)`](https://developer.apple.com/documentation/swiftui/view/familyactivitypicker(title:headertext:footertext:ispresented:selection:)) — Present an activity picker sheet for selecting apps and websites to manage.
+- [`foveatedStreamingPauseSheet(session:)`](https://developer.apple.com/documentation/swiftui/view/foveatedstreamingpausesheet(session:)) — Tells the system to present a sheet with controls for resuming or ending the foveated streaming session when it pauses.
+- [`gameSaveSyncingAlert(directory:finishedLoading:)`](https://developer.apple.com/documentation/swiftui/view/gamesavesyncingalert(directory:finishedloading:)) — Presents a modal view while the game synced directory loads.
+- [`groupActivityAssociation(_:)`](https://developer.apple.com/documentation/swiftui/view/groupactivityassociation(_:)) — Specifies how a view should be associated with the current SharePlay   group activity.
+- [`handlesGameControllerEvents(matching:)`](https://developer.apple.com/documentation/swiftui/view/handlesgamecontrollerevents(matching:)) — Specifies the game controllers events which should be delivered through   the GameController framework when the view, or one of its descendants   has focus.
+- [`healthDataAccessRequest(store:objectType:predicate:trigger:completion:)`](https://developer.apple.com/documentation/swiftui/view/healthdataaccessrequest(store:objecttype:predicate:trigger:completion:)) — Asynchronously requests permission to read a data type that requires per-object authorization (such as vision prescriptions).
+- [`healthDataAccessRequest(store:readTypes:trigger:completion:)`](https://developer.apple.com/documentation/swiftui/view/healthdataaccessrequest(store:readtypes:trigger:completion:)) — Requests permission to read the specified HealthKit data types.
+- [`healthDataAccessRequest(store:shareTypes:readTypes:trigger:completion:)`](https://developer.apple.com/documentation/swiftui/view/healthdataaccessrequest(store:sharetypes:readtypes:trigger:completion:)) — Requests permission to save and read the specified HealthKit data types.
+- [`imagePlaygroundGenerationStyle(_:in:)`](https://developer.apple.com/documentation/swiftui/view/imageplaygroundgenerationstyle(_:in:)) — Sets the selected and allowed styles to use when displaying the image   generation sheet.
+- [`imagePlaygroundOptions(_:)`](https://developer.apple.com/documentation/swiftui/view/imageplaygroundoptions(_:)) — Sets the options to use when generating an image.
+- [`imagePlaygroundSheet(isPresented:concept:sourceImage:onCompletion:onAdaptiveImageGlyphCreation:onCancellation:)`](https://developer.apple.com/documentation/swiftui/view/imageplaygroundsheet(ispresented:concept:sourceimage:oncompletion:onadaptiveimageglyphcreation:oncancellation:)) — Presents the system sheet to create images from the   specified input.
+- [`imagePlaygroundSheet(isPresented:concept:sourceImage:onCompletion:onCancellation:)`](https://developer.apple.com/documentation/swiftui/view/imageplaygroundsheet(ispresented:concept:sourceimage:oncompletion:oncancellation:)) — Presents the system sheet to create an image using the specified string and   optional starting image.
+- [`imagePlaygroundSheet(isPresented:concept:sourceImageURL:onCompletion:onAdaptiveImageGlyphCreation:onCancellation:)`](https://developer.apple.com/documentation/swiftui/view/imageplaygroundsheet(ispresented:concept:sourceimageurl:oncompletion:onadaptiveimageglyphcreation:oncancellation:)) — Presents the system sheet to create an image or Genmoji using the specified   string and image URL.
+- [`imagePlaygroundSheet(isPresented:concept:sourceImageURL:onCompletion:onCancellation:)`](https://developer.apple.com/documentation/swiftui/view/imageplaygroundsheet(ispresented:concept:sourceimageurl:oncompletion:oncancellation:)) — Presents the system sheet to create an image using the specified string and   image URL.
+- [`imagePlaygroundSheet(isPresented:concepts:sourceImage:onCompletion:onAdaptiveImageGlyphCreation:onCancellation:)`](https://developer.apple.com/documentation/swiftui/view/imageplaygroundsheet(ispresented:concepts:sourceimage:oncompletion:onadaptiveimageglyphcreation:oncancellation:)) — Presents the system sheet to create an image or Genmoji using one or more   concepts and an optional starting image.
+- [`imagePlaygroundSheet(isPresented:concepts:sourceImage:onCompletion:onCancellation:)`](https://developer.apple.com/documentation/swiftui/view/imageplaygroundsheet(ispresented:concepts:sourceimage:oncompletion:oncancellation:)) — Presents the system sheet to create an image using one or more concepts   and an optional starting image.
+- [`imagePlaygroundSheet(isPresented:concepts:sourceImageURL:onCompletion:onAdaptiveImageGlyphCreation:onCancellation:)`](https://developer.apple.com/documentation/swiftui/view/imageplaygroundsheet(ispresented:concepts:sourceimageurl:oncompletion:onadaptiveimageglyphcreation:oncancellation:)) — Presents the system sheet to create an image or Genmoji using one or more   concepts and an image URL.
+- [`imagePlaygroundSheet(isPresented:concepts:sourceImageURL:onCompletion:onCancellation:)`](https://developer.apple.com/documentation/swiftui/view/imageplaygroundsheet(ispresented:concepts:sourceimageurl:oncompletion:oncancellation:)) — Presents the system sheet to create an image using one or more concepts and an   image URL.
+- [`inAppPurchaseOptions(_:)`](https://developer.apple.com/documentation/swiftui/view/inapppurchaseoptions(_:)) — Add a function to call before initiating a purchase from StoreKit view within this view, providing a set   of options for the purchase.
+- [`isActivityFullscreen`](https://developer.apple.com/documentation/swiftui/environmentvalues/isactivityfullscreen) — A Boolean value that indicates whether the Live Activity appears in a   full-screen presentation.
+- [`journalingSuggestionsPicker(isPresented:journalingSuggestionToken:onCompletion:)`](https://developer.apple.com/documentation/swiftui/view/journalingsuggestionspicker(ispresented:journalingsuggestiontoken:oncompletion:)) — Presents a visual picker interface that contains events and images that a person can select   to retrieve more information.
+- [`journalingSuggestionsPicker(isPresented:onCompletion:)`](https://developer.apple.com/documentation/swiftui/view/journalingsuggestionspicker(ispresented:oncompletion:)) — Presents a visual picker interface that contains events and images that a person can select   to retrieve more information.
+- [`lookAroundViewer(isPresented:initialScene:allowsNavigation:showsRoadLabels:pointsOfInterest:onDismiss:)`](https://developer.apple.com/documentation/swiftui/view/lookaroundviewer(ispresented:initialscene:allowsnavigation:showsroadlabels:pointsofinterest:ondismiss:))
+- [`lookAroundViewer(isPresented:scene:allowsNavigation:showsRoadLabels:pointsOfInterest:onDismiss:)`](https://developer.apple.com/documentation/swiftui/view/lookaroundviewer(ispresented:scene:allowsnavigation:showsroadlabels:pointsofinterest:ondismiss:))
+- [`manageSubscriptionsSheet(isPresented:)`](https://developer.apple.com/documentation/swiftui/view/managesubscriptionssheet(ispresented:))
+- [`manageSubscriptionsSheet(isPresented:subscriptionGroupID:)`](https://developer.apple.com/documentation/swiftui/view/managesubscriptionssheet(ispresented:subscriptiongroupid:))
+- [`managedContentStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/managedcontentstyle(_:)) — Applies a managed content style to the view.
+- [`mapCameraKeyframeAnimator(trigger:keyframes:)`](https://developer.apple.com/documentation/swiftui/view/mapcamerakeyframeanimator(trigger:keyframes:)) — Uses the given keyframes to animate the camera of a    when the   given trigger value changes.
+- [`mapControlVisibility(_:)`](https://developer.apple.com/documentation/swiftui/view/mapcontrolvisibility(_:)) — Configures all Map controls in the environment to have the specified   visibility
+- [`mapControls(_:)`](https://developer.apple.com/documentation/swiftui/view/mapcontrols(_:)) — Configures all    views in the associated environment to have   standard size and position controls
+- [`mapFeatureSelectionAccessory(_:)`](https://developer.apple.com/documentation/swiftui/view/mapfeatureselectionaccessory(_:)) — Specifies the selection accessory to display for a
+- [`mapFeatureSelectionContent(content:)`](https://developer.apple.com/documentation/swiftui/view/mapfeatureselectioncontent(content:)) — Specifies a custom presentation for the currently selected feature.
+- [`mapFeatureSelectionDisabled(_:)`](https://developer.apple.com/documentation/swiftui/view/mapfeatureselectiondisabled(_:)) — Specifies which map features should have selection disabled.
+- [`mapItemDetailPopover(isPresented:item:displaysMap:attachmentAnchor:)`](https://developer.apple.com/documentation/swiftui/view/mapitemdetailpopover(ispresented:item:displaysmap:attachmentanchor:)) — Presents a map item detail popover.
+- [`mapItemDetailPopover(isPresented:item:displaysMap:attachmentAnchor:arrowEdge:)`](https://developer.apple.com/documentation/swiftui/view/mapitemdetailpopover(ispresented:item:displaysmap:attachmentanchor:arrowedge:)) — Presents a map item detail popover.
+- [`mapItemDetailPopover(item:displaysMap:attachmentAnchor:)`](https://developer.apple.com/documentation/swiftui/view/mapitemdetailpopover(item:displaysmap:attachmentanchor:)) — Presents a map item detail popover.
+- [`mapItemDetailPopover(item:displaysMap:attachmentAnchor:arrowEdge:)`](https://developer.apple.com/documentation/swiftui/view/mapitemdetailpopover(item:displaysmap:attachmentanchor:arrowedge:)) — Presents a map item detail popover.
+- [`mapItemDetailSheet(isPresented:item:displaysMap:)`](https://developer.apple.com/documentation/swiftui/view/mapitemdetailsheet(ispresented:item:displaysmap:)) — Presents a map item detail sheet.
+- [`mapItemDetailSheet(item:displaysMap:)`](https://developer.apple.com/documentation/swiftui/view/mapitemdetailsheet(item:displaysmap:)) — Presents a map item detail sheet.
+- [`mapScope(_:)`](https://developer.apple.com/documentation/swiftui/view/mapscope(_:)) — Creates a mapScope that SwiftUI uses to connect map controls to an associated map.
+- [`mapStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/mapstyle(_:)) — Specifies the map style to be used.
+- [`musicPicker(isPresented:title:selection:)`](https://developer.apple.com/documentation/swiftui/view/musicpicker(ispresented:title:selection:)) — Presents a music picker to select items from the Apple Music catalog and the user’s music library.
+- [`musicSubscriptionOffer(isPresented:options:onLoadCompletion:)`](https://developer.apple.com/documentation/swiftui/view/musicsubscriptionoffer(ispresented:options:onloadcompletion:)) — Initiates the process of presenting a sheet with subscription offers   for Apple Music when the    binding is   .
+- [`offerCodeRedemption(options:isPresented:onCompletion:)`](https://developer.apple.com/documentation/swiftui/view/offercoderedemption(options:ispresented:oncompletion:)) — Presents a sheet that enables customers to redeem offer   codes that you configure in App Store Connect.
+- [`onApplePayCouponCodeChange(perform:)`](https://developer.apple.com/documentation/swiftui/view/onapplepaycouponcodechange(perform:)) — Called when a user has entered or updated a coupon code.   This is required if the user is being asked to provide a coupon code.
+- [`onApplePayPaymentMethodChange(perform:)`](https://developer.apple.com/documentation/swiftui/view/onapplepaypaymentmethodchange(perform:)) — Called when a payment method has changed and asks for an update payment request.   If this modifier isn’t provided Wallet will assume the payment method is valid.
+- [`onApplePayShippingContactChange(perform:)`](https://developer.apple.com/documentation/swiftui/view/onapplepayshippingcontactchange(perform:)) — Called when a user selected a shipping address.   This is required if the user is being asked to provide a shipping contact.
+- [`onApplePayShippingMethodChange(perform:)`](https://developer.apple.com/documentation/swiftui/view/onapplepayshippingmethodchange(perform:)) — Called when a user selected a shipping method.   This is required if the user is being asked to provide a shipping method.
+- [`onInAppPurchaseCompletion(perform:)`](https://developer.apple.com/documentation/swiftui/view/oninapppurchasecompletion(perform:)) — Add an action to perform when a purchase initiated from a StoreKit view within this view completes.
+- [`onInAppPurchaseStart(perform:)`](https://developer.apple.com/documentation/swiftui/view/oninapppurchasestart(perform:)) — Add an action to perform when a user triggers the purchase button on a StoreKit view within this   view.
+- [`onMapCameraChange(frequency:_:)`](https://developer.apple.com/documentation/swiftui/view/onmapcamerachange(frequency:_:)) — Performs an action when Map camera framing changes
+- [`onWebViewImmersiveEnvironmentRequest(shouldAllow:present:dismiss:)`](https://developer.apple.com/documentation/swiftui/view/onwebviewimmersiveenvironmentrequest(shouldallow:present:dismiss:)) — Manages the lifecycle of immersive environments requested by websites.
+- [`payLaterViewAction(_:)`](https://developer.apple.com/documentation/swiftui/view/paylaterviewaction(_:)) — Sets the action on the PayLaterView. See   .
+- [`payLaterViewDisplayStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/paylaterviewdisplaystyle(_:)) — Sets the display style on the PayLaterView. See   .
+- [`payWithApplePayButtonDisableCardArt()`](https://developer.apple.com/documentation/swiftui/view/paywithapplepaybuttondisablecardart()) — Sets the features that should be allowed to show on the payment buttons.
+- [`payWithApplePayButtonStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/paywithapplepaybuttonstyle(_:)) — Sets the style to be used by the button.   (see   ).
+- [`photosPicker(isPresented:selection:matching:preferredItemEncoding:)`](https://developer.apple.com/documentation/swiftui/view/photospicker(ispresented:selection:matching:preferreditemencoding:)) — Presents a Photos picker that selects a   .
+- [`photosPicker(isPresented:selection:matching:preferredItemEncoding:photoLibrary:)`](https://developer.apple.com/documentation/swiftui/view/photospicker(ispresented:selection:matching:preferreditemencoding:photolibrary:)) — Presents a Photos picker that selects a    from a given photo library.
+- [`photosPicker(isPresented:selection:maxSelectionCount:selectionBehavior:matching:preferredItemEncoding:)`](https://developer.apple.com/documentation/swiftui/view/photospicker(ispresented:selection:maxselectioncount:selectionbehavior:matching:preferreditemencoding:)) — Presents a Photos picker that selects a collection of   .
+- [`photosPicker(isPresented:selection:maxSelectionCount:selectionBehavior:matching:preferredItemEncoding:photoLibrary:)`](https://developer.apple.com/documentation/swiftui/view/photospicker(ispresented:selection:maxselectioncount:selectionbehavior:matching:preferreditemencoding:photolibrary:)) — Presents a Photos picker that selects a collection of    from a given photo library.
+- [`photosPickerAccessoryVisibility(_:edges:)`](https://developer.apple.com/documentation/swiftui/view/photospickeraccessoryvisibility(_:edges:)) — Sets the accessory visibility of the Photos picker. Accessories include anything between the content and the edge, like the navigation bar or the sidebar.
+- [`photosPickerDisabledCapabilities(_:)`](https://developer.apple.com/documentation/swiftui/view/photospickerdisabledcapabilities(_:)) — Disables capabilities of the Photos picker.
+- [`photosPickerMetadataOptions(_:)`](https://developer.apple.com/documentation/swiftui/view/photospickermetadataoptions(_:)) — Sets metadata options for the Photos picker.
+- [`photosPickerSearchText(_:)`](https://developer.apple.com/documentation/swiftui/view/photospickersearchtext(_:)) — Sets search text of the Photos picker.
+- [`photosPickerStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/photospickerstyle(_:)) — Sets the mode of the Photos picker.
+- [`photosSharedAlbumCreationSheet(isPresented:defaultTitle:defaultSharingPolicy:photoLibrary:onCompletion:)`](https://developer.apple.com/documentation/swiftui/view/photossharedalbumcreationsheet(ispresented:defaulttitle:defaultsharingpolicy:photolibrary:oncompletion:)) — Presents a view for allowing the user to create a new shared album.
+- [`photosSharedAlbumCustomizationSheet(isPresented:albumIdentifier:photoLibrary:onCompletion:)`](https://developer.apple.com/documentation/swiftui/view/photossharedalbumcustomizationsheet(ispresented:albumidentifier:photolibrary:oncompletion:)) — Presents a view for allowing the user to customize a specified shared album.
+- [`photosSharedAlbumPostingSheet(isPresented:items:defaultAlbumIdentifier:photoLibrary:completion:)`](https://developer.apple.com/documentation/swiftui/view/photossharedalbumpostingsheet(ispresented:items:defaultalbumidentifier:photolibrary:completion:)) — Presents an “Add to Shared Album” sheet that allows the user to post the given items to a shared album.
+- [`popoverTip(_:arrowEdge:action:)`](https://developer.apple.com/documentation/swiftui/view/popovertip(_:arrowedge:action:)) — Presents a popover tip on the modified view.
+- [`popoverTip(_:isPresented:attachmentAnchor:arrowEdge:action:)`](https://developer.apple.com/documentation/swiftui/view/popovertip(_:ispresented:attachmentanchor:arrowedge:action:)) — Presents a popover tip on the modified view.
+- [`popoverTip(_:isPresented:attachmentAnchor:arrowEdges:action:)`](https://developer.apple.com/documentation/swiftui/view/popovertip(_:ispresented:attachmentanchor:arrowedges:action:)) — Presents a popover tip on the modified view.
+- [`preferredSubscriptionOffer(_:)`](https://developer.apple.com/documentation/swiftui/view/preferredsubscriptionoffer(_:)) — Selects a subscription offer to apply to a purchase that a customer makes from a subscription   store view, a store view, or a product view.
+- [`preferredSubscriptionPricingTerms(_:)`](https://developer.apple.com/documentation/swiftui/view/preferredsubscriptionpricingterms(_:))
+- [`productDescription(_:)`](https://developer.apple.com/documentation/swiftui/view/productdescription(_:)) — Configure the visibility of labels displaying an in-app purchase product description within the view.
+- [`productIconBorder()`](https://developer.apple.com/documentation/swiftui/view/producticonborder()) — Adds a standard border to an in-app purchase product’s icon .
+- [`productViewStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/productviewstyle(_:)) — Sets the style for In-App Purchase product views within a view.
+- [`quickLookPreview(_:)`](https://developer.apple.com/documentation/swiftui/view/quicklookpreview(_:)) — Presents a Quick Look preview of the contents of a single URL.
+- [`quickLookPreview(_:in:)`](https://developer.apple.com/documentation/swiftui/view/quicklookpreview(_:in:)) — Presents a Quick Look preview of the URLs you provide.
+- [`realityViewCameraControls`](https://developer.apple.com/documentation/swiftui/environmentvalues/realityviewcameracontrols) — The camera controls for the reality view.
+- [`realityViewCameraControls(_:)`](https://developer.apple.com/documentation/swiftui/view/realityviewcameracontrols(_:)) — Adds gestures that control the position and direction of a virtual camera.
+- [`realityViewLayoutBehavior(_:)`](https://developer.apple.com/documentation/swiftui/view/realityviewlayoutbehavior(_:)) — A view modifier that controls the frame sizing and content alignment behavior for
+- [`refundRequestSheet(for:isPresented:onDismiss:)`](https://developer.apple.com/documentation/swiftui/view/refundrequestsheet(for:ispresented:ondismiss:)) — Display the refund request sheet for the given transaction.
+- [`signInWithAppleButtonStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/signinwithapplebuttonstyle(_:)) — Sets the style used for displaying the control   (see   ).
+- [`storeButton(_:for:)`](https://developer.apple.com/documentation/swiftui/view/storebutton(_:for:)) — Specifies the visibility of auxiliary buttons that store view and subscription store view instances may use.
+- [`storeProductTask(for:priority:action:)`](https://developer.apple.com/documentation/swiftui/view/storeproducttask(for:priority:action:)) — Declares the view as dependent on an In-App Purchase product and returns a modified view.
+- [`storeProductsTask(for:priority:action:)`](https://developer.apple.com/documentation/swiftui/view/storeproductstask(for:priority:action:)) — Declares the view as dependent on a collection of In-App Purchase products and returns a   modified view.
+- [`subscriptionIntroductoryOffer(applyOffer:compactJWS:)`](https://developer.apple.com/documentation/swiftui/view/subscriptionintroductoryoffer(applyoffer:compactjws:)) — Selects the introductory offer eligibility preference to apply to a purchase a customer makes from a subscription store view.
+- [`subscriptionOfferViewButtonVisibility(_:for:)`](https://developer.apple.com/documentation/swiftui/view/subscriptionofferviewbuttonvisibility(_:for:))
+- [`subscriptionOfferViewDetailAction(_:)`](https://developer.apple.com/documentation/swiftui/view/subscriptionofferviewdetailaction(_:))
+- [`subscriptionOfferViewStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/subscriptionofferviewstyle(_:))
+- [`subscriptionPromotionalOffer(offer:compactJWS:)`](https://developer.apple.com/documentation/swiftui/view/subscriptionpromotionaloffer(offer:compactjws:)) — Selects a promotional offer to apply to a purchase a customer makes from a subscription store view.
+- [`subscriptionStatusTask(for:priority:action:)`](https://developer.apple.com/documentation/swiftui/view/subscriptionstatustask(for:priority:action:)) — Declares the view as dependent on the status of an auto-renewable subscription group, and   returns a modified view.
+- [`subscriptionStoreButtonLabel(_:)`](https://developer.apple.com/documentation/swiftui/view/subscriptionstorebuttonlabel(_:)) — Configures subscription store view instances within a view to use the provided button label.
+- [`subscriptionStoreControlBackground(_:)`](https://developer.apple.com/documentation/swiftui/view/subscriptionstorecontrolbackground(_:)) — Set a standard effect to use for the background of subscription store view controls within the view.
+- [`subscriptionStoreControlIcon(icon:)`](https://developer.apple.com/documentation/swiftui/view/subscriptionstorecontrolicon(icon:)) — Sets a view to use to decorate individual subscription options within a subscription store view.
+- [`subscriptionStoreControlStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/subscriptionstorecontrolstyle(_:)) — Sets the control style for subscription store views within a view.
+- [`subscriptionStoreControlStyle(_:placement:)`](https://developer.apple.com/documentation/swiftui/view/subscriptionstorecontrolstyle(_:placement:)) — Sets the control style and control placement for subscription store views within a view.
+- [`subscriptionStoreOptionGroupStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/subscriptionstoreoptiongroupstyle(_:)) — Sets the style subscription store views within this view use to display groups of subscription options.
+- [`subscriptionStorePickerItemBackground(_:)`](https://developer.apple.com/documentation/swiftui/view/subscriptionstorepickeritembackground(_:)) — Sets the background style for picker items of the subscription store view instances within a view.
+- [`subscriptionStorePickerItemBackground(_:in:)`](https://developer.apple.com/documentation/swiftui/view/subscriptionstorepickeritembackground(_:in:)) — Sets the background shape and style for subscription store view picker items within a view.
+- [`subscriptionStorePolicyDestination(for:destination:)`](https://developer.apple.com/documentation/swiftui/view/subscriptionstorepolicydestination(for:destination:)) — Configures a view as the destination for a policy button action in subscription store views.
+- [`subscriptionStorePolicyDestination(url:for:)`](https://developer.apple.com/documentation/swiftui/view/subscriptionstorepolicydestination(url:for:)) — Configures a URL as the destination for a policy button action in subscription store views.
+- [`subscriptionStorePolicyForegroundStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/subscriptionstorepolicyforegroundstyle(_:)) — Sets the style for the terms of service and privacy policy buttons within a subscription store view.
+- [`subscriptionStorePolicyForegroundStyle(_:_:)`](https://developer.apple.com/documentation/swiftui/view/subscriptionstorepolicyforegroundstyle(_:_:)) — Sets the primary and secondary style for the terms of service and privacy policy buttons within   a subscription store view.
+- [`subscriptionStoreSignInAction(_:)`](https://developer.apple.com/documentation/swiftui/view/subscriptionstoresigninaction(_:)) — Adds an action to perform when a person uses the sign-in button on a subscription store view within a view.
+- [`tabletopGame(_:parent:automaticUpdate:)`](https://developer.apple.com/documentation/swiftui/view/tabletopgame(_:parent:automaticupdate:)) — Adds a tabletop game to a view.
+- [`tabletopGame(_:parent:automaticUpdate:interaction:)`](https://developer.apple.com/documentation/swiftui/view/tabletopgame(_:parent:automaticupdate:interaction:)) — Supplies a closure which returns a new interaction whenever needed.
+- [`tipAnchor(_:)`](https://developer.apple.com/documentation/swiftui/view/tipanchor(_:)) — Sets a value for the specified tip anchor to be used to anchor a tip view to the    of the view.
+- [`tipBackground(_:)`](https://developer.apple.com/documentation/swiftui/view/tipbackground(_:)) — Sets the tip’s view background to a style.
+- [`tipBackgroundInteraction(_:)`](https://developer.apple.com/documentation/swiftui/view/tipbackgroundinteraction(_:)) — Controls whether people can interact with the view behind a presented tip.
+- [`tipCornerRadius(_:antialiased:)`](https://developer.apple.com/documentation/swiftui/view/tipcornerradius(_:antialiased:)) — Sets the corner radius for an inline tip view.
+- [`tipImageSize(_:)`](https://developer.apple.com/documentation/swiftui/view/tipimagesize(_:)) — Sets the size for a tip’s image.
+- [`tipImageStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/tipimagestyle(_:)) — Sets the style for a tip’s image.
+- [`tipImageStyle(_:_:)`](https://developer.apple.com/documentation/swiftui/view/tipimagestyle(_:_:)) — Sets the style for a tip’s image.
+- [`tipImageStyle(_:_:_:)`](https://developer.apple.com/documentation/swiftui/view/tipimagestyle(_:_:_:)) — Sets the style for a tip’s image.
+- [`tipViewStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/tipviewstyle(_:)) — Sets the given style for TipView within the view hierarchy.
+- [`transactionPicker(isPresented:selection:)`](https://developer.apple.com/documentation/swiftui/view/transactionpicker(ispresented:selection:)) — Presents a picker that selects a collection of transactions.
+- [`transactionTask(_:action:)`](https://developer.apple.com/documentation/swiftui/view/transactiontask(_:action:)) — Provides a task to perform before this view appears
+- [`translationPresentation(isPresented:text:attachmentAnchor:arrowEdge:replacementAction:)`](https://developer.apple.com/documentation/swiftui/view/translationpresentation(ispresented:text:attachmentanchor:arrowedge:replacementaction:)) — Presents a translation popover when a given condition is true.
+- [`translationTask(_:action:)`](https://developer.apple.com/documentation/swiftui/view/translationtask(_:action:)) — Adds a task to perform before this view appears or when the translation configuration changes.
+- [`translationTask(source:target:action:)`](https://developer.apple.com/documentation/swiftui/view/translationtask(source:target:action:)) — Adds a task to perform before this view appears or when the specified source or target   languages change.
+- [`translationTask(source:target:preferredStrategy:action:)`](https://developer.apple.com/documentation/swiftui/view/translationtask(source:target:preferredstrategy:action:)) — Adds a task to perform before this view appears or when the specified source or target   languages change.
+- [`verifyIdentityWithWalletButtonStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/verifyidentitywithwalletbuttonstyle(_:)) — Sets the style to be used by the button.   (see   ).
+- [`webAuthenticationSession`](https://developer.apple.com/documentation/swiftui/environmentvalues/webauthenticationsession) — A value provided in the SwiftUI environment that views can use to   authenticate a user through a web service.
+- [`webViewBackForwardNavigationGestures(_:)`](https://developer.apple.com/documentation/swiftui/view/webviewbackforwardnavigationgestures(_:)) — Determines whether horizontal swipe gestures trigger backward and forward page navigation.
+- [`webViewContentBackground(_:)`](https://developer.apple.com/documentation/swiftui/view/webviewcontentbackground(_:)) — Specifies the visibility of the webpage’s natural background color within this view.
+- [`webViewContextMenu(menu:)`](https://developer.apple.com/documentation/swiftui/view/webviewcontextmenu(menu:)) — Adds an item-based context menu to a WebView, replacing the default set of context menu items.
+- [`webViewElementFullscreenBehavior(_:)`](https://developer.apple.com/documentation/swiftui/view/webviewelementfullscreenbehavior(_:)) — Determines whether a web view can display content full screen.
+- [`webViewLinkPreviews(_:)`](https://developer.apple.com/documentation/swiftui/view/webviewlinkpreviews(_:)) — Determines whether pressing a link displays a preview of the destination for the link.
+- [`webViewMagnificationGestures(_:)`](https://developer.apple.com/documentation/swiftui/view/webviewmagnificationgestures(_:)) — Determines whether magnify gestures change the view’s magnification.
+- [`webViewOnScrollGeometryChange(for:of:action:)`](https://developer.apple.com/documentation/swiftui/view/webviewonscrollgeometrychange(for:of:action:)) — Adds an action to be performed when a value, created from a scroll geometry, changes.
+- [`webViewScrollInputBehavior(_:for:)`](https://developer.apple.com/documentation/swiftui/view/webviewscrollinputbehavior(_:for:)) — Enables or disables scrolling in web views when using particular inputs.
+- [`webViewScrollPosition(_:)`](https://developer.apple.com/documentation/swiftui/view/webviewscrollposition(_:)) — Associates a binding to a scroll position with the web view.
+- [`webViewTextSelection(_:)`](https://developer.apple.com/documentation/swiftui/view/webviewtextselection(_:)) — Determines whether to allow people to select or otherwise interact with text.
+- [`workoutPreview(_:isPresented:)`](https://developer.apple.com/documentation/swiftui/view/workoutpreview(_:ispresented:)) — Presents a preview of the workout contents as a modal sheet
+
+### Text input and output
+
+- [`AttributedTextFormatting`](https://developer.apple.com/documentation/swiftui/attributedtextformatting) — A namespace for types related to attributed text formatting definitions.
+- [`AttributedTextFormattingDefinition`](https://developer.apple.com/documentation/swiftui/attributedtextformattingdefinition) — A protocol for defining how text can be styled in a view.
+- [`AttributedTextSelection`](https://developer.apple.com/documentation/swiftui/attributedtextselection) — Represents a selection of attributed text.
+- [`AttributedTextValueConstraint`](https://developer.apple.com/documentation/swiftui/attributedtextvalueconstraint) — A protocol for defining a constraint on the value of a certain attribute.
+- [`ContentSizeCategory`](https://developer.apple.com/documentation/swiftui/contentsizecategory) — The sizes that you can specify for content.
+- [`DynamicTypeSize`](https://developer.apple.com/documentation/swiftui/dynamictypesize) — A Dynamic Type size, which specifies how large scalable content should be.
+- [`FixedTextVariant`](https://developer.apple.com/documentation/swiftui/fixedtextvariant) — The default text variant preference that chooses the largest available   variant.
+- [`Font`](https://developer.apple.com/documentation/swiftui/font) — An environment-dependent font.
+- [`Label`](https://developer.apple.com/documentation/swiftui/label) — A standard label for user interface items, consisting of an icon with a   title.
+- [`LocalizedStringKey`](https://developer.apple.com/documentation/swiftui/localizedstringkey) — The key used to look up an entry in a strings file or strings dictionary   file.
+- [`ScaledMetric`](https://developer.apple.com/documentation/swiftui/scaledmetric) — A dynamic property that scales a numeric value.
+- [`SecureField`](https://developer.apple.com/documentation/swiftui/securefield) — A control into which people securely enter private text.
+- [`SizeDependentTextVariant`](https://developer.apple.com/documentation/swiftui/sizedependenttextvariant) — The size dependent variant preference allows the text to take the available   space into account when choosing the variant to display.
+- [`SystemFormatStyle`](https://developer.apple.com/documentation/swiftui/systemformatstyle) — A collection of format styles for displaying live-updating time   information in text views.
+- [`Text`](https://developer.apple.com/documentation/swiftui/text) — A view that displays one or more lines of read-only text.
+- [`TextAlignment`](https://developer.apple.com/documentation/swiftui/textalignment) — An alignment position for text along the horizontal axis.
+- [`TextAttribute`](https://developer.apple.com/documentation/swiftui/textattribute) — A value that you can attach to text views and that text renderers can query.
+- [`TextEditor`](https://developer.apple.com/documentation/swiftui/texteditor) — A view that can display and edit long-form text.
+- [`TextField`](https://developer.apple.com/documentation/swiftui/textfield) — A control that displays an editable text interface.
+- [`TextInputAutocapitalization`](https://developer.apple.com/documentation/swiftui/textinputautocapitalization) — The kind of autocapitalization behavior applied during text input.
+- [`TextInputBorderShape`](https://developer.apple.com/documentation/swiftui/textinputbordershape) — A shape used to draw the border of a text input control.
+- [`TextInputDictationActivation`](https://developer.apple.com/documentation/swiftui/textinputdictationactivation)
+- [`TextInputDictationBehavior`](https://developer.apple.com/documentation/swiftui/textinputdictationbehavior)
+- [`TextInputFormattingControlPlacement`](https://developer.apple.com/documentation/swiftui/textinputformattingcontrolplacement) — A structure defining the system text formatting controls   available on each platform.
+- [`TextProxy`](https://developer.apple.com/documentation/swiftui/textproxy) — A proxy for a text view that custom text renderers use.
+- [`TextRenderer`](https://developer.apple.com/documentation/swiftui/textrenderer) — A value that can replace the default text view rendering behavior.
+- [`TextSelectability`](https://developer.apple.com/documentation/swiftui/textselectability) — A type that describes the ability to select text.
+- [`TextSelection`](https://developer.apple.com/documentation/swiftui/textselection) — Represents a selection of text.
+- [`TextSelectionAffinity`](https://developer.apple.com/documentation/swiftui/textselectionaffinity) — A representation of the direction or association of a selection or cursor   relative to a text character. This concept becomes much more prominent   when dealing with bidirectional text (text that contains both LTR and RTL   scripts, like English and Arabic combined).
+- [`TextVariantPreference`](https://developer.apple.com/documentation/swiftui/textvariantpreference) — A protocol for controlling the size variant of text views.
+- [`TimeDataSource`](https://developer.apple.com/documentation/swiftui/timedatasource) — A source of time related data.
+- [`TypesettingLanguage`](https://developer.apple.com/documentation/swiftui/typesettinglanguage) — Defines how typesetting language is determined for text.
+- [`WritingToolsBehavior`](https://developer.apple.com/documentation/swiftui/writingtoolsbehavior) — The Writing Tools editing experience for text and text input.
+- [`allowsTightening`](https://developer.apple.com/documentation/swiftui/environmentvalues/allowstightening) — A Boolean value that indicates whether inter-character spacing should   tighten to fit the text into the available space.
+- [`allowsTightening(_:)`](https://developer.apple.com/documentation/swiftui/view/allowstightening(_:)) — Sets whether text in this view can compress the space between characters   when necessary to fit text in a line.
+- [`autocorrectionDisabled`](https://developer.apple.com/documentation/swiftui/environmentvalues/autocorrectiondisabled) — A Boolean value that determines whether the view hierarchy has   auto-correction enabled.
+- [`autocorrectionDisabled(_:)`](https://developer.apple.com/documentation/swiftui/view/autocorrectiondisabled(_:)) — Sets whether to disable autocorrection for this view.
+- [`baselineOffset(_:)`](https://developer.apple.com/documentation/swiftui/view/baselineoffset(_:)) — Sets the vertical offset for the text relative to its baseline   in this view.
+- [`bold(_:)`](https://developer.apple.com/documentation/swiftui/view/bold(_:)) — Applies a bold font weight to the text in this view.
+- [`dynamicTypeSize`](https://developer.apple.com/documentation/swiftui/environmentvalues/dynamictypesize) — The current Dynamic Type size.
+- [`dynamicTypeSize(_:)`](https://developer.apple.com/documentation/swiftui/view/dynamictypesize(_:)) — Sets the Dynamic Type size within the view to the given value.
+- [`flipsForRightToLeftLayoutDirection(_:)`](https://developer.apple.com/documentation/swiftui/view/flipsforrighttoleftlayoutdirection(_:)) — Sets whether this view mirrors its contents horizontally when the layout   direction is right-to-left.
+- [`font`](https://developer.apple.com/documentation/swiftui/environmentvalues/font) — The default font of this environment.
+- [`font(_:)`](https://developer.apple.com/documentation/swiftui/view/font(_:)) — Sets the default font for text in this view.
+- [`fontDesign(_:)`](https://developer.apple.com/documentation/swiftui/view/fontdesign(_:)) — Sets the font design of the text in this view.
+- [`fontWeight(_:)`](https://developer.apple.com/documentation/swiftui/view/fontweight(_:)) — Sets the font weight of the text in this view.
+- [`fontWidth(_:)`](https://developer.apple.com/documentation/swiftui/view/fontwidth(_:)) — Sets the font width of the text in this view.
+- [`italic(_:)`](https://developer.apple.com/documentation/swiftui/view/italic(_:)) — Applies italics to the text in this view.
+- [`kerning(_:)`](https://developer.apple.com/documentation/swiftui/view/kerning(_:)) — Sets the spacing, or kerning, between characters for the text in this view.
+- [`keyboardType(_:)`](https://developer.apple.com/documentation/swiftui/view/keyboardtype(_:)) — Sets the keyboard type for this view.
+- [`labelStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/labelstyle(_:)) — Sets the style for labels within this view.
+- [`lineLimit`](https://developer.apple.com/documentation/swiftui/environmentvalues/linelimit) — The maximum number of lines that text can occupy in a view.
+- [`lineLimit(_:)`](https://developer.apple.com/documentation/swiftui/view/linelimit(_:)) — Sets to a closed range the number of lines that text can occupy in   this view.
+- [`lineLimit(_:reservesSpace:)`](https://developer.apple.com/documentation/swiftui/view/linelimit(_:reservesspace:)) — Sets a limit for the number of lines text can occupy in this view.
+- [`lineSpacing`](https://developer.apple.com/documentation/swiftui/environmentvalues/linespacing) — The distance in points between the bottom of one line fragment and the   top of the next.
+- [`lineSpacing(_:)`](https://developer.apple.com/documentation/swiftui/view/linespacing(_:)) — Sets the amount of space between lines of text in this view.
+- [`locale`](https://developer.apple.com/documentation/swiftui/environmentvalues/locale) — The current locale that views should use.
+- [`minimumScaleFactor`](https://developer.apple.com/documentation/swiftui/environmentvalues/minimumscalefactor) — The minimum permissible proportion to shrink the font size to fit   the text into the available space.
+- [`minimumScaleFactor(_:)`](https://developer.apple.com/documentation/swiftui/view/minimumscalefactor(_:)) — Sets the minimum amount that text in this view scales down to fit in the   available space.
+- [`monospaced(_:)`](https://developer.apple.com/documentation/swiftui/view/monospaced(_:)) — Modifies the fonts of all child views to use the fixed-width variant of   the current font, if possible.
+- [`monospacedDigit()`](https://developer.apple.com/documentation/swiftui/view/monospaceddigit()) — Modifies the fonts of all child views to use fixed-width digits, if   possible, while leaving other characters proportionally spaced.
+- [`multilineTextAlignment`](https://developer.apple.com/documentation/swiftui/environmentvalues/multilinetextalignment) — An environment value that indicates how a text view aligns its lines   when the content wraps or contains newlines.
+- [`multilineTextAlignment(_:)`](https://developer.apple.com/documentation/swiftui/view/multilinetextalignment(_:)) — Sets the alignment of a text view that contains multiple lines of text.
+- [`scrollDismissesKeyboard(_:)`](https://developer.apple.com/documentation/swiftui/view/scrolldismisseskeyboard(_:)) — Configures the behavior in which scrollable content interacts with   the software keyboard.
+- [`searchDictationBehavior(_:)`](https://developer.apple.com/documentation/swiftui/view/searchdictationbehavior(_:)) — Configures the dictation behavior for any search fields configured   by the searchable modifier.
+- [`strikethrough(_:pattern:color:)`](https://developer.apple.com/documentation/swiftui/view/strikethrough(_:pattern:color:)) — Applies a strikethrough to the text in this view.
+- [`textCase`](https://developer.apple.com/documentation/swiftui/environmentvalues/textcase) — A stylistic override to transform the case of    when displayed,   using the environment’s locale.
+- [`textCase(_:)`](https://developer.apple.com/documentation/swiftui/view/textcase(_:)) — Sets a transform for the case of the text contained in this view when   displayed.
+- [`textContentType(_:)`](https://developer.apple.com/documentation/swiftui/view/textcontenttype(_:)) — Sets the text content type for this view, which the system uses to   offer suggestions while the user enters text on macOS.
+- [`textContentType(_:)`](https://developer.apple.com/documentation/swiftui/view/textcontenttype(_:)-4dqqb) — Sets the text content type for this view, which the system uses to offer   suggestions while the user enters text on a watchOS device.
+- [`textContentType(_:)`](https://developer.apple.com/documentation/swiftui/view/textcontenttype(_:)-6fic1) — Sets the text content type for this view, which the system uses to   offer suggestions while the user enters text on macOS.
+- [`textContentType(_:)`](https://developer.apple.com/documentation/swiftui/view/textcontenttype(_:)-ufdv) — Sets the text content type for this view, which the system uses to   offer suggestions while the user enters text on an iOS or tvOS device.
+- [`textFieldStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/textfieldstyle(_:)) — Sets the style for text fields within this view.
+- [`textInputAutocapitalization(_:)`](https://developer.apple.com/documentation/swiftui/view/textinputautocapitalization(_:)) — Sets how often the shift key in the keyboard is automatically enabled.
+- [`textInputBorderShape(_:)`](https://developer.apple.com/documentation/swiftui/view/textinputbordershape(_:)) — Sets the border shape for text input controls in the view hierarchy.
+- [`textInputCompletion(_:)`](https://developer.apple.com/documentation/swiftui/view/textinputcompletion(_:)) — Associates a fully formed string with the value of this view when used   as a text input suggestion
+- [`textInputFormattingControlVisibility(_:for:)`](https://developer.apple.com/documentation/swiftui/view/textinputformattingcontrolvisibility(_:for:)) — Specifies which system text formatting controls are available   for people to format text.
+- [`textInputSuggestions(_:)`](https://developer.apple.com/documentation/swiftui/view/textinputsuggestions(_:)) — Configures the text input suggestions for this view.
+- [`textInputSuggestions(_:content:)`](https://developer.apple.com/documentation/swiftui/view/textinputsuggestions(_:content:)) — Configures the text input suggestions for this view.
+- [`textInputSuggestions(_:id:content:)`](https://developer.apple.com/documentation/swiftui/view/textinputsuggestions(_:id:content:)) — Configures the text input suggestions for this view.
+- [`textRenderer(_:)`](https://developer.apple.com/documentation/swiftui/view/textrenderer(_:)) — Returns a new view such that any text views within it will use     to draw themselves.
+- [`textScale(_:isEnabled:)`](https://developer.apple.com/documentation/swiftui/view/textscale(_:isenabled:)) — Applies a text scale to text in the view.
+- [`textSelection(_:)`](https://developer.apple.com/documentation/swiftui/view/textselection(_:)) — Controls whether people can select text within this view.
+- [`textSelectionAffinity`](https://developer.apple.com/documentation/swiftui/environmentvalues/textselectionaffinity) — A representation of the direction or association of a selection or cursor   relative to a text character. This concept becomes much more prominent   when dealing with bidirectional text (text that contains both LTR and RTL   scripts, like English and Arabic combined).
+- [`textSelectionAffinity(_:)`](https://developer.apple.com/documentation/swiftui/view/textselectionaffinity(_:)) — Sets the direction of a selection or cursor relative to a text character.
+- [`tracking(_:)`](https://developer.apple.com/documentation/swiftui/view/tracking(_:)) — Sets the tracking for the text in this view.
+- [`truncationMode`](https://developer.apple.com/documentation/swiftui/environmentvalues/truncationmode) — A value that indicates how the layout truncates the last line of text to   fit into the available space.
+- [`truncationMode(_:)`](https://developer.apple.com/documentation/swiftui/view/truncationmode(_:)) — Sets the truncation mode for lines of text that are too long to fit in   the available space.
+- [`typeSelectEquivalent(_:)`](https://developer.apple.com/documentation/swiftui/view/typeselectequivalent(_:)) — Sets an explicit type select equivalent text in a collection, such as   a list or table.
+- [`typesettingLanguage(_:isEnabled:)`](https://developer.apple.com/documentation/swiftui/view/typesettinglanguage(_:isenabled:)) — Specifies the language for typesetting.
+- [`underline(_:pattern:color:)`](https://developer.apple.com/documentation/swiftui/view/underline(_:pattern:color:)) — Applies an underline to the text in this view.
+- [`writingToolsAffordanceVisibility(_:)`](https://developer.apple.com/documentation/swiftui/view/writingtoolsaffordancevisibility(_:)) — Specifies whether the system should show the Writing Tools affordance   for text input views affected by the environment.
+- [`writingToolsBehavior(_:)`](https://developer.apple.com/documentation/swiftui/view/writingtoolsbehavior(_:)) — Specifies the Writing Tools behavior for text and text input in the   environment.
+
+### Toolbars
+
+- [`ContentToolbarPlacement`](https://developer.apple.com/documentation/swiftui/contenttoolbarplacement)
+- [`CustomizableToolbarContent`](https://developer.apple.com/documentation/swiftui/customizabletoolbarcontent) — Conforming types represent items that can be placed in various locations   in a customizable toolbar.
+- [`DefaultToolbarItem`](https://developer.apple.com/documentation/swiftui/defaulttoolbaritem) — A toolbar item that represents a system component.
+- [`OrnamentAttachmentAnchor`](https://developer.apple.com/documentation/swiftui/ornamentattachmentanchor) — An attachment anchor for an ornament.
+- [`SearchToolbarBehavior`](https://developer.apple.com/documentation/swiftui/searchtoolbarbehavior) — The behavior of a search field in a toolbar.
+- [`SpacerSizing`](https://developer.apple.com/documentation/swiftui/spacersizing) — A type which defines how spacers should size themselves.
+- [`ToolbarContent`](https://developer.apple.com/documentation/swiftui/toolbarcontent) — Conforming types represent items that can be placed in various locations   in a toolbar.
+- [`ToolbarContentBuilder`](https://developer.apple.com/documentation/swiftui/toolbarcontentbuilder) — Constructs a toolbar item set from multi-expression closures.
+- [`ToolbarCustomizationBehavior`](https://developer.apple.com/documentation/swiftui/toolbarcustomizationbehavior) — The customization behavior of customizable toolbar content.
+- [`ToolbarCustomizationOptions`](https://developer.apple.com/documentation/swiftui/toolbarcustomizationoptions) — Options that influence the default customization behavior of   customizable toolbar content.
+- [`ToolbarDefaultItemKind`](https://developer.apple.com/documentation/swiftui/toolbardefaultitemkind) — A kind of toolbar item a    adds by default.
+- [`ToolbarItem`](https://developer.apple.com/documentation/swiftui/toolbaritem) — A model that represents an item which can be placed in the toolbar   or navigation bar.
+- [`ToolbarItemGroup`](https://developer.apple.com/documentation/swiftui/toolbaritemgroup) — A model that represents a group of   s which can be placed in   the toolbar or navigation bar.
+- [`ToolbarItemPlacement`](https://developer.apple.com/documentation/swiftui/toolbaritemplacement) — A structure that defines the placement of a toolbar item.
+- [`ToolbarItemVisibilityPriority`](https://developer.apple.com/documentation/swiftui/toolbaritemvisibilitypriority) — A value that defines the visibility priority of a toolbar item.
+- [`ToolbarLabelStyle`](https://developer.apple.com/documentation/swiftui/toolbarlabelstyle) — The label style of a toolbar.
+- [`ToolbarMinimizationBehavior`](https://developer.apple.com/documentation/swiftui/toolbarminimizationbehavior) — The minimization behavior of a toolbar.
+- [`ToolbarMinimizationRestoration`](https://developer.apple.com/documentation/swiftui/toolbarminimizationrestoration) — The restoration behavior during toolbar minimization.
+- [`ToolbarMinimizationSafeAreaAdjustment`](https://developer.apple.com/documentation/swiftui/toolbarminimizationsafeareaadjustment) — The safe area adjustment during toolbar minimization.
+- [`ToolbarOverflowMenu`](https://developer.apple.com/documentation/swiftui/toolbaroverflowmenu) — The overflow menu of a toolbar.
+- [`ToolbarPlacement`](https://developer.apple.com/documentation/swiftui/toolbarplacement) — The placement of a toolbar.
+- [`ToolbarRole`](https://developer.apple.com/documentation/swiftui/toolbarrole) — The purpose of content that populates the toolbar.
+- [`ToolbarSpacer`](https://developer.apple.com/documentation/swiftui/toolbarspacer) — A standard space item in toolbars.
+- [`ToolbarTitleDisplayMode`](https://developer.apple.com/documentation/swiftui/toolbartitledisplaymode) — A type that defines the behavior of title of a toolbar.
+- [`ToolbarTitleMenu`](https://developer.apple.com/documentation/swiftui/toolbartitlemenu) — The title menu of a toolbar.
+- [`WindowToolbarStyle`](https://developer.apple.com/documentation/swiftui/windowtoolbarstyle) — A specification for the appearance and behavior of a window’s toolbar.
+- [`ornament(visibility:attachmentAnchor:contentAlignment:ornament:)`](https://developer.apple.com/documentation/swiftui/view/ornament(visibility:attachmentanchor:contentalignment:ornament:)) — Presents an ornament.
+- [`toolbar(_:for:)`](https://developer.apple.com/documentation/swiftui/view/toolbar(_:for:)) — Specifies the visibility of a bar managed by SwiftUI.
+- [`toolbar(content:)`](https://developer.apple.com/documentation/swiftui/view/toolbar(content:)) — Populates the toolbar or navigation bar with the specified items.
+- [`toolbar(id:content:)`](https://developer.apple.com/documentation/swiftui/view/toolbar(id:content:)) — Populates the toolbar or navigation bar with the specified items,   allowing for user customization.
+- [`toolbar(removing:)`](https://developer.apple.com/documentation/swiftui/view/toolbar(removing:)) — Remove a toolbar item present by default
+- [`toolbarBackground(_:for:)`](https://developer.apple.com/documentation/swiftui/view/toolbarbackground(_:for:)) — Specifies the preferred shape style of the background of a bar managed   by SwiftUI.
+- [`toolbarBackgroundVisibility(_:for:)`](https://developer.apple.com/documentation/swiftui/view/toolbarbackgroundvisibility(_:for:)) — Specifies the preferred visibility of backgrounds on a bar managed by   SwiftUI.
+- [`toolbarColorScheme(_:for:)`](https://developer.apple.com/documentation/swiftui/view/toolbarcolorscheme(_:for:)) — Specifies the preferred color scheme of a bar managed by SwiftUI.
+- [`toolbarForegroundStyle(_:for:)`](https://developer.apple.com/documentation/swiftui/view/toolbarforegroundstyle(_:for:)) — Specifies the preferred foreground style of bars managed by SwiftUI.
+- [`toolbarItemHidden(_:)`](https://developer.apple.com/documentation/swiftui/view/toolbaritemhidden(_:)) — Hides an individual view within a control group toolbar item.
+- [`toolbarLabelStyle`](https://developer.apple.com/documentation/swiftui/environmentvalues/toolbarlabelstyle) — The label style to apply to controls within a toolbar.
+- [`toolbarMinimizationBehavior(_:for:)`](https://developer.apple.com/documentation/swiftui/view/toolbarminimizationbehavior(_:for:)) — Sets the minimize behavior for the specified bars.
+- [`toolbarMinimizationRestoration(_:for:)`](https://developer.apple.com/documentation/swiftui/view/toolbarminimizationrestoration(_:for:)) — Sets the restoration behavior for the specified bars during   minimization.
+- [`toolbarMinimizationSafeAreaAdjustment(_:for:)`](https://developer.apple.com/documentation/swiftui/view/toolbarminimizationsafeareaadjustment(_:for:)) — Sets the safe area adjustment for the specified bars during   minimization.
+- [`toolbarOverflowMenu(content:)`](https://developer.apple.com/documentation/swiftui/view/toolbaroverflowmenu(content:)) — Configures the overflow menu of a toolbar.
+- [`toolbarRole(_:)`](https://developer.apple.com/documentation/swiftui/view/toolbarrole(_:)) — Configures the semantic role for the content populating the toolbar.
+- [`toolbarTitleDisplayMode(_:)`](https://developer.apple.com/documentation/swiftui/view/toolbartitledisplaymode(_:)) — Configures the toolbar title display mode for this view.
+- [`toolbarTitleMenu(content:)`](https://developer.apple.com/documentation/swiftui/view/toolbartitlemenu(content:)) — Configure the title menu of a toolbar.
+- [`toolbarVisibility(_:for:)`](https://developer.apple.com/documentation/swiftui/view/toolbarvisibility(_:for:)) — Specifies the visibility of a bar managed by SwiftUI.
+- [`visibilityPriority(_:)`](https://developer.apple.com/documentation/swiftui/toolbarcontent/visibilitypriority(_:)) — Defines the visibility priority for a toolbar item.
+- [`windowToolbarStyle(_:)`](https://developer.apple.com/documentation/swiftui/scene/windowtoolbarstyle(_:)) — Sets the style for the toolbar defined within this scene.
+
+### UIKit integration
+
+- [`UIGestureRecognizerRepresentable`](https://developer.apple.com/documentation/swiftui/uigesturerecognizerrepresentable) — A wrapper for a    that you use to integrate that gesture   recognizer into your SwiftUI hierarchy.
+- [`UIGestureRecognizerRepresentableContext`](https://developer.apple.com/documentation/swiftui/uigesturerecognizerrepresentablecontext) — Contextual information about the state of the system that you use to create   and update a represented gesture recognizer.
+- [`UIGestureRecognizerRepresentableCoordinateSpaceConverter`](https://developer.apple.com/documentation/swiftui/uigesturerecognizerrepresentablecoordinatespaceconverter) — A proxy structure used to convert locations to/from coordinate spaces in the   hierarchy of the SwiftUI view associated with a    .
+- [`UIHostingConfiguration`](https://developer.apple.com/documentation/swiftui/uihostingconfiguration) — A content configuration suitable for hosting a hierarchy of SwiftUI views.
+- [`UIHostingController`](https://developer.apple.com/documentation/swiftui/uihostingcontroller) — A UIKit view controller that manages a SwiftUI view hierarchy.
+- [`UIHostingControllerSizingOptions`](https://developer.apple.com/documentation/swiftui/uihostingcontrollersizingoptions) — Options for how a hosting controller tracks its content’s size.
+- [`UIHostingOrnament`](https://developer.apple.com/documentation/swiftui/uihostingornament) — A model that represents an ornament suitable for being hosted in UIKit.
+- [`UIHostingSceneDelegate`](https://developer.apple.com/documentation/swiftui/uihostingscenedelegate) — Extends    to bridge SwiftUI scenes.
+- [`UIOrnament`](https://developer.apple.com/documentation/swiftui/uiornament) — The abstract base class that represents an ornament.
+- [`UITraitBridgedEnvironmentKey`](https://developer.apple.com/documentation/swiftui/uitraitbridgedenvironmentkey)
+- [`UIViewControllerRepresentable`](https://developer.apple.com/documentation/swiftui/uiviewcontrollerrepresentable) — A view that represents a UIKit view controller.
+- [`UIViewControllerRepresentableContext`](https://developer.apple.com/documentation/swiftui/uiviewcontrollerrepresentablecontext) — Contextual information about the state of the system that you use to create   and update your UIKit view controller.
+- [`UIViewRepresentable`](https://developer.apple.com/documentation/swiftui/uiviewrepresentable) — A wrapper for a UIKit view that you use to integrate that view into your   SwiftUI view hierarchy.
+- [`UIViewRepresentableContext`](https://developer.apple.com/documentation/swiftui/uiviewrepresentablecontext) — Contextual information about the state of the system that you use to create   and update your UIKit view.
+
+### View configuration
+
+- [`BreakthroughEffect`](https://developer.apple.com/documentation/swiftui/breakthrougheffect)
+- [`ColorScheme`](https://developer.apple.com/documentation/swiftui/colorscheme) — The possible color schemes, corresponding to the light and dark appearances.
+- [`ColorSchemeContrast`](https://developer.apple.com/documentation/swiftui/colorschemecontrast) — The contrast between the app’s foreground and background colors.
+- [`RedactionReasons`](https://developer.apple.com/documentation/swiftui/redactionreasons) — The reasons to apply a redaction to data displayed on screen.
+- [`SurroundingsEffect`](https://developer.apple.com/documentation/swiftui/surroundingseffect) — Effects that the system can apply to passthrough video.
+- [`Visibility`](https://developer.apple.com/documentation/swiftui/visibility) — The visibility of a UI element, chosen automatically based on   the platform, current context, and other factors.
+- [`breakthroughEffect(_:)`](https://developer.apple.com/documentation/swiftui/view/breakthrougheffect(_:)) — Ensures that the view is always visible to the user, even when other   content is occluding it, like 3D models.
+- [`colorScheme`](https://developer.apple.com/documentation/swiftui/environmentvalues/colorscheme) — The color scheme of this environment.
+- [`colorSchemeContrast`](https://developer.apple.com/documentation/swiftui/environmentvalues/colorschemecontrast) — The contrast associated with the color scheme of this environment.
+- [`disabled(_:)`](https://developer.apple.com/documentation/swiftui/view/disabled(_:)) — Adds a condition that controls whether users can interact with this   view.
+- [`help(_:)`](https://developer.apple.com/documentation/swiftui/view/help(_:)) — Adds help text to a view using a localized string resource that you   provide.
+- [`hidden()`](https://developer.apple.com/documentation/swiftui/view/hidden()) — Hides this view unconditionally.
+- [`interactionActivityTrackingTag(_:)`](https://developer.apple.com/documentation/swiftui/view/interactionactivitytrackingtag(_:)) — Sets a tag that you use for tracking interactivity.
+- [`invalidatableContent(_:)`](https://developer.apple.com/documentation/swiftui/view/invalidatablecontent(_:)) — Mark the receiver as their content might be invalidated.
+- [`isEnabled`](https://developer.apple.com/documentation/swiftui/environmentvalues/isenabled) — A Boolean value that indicates whether the view associated with this   environment allows user interaction.
+- [`isSceneCaptured`](https://developer.apple.com/documentation/swiftui/environmentvalues/isscenecaptured) — The current capture state.
+- [`labelsHidden()`](https://developer.apple.com/documentation/swiftui/view/labelshidden()) — Hides the labels of any controls contained within this view.
+- [`labelsVisibility`](https://developer.apple.com/documentation/swiftui/environmentvalues/labelsvisibility) — The labels visibility set by   .
+- [`labelsVisibility(_:)`](https://developer.apple.com/documentation/swiftui/view/labelsvisibility(_:)) — Controls the visibility of labels of any controls contained within this   view.
+- [`menuIndicator(_:)`](https://developer.apple.com/documentation/swiftui/view/menuindicator(_:)) — Sets the menu indicator visibility for controls within this view.
+- [`opacity(_:)`](https://developer.apple.com/documentation/swiftui/view/opacity(_:)) — Sets the transparency of this view.
+- [`persistentSystemOverlays(_:)`](https://developer.apple.com/documentation/swiftui/view/persistentsystemoverlays(_:)) — Sets the preferred visibility of the non-transient system views   overlaying the app.
+- [`preferredColorScheme(_:)`](https://developer.apple.com/documentation/swiftui/view/preferredcolorscheme(_:)) — Sets the preferred color scheme for this presentation.
+- [`preferredSurroundingsEffect(_:)`](https://developer.apple.com/documentation/swiftui/view/preferredsurroundingseffect(_:)) — Applies an effect to passthrough video.
+- [`privacySensitive(_:)`](https://developer.apple.com/documentation/swiftui/view/privacysensitive(_:)) — Marks the view as containing sensitive, private user data.
+- [`redacted(reason:)`](https://developer.apple.com/documentation/swiftui/view/redacted(reason:)) — Adds a reason to apply a redaction to this view hierarchy.
+- [`redactionReasons`](https://developer.apple.com/documentation/swiftui/environmentvalues/redactionreasons) — The current redaction reasons applied to the view hierarchy.
+- [`statusBarHidden(_:)`](https://developer.apple.com/documentation/swiftui/view/statusbarhidden(_:)) — Sets the visibility of the status bar.
+- [`unredacted()`](https://developer.apple.com/documentation/swiftui/view/unredacted()) — Removes any reason to apply a redaction to this view hierarchy.
+
+### View fundamentals
+
+- [`AnyView`](https://developer.apple.com/documentation/swiftui/anyview) — A type-erased view.
+- [`ContentBuilder`](https://developer.apple.com/documentation/swiftui/contentbuilder) — A custom parameter attribute that constructs views and other content types   from closures.
+- [`EmptyContent`](https://developer.apple.com/documentation/swiftui/emptycontent) — Content which contains nothing.
+- [`EmptyModifier`](https://developer.apple.com/documentation/swiftui/emptymodifier) — An empty, or identity, modifier, used during development to switch   modifiers at compile time.
+- [`EmptyView`](https://developer.apple.com/documentation/swiftui/emptyview) — A view that doesn’t contain any content.
+- [`EnvironmentalModifier`](https://developer.apple.com/documentation/swiftui/environmentalmodifier) — A modifier that must resolve to a concrete modifier in an environment before   use.
+- [`EquatableView`](https://developer.apple.com/documentation/swiftui/equatableview) — A view type that compares itself against its previous value and prevents its   child updating if its new value is the same as its old value.
+- [`Manipulable`](https://developer.apple.com/documentation/swiftui/manipulable) — A namespace for various manipulable related types.
+- [`ManipulableModifier`](https://developer.apple.com/documentation/swiftui/manipulablemodifier)
+- [`ManipulableResponderModifier`](https://developer.apple.com/documentation/swiftui/manipulablerespondermodifier)
+- [`ManipulableTransformBindingModifier`](https://developer.apple.com/documentation/swiftui/manipulabletransformbindingmodifier)
+- [`ManipulationGeometryModifier`](https://developer.apple.com/documentation/swiftui/manipulationgeometrymodifier)
+- [`ManipulationGestureModifier`](https://developer.apple.com/documentation/swiftui/manipulationgesturemodifier)
+- [`ManipulationUsingGestureStateModifier`](https://developer.apple.com/documentation/swiftui/manipulationusinggesturestatemodifier)
+- [`ModifiedContent`](https://developer.apple.com/documentation/swiftui/modifiedcontent) — A value with a modifier applied to it.
+- [`SubscriptionView`](https://developer.apple.com/documentation/swiftui/subscriptionview) — A view that subscribes to a publisher with an action.
+- [`TupleContent`](https://developer.apple.com/documentation/swiftui/tuplecontent) — Content created from a tuple of content to be treated as siblings.
+- [`TupleView`](https://developer.apple.com/documentation/swiftui/tupleview) — A View created from a swift tuple of View values.
+- [`View`](https://developer.apple.com/documentation/swiftui/view) — A type that represents part of your app’s user interface and provides   modifiers that you use to configure views.
+- [`ViewBuilder`](https://developer.apple.com/documentation/swiftui/viewbuilder) — A custom parameter attribute that constructs views from closures.
+- [`ViewModifier`](https://developer.apple.com/documentation/swiftui/viewmodifier) — A modifier that you apply to a view or another view modifier, producing a   different version of the original value.
+- [`equatable()`](https://developer.apple.com/documentation/swiftui/view/equatable()) — Prevents the view from updating its child view when its new value is the   same as its old value.
+- [`id(_:)`](https://developer.apple.com/documentation/swiftui/view/id(_:)) — Binds a view’s identity to the given proxy value.
+- [`modifier(_:)`](https://developer.apple.com/documentation/swiftui/view/modifier(_:)) — Applies a modifier to a view and returns a new view.
+- [`onAppear(perform:)`](https://developer.apple.com/documentation/swiftui/view/onappear(perform:)) — Adds an action to perform before this view appears.
+- [`onDisappear(perform:)`](https://developer.apple.com/documentation/swiftui/view/ondisappear(perform:)) — Adds an action to perform after this view disappears.
+- [`tag(_:includeOptional:)`](https://developer.apple.com/documentation/swiftui/view/tag(_:includeoptional:)) — Sets the unique tag value of this view.
+- [`task(id:name:executorPreference:priority:file:line:_:)`](https://developer.apple.com/documentation/swiftui/view/task(id:name:executorpreference:priority:file:line:_:)) — Adds a task to perform before this view appears or when a specified   value changes.
+- [`task(id:name:priority:file:line:_:)`](https://developer.apple.com/documentation/swiftui/view/task(id:name:priority:file:line:_:)) — Adds a task to perform before this view appears or when a specified   value changes.
+- [`task(name:executorPreference:priority:file:line:action:)`](https://developer.apple.com/documentation/swiftui/view/task(name:executorpreference:priority:file:line:action:)) — Adds an asynchronous task to perform before this view appears.
+- [`task(name:priority:file:line:_:)`](https://developer.apple.com/documentation/swiftui/view/task(name:priority:file:line:_:)) — Adds an asynchronous task to perform before this view appears.
+
+### View groupings
+
+- [`ContainerValueKey`](https://developer.apple.com/documentation/swiftui/containervaluekey) — A key for accessing container values.
+- [`ContainerValues`](https://developer.apple.com/documentation/swiftui/containervalues) — A collection of container values associated with a given view.
+- [`ControlGroup`](https://developer.apple.com/documentation/swiftui/controlgroup) — A container view that displays semantically-related controls   in a visually-appropriate manner for the context
+- [`DynamicViewContent`](https://developer.apple.com/documentation/swiftui/dynamicviewcontent) — A type of view that generates views from an underlying collection of data.
+- [`ForEach`](https://developer.apple.com/documentation/swiftui/foreach) — A structure that computes views on demand from an underlying collection of   identified data.
+- [`ForEachSectionCollection`](https://developer.apple.com/documentation/swiftui/foreachsectioncollection) — A collection which allows a view to be treated as a collection of its   sections in a for each loop.
+- [`ForEachSubviewCollection`](https://developer.apple.com/documentation/swiftui/foreachsubviewcollection) — A collection which allows a view to be treated as a collection of its   subviews in a for each loop.
+- [`Form`](https://developer.apple.com/documentation/swiftui/form) — A container for grouping controls used for data entry, such as in settings   or inspectors.
+- [`Group`](https://developer.apple.com/documentation/swiftui/group) — A type that collects multiple instances of a content type — like views,   scenes, or commands — into a single unit.
+- [`GroupBox`](https://developer.apple.com/documentation/swiftui/groupbox) — A stylized view, with an optional label, that visually collects a logical   grouping of content.
+- [`GroupElementsOfContent`](https://developer.apple.com/documentation/swiftui/groupelementsofcontent) — Transforms the subviews of a given view into a resulting content view.
+- [`GroupSectionsOfContent`](https://developer.apple.com/documentation/swiftui/groupsectionsofcontent) — Transforms the sections of a given view into a resulting content view.
+- [`LabeledContent`](https://developer.apple.com/documentation/swiftui/labeledcontent) — A container for attaching a label to a value-bearing view.
+- [`Section`](https://developer.apple.com/documentation/swiftui/section) — A container view that you can use to add hierarchy within certain views.
+- [`SectionCollection`](https://developer.apple.com/documentation/swiftui/sectioncollection) — An opaque collection representing the sections of view.
+- [`SectionConfiguration`](https://developer.apple.com/documentation/swiftui/sectionconfiguration) — Specifies the contents of a section.
+- [`Subview`](https://developer.apple.com/documentation/swiftui/subview) — An opaque value representing a subview of another view.
+- [`SubviewsCollection`](https://developer.apple.com/documentation/swiftui/subviewscollection) — An opaque collection representing the subviews of view.
+- [`SubviewsCollectionSlice`](https://developer.apple.com/documentation/swiftui/subviewscollectionslice) — A slice of a SubviewsCollection.
+- [`containerValue(_:_:)`](https://developer.apple.com/documentation/swiftui/view/containervalue(_:_:)) — Sets a particular container value of a view.
+- [`controlGroupStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/controlgroupstyle(_:)) — Sets the style for control groups within this view.
+- [`formStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/formstyle(_:)) — Sets the style for forms in a view hierarchy.
+- [`groupBoxStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/groupboxstyle(_:)) — Sets the style for group boxes within this view.
+- [`labeledContentStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/labeledcontentstyle(_:)) — Sets a style for labeled content.
+
+### View styles
+
+- [`AutomaticGlassBackgroundEffect`](https://developer.apple.com/documentation/swiftui/automaticglassbackgroundeffect) — The automatic glass background effect.
+- [`ButtonSizing`](https://developer.apple.com/documentation/swiftui/buttonsizing) — The sizing behavior of   s and other button-like controls.
+- [`ButtonStyle`](https://developer.apple.com/documentation/swiftui/buttonstyle) — A type that applies standard interaction behavior and a custom appearance to   all buttons within a view hierarchy.
+- [`ButtonStyleConfiguration`](https://developer.apple.com/documentation/swiftui/buttonstyleconfiguration) — The properties of a button.
+- [`ControlGroupStyle`](https://developer.apple.com/documentation/swiftui/controlgroupstyle) — Defines the implementation of all control groups within a view   hierarchy.
+- [`ControlGroupStyleConfiguration`](https://developer.apple.com/documentation/swiftui/controlgroupstyleconfiguration) — The properties of a control group.
+- [`DatePickerStyle`](https://developer.apple.com/documentation/swiftui/datepickerstyle) — A type that specifies the appearance and interaction of all date pickers   within a view hierarchy.
+- [`DefaultGlassEffectShape`](https://developer.apple.com/documentation/swiftui/defaultglasseffectshape) — The default shape applied by glass effects, a capsule.
+- [`DisclosureGroupStyle`](https://developer.apple.com/documentation/swiftui/disclosuregroupstyle) — A type that specifies the appearance and interaction of disclosure groups   within a view hierarchy.
+- [`FeatheredGlassBackgroundEffect`](https://developer.apple.com/documentation/swiftui/featheredglassbackgroundeffect) — The feathered glass background effect.
+- [`FormStyle`](https://developer.apple.com/documentation/swiftui/formstyle) — The appearance and behavior of a form.
+- [`FormStyleConfiguration`](https://developer.apple.com/documentation/swiftui/formstyleconfiguration) — The properties of a form instance.
+- [`GaugeStyle`](https://developer.apple.com/documentation/swiftui/gaugestyle) — Defines the implementation of all gauge instances within a view   hierarchy.
+- [`GaugeStyleConfiguration`](https://developer.apple.com/documentation/swiftui/gaugestyleconfiguration) — The properties of a gauge instance.
+- [`GlassBackgroundDisplayMode`](https://developer.apple.com/documentation/swiftui/glassbackgrounddisplaymode) — The display mode of a glass background.
+- [`GlassBackgroundEffect`](https://developer.apple.com/documentation/swiftui/glassbackgroundeffect) — A specification for the appearance of a glass background.
+- [`GlassBackgroundEffectConfiguration`](https://developer.apple.com/documentation/swiftui/glassbackgroundeffectconfiguration) — A configuration used to build a custom effect.
+- [`GlassButtonStyle`](https://developer.apple.com/documentation/swiftui/glassbuttonstyle) — A button style that applies glass border artwork based on the button’s   context.
+- [`GlassEffectContainer`](https://developer.apple.com/documentation/swiftui/glasseffectcontainer) — A view that combines multiple Liquid Glass shapes into a single   shape that can morph individual shapes into one another.
+- [`GlassEffectTransition`](https://developer.apple.com/documentation/swiftui/glasseffecttransition) — A structure that describes changes to apply when a glass effect   is added or removed from the view hierarchy.
+- [`GlassProminentButtonStyle`](https://developer.apple.com/documentation/swiftui/glassprominentbuttonstyle) — A button style that applies prominent glass border artwork based on the button’s   context.
+- [`GroupBoxStyle`](https://developer.apple.com/documentation/swiftui/groupboxstyle) — A type that specifies the appearance and interaction of all group boxes   within a view hierarchy.
+- [`GroupBoxStyleConfiguration`](https://developer.apple.com/documentation/swiftui/groupboxstyleconfiguration) — The properties of a group box instance.
+- [`IndexViewStyle`](https://developer.apple.com/documentation/swiftui/indexviewstyle) — Defines the implementation of all    instances within a view   hierarchy.
+- [`LabelStyle`](https://developer.apple.com/documentation/swiftui/labelstyle) — A type that applies a custom appearance to all labels within a view.
+- [`LabelStyleConfiguration`](https://developer.apple.com/documentation/swiftui/labelstyleconfiguration) — The properties of a label.
+- [`LabeledContentStyle`](https://developer.apple.com/documentation/swiftui/labeledcontentstyle) — The appearance and behavior of a labeled content instance..
+- [`LabeledContentStyleConfiguration`](https://developer.apple.com/documentation/swiftui/labeledcontentstyleconfiguration) — The properties of a labeled content instance.
+- [`ListStyle`](https://developer.apple.com/documentation/swiftui/liststyle) — A protocol that describes the behavior and appearance of a list.
+- [`MenuStyle`](https://developer.apple.com/documentation/swiftui/menustyle) — A type that applies standard interaction behavior and a custom appearance   to all menus within a view hierarchy.
+- [`MenuStyleConfiguration`](https://developer.apple.com/documentation/swiftui/menustyleconfiguration) — A configuration of a menu.
+- [`NavigationSplitViewStyle`](https://developer.apple.com/documentation/swiftui/navigationsplitviewstyle) — A type that specifies the appearance and interaction of navigation split   views within a view hierarchy.
+- [`PickerStyle`](https://developer.apple.com/documentation/swiftui/pickerstyle) — A type that specifies the appearance and interaction of all pickers within   a view hierarchy.
+- [`PlateGlassBackgroundEffect`](https://developer.apple.com/documentation/swiftui/plateglassbackgroundeffect) — The plate glass background effect.
+- [`PrimitiveButtonStyle`](https://developer.apple.com/documentation/swiftui/primitivebuttonstyle) — A type that applies custom interaction behavior and a custom appearance to   all buttons within a view hierarchy.
+- [`PrimitiveButtonStyleConfiguration`](https://developer.apple.com/documentation/swiftui/primitivebuttonstyleconfiguration) — The properties of a button.
+- [`ProgressViewStyle`](https://developer.apple.com/documentation/swiftui/progressviewstyle) — A type that applies standard interaction behavior to all progress views   within a view hierarchy.
+- [`ProgressViewStyleConfiguration`](https://developer.apple.com/documentation/swiftui/progressviewstyleconfiguration) — The properties of a progress view instance.
+- [`TabViewStyle`](https://developer.apple.com/documentation/swiftui/tabviewstyle) — A specification for the appearance and interaction of a tab view.
+- [`TableStyle`](https://developer.apple.com/documentation/swiftui/tablestyle) — A type that applies a custom appearance to all tables within a view.
+- [`TableStyleConfiguration`](https://developer.apple.com/documentation/swiftui/tablestyleconfiguration) — The properties of a table.
+- [`TextEditorStyle`](https://developer.apple.com/documentation/swiftui/texteditorstyle) — A specification for the appearance and interaction of a text editor.
+- [`TextEditorStyleConfiguration`](https://developer.apple.com/documentation/swiftui/texteditorstyleconfiguration) — The properties of a text editor.
+- [`TextFieldStyle`](https://developer.apple.com/documentation/swiftui/textfieldstyle) — A specification for the appearance and interaction of a text field.
+- [`ToggleStyle`](https://developer.apple.com/documentation/swiftui/togglestyle) — The appearance and behavior of a toggle.
+- [`ToggleStyleConfiguration`](https://developer.apple.com/documentation/swiftui/togglestyleconfiguration) — The properties of a toggle instance.
+- [`buttonSizing(_:)`](https://developer.apple.com/documentation/swiftui/view/buttonsizing(_:)) — The preferred sizing behavior of buttons in the view hierarchy.
+- [`buttonStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/buttonstyle(_:)) — Sets the style for buttons within this view to a button style with a   custom appearance and standard interaction behavior.
+- [`controlGroupStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/controlgroupstyle(_:)) — Sets the style for control groups within this view.
+- [`datePickerStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/datepickerstyle(_:)) — Sets the style for date pickers within this view.
+- [`disclosureGroupStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/disclosuregroupstyle(_:)) — Sets the style for disclosure groups within this view.
+- [`formStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/formstyle(_:)) — Sets the style for forms in a view hierarchy.
+- [`gaugeStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/gaugestyle(_:)) — Sets the style for gauges within this view.
+- [`glassBackgroundEffect(displayMode:)`](https://developer.apple.com/documentation/swiftui/view/glassbackgroundeffect(displaymode:)) — Fills the view’s background with an automatic glass background effect   and container-relative rounded rectangle shape.
+- [`glassBackgroundEffect(in:displayMode:)`](https://developer.apple.com/documentation/swiftui/view/glassbackgroundeffect(in:displaymode:)) — Fills the view’s background with an automatic glass background effect   and a shape that you specify.
+- [`glassEffect(_:in:)`](https://developer.apple.com/documentation/swiftui/view/glasseffect(_:in:)) — Applies the Liquid Glass effect to a view.
+- [`glassEffectID(_:in:)`](https://developer.apple.com/documentation/swiftui/view/glasseffectid(_:in:)) — Associates an identity value to Liquid Glass effects defined within   this view.
+- [`glassEffectTransition(_:)`](https://developer.apple.com/documentation/swiftui/view/glasseffecttransition(_:)) — Associates a glass effect transition with any   glass effects defined within this view.
+- [`glassEffectUnion(id:namespace:)`](https://developer.apple.com/documentation/swiftui/view/glasseffectunion(id:namespace:)) — Associates any Liquid Glass effects defined within this view   to a union with the provided identifier.
+- [`groupBoxStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/groupboxstyle(_:)) — Sets the style for group boxes within this view.
+- [`indexViewStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/indexviewstyle(_:)) — Sets the style for the index view within the current environment.
+- [`interactive(_:)`](https://developer.apple.com/documentation/swiftui/glass/interactive(_:)) — Returns a copy of the structure configured to be interactive.
+- [`labelStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/labelstyle(_:)) — Sets the style for labels within this view.
+- [`labeledContentStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/labeledcontentstyle(_:)) — Sets a style for labeled content.
+- [`listStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/liststyle(_:)) — Sets the style for lists within this view.
+- [`menuStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/menustyle(_:)) — Sets the style for menus within this view.
+- [`navigationSplitViewStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/navigationsplitviewstyle(_:)) — Sets the style for navigation split views within this view.
+- [`pickerStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/pickerstyle(_:)) — Sets the style for pickers within this view.
+- [`presentedWindowStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/presentedwindowstyle(_:)) — Sets the style for windows created by interacting with this view.
+- [`presentedWindowToolbarStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/presentedwindowtoolbarstyle(_:)) — Sets the style for the toolbar in windows created by   interacting with this view.
+- [`progressViewStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/progressviewstyle(_:)) — Sets the style for progress views in this view.
+- [`signInWithAppleButtonStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/signinwithapplebuttonstyle(_:)) — Sets the style used for displaying the control   (see   ).
+- [`tabViewStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/tabviewstyle(_:)) — Sets the style for the tab view within the current environment.
+- [`tableStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/tablestyle(_:)) — Sets the style for tables within this view.
+- [`textEditorStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/texteditorstyle(_:)) — Sets the style for text editors within this view.
+- [`textFieldStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/textfieldstyle(_:)) — Sets the style for text fields within this view.
+- [`toggleStyle(_:)`](https://developer.apple.com/documentation/swiftui/view/togglestyle(_:)) — Sets the style for toggles in a view hierarchy.
+
+### WatchKit integration
+
+- [`WKHostingController`](https://developer.apple.com/documentation/swiftui/wkhostingcontroller) — A WatchKit interface controller that hosts a SwiftUI view hierarchy.
+- [`WKInterfaceObjectRepresentable`](https://developer.apple.com/documentation/swiftui/wkinterfaceobjectrepresentable) — A view that represents a WatchKit interface object.
+- [`WKInterfaceObjectRepresentableContext`](https://developer.apple.com/documentation/swiftui/wkinterfaceobjectrepresentablecontext) — Contextual information about the state of the system that you use to create   and update your WatchKit interface object.
+- [`WKUserNotificationHostingController`](https://developer.apple.com/documentation/swiftui/wkusernotificationhostingcontroller) — A WatchKit user notification interface controller that hosts a SwiftUI view   hierarchy.
+
+### Windows
+
+- [`ControlActiveState`](https://developer.apple.com/documentation/swiftui/controlactivestate) — The active appearance expected of controls in a window.
+- [`DismissAction`](https://developer.apple.com/documentation/swiftui/dismissaction) — An action that dismisses a presentation.
+- [`DismissBehavior`](https://developer.apple.com/documentation/swiftui/dismissbehavior) — Programmatic window dismissal behaviors.
+- [`DismissWindowAction`](https://developer.apple.com/documentation/swiftui/dismisswindowaction) — An action that dismisses a window associated to a particular scene.
+- [`DisplayProxy`](https://developer.apple.com/documentation/swiftui/displayproxy) — A type which provides information about display hardware.
+- [`OpenWindowAction`](https://developer.apple.com/documentation/swiftui/openwindowaction) — An action that presents a window.
+- [`PushWindowAction`](https://developer.apple.com/documentation/swiftui/pushwindowaction) — An action that opens the requested window in place of the window the action   is called from.
+- [`SceneLaunchBehavior`](https://developer.apple.com/documentation/swiftui/scenelaunchbehavior) — The launch behavior for a scene.
+- [`SceneRestorationBehavior`](https://developer.apple.com/documentation/swiftui/scenerestorationbehavior) — The restoration behavior for a scene.
+- [`SquareAzimuth`](https://developer.apple.com/documentation/swiftui/squareazimuth) — A type describing what direction something is being viewed from along   the horizontal plane and snapped to 4 directions.
+- [`SurfaceSnappingInfo`](https://developer.apple.com/documentation/swiftui/surfacesnappinginfo) — A type representing information about the window scenes snap state.
+- [`UtilityWindow`](https://developer.apple.com/documentation/swiftui/utilitywindow) — A specialized window scene that provides secondary utility to the content   of the main scenes of an application.
+- [`Viewpoint3D`](https://developer.apple.com/documentation/swiftui/viewpoint3d) — A type describing what direction something is being viewed from.
+- [`VolumeViewpointUpdateStrategy`](https://developer.apple.com/documentation/swiftui/volumeviewpointupdatestrategy) — A type describing when the action provided to     should be   called.
+- [`Window`](https://developer.apple.com/documentation/swiftui/window) — A scene that presents its content in a single, unique window.
+- [`WindowGroup`](https://developer.apple.com/documentation/swiftui/windowgroup) — A scene that presents a group of identically structured windows.
+- [`WindowIdealSize`](https://developer.apple.com/documentation/swiftui/windowidealsize) — A type which defines the size a window should use when zooming.
+- [`WindowInteractionBehavior`](https://developer.apple.com/documentation/swiftui/windowinteractionbehavior) — Options for enabling and disabling window interaction behaviors.
+- [`WindowLayoutRoot`](https://developer.apple.com/documentation/swiftui/windowlayoutroot) — A proxy which represents the root contents of a window.
+- [`WindowLevel`](https://developer.apple.com/documentation/swiftui/windowlevel) — The level of a window.
+- [`WindowManagerRole`](https://developer.apple.com/documentation/swiftui/windowmanagerrole) — Options for defining how a scene’s windows behave when used within a managed   window context, such as full screen mode and Stage Manager.
+- [`WindowPlacement`](https://developer.apple.com/documentation/swiftui/windowplacement) — A type which represents a preferred size and position for a window.
+- [`WindowPlacementContext`](https://developer.apple.com/documentation/swiftui/windowplacementcontext) — A type which represents contextual information used for sizing and   positioning windows.
+- [`WindowProxy`](https://developer.apple.com/documentation/swiftui/windowproxy) — The proxy for an open window in the app.
+- [`WindowResizability`](https://developer.apple.com/documentation/swiftui/windowresizability) — The resizability of a window.
+- [`WindowStyle`](https://developer.apple.com/documentation/swiftui/windowstyle) — A specification for the appearance and interaction of a window.
+- [`WindowToolbarFullScreenVisibility`](https://developer.apple.com/documentation/swiftui/windowtoolbarfullscreenvisibility) — The visibility of the window toolbar with respect to full screen mode.
+- [`WindowToolbarStyle`](https://developer.apple.com/documentation/swiftui/windowtoolbarstyle) — A specification for the appearance and behavior of a window’s toolbar.
+- [`WindowVisibilityToggle`](https://developer.apple.com/documentation/swiftui/windowvisibilitytoggle) — A specialized button for toggling the visibility of a window.
+- [`WorldAlignmentBehavior`](https://developer.apple.com/documentation/swiftui/worldalignmentbehavior) — A type representing the world alignment behavior for a scene.
+- [`WorldScalingBehavior`](https://developer.apple.com/documentation/swiftui/worldscalingbehavior) — Specifies the scaling behavior a window should have within the world.
+- [`WorldScalingCompensation`](https://developer.apple.com/documentation/swiftui/worldscalingcompensation) — Indicates whether returned metrics will take dynamic scaling into account.
+- [`WorldTrackingLimitation`](https://developer.apple.com/documentation/swiftui/worldtrackinglimitation) — A structure to represent limitations of tracking the user’s surroundings.
+- [`allowsWindowActivationEvents()`](https://developer.apple.com/documentation/swiftui/view/allowswindowactivationevents()) — Configures gestures in this view hierarchy to handle events that   activate the containing window.
+- [`allowsWindowActivationEvents(_:)`](https://developer.apple.com/documentation/swiftui/view/allowswindowactivationevents(_:)) — Configures whether gestures in this view hierarchy can handle events   that activate the containing window.
+- [`defaultLaunchBehavior(_:)`](https://developer.apple.com/documentation/swiftui/scene/defaultlaunchbehavior(_:)) — Sets the default launch behavior for this scene.
+- [`defaultPosition(_:)`](https://developer.apple.com/documentation/swiftui/scene/defaultposition(_:)) — Sets a default position for a window.
+- [`defaultSize(_:)`](https://developer.apple.com/documentation/swiftui/scene/defaultsize(_:)) — Sets a default size for a window.
+- [`defaultSize(_:in:)`](https://developer.apple.com/documentation/swiftui/scene/defaultsize(_:in:)) — Sets a default size for a volumetric window.
+- [`defaultSize(width:height:)`](https://developer.apple.com/documentation/swiftui/scene/defaultsize(width:height:)) — Sets a default width and height for a window.
+- [`defaultSize(width:height:depth:)`](https://developer.apple.com/documentation/swiftui/scene/defaultsize(width:height:depth:)) — Sets a default size for a volumetric window.
+- [`defaultSize(width:height:depth:in:)`](https://developer.apple.com/documentation/swiftui/scene/defaultsize(width:height:depth:in:)) — Sets a default size for a volumetric window.
+- [`defaultWindowPlacement(_:)`](https://developer.apple.com/documentation/swiftui/scene/defaultwindowplacement(_:)) — Defines a function used for determining the default placement   of windows.
+- [`defaultWorldScaling(_:)`](https://developer.apple.com/documentation/swiftui/scene/defaultworldscaling(_:)) — Specify the world scaling behavior for the window.
+- [`dismiss`](https://developer.apple.com/documentation/swiftui/environmentvalues/dismiss) — An action that dismisses the current presentation.
+- [`dismissWindow`](https://developer.apple.com/documentation/swiftui/environmentvalues/dismisswindow) — A window dismissal action stored in a view’s environment.
+- [`onVolumeViewpointChange(updateStrategy:initial:_:)`](https://developer.apple.com/documentation/swiftui/view/onvolumeviewpointchange(updatestrategy:initial:_:)) — Adds an action to perform when the viewpoint of the volume changes.
+- [`openWindow`](https://developer.apple.com/documentation/swiftui/environmentvalues/openwindow) — A window presentation action stored in a view’s environment.
+- [`persistentSystemOverlays(_:)`](https://developer.apple.com/documentation/swiftui/scene/persistentsystemoverlays(_:)) — Sets the preferred visibility of the non-transient system views   overlaying the app.
+- [`restorationBehavior(_:)`](https://developer.apple.com/documentation/swiftui/scene/restorationbehavior(_:)) — Sets the restoration behavior for this scene.
+- [`supportedVolumeViewpoints(_:)`](https://developer.apple.com/documentation/swiftui/view/supportedvolumeviewpoints(_:)) — Specifies which viewpoints are supported for the window bar and   ornaments in a volume.
+- [`supportsMultipleWindows`](https://developer.apple.com/documentation/swiftui/environmentvalues/supportsmultiplewindows) — A Boolean value that indicates whether the current platform supports   opening multiple windows.
+- [`volumeWorldAlignment(_:)`](https://developer.apple.com/documentation/swiftui/scene/volumeworldalignment(_:)) — Specifies how a volume should be aligned when moved in the world.
+- [`windowBackgroundDragBehavior(_:)`](https://developer.apple.com/documentation/swiftui/scene/windowbackgrounddragbehavior(_:)) — Configures the behavior of dragging a window by its background.
+- [`windowDismissBehavior(_:)`](https://developer.apple.com/documentation/swiftui/view/windowdismissbehavior(_:)) — Configures the dismiss functionality for the window enclosing   .
+- [`windowFullScreenBehavior(_:)`](https://developer.apple.com/documentation/swiftui/view/windowfullscreenbehavior(_:)) — Configures the full screen functionality for the window enclosing   .
+- [`windowIdealPlacement(_:)`](https://developer.apple.com/documentation/swiftui/scene/windowidealplacement(_:)) — Provides a function which determines a placement to use when windows   of a scene zoom.
+- [`windowIdealSize(_:)`](https://developer.apple.com/documentation/swiftui/scene/windowidealsize(_:)) — Specifies how windows derived form this scene should determine their   size when zooming.
+- [`windowLevel(_:)`](https://developer.apple.com/documentation/swiftui/scene/windowlevel(_:)) — Sets the window level of this scene.
+- [`windowManagerRole(_:)`](https://developer.apple.com/documentation/swiftui/scene/windowmanagerrole(_:)) — Configures the role for windows derived from    when   participating in a managed window context, such as full screen or   Stage Manager.
+- [`windowMinimizeBehavior(_:)`](https://developer.apple.com/documentation/swiftui/view/windowminimizebehavior(_:)) — Configures the minimize functionality for the window enclosing   .
+- [`windowResizability(_:)`](https://developer.apple.com/documentation/swiftui/scene/windowresizability(_:)) — Sets the kind of resizability to use for a window.
+- [`windowResizeBehavior(_:)`](https://developer.apple.com/documentation/swiftui/view/windowresizebehavior(_:)) — Configures the resize functionality for the window enclosing   .
+- [`windowStyle(_:)`](https://developer.apple.com/documentation/swiftui/scene/windowstyle(_:)) — Sets the style for windows created by this scene.
+- [`windowToolbarFullScreenVisibility(_:)`](https://developer.apple.com/documentation/swiftui/view/windowtoolbarfullscreenvisibility(_:)) — Configures the visibility of the window toolbar when the window enters   full screen mode.
+- [`windowToolbarLabelStyle(_:)`](https://developer.apple.com/documentation/swiftui/scene/windowtoolbarlabelstyle(_:)) — Sets the label style of items in a toolbar and enables user customization.
+- [`windowToolbarLabelStyle(fixed:)`](https://developer.apple.com/documentation/swiftui/scene/windowtoolbarlabelstyle(fixed:)) — Sets the label style of items in a toolbar.
+- [`windowToolbarStyle(_:)`](https://developer.apple.com/documentation/swiftui/scene/windowtoolbarstyle(_:)) — Sets the style for the toolbar defined within this scene.
+- [`worldTrackingLimitations`](https://developer.apple.com/documentation/swiftui/environmentvalues/worldtrackinglimitations) — The current limitations of the device tracking the user’s surroundings.
+
+## UIKit
+<sub>871 symbols</sub>
+
+### Accessibility for UIKit
+
+- [`AXArrayReturnBlock`](https://developer.apple.com/documentation/uikit/axarrayreturnblock)
+- [`AXAttributedStringArrayReturnBlock`](https://developer.apple.com/documentation/uikit/axattributedstringarrayreturnblock)
+- [`AXAttributedStringReturnBlock`](https://developer.apple.com/documentation/uikit/axattributedstringreturnblock)
+- [`AXBoolReturnBlock`](https://developer.apple.com/documentation/uikit/axboolreturnblock)
+- [`AXContainerTypeReturnBlock`](https://developer.apple.com/documentation/uikit/axcontainertypereturnblock)
+- [`AXCustomActionsReturnBlock`](https://developer.apple.com/documentation/uikit/axcustomactionsreturnblock)
+- [`AXCustomRotorsReturnBlock`](https://developer.apple.com/documentation/uikit/axcustomrotorsreturnblock)
+- [`AXNavigationStyleReturnBlock`](https://developer.apple.com/documentation/uikit/axnavigationstylereturnblock)
+- [`AXObjectReturnBlock`](https://developer.apple.com/documentation/uikit/axobjectreturnblock)
+- [`AXPathReturnBlock`](https://developer.apple.com/documentation/uikit/axpathreturnblock)
+- [`AXPointReturnBlock`](https://developer.apple.com/documentation/uikit/axpointreturnblock)
+- [`AXRectReturnBlock`](https://developer.apple.com/documentation/uikit/axrectreturnblock)
+- [`AXStringArrayReturnBlock`](https://developer.apple.com/documentation/uikit/axstringarrayreturnblock)
+- [`AXStringReturnBlock`](https://developer.apple.com/documentation/uikit/axstringreturnblock)
+- [`AXTextualContextReturnBlock`](https://developer.apple.com/documentation/uikit/axtextualcontextreturnblock)
+- [`AXTraitsReturnBlock`](https://developer.apple.com/documentation/uikit/axtraitsreturnblock)
+- [`AXUITextInputReturnBlock`](https://developer.apple.com/documentation/uikit/axuitextinputreturnblock)
+- [`AXVoidReturnBlock`](https://developer.apple.com/documentation/uikit/axvoidreturnblock)
+- [`UIAccessibility`](https://developer.apple.com/documentation/uikit/uiaccessibility) — A namespace for accessibility symbols for UIKit apps.
+- [`UIAccessibility.AssistiveTechnologyIdentifier`](https://developer.apple.com/documentation/uikit/uiaccessibility/assistivetechnologyidentifier) — Identifiers for assistive apps.
+- [`UIAccessibility.AssistiveTechnologyIdentifier`](https://developer.apple.com/documentation/uikit/uiaccessibility/assistivetechnologyidentifier) — Identifiers for assistive apps.
+- [`UIAccessibility.DirectTouchOptions`](https://developer.apple.com/documentation/uikit/uiaccessibility/directtouchoptions) — Constants that configure how VoiceOver produces audio for direct touch areas.
+- [`UIAccessibility.GuidedAccessError.Code`](https://developer.apple.com/documentation/uikit/uiaccessibility/guidedaccesserror/code) — Error codes for Guided Access.
+- [`UIAccessibility.HearingDeviceEar`](https://developer.apple.com/documentation/uikit/uiaccessibility/hearingdeviceear) — Constants that specify how a person is using a hearing device.
+- [`UIAccessibility.Notification`](https://developer.apple.com/documentation/uikit/uiaccessibility/notification) — An accessibility notification that an app can send.
+- [`UIAccessibility.ZoomType`](https://developer.apple.com/documentation/uikit/uiaccessibility/zoomtype) — The types of system Zoom that can be in effect.
+- [`UIAccessibilityContainerDataTable`](https://developer.apple.com/documentation/uikit/uiaccessibilitycontainerdatatable) — Methods that convey information about the contents of a table.
+- [`UIAccessibilityContainerDataTableCell`](https://developer.apple.com/documentation/uikit/uiaccessibilitycontainerdatatablecell) — Methods that provide the location of a cell in a table.
+- [`UIAccessibilityContainerType`](https://developer.apple.com/documentation/uikit/uiaccessibilitycontainertype) — Constants that indicate the type of content in a data-based container.
+- [`UIAccessibilityContainerType`](https://developer.apple.com/documentation/uikit/uiaccessibilitycontainertype) — Constants that indicate the type of content in a data-based container.
+- [`UIAccessibilityContentSizeCategoryImageAdjusting`](https://developer.apple.com/documentation/uikit/uiaccessibilitycontentsizecategoryimageadjusting) — Methods to determine when to adjust images for different content size categories.
+- [`UIAccessibilityCustomAction`](https://developer.apple.com/documentation/uikit/uiaccessibilitycustomaction) — A custom action to perform on an accessible object.
+- [`UIAccessibilityCustomAction.Handler`](https://developer.apple.com/documentation/uikit/uiaccessibilitycustomaction/handler) — A closure type that defines a handler to perform for an action.
+- [`UIAccessibilityCustomRotor`](https://developer.apple.com/documentation/uikit/uiaccessibilitycustomrotor) — A context-sensitive function that helps VoiceOver users find the next instance of a related element.
+- [`UIAccessibilityCustomRotorItemResult`](https://developer.apple.com/documentation/uikit/uiaccessibilitycustomrotoritemresult) — A target element that a custom rotor references.
+- [`UIAccessibilityCustomRotorSearchPredicate`](https://developer.apple.com/documentation/uikit/uiaccessibilitycustomrotorsearchpredicate) — The search parameters that help determine the next matching custom rotor item result.
+- [`UIAccessibilityElement`](https://developer.apple.com/documentation/uikit/uiaccessibilityelement) — An element that should be accessible to users with disabilities, but that isn’t accessible by default.
+- [`UIAccessibilityIdentification`](https://developer.apple.com/documentation/uikit/uiaccessibilityidentification) — Methods that associate a unique identifier with elements in your user interface.
+- [`UIAccessibilityLocationDescriptor`](https://developer.apple.com/documentation/uikit/uiaccessibilitylocationdescriptor) — An accessibility descriptor for a specific geometric point of interest within a view, for use by assistive apps.
+- [`UIAccessibilityNavigationStyle`](https://developer.apple.com/documentation/uikit/uiaccessibilitynavigationstyle) — Constants that describe how to navigate an object’s elements with an assistive app.
+- [`UIAccessibilityReadingContent`](https://developer.apple.com/documentation/uikit/uiaccessibilityreadingcontent) — Methods to implement for an object that represents content that users read, such as a book or an article.
+- [`UIAccessibilityScrollDirection`](https://developer.apple.com/documentation/uikit/uiaccessibilityscrolldirection) — The direction of a scrolling action.
+- [`UIAccessibilityTextualContext`](https://developer.apple.com/documentation/uikit/uiaccessibilitytextualcontext) — Constants that describe a named context that helps identify and classify the type of text inside an element.
+- [`UIAccessibilityTraits`](https://developer.apple.com/documentation/uikit/uiaccessibilitytraits) — Constants that describe how an accessibility element behaves.
+- [`UIAccessibilityVoiceOverStatusChanged`](https://developer.apple.com/documentation/uikit/uiaccessibilityvoiceoverstatuschanged) — A notification that UIKit posts when VoiceOver starts or stops.
+- [`UIGuidedAccessAccessibilityFeature`](https://developer.apple.com/documentation/uikit/uiguidedaccessaccessibilityfeature) — Constants that describe accessibility features for Guided Access.
+- [`UIPickerViewAccessibilityDelegate`](https://developer.apple.com/documentation/uikit/uipickerviewaccessibilitydelegate) — A set of methods you can implement to provide accessibility information for individual components of a picker view.
+- [`UIScrollViewAccessibilityDelegate`](https://developer.apple.com/documentation/uikit/uiscrollviewaccessibilitydelegate) — A set of methods you can implement to provide accessibility information for a scroll view.
+- [`accessibilityActivate()`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilityactivate()) — Tells the element to activate itself and report the success or failure of the operation.
+- [`accessibilityActivationPoint`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilityactivationpoint)
+- [`accessibilityAssistiveTechnologyFocusedIdentifiers()`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilityassistivetechnologyfocusedidentifiers()) — Returns a set of identifier keys indicating which assistive app has focus on the accessibility element.
+- [`accessibilityAttributedHint`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilityattributedhint)
+- [`accessibilityAttributedLabel`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilityattributedlabel)
+- [`accessibilityAttributedUserInputLabels`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilityattributeduserinputlabels)
+- [`accessibilityAttributedValue`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilityattributedvalue)
+- [`accessibilityContainerType`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilitycontainertype)
+- [`accessibilityCustomActions`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilitycustomactions) — An array of custom actions to display along with the built-in actions.
+- [`accessibilityCustomRotors`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilitycustomrotors)
+- [`accessibilityDecrement()`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilitydecrement()) — Tells the accessibility element to decrement the value of its content.
+- [`accessibilityDirectTouchOptions`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilitydirecttouchoptions)
+- [`accessibilityElement(at:)`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilityelement(at:))
+- [`accessibilityElementCount()`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilityelementcount())
+- [`accessibilityElementDidBecomeFocused()`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilityelementdidbecomefocused()) — Sent after an assistive technology has set its virtual focus on the accessibility element.
+- [`accessibilityElementDidLoseFocus()`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilityelementdidlosefocus()) — Sent after an assistive technology has removed its virtual focus from an accessibility element.
+- [`accessibilityElementIsFocused()`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilityelementisfocused()) — Returns a Boolean value indicating whether an assistive technology is focused on the accessibility element.
+- [`accessibilityElements`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilityelements) — An array of features of an object that assistive technologies can access.
+- [`accessibilityElementsHidden`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilityelementshidden)
+- [`accessibilityFocusedUIElement`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilityfocuseduielement)
+- [`accessibilityFrame`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilityframe)
+- [`accessibilityHeaderElements`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilityheaderelements)
+- [`accessibilityHint`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilityhint)
+- [`accessibilityHitTest(_:)`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilityhittest(_:))
+- [`accessibilityIncrement()`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilityincrement()) — Tells the accessibility element to increment the value of its content.
+- [`accessibilityLabel`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilitylabel)
+- [`accessibilityLanguage`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilitylanguage)
+- [`accessibilityNavigationStyle`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilitynavigationstyle)
+- [`accessibilityPath`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilitypath)
+- [`accessibilityPerformEscape()`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilityperformescape()) — Dismisses a modal view and returns the success or failure of the action.
+- [`accessibilityPerformMagicTap()`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilityperformmagictap()) — Performs a salient action.
+- [`accessibilityRespondsToUserInteraction`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilityrespondstouserinteraction)
+- [`accessibilityScroll(_:)`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilityscroll(_:)) — Scrolls screen content in an application-specific way and returns the success or failure of the action.
+- [`accessibilityTextualContext`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilitytextualcontext)
+- [`accessibilityTraits`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilitytraits)
+- [`accessibilityUserInputLabels`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilityuserinputlabels)
+- [`accessibilityValue`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilityvalue)
+- [`accessibilityViewIsModal`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/accessibilityviewismodal)
+- [`announcement`](https://developer.apple.com/documentation/uikit/uiaccessibility/notification/announcement) — A notification that an app posts when it needs to convey an announcement to the assistive app.
+- [`announcementDidFinishNotification`](https://developer.apple.com/documentation/uikit/uiaccessibility/announcementdidfinishnotification) — A notification that UIKit posts when the system finishes reading an announcement.
+- [`announcementStringValueUserInfoKey`](https://developer.apple.com/documentation/uikit/uiaccessibility/announcementstringvalueuserinfokey) — The text of the announcement.
+- [`announcementWasSuccessfulUserInfoKey`](https://developer.apple.com/documentation/uikit/uiaccessibility/announcementwassuccessfuluserinfokey) — A Boolean value that indicates whether the announcement is successful.
+- [`assistiveTechnologyUserInfoKey`](https://developer.apple.com/documentation/uikit/uiaccessibility/assistivetechnologyuserinfokey) — The identifier of the assistive app.
+- [`assistiveTouch`](https://developer.apple.com/documentation/uikit/uiguidedaccessaccessibilityfeature/assistivetouch) — The AssistiveTouch accessibility feature.
+- [`assistiveTouchStatusDidChangeNotification`](https://developer.apple.com/documentation/uikit/uiaccessibility/assistivetouchstatusdidchangenotification) — A notification that indicates a change in the status of AssistiveTouch.
+- [`automationElements`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/automationelements)
+- [`boldTextStatusDidChangeNotification`](https://developer.apple.com/documentation/uikit/uiaccessibility/boldtextstatusdidchangenotification) — A notification that UIKit posts when the system’s Bold Text setting changes.
+- [`buttonShapesEnabled`](https://developer.apple.com/documentation/uikit/uiaccessibility/buttonshapesenabled) — A Boolean value that indicates whether the Button Shapes setting is in an enabled state.
+- [`buttonShapesEnabledStatusDidChangeNotification`](https://developer.apple.com/documentation/uikit/uiaccessibility/buttonshapesenabledstatusdidchangenotification) — A notification that UIKit posts when the system’s Button Shapes setting changes.
+- [`closedCaptioningStatusDidChangeNotification`](https://developer.apple.com/documentation/uikit/uiaccessibility/closedcaptioningstatusdidchangenotification) — A notification that UIKit posts when the setting for Closed Captions + SDH changes.
+- [`configureForGuidedAccess(features:enabled:completionHandler:)`](https://developer.apple.com/documentation/uikit/uiaccessibility/configureforguidedaccess(features:enabled:completionhandler:)) — Enables or disables the specified accessibility features while using Guided Access.
+- [`convertToScreenCoordinates(_:in:)`](https://developer.apple.com/documentation/uikit/uiaccessibility/converttoscreencoordinates(_:in:)-9ziiu) — Converts the specified rectangle from view coordinates to screen coordinates.
+- [`convertToScreenCoordinates(_:in:)`](https://developer.apple.com/documentation/uikit/uiaccessibility/converttoscreencoordinates(_:in:)-6dx4a) — Converts the specified path object to screen coordinates and returns a new path object with the results.
+- [`darkerSystemColorsStatusDidChangeNotification`](https://developer.apple.com/documentation/uikit/uiaccessibility/darkersystemcolorsstatusdidchangenotification) — A notification that UIKit posts when the system’s Increase Contrast setting changes.
+- [`elementFocusedNotification`](https://developer.apple.com/documentation/uikit/uiaccessibility/elementfocusednotification) — A notification that UIKit posts when an assistive app focuses on an accessibility element.
+- [`focusedElement(using:)`](https://developer.apple.com/documentation/uikit/uiaccessibility/focusedelement(using:)) — Returns the accessibility element that’s currently in focus by the specified assistive app.
+- [`focusedElementUserInfoKey`](https://developer.apple.com/documentation/uikit/uiaccessibility/focusedelementuserinfokey) — The element currently in focus by the assistive app.
+- [`grayscaleStatusDidChangeNotification`](https://developer.apple.com/documentation/uikit/uiaccessibility/grayscalestatusdidchangenotification) — A notification that UIKit posts when the system’s Grayscale setting changes.
+- [`guidedAccessStatusDidChangeNotification`](https://developer.apple.com/documentation/uikit/uiaccessibility/guidedaccessstatusdidchangenotification) — A notification that indicates when a Guided Access session starts or ends.
+- [`hearingDevicePairedEar`](https://developer.apple.com/documentation/uikit/uiaccessibility/hearingdevicepairedear) — The current pairing status of Made for iPhone hearing devices.
+- [`hearingDevicePairedEarDidChangeNotification`](https://developer.apple.com/documentation/uikit/uiaccessibility/hearingdevicepairedeardidchangenotification) — A notification that UIKit posts when there’s a change to the currently paired hearing devices.
+- [`index(ofAccessibilityElement:)`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/index(ofaccessibilityelement:))
+- [`invertColorsStatusDidChangeNotification`](https://developer.apple.com/documentation/uikit/uiaccessibility/invertcolorsstatusdidchangenotification) — A notification that UIKit posts when the settings for inverted colors change.
+- [`isAccessibilityElement`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/isaccessibilityelement)
+- [`isAssistiveTouchRunning`](https://developer.apple.com/documentation/uikit/uiaccessibility/isassistivetouchrunning) — A Boolean value that indicates whether AssistiveTouch is in an enabled state.
+- [`isBoldTextEnabled`](https://developer.apple.com/documentation/uikit/uiaccessibility/isboldtextenabled) — A Boolean value that indicates whether the Bold Text setting is in an enabled state.
+- [`isClosedCaptioningEnabled`](https://developer.apple.com/documentation/uikit/uiaccessibility/isclosedcaptioningenabled) — A Boolean value that indicates whether the Closed Captions + SDH setting is in an enabled state.
+- [`isDarkerSystemColorsEnabled`](https://developer.apple.com/documentation/uikit/uiaccessibility/isdarkersystemcolorsenabled) — A Boolean value that indicates whether the Increase Contrast setting is in an enabled state.
+- [`isGrayscaleEnabled`](https://developer.apple.com/documentation/uikit/uiaccessibility/isgrayscaleenabled) — A Boolean value that indicates whether the Color Filters and the Grayscale settings are in an enabled state.
+- [`isGuidedAccessEnabled`](https://developer.apple.com/documentation/uikit/uiaccessibility/isguidedaccessenabled) — A Boolean value that indicates whether the Guided Access setting is in an enabled state.
+- [`isInvertColorsEnabled`](https://developer.apple.com/documentation/uikit/uiaccessibility/isinvertcolorsenabled) — A Boolean value that indicates whether the Classic Invert setting is in an enabled state.
+- [`isMonoAudioEnabled`](https://developer.apple.com/documentation/uikit/uiaccessibility/ismonoaudioenabled) — A Boolean value that indicates whether the Mono Audio setting is in an enabled state.
+- [`isOnOffSwitchLabelsEnabled`](https://developer.apple.com/documentation/uikit/uiaccessibility/isonoffswitchlabelsenabled) — A Boolean value that indicates whether the On/Off Labels setting is in an enabled state.
+- [`isReduceMotionEnabled`](https://developer.apple.com/documentation/uikit/uiaccessibility/isreducemotionenabled) — A Boolean value that indicates whether the Reduce Motion setting is in an enabled state.
+- [`isReduceTransparencyEnabled`](https://developer.apple.com/documentation/uikit/uiaccessibility/isreducetransparencyenabled) — A Boolean value that indicates whether the Reduce Transparency setting is in an enabled state.
+- [`isShakeToUndoEnabled`](https://developer.apple.com/documentation/uikit/uiaccessibility/isshaketoundoenabled) — A Boolean value that indicates whether the Shake to Undo setting is in an enabled state.
+- [`isSpeakScreenEnabled`](https://developer.apple.com/documentation/uikit/uiaccessibility/isspeakscreenenabled) — A Boolean value that indicates whether the Speak Screen setting is in an enabled state.
+- [`isSpeakSelectionEnabled`](https://developer.apple.com/documentation/uikit/uiaccessibility/isspeakselectionenabled) — A Boolean value that indicates whether the Speak Selection setting is in an enabled state.
+- [`isSwitchControlRunning`](https://developer.apple.com/documentation/uikit/uiaccessibility/isswitchcontrolrunning) — A Boolean value that indicates whether the Switch Control setting is in an enabled state.
+- [`isVideoAutoplayEnabled`](https://developer.apple.com/documentation/uikit/uiaccessibility/isvideoautoplayenabled) — A Boolean value that indicates whether the Auto-Play Video Previews setting is in an enabled state.
+- [`isVoiceOverRunning`](https://developer.apple.com/documentation/uikit/uiaccessibility/isvoiceoverrunning) — A Boolean value that indicates whether VoiceOver is in an enabled state.
+- [`layoutChanged`](https://developer.apple.com/documentation/uikit/uiaccessibility/notification/layoutchanged) — A notification that an app posts when the layout of a screen changes.
+- [`monoAudioStatusDidChangeNotification`](https://developer.apple.com/documentation/uikit/uiaccessibility/monoaudiostatusdidchangenotification) — A notification that UIKit posts when system audio changes from stereo to mono.
+- [`pageScrolled`](https://developer.apple.com/documentation/uikit/uiaccessibility/notification/pagescrolled) — A notification that an app posts when a scroll action completes.
+- [`pauseAssistiveTechnology`](https://developer.apple.com/documentation/uikit/uiaccessibility/notification/pauseassistivetechnology) — A notification that pauses an assistive app’s operations temporarily.
+- [`post(notification:argument:)`](https://developer.apple.com/documentation/uikit/uiaccessibility/post(notification:argument:)) — Posts a notification to assistive apps.
+- [`post(notification:argument:)`](https://developer.apple.com/documentation/uikit/uiaccessibility/post(notification:argument:)) — Posts a notification to assistive apps.
+- [`prefersCrossFadeTransitions`](https://developer.apple.com/documentation/uikit/uiaccessibility/preferscrossfadetransitions) — A Boolean value that indicates whether the Reduce Motion and the Prefer Cross-Fade Transitions settings are in an enabled state.
+- [`reduceMotionStatusDidChangeNotification`](https://developer.apple.com/documentation/uikit/uiaccessibility/reducemotionstatusdidchangenotification) — A notification that UIKit posts when the system’s Reduce Motion setting changes.
+- [`reduceTransparencyStatusDidChangeNotification`](https://developer.apple.com/documentation/uikit/uiaccessibility/reducetransparencystatusdidchangenotification) — A notification that UIKit posts when the system’s Reduce Transparency setting changes.
+- [`registerGestureConflictWithZoom()`](https://developer.apple.com/documentation/uikit/uiaccessibility/registergestureconflictwithzoom()) — Warns users that app-specific gestures conflict with the system-defined Zoom accessibility gestures.
+- [`requestGuidedAccessSession(enabled:completionHandler:)`](https://developer.apple.com/documentation/uikit/uiaccessibility/requestguidedaccesssession(enabled:completionhandler:)) — Transitions the app to or from Single App mode asynchronously.
+- [`resumeAssistiveTechnology`](https://developer.apple.com/documentation/uikit/uiaccessibility/notification/resumeassistivetechnology) — A notification that resumes an assistive app’s operations temporarily.
+- [`screenChanged`](https://developer.apple.com/documentation/uikit/uiaccessibility/notification/screenchanged) — A notification that an app posts when a new view appears that occupies a major portion of the screen.
+- [`shakeToUndoDidChangeNotification`](https://developer.apple.com/documentation/uikit/uiaccessibility/shaketoundodidchangenotification) — A notification that UIKit posts when the system’s Shake to Undo setting changes.
+- [`shouldDifferentiateWithoutColor`](https://developer.apple.com/documentation/uikit/uiaccessibility/shoulddifferentiatewithoutcolor) — A Boolean value that indicates whether the Differentiate Without Color setting is in an enabled state.
+- [`shouldGroupAccessibilityChildren`](https://developer.apple.com/documentation/objectivec/nsobject-swift.class/shouldgroupaccessibilitychildren)
+- [`speakScreenStatusDidChangeNotification`](https://developer.apple.com/documentation/uikit/uiaccessibility/speakscreenstatusdidchangenotification) — A notification that UIKit posts when the system’s Speak Screen setting changes.
+- [`speakSelectionStatusDidChangeNotification`](https://developer.apple.com/documentation/uikit/uiaccessibility/speakselectionstatusdidchangenotification) — A notification that UIKit posts when the system’s Speak Selection setting changes.
+- [`switchControlStatusDidChangeNotification`](https://developer.apple.com/documentation/uikit/uiaccessibility/switchcontrolstatusdidchangenotification) — A notification that UIKit posts when the system’s Switch Control setting changes.
+- [`unfocusedElementUserInfoKey`](https://developer.apple.com/documentation/uikit/uiaccessibility/unfocusedelementuserinfokey) — The element previously in focus by the assistive app.
+- [`voiceOverStatusDidChangeNotification`](https://developer.apple.com/documentation/uikit/uiaccessibility/voiceoverstatusdidchangenotification) — A notification that UIKit posts when VoiceOver starts or stops.
+- [`zoomFocusChanged(zoomType:toFrame:in:)`](https://developer.apple.com/documentation/uikit/uiaccessibility/zoomfocuschanged(zoomtype:toframe:in:)) — Notifies the system when the app’s focus changes to a new location.
+- [`zoomFocusChanged(zoomType:toFrame:in:)`](https://developer.apple.com/documentation/uikit/uiaccessibility/zoomfocuschanged(zoomtype:toframe:in:)) — Notifies the system when the app’s focus changes to a new location.
+
+### Animation and haptics
+
+- [`UIAttachmentBehavior`](https://developer.apple.com/documentation/uikit/uiattachmentbehavior) — A relationship between two dynamic items, or between a dynamic item and an anchor point.
+- [`UICanvasFeedbackGenerator`](https://developer.apple.com/documentation/uikit/uicanvasfeedbackgenerator) — A concrete feedback generator subclass that creates haptics to indicate events on a drawing canvas.
+- [`UICollisionBehavior`](https://developer.apple.com/documentation/uikit/uicollisionbehavior) — An object that confers to a specified array of dynamic items the ability to engage in collisions with each other and with the behavior’s specified boundaries.
+- [`UICubicTimingParameters`](https://developer.apple.com/documentation/uikit/uicubictimingparameters) — The timing information for animations in the form of a cubic Bézier curve.
+- [`UIDynamicAnimator`](https://developer.apple.com/documentation/uikit/uidynamicanimator) — An object that provides physics-related capabilities and animations for its dynamic items, and provides the context for those animations.
+- [`UIDynamicBehavior`](https://developer.apple.com/documentation/uikit/uidynamicbehavior) — An object that confers a behavioral configuration on one or more dynamic items, for their participation in 2D animation.
+- [`UIDynamicItem`](https://developer.apple.com/documentation/uikit/uidynamicitem) — A set of methods that can make a custom object eligible to participate in UIKit Dynamics.
+- [`UIDynamicItemBehavior`](https://developer.apple.com/documentation/uikit/uidynamicitembehavior) — A base dynamic animation configuration for one or more dynamic items.
+- [`UIDynamicItemGroup`](https://developer.apple.com/documentation/uikit/uidynamicitemgroup) — A dynamic item that comprises multiple other dynamic items.
+- [`UIFeedbackGenerator`](https://developer.apple.com/documentation/uikit/uifeedbackgenerator) — The abstract superclass for all feedback generators.
+- [`UIFieldBehavior`](https://developer.apple.com/documentation/uikit/uifieldbehavior) — An object that applies field-based physics to dynamic items.
+- [`UIGravityBehavior`](https://developer.apple.com/documentation/uikit/uigravitybehavior) — An object that applies a gravity-like force to all of its associated dynamic items.
+- [`UIImpactFeedbackGenerator`](https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator) — A concrete feedback generator subclass that creates haptics to simulate physical impacts.
+- [`UIInterpolatingMotionEffect`](https://developer.apple.com/documentation/uikit/uiinterpolatingmotioneffect) — An object that maps the horizontal or vertical tilt of a device to values that you specify so that UIKit can apply those values to your views.
+- [`UIMotionEffect`](https://developer.apple.com/documentation/uikit/uimotioneffect) — An abstract superclass for defining motion-based modifiers for views.
+- [`UIMotionEffectGroup`](https://developer.apple.com/documentation/uikit/uimotioneffectgroup) — A collection of motion effects that you want to apply to a view at the same time.
+- [`UINotificationFeedbackGenerator`](https://developer.apple.com/documentation/uikit/uinotificationfeedbackgenerator) — A concrete feedback generator subclass that creates haptics to communicate successes, failures, and warnings.
+- [`UIPercentDrivenInteractiveTransition`](https://developer.apple.com/documentation/uikit/uipercentdriveninteractivetransition) — An object that drives an interactive animation between one view controller and another.
+- [`UIPushBehavior`](https://developer.apple.com/documentation/uikit/uipushbehavior) — A behavior that applies a continuous or instantaneous force to one or more dynamic items, causing those items to change position accordingly.
+- [`UIRegion`](https://developer.apple.com/documentation/uikit/uiregion) — A shape for use in UIKit Dynamics.
+- [`UISelectionFeedbackGenerator`](https://developer.apple.com/documentation/uikit/uiselectionfeedbackgenerator) — A concrete feedback generator subclass that creates haptics to indicate a change in selection.
+- [`UISnapBehavior`](https://developer.apple.com/documentation/uikit/uisnapbehavior) — A spring-like behavior whose initial motion is damped over time so that the object settles at a specific point.
+- [`UISpringTimingParameters`](https://developer.apple.com/documentation/uikit/uispringtimingparameters) — The timing information for animations that mimics the behavior of a spring.
+- [`UITimingCurveProvider`](https://developer.apple.com/documentation/uikit/uitimingcurveprovider) — An interface for providing the timing information needed to perform animations.
+- [`UIViewAnimating`](https://developer.apple.com/documentation/uikit/uiviewanimating) — An interface for implementing custom animator objects.
+- [`UIViewControllerAnimatedTransitioning`](https://developer.apple.com/documentation/uikit/uiviewcontrolleranimatedtransitioning) — A set of methods for implementing the animations for a custom view controller transition.
+- [`UIViewControllerContextTransitioning`](https://developer.apple.com/documentation/uikit/uiviewcontrollercontexttransitioning) — A set of methods that provide contextual information for transition animations between view controllers.
+- [`UIViewControllerInteractiveTransitioning`](https://developer.apple.com/documentation/uikit/uiviewcontrollerinteractivetransitioning) — A set of methods that enable an object (such as a navigation controller) to drive a view controller transition.
+- [`UIViewControllerTransitionCoordinator`](https://developer.apple.com/documentation/uikit/uiviewcontrollertransitioncoordinator) — A set of methods that provides support for animations associated with a view controller transition.
+- [`UIViewControllerTransitionCoordinatorContext`](https://developer.apple.com/documentation/uikit/uiviewcontrollertransitioncoordinatorcontext) — A set of methods that provides information about an in-progress view controller transition.
+- [`UIViewControllerTransitioningDelegate`](https://developer.apple.com/documentation/uikit/uiviewcontrollertransitioningdelegate) — A set of methods that vend objects used to manage a fixed-length or interactive transition between view controllers.
+- [`UIViewImplicitlyAnimating`](https://developer.apple.com/documentation/uikit/uiviewimplicitlyanimating) — An interface for modifying an animation while it’s running.
+- [`UIViewImplicitlyAnimating`](https://developer.apple.com/documentation/uikit/uiviewimplicitlyanimating) — An interface for modifying an animation while it’s running.
+- [`UIViewPropertyAnimator`](https://developer.apple.com/documentation/uikit/uiviewpropertyanimator) — A class that animates changes to views and allows the dynamic modification of those animations.
+
+### App and environment
+
+- [`UIAdaptivePresentationControllerDelegate`](https://developer.apple.com/documentation/uikit/uiadaptivepresentationcontrollerdelegate) — A set of methods that, in conjunction with a presentation controller, determine how to respond to trait changes in your app.
+- [`UIAdaptivePresentationControllerDelegate`](https://developer.apple.com/documentation/uikit/uiadaptivepresentationcontrollerdelegate) — A set of methods that, in conjunction with a presentation controller, determine how to respond to trait changes in your app.
+- [`UIApplication`](https://developer.apple.com/documentation/uikit/uiapplication) — The centralized point of control and coordination for apps running in iOS.
+- [`UIApplicationDelegate`](https://developer.apple.com/documentation/uikit/uiapplicationdelegate) — A set of methods to manage shared behaviors for your app.
+- [`UIApplicationMain(_:_:_:_:)`](https://developer.apple.com/documentation/uikit/uiapplicationmain(_:_:_:_:)-1yub7) — Creates the application object and the application delegate and sets up the event cycle.
+- [`UIApplicationSceneManifest`](https://developer.apple.com/documentation/bundleresources/information-property-list/uiapplicationscenemanifest) — The information about the app’s scene-based life-cycle support.
+- [`UICollectionViewCompositionalLayoutSectionProvider`](https://developer.apple.com/documentation/uikit/uicollectionviewcompositionallayoutsectionprovider) — A closure that creates and returns each of the layout’s sections.
+- [`UIContentContainer`](https://developer.apple.com/documentation/uikit/uicontentcontainer) — A set of methods for adapting the contents of your view controllers to size and trait changes.
+- [`UIContentContainer`](https://developer.apple.com/documentation/uikit/uicontentcontainer) — A set of methods for adapting the contents of your view controllers to size and trait changes.
+- [`UIDevice`](https://developer.apple.com/documentation/uikit/uidevice) — A representation of the current device.
+- [`UIGuidedAccessRestrictionDelegate`](https://developer.apple.com/documentation/uikit/uiguidedaccessrestrictiondelegate) — A set of methods you use to add custom restrictions for the Guided Access feature in iOS.
+- [`UIMutableTraits`](https://developer.apple.com/documentation/uikit/uimutabletraits-13ja5) — A mutable container of traits.
+- [`UIMutableTraits`](https://developer.apple.com/documentation/uikit/uimutabletraits-13ja5) — A mutable container of traits.
+- [`UIOpenURLContext`](https://developer.apple.com/documentation/uikit/uiopenurlcontext) — A system-provided object that contains the information you need to open a single URL.
+- [`UIScene`](https://developer.apple.com/documentation/uikit/uiscene) — An object that represents one instance of your app’s user interface.
+- [`UIScene.ActivationRequestOptions`](https://developer.apple.com/documentation/uikit/uiscene/activationrequestoptions) — An object that contains information you want the system to use when activating the session associated with a scene.
+- [`UIScene.OpenExternalURLOptions`](https://developer.apple.com/documentation/uikit/uiscene/openexternalurloptions) — Options you specify when asking a scene to open a URL.
+- [`UISceneAccessory`](https://developer.apple.com/documentation/uikit/uisceneaccessory) — A type which can be used to register for a specific type of scene accessory presentation.
+- [`UISceneAccessory`](https://developer.apple.com/documentation/uikit/uisceneaccessory) — A type which can be used to register for a specific type of scene accessory presentation.
+- [`UISceneAccessoryRegistration`](https://developer.apple.com/documentation/uikit/uisceneaccessoryregistration) — A type which represents the registration for a given scene accessory.
+- [`UISceneAccessoryRegistration`](https://developer.apple.com/documentation/uikit/uisceneaccessoryregistration) — A type which represents the registration for a given scene accessory.
+- [`UISceneActivationConditions`](https://developer.apple.com/documentation/uikit/uisceneactivationconditions) — The set of conditions that define when UIKit activates the current scene.
+- [`UISceneClosureConfirmation`](https://developer.apple.com/documentation/uikit/uisceneclosureconfirmation) — A configuration specifying a confirmation dialog that will be shown before a   user action will result in destruction of the scene session and the disconnection of the scene.
+- [`UISceneConfiguration`](https://developer.apple.com/documentation/uikit/uisceneconfiguration) — Information about the objects and storyboard for UKit to use when creating a particular scene.
+- [`UISceneDelegate`](https://developer.apple.com/documentation/uikit/uiscenedelegate) — The core methods you use to respond to life-cycle events occurring within a scene.
+- [`UISceneDestructionRequestOptions`](https://developer.apple.com/documentation/uikit/uiscenedestructionrequestoptions) — An object you pass to UIKit to permanently remove a scene and its associated session from your app.
+- [`UISceneError`](https://developer.apple.com/documentation/uikit/uisceneerror) — Errors returned during the creation or management of a scene.
+- [`UISceneError.Code`](https://developer.apple.com/documentation/uikit/uisceneerror/code) — Error codes for issues with scenes.
+- [`UISceneErrorDomain`](https://developer.apple.com/documentation/uikit/uisceneerrordomain) — The domain for scene-related errors.
+- [`UISceneSession`](https://developer.apple.com/documentation/uikit/uiscenesession) — An object that contains information about one of your app’s scenes.
+- [`UIStatusBarManager`](https://developer.apple.com/documentation/uikit/uistatusbarmanager) — An object that describes the configuration of the status bar.
+- [`UITrait`](https://developer.apple.com/documentation/uikit/uitrait-9423) — A type representing a trait in a trait collection.
+- [`UITraitChangeObservable`](https://developer.apple.com/documentation/uikit/uitraitchangeobservable-67e94) — A type that calls your code in reaction to changes in the trait environment.
+- [`UITraitCollection`](https://developer.apple.com/documentation/uikit/uitraitcollection) — A collection of data that represents the environment for an individual element in your app’s user interface.
+- [`UITraitCollection`](https://developer.apple.com/documentation/uikit/uitraitcollection) — A collection of data that represents the environment for an individual element in your app’s user interface.
+- [`UITraitDefinition`](https://developer.apple.com/documentation/uikit/uitraitdefinition-64c15) — A type representing a trait in a trait collection.
+- [`UITraitEnvironment`](https://developer.apple.com/documentation/uikit/uitraitenvironment) — A set of methods that makes the iOS interface environment available to your app.
+- [`UITraitEnvironment`](https://developer.apple.com/documentation/uikit/uitraitenvironment) — A set of methods that makes the iOS interface environment available to your app.
+- [`UIWindowScene`](https://developer.apple.com/documentation/uikit/uiwindowscene) — A scene that manages one or more windows for your app.
+- [`UIWindowSceneDelegate`](https://developer.apple.com/documentation/uikit/uiwindowscenedelegate) — Additional methods that you use to manage app-specific tasks occurring in a scene.
+- [`UIWindowSceneDestructionRequestOptions`](https://developer.apple.com/documentation/uikit/uiwindowscenedestructionrequestoptions) — An object that contains information to use when removing a window scene from your app.
+- [`configurationUpdateHandler`](https://developer.apple.com/documentation/uikit/uibutton/configurationupdatehandler-swift.property) — A closure that executes when the button state changes.
+- [`configurationUpdateHandler`](https://developer.apple.com/documentation/uikit/uicollectionviewcell/configurationupdatehandler-7rqbu) — A block for handling updates to the cell’s configuration using the current state.
+- [`configurationUpdateHandler`](https://developer.apple.com/documentation/uikit/uitableviewcell/configurationupdatehandler-974) — A block for handling updates to the cell’s configuration using the current state.
+- [`configurationUpdateHandler`](https://developer.apple.com/documentation/uikit/uitableviewheaderfooterview/configurationupdatehandler-49slo) — A block for handling updates to the view’s configuration using the current state.
+- [`containerViewDidLayoutSubviews()`](https://developer.apple.com/documentation/uikit/uipresentationcontroller/containerviewdidlayoutsubviews()) — Notifies the presentation controller when layout ends on the views of the container view.
+- [`containerViewWillLayoutSubviews()`](https://developer.apple.com/documentation/uikit/uipresentationcontroller/containerviewwilllayoutsubviews()) — Notifies the presentation controller that layout is about to begin on the views of the container view.
+- [`draw(_:)`](https://developer.apple.com/documentation/uikit/uiview/draw(_:)) — Draws the view’s image within the passed-in rectangle.
+- [`guidedAccessRestrictionState(forIdentifier:)`](https://developer.apple.com/documentation/uikit/uiaccessibility/guidedaccessrestrictionstate(foridentifier:)) — Returns the restriction state for the specified guided access restriction.
+- [`init(sectionProvider:)`](https://developer.apple.com/documentation/uikit/uicollectionviewcompositionallayout/init(sectionprovider:)) — Creates a compositional layout object with a section provider to supply the layout’s sections.
+- [`init(sectionProvider:configuration:)`](https://developer.apple.com/documentation/uikit/uicollectionviewcompositionallayout/init(sectionprovider:configuration:)) — Creates a compositional layout object with a section provider and an additional configuration.
+- [`layoutSubviews()`](https://developer.apple.com/documentation/uikit/uiview/layoutsubviews()) — Lays out subviews.
+- [`updateConfiguration()`](https://developer.apple.com/documentation/uikit/uibutton/updateconfiguration()) — Updates the button configuration in response to a button state change.
+- [`updateConfiguration(using:)`](https://developer.apple.com/documentation/uikit/uicollectionviewcell/updateconfiguration(using:)) — Updates the cell’s configuration using the current state.
+- [`updateConfiguration(using:)`](https://developer.apple.com/documentation/uikit/uitableviewcell/updateconfiguration(using:)) — Updates the cell’s configuration using the current state.
+- [`updateConfiguration(using:)`](https://developer.apple.com/documentation/uikit/uitableviewheaderfooterview/updateconfiguration(using:)) — Updates the view’s configuration using the current state.
+- [`updateConstraints()`](https://developer.apple.com/documentation/uikit/uiview/updateconstraints()) — Updates constraints for the view.
+- [`updateContentUnavailableConfiguration(using:)`](https://developer.apple.com/documentation/uikit/uiviewcontroller/updatecontentunavailableconfiguration(using:)) — Updates the content-unavailable configuration for the provided state.
+- [`updateProperties()`](https://developer.apple.com/documentation/uikit/uiview/updateproperties()) — Configures the view’s content and styling properties before layout.
+- [`updateProperties()`](https://developer.apple.com/documentation/uikit/uiviewcontroller/updateproperties()) — Configures the view controller’s content and styling properties.
+- [`updateViewConstraints()`](https://developer.apple.com/documentation/uikit/uiviewcontroller/updateviewconstraints()) — Notifies the view controller when its view needs to update its constraints.
+- [`viewDidLayoutSubviews()`](https://developer.apple.com/documentation/uikit/uiviewcontroller/viewdidlayoutsubviews()) — Notifies the view controller when its view finishes laying out its subviews.
+- [`viewWillLayoutSubviews()`](https://developer.apple.com/documentation/uikit/uiviewcontroller/viewwilllayoutsubviews()) — Notifies the view controller that its view is about to lay out its subviews.
+
+### App extensions
+
+- [`NSExtensionContext`](https://developer.apple.com/documentation/foundation/nsextensioncontext) — The host app context from which an app extension is invoked.
+- [`NSExtensionRequestHandling`](https://developer.apple.com/documentation/foundation/nsextensionrequesthandling) — The interface an app extension uses to respond to a request from a host app.
+- [`NSFileProviderExtension`](https://developer.apple.com/documentation/fileprovider/nsfileproviderextension) — The principal class for the nonreplicated File Provider extension.
+- [`UIDocumentPickerExtensionViewController`](https://developer.apple.com/documentation/uikit/uidocumentpickerextensionviewcontroller) — The principal class for the Document Picker View Controller extension.
+- [`UIInputViewAudioFeedback`](https://developer.apple.com/documentation/uikit/uiinputviewaudiofeedback) — A property that enables a custom input or keyboard accessory view to play standard keyboard input clicks.
+- [`UIInputViewController`](https://developer.apple.com/documentation/uikit/uiinputviewcontroller) — The primary view controller for a custom keyboard app extension.
+- [`UILexicon`](https://developer.apple.com/documentation/uikit/uilexicon) — A read-only array of term pairs, each in a lexicon entry object, for a custom keyboard.
+- [`UILexiconEntry`](https://developer.apple.com/documentation/uikit/uilexiconentry) — A read-only term pair, available within a lexicon object, for a custom keyboard.
+- [`UITextDocumentProxy`](https://developer.apple.com/documentation/uikit/uitextdocumentproxy) — An object that provides textual context to a custom keyboard.
+
+### Appearance customization
+
+- [`UIAppearance`](https://developer.apple.com/documentation/uikit/uiappearance) — A collection of methods that gives you access to the appearance proxy for a class.
+- [`UIAppearanceContainer`](https://developer.apple.com/documentation/uikit/uiappearancecontainer) — A protocol that a class must adopt to allow appearance customization using the    API.
+- [`UIBackgroundConfiguration`](https://developer.apple.com/documentation/uikit/uibackgroundconfiguration-swift.struct) — A configuration that describes a specific background appearance.
+- [`UIBackgroundExtensionView`](https://developer.apple.com/documentation/uikit/uibackgroundextensionview) — A view that extends content to fill its own bounds.
+- [`UIBarAppearance`](https://developer.apple.com/documentation/uikit/uibarappearance) — An object for customizing the basic appearance of system bars.
+- [`UIBarButtonItemAppearance`](https://developer.apple.com/documentation/uikit/uibarbuttonitemappearance) — An object for customizing the appearance of bar button items.
+- [`UIBarButtonItemStateAppearance`](https://developer.apple.com/documentation/uikit/uibarbuttonitemstateappearance) — A data object containing the specific customizations for a bar button item in a particular state.
+- [`UICellConfigurationState`](https://developer.apple.com/documentation/uikit/uicellconfigurationstate-swift.struct) — A structure that encapsulates a cell’s state.
+- [`UIConfigurationColorTransformer`](https://developer.apple.com/documentation/uikit/uiconfigurationcolortransformer-swift.struct) — A transformer that generates a modified output color from an input color.
+- [`UIConfigurationState`](https://developer.apple.com/documentation/uikit/uiconfigurationstate-8d7pd) — The requirements for an object that encapsulates a view’s state.
+- [`UIConfigurationStateCustomKey`](https://developer.apple.com/documentation/uikit/uiconfigurationstatecustomkey) — A key that defines a custom state for a view.
+- [`UIContentConfiguration`](https://developer.apple.com/documentation/uikit/uicontentconfiguration-9eib5) — The requirements for an object that provides the configuration for a content view.
+- [`UIContentUnavailableConfiguration`](https://developer.apple.com/documentation/uikit/uicontentunavailableconfiguration-swift.struct) — A content configuration for a content-unavailable view.
+- [`UIContentUnavailableConfigurationState`](https://developer.apple.com/documentation/uikit/uicontentunavailableconfigurationstate-swift.struct) — A structure that encapsulates state for a content-unavailable view.
+- [`UIContentView`](https://developer.apple.com/documentation/uikit/uicontentview-5fh3z) — The requirements for a content view that you create using a configuration.
+- [`UIGlassContainerEffect`](https://developer.apple.com/documentation/uikit/uiglasscontainereffect) — A    renders multiple glass elements into a combined effect.
+- [`UIGlassEffect`](https://developer.apple.com/documentation/uikit/uiglasseffect) — A visual effect that renders a glass material.
+- [`UIListContentConfiguration`](https://developer.apple.com/documentation/uikit/uilistcontentconfiguration-swift.struct) — A content configuration for a list-based content view.
+- [`UIListContentView`](https://developer.apple.com/documentation/uikit/uilistcontentview) — A content view for displaying list-based content.
+- [`UINavigationBarAppearance`](https://developer.apple.com/documentation/uikit/uinavigationbarappearance) — An object for customizing the appearance of a navigation bar.
+- [`UIScrollEdgeElementContainerInteraction`](https://developer.apple.com/documentation/uikit/uiscrolledgeelementcontainerinteraction) — Add this interaction to a container view of views that overlay the edge of a scroll view.   Any descendants of this view that should affect the shape of the edge effect, such as labels, images, glass views, and controls, will automatically do so.
+- [`UITabBarAppearance`](https://developer.apple.com/documentation/uikit/uitabbarappearance) — An object for customizing the appearance of a tab bar.
+- [`UITabBarItemAppearance`](https://developer.apple.com/documentation/uikit/uitabbaritemappearance) — An object for customizing the appearance of tab bar items.
+- [`UITabBarItemStateAppearance`](https://developer.apple.com/documentation/uikit/uitabbaritemstateappearance) — A data object containing the specific customizations for tab bar items in a particular state.
+- [`UIToolbarAppearance`](https://developer.apple.com/documentation/uikit/uitoolbarappearance) — An object for customizing the appearance of a toolbar.
+- [`UIViewConfigurationState`](https://developer.apple.com/documentation/uikit/uiviewconfigurationstate-swift.struct) — A structure that encapsulates a view’s state.
+
+### Apple Pencil interactions
+
+- [`PencilDoubleTapGestureValue`](https://developer.apple.com/documentation/swiftui/pencildoubletapgesturevalue) — Describes the value of an Apple Pencil double-tap gesture.
+- [`PencilHoverPose`](https://developer.apple.com/documentation/swiftui/pencilhoverpose) — A value describing the location and distance of an Apple Pencil hovering in   the area above a view’s bounds.
+- [`PencilPreferredAction`](https://developer.apple.com/documentation/swiftui/pencilpreferredaction) — An action that the user prefers to perform after double-tapping their   Apple Pencil.
+- [`PencilSqueezeGesturePhase`](https://developer.apple.com/documentation/swiftui/pencilsqueezegesturephase) — Describes the phase and value of an Apple Pencil squeeze gesture.
+- [`PencilSqueezeGestureValue`](https://developer.apple.com/documentation/swiftui/pencilsqueezegesturevalue) — Describes the value of an Apple Pencil squeeze gesture.
+- [`UIPencilHoverPose`](https://developer.apple.com/documentation/uikit/uipencilhoverpose) — An object that describes the hover pose of Apple Pencil during an interaction like double tap or squeeze.
+- [`UIPencilInteraction`](https://developer.apple.com/documentation/uikit/uipencilinteraction) — An interaction that tells your app when a person double-taps or squeezes Apple Pencil.
+- [`UIPencilInteraction.Phase`](https://developer.apple.com/documentation/uikit/uipencilinteraction/phase) — Constants that describe the phases of an interaction on Apple Pencil.
+- [`UIPencilInteraction.Squeeze`](https://developer.apple.com/documentation/uikit/uipencilinteraction/squeeze) — An interaction that represents a squeeze on Apple Pencil.
+- [`UIPencilInteraction.Tap`](https://developer.apple.com/documentation/uikit/uipencilinteraction/tap) — An interaction that represents a double tap on Apple Pencil.
+- [`UIPencilInteractionDelegate`](https://developer.apple.com/documentation/uikit/uipencilinteractiondelegate) — The interface an object implements to handle double taps or squeezes a person makes on Apple Pencil.
+- [`onPencilDoubleTap(perform:)`](https://developer.apple.com/documentation/swiftui/view/onpencildoubletap(perform:)) — Adds an action to perform after the user double-taps their Apple Pencil.
+- [`onPencilSqueeze(perform:)`](https://developer.apple.com/documentation/swiftui/view/onpencilsqueeze(perform:)) — Adds an action to perform when the user squeezes their Apple Pencil.
+
+### Documents, data, and pasteboard
+
+- [`UIDataSourceModelAssociation`](https://developer.apple.com/documentation/uikit/uidatasourcemodelassociation) — A set of methods that defines an interface for providing persistent references to data objects in your app.
+- [`UIDocument`](https://developer.apple.com/documentation/uikit/uidocument) — An abstract base class for managing discrete portions of your app’s data.
+- [`UIDocumentViewController`](https://developer.apple.com/documentation/uikit/uidocumentviewcontroller) — A view controller that manages and presents a document stored locally or in the cloud.
+- [`UIManagedDocument`](https://developer.apple.com/documentation/uikit/uimanageddocument) — A managed document object that integrates with Core Data.
+- [`UIPasteConfiguration`](https://developer.apple.com/documentation/uikit/uipasteconfiguration) — The interface that an object implements to declare its ability to accept specific data types for pasting and for drag-and-drop activities.
+- [`UIPasteConfigurationSupporting`](https://developer.apple.com/documentation/uikit/uipasteconfigurationsupporting) — The interface that determines whether a responder object supports paste configuration.
+- [`UIPasteControl`](https://developer.apple.com/documentation/uikit/uipastecontrol) — A button that a person taps to place pasteboard contents in your app.
+- [`UIPasteControl.Configuration`](https://developer.apple.com/documentation/uikit/uipastecontrol/configuration-swift.class) — An object that determines a paste button’s color, corner style, icon, and text.
+- [`UIPasteControl.DisplayMode`](https://developer.apple.com/documentation/uikit/uipastecontrol/displaymode) — Options that determine whether a paste button composes an icon, textual label, or both.
+- [`UIPasteboard`](https://developer.apple.com/documentation/uikit/uipasteboard) — An object that helps a user share data from one place to another within your app, and from your app to other apps.
+
+### Drag and drop
+
+- [`NSItemProvider`](https://developer.apple.com/documentation/foundation/nsitemprovider) — An item provider for conveying data or a file between processes during drag-and-drop or copy-and-paste activities, or from a host app to an app extension.
+- [`NSItemProviderReading`](https://developer.apple.com/documentation/foundation/nsitemproviderreading) — The protocol for implementing a class to allow an item provider to create an instance of the class.
+- [`NSItemProviderWriting`](https://developer.apple.com/documentation/foundation/nsitemproviderwriting) — The protocol for implementing a class to allow an item provider to retrieve data from an instance of the class.
+- [`UIDragAnimating`](https://developer.apple.com/documentation/uikit/uidraganimating) — The interface for providing custom animation alongside the system’s lift, drop, and cancellation animations.
+- [`UIDragDropSession`](https://developer.apple.com/documentation/uikit/uidragdropsession) — The common interface for querying the state of both drag sessions and drop sessions.
+- [`UIDragInteraction`](https://developer.apple.com/documentation/uikit/uidraginteraction) — An interaction to enable dragging of items from a view, employing a delegate to provide drag items and to respond to calls from the drag session.
+- [`UIDragInteractionDelegate`](https://developer.apple.com/documentation/uikit/uidraginteractiondelegate) — The interface for configuring and controlling a drag interaction.
+- [`UIDragItem`](https://developer.apple.com/documentation/uikit/uidragitem) — A representation of an underlying data item as a person drags it from one location to another.
+- [`UIDragPreview`](https://developer.apple.com/documentation/uikit/uidragpreview) — A graphical preview for a single drag item, used by the system after a drag has started and when no related animation is running.
+- [`UIDragPreviewParameters`](https://developer.apple.com/documentation/uikit/uidragpreviewparameters) — A set of parameters for adjusting the appearance of a drag item preview or a targeted drag item preview.
+- [`UIDragPreviewTarget`](https://developer.apple.com/documentation/uikit/uidragpreviewtarget) — A geometric specification for the source or destination of a drag item preview, used by the system when a user drops items or cancels a drag activity.
+- [`UIDragSession`](https://developer.apple.com/documentation/uikit/uidragsession) — The interface for configuring a drag session.
+- [`UIDropInteraction`](https://developer.apple.com/documentation/uikit/uidropinteraction) — An interaction to enable dropping of items onto a view, employing a delegate to instantiate objects and respond to calls from the drop session.
+- [`UIDropInteractionDelegate`](https://developer.apple.com/documentation/uikit/uidropinteractiondelegate) — The interface for configuring and controlling a drop interaction.
+- [`UIDropOperation`](https://developer.apple.com/documentation/uikit/uidropoperation) — Operation types that determine how a drag and drop activity resolves when the user drops a drag item.
+- [`UIDropProposal`](https://developer.apple.com/documentation/uikit/uidropproposal) — A configuration for the behavior of a drop interaction, required if a view accepts drop activities.
+- [`UIDropSession`](https://developer.apple.com/documentation/uikit/uidropsession) — The interface for querying a drop session about its state and associated drag items.
+- [`UIDropSessionProgressIndicatorStyle`](https://developer.apple.com/documentation/uikit/uidropsessionprogressindicatorstyle) — The drop-progress indicator styles for the drop session, used while data is moving from the source to the destination.
+- [`UIItemProviderPresentationSizeProviding`](https://developer.apple.com/documentation/uikit/uiitemproviderpresentationsizeproviding)
+- [`UIItemProviderReadingAugmentationDesignating`](https://developer.apple.com/documentation/uikit/uiitemproviderreadingaugmentationdesignating)
+- [`UIItemProviderReadingAugmentationProviding`](https://developer.apple.com/documentation/uikit/uiitemproviderreadingaugmentationproviding)
+- [`UIPasteConfiguration`](https://developer.apple.com/documentation/uikit/uipasteconfiguration) — The interface that an object implements to declare its ability to accept specific data types for pasting and for drag-and-drop activities.
+- [`UIPasteConfigurationSupporting`](https://developer.apple.com/documentation/uikit/uipasteconfigurationsupporting) — The interface that determines whether a responder object supports paste configuration.
+- [`UISpringLoadedInteraction`](https://developer.apple.com/documentation/uikit/uispringloadedinteraction) — An interaction object for configuring and controlling spring-loaded, user-driven navigation during a drag activity.
+- [`UISpringLoadedInteractionBehavior`](https://developer.apple.com/documentation/uikit/uispringloadedinteractionbehavior) — The interface for specifying the behavior of a spring-loaded interaction.
+- [`UISpringLoadedInteractionContext`](https://developer.apple.com/documentation/uikit/uispringloadedinteractioncontext) — The interface an object implements to provide information about a spring-loaded interaction.
+- [`UISpringLoadedInteractionEffect`](https://developer.apple.com/documentation/uikit/uispringloadedinteractioneffect) — The interface for providing visual styling to a spring-loaded interaction based on the interaction state.
+- [`UISpringLoadedInteractionSupporting`](https://developer.apple.com/documentation/uikit/uispringloadedinteractionsupporting) — The interface that determines if an object supports a spring-loaded interaction for drag and drop activities.
+- [`UITargetedDragPreview`](https://developer.apple.com/documentation/uikit/uitargeteddragpreview) — A drag item preview used by the system during lift, drop, or cancellation animation.
+
+### Drawing
+
+- [`NSShadow`](https://developer.apple.com/documentation/uikit/nsshadow) — An object you use to specify attributes to create and style a drop shadow during drawing operations.
+- [`NSStringDrawingContext`](https://developer.apple.com/documentation/uikit/nsstringdrawingcontext) — An object that manages metrics for drawing attributed strings.
+- [`NSStringDrawingOptions`](https://developer.apple.com/documentation/uikit/nsstringdrawingoptions) — Constants that specify the rendering options for drawing a string.
+- [`UIBaselineAdjustment`](https://developer.apple.com/documentation/uikit/uibaselineadjustment) — Vertical adjustment options.
+- [`UIBezierPath`](https://developer.apple.com/documentation/uikit/uibezierpath) — A path that consists of straight and curved line segments that you can render in your custom views.
+- [`UIColor`](https://developer.apple.com/documentation/uikit/uicolor) — An object that stores color data and sometimes opacity.
+- [`UIGraphicsBeginImageContextWithOptions(_:_:_:)`](https://developer.apple.com/documentation/uikit/uigraphicsbeginimagecontextwithoptions(_:_:_:)) — Creates a bitmap-based graphics context with the specified options.
+- [`UIGraphicsGetCurrentContext()`](https://developer.apple.com/documentation/uikit/uigraphicsgetcurrentcontext()) — Returns the current graphics context.
+- [`UIGraphicsImageRenderer`](https://developer.apple.com/documentation/uikit/uigraphicsimagerenderer) — A graphics renderer for creating Core Graphics-backed images.
+- [`UIGraphicsImageRendererContext`](https://developer.apple.com/documentation/uikit/uigraphicsimagerenderercontext) — The drawing environment for an image renderer.
+- [`UIGraphicsImageRendererFormat`](https://developer.apple.com/documentation/uikit/uigraphicsimagerendererformat) — A set of drawing attributes that represents the configuration of an image renderer context.
+- [`UIGraphicsPDFRenderer`](https://developer.apple.com/documentation/uikit/uigraphicspdfrenderer) — A graphics renderer for creating PDFs.
+- [`UIGraphicsPDFRendererContext`](https://developer.apple.com/documentation/uikit/uigraphicspdfrenderercontext) — The drawing environment for a PDF renderer.
+- [`UIGraphicsPDFRendererFormat`](https://developer.apple.com/documentation/uikit/uigraphicspdfrendererformat) — A set of drawing attributes that represents the configuration of a PDF renderer context.
+- [`UIGraphicsPopContext()`](https://developer.apple.com/documentation/uikit/uigraphicspopcontext()) — Removes the current graphics context from the top of the stack, restoring the previous context.
+- [`UIGraphicsPushContext(_:)`](https://developer.apple.com/documentation/uikit/uigraphicspushcontext(_:)) — Makes the specified graphics context the current context.
+- [`UIGraphicsRenderer`](https://developer.apple.com/documentation/uikit/uigraphicsrenderer) — An abstract base class for creating graphics renderers.
+- [`UIGraphicsRendererContext`](https://developer.apple.com/documentation/uikit/uigraphicsrenderercontext) — The base class for the drawing environments for graphics renderers.
+- [`UIGraphicsRendererFormat`](https://developer.apple.com/documentation/uikit/uigraphicsrendererformat) — A set of drawing attributes that represents the configuration of a graphics renderer context.
+- [`UIRectClip(_:)`](https://developer.apple.com/documentation/uikit/uirectclip(_:)) — Modifies the current clipping path by intersecting it with the specified rectangle.
+- [`UIRectFill(_:)`](https://developer.apple.com/documentation/uikit/uirectfill(_:)) — Fills the specified rectangle with the current color.
+- [`UIRectFillUsingBlendMode(_:_:)`](https://developer.apple.com/documentation/uikit/uirectfillusingblendmode(_:_:)) — Fills a rectangle with the current fill color using the specified blend mode.
+- [`UIRectFrame(_:)`](https://developer.apple.com/documentation/uikit/uirectframe(_:)) — Draws a frame around the inside of the specified rectangle.
+- [`UIRectFrameUsingBlendMode(_:_:)`](https://developer.apple.com/documentation/uikit/uirectframeusingblendmode(_:_:)) — Draws a frame around the inside of a rectangle using the specified blend mode.
+- [`UIUpdateActionPhase`](https://developer.apple.com/documentation/uikit/uiupdateactionphase) — An object that defines specific phases of the UI update process.
+- [`UIUpdateInfo`](https://developer.apple.com/documentation/uikit/uiupdateinfo) — An object that contains detailed information about the current UI update state.
+- [`UIUpdateLink`](https://developer.apple.com/documentation/uikit/uiupdatelink) — An object you use to observe, participate in, and affect the UI update process.
+- [`cgAffineTransform(for:)`](https://developer.apple.com/documentation/foundation/nscoder/cgaffinetransform(for:)) — Returns a Core Graphics affine transform structure corresponding to the data in a given string.
+- [`cgPoint(for:)`](https://developer.apple.com/documentation/foundation/nscoder/cgpoint(for:)) — Returns a Core Graphics point structure corresponding to the data in a given string.
+- [`cgRect(for:)`](https://developer.apple.com/documentation/foundation/nscoder/cgrect(for:)) — Returns a Core Graphics rectangle structure corresponding to the data in a given string.
+- [`cgSize(for:)`](https://developer.apple.com/documentation/foundation/nscoder/cgsize(for:)) — Returns a Core Graphics size structure corresponding to the data in a given string.
+- [`cgVector(for:)`](https://developer.apple.com/documentation/foundation/nscoder/cgvector(for:)) — Returns a Core Graphics vector corresponding to the data in a given string.
+- [`string(for:)`](https://developer.apple.com/documentation/foundation/nscoder/string(for:)-6yx6n) — Returns a string formatted to contain the data from an affine transform.
+- [`string(for:)`](https://developer.apple.com/documentation/foundation/nscoder/string(for:)-6ix86) — Returns a string formatted to contain the data from a point.
+- [`string(for:)`](https://developer.apple.com/documentation/foundation/nscoder/string(for:)-4qz0a) — Returns a string formatted to contain the data from a rectangle.
+- [`string(for:)`](https://developer.apple.com/documentation/foundation/nscoder/string(for:)-2f1xb) — Returns a string formatted to contain the data from a size data structure.
+- [`string(for:)`](https://developer.apple.com/documentation/foundation/nscoder/string(for:)-4omzv) — Returns a string formatted to contain the data from a vector data structure.
+
+### Focus-based navigation
+
+- [`UIFocusAnimationCoordinator`](https://developer.apple.com/documentation/uikit/uifocusanimationcoordinator) — A coordinator of focus-related animations during a focus update.
+- [`UIFocusDebugger`](https://developer.apple.com/documentation/uikit/uifocusdebugger) — A runtime object for debugging focus-related interactions.
+- [`UIFocusEffect`](https://developer.apple.com/documentation/uikit/uifocuseffect) — The base class for defining a visual focus effect.
+- [`UIFocusEnvironment`](https://developer.apple.com/documentation/uikit/uifocusenvironment) — A set of methods that define the focus behavior for a branch of the view hierarchy.
+- [`UIFocusGroupPriority`](https://developer.apple.com/documentation/uikit/uifocusgrouppriority) — The importance of an item within a focus group, used by the focus system to determine the group’s primary item.
+- [`UIFocusGuide`](https://developer.apple.com/documentation/uikit/uifocusguide) — An object that exposes nonview areas as focusable.
+- [`UIFocusHaloEffect`](https://developer.apple.com/documentation/uikit/uifocushaloeffect) — A visual focus effect that draws a halo around the focus item.
+- [`UIFocusHaloEffect.Position`](https://developer.apple.com/documentation/uikit/uifocushaloeffect/position-swift.enum) — Constants that describe positions for drawing the halo focus effect.
+- [`UIFocusItem`](https://developer.apple.com/documentation/uikit/uifocusitem) — An object that can become focused.
+- [`UIFocusItemContainer`](https://developer.apple.com/documentation/uikit/uifocusitemcontainer) — The container responsible for providing geometric context to focus items within a given focus environment.
+- [`UIFocusItemScrollableContainer`](https://developer.apple.com/documentation/uikit/uifocusitemscrollablecontainer) — A type of focus item container that supports automatic scrolling of focusable content.
+- [`UIFocusMovementHint`](https://developer.apple.com/documentation/uikit/uifocusmovementhint) — Provides movement hint information for the focused item.
+- [`UIFocusSystem`](https://developer.apple.com/documentation/uikit/uifocussystem) — Queries and reevaluates the currently focused item.
+- [`UIFocusUpdateContext`](https://developer.apple.com/documentation/uikit/uifocusupdatecontext) — An object that provides information relevant to a specific focus update from one view to another.
+
+### Handwriting recognition
+
+- [`ElementIdentifier`](https://developer.apple.com/documentation/uikit/uiindirectscribbleinteractiondelegate-hdh/elementidentifier) — A unique identifier for a control that isn’t a text field in a Scribble interaction.
+- [`UIIndirectScribbleInteraction`](https://developer.apple.com/documentation/uikit/uiindirectscribbleinteraction-1nfjm) — An interaction for using Scribble to enter text by writing on a view that isn’t formally a text input.
+- [`UIIndirectScribbleInteractionDelegate`](https://developer.apple.com/documentation/uikit/uiindirectscribbleinteractiondelegate-hdh) — Methods that customize behavior on views that aren’t formally text input views.
+- [`UIScribbleInteraction`](https://developer.apple.com/documentation/uikit/uiscribbleinteraction) — An interaction for customizing the behavior of Scribble on text input views, or for suppressing it entirely in specific cases.
+- [`UIScribbleInteractionDelegate`](https://developer.apple.com/documentation/uikit/uiscribbleinteractiondelegate) — Methods for customizing or suppressing Scribble behavior within text input views.
+
+### Images and PDF
+
+- [`UIGraphicsAddPDFContextDestinationAtPoint(_:_:)`](https://developer.apple.com/documentation/uikit/uigraphicsaddpdfcontextdestinationatpoint(_:_:)) — Creates a jump destination in the current page.
+- [`UIGraphicsBeginPDFContextToData(_:_:_:)`](https://developer.apple.com/documentation/uikit/uigraphicsbeginpdfcontexttodata(_:_:_:)) — Creates a PDF graphics context that targets the specified mutable data object.
+- [`UIGraphicsBeginPDFContextToFile(_:_:_:)`](https://developer.apple.com/documentation/uikit/uigraphicsbeginpdfcontexttofile(_:_:_:)) — Creates a PDF graphics context that targets a file at the specified path.
+- [`UIGraphicsBeginPDFPage()`](https://developer.apple.com/documentation/uikit/uigraphicsbeginpdfpage()) — Marks the beginning of a new page in a PDF context and configures it using default values.
+- [`UIGraphicsBeginPDFPageWithInfo(_:_:)`](https://developer.apple.com/documentation/uikit/uigraphicsbeginpdfpagewithinfo(_:_:)) — Marks the beginning of a new page in a PDF context and configures it using the specified custom values.
+- [`UIGraphicsEndPDFContext()`](https://developer.apple.com/documentation/uikit/uigraphicsendpdfcontext()) — Closes a PDF graphics context and pops it from the current context stack.
+- [`UIGraphicsGetPDFContextBounds()`](https://developer.apple.com/documentation/uikit/uigraphicsgetpdfcontextbounds()) — Returns the current page bounds.
+- [`UIGraphicsSetPDFContextDestinationForRect(_:_:)`](https://developer.apple.com/documentation/uikit/uigraphicssetpdfcontextdestinationforrect(_:_:)) — Links a rectangular area on the current page to the specified jump destination.
+- [`UIGraphicsSetPDFContextURLForRect(_:_:)`](https://developer.apple.com/documentation/uikit/uigraphicssetpdfcontexturlforrect(_:_:)) — Links a rectangular area on the current page to the specified URL.
+- [`UIImage`](https://developer.apple.com/documentation/uikit/uiimage) — An object that manages image data in your app.
+- [`UIImage.Configuration`](https://developer.apple.com/documentation/uikit/uiimage/configuration-swift.class) — A configuration object that contains the traits that the system uses when selecting the current image variant.
+- [`UIImage.SymbolConfiguration`](https://developer.apple.com/documentation/uikit/uiimage/symbolconfiguration-swift.class) — An object that contains the specific font, size, style, and weight attributes to apply to a symbol image.
+- [`UIImageWriteToSavedPhotosAlbum(_:_:_:_:)`](https://developer.apple.com/documentation/uikit/uiimagewritetosavedphotosalbum(_:_:_:_:)) — Adds the specified image to the user’s Camera Roll album.
+- [`UISaveVideoAtPathToSavedPhotosAlbum(_:_:_:_:)`](https://developer.apple.com/documentation/uikit/uisavevideoatpathtosavedphotosalbum(_:_:_:_:)) — Adds the movie from the specified path to the user’s Camera Roll album.
+- [`UIScreenshotService`](https://developer.apple.com/documentation/uikit/uiscreenshotservice) — An object that coordinates the creation of PDF screenshots of an app’s content.
+- [`UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(_:)`](https://developer.apple.com/documentation/uikit/uivideoatpathiscompatiblewithsavedphotosalbum(_:)) — Returns a Boolean value that indicates whether the specified video is compatible to save to the user’s Camera Roll album.
+- [`jpegData(compressionQuality:)`](https://developer.apple.com/documentation/uikit/uiimage/jpegdata(compressionquality:)) — Returns a data object that contains the image in JPEG format.
+- [`pngData()`](https://developer.apple.com/documentation/uikit/uiimage/pngdata()) — Returns a data object that contains the specified image in PNG format.
+
+### Interprocess communication
+
+- [`NSUserActivity`](https://developer.apple.com/documentation/foundation/nsuseractivity) — A representation of the state of your app at a moment in time.
+- [`UIActivity`](https://developer.apple.com/documentation/uikit/uiactivity) — An abstract class that you subclass to implement app-specific services.
+- [`UIActivityItemProvider`](https://developer.apple.com/documentation/uikit/uiactivityitemprovider) — A proxy for data that passes to an activity view controller.
+- [`UIActivityItemSource`](https://developer.apple.com/documentation/uikit/uiactivityitemsource) — A set of methods that an activity view controller uses to retrieve the data items to act on.
+- [`UIActivityViewController`](https://developer.apple.com/documentation/uikit/uiactivityviewcontroller) — A view controller that you use to offer standard services from your app.
+- [`UIUserActivityRestoring`](https://developer.apple.com/documentation/uikit/uiuseractivityrestoring) — The protocol you adopt to restore an object’s state from a user activity.
+
+### Keyboards and input
+
+- [`UIConversationContext`](https://developer.apple.com/documentation/uikit/uiconversationcontext) — A base class that represents a conversation between participants, such as in an email or messaging app.
+- [`UIConversationContext.Entry`](https://developer.apple.com/documentation/uikit/uiconversationcontext/entry) — A base class that represents a message in a conversation.
+- [`UIDictationPhrase`](https://developer.apple.com/documentation/uikit/uidictationphrase) — An object that represents the textual interpretation of a spoken phrase that the user dictates.
+- [`UIInputSuggestion`](https://developer.apple.com/documentation/uikit/uiinputsuggestion) — A base class you use to handle suggestions from the keyboard or system.
+- [`UIInputView`](https://developer.apple.com/documentation/uikit/uiinputview) — An object that displays and manages custom input for a view when that view becomes the first responder.
+- [`UIInputViewController`](https://developer.apple.com/documentation/uikit/uiinputviewcontroller) — The primary view controller for a custom keyboard app extension.
+- [`UIKey`](https://developer.apple.com/documentation/uikit/uikey) — An object that provides information about the state of a keyboard key.
+- [`UIKeyInput`](https://developer.apple.com/documentation/uikit/uikeyinput) — A set of methods a responder uses to implement simple text entry.
+- [`UIKeyboardHIDUsage`](https://developer.apple.com/documentation/uikit/uikeyboardhidusage) — A set of HID usage codes that identify the keys of a USB keyboard.
+- [`UIKeyboardLayoutGuide`](https://developer.apple.com/documentation/uikit/uikeyboardlayoutguide) — A layout guide that represents the space the keyboard occupies in your app’s layout.
+- [`UILexicon`](https://developer.apple.com/documentation/uikit/uilexicon) — A read-only array of term pairs, each in a lexicon entry object, for a custom keyboard.
+- [`UILexiconEntry`](https://developer.apple.com/documentation/uikit/uilexiconentry) — A read-only term pair, available within a lexicon object, for a custom keyboard.
+- [`UIMailConversationContext`](https://developer.apple.com/documentation/uikit/uimailconversationcontext) — A class that represents an email conversation.
+- [`UIMailConversationContext.MailEntry`](https://developer.apple.com/documentation/uikit/uimailconversationcontext/mailentry) — A class that represents a specific email in an email thread.
+- [`UIMessageConversationContext`](https://developer.apple.com/documentation/uikit/uimessageconversationcontext) — A class that represents a message conversation.
+- [`UIMessageConversationContext.MessageEntry`](https://developer.apple.com/documentation/uikit/uimessageconversationcontext/messageentry) — A class that represents a message in a message conversation.
+- [`UIPhotoSearchSuggestion`](https://developer.apple.com/documentation/uikit/uiphotosearchsuggestion) — An input suggestion that carries photo search metadata for people, subjects, locations, and time periods.
+- [`UISmartReplySuggestion`](https://developer.apple.com/documentation/uikit/uismartreplysuggestion) — A class you use to handle a Smart Reply suggestion.
+- [`UIStandardTextCursorView`](https://developer.apple.com/documentation/uikit/uistandardtextcursorview) — A view that draws the standard system insertion point in a piece of text.
+- [`UITextCursorDropPositionAnimator`](https://developer.apple.com/documentation/uikit/uitextcursordroppositionanimator)
+- [`UITextCursorView`](https://developer.apple.com/documentation/uikit/uitextcursorview) — An interface you use to draw the insertion point in a piece of text.
+- [`UITextDocumentProxy`](https://developer.apple.com/documentation/uikit/uitextdocumentproxy) — An object that provides textual context to a custom keyboard.
+- [`UITextInput`](https://developer.apple.com/documentation/uikit/uitextinput) — A set of methods for interacting with the text input system and enabling features in documents.
+- [`UITextInputAssistantItem`](https://developer.apple.com/documentation/uikit/uitextinputassistantitem) — An object that manages custom bar button items that you add to the shortcuts bar above the keyboard on iPad.
+- [`UITextInputContext`](https://developer.apple.com/documentation/uikit/uitextinputcontext) — An object that reports the type of input your app receives.
+- [`UITextInputDelegate`](https://developer.apple.com/documentation/uikit/uitextinputdelegate) — An intermediary between a document and the text input system.
+- [`UITextInputMode`](https://developer.apple.com/documentation/uikit/uitextinputmode) — The current text input mode.
+- [`UITextInputStringTokenizer`](https://developer.apple.com/documentation/uikit/uitextinputstringtokenizer) — A base implementation of the text-input tokenizer protocol.
+- [`UITextInputTokenizer`](https://developer.apple.com/documentation/uikit/uitextinputtokenizer) — A tokenizer, which is an object that allows the text input system to evaluate text units of different granularities.
+- [`UITextInputTraits`](https://developer.apple.com/documentation/uikit/uitextinputtraits) — A set of methods that defines features for keyboard input to a text object.
+- [`UITextInteraction`](https://developer.apple.com/documentation/uikit/uitextinteraction) — An interaction that provides text selection gestures and UI to custom text views.
+- [`UITextInteractionDelegate`](https://developer.apple.com/documentation/uikit/uitextinteractiondelegate) — An interface that an object implements to receive information about text interaction events.
+- [`UITextInteractionMode`](https://developer.apple.com/documentation/uikit/uitextinteractionmode) — Modes that determine the selection behaviors that a text interaction provides.
+- [`UITextItem`](https://developer.apple.com/documentation/uikit/uitextitem) — An object for attaching custom actions and menus to links, text attachments, or other specific text in a text view.
+- [`UITextItem.MenuConfiguration`](https://developer.apple.com/documentation/uikit/uitextitem/menuconfiguration) — An object that describes what type of menu and preview to show for a text item.
+- [`UITextLoupeSession`](https://developer.apple.com/documentation/uikit/uitextloupesession) — An object that manages the presentation of the system magnifier at the location you specify.
+- [`UITextSelectionDisplayInteraction`](https://developer.apple.com/documentation/uikit/uitextselectiondisplayinteraction) — An object that provides the system UI for displaying text selection.
+- [`UITextSelectionHandleView`](https://developer.apple.com/documentation/uikit/uitextselectionhandleview) — An interface you use to draw custom the selection handles for ranges of text.
+- [`UITextSelectionHighlightView`](https://developer.apple.com/documentation/uikit/uitextselectionhighlightview) — An interface you use to provide a custom highlight UI behind the selected text.
+- [`UITextViewDelegate`](https://developer.apple.com/documentation/uikit/uitextviewdelegate) — The methods for receiving editing-related messages for text view objects.
+- [`UITrackingLayoutGuide`](https://developer.apple.com/documentation/uikit/uitrackinglayoutguide) — A layout guide that automatically activates and deactivates layout constraints depending on its proximity to edges.
+
+### Mac Catalyst
+
+- [`LSMinimumSystemVersion`](https://developer.apple.com/documentation/bundleresources/information-property-list/lsminimumsystemversion) — The minimum version of the operating system required for the app to run in macOS.
+- [`NSButtonTouchBarItem`](https://developer.apple.com/documentation/appkit/nsbuttontouchbaritem) — A bar item that provides a button.
+- [`NSCandidateListTouchBarItem`](https://developer.apple.com/documentation/appkit/nscandidatelisttouchbaritem) — A bar item that, along with its delegate, provides a list of textual suggestions for the current text view.
+- [`NSCloudSharingValidation`](https://developer.apple.com/documentation/appkit/nscloudsharingvalidation) — A protocol that a Cloud-sharing toolbar item uses to get validation of an item.
+- [`NSColorPickerTouchBarItem`](https://developer.apple.com/documentation/appkit/nscolorpickertouchbaritem) — A bar item that provides a system-defined color picker.
+- [`NSCustomTouchBarItem`](https://developer.apple.com/documentation/appkit/nscustomtouchbaritem) — A bar item that contains a responder of your choice, such as a view, a button, or a scrubber.
+- [`NSGroupTouchBarItem`](https://developer.apple.com/documentation/appkit/nsgrouptouchbaritem) — A bar item that provides a bar to contain other items.
+- [`NSMenuToolbarItem`](https://developer.apple.com/documentation/appkit/nsmenutoolbaritem) — A control that presents a menu in a window’s toolbar.
+- [`NSPickerTouchBarItem`](https://developer.apple.com/documentation/appkit/nspickertouchbaritem) — A bar item that provides a picker control with multiple options.
+- [`NSPickerTouchBarItem.ControlRepresentation`](https://developer.apple.com/documentation/appkit/nspickertouchbaritem/controlrepresentation-swift.enum) — Constants that specify display styles for picker bar items.
+- [`NSPickerTouchBarItem.SelectionMode`](https://developer.apple.com/documentation/appkit/nspickertouchbaritem/selectionmode-swift.enum) — Constants that specify selection modes for picker bar items.
+- [`NSPopoverTouchBarItem`](https://developer.apple.com/documentation/appkit/nspopovertouchbaritem) — A bar item that provides a two-state control that can expand into its second state, showing the contents of a bar that it owns.
+- [`NSScrubber`](https://developer.apple.com/documentation/appkit/nsscrubber) — A customizable item picker control for the Touch Bar.
+- [`NSScrubberArrangedView`](https://developer.apple.com/documentation/appkit/nsscrubberarrangedview) — An abstract base class for the views whose layout is managed by a scrubber.
+- [`NSScrubberDataSource`](https://developer.apple.com/documentation/appkit/nsscrubberdatasource) — A set of methods that a scrubber data source object implements to provide items to the scrubber from an associated data collection in your app.
+- [`NSScrubberDelegate`](https://developer.apple.com/documentation/appkit/nsscrubberdelegate) — A set of methods that a scrubber delegate implements to respond to user interactions.
+- [`NSScrubberFlowLayout`](https://developer.apple.com/documentation/appkit/nsscrubberflowlayout) — A concrete layout object that arranges items end-to-end in a linear strip.
+- [`NSScrubberFlowLayoutDelegate`](https://developer.apple.com/documentation/appkit/nsscrubberflowlayoutdelegate) — A protocol that a scrubber delegate can adopt to provide the size of an item.
+- [`NSScrubberImageItemView`](https://developer.apple.com/documentation/appkit/nsscrubberimageitemview) — A concrete view subclass for displaying images in a scrubber items.
+- [`NSScrubberItemView`](https://developer.apple.com/documentation/appkit/nsscrubberitemview) — An item at a specific index position in the scrubber.
+- [`NSScrubberLayout`](https://developer.apple.com/documentation/appkit/nsscrubberlayout) — An abstract class that describes the layout of items within a scrubber control.
+- [`NSScrubberLayoutAttributes`](https://developer.apple.com/documentation/appkit/nsscrubberlayoutattributes) — The layout of a scrubber item.
+- [`NSScrubberProportionalLayout`](https://developer.apple.com/documentation/appkit/nsscrubberproportionallayout) — A concrete layout object that sizes each item to some fraction of the scrubber’s visible size.
+- [`NSScrubberSelectionStyle`](https://developer.apple.com/documentation/appkit/nsscrubberselectionstyle) — An abstract class that provides decorative accessory views for selected and highlighted items within a scrubber control.
+- [`NSScrubberSelectionView`](https://developer.apple.com/documentation/appkit/nsscrubberselectionview) — An abstract base class for specifying the appearance of a highlighted or selected item in a scrubber.
+- [`NSScrubberTextItemView`](https://developer.apple.com/documentation/appkit/nsscrubbertextitemview) — A concrete view subclass for displaying text for an item in a scrubber.
+- [`NSSearchToolbarItem`](https://developer.apple.com/documentation/appkit/nssearchtoolbaritem) — A toolbar item that contains a search field optimized for performing text-based searches.
+- [`NSSharingServicePickerTouchBarItem`](https://developer.apple.com/documentation/appkit/nssharingservicepickertouchbaritem) — A bar item that, along with its delegate, provides a list of objects eligible for sharing.
+- [`NSSliderTouchBarItem`](https://developer.apple.com/documentation/appkit/nsslidertouchbaritem) — A bar item that provides a slider control for choosing a value in a range.
+- [`NSStepperTouchBarItem`](https://developer.apple.com/documentation/appkit/nssteppertouchbaritem) — A bar item that provides a stepper control for incrementing or decrementing a value.
+- [`NSToolbar`](https://developer.apple.com/documentation/appkit/nstoolbar) — An object that manages the space above your app’s custom content and either below or integrated with the window’s title bar.
+- [`NSToolbarItem`](https://developer.apple.com/documentation/appkit/nstoolbaritem) — A single item that appears in a window’s toolbar.
+- [`NSToolbarItemGroup`](https://developer.apple.com/documentation/appkit/nstoolbaritemgroup) — A group of subitems in a toolbar item.
+- [`NSToolbarItemGroup.ControlRepresentation`](https://developer.apple.com/documentation/appkit/nstoolbaritemgroup/controlrepresentation-swift.enum)
+- [`NSToolbarItemGroup.SelectionMode`](https://developer.apple.com/documentation/appkit/nstoolbaritemgroup/selectionmode-swift.enum) — A value that indicates how a grouped toolbar item selects its subitems.
+- [`NSToolbarItemValidation`](https://developer.apple.com/documentation/appkit/nstoolbaritemvalidation) — Validation of a toolbar item.
+- [`NSTouchBar`](https://developer.apple.com/documentation/appkit/nstouchbar) — An object that provides dynamic contextual controls in the Touch Bar of supported models of MacBook Pro.
+- [`NSTouchBarDelegate`](https://developer.apple.com/documentation/appkit/nstouchbardelegate) — A protocol that allows you to provide the items for a bar dynamically.
+- [`NSTouchBarItem`](https://developer.apple.com/documentation/appkit/nstouchbaritem) — A UI control shown in the Touch Bar on supported models of MacBook Pro.
+- [`NSTouchBarProvider`](https://developer.apple.com/documentation/appkit/nstouchbarprovider) — A protocol that an object adopts to create a bar object in your app.
+- [`NSTrackingSeparatorToolbarItem`](https://developer.apple.com/documentation/appkit/nstrackingseparatortoolbaritem) — A toolbar separator that aligns with the vertical split view in the same window.
+- [`NSUIViewToolbarItem`](https://developer.apple.com/documentation/uikit/nsuiviewtoolbaritem) — An item in a window’s toolbar that hosts a custom UIKit view.
+- [`NSUserInterfaceCompressionOptions`](https://developer.apple.com/documentation/appkit/nsuserinterfacecompressionoptions) — An object that specifies how user interface elements resize themselves when space is constrained.
+- [`UIApplicationSupportsTabbedSceneCollection`](https://developer.apple.com/documentation/bundleresources/information-property-list/uiapplicationscenemanifest/uiapplicationsupportstabbedscenecollection) — A Boolean value indicating whether an app built with Mac Catalyst supports automatic tabbing mode.
+- [`UIHoverGestureRecognizer`](https://developer.apple.com/documentation/uikit/uihovergesturerecognizer) — A continuous gesture recognizer that interprets pointer movement over a view.
+- [`UIToolTipInteraction`](https://developer.apple.com/documentation/uikit/uitooltipinteraction) — An interaction object that makes it possible to show a tooltip when hovering a pointer over a view or control.
+- [`UIToolTipInteractionDelegate`](https://developer.apple.com/documentation/uikit/uitooltipinteractiondelegate) — An interface that provides tooltip settings to an interaction.
+
+### Menus and shortcuts
+
+- [`UIAction`](https://developer.apple.com/documentation/uikit/uiaction) — A menu element that performs its action in a closure.
+- [`UIApplicationShortcutIcon`](https://developer.apple.com/documentation/uikit/uiapplicationshortcuticon) — An image you can optionally associate with a Home Screen quick action to improve its appearance and usability.
+- [`UIApplicationShortcutItem`](https://developer.apple.com/documentation/uikit/uiapplicationshortcutitem) — An application shortcut item, also called a Home Screen dynamic quick action, that specifies a user-initiated action for your app.
+- [`UICommand`](https://developer.apple.com/documentation/uikit/uicommand) — A menu element that performs its action in a selector.
+- [`UIContextMenuInteraction`](https://developer.apple.com/documentation/uikit/uicontextmenuinteraction) — An interaction object that you use to display relevant actions for your content.
+- [`UIContextMenuInteractionDelegate`](https://developer.apple.com/documentation/uikit/uicontextmenuinteractiondelegate) — The methods for providing the set of actions to perform on your content, and for customizing the preview of that content.
+- [`UIContextMenuSystem`](https://developer.apple.com/documentation/uikit/uicontextmenusystem) — The context menu system.
+- [`UIDeferredMenuElement`](https://developer.apple.com/documentation/uikit/uideferredmenuelement) — A placeholder menu element that the system replaces with the result of the block’s completion handler.
+- [`UIDeferredMenuElement.Provider`](https://developer.apple.com/documentation/uikit/uideferredmenuelement/provider)
+- [`UIEditMenuConfiguration`](https://developer.apple.com/documentation/uikit/uieditmenuconfiguration) — An object containing the configuration details for the menu your app presents in response to an edit menu interaction.
+- [`UIEditMenuInteraction`](https://developer.apple.com/documentation/uikit/uieditmenuinteraction) — An interaction that provides edit operations using a menu.
+- [`UIEditMenuInteractionDelegate`](https://developer.apple.com/documentation/uikit/uieditmenuinteractiondelegate) — The methods for customizing the menu the interaction displays.
+- [`UIFindInteraction`](https://developer.apple.com/documentation/uikit/uifindinteraction) — An interaction that provides text finding and replacing operations using a system find panel.
+- [`UIFindInteractionDelegate`](https://developer.apple.com/documentation/uikit/uifindinteractiondelegate) — A delegate object that provides a session object to manage the search state for a find interaction and receives notifications of search session lifetimes.
+- [`UIFindSession`](https://developer.apple.com/documentation/uikit/uifindsession) — An abstract base class that manages the state, presentation, and behavior for a search that the find interaction initiates.
+- [`UIFindSession.SearchResultDisplayStyle`](https://developer.apple.com/documentation/uikit/uifindsession/searchresultdisplaystyle-swift.enum) — Constants that describe the results summary the find panel UI includes.
+- [`UIKeyCommand`](https://developer.apple.com/documentation/uikit/uikeycommand) — An object that specifies a key press perform on a hardware keyboard and the resulting action.
+- [`UIMainMenuSystem`](https://developer.apple.com/documentation/uikit/uimainmenusystem) — The main menu system.
+- [`UIMenu`](https://developer.apple.com/documentation/uikit/uimenu) — A container for grouping related menu elements in an app menu or contextual menu.
+- [`UIMenuBuilder`](https://developer.apple.com/documentation/uikit/uimenubuilder) — An interface for adding and removing menus from a menu system.
+- [`UIMenuElement`](https://developer.apple.com/documentation/uikit/uimenuelement) — An object representing a menu, action, or command.
+- [`UIMenuElement.Attributes`](https://developer.apple.com/documentation/uikit/uimenuelement/attributes) — Attributes that determine the style of the menu element.
+- [`UIMenuElement.State`](https://developer.apple.com/documentation/uikit/uimenuelement/state) — Constants that indicate the state of an action- or command-based menu element.
+- [`UIMenuLeaf`](https://developer.apple.com/documentation/uikit/uimenuleaf) — An interface for an object that represents a menu element without child elements.
+- [`UIMenuSystem`](https://developer.apple.com/documentation/uikit/uimenusystem) — An object representing a main or contextual menu system.
+- [`UIMutableApplicationShortcutItem`](https://developer.apple.com/documentation/uikit/uimutableapplicationshortcutitem) — A mutable Home Screen dynamic quick action, which is an item that specifies a configurable user-initiated action for your app.
+- [`UIPreviewParameters`](https://developer.apple.com/documentation/uikit/uipreviewparameters) — Additional parameters to use when animating a preview interface.
+- [`UIPreviewTarget`](https://developer.apple.com/documentation/uikit/uipreviewtarget) — An object that specifies the container view to use for animations.
+- [`UIResponderStandardEditActions`](https://developer.apple.com/documentation/uikit/uiresponderstandardeditactions) — A set of standard methods that apps can adopt to support editing.
+- [`UITargetedPreview`](https://developer.apple.com/documentation/uikit/uitargetedpreview) — An object describing the view to use during preview-related animations.
+- [`UITextSearchFoundTextStyle`](https://developer.apple.com/documentation/uikit/uitextsearchfoundtextstyle) — Constants that describe the style a find session uses to decorate the text.
+- [`UITextSearchOptions`](https://developer.apple.com/documentation/uikit/uitextsearchoptions) — An object containing the configurable options for a text search.
+- [`UITextSearchOptions.WordMatchMethod`](https://developer.apple.com/documentation/uikit/uitextsearchoptions/wordmatchmethod-swift.enum) — Constants that describe the method to use when searching text for words that match a string.
+- [`UITextSearching`](https://developer.apple.com/documentation/uikit/uitextsearching-3wkjv) — The methods you use on a find session’s searchable objects to perform search operations and decorate the found text results.
+- [`UITextSearchingFindSession`](https://developer.apple.com/documentation/uikit/uitextsearchingfindsession) — A find session object that wraps a searchable object implementing the text-searching protocol.
+
+### Pointer interactions
+
+- [`UIBandSelectionInteraction`](https://developer.apple.com/documentation/uikit/uibandselectioninteraction) — An object that tracks the selection of multiple items using pointer-based input.
+- [`UIBandSelectionInteraction.State`](https://developer.apple.com/documentation/uikit/uibandselectioninteraction/state-swift.enum) — Constants that indicate whether a band selection interaction object is inactive or currently tracking an interaction.
+- [`UIPointerAccessory`](https://developer.apple.com/documentation/uikit/uipointeraccessory) — Constants that describe accessories to display alongside the primary pointer.
+- [`UIPointerEffect`](https://developer.apple.com/documentation/uikit/uipointereffect-swift.enum) — An effect that alters a view’s appearance when a pointer enters the current region.
+- [`UIPointerInteraction`](https://developer.apple.com/documentation/uikit/uipointerinteraction) — An interaction that enables support for effects on a view or customizes the pointer’s appearance within a region of an app.
+- [`UIPointerInteractionAnimating`](https://developer.apple.com/documentation/uikit/uipointerinteractionanimating) — An interface for modifying an interaction animation in coordination with the pointer effect animations.
+- [`UIPointerInteractionDelegate`](https://developer.apple.com/documentation/uikit/uipointerinteractiondelegate) — An interface for handling pointer movements within the interaction’s view.
+- [`UIPointerLockState`](https://developer.apple.com/documentation/uikit/uipointerlockstate) — An object that contains information about a scene’s pointer lock state.
+- [`UIPointerRegion`](https://developer.apple.com/documentation/uikit/uipointerregion) — A rectangular region that interacts with pointer movements.
+- [`UIPointerRegionRequest`](https://developer.apple.com/documentation/uikit/uipointerregionrequest) — An object to describe the pointer’s location in the interaction’s view.
+- [`UIPointerShape`](https://developer.apple.com/documentation/uikit/uipointershape-swift.enum) — An object that defines the shape of custom pointers.
+- [`UIPointerStyle`](https://developer.apple.com/documentation/uikit/uipointerstyle) — An object that defines the pointer shape and effect.
+
+### Printing
+
+- [`UIApplicationSupportsPrintCommand`](https://developer.apple.com/documentation/bundleresources/information-property-list/uiapplicationsupportsprintcommand) — A Boolean value that indicates whether the app supports the Command-P keyboard shortcut.
+- [`UIMarkupTextPrintFormatter`](https://developer.apple.com/documentation/uikit/uimarkuptextprintformatter) — An object that lays out HTML text for a multipage print job.
+- [`UIPrintFormatter`](https://developer.apple.com/documentation/uikit/uiprintformatter) — An abstract base class for print formatters, which are objects that lay out custom printable content that can cross page boundaries.
+- [`UIPrintInfo`](https://developer.apple.com/documentation/uikit/uiprintinfo) — Information about a print job that the system uses when it prints.
+- [`UIPrintInteractionController`](https://developer.apple.com/documentation/uikit/uiprintinteractioncontroller) — A user interface that manages the printing of documents, images, and other printable content in iOS.
+- [`UIPrintPageRenderer`](https://developer.apple.com/documentation/uikit/uiprintpagerenderer) — An object that draws pages of content to print, with or without the assistance of print formatters.
+- [`UIPrintPaper`](https://developer.apple.com/documentation/uikit/uiprintpaper) — The size of paper for a print job and the rectangular area that the content prints within.
+- [`UIPrintServiceExtension`](https://developer.apple.com/documentation/uikit/uiprintserviceextension) — An extension that locates and sets up a printer without a configuration profile.
+- [`UIPrinter`](https://developer.apple.com/documentation/uikit/uiprinter) — A printer on the network.
+- [`UIPrinterDestination`](https://developer.apple.com/documentation/uikit/uiprinterdestination) — A description of a single printer.
+- [`UIPrinterPickerController`](https://developer.apple.com/documentation/uikit/uiprinterpickercontroller) — A view controller that displays the standard interface for selecting a printer.
+- [`UISimpleTextPrintFormatter`](https://developer.apple.com/documentation/uikit/uisimpletextprintformatter) — An object that lays out plain text for printing, possibly over multiple pages.
+- [`UIViewPrintFormatter`](https://developer.apple.com/documentation/uikit/uiviewprintformatter) — An object that lays out the drawn content of a view for printing.
+
+### Resource management
+
+- [`NSDataAsset`](https://developer.apple.com/documentation/uikit/nsdataasset) — An object from a data set type stored in an asset catalog.
+- [`UIImageAsset`](https://developer.apple.com/documentation/uikit/uiimageasset) — A container for a collection of images that represent multiple ways of describing a single piece of artwork.
+- [`UINib`](https://developer.apple.com/documentation/uikit/uinib) — An object that contains Interface Builder nib files.
+- [`UIStoryboard`](https://developer.apple.com/documentation/uikit/uistoryboard) — An encapsulation of the design-time view controller graph represented in an Interface Builder storyboard resource file.
+- [`UIStoryboardSegue`](https://developer.apple.com/documentation/uikit/uistoryboardsegue) — An object that prepares for and performs the visual transition between two view controllers.
+- [`UIStoryboardUnwindSegueSource`](https://developer.apple.com/documentation/uikit/uistoryboardunwindseguesource) — An encapsulation of information about an unwind segue.
+
+### Text display and fonts
+
+- [`UIFont`](https://developer.apple.com/documentation/uikit/uifont) — An object that provides access to the font’s characteristics.
+- [`UIFontDescriptor`](https://developer.apple.com/documentation/uikit/uifontdescriptor) — A collection of attributes that describes a font.
+- [`UIFontDescriptor.SymbolicTraits`](https://developer.apple.com/documentation/uikit/uifontdescriptor/symbolictraits-swift.struct) — Constants that describe the stylistic aspects of a font.
+- [`UIFontMetrics`](https://developer.apple.com/documentation/uikit/uifontmetrics) — A utility object for obtaining custom fonts that scale to support Dynamic Type.
+- [`UIFontPickerViewController`](https://developer.apple.com/documentation/uikit/uifontpickerviewcontroller) — A view controller that manages the interface for selecting a font that the system provides or the user installs.
+- [`UIFontPickerViewController.Configuration`](https://developer.apple.com/documentation/uikit/uifontpickerviewcontroller/configuration-swift.class) — The filters and display settings a font picker view controller uses to set up a font picker.
+- [`UIFontPickerViewControllerDelegate`](https://developer.apple.com/documentation/uikit/uifontpickerviewcontrollerdelegate) — A set of optional methods for receiving messages about the user’s interaction with the font picker.
+- [`UILabel`](https://developer.apple.com/documentation/uikit/uilabel) — A view that displays one or more lines of informational text.
+- [`UILetterformAwareAdjusting`](https://developer.apple.com/documentation/uikit/uiletterformawareadjusting) — The typographic bounds-sizing behavior to handle text with fonts that contain oversize characters.
+- [`UISearchTextFieldPasteItem`](https://developer.apple.com/documentation/uikit/uisearchtextfieldpasteitem) — A protocol that supports pasting tokens.
+- [`UITextAttributesConversionHandler`](https://developer.apple.com/documentation/uikit/uitextattributesconversionhandler) — A handler for updating text with current font panel settings.
+- [`UITextChecker`](https://developer.apple.com/documentation/uikit/uitextchecker) — An object to check a string (usually the text of a document) for misspelled words.
+- [`UITextDragDelegate`](https://developer.apple.com/documentation/uikit/uitextdragdelegate) — The interface for customizing the behavior of a drag activity for a text view.
+- [`UITextDragOptions`](https://developer.apple.com/documentation/uikit/uitextdragoptions) — A set of options that determine the behavior of a draggable text view.
+- [`UITextDragPreviewRenderer`](https://developer.apple.com/documentation/uikit/uitextdragpreviewrenderer) — Renders previews of text dragged by the user.
+- [`UITextDragRequest`](https://developer.apple.com/documentation/uikit/uitextdragrequest) — The interface for describing the attributes of a drag activity originating in a text view.
+- [`UITextDraggable`](https://developer.apple.com/documentation/uikit/uitextdraggable) — The interface that determines if a text view is a drag source.
+- [`UITextDropDelegate`](https://developer.apple.com/documentation/uikit/uitextdropdelegate) — The interface for configuring a text view’s drop behavior.
+- [`UITextDropEditability`](https://developer.apple.com/documentation/uikit/uitextdropeditability) — The text-drop editability styles for noneditable text views.
+- [`UITextDropProposal`](https://developer.apple.com/documentation/uikit/uitextdropproposal) — A proposed configuration for the behavior of a text drop interaction.
+- [`UITextDropProposal.Action`](https://developer.apple.com/documentation/uikit/uitextdropproposal/action) — The text drop action styles for text views.
+- [`UITextDropProposal.Performer`](https://developer.apple.com/documentation/uikit/uitextdropproposal/performer) — The performers that are responsible for handling the drop operation.
+- [`UITextDropProposal.ProgressMode`](https://developer.apple.com/documentation/uikit/uitextdropproposal/progressmode) — The text drop progress styles for user-visible progress indication.
+- [`UITextDropRequest`](https://developer.apple.com/documentation/uikit/uitextdroprequest) — The interface for specifying the attributes of a drop request for a text view.
+- [`UITextDroppable`](https://developer.apple.com/documentation/uikit/uitextdroppable) — The interface that determines if a text view is a drop destination.
+- [`UITextField`](https://developer.apple.com/documentation/uikit/uitextfield) — An object that displays an editable text area in your interface.
+- [`UITextFormattingCoordinator`](https://developer.apple.com/documentation/uikit/uitextformattingcoordinator) — An object that coordinates text formatting using the standard Mac font panel.
+- [`UITextPasteConfigurationSupporting`](https://developer.apple.com/documentation/uikit/uitextpasteconfigurationsupporting) — The interface for text-oriented responder objects to participate in the unified paste and drop system in iOS.
+- [`UITextPasteDelegate`](https://developer.apple.com/documentation/uikit/uitextpastedelegate) — The interface for handling pasting and dropping of text, using item providers.
+- [`UITextPasteItem`](https://developer.apple.com/documentation/uikit/uitextpasteitem) — The interface for obtaining information about, and interacting with, a text item for pasting or dropping.
+- [`UITextPosition`](https://developer.apple.com/documentation/uikit/uitextposition) — A position in a text container—that is, an index into the backing string in a text-display view.
+- [`UITextRange`](https://developer.apple.com/documentation/uikit/uitextrange) — A range of characters in a text container with a starting index and an ending index in string backing a text-entry object.
+- [`UITextSelectionRect`](https://developer.apple.com/documentation/uikit/uitextselectionrect) — An encapsulation of information about a selected range of text in a document.
+- [`UITextView`](https://developer.apple.com/documentation/uikit/uitextview) — A scrollable, multiline text region.
+- [`init(_:)`](https://developer.apple.com/documentation/coretext/cttextalignment/init(_:)) — Converts a UIKit text alignment constant value to the matching constant value that Core Text uses.
+- [`init(_:)`](https://developer.apple.com/documentation/uikit/nstextalignment/init(_:)) — Converts a Core Text alignment constant value to the matching constant value in UIKit.
+
+### TextKit
+
+- [`NSAdaptiveImageGlyph`](https://developer.apple.com/documentation/uikit/nsadaptiveimageglyph) — A data object for an emoji-like image that can appear in attributed text.
+- [`NSAttributedString`](https://developer.apple.com/documentation/foundation/nsattributedstring) — A string of text that manages data, layout, and stylistic information for ranges of characters to support rendering.
+- [`NSLayoutManager`](https://developer.apple.com/documentation/uikit/nslayoutmanager) — An object that coordinates the layout and display of text characters.
+- [`NSMutableAttributedString`](https://developer.apple.com/documentation/foundation/nsmutableattributedstring) — A mutable string with associated attributes (such as visual style, hyperlinks, or accessibility data) for portions of its text.
+- [`NSMutableParagraphStyle`](https://developer.apple.com/documentation/uikit/nsmutableparagraphstyle) — An object for changing the values of the subattributes in a paragraph style attribute.
+- [`NSParagraphStyle`](https://developer.apple.com/documentation/uikit/nsparagraphstyle) — The paragraph or ruler attributes for an attributed string.
+- [`NSTextAttachment`](https://developer.apple.com/documentation/uikit/nstextattachment) — The values for the attachment characteristics of attributed strings and related objects.
+- [`NSTextAttachmentContainer`](https://developer.apple.com/documentation/uikit/nstextattachmentcontainer) — A set of methods that defines the interface to text attachment objects from a layout manager.
+- [`NSTextAttachmentLayout`](https://developer.apple.com/documentation/uikit/nstextattachmentlayout) — A set of methods that defines the interface to attachment objects from a text layout manager.
+- [`NSTextAttachmentViewProvider`](https://developer.apple.com/documentation/uikit/nstextattachmentviewprovider) — A container object that associates a text attachment at a particular document location with a view object.
+- [`NSTextBlock`](https://developer.apple.com/documentation/uikit/nstextblock) — An object that defines the size, spacing, and appearance of a block of text in an attributed string.
+- [`NSTextContainer`](https://developer.apple.com/documentation/uikit/nstextcontainer) — A region where text layout occurs.
+- [`NSTextContentManager`](https://developer.apple.com/documentation/uikit/nstextcontentmanager) — An abstract class that defines the interface and a default implementation for managing the text document contents.
+- [`NSTextContentStorage`](https://developer.apple.com/documentation/uikit/nstextcontentstorage) — A concrete object for managing your view’s text content and generating the text elements necessary for layout.
+- [`NSTextElement`](https://developer.apple.com/documentation/uikit/nstextelement) — An abstract base class that represents the smallest units of text layout such as paragraphs or attachments.
+- [`NSTextElementProvider`](https://developer.apple.com/documentation/uikit/nstextelementprovider) — A protocol the text content manager and its concrete subclasses conform to, which defines the interface for interacting with custom content types of a text document.
+- [`NSTextLayoutFragment`](https://developer.apple.com/documentation/uikit/nstextlayoutfragment) — A class that represents the layout fragment typically corresponding to a rendering surface, such as a layer or view subclass.
+- [`NSTextLayoutManager`](https://developer.apple.com/documentation/uikit/nstextlayoutmanager) — The primary class that you use to manage text layout and presentation for custom text displays.
+- [`NSTextLayoutOrientationProvider`](https://developer.apple.com/documentation/uikit/nstextlayoutorientationprovider) — A set of methods that define the orientation of text for an object.
+- [`NSTextLineFragment`](https://developer.apple.com/documentation/uikit/nstextlinefragment) — A class that represents a line fragment as a single textual layout and rendering unit inside a text layout fragment.
+- [`NSTextList`](https://developer.apple.com/documentation/uikit/nstextlist) — A section of text that forms a single list.
+- [`NSTextListElement`](https://developer.apple.com/documentation/uikit/nstextlistelement) — A class that represents a text list node.
+- [`NSTextLocation`](https://developer.apple.com/documentation/uikit/nstextlocation) — An interface you implement that represents an abstract location inside your document’s content.
+- [`NSTextParagraph`](https://developer.apple.com/documentation/uikit/nstextparagraph) — A class that represents a single paragraph backed by an attributed string as the contents.
+- [`NSTextRange`](https://developer.apple.com/documentation/uikit/nstextrange) — A class that represents a contiguous range between two locations inside document contents.
+- [`NSTextSelection`](https://developer.apple.com/documentation/uikit/nstextselection) — A class that represents a single logical selection context that corresponds to an insertion point.
+- [`NSTextSelectionNavigation`](https://developer.apple.com/documentation/uikit/nstextselectionnavigation) — An interface you use to expose methods for obtaining results from actions performed on text selections.
+- [`NSTextStorage`](https://developer.apple.com/documentation/uikit/nstextstorage) — The fundamental storage mechanism of TextKit that contains the text managed by the system.
+- [`NSTextTab`](https://developer.apple.com/documentation/uikit/nstexttab) — A tab in a paragraph.
+- [`NSTextTable`](https://developer.apple.com/documentation/uikit/nstexttable) — An object that represents a table of rows and columns in an attributed string.
+- [`NSTextTableBlock`](https://developer.apple.com/documentation/uikit/nstexttableblock) — A text block that represents a single cell in a text table.
+- [`NSTextViewportLayoutController`](https://developer.apple.com/documentation/uikit/nstextviewportlayoutcontroller) — Manages the layout process inside the viewport interacting with its delegate.
+- [`NSTextViewportRenderingSurface`](https://developer.apple.com/documentation/uikit/nstextviewportrenderingsurface) — A protocol that identifies a view or layer as a drawable element for a text layout fragment.
+- [`NSTextViewportRenderingSurfaceKey`](https://developer.apple.com/documentation/uikit/nstextviewportrenderingsurfacekey) — A protocol that lets you use an object to identify a rendering surface when storing or retrieving it.
+
+### Touches, presses, and gestures
+
+- [`UIEvent`](https://developer.apple.com/documentation/uikit/uievent) — An object that describes a single user interaction with your app.
+- [`UIGestureRecognizer`](https://developer.apple.com/documentation/uikit/uigesturerecognizer) — The base class for concrete gesture recognizers.
+- [`UIGestureRecognizerDelegate`](https://developer.apple.com/documentation/uikit/uigesturerecognizerdelegate) — A set of methods implemented by the delegate of a gesture recognizer to fine-tune an app’s gesture-recognition behavior.
+- [`UIHoverGestureRecognizer`](https://developer.apple.com/documentation/uikit/uihovergesturerecognizer) — A continuous gesture recognizer that interprets pointer movement over a view.
+- [`UILongPressGestureRecognizer`](https://developer.apple.com/documentation/uikit/uilongpressgesturerecognizer) — A continuous gesture recognizer that interprets long-press gestures.
+- [`UIPanGestureRecognizer`](https://developer.apple.com/documentation/uikit/uipangesturerecognizer) — A continuous gesture recognizer that interprets panning gestures.
+- [`UIPinchGestureRecognizer`](https://developer.apple.com/documentation/uikit/uipinchgesturerecognizer) — A continuous gesture recognizer that interprets pinching gestures involving two touches.
+- [`UIPress`](https://developer.apple.com/documentation/uikit/uipress) — An object that represents the presence or movement of a button press on the screen for a particular event.
+- [`UIPressesEvent`](https://developer.apple.com/documentation/uikit/uipressesevent) — An event that describes the state of a set of physical buttons that are available to the device, such as those on an associated remote or game controller.
+- [`UIPreviewActionItem`](https://developer.apple.com/documentation/uikit/uipreviewactionitem) — A set of methods that defines the styles you can apply to peek quick actions and peek quick action groups, and defines a read-only accessor for the user-visible title of a peek quick action.
+- [`UIPreviewInteraction`](https://developer.apple.com/documentation/uikit/uipreviewinteraction) — A class that registers a view to provide a custom user experience in response to 3D Touch interactions.
+- [`UIPreviewInteractionDelegate`](https://developer.apple.com/documentation/uikit/uipreviewinteractiondelegate) — A set of methods for communicating the progress of a preview interaction.
+- [`UIResponder`](https://developer.apple.com/documentation/uikit/uiresponder) — An abstract interface for responding to and handling events.
+- [`UIRotationGestureRecognizer`](https://developer.apple.com/documentation/uikit/uirotationgesturerecognizer) — A continuous gesture recognizer that interprets rotation gestures involving two touches.
+- [`UIScreenEdgePanGestureRecognizer`](https://developer.apple.com/documentation/uikit/uiscreenedgepangesturerecognizer) — A continuous gesture recognizer that interprets panning gestures that start near an edge of the screen.
+- [`UISwipeGestureRecognizer`](https://developer.apple.com/documentation/uikit/uiswipegesturerecognizer) — A discrete gesture recognizer that interprets swiping gestures in one or more directions.
+- [`UITapGestureRecognizer`](https://developer.apple.com/documentation/uikit/uitapgesturerecognizer) — A discrete gesture recognizer that interprets single or multiple taps.
+- [`UITouch`](https://developer.apple.com/documentation/uikit/uitouch) — An object representing the location, size, movement, and force of a touch occurring on the screen.
+
+### View controllers
+
+- [`UIActivity`](https://developer.apple.com/documentation/uikit/uiactivity) — An abstract class that you subclass to implement app-specific services.
+- [`UIActivityItemProvider`](https://developer.apple.com/documentation/uikit/uiactivityitemprovider) — A proxy for data that passes to an activity view controller.
+- [`UIActivityItemSource`](https://developer.apple.com/documentation/uikit/uiactivityitemsource) — A set of methods that an activity view controller uses to retrieve the data items to act on.
+- [`UIActivityItemsConfigurationProviding`](https://developer.apple.com/documentation/uikit/uiactivityitemsconfigurationproviding) — An interface that provides a source for shareable content to fulfill user requests to share current content.
+- [`UIActivityViewController`](https://developer.apple.com/documentation/uikit/uiactivityviewcontroller) — A view controller that you use to offer standard services from your app.
+- [`UICloudSharingController`](https://developer.apple.com/documentation/uikit/uicloudsharingcontroller) — A view controller that presents standard screens for adding and removing people from a CloudKit share record.
+- [`UICollectionViewController`](https://developer.apple.com/documentation/uikit/uicollectionviewcontroller) — A view controller that specializes in managing a collection view.
+- [`UIColorPickerViewController`](https://developer.apple.com/documentation/uikit/uicolorpickerviewcontroller) — A view controller that manages the interface for selecting a color.
+- [`UIColorPickerViewControllerDelegate`](https://developer.apple.com/documentation/uikit/uicolorpickerviewcontrollerdelegate) — The delegate protocol to inform about changes in color selection.
+- [`UIContentContainer`](https://developer.apple.com/documentation/uikit/uicontentcontainer) — A set of methods for adapting the contents of your view controllers to size and trait changes.
+- [`UIDocumentBrowserViewController`](https://developer.apple.com/documentation/uikit/uidocumentbrowserviewcontroller) — A view controller for browsing and performing actions on documents that you store locally and in the cloud.
+- [`UIDocumentInteractionController`](https://developer.apple.com/documentation/uikit/uidocumentinteractioncontroller) — A view controller that previews, opens, or prints files with a file format that your app can’t handle directly.
+- [`UIDocumentPickerViewController`](https://developer.apple.com/documentation/uikit/uidocumentpickerviewcontroller) — A view controller that provides access to documents or destinations outside your app’s sandbox.
+- [`UIDocumentViewController`](https://developer.apple.com/documentation/uikit/uidocumentviewcontroller) — A view controller that manages and presents a document stored locally or in the cloud.
+- [`UIFontPickerViewController`](https://developer.apple.com/documentation/uikit/uifontpickerviewcontroller) — A view controller that manages the interface for selecting a font that the system provides or the user installs.
+- [`UIFontPickerViewController.Configuration`](https://developer.apple.com/documentation/uikit/uifontpickerviewcontroller/configuration-swift.class) — The filters and display settings a font picker view controller uses to set up a font picker.
+- [`UIFontPickerViewControllerDelegate`](https://developer.apple.com/documentation/uikit/uifontpickerviewcontrollerdelegate) — A set of optional methods for receiving messages about the user’s interaction with the font picker.
+- [`UIImagePickerController`](https://developer.apple.com/documentation/uikit/uiimagepickercontroller) — A view controller that manages the system interfaces for taking pictures, recording movies, and choosing items from the user’s media library.
+- [`UINavigationBar`](https://developer.apple.com/documentation/uikit/uinavigationbar) — Navigational controls that display in a bar along the top of the screen, usually in conjunction with a navigation controller.
+- [`UINavigationController`](https://developer.apple.com/documentation/uikit/uinavigationcontroller) — A container view controller that defines a stack-based scheme for navigating hierarchical content.
+- [`UINavigationItem`](https://developer.apple.com/documentation/uikit/uinavigationitem) — The items that a navigation bar displays when the associated view controller is visible.
+- [`UIObjectRestoration`](https://developer.apple.com/documentation/uikit/uiobjectrestoration) — The interface that restoration classes use to restore preserved objects.
+- [`UIPageViewController`](https://developer.apple.com/documentation/uikit/uipageviewcontroller) — A container view controller that manages navigation between pages of content, where a subview controller manages each page.
+- [`UIPresentationController`](https://developer.apple.com/documentation/uikit/uipresentationcontroller) — An object that manages the transition animations and the presentation of view controllers onscreen.
+- [`UIPrinterPickerController`](https://developer.apple.com/documentation/uikit/uiprinterpickercontroller) — A view controller that displays the standard interface for selecting a printer.
+- [`UIReferenceLibraryViewController`](https://developer.apple.com/documentation/uikit/uireferencelibraryviewcontroller) — A view controller that displays a standard interface for looking up the definition of a word or term.
+- [`UISearchBar`](https://developer.apple.com/documentation/uikit/uisearchbar) — A specialized view for receiving search-related information from the user.
+- [`UISearchContainerViewController`](https://developer.apple.com/documentation/uikit/uisearchcontainerviewcontroller) — A view controller that manages the presentation of search results in your interface.
+- [`UISearchController`](https://developer.apple.com/documentation/uikit/uisearchcontroller) — A view controller that manages the display of search results based on interactions with a search bar.
+- [`UISearchResultsUpdating`](https://developer.apple.com/documentation/uikit/uisearchresultsupdating) — A set of methods that let you update search results based on information the user enters into the search bar.
+- [`UISearchTab`](https://developer.apple.com/documentation/uikit/uisearchtab) — A tab subclass that represents the system’s search tab.
+- [`UISheetPresentationController`](https://developer.apple.com/documentation/uikit/uisheetpresentationcontroller) — A presentation controller that manages the appearance and behavior of a sheet.
+- [`UISplitViewController`](https://developer.apple.com/documentation/uikit/uisplitviewcontroller) — A container view controller that implements a hierarchical interface.
+- [`UIStateRestoring`](https://developer.apple.com/documentation/uikit/uistaterestoring) — Methods for adding objects to your state restoration archives.
+- [`UITab`](https://developer.apple.com/documentation/uikit/uitab) — An object that manages a tab in a tab bar.
+- [`UITabAccessory`](https://developer.apple.com/documentation/uikit/uitabaccessory)
+- [`UITabBar`](https://developer.apple.com/documentation/uikit/uitabbar) — A control that displays one or more buttons in a tab bar for selecting between different subtasks, views, or modes in an app.
+- [`UITabBarController`](https://developer.apple.com/documentation/uikit/uitabbarcontroller) — A container view controller that manages a multiselection interface, where the selection determines which child view controller to display.
+- [`UITabBarItem`](https://developer.apple.com/documentation/uikit/uitabbaritem) — An object that describes an item in a tab bar.
+- [`UITabGroup`](https://developer.apple.com/documentation/uikit/uitabgroup) — An object that manages a collection of tab objects.
+- [`UITableViewController`](https://developer.apple.com/documentation/uikit/uitableviewcontroller) — A view controller that specializes in managing a table view.
+- [`UITextFormattingViewController`](https://developer.apple.com/documentation/uikit/uitextformattingviewcontroller) — A view controller that manages the interface for common text formatting options.
+- [`UIVideoEditorController`](https://developer.apple.com/documentation/uikit/uivideoeditorcontroller) — A view controller that manages the system interface for trimming video frames and encoding a previously recorded movie.
+- [`UIViewController`](https://developer.apple.com/documentation/uikit/uiviewcontroller) — An object that manages a view hierarchy for your UIKit app.
+- [`UIViewControllerRestoration`](https://developer.apple.com/documentation/uikit/uiviewcontrollerrestoration) — The methods that objects adopt so that they can act as a restoration class for view controllers during state restoration.
+- [`isLandscape`](https://developer.apple.com/documentation/uikit/uiinterfaceorientation/islandscape) — A Boolean value that indicates whether the user interface is currently presented in a landscape orientation.
+- [`isPortrait`](https://developer.apple.com/documentation/uikit/uiinterfaceorientation/isportrait) — A Boolean value that indicates whether the user interface is currently presented in a portrait orientation.
+
+### View layout
+
+- [`NSLAYOUTANCHOR_H`](https://developer.apple.com/documentation/uikit/nslayoutanchor_h)
+- [`NSLayoutAnchor`](https://developer.apple.com/documentation/uikit/nslayoutanchor) — A factory class for creating layout constraint objects using a fluent API.
+- [`NSLayoutConstraint`](https://developer.apple.com/documentation/uikit/nslayoutconstraint) — The relationship between two user interface objects that must be satisfied by the constraint-based layout system.
+- [`NSLayoutDimension`](https://developer.apple.com/documentation/uikit/nslayoutdimension) — A factory class for creating size-based layout constraint objects using a fluent API.
+- [`NSLayoutXAxisAnchor`](https://developer.apple.com/documentation/uikit/nslayoutxaxisanchor) — A factory class for creating horizontal layout constraint objects using a fluent API.
+- [`NSLayoutYAxisAnchor`](https://developer.apple.com/documentation/uikit/nslayoutyaxisanchor) — A factory class for creating vertical layout constraint objects using a fluent API.
+- [`UILayoutGuide`](https://developer.apple.com/documentation/uikit/uilayoutguide) — A rectangular area that can interact with Auto Layout.
+- [`UILayoutSupport`](https://developer.apple.com/documentation/uikit/uilayoutsupport) — A set of methods that provide layout support and access to layout anchors.
+- [`UIStackView`](https://developer.apple.com/documentation/uikit/uistackview) — A streamlined interface for laying out a collection of views in either a column or a row.
+
+### Views and controls
+
+- [`NSAdvertisingAttributionReportEndpoint`](https://developer.apple.com/documentation/bundleresources/information-property-list/nsadvertisingattributionreportendpoint) — The URL where Private Click Measurement and SKAdNetwork send attribution information.
+- [`NSDiffableDataSourceSectionSnapshot`](https://developer.apple.com/documentation/uikit/nsdiffabledatasourcesectionsnapshot-swift.struct) — A representation of the state of the data in a layout section at a specific point in time.
+- [`NSDiffableDataSourceSnapshot`](https://developer.apple.com/documentation/uikit/nsdiffabledatasourcesnapshot-swift.struct) — A representation of the state of the data in a view at a specific point in time.
+- [`NSDiffableDataSourceSnapshot`](https://developer.apple.com/documentation/uikit/nsdiffabledatasourcesnapshot-swift.struct) — A representation of the state of the data in a view at a specific point in time.
+- [`NSDirectionalEdgeInsets`](https://developer.apple.com/documentation/uikit/nsdirectionaledgeinsets) — The inset distances for views, taking the user interface layout direction into account.
+- [`NSDirectionalRectEdge`](https://developer.apple.com/documentation/uikit/nsdirectionalrectedge) — Constants that specify an edge or a set of edges, taking the user interface layout direction into account.
+- [`NSRectAlignment`](https://developer.apple.com/documentation/uikit/nsrectalignment) — Constants that specify alignment to an edge or a set of edges depending on the user interface layout direction.
+- [`Preview(_:traits:body:)`](https://developer.apple.com/documentation/uikit/preview(_:traits:body:)-c7kr)
+- [`Preview(_:traits:body:)`](https://developer.apple.com/documentation/uikit/preview(_:traits:body:)-en9c)
+- [`UIActivityIndicatorView`](https://developer.apple.com/documentation/uikit/uiactivityindicatorview) — A view that shows that a task is in progress.
+- [`UIAxis`](https://developer.apple.com/documentation/uikit/uiaxis) — A structure that specifies the layout axes.
+- [`UIBarButtonItem`](https://developer.apple.com/documentation/uikit/uibarbuttonitem) — A specialized button for placement on a toolbar, navigation bar, or shortcuts bar.
+- [`UIBarButtonItemGroup`](https://developer.apple.com/documentation/uikit/uibarbuttonitemgroup) — A group of one or more bar button items for placement on a navigation bar or shortcuts bar.
+- [`UIBarButtonItemVisibilityPriority`](https://developer.apple.com/documentation/uikit/uibarbuttonitemvisibilitypriority)
+- [`UIBarItem`](https://developer.apple.com/documentation/uikit/uibaritem) — An abstract superclass for items that you can add to a bar that appears at the bottom of the screen.
+- [`UIBarMinimization`](https://developer.apple.com/documentation/uikit/uibarminimization-swift.struct)
+- [`UIBarPositioning`](https://developer.apple.com/documentation/uikit/uibarpositioning) — A set of methods for defining the positioning of bars in iOS apps.
+- [`UIBarPositioningDelegate`](https://developer.apple.com/documentation/uikit/uibarpositioningdelegate) — A set of methods that support the positioning of a bar that conforms to the    protocol.
+- [`UIBlurEffect`](https://developer.apple.com/documentation/uikit/uiblureffect) — An object that applies a blurring effect to the content layered behind a visual effect view.
+- [`UIButton`](https://developer.apple.com/documentation/uikit/uibutton) — A control that executes your custom code in response to user interactions.
+- [`UICalendarView`](https://developer.apple.com/documentation/uikit/uicalendarview) — A view that displays a calendar with date-specific decorations, and provides for user selection of a single date or multiple dates.
+- [`UICollectionReusableView`](https://developer.apple.com/documentation/uikit/uicollectionreusableview) — A view that defines the behavior for all cells and supplementary views presented by a collection view.
+- [`UICollectionView`](https://developer.apple.com/documentation/uikit/uicollectionview) — An object that manages an ordered collection of data items and presents them using customizable layouts.
+- [`UICollectionViewCell`](https://developer.apple.com/documentation/uikit/uicollectionviewcell) — A single data item when that item is within the collection view’s visible bounds.
+- [`UICollectionViewController`](https://developer.apple.com/documentation/uikit/uicollectionviewcontroller) — A view controller that specializes in managing a collection view.
+- [`UICollectionViewDataSource`](https://developer.apple.com/documentation/uikit/uicollectionviewdatasource) — The methods adopted by the object you use to manage data and provide cells for a collection view.
+- [`UICollectionViewDataSourcePrefetching`](https://developer.apple.com/documentation/uikit/uicollectionviewdatasourceprefetching) — A protocol that provides advance warning of the data requirements for a collection view, allowing the triggering of asynchronous data load operations.
+- [`UICollectionViewDiffableDataSource`](https://developer.apple.com/documentation/uikit/uicollectionviewdiffabledatasource-9tqpa) — The object you use to manage data and provide cells for a collection view.
+- [`UICollectionViewDragDelegate`](https://developer.apple.com/documentation/uikit/uicollectionviewdragdelegate) — The interface for initiating drags from a collection view.
+- [`UICollectionViewDropCoordinator`](https://developer.apple.com/documentation/uikit/uicollectionviewdropcoordinator) — An interface for coordinating your custom drop-related actions with the collection view.
+- [`UICollectionViewDropDelegate`](https://developer.apple.com/documentation/uikit/uicollectionviewdropdelegate) — The interface for handling drops in a collection view.
+- [`UICollectionViewDropItem`](https://developer.apple.com/documentation/uikit/uicollectionviewdropitem) — The data associated with an item being dropped into the collection view.
+- [`UICollectionViewDropPlaceholder`](https://developer.apple.com/documentation/uikit/uicollectionviewdropplaceholder) — A placeholder for an item dropped on a collection view.
+- [`UICollectionViewDropPlaceholderContext`](https://developer.apple.com/documentation/uikit/uicollectionviewdropplaceholdercontext) — An object that contains information about a placeholder in the collection view.
+- [`UICollectionViewDropProposal`](https://developer.apple.com/documentation/uikit/uicollectionviewdropproposal) — Your proposed solution for handling a drop in a collection view.
+- [`UICollectionViewListCell`](https://developer.apple.com/documentation/uikit/uicollectionviewlistcell) — A collection view cell that provides list features and default styling.
+- [`UICollectionViewPlaceholder`](https://developer.apple.com/documentation/uikit/uicollectionviewplaceholder) — A placeholder for an item dragged or dropped on a collection view.
+- [`UIColorEffect`](https://developer.apple.com/documentation/uikit/uicoloreffect) — A visual effect that applies a solid color background.
+- [`UIColorWell`](https://developer.apple.com/documentation/uikit/uicolorwell) — A control that displays a color picker.
+- [`UIContentUnavailableView`](https://developer.apple.com/documentation/uikit/uicontentunavailableview) — A view that indicates there’s no content to display.
+- [`UIContextualAction`](https://developer.apple.com/documentation/uikit/uicontextualaction) — An action to display when the user swipes a table row.
+- [`UIControl`](https://developer.apple.com/documentation/uikit/uicontrol) — The base class for controls, which are visual elements that convey a specific action or intention in response to user interactions.
+- [`UIDataSourceTranslating`](https://developer.apple.com/documentation/uikit/uidatasourcetranslating) — An advanced interface for managing a data source object.
+- [`UIDataSourceTranslating`](https://developer.apple.com/documentation/uikit/uidatasourcetranslating) — An advanced interface for managing a data source object.
+- [`UIDatePicker`](https://developer.apple.com/documentation/uikit/uidatepicker) — A control for inputting date and time values.
+- [`UIEdgeInsets`](https://developer.apple.com/documentation/uikit/uiedgeinsets) — The inset distances for views.
+- [`UIEventAttribution`](https://developer.apple.com/documentation/uikit/uieventattribution) — An object that contains event attribution information for Web AdAttributionKit.
+- [`UIEventAttributionView`](https://developer.apple.com/documentation/uikit/uieventattributionview) — An overlay view that verifies user interaction for Web AdAttributionKit.
+- [`UIImageView`](https://developer.apple.com/documentation/uikit/uiimageview) — A view that displays a single image or a sequence of animated images in your interface.
+- [`UIKIT_HAS_UIFOUNDATION_SYMBOLS`](https://developer.apple.com/documentation/uikit/uikit_has_uifoundation_symbols)
+- [`UILabel`](https://developer.apple.com/documentation/uikit/uilabel) — A view that displays one or more lines of informational text.
+- [`UILargeContentViewerInteraction`](https://developer.apple.com/documentation/uikit/uilargecontentviewerinteraction) — An interaction that enables a gesture to present the large content viewer for cases when supporting the largest dynamic type sizes isn’t appropriate.
+- [`UILargeContentViewerInteractionDelegate`](https://developer.apple.com/documentation/uikit/uilargecontentviewerinteractiondelegate) — An object that customizes the behavior of the large content viewer interactions.
+- [`UILargeContentViewerItem`](https://developer.apple.com/documentation/uikit/uilargecontentvieweritem) — Methods that provide details about how to display your custom content in the large content viewer.
+- [`UILocalizedIndexedCollation`](https://developer.apple.com/documentation/uikit/uilocalizedindexedcollation) — An object that organizes, sorts, and localizes the data for a table view that has a section index.
+- [`UILookToScrollInteraction`](https://developer.apple.com/documentation/uikit/uilooktoscrollinteraction)
+- [`UINavigationBar`](https://developer.apple.com/documentation/uikit/uinavigationbar) — Navigational controls that display in a bar along the top of the screen, usually in conjunction with a navigation controller.
+- [`UIOffset`](https://developer.apple.com/documentation/uikit/uioffset) — A structure that specifies an amount to offset a position.
+- [`UIPageControl`](https://developer.apple.com/documentation/uikit/uipagecontrol) — A control that displays a horizontal series of dots, each of which corresponds to a page in the app’s document or other data-model entity.
+- [`UIPickerView`](https://developer.apple.com/documentation/uikit/uipickerview) — A view that uses a spinning-wheel or slot-machine metaphor to show one or more sets of values.
+- [`UIProgressView`](https://developer.apple.com/documentation/uikit/uiprogressview) — A view that depicts the progress of a task over time.
+- [`UIRefreshControl`](https://developer.apple.com/documentation/uikit/uirefreshcontrol) — A standard control that can initiate the refreshing of a scroll view’s contents.
+- [`UIRefreshControl`](https://developer.apple.com/documentation/uikit/uirefreshcontrol) — A standard control that can initiate the refreshing of a scroll view’s contents.
+- [`UIScrollView`](https://developer.apple.com/documentation/uikit/uiscrollview) — A view that allows the scrolling and zooming of its contained views.
+- [`UISearchBar`](https://developer.apple.com/documentation/uikit/uisearchbar) — A specialized view for receiving search-related information from the user.
+- [`UISearchTextField`](https://developer.apple.com/documentation/uikit/uisearchtextfield) — A view for displaying and editing text and search tokens.
+- [`UISearchTextFieldDelegate`](https://developer.apple.com/documentation/uikit/uisearchtextfielddelegate) — The interface for the delegate of a search field.
+- [`UISearchTextFieldPasteItem`](https://developer.apple.com/documentation/uikit/uisearchtextfieldpasteitem) — A protocol that supports pasting tokens.
+- [`UISearchToken`](https://developer.apple.com/documentation/uikit/uisearchtoken) — Search criteria in a search text field, represented by text and an optional icon.
+- [`UISegmentedControl`](https://developer.apple.com/documentation/uikit/uisegmentedcontrol) — A horizontal control that consists of multiple segments, each segment functioning as a discrete button.
+- [`UISlider`](https://developer.apple.com/documentation/uikit/uislider) — A control for selecting a single value from a continuous range of values.
+- [`UIStackView`](https://developer.apple.com/documentation/uikit/uistackview) — A streamlined interface for laying out a collection of views in either a column or a row.
+- [`UIStepper`](https://developer.apple.com/documentation/uikit/uistepper) — A control for incrementing or decrementing a value.
+- [`UISwipeActionsConfiguration`](https://developer.apple.com/documentation/uikit/uiswipeactionsconfiguration) — The set of actions to perform when swiping on rows of a table.
+- [`UISwitch`](https://developer.apple.com/documentation/uikit/uiswitch) — A control that offers a binary choice, such as on/off.
+- [`UITabBar`](https://developer.apple.com/documentation/uikit/uitabbar) — A control that displays one or more buttons in a tab bar for selecting between different subtasks, views, or modes in an app.
+- [`UITabBarItem`](https://developer.apple.com/documentation/uikit/uitabbaritem) — An object that describes an item in a tab bar.
+- [`UITableView`](https://developer.apple.com/documentation/uikit/uitableview) — A view that presents data using rows in a single column.
+- [`UITableViewCell`](https://developer.apple.com/documentation/uikit/uitableviewcell) — The visual representation of a single row in a table view.
+- [`UITableViewController`](https://developer.apple.com/documentation/uikit/uitableviewcontroller) — A view controller that specializes in managing a table view.
+- [`UITableViewDataSource`](https://developer.apple.com/documentation/uikit/uitableviewdatasource) — The methods that an object adopts to manage data and provide cells for a table view.
+- [`UITableViewDataSourcePrefetching`](https://developer.apple.com/documentation/uikit/uitableviewdatasourceprefetching) — A protocol that provides advance warning of the data requirements for a table view, allowing you to start potentially long-running data operations early.
+- [`UITableViewDelegate`](https://developer.apple.com/documentation/uikit/uitableviewdelegate) — Methods for managing selections, configuring section headers and footers, deleting and reordering cells, and performing other actions in a table view.
+- [`UITableViewDiffableDataSource`](https://developer.apple.com/documentation/uikit/uitableviewdiffabledatasource-2euir) — The object you use to manage data and provide cells for a table view.
+- [`UITableViewDragDelegate`](https://developer.apple.com/documentation/uikit/uitableviewdragdelegate) — The interface for initiating drags from a table view.
+- [`UITableViewDropCoordinator`](https://developer.apple.com/documentation/uikit/uitableviewdropcoordinator) — An interface for coordinating your custom drop-related actions with the table view.
+- [`UITableViewDropDelegate`](https://developer.apple.com/documentation/uikit/uitableviewdropdelegate) — The interface for handling drops in a table view.
+- [`UITableViewDropItem`](https://developer.apple.com/documentation/uikit/uitableviewdropitem) — The data associated with an item being dropped into the table view.
+- [`UITableViewDropPlaceholder`](https://developer.apple.com/documentation/uikit/uitableviewdropplaceholder) — A placeholder cell that supports customizing the drop preview parameters.
+- [`UITableViewDropPlaceholderContext`](https://developer.apple.com/documentation/uikit/uitableviewdropplaceholdercontext) — An object for tracking a placeholder cell that you added to your table during a drop operation.
+- [`UITableViewDropProposal`](https://developer.apple.com/documentation/uikit/uitableviewdropproposal) — Your proposed solution for handling a drop in a table view.
+- [`UITableViewFocusUpdateContext`](https://developer.apple.com/documentation/uikit/uitableviewfocusupdatecontext) — A context object that provides information relevant to a specific focus update from one view to another.
+- [`UITableViewHeaderFooterView`](https://developer.apple.com/documentation/uikit/uitableviewheaderfooterview) — A reusable view that you place at the top or bottom of a table section to display additional information for that section.
+- [`UITableViewPlaceholder`](https://developer.apple.com/documentation/uikit/uitableviewplaceholder) — An object that contains information about a placeholder cell being inserted into a table.
+- [`UITableViewRowAction`](https://developer.apple.com/documentation/uikit/uitableviewrowaction) — A single action to present when the user swipes horizontally in a table row.
+- [`UITextDragDelegate`](https://developer.apple.com/documentation/uikit/uitextdragdelegate) — The interface for customizing the behavior of a drag activity for a text view.
+- [`UITextDragOptions`](https://developer.apple.com/documentation/uikit/uitextdragoptions) — A set of options that determine the behavior of a draggable text view.
+- [`UITextDragPreviewRenderer`](https://developer.apple.com/documentation/uikit/uitextdragpreviewrenderer) — Renders previews of text dragged by the user.
+- [`UITextDragRequest`](https://developer.apple.com/documentation/uikit/uitextdragrequest) — The interface for describing the attributes of a drag activity originating in a text view.
+- [`UITextDraggable`](https://developer.apple.com/documentation/uikit/uitextdraggable) — The interface that determines if a text view is a drag source.
+- [`UITextDropDelegate`](https://developer.apple.com/documentation/uikit/uitextdropdelegate) — The interface for configuring a text view’s drop behavior.
+- [`UITextDropEditability`](https://developer.apple.com/documentation/uikit/uitextdropeditability) — The text-drop editability styles for noneditable text views.
+- [`UITextDropProposal`](https://developer.apple.com/documentation/uikit/uitextdropproposal) — A proposed configuration for the behavior of a text drop interaction.
+- [`UITextDropProposal.Action`](https://developer.apple.com/documentation/uikit/uitextdropproposal/action) — The text drop action styles for text views.
+- [`UITextDropProposal.Performer`](https://developer.apple.com/documentation/uikit/uitextdropproposal/performer) — The performers that are responsible for handling the drop operation.
+- [`UITextDropProposal.ProgressMode`](https://developer.apple.com/documentation/uikit/uitextdropproposal/progressmode) — The text drop progress styles for user-visible progress indication.
+- [`UITextDropRequest`](https://developer.apple.com/documentation/uikit/uitextdroprequest) — The interface for specifying the attributes of a drop request for a text view.
+- [`UITextDroppable`](https://developer.apple.com/documentation/uikit/uitextdroppable) — The interface that determines if a text view is a drop destination.
+- [`UITextField`](https://developer.apple.com/documentation/uikit/uitextfield) — An object that displays an editable text area in your interface.
+- [`UITextPasteConfigurationSupporting`](https://developer.apple.com/documentation/uikit/uitextpasteconfigurationsupporting) — The interface for text-oriented responder objects to participate in the unified paste and drop system in iOS.
+- [`UITextPasteDelegate`](https://developer.apple.com/documentation/uikit/uitextpastedelegate) — The interface for handling pasting and dropping of text, using item providers.
+- [`UITextPasteItem`](https://developer.apple.com/documentation/uikit/uitextpasteitem) — The interface for obtaining information about, and interacting with, a text item for pasting or dropping.
+- [`UITextView`](https://developer.apple.com/documentation/uikit/uitextview) — A scrollable, multiline text region.
+- [`UIToolbar`](https://developer.apple.com/documentation/uikit/uitoolbar) — A control that displays one or more buttons along an edge of your interface.
+- [`UIVibrancyEffect`](https://developer.apple.com/documentation/uikit/uivibrancyeffect) — An object that amplifies and adjusts the color of the content layered behind a visual effect view.
+- [`UIView`](https://developer.apple.com/documentation/uikit/uiview) — An object that manages the content for a rectangular area on the screen.
+- [`UIVisualEffect`](https://developer.apple.com/documentation/uikit/uivisualeffect) — An initializer for visual effect views and blur and vibrancy effect objects.
+- [`UIVisualEffectView`](https://developer.apple.com/documentation/uikit/uivisualeffectview) — An object that implements some complex visual effects.
+
+### Windows and screens
+
+- [`UIAlertAction`](https://developer.apple.com/documentation/uikit/uialertaction) — An action that can be taken when the user taps a button in an alert.
+- [`UIAlertController`](https://developer.apple.com/documentation/uikit/uialertcontroller) — An object that displays an alert message.
+- [`UIApplicationSceneManifest`](https://developer.apple.com/documentation/bundleresources/information-property-list/uiapplicationscenemanifest) — The information about the app’s scene-based life-cycle support.
+- [`UICoordinateSpace`](https://developer.apple.com/documentation/uikit/uicoordinatespace) — A set of methods for converting between different frames of reference on a screen.
+- [`UIOpenURLContext`](https://developer.apple.com/documentation/uikit/uiopenurlcontext) — A system-provided object that contains the information you need to open a single URL.
+- [`UIPopoverBackgroundView`](https://developer.apple.com/documentation/uikit/uipopoverbackgroundview) — The background appearance for a popover.
+- [`UIPopoverBackgroundViewMethods`](https://developer.apple.com/documentation/uikit/uipopoverbackgroundviewmethods) — A set of methods that popover background view subclasses must implement.
+- [`UIPopoverPresentationController`](https://developer.apple.com/documentation/uikit/uipopoverpresentationcontroller) — An object that manages the display of content in a popover.
+- [`UIScene`](https://developer.apple.com/documentation/uikit/uiscene) — An object that represents one instance of your app’s user interface.
+- [`UIScene.ActivationRequestOptions`](https://developer.apple.com/documentation/uikit/uiscene/activationrequestoptions) — An object that contains information you want the system to use when activating the session associated with a scene.
+- [`UIScene.OpenExternalURLOptions`](https://developer.apple.com/documentation/uikit/uiscene/openexternalurloptions) — Options you specify when asking a scene to open a URL.
+- [`UISceneAccessory`](https://developer.apple.com/documentation/uikit/uisceneaccessory) — A type which can be used to register for a specific type of scene accessory presentation.
+- [`UISceneAccessory`](https://developer.apple.com/documentation/uikit/uisceneaccessory) — A type which can be used to register for a specific type of scene accessory presentation.
+- [`UISceneAccessoryRegistration`](https://developer.apple.com/documentation/uikit/uisceneaccessoryregistration) — A type which represents the registration for a given scene accessory.
+- [`UISceneAccessoryRegistration`](https://developer.apple.com/documentation/uikit/uisceneaccessoryregistration) — A type which represents the registration for a given scene accessory.
+- [`UISceneActivationConditions`](https://developer.apple.com/documentation/uikit/uisceneactivationconditions) — The set of conditions that define when UIKit activates the current scene.
+- [`UISceneClosureConfirmation`](https://developer.apple.com/documentation/uikit/uisceneclosureconfirmation) — A configuration specifying a confirmation dialog that will be shown before a   user action will result in destruction of the scene session and the disconnection of the scene.
+- [`UISceneConfiguration`](https://developer.apple.com/documentation/uikit/uisceneconfiguration) — Information about the objects and storyboard for UKit to use when creating a particular scene.
+- [`UISceneDelegate`](https://developer.apple.com/documentation/uikit/uiscenedelegate) — The core methods you use to respond to life-cycle events occurring within a scene.
+- [`UISceneDestructionRequestOptions`](https://developer.apple.com/documentation/uikit/uiscenedestructionrequestoptions) — An object you pass to UIKit to permanently remove a scene and its associated session from your app.
+- [`UISceneError`](https://developer.apple.com/documentation/uikit/uisceneerror) — Errors returned during the creation or management of a scene.
+- [`UISceneError.Code`](https://developer.apple.com/documentation/uikit/uisceneerror/code) — Error codes for issues with scenes.
+- [`UISceneErrorDomain`](https://developer.apple.com/documentation/uikit/uisceneerrordomain) — The domain for scene-related errors.
+- [`UISceneSession`](https://developer.apple.com/documentation/uikit/uiscenesession) — An object that contains information about one of your app’s scenes.
+- [`UIScreen`](https://developer.apple.com/documentation/uikit/uiscreen) — An object that defines the properties associated with a hardware-based display.
+- [`UIScreenMode`](https://developer.apple.com/documentation/uikit/uiscreenmode) — A possible set of attributes that can apply to a screen object.
+- [`UIWindow`](https://developer.apple.com/documentation/uikit/uiwindow) — The backdrop for your app’s user interface and the object that dispatches events to your views.
+- [`UIWindowScene`](https://developer.apple.com/documentation/uikit/uiwindowscene) — A scene that manages one or more windows for your app.
+- [`UIWindowSceneDelegate`](https://developer.apple.com/documentation/uikit/uiwindowscenedelegate) — Additional methods that you use to manage app-specific tasks occurring in a scene.
+- [`UIWindowSceneDestructionRequestOptions`](https://developer.apple.com/documentation/uikit/uiwindowscenedestructionrequestoptions) — An object that contains information to use when removing a window scene from your app.
+
+### Writing Tools
+
+- [`UIPreviewParameters`](https://developer.apple.com/documentation/uikit/uipreviewparameters) — Additional parameters to use when animating a preview interface.
+- [`UIPreviewTarget`](https://developer.apple.com/documentation/uikit/uipreviewtarget) — An object that specifies the container view to use for animations.
+- [`UITargetedPreview`](https://developer.apple.com/documentation/uikit/uitargetedpreview) — An object describing the view to use during preview-related animations.
+- [`UIWritingToolsBehavior`](https://developer.apple.com/documentation/uikit/uiwritingtoolsbehavior) — Constants that specify the writing tools experience for the underlying view.
+- [`UIWritingToolsCoordinator`](https://developer.apple.com/documentation/uikit/uiwritingtoolscoordinator) — An object that manages interactions between Writing Tools and   your custom text view.
+- [`UIWritingToolsCoordinator.AnimationParameters`](https://developer.apple.com/documentation/uikit/uiwritingtoolscoordinator/animationparameters) — An object you use to configure additional tasks or animations to   run alongside the Writing Tools animations.
+- [`UIWritingToolsCoordinator.Context`](https://developer.apple.com/documentation/uikit/uiwritingtoolscoordinator/context) — A data object that you use to share your custom view’s text with Writing Tools.
+- [`UIWritingToolsCoordinator.Delegate`](https://developer.apple.com/documentation/uikit/uiwritingtoolscoordinator/delegate-swift.protocol) — An interface that you use to manage interactions between Writing Tools   and your custom text view.
+- [`UIWritingToolsResultOptions`](https://developer.apple.com/documentation/uikit/uiwritingtoolsresultoptions) — Constants to specify what type of content to allow in Writing Tools   suggestions or rewrites.
