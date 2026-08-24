@@ -5,16 +5,23 @@ description: Apple's iOS 27 design values — colour, type scale, control geomet
 
 # Apple UI for the web
 
-Apple's HIG never states a colour value. It says "system blue" and expects
-you to call the semantic API and let the platform resolve it. That works
-in SwiftUI and leaves you with nothing on the web — which is why
-Apple-looking web pages are usually built from a hex code someone copied
-off a blog in 2015.
+Apple publishes its system palette — twelve colours and a six-step grey
+ramp, each in light, dark and Increased Contrast — on the HIG's Color
+page. It is easy to miss, because the values live in the *alt text* of
+the swatch images (`R-0,G-136,B-255`) rather than as hex anywhere in the
+prose. Grep for `#` and you find nothing, which is exactly what happened
+here for most of this skill's life.
 
-This skill exists because the values *are* recoverable: the UI kit ships
-renderings of Apple's real components, so the pixels are the palette.
-Everything here was measured from those files, and every token carries
-the file it came from.
+What Apple does not publish is everything else: the semantic colours
+(`label`, `separator`, the fill ladder) are deliberately dynamic, and
+control geometry, state treatments and materials are stated nowhere. The
+UI kit renderings carry those, because a screenshot of a real component
+is a rendering of the real values.
+
+So this skill has two sources, and says which is which. Published values
+come from the Color page. Measured values come from the kit — and every
+measured value that overlaps the published table matches it exactly,
+which is the reason to trust the ones that don't overlap.
 
 | File | What it is |
 |---|---|
