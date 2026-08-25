@@ -165,11 +165,39 @@ def check_verifier_count(d):
 
 
 def check_script_refs(d):
+    """Every .py a doc tells you to run has to be where it says.
+
+    Two forms, because scripts live in two places. `scripts/foo.py` is
+    repo-relative and only ever run from the root. A bare `foo.py` in a
+    SKILL.md means the script ships inside that skill -- which is the
+    only form that still works once someone copies the skill into
+    ~/.claude/skills/, and so the form the skills should prefer.
+
+    The bare case went unchecked until apple-design's instructions moved
+    off `scripts/` and onto its own bundled tools: coverage of that skill
+    silently dropped by three checks, and a rename would have broken the
+    documented command with nothing to catch it.
+    """
     names = set(os.listdir(HERE))
     for sk, path in skill_docs():
         rel = os.path.relpath(path, REPO)
-        for m in re.finditer(r"scripts/([\w.]+\.py)", read(path)):
+        text = read(path)
+        for m in re.finditer(r"scripts/([\w.]+\.py)", text):
             d.check(m.group(1) in names, f"{rel}: scripts/{m.group(1)} exists")
+        if sk is None:
+            continue
+        base = os.path.join(SKILLS, sk)
+        # Only invocations -- `python3 foo.py`. A bare mention in prose
+        # ("doctor.py fails the build if...") is describing a tool, not
+        # telling anyone to run it from here, and flagging those made the
+        # check cry wolf on apple-ui-kit's perfectly correct sentence.
+        for m in re.finditer(
+                r"python3\s+((?:\.\./[\w-]+/)?[\w-]+\.py)\b", text):
+            ref = m.group(1)
+            if ref.startswith("scripts/"):
+                continue
+            d.check(os.path.exists(os.path.join(base, ref)),
+                    f"{sk}: {ref} present when installed")
 
 
 def check_skill_paths(d):
