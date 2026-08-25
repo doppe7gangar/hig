@@ -271,6 +271,88 @@ def check_hardcoded(path, html):
 # ------------------------------------------------------------ browser
 
 BROWSER_JS = r"""() => {
+// Rendered contrast, measured rather than parsed. The CSS can be
+// perfect and the page still unreadable -- a token overridden further
+// down, a colour inherited onto a surface nobody pictured -- and only
+// the layout engine knows what a run of text finally sits on. Anything
+// inside an aria-hidden subtree is skipped: it is declared decorative,
+// nothing announces it, and holding a monogram in an icon tile to the
+// same bar as a paragraph teaches people to silence the check.
+const RATIO = (a, b) => {
+  const lum = c => { const f = v => (v /= 255) <= 0.03928 ? v / 12.92
+        : Math.pow((v + 0.055) / 1.055, 2.4);
+    return 0.2126 * f(c[0]) + 0.7152 * f(c[1]) + 0.0722 * f(c[2]); };
+  const [x, y] = [lum(a), lum(b)];
+  return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
+};
+
+// getComputedStyle does not promise rgb(). Chromium hands back
+// `color(srgb 0.96 0.96 0.96)` for anything that went through
+// color-mix, and those channels are 0-1. Read as 0-255 a near-white
+// footer measures as near-black, which is how a perfectly legible
+// marketing page came back with thirty-eight contrast failures.
+function parseColor(s) {
+  const n = (s.match(/[\d.]+(?:e[-+]?\d+)?/gi) || []).map(Number);
+  if (n.length < 3) return null;
+  const unit = /^color\(/i.test(s);
+  return [n[0] * (unit ? 255 : 1), n[1] * (unit ? 255 : 1),
+          n[2] * (unit ? 255 : 1), n.length > 3 ? n[3] : 1];
+}
+
+const over = (fg, bg) => [0, 1, 2].map(i => fg[i] * fg[3] + bg[i] * (1 - fg[3]));
+
+// Composite every translucent layer down to the first opaque one.
+// Apple's label ladder is one grey at several alphas -- the colours the
+// system uses most are all translucent -- so dropping alpha would make
+// this check meaningless for exactly the text it most needs to judge.
+function surfaceOf(el) {
+  const layers = [];
+  let base = null;
+  for (let n = el; n; n = n.parentElement) {
+    const c = parseColor(getComputedStyle(n).backgroundColor);
+    if (!c || c[3] === 0) continue;
+    if (c[3] >= 0.999) { base = c.slice(0, 3); break; }
+    layers.push(c);
+  }
+  if (!base) {
+    for (const el2 of [document.body, document.documentElement]) {
+      const c = parseColor(getComputedStyle(el2).backgroundColor);
+      if (c && c[3] >= 0.999) { base = c.slice(0, 3); break; }
+    }
+  }
+  // A transparent page borrows the viewer's ground; guessing black here
+  // put white text at 1.2:1 against nothing at all.
+  if (!base) base = matchMedia('(prefers-color-scheme: dark)').matches
+      ? [0, 0, 0] : [255, 255, 255];
+  let cur = base;
+  for (let i = layers.length - 1; i >= 0; i--) cur = over(layers[i], cur);
+  return cur;
+}
+
+const lowContrast = [...document.querySelectorAll(
+    'p, span, a, li, h1, h2, h3, h4, button, label, td, th, div')]
+  .filter(e => e.offsetParent !== null
+      && !e.closest('[aria-hidden="true"]')
+      && [...e.childNodes].some(n => n.nodeType === 3 && n.textContent.trim()))
+  .map(e => {
+    const cs = getComputedStyle(e);
+    const raw = parseColor(cs.color);
+    if (!raw || raw[3] === 0) return null;
+    const bg = surfaceOf(e);
+    const fg = over(raw, bg);
+    const px = parseFloat(cs.fontSize);
+    // SF Pro's semibold is 590, not the CSS ladder's 600. Testing for
+    // 600 classed every Apple-faithful semibold run as regular and
+    // held it to 4.5:1 where the large-text allowance applies.
+    const bold = parseInt(cs.fontWeight, 10) >= 590;
+    // Apple and WCAG agree here: large text may sit at 3:1.
+    const need = (px >= 24 || (px >= 18.66 && bold)) ? 3.0 : 4.5;
+    const r = RATIO(fg, bg);
+    return r + 0.01 < need
+      ? {t: e.textContent.trim().slice(0, 30), r: +r.toFixed(2), need, px: Math.round(px)}
+      : null;
+  })
+  .filter(Boolean);
   const cs = getComputedStyle(document.documentElement);
   const v = n => cs.getPropertyValue(n).trim();
   const body = getComputedStyle(document.body);
@@ -293,6 +375,8 @@ BROWSER_JS = r"""() => {
     ls: body.letterSpacing,
     overflow: de.scrollWidth - de.clientWidth,
     small: small.slice(0, 6),
+    lowContrast: lowContrast.slice(0, 8),
+    lowCount: lowContrast.length,
   };
 }"""
 
@@ -327,6 +411,19 @@ def check_browser(path, brand):
     url = "file://" + os.path.abspath(path)
     errors, failed = [], []
 
+    def sample(b, scheme, more):
+        """Failing text runs for one appearance, optionally under IC."""
+        kw = {"viewport": {"width": 390, "height": 900}, "color_scheme": scheme}
+        if more:
+            kw["contrast"] = "more"
+        pg = b.new_page(**kw)
+        try:
+            pg.goto(url, wait_until="load")
+            pg.wait_for_timeout(220)
+            return pg.evaluate(BROWSER_JS)["lowContrast"]
+        finally:
+            pg.close()
+
     with sync_playwright() as p:
         launch = {"args": ["--no-sandbox"]}
         exe = chrome_path()
@@ -356,6 +453,57 @@ def check_browser(path, brand):
                     bad(f"{tag}: the page scrolls sideways by "
                         f"{d['overflow']}px. Something has a fixed width "
                         f"wider than the viewport.")
+                # Contrast is measured in BOTH appearances. It used to run
+                # in light only, which is how a generator that emitted an
+                # unchecked dark palette -- a navy at 1.24:1 on the dark
+                # card -- came back 18/18 ready three times running.
+                if width == 390:
+                    # Anything Increased Contrast rescues is a different
+                    # finding from anything it doesn't. Apple's own
+                    # secondary label is 3.44:1 on white and their filled
+                    # buttons run white at about 3.5:1 -- deliberate
+                    # calls, with the accessibility setting as the
+                    # remedy. Failing every Apple-faithful design on
+                    # those makes the check unusable, and passing text
+                    # that stays unreadable at any setting makes it
+                    # pointless. So: measure both, and separate them.
+                    try:
+                        # Texts STILL failing once Increased Contrast is on.
+                        still = {c["t"] for c in sample(b, scheme, True)}
+                    except Exception:
+                        still = None
+                    if still is None:
+                        hard, soft = d["lowContrast"], []
+                    else:
+                        hard = [c for c in d["lowContrast"] if c["t"] in still]
+                        soft = [c for c in d["lowContrast"]
+                                if c["t"] not in still]
+                    if hard:
+                        listed = ", ".join(
+                            f"\"{c['t']}\" {c['r']}:1 (needs {c['need']}, "
+                            f"{c['px']}px)" for c in hard[:4])
+                        bad(f"{name} {scheme}: {len(hard)} text run(s) under "
+                            f"the contrast they need, and still failing "
+                            f"under Increased Contrast: {listed}")
+                    if soft:
+                        listed = ", ".join(
+                            f"\"{c['t']}\" {c['r']}:1" for c in soft[:3])
+                        warn(f"{name} {scheme}: {len(soft)} run(s) below "
+                             f"4.5:1 at default settings but fixed by "
+                             f"Increased Contrast -- Apple's own secondary "
+                             f"label (3.44:1) and filled buttons (~3.5:1) "
+                             f"are like this too: {listed}")
+                    if not hard and not soft:
+                        ok(f"{name} {scheme}: every text run meets its "
+                           f"contrast requirement")
+                    if d["accent"]:
+                        got = d["accent"].lower().replace(" ", "")
+                        ok(f"{name} {scheme}: --ios-accent resolves to {got}")
+                    else:
+                        bad(f"{name} {scheme}: --ios-accent resolves to "
+                            f"nothing. The component recipes have no colour "
+                            f"to use.")
+
                 if width == 390 and scheme == "light":
                     fam = d["font"].lower()
                     if "inter" in fam or "sf pro" in fam or "-apple-system" in fam:
@@ -363,16 +511,11 @@ def check_browser(path, brand):
                     else:
                         bad(f"{name}: body font is {d['font'][:44]} -- the "
                             f"vendored faces are not being used.")
-                    if d["accent"]:
-                        got = d["accent"].lower().replace(" ", "")
-                        if brand and got.lstrip("#") != brand.lower().lstrip("#"):
-                            warn(f"{name}: --ios-accent resolves to {got}, "
-                                 f"not the brand {brand}. Check the bridge.")
-                        else:
-                            ok(f"{name}: --ios-accent resolves to {got}")
-                    else:
-                        bad(f"{name}: --ios-accent resolves to nothing. The "
-                            f"component recipes have no colour to use.")
+                    got = (d["accent"] or "").lower().replace(" ", "")
+                    if brand and got and got.lstrip("#") != brand.lower().lstrip("#"):
+                        warn(f"{name}: --ios-accent resolves to {got} in "
+                             f"light, not the brand {brand}. Check the "
+                             f"bridge.")
                     if d["small"]:
                         listed = ", ".join(
                             f"{s['t']} ({s['w']}x{s['h']})" for s in d["small"])
@@ -388,10 +531,17 @@ def check_browser(path, brand):
                         continue
                     pg.goto(url + "?state=" + st, wait_until="load")
                     pg.wait_for_timeout(120)
+                    # Painted area, not text length. A loading state is a
+                    # skeleton -- shapes standing in for text it does not
+                    # have yet -- so measuring characters reported the one
+                    # state that is *supposed* to be wordless as empty.
                     vis = pg.evaluate(
                         "() => [...document.querySelectorAll('.state')]"
                         ".filter(e => e.offsetParent !== null)"
-                        ".map(e => e.innerText.trim().length)")
+                        ".map(e => e.innerText.trim().length"
+                        " + [...e.querySelectorAll('*')].filter(c => {"
+                        "   const r = c.getBoundingClientRect();"
+                        "   return r.width > 4 && r.height > 4; }).length)")
                     if not vis or not any(v > 0 for v in vis):
                         warn(f"{name}: the '{st}' state renders nothing "
                              f"visible. If the switcher was removed that is "

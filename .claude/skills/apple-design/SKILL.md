@@ -103,6 +103,15 @@ deliberately-cleared are different screens with different copy** — tell
 someone with two hundred items to "add your first" and it reads as
 broken. `references/screens.md` covers all three.
 
+**The accent has two jobs and two values.** As a *fill* it needs 3:1
+against the surface, and `--ios-accent` is tuned for that. As *text* --
+a tinted button's label, a selected tab, a link, a chart legend -- it is
+small text and needs 4.5:1, which the fill value usually misses. The
+generator emits `--accent-text-safe` for exactly this. Every design
+tested so far reached for `--ios-accent` and got a label at 3.05:1;
+it is the single commonest contrast defect here, and it costs one
+token to avoid.
+
 Two things not to undo:
 
 - **`theme.css` stays last** in the stylesheet order. Move it earlier
@@ -119,9 +128,15 @@ python3 check_design.py ./design
 
 Nonzero means do not ship it. It catches what a screenshot cannot:
 stylesheet order, the bridge surviving, remote resources, missing
-states, dead local references, contrast, sideways overflow at phone
-width, hit targets under Apple's floor, console errors, and what
-`--ios-accent` actually resolved to in a browser.
+states, dead local references, sideways overflow at phone width, hit
+targets under Apple's floor, console errors, and what `--ios-accent`
+actually resolved to in a browser.
+
+Contrast is measured on the rendered page in **both appearances**, and
+split in two. A run that Increased Contrast rescues is a warning, and
+names the fact that Apple's own secondary label (3.44:1) and filled
+buttons (~3.5:1) sit there too. A run still failing with that setting on
+is a failure, because nothing the person can turn on will fix it.
 
 Then look at it — at phone width, in both appearances. Every value can
 be right and the result still poor.
