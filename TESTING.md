@@ -174,7 +174,67 @@ fix it. Not a bug to report.
 
 ---
 
-## 5. One command that checks the rest
+## 5. Test the design skill on a whole brief
+
+The other three answer questions. `apple-design` starts projects, so it
+needs testing differently: not "is the answer right" but "is the thing
+on disk actually wired up".
+
+Ask for a product rather than a control. Anything works —
+*"an internal analytics dashboard for our support team, web only, brand
+colour #1F6FEB"*, *"a landing page for a B2B time-tracking tool"*,
+*"an iOS app for tracking when my house plants need watering"*.
+
+What should happen: it names the kind first, lists the screens, runs
+`new_project.py` to scaffold, replaces the placeholder content with the
+real design, and runs `check_design.py` before handing it over.
+
+### Grade it with the checker, not by reading
+
+```bash
+python3 .claude/skills/apple-design/check_design.py ./design
+```
+
+This is the part worth insisting on. Three earlier rounds of this were
+graded by reading the transcript, and all three were called working
+while the thing on disk had a font CDN in it, or no `--ios-*` bridge, or
+only the happy path. Every one of those survives a screenshot and a
+confident summary. The exit code doesn't care about either.
+
+Nonzero means don't ship it. It checks stylesheet order, remote
+resources, the bridge surviving, all four states, dead local references,
+hand-overridden tokens, contrast, sideways overflow at phone width,
+targets under Apple's floor, console errors, and what `--ios-accent`
+actually resolved to in a browser.
+
+### Prove the checker isn't just agreeing with you
+
+A checker that only ever passes is worth nothing. Break something and
+confirm it fails:
+
+```bash
+cp -r design broken
+sed -i 's|vendor/fonts/inter.css|https://fonts.googleapis.com/css2?family=Inter|' broken/index.html
+python3 .claude/skills/apple-design/check_design.py broken   # must exit 1
+```
+
+Moving `theme.css` above the component sheet, deleting the empty and
+error panels, or cutting the bridge off the end of `theme.css` should
+each fail too — those are the four failures this was built from.
+
+### The whole thing, automated
+
+```bash
+python3 ../skilltest/projtest.py
+```
+
+Runs three briefs of different kinds through a fresh agent with all four
+skills installed, and grades each by running the checker on whatever it
+produced.
+
+---
+
+## 6. One command that checks the rest
 
 ```bash
 python3 scripts/doctor.py
@@ -204,7 +264,7 @@ what `verify_web_ui.py` and the eval runs are for.
 
 ---
 
-## 6. Auditing the third-party skills in `design-skills/`
+## 7. Auditing the third-party skills in `design-skills/`
 
 `design-skills/` holds 106 skills from six collections, several covering
 the same ground as `apple-ui-kit`. Installing them alongside it means two
