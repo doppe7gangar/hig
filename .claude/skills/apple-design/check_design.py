@@ -198,11 +198,48 @@ def check_theme(root):
     return css
 
 
+def project_css(path, html):
+    """The page's own CSS: inline, attribute, and its local stylesheets.
+
+    Reading only <style> left a hole wide enough to drive a project
+    through -- put the CSS in app.css, as most real ones do, and every
+    hard-coded colour and every overridden token went unseen. theme.css
+    and vendor/ are excluded: those are generated and measured
+    respectively, and neither is the page's own work.
+    """
+    root = os.path.dirname(path)
+    css = " ".join(re.findall(r"<style[^>]*>(.*?)</style>", html, re.S | re.I))
+    css += " " + " ".join(re.findall(r'style=["\']([^"\']+)["\']', html))
+    for href in re.findall(r'<link[^>]+href=["\']([^"\']+\.css)["\']', html, re.I):
+        if href.startswith(("http", "//")) or href.endswith("theme.css"):
+            continue
+        if "vendor/" in href or "ios-tokens" in href or "ios-components" in href:
+            continue
+        f = os.path.join(root, href.split("?")[0])
+        if os.path.exists(f):
+            css += " " + open(f, encoding="utf-8", errors="replace").read()
+    return css
+
+
+def check_token_overrides(path, html):
+    """A page redefining --ios-* by hand has stepped around the theme."""
+    name = os.path.basename(path)
+    hits = sorted(set(re.findall(r"(--ios-[a-z0-9-]+)\s*:\s*(?!var\()[^;}]+",
+                                 project_css(path, html))))
+    if hits:
+        bad(f"{name}: redefines {len(hits)} Apple token(s) with literal "
+            f"values ({', '.join(hits[:4])}). That is the theme being "
+            f"worked around rather than used -- the value stops following "
+            f"dark mode and stops following the brand. Change the brand "
+            f"colour and regenerate instead.")
+    else:
+        ok(f"{name}: does not override the Apple tokens by hand")
+
+
 def check_hardcoded(path, html):
     """Colours written into the page instead of taken from the system."""
     name = os.path.basename(path)
-    styles = " ".join(re.findall(r"<style[^>]*>(.*?)</style>", html, re.S | re.I))
-    styles += " ".join(re.findall(r'style=["\']([^"\']+)["\']', html))
+    styles = project_css(path, html)
     hexes = {h.lower() for h in re.findall(r"#[0-9A-Fa-f]{6}\b|#[0-9A-Fa-f]{3}\b",
                                            styles)}
     hexes -= {"#fff", "#ffffff", "#000", "#000000"}   # on-fill text, legitimately
@@ -392,6 +429,7 @@ def main():
         check_local_refs(p, html)
         check_states(p, html)
         check_hardcoded(p, html)
+        check_token_overrides(p, html)
         if not a.no_browser:
             check_browser(p, brand)
 
