@@ -184,20 +184,33 @@ def check_script_refs(d):
         text = read(path)
         for m in re.finditer(r"scripts/([\w.]+\.py)", text):
             d.check(m.group(1) in names, f"{rel}: scripts/{m.group(1)} exists")
-        if sk is None:
-            continue
-        base = os.path.join(SKILLS, sk)
+        # A repo-level doc's invocations resolve from the repo root.
+        # TESTING.md pointed at ../skilltest/projtest.py -- a harness that
+        # lived outside the tree entirely, so the documented command was
+        # broken for everyone but me. Same class as the two before it,
+        # and unchecked because this loop skipped the repo-level docs.
+        base = os.path.join(SKILLS, sk) if sk else REPO
         # Only invocations -- `python3 foo.py`. A bare mention in prose
         # ("doctor.py fails the build if...") is describing a tool, not
         # telling anyone to run it from here, and flagging those made the
         # check cry wolf on apple-ui-kit's perfectly correct sentence.
         for m in re.finditer(
-                r"python3\s+((?:\.\./[\w-]+/)?[\w-]+\.py)\b", text):
+                r"python3\s+((?:\.\./)?[\w./-]*[\w-]+\.py)\b", text):
             ref = m.group(1)
+            # `scripts/foo.py` in a SKILL.md is repo-relative and already
+            # handled above -- but only when it is a bare filename. A
+            # nested one like scripts/eval/projtest.py matched neither
+            # pattern and sailed through both, which is how a doc came to
+            # point at a harness outside the tree. Resolve nested paths
+            # from the repo root wherever they appear.
             if ref.startswith("scripts/"):
-                continue
-            d.check(os.path.exists(os.path.join(base, ref)),
-                    f"{sk}: {ref} present when installed")
+                if "/" not in ref[len("scripts/"):]:
+                    continue
+                where, label = REPO, "repo"
+            else:
+                where, label = base, (sk or "repo")
+            d.check(os.path.exists(os.path.join(where, ref)),
+                    f"{label}: {ref} present when installed")
 
 
 def check_skill_paths(d):

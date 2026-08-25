@@ -225,7 +225,7 @@ each fail too — those are the four failures this was built from.
 ### The whole thing, automated
 
 ```bash
-python3 ../skilltest/projtest.py
+python3 scripts/eval/projtest.py
 ```
 
 Runs three briefs of different kinds through a fresh agent with all four
