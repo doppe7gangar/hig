@@ -593,7 +593,12 @@ def main():
         README.replace("__NAME__", a.name).replace("__BRAND__", a.brand)
         .replace("__SLUG__", name).replace("__OUT__", a.out))
 
-    rel = os.path.relpath(out)
+    # relpath is friendly from inside the project and absurd from
+    # anywhere else ("../../../../tmp/x/y/proj"), so take whichever
+    # actually reads as a path someone could retype.
+    rel = min(os.path.relpath(out), out, key=len)
+    check = os.path.join(HERE, "check_design.py")
+    check_rel = min(os.path.relpath(check), check, key=len)
     print(f"scaffolded {rel}/")
     print(f"  index.html   {a.kind} shape, {len(screens)} screens, 4 states")
     print(f"  theme.css    {a.brand} -> {name}-*, bridged to --ios-*")
@@ -603,7 +608,7 @@ def main():
         print("  contrast: " + n)
     print()
     print(f"next: edit the content in {rel}/index.html, then")
-    print(f"      python3 {os.path.relpath(os.path.join(HERE, 'check_design.py'))} {rel}")
+    print(f"      python3 {check_rel} {rel}")
     return 0
 
 
