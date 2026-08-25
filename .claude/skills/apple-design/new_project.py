@@ -70,8 +70,14 @@ STATE_CSS = """
                       min-height: 32px; border-radius: 999px; cursor: pointer;
                       border: 1px solid var(--ios-separator);
                       background: transparent; color: var(--ios-label-secondary); }
-  .demo__bar button[aria-pressed="true"] { background: var(--ios-accent);
-                      border-color: var(--ios-accent); color: #fff; }
+  /* Was white on the accent fill at 13px: 4.12:1, under the 4.5:1 that
+     small text needs. A tint with text-safe ink clears it and is the
+     same move the design should make anywhere it wants a selected chip
+     below button-label size. */
+  .demo__bar button[aria-pressed="true"] {
+      background: color-mix(in srgb, var(--ios-accent) 16%, transparent);
+      border-color: color-mix(in srgb, var(--ios-accent) 45%, transparent);
+      color: var(--ios-label); font-weight: 590; }
 
   .state { display: none; }
   [data-state="populated"] .state--populated,
@@ -166,6 +172,14 @@ IOS_CSS = """
              font-weight: var(--ios-weight-semibold);
              background: var(--ios-accent); color: #fff; }
   .ios-list { margin: 0 0 22px; }
+  /* An 11pt tab label is small text, so it needs 4.5:1 -- and the raw
+     accent is tuned for fills, which only need 3:1. The generator emits
+     a text-safe variant for exactly this; the component recipes have no
+     way to know it exists, so the wiring belongs here. */
+  .ios-tabbar__item[aria-selected="true"] { color: var(--accent-text-safe); }
+  /* Same reasoning for a tinted button: its label is accent-coloured
+     text, not a fill, so it needs the text-safe variant too. */
+  .ios-btn--tinted { color: var(--accent-text-safe); }
   .sectionhead { font: var(--ios-text-footnote);
                  letter-spacing: var(--ios-track-footnote);
                  text-transform: uppercase;
@@ -295,6 +309,7 @@ MKT_CSS = """
             letter-spacing: -0.01em; color: var(--ios-label-secondary);
             max-width: 34ch; margin: 0 0 32px; }
   .row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .ios-btn--tinted { color: var(--accent-text-safe); }
   /* A marketing CTA carries more weight than a list-row button. */
   .hero .ios-btn { min-height: 52px; padding: 0 26px;
                    font: var(--ios-text-headline);
@@ -389,7 +404,8 @@ def rows(screen, thing):
             f'{title[0].upper()}</span>\n'
             f'            <span class="ios-list__title">{title}</span>\n'
             f'            <span class="ios-list__value">{value}</span>\n'
-            '            <span class="ios-list__chevron">&rsaquo;</span>\n'
+            '            <span class="ios-list__chevron" aria-hidden="true">'
+            '&rsaquo;</span>\n'
             '          </li>')
     return "\n".join(out)
 
