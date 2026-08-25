@@ -178,7 +178,11 @@ __SWITCHER__
   <div class="phone" data-state="populated">
     <nav class="ios-navbar">
       <span class="ios-navbar__title">__SCREEN1__</span>
-      <button class="ios-btn ios-navbar__action" aria-label="Add __THING__">+</button>
+      <button class="ios-btn ios-navbar__action" aria-label="Add __THING__">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round"
+             aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+      </button>
     </nav>
 
     <main class="screen">
@@ -423,12 +427,31 @@ def skel_cards(n=3):
         '        </div>' for i in range(n))
 
 
+# Placeholder tab glyphs. Drawn rather than set in a font, because SF
+# Symbols is not licensed for the web and a lone "o" in every slot reads
+# as a missing icon rather than a stand-in -- which invites leaving it
+# there. currentColor so the selected tab tints with the rest.
+TAB_GLYPHS = [
+    '<path d="M3 10.5 12 4l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
+    '<path d="M4 6h16M4 12h16M4 18h16"/>',
+    '<path d="M5 4h14v16l-7-4-7 4z"/>',
+    '<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>',
+    '<circle cx="12" cy="12" r="3.2"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3'
+    'M4.9 4.9l2.1 2.1m10 10 2.1 2.1m0-14.2-2.1 2.1m-10 10-2.1 2.1"/>',
+]
+
+
 def tabs(screens):
     out = []
     for i, s in enumerate(screens):
         sel = ' aria-selected="true"' if i == 0 else ""
+        g = TAB_GLYPHS[i % len(TAB_GLYPHS)]
+        icon = (f'<svg viewBox="0 0 24 24" width="25" height="25" '
+                f'fill="none" stroke="currentColor" stroke-width="1.8" '
+                f'stroke-linecap="round" stroke-linejoin="round" '
+                f'aria-hidden="true">{g}</svg>')
         out.append(f'      <button class="ios-tabbar__item"{sel}>'
-                   f'<span aria-hidden="true">o</span>{s}</button>')
+                   f'{icon}{s}</button>')
     return "\n".join(out)
 
 
