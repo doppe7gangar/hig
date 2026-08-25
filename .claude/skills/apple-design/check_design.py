@@ -218,7 +218,11 @@ def project_css(path, html):
         f = os.path.join(root, href.split("?")[0])
         if os.path.exists(f):
             css += " " + open(f, encoding="utf-8", errors="replace").read()
-    return css
+    # Strip comments. A file that documents its palette in its own header
+    # -- which the good ones do, with the contrast numbers -- otherwise
+    # gets every value in that header counted against it, and the check
+    # ends up scolding the file for being well documented.
+    return re.sub(r"/\*.*?\*/", " ", css, flags=re.S)
 
 
 def check_token_overrides(path, html):
@@ -240,6 +244,17 @@ def check_hardcoded(path, html):
     """Colours written into the page instead of taken from the system."""
     name = os.path.basename(path)
     styles = project_css(path, html)
+    # A hex assigned to a custom property is a token being defined, and
+    # a token can be redefined for dark mode and reused everywhere. A hex
+    # assigned straight to color/background/border is the thing that
+    # cannot follow anything. Only the second kind is a problem.
+    #
+    # This distinction is not pedantry: a dashboard's chart palette is
+    # necessarily its own hues -- Apple's semantic tokens hold no set of
+    # mutually distinguishable series colours -- and counting a correctly
+    # tokenised, light-and-dark, contrast-checked palette as 30 mistakes
+    # is how a warning teaches people to stop reading warnings.
+    styles = re.sub(r"--[\w-]+\s*:[^;}]*", " ", styles)
     hexes = {h.lower() for h in re.findall(r"#[0-9A-Fa-f]{6}\b|#[0-9A-Fa-f]{3}\b",
                                            styles)}
     hexes -= {"#fff", "#ffffff", "#000", "#000000"}   # on-fill text, legitimately
