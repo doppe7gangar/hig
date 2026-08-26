@@ -1,168 +1,256 @@
 # Visual critique and reduction
 
-Use this after a first composition exists and before calling the design finished. This is deliberately subjective: `check_design.py` handles mechanical correctness; this file asks whether the design is actually good.
+Use this after a first composition exists and before calling the design finished. `check_design.py` handles mechanical correctness; this file asks whether the design actually works as a designed product.
 
-## The two-second test
+Every important finding must use this form:
 
-Look at the screen as if you had never seen the product.
+> **Evidence → consequence → correction**
 
-Within two seconds, you should be able to identify:
+Example:
 
-1. what this place is,
-2. what matters most right now,
-3. what the primary action is, if one exists.
+> Five equal metric tiles compete for first attention → current status cannot be read quickly → promote SLA health to the dominant metric and move the other four into supporting evidence.
+
+“Feels off” is not a complete finding.
+
+## 1. Two-second hierarchy test
+
+Within two seconds, identify:
+
+1. what this place is
+2. what matters most right now
+3. the primary action, if one exists
 
 If several regions compete for first attention, hierarchy is unresolved.
 
-## Critique in this order
+## 2. Invariant audit
 
-### 1. Information before styling
+Read `DESIGN.md` and `references/design-invariants.md`.
 
-Describe the screen without visual vocabulary. What information is primary, secondary, tertiary, and contextual? If this cannot be stated clearly, changing colors, radii, or shadows will not fix the screen.
+For every recorded invariant, identify visible/behavioral evidence that it survived implementation. If a revision breaks an invariant, either fix the implementation or explicitly revise the invariant with evidence.
 
-### 2. Composition
+## 3. Information before styling
 
-Ask why each region is where it is. A strong composition reflects task relationships. A weak composition reflects whichever components were easiest to arrange.
+Describe the screen without visual vocabulary. State primary, secondary, tertiary, and contextual information. If this is unclear, color/radius/shadow work is premature.
+
+## 4. Composition
+
+Ask why each region is where it is.
 
 Warning signs:
 
 - equal columns for unequal information
-- grids used only because several things exist
-- a sidebar whose destinations are rarely switched
-- a dashboard where every metric has equal weight
-- a detail screen that is really several unrelated cards
+- grids used merely because several things exist
+- sidebar destinations rarely switched
+- equal-weight dashboard metrics
+- detail screens split into unrelated cards
+- controls becoming the composition instead of supporting it
+- desktop simultaneity squeezed unchanged onto mobile
 - mobile chrome enlarged onto desktop
-- desktop density squeezed unchanged onto mobile
 
-### 3. Container audit
+Compare the result against the winning and rejected directions in `DESIGN.md`. If the implementation drifted toward a rejected generic pattern, return to composition.
 
-For every card, panel, tinted background, border, or floating surface, ask what boundary it communicates.
+## 5. Container audit
+
+For every card, panel, border, tinted background, or floating surface, identify the boundary it communicates.
 
 Valid reasons include:
 
 - separate interaction region
-- separate material/elevation layer
-- semantic grouping that spacing alone cannot express
+- material/elevation layer
+- semantic grouping spacing alone cannot express
 - selected/focused object
-- modal or transient surface
+- modal/transient surface
 
-“Because it looked empty” is not a valid reason.
+“Because it looked empty” is not valid.
 
-Try removing the container while preserving its internal alignment and spacing. If the grouping remains obvious, leave the container out.
+Remove the container mentally while preserving alignment and spacing. If grouping remains obvious, remove it.
 
-### 4. Typography audit
+## 6. Typography audit
 
-Temporarily imagine every border and background removed. Can type alone still reveal the reading order?
+Imagine borders/backgrounds removed. Can typography still reveal the reading order?
 
 Check:
 
 - one unmistakable first read
-- meaningful size differences rather than many nearly identical sizes
-- weight used intentionally
-- secondary copy actually recedes
-- line length appropriate to reading purpose
-- labels not repeated when context already supplies them
+- meaningful rather than tiny size differences
+- intentional weight
+- secondary text that actually recedes
+- appropriate line length
+- no redundant labels where context already explains meaning
 
-### 5. Density audit
+## 7. Density audit
 
-Density is a product decision, not a universal aesthetic.
+Density is a product/platform decision.
 
-Higher density suits expert tools, tables, inspectors, inboxes, editing environments, and repeated operational work. Lower density suits onboarding, focus tasks, media, consumer summaries, and editorial storytelling.
+Higher density can suit expert tools, tables, inspectors, inboxes, editing environments, and repeated operations. Lower density can suit onboarding, focus tasks, media, consumer summaries, and editorial storytelling.
 
-Do not make a professional desktop tool spacious merely to look premium. Do not make a consumer mobile screen dense merely to fit more.
+Do not make a desktop professional tool spacious merely to look premium. Do not make a touch-first consumer screen dense merely to fit more.
 
-### 6. Chrome audit
+## 8. Chrome audit
 
-Chrome exists to support content. Identify everything that remains visible while the user works: navigation, toolbar, filters, actions, tabs, inspectors, status controls.
+Inventory persistent navigation, toolbar, filters, actions, tabs, inspectors, and status controls.
 
-Ask whether each element must remain persistent. Move infrequent or object-specific actions into contextual menus, inspectors, selection states, or disclosure when appropriate.
+Ask whether each must remain visible during the core task. Move infrequent/object-specific actions into contextual menus, inspectors, selection states, or disclosure where appropriate.
 
-### 7. Material audit
+## 9. Adaptive architecture audit
 
-Blur, translucency, shadow, vibrancy, and elevation must describe spatial relationships.
+Read `references/adaptivity.md`.
 
-For every material effect ask:
+At compact, intermediate, and wide widths, verify that architecture transforms rather than merely shrinks.
+
+Check:
+
+- primary content remains primary
+- list-detail becomes sequential when needed
+- inspectors become contextual where width is insufficient
+- tables prioritize instead of crushing columns
+- persistent controls condense without duplication
+- selection/context survives pane collapse
+- pointer-only discovery gains a touch-appropriate path
+
+## 10. Interaction-state audit
+
+Read `references/interaction-accessibility.md`.
+
+Inspect applicable states: hover, keyboard focus, pressed, selected, disabled, editing, expanded/open, loading/submitting, drag/drop, destructive/undo, and inactive-window where relevant.
+
+A correct default state with missing selected/disabled/focus behavior is not a complete component.
+
+## 11. Accessibility audit
+
+Verify applicable HIG guidance for:
+
+- text scaling/Dynamic Type or browser zoom
+- keyboard navigation and focus order
+- VoiceOver/screen-reader semantics
+- target size/spacing
+- contrast and non-color communication
+- Reduce Motion
+- Reduce Transparency
+- focus visibility
+- error identification/recovery
+
+Accessibility findings use the same evidence → consequence → correction format.
+
+## 12. Material audit
+
+For every blur, translucency, shadow, vibrancy, or elevated surface ask:
 
 - what layer is this on?
 - what is beneath it?
-- why must the relationship remain perceptible?
+- why must that relationship remain perceptible?
 
-If those questions have no useful answer, simplify.
+No meaningful answer means simplify.
 
-### 8. Color audit
+## 13. Color audit
 
-Color should identify action, state, selection, brand, or data meaning. It should not be required to rescue weak structure.
+Color should identify action, state, selection, brand, or data meaning. It should not rescue weak hierarchy.
 
-Try imagining the interface in grayscale. The hierarchy should largely survive.
+Imagine grayscale. Most hierarchy should survive.
 
-### 9. Platform authenticity
+## 14. System-component audit
 
-#### iPhone
-Does it prioritize content and touch? Are peer destinations truly peers? Is navigation understandable without permanent desktop chrome?
+For native Apple work, identify custom controls and verify that `apple-hig/references/framework-index.md` and `api-map.md` were checked first.
 
-#### iPad
-Does it exploit width rather than simply enlarge iPhone? Would a split view, sidebar, inspector, or multi-column relationship improve continuity?
+If a system primitive exists, custom recreation needs a recorded product requirement. Visual similarity alone is not justification.
 
-#### macOS
-Is it dense enough for repeated work? Are keyboard, pointer, sidebar, toolbar, table, menu, inspector, and multiwindow conventions considered where relevant?
+## 15. Platform authenticity and platform-specific smells
 
-#### Web app
-Does it behave like good browser software? Is it borrowing Apple's design principles rather than wearing copied iOS furniture?
+### iPhone
 
-#### Marketing
-Does the page tell a visual argument? Each section should advance claim, proof, demonstration, differentiation, or action rather than repeat a feature-card pattern.
+Check content priority, touch ergonomics, safe-area/navigation logic, and whether tabs are truly peer-level.
+
+Smells:
+- desktop sidebars squeezed into phone width
+- tiny dense controls
+- persistent inspectors
+- gesture-only actions with no discoverability
+
+### iPad
+
+Check whether width is used for meaningful relationships rather than simple enlargement.
+
+Smells:
+- giant iPhone layout
+- unused width around a single narrow column when simultaneous context would help
+- desktop panes copied without touch/input adaptation
+
+### macOS
+
+HIG remains authoritative even without a measured macOS visual kit.
+
+Check keyboard, pointer, window resizing, sidebars, toolbars, tables, menus, context menus, inspectors, multiwindow behavior, focus/selection, and system components where relevant.
+
+Smells:
+- oversized touch controls
+- giant mobile-style titles
+- excessive whitespace in repeated expert workflows
+- bottom-tab navigation imported from iPhone
+- mobile sheets used for ordinary desktop choices
+- no keyboard commands for frequent actions
+- cards replacing tables/list-detail relationships
+- missing hover/focus/inactive-window states where relevant
+
+### Web app
+
+Check browser semantics, keyboard/pointer behavior, responsive structure, and whether Apple principles transfer without copied iOS furniture.
+
+Smells:
+- phone-like tab bars on desktop
+- excessive glass/cards as the main design language
+- mobile-sized controls everywhere
+- custom pseudo-native controls that harm web expectations
+
+### Marketing
+
+Check narrative progression: claim → proof → demonstration → differentiation → action.
+
+Smells:
+- hero → three cards → three cards → testimonials → CTA by default
+- repeated centered headings with icon-card grids
+- decorative product mockups without evidence or story progression
 
 ## Anti-AI visual smell
 
-Redesign if several of these appear together:
+Redesign when several appear together:
 
-- every region has a radius
-- every region has its own background
-- many pill-shaped controls
-- several gradient blobs
+- every region has a radius/background
+- many pills
+- gradient blobs
 - glass everywhere
 - feature-card grids
 - icon badges on every heading
-- large centered heading followed by three cards, repeated section after section
-- shadows on surfaces that do not need elevation
+- repeated centered-heading + three-card sections
+- shadows without elevation meaning
 - decorative status dots
 - equal metric tiles
 - excessive whitespace without stronger hierarchy
-- tiny gray explanatory text everywhere
-- multiple blue primary-looking actions
+- tiny gray helper text everywhere
+- multiple primary-looking actions
 
-The goal is not to ban these devices. The goal is to stop them becoming the design language by accident.
+These devices are not banned. Accidental repetition is the problem.
 
 ## Reduction sequence
-
-Run these in order:
 
 1. Remove decorative effects.
 2. Remove unnecessary containers.
 3. Remove redundant labels.
 4. Demote secondary actions.
 5. Collapse contextual controls.
-6. Re-evaluate spacing after removal.
+6. Re-evaluate spacing.
 7. Strengthen typography only where hierarchy became unclear.
-8. Reintroduce a surface or separator only when the relationship genuinely needs it.
+8. Reintroduce surfaces/separators only where relationships need them.
 
-Reduction is not making everything sparse. It is removing things that do not explain, enable, or orient.
+Reduction is not sparsity. It removes things that do not explain, enable, or orient.
 
-## Final question
+## Final review statement
 
-Ask: **What is the design idea of this screen?**
+End the review with:
 
-A good answer sounds like:
+- **Design idea:** one sentence
+- **Strongest evidence:** what in the rendered result proves it
+- **Largest remaining risk:** one concrete weakness
+- **Correction made:** the most meaningful change caused by review
+- **Invariant status:** which invariants were confirmed or revised
 
-- “The document is the workspace; controls appear around the selection.”
-- “Today’s status is the answer; history exists to explain it.”
-- “The photo owns the screen; editing controls recede until invoked.”
-- “The list is navigation; the detail pane is the work.”
-
-A weak answer sounds like:
-
-- “It has a sidebar and cards.”
-- “It is clean and modern.”
-- “It uses Apple colors and rounded corners.”
-
-If there is no clear design idea, return to composition.
+If the design idea is merely “clean,” “modern,” “Apple-like,” or “sidebar and cards,” return to composition.
