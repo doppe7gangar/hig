@@ -1,6 +1,6 @@
 ---
 name: apple-design
-description: Design or redesign a whole product with Apple-level hierarchy, restraint, composition, and platform awareness. Use for apps, websites, dashboards, SaaS, product surfaces, and cross-platform interfaces when the task is broader than a single component. This skill acts as the design director: it determines product character, information architecture, visual hierarchy, spatial model, composition, reduction, and platform authenticity before delegating exact rules to apple-hig, exact craft values to apple-ui-kit, and motion to apple-motion. Use when a design technically works but still feels generic, card-heavy, overly decorative, or insufficiently Apple-like.
+description: Design or redesign a whole product with Apple-level hierarchy, restraint, composition, and platform awareness. Use for apps, websites, dashboards, SaaS, product surfaces, and cross-platform interfaces when the task is broader than a single component. This skill acts as the design director: it determines product character, information architecture, visual hierarchy, spatial model, reference set, composition, reduction, and platform authenticity before delegating exact rules to apple-hig, exact craft values to apple-ui-kit, and motion to apple-motion. Use when a design technically works but still feels generic, card-heavy, overly decorative, or insufficiently Apple-like.
 ---
 
 # Apple Design Director
@@ -12,7 +12,7 @@ The other Apple skills are specialists:
 - `apple-hig` answers platform and behavior questions.
 - `apple-ui-kit` provides exact visual values and implementation recipes.
 - `apple-motion` handles interaction physics and animation.
-- This skill owns **art direction, composition, hierarchy, product shape, and reduction**.
+- This skill owns **art direction, composition, hierarchy, product shape, reference selection, reduction, and visual critique**.
 
 A design can be perfectly wired, accessible, tokenized, and still look generic. This skill exists to prevent that.
 
@@ -81,9 +81,38 @@ Other models remain valid even if the generator does not emit them: inspector, c
 
 **Never force the product into an available scaffold.** Use a scaffold for infrastructure and replace its composition if the real product model differs.
 
-### 6. Compose before decorating
+### 6. Select and inspect references
+
+Do not design entirely from model memory when the repository already contains visual ground truth.
+
+After the hierarchy and spatial model are known, generate a small reference shortlist:
+
+```bash
+python3 select_references.py \
+    --query "<primary task, components, states, navigation needs>" \
+    --model <spatial-model> -o ./design/REFERENCES.md
+```
+
+The selector retrieves relevant groups from `apple-hig/references/assets-index.md`, links them to HIG pages, and chooses a few contrasting visual states.
+
+**Then inspect the actual images.** Do not infer appearance from filenames. For every useful reference, record relationships rather than adjectives:
+
+- what reads first
+- how content is grouped
+- what chrome persists
+- how selected/pressed/disabled states differ
+- what material or tint communicates
+- what should *not* transfer because the product context differs
+
+Synthesize 3–5 relationships before composing. Good synthesis sounds like “selection is a quiet tint while content remains dominant,” not “clean Apple look.”
+
+The current measured visual corpus is iOS 27. For macOS-first work, use `apple-hig` for platform rules and do **not** present iOS imagery as measured macOS evidence. The reference layer is intentionally ready for a future macOS corpus.
+
+### 7. Compose before decorating
 
 For each major screen decide the dominant region, secondary region, reading order, alignment system, density, content width, persistent chrome, contextual chrome, functional empty space, and what can disappear until needed.
+
+Use the references as evidence for relationships, not as screenshots to clone.
 
 Only after this should you select surfaces, controls, borders, blur, shadows, and motion.
 
@@ -116,7 +145,7 @@ Favor directness, touch ergonomics, clear navigation, strong content hierarchy, 
 ### macOS
 Allow higher information density. Prefer sidebars, toolbars, inspectors, tables, split views, popovers, contextual menus, and keyboard-friendly structure where the workflow demands them. Avoid inflating everything to mobile proportions.
 
-The current scaffolder does not claim measured macOS chrome. If a product is macOS-first, use `apple-hig` for the actual platform structure rather than pretending the iOS web kit is a macOS component library.
+The current scaffolder does not claim measured macOS chrome. If a product is macOS-first, use `apple-hig` for actual platform structure rather than pretending the iOS web kit is a macOS component library.
 
 ### Web apps
 Respect browser expectations and desktop density. Apple principles transfer better than Apple chrome. Use persistent navigation, content grids, tables, command patterns, or sidebars when appropriate, but keep surfaces restrained.
@@ -161,11 +190,40 @@ Before implementation is considered complete, ask:
 
 Remove unnecessary elements when they exist.
 
-## Visual critique pass
+## Rendered visual review
 
-Read `references/visual-critique.md` after the mechanical checker passes.
+A visual critique is not complete until the interface has been rendered and looked at.
 
-Evaluate hierarchy, composition, density, restraint, typography, platform authenticity, interaction, and distinctiveness. If the composition could belong to any SaaS template, redesign it before polishing it.
+First run the mechanical checker:
+
+```bash
+python3 check_design.py ./design
+```
+
+Then render the visual review matrix:
+
+```bash
+python3 render_review.py ./design
+```
+
+This captures:
+
+- populated state at phone, tablet, and desktop widths
+- light and dark appearance
+- representative empty and error states
+- DOM-derived warning signals for possible card, pill, shadow, blur, surface, centering, and overflow overuse
+
+Those signals are **prompts, not aesthetic scores**. Open every screenshot in `.visual-review/` and inspect it directly. `render_review.py` writes `VISUAL_REVIEW.md` with required judgments covering hierarchy, composition, containers/chrome, typography/density, material/color, platform authenticity, states, reduction decisions, and the final design idea.
+
+Read `references/visual-critique.md` while completing it.
+
+After revising the design, rerender if the changes are visually material. Replace every `[PENDING]` judgment with evidence and set the review status to `COMPLETE`, then verify:
+
+```bash
+python3 render_review.py ./design --check
+```
+
+**Do not call the design visually reviewed or finished while this check fails.** A mechanical pass plus an uninspected screenshot directory is not a design review.
 
 ## Anti-pattern: generic card dashboard
 
@@ -220,25 +278,35 @@ python3 new_project.py --name Clay --brand "#C1552E" \
 
 The generator writes `DESIGN.md`. Replace its hierarchy and rationale placeholders before polishing the generated interface.
 
-Then run:
+A complete project loop is:
 
-```bash
-python3 check_design.py ./design
+```text
+brief
+→ product character + hierarchy
+→ spatial model
+→ select_references.py
+→ inspect references + synthesize relationships
+→ new_project.py / composition
+→ implementation + states
+→ check_design.py
+→ render_review.py
+→ inspect screenshots
+→ reduction / revision
+→ rerender if needed
+→ render_review.py --check
 ```
 
 The generator handles infrastructure such as stylesheet order, vendored fonts, theme bridging, and reachable states. Do not let its starter markup dictate the final composition.
-
-`check_design.py` catches mechanical regressions. It does **not** decide whether the design is good. Always perform the reduction and visual critique passes after it succeeds.
 
 ## Delegation
 
 | Need | Skill |
 |---|---|
-| Product shape, hierarchy, composition, art direction, critique | **apple-design** |
+| Product shape, hierarchy, composition, art direction, reference selection, critique | **apple-design** |
 | Platform rules, behavior, accessibility, modality | **apple-hig** |
 | Exact sizes, typography, radii, colors, tokens, CSS | **apple-ui-kit** |
 | Gestures, springs, velocity, interruptibility, motion | **apple-motion** |
 
 ## Final design standard
 
-A successful result feels Apple-like because it is clear, composed, restrained, responsive, spatially coherent, typographically disciplined, platform-aware, and purposeful in motion — **not because it is covered in rounded glass.**
+A successful result feels Apple-like because it is clear, composed, restrained, responsive, spatially coherent, typographically disciplined, platform-aware, purposeful in motion, and proven through rendered inspection — **not because it is covered in rounded glass.**
