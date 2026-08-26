@@ -1,20 +1,13 @@
 #!/usr/bin/env python3
 """Grade the design skill on whole briefs, by running its own checker.
 
-Every earlier round of this graded by reading the transcript, which is
-how three runs in a row got called "works" while the thing on disk had
-a font CDN in it, or no bridge, or only the happy path. Reading is not
-grading.
+The mechanical score is the checker exit code against whatever the run
+actually produced. The briefs also record the intended design direction so a
+run can be reviewed for composition rather than merely for valid plumbing.
 
-check_design.py changed that. The score is now its exit code against
-whatever the run actually produced: a design that passes is wired
-correctly whatever the transcript said, and one that fails says exactly
-which of the four silent failures happened.
-
-The briefs are deliberately unlike the one the skill was built against
--- different kinds, different domains, one that must NOT come out
-looking like iOS -- because a skill that only works on the example it
-was written for is a skill that does not work.
+The briefs are deliberately unlike one another: a desktop analytics product,
+a marketing page, and an iOS product. A design skill that emits one visual
+shape for all three is not working even when every token is correct.
 
     python3 scripts/eval/projtest.py            # all briefs
     python3 scripts/eval/projtest.py p-dash     # one
@@ -33,25 +26,22 @@ CHECK = os.path.join(SKILLS, "apple-design", "check_design.py")
 MODEL = "claude-opus-5"
 
 BRIEFS = {
-    # Web app: structure transfers, iOS chrome does not.
     "p-dash": dict(
         prompt="We're building an internal analytics dashboard for our "
                "support team — ticket volume, response times, who's on "
                "shift. Web only, desktop first. Our brand colour is "
                "#1F6FEB. Design it for me.",
-        want="web shape, no tab bar, brand blue not Apple blue"),
+        want="web dashboard model: one answer first, evidence second; no generic equal-card grid"),
 
-    # The one that must not look like a Settings screen.
     "p-landing": dict(
         prompt="I need a landing page for Tally, a B2B time-tracking tool "
                "we're launching. Brand green is #0F7B4F. Make it good.",
-        want="marketing shape, editorial not iOS chrome, form states"),
+        want="marketing/editorial model: narrative sections, not iOS chrome or feature-card wallpaper"),
 
-    # Native-ish app, a domain nothing was built against.
     "p-plants": dict(
         prompt="Design me an iOS app for tracking when my house plants "
                "need watering. Brand colour #4C8C3F.",
-        want="ios shape, tabs under five, all four states"),
+        want="iOS navigation chosen from task hierarchy rather than destination count; all four states"),
 }
 
 
@@ -73,13 +63,6 @@ def run(name, spec):
     p = subprocess.run(
         ["claude", "-p", spec["prompt"], "--output-format", "stream-json",
          "--verbose", "--model", MODEL,
-         # The skill's whole method is "run the generator, then the
-         # checker", so Bash has to be granted. Under plain acceptEdits
-         # the first run stopped and asked for it -- correctly; it
-         # declined to hand over a build it could not verify -- and
-         # graded as a failure it had not committed. bypassPermissions
-         # is refused outright when running as root, so grant the tools
-         # by name instead.
          "--permission-mode", "acceptEdits",
          "--allowedTools", "Bash,Read,Write,Edit,Glob,Grep,Skill,WebFetch"],
         cwd=root, env=env, capture_output=True, text=True, timeout=2400)
@@ -117,7 +100,7 @@ def run(name, spec):
 
 
 def grade(root):
-    """Find what the run produced and put the checker on it."""
+    """Find what the run produced and put the mechanical checker on it."""
     cands = []
     for dirpath, dirnames, files in os.walk(root):
         dirnames[:] = [d for d in dirnames
@@ -125,11 +108,12 @@ def grade(root):
         if any(f.endswith(".html") for f in files):
             cands.append(dirpath)
     if not cands:
-        return None, "produced no .html at all -- a brief, not a design"
+        return None, "produced no .html at all -- a brief, not a design", None
     target = min(cands, key=lambda p: len(os.path.relpath(p, root)))
     r = subprocess.run([sys.executable, CHECK, target],
                        capture_output=True, text=True, timeout=900)
-    return r.returncode, r.stdout.strip()
+    direction = os.path.join(target, "DESIGN.md")
+    return r.returncode, r.stdout.strip(), direction if os.path.exists(direction) else None
 
 
 if __name__ == "__main__":
@@ -142,10 +126,11 @@ if __name__ == "__main__":
         if "session limit" in text or "usage limit" in text:
             print(f"{name:12} QUOTA-HIT -- stopping; later runs would be noise")
             break
-        code, report = grade(root)
+        code, report, direction = grade(root)
         print(f"\n=== {name} === want: {spec['want']}")
         print(f"  skills : {','.join(skills) or 'NONE'}")
         print(f"  tools  : {','.join(ran) or 'NONE'}")
+        print(f"  design : {'DESIGN.md present' if direction else 'NO DESIGN.md'}")
         print(f"  verdict: {'PASS' if code == 0 else 'FAIL'}")
         for line in (report or "").splitlines():
             t = line.strip()
