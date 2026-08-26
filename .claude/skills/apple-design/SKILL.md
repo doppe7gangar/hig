@@ -1,21 +1,203 @@
 ---
 name: apple-design
-description: Design a whole product, not a component — the entry point for "I'm building an app/website/dashboard, help me design it". Scaffolds a working project with new_project.py (brand theme, vendored kit, real screens with every state), then checks it with check_design.py before it ships. Use at the start of any design project, when someone describes what they're building rather than asking about a specific control, when a project needs a design system or brand palette, when deciding what screens exist or how navigation should work, or when a build is missing its empty and error states. Covers websites and marketing pages as well as apps, and is explicit about where Apple's guidance stops applying. For a specific rule or spec use apple-hig; for exact iOS values and CSS use apple-ui-kit; for animation use apple-motion.
+description: Design or redesign a whole product with Apple-level hierarchy, restraint, composition, and platform awareness. Use for apps, websites, dashboards, SaaS, product surfaces, and cross-platform interfaces when the task is broader than a single component. This skill acts as the design director: it determines product character, information architecture, visual hierarchy, spatial model, composition, reduction, and platform authenticity before delegating exact rules to apple-hig, exact craft values to apple-ui-kit, and motion to apple-motion. Use when a design technically works but still feels generic, card-heavy, overly decorative, or insufficiently Apple-like.
 ---
 
-# Designing a product
+# Apple Design Director
 
-The other three skills answer questions. This one starts projects.
+This skill decides what the product should feel like before it decides what components to place.
 
-They are reference-shaped — *is this button too small*, *what colour is
-the accent*, *how should this animate*. Handed a brief instead —
-*"a meal-planning app for families, web first, iOS later"* — none of them
-fires, because a brief is not a lookup. This is the skill for that.
+The other Apple skills are specialists:
 
-## Two commands
+- `apple-hig` answers platform and behavior questions.
+- `apple-ui-kit` provides exact visual values and implementation recipes.
+- `apple-motion` handles interaction physics and animation.
+- This skill owns **art direction, composition, hierarchy, product shape, and reduction**.
 
-Everything below hangs off these. Run them from this skill's directory,
-or give the full path to it.
+A design can be perfectly wired, accessible, tokenized, and still look generic. This skill exists to prevent that.
+
+## Governing principle
+
+**Do not begin by placing components. Begin by composing information.**
+
+Components are the final expression of hierarchy, not the starting point. Before introducing a card, panel, border, background, toolbar, floating control, or decorative effect, determine whether hierarchy can instead be communicated through position, alignment, spacing, typography, scale, grouping, progressive disclosure, motion, or context.
+
+**If the interface still works after removing a container, remove it.**
+
+## Workflow
+
+Follow this order. Do not skip ahead to code or components.
+
+### 1. Understand the product
+
+Establish the primary user, primary job, most important recurring task, most important information on the primary screen, what must be instantly visible, what is secondary, and what can remain contextual or hidden.
+
+If the brief is broad, infer a sensible product model rather than asking the user to make routine design decisions for you.
+
+### 2. Classify the platform context
+
+**Native Apple platform.** For iOS, iPadOS, macOS, watchOS, tvOS, or visionOS. Apple conventions strongly govern navigation, controls, modality, density, input, and interaction. Use `apple-hig` heavily.
+
+**Web product with Apple sensibility.** For SaaS, dashboards, tools, web apps, account areas, and browser software. Borrow clarity, hierarchy, restraint, progressive disclosure, typography, spatial consistency, material discipline, and motion without dressing the product in iOS chrome.
+
+**Marketing / editorial web.** The HIG is not the visual template. Use editorial discipline: strong typography, deliberate pacing, restrained color, clear narrative hierarchy, purposeful space, and carefully staged media.
+
+**Cross-platform.** Preserve information architecture and product logic while adapting density, navigation, controls, and interaction to each platform.
+
+### 3. Establish product character
+
+Choose a dominant character and at most one supporting quality before styling: calm, dense, editorial, utilitarian, immersive, playful, professional, content-first, data-first, tool-like, or spatial.
+
+Examples: finance dashboard = dense + calm; meditation = calm + immersive; developer tool = utilitarian + dense; photo editor = spatial + professional; product launch = editorial + immersive.
+
+### 4. Build the information hierarchy
+
+Rank contents as:
+
+1. **Primary** — what the user came to see or do.
+2. **Secondary** — context needed to understand or act on it.
+3. **Tertiary** — supporting detail that can recede.
+4. **Contextual** — controls or information shown only when relevant.
+
+If everything is visually equal, the design has failed before styling begins.
+
+Prefer stronger type instead of a box, spacing instead of a divider, alignment instead of a card, disclosure instead of persistent clutter, one dominant metric instead of equal metrics, and one clear action instead of competing CTAs.
+
+### 5. Choose the spatial model
+
+Pick the composition that matches the task rather than defaulting to a dashboard.
+
+- **List → detail** — collections, inboxes, files, records
+- **Sidebar workspace** — persistent destinations, desktop productivity
+- **Document / canvas** — editors, creation tools, writing, design
+- **Inspector model** — object/content center, contextual controls adjacent
+- **Dashboard summary** — one answer first, evidence second
+- **Feed** — chronological or discovery content
+- **Immersive surface** — media, maps, spatial exploration
+- **Editorial scroll** — marketing and narrative
+- **Settings / configuration** — grouped by concern
+- **Command surface** — search, launcher, action-first tools
+
+Do not let a scaffold choose this accidentally.
+
+### 6. Compose before decorating
+
+For each major screen decide the dominant region, secondary region, reading order, alignment system, density, content width, persistent chrome, contextual chrome, functional empty space, and what can disappear until needed.
+
+Only after this should you select surfaces, controls, borders, blur, shadows, and motion.
+
+## Apple restraint rules
+
+Apple-like design is not “rounded + glass + minimal.” Avoid the common generative-UI aesthetic:
+
+- card grids for unrelated information
+- identical rounded rectangles around every section
+- excessive pills
+- floating containers everywhere
+- decorative glass or blur
+- oversized gradients
+- gratuitous shadows
+- center-aligned everything
+- icon + title + paragraph feature cards by default
+- giant headings unsupported by hierarchy
+- duplicate primary actions
+- unnecessary floating action buttons
+- color compensating for weak hierarchy
+- decorative motion
+
+Use containers only when they communicate a real boundary, grouping, material layer, or interaction region.
+
+## Platform authenticity
+
+### iOS / iPadOS
+Favor directness, touch ergonomics, clear navigation, strong content hierarchy, and progressive disclosure. Use tabs only when destinations are genuinely peer-level and frequently switched. **Do not infer tabs merely from a small destination count.**
+
+### macOS
+Allow higher information density. Prefer sidebars, toolbars, inspectors, tables, split views, popovers, contextual menus, and keyboard-friendly structure where the workflow demands them. Avoid inflating everything to mobile proportions.
+
+### Web apps
+Respect browser expectations and desktop density. Apple principles transfer better than Apple chrome. Use persistent navigation, content grids, tables, command patterns, or sidebars when appropriate, but keep surfaces restrained.
+
+### Marketing
+Think in narrative sections, typographic pacing, product imagery, contrast, and sequence. Do not turn the page into a stack of app cards.
+
+## Typography hierarchy
+
+Typography should do more work than borders. Build a clear ladder using scale, weight, line-height, tracking, contrast, width, and grouping. The reading order should be understandable before interaction.
+
+Use `apple-ui-kit` for exact native values. For marketing and web, preserve optical discipline rather than blindly reusing native text styles.
+
+## Material discipline
+
+Translucency, blur, vibrancy, and depth are functional materials. Use them to communicate floating chrome, hierarchy, separation, modality, depth, or focus.
+
+A translucent surface must answer: **what is floating above what, and why?** If there is no answer, use a simpler surface.
+
+## Motion discipline
+
+Motion should communicate causality, continuity, spatial relationship, state change, or hierarchy. Use `apple-motion` for gesture-driven and spring-based interaction. Do not animate simply because the interface looks static.
+
+## States are part of the design
+
+Any data-driven screen must consider populated, loading, empty, and error. Empty has at least three meanings: first run, filtered to nothing, and deliberately cleared. Do not reuse the same empty-state copy for all three. Use `references/screens.md` for detailed state guidance.
+
+## Reduction pass
+
+Before implementation is considered complete, ask:
+
+- Can any card be removed?
+- Can any border become spacing?
+- Can any persistent control become contextual?
+- Can any label disappear because hierarchy already explains it?
+- Are there competing primary actions?
+- Is any blur or shadow decorative rather than structural?
+- Are too many things visually equal?
+- Is density appropriate to the platform?
+- Is a mobile pattern being used on desktop without reason, or vice versa?
+- Does the screen make sense in two seconds?
+
+Remove unnecessary elements when they exist.
+
+## Visual critique pass
+
+Mechanical correctness is not enough. After implementation, evaluate:
+
+**Hierarchy.** Can the eye find primary content and action immediately?
+
+**Composition.** Does the arrangement reflect the task, or merely collect components?
+
+**Density.** Is information density appropriate to platform and intent?
+
+**Restraint.** Are surfaces, borders, radii, pills, shadows, and blur sparse and purposeful?
+
+**Typography.** Would hierarchy survive if most containers disappeared?
+
+**Platform authenticity.** Does it fit iOS, macOS, web, or marketing rather than generically “Apple-ish”?
+
+**Interaction.** Are important controls discoverable without being constantly visible?
+
+**Distinctiveness.** Does the product have a point of view, or could the composition belong to any SaaS template?
+
+If it could belong to any SaaS template, redesign the composition before polishing it.
+
+## Anti-pattern: generic card dashboard
+
+Never default to:
+
+`sidebar → page title → equal card grid → feature cards → more cards`
+
+unless the information architecture genuinely requires it.
+
+Prefer these narratives:
+
+- dashboard: `primary answer → trend/context → supporting evidence → deeper detail`
+- tool: `workspace → object/content → contextual controls`
+- list: `collection → selection → detail`
+- marketing: `claim → proof → demonstration → differentiation → action`
+
+## Project tools
+
+`new_project.py` is scaffolding, not art direction. Use it **after** spatial model and hierarchy are decided.
 
 ```bash
 python3 new_project.py --name Clay --brand "#C1552E" \
@@ -24,147 +206,19 @@ python3 new_project.py --name Clay --brand "#C1552E" \
 python3 check_design.py ./design
 ```
 
-**Use the scaffolder rather than assembling this by hand.** Not a style
-preference — the setup has four pieces that each fail silently:
-stylesheet order, the `--ios-*` bridge, vendored fonts, and the four
-states. A hand-built page gets some of them and looks completely fine
-without the rest. The scaffolder emits all four and the checker fails
-the build if any regress. What is left for you is the design, which is
-the part worth the attention.
+The generator handles infrastructure such as stylesheet order, vendored fonts, theme bridging, and states. Do not let its starter markup dictate the final composition.
 
-## The order that matters
+`check_design.py` catches mechanical regressions. It does **not** decide whether the design is good. Always perform the reduction and visual critique passes after it succeeds.
 
-### 1. What kind of thing is this?
+## Delegation
 
-Decides how much of Apple's guidance applies at all, and it is the
-`--kind` flag, so answer it before running anything.
-
-| `--kind` | Apple's guidance | What actually governs it |
-|---|---|---|
-| `ios` | Fully. This is what the HIG is for. | `apple-hig` end to end |
-| `web` (dashboard, tool, admin) | The *structure* transfers — navigation, modality, states, hit targets. The *chrome* mostly doesn't: a web app with an iOS tab bar looks like a costume. | `apple-hig` for structure, `apple-ui-kit` for craft |
-| `marketing` | Barely. apple.com and iOS are different design languages; the HIG governs neither. | Editorial and typographic craft, not the HIG |
-| `cross` (RN, Flutter) | Structure yes, appearance per platform. | `apple-ui-kit` exports, plus the platform's own rules |
-
-The kinds produce deliberately different shapes. `marketing` gets no tab
-bar, no grouped list, and a white ground rather than iOS's grouped grey
-— a brand site built to iOS chrome is the commonest way this goes wrong,
-and it is invisible until the whole thing looks like a Settings screen.
-
-### 2. What screens exist, and how do they connect?
-
-Before any visual decision. They become `--screens`.
-
-- **How many top-level places?** Under five and they are tabs. More, and
-  either they are not all top-level, or it is a sidebar. The scaffolder
-  says so if you pass more than five. `apple-hig`'s `pages/tab-bars.md`
-  and `pages/navigation-bars.md` carry the rules; `references/screens.md`
-  here carries the shapes.
-- **What is a detour rather than a destination?** Anything the person
-  comes back from — compose, edit, a picker, settings — is a sheet, not
-  a tab. Get this wrong and everything is a tab and nothing feels
-  finished.
-
-Four to six screens is a normal first version. If the list has fifteen,
-the product is not scoped yet and no amount of design fixes that.
-
-### 3. Scaffold it
-
-`--brand` is the client's colour. Apple's blue belongs to Apple.
-
-The generator derives a whole system from that one colour, keeping
-Apple's *relationships* and replacing only the hue: the label ladder as
-one grey at several opacities so text composites correctly on any
-surface, translucent fills, the grouped-background pair, and a contrast
-pass that emits a darkened variant where the brand colour cannot carry
-text. Expect that last one — most saturated brands do not clear 4.5:1 on
-white, Apple's own accent included at 3.52:1. Use the brand colour for
-fills and `--brand-accent-text` for coloured text.
-
-It also writes the `--ios-*` bridge, which is what lets
-`apple-ui-kit`'s recipes render in the brand palette without being
-rewritten. **Regenerate rather than hand-edit `theme.css`** — editing it
-by hand is how the bridge gets lost, and the result is a brand palette
-next to Apple-blue buttons.
-
-### 4. Design — replace the content, keep the structure
-
-The scaffold is scaffolding. The rows, the copy, the hierarchy, which
-screen leads, what a row actually carries — that is the design, and it
-is the whole job now that the plumbing is handled.
-
-**Read `references/screens.md` before composing.** It has the shapes —
-list-and-detail, settings, onboarding, dashboard, form, feed — and the
-state sets. Working from memory here reliably produces the happy path
-and nothing else.
-
-The scaffold gives you first-run empty. **Filtered-to-nothing and
-deliberately-cleared are different screens with different copy** — tell
-someone with two hundred items to "add your first" and it reads as
-broken. `references/screens.md` covers all three.
-
-**The accent has two jobs and two values.** As a *fill* it needs 3:1
-against the surface, and `--ios-accent` is tuned for that. As *text* --
-a tinted button's label, a selected tab, a link, a chart legend -- it is
-small text and needs 4.5:1, which the fill value usually misses. The
-generator emits `--accent-text-safe` for exactly this. Every design
-tested so far reached for `--ios-accent` and got a label at 3.05:1;
-it is the single commonest contrast defect here, and it costs one
-token to avoid.
-
-Two things not to undo:
-
-- **`theme.css` stays last** in the stylesheet order. Move it earlier
-  and the component recipes overwrite the brand palette; the page still
-  renders, in Apple's blue, which is why it needs saying.
-- **Fonts stay vendored.** The kit ships them. Swap in a CDN link and it
-  renders in Helvetica for anyone offline.
-
-### 5. Check it
-
-```bash
-python3 check_design.py ./design
-```
-
-Nonzero means do not ship it. It catches what a screenshot cannot:
-stylesheet order, the bridge surviving, remote resources, missing
-states, dead local references, sideways overflow at phone width, hit
-targets under Apple's floor, console errors, and what `--ios-accent`
-actually resolved to in a browser.
-
-Contrast is measured on the rendered page in **both appearances**, and
-split in two. A run that Increased Contrast rescues is a warning, and
-names the fact that Apple's own secondary label (3.44:1) and filled
-buttons (~3.5:1) sit there too. A run still failing with that setting on
-is a failure, because nothing the person can turn on will fix it.
-
-Then look at it — at phone width, in both appearances. Every value can
-be right and the result still poor.
-
-To re-check the kit's own measured values against a browser:
-
-```bash
-python3 ../apple-ui-kit/verify_web_ui.py
-```
-
-## Where to send each question
-
-| Question | Skill |
+| Need | Skill |
 |---|---|
-| Should this be a sheet or a popover? Is this accessible? What does Apple say? | **apple-hig** |
-| What exact colour, size, radius, weight, tracking? Give me the CSS. | **apple-ui-kit** |
-| How should this move? Why does it feel stiff? | **apple-motion** |
-| What am I building, what screens, what system? | here |
+| Product shape, hierarchy, composition, art direction, critique | **apple-design** |
+| Platform rules, behavior, accessibility, modality | **apple-hig** |
+| Exact sizes, typography, radii, colors, tokens, CSS | **apple-ui-kit** |
+| Gestures, springs, velocity, interruptibility, motion | **apple-motion** |
 
-Don't restate their values here. A hex code in this file is a hex code
-that will go stale somewhere nobody looks.
+## Final design standard
 
-## What this cannot do for you
-
-- **Decide the product.** If the screen list is fifteen items, that is a
-  scoping problem wearing a design problem's clothes.
-- **Make a marketing site Apple-like.** The HIG does not govern
-  apple.com, and applying it there produces a Settings screen with
-  marketing copy in it.
-- **Substitute for looking at it.** The checker proves the system is
-  wired correctly. It has no opinion on whether the design is any good.
+A successful result feels Apple-like because it is clear, composed, restrained, responsive, spatially coherent, typographically disciplined, platform-aware, and purposeful in motion — **not because it is covered in rounded glass.**
