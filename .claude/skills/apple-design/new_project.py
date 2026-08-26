@@ -1,27 +1,15 @@
 #!/usr/bin/env python3
-"""Scaffold a working project: vendored kit, brand theme, real screens.
+"""Scaffold a working design project without choosing its composition by accident.
 
-Every failure this skill has had was the same failure. The instructions
-said run the generator, vendor the fonts, link the theme last, build all
-four states -- and each run followed some of that and quietly dropped the
-rest. Prose is advisory. A run that hand-writes its own token file, links
-a font CDN, or ships only the happy path is not disobeying so much as
-reconstructing infrastructure from a description, badly, while thinking
-about the design.
+The generator owns infrastructure:
+- vendored fonts and measured UI-kit files
+- brand theme + --ios-* bridge
+- reachable populated/loading/empty/error states
+- a starter composition chosen explicitly by spatial model
 
-So stop describing the setup and emit it. What comes out of this already
-links in the order that works, already has the fonts on disk, already
-carries the empty and error states, and already reads the brand palette
-through the bridge. What is left to do is the design -- the content, the
-copy, the hierarchy -- which is the part worth a designer's attention and
-the part a generator cannot do.
-
-    python3 new_project.py --name Clay --brand "#C1552E" \
-        --kind ios --screens "Plan,Recipes,List,Settings" -o ./design
-
-Kinds decide the shape, and deliberately differ: `marketing` gets no tab
-bar and no grouped list, because the commonest way this goes wrong is a
-brand site built to iOS chrome.
+It does not own art direction. The caller chooses the spatial model after the
+product hierarchy is understood. Web projects therefore require --model
+instead of silently defaulting to "sidebar + cards".
 """
 
 import argparse
@@ -38,15 +26,13 @@ sys.path.insert(0, HERE)
 import build_theme  # noqa: E402
 
 
-# ---------------------------------------------------------------- pieces
-
 HEAD = """<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>__NAME__</title>
 
-<!-- Order is load-bearing. Fonts, then Apple's measured tokens, then the
-     component recipes, then the brand theme LAST so its bridge wins. -->
+<!-- Order is load-bearing: fonts, measured tokens, component recipes,
+     then the brand theme LAST so its bridge wins. -->
 <link rel="stylesheet" href="vendor/fonts/inter.css">
 <link rel="stylesheet" href="vendor/fonts/sf.css">
 <link rel="stylesheet" href="vendor/ios-tokens.css">
@@ -54,26 +40,18 @@ HEAD = """<!doctype html>
 <link rel="stylesheet" href="theme.css">
 """
 
-# The state machinery is the same for every kind: one screen, four
-# panels, a switcher that lives outside the design so it is obviously
-# scaffolding rather than a component someone might ship.
 STATE_CSS = """
-  /* --- state switcher: scaffolding, not part of the design --- */
   .demo { min-height: 100vh; display: flex; flex-direction: column;
-          background: var(--ios-bg);
-          font: var(--ios-text-body); color: var(--ios-label); }
+          background: var(--ios-bg); color: var(--ios-label);
+          font: var(--ios-text-body); }
   .demo > :not(.demo__bar) { flex: 1; min-height: 0; }
-  .demo__bar { display: flex; gap: 6px; flex-wrap: wrap;
-               padding: 10px 16px; border-bottom: 1px solid var(--ios-separator);
+  .demo__bar { display: flex; gap: 6px; flex-wrap: wrap; padding: 10px 16px;
+               border-bottom: 1px solid var(--ios-separator);
                background: var(--ios-bg-card); }
-  .demo__bar button { font: var(--ios-text-footnote); padding: 6px 12px;
-                      min-height: 32px; border-radius: 999px; cursor: pointer;
-                      border: 1px solid var(--ios-separator);
-                      background: transparent; color: var(--ios-label-secondary); }
-  /* Was white on the accent fill at 13px: 4.12:1, under the 4.5:1 that
-     small text needs. A tint with text-safe ink clears it and is the
-     same move the design should make anywhere it wants a selected chip
-     below button-label size. */
+  .demo__bar button { min-height: 32px; padding: 6px 12px; border-radius: 999px;
+                      border: 1px solid var(--ios-separator); background: transparent;
+                      color: var(--ios-label-secondary); cursor: pointer;
+                      font: var(--ios-text-footnote); }
   .demo__bar button[aria-pressed="true"] {
       background: color-mix(in srgb, var(--ios-accent) 16%, transparent);
       border-color: color-mix(in srgb, var(--ios-accent) 45%, transparent);
@@ -81,34 +59,27 @@ STATE_CSS = """
 
   .state { display: none; }
   [data-state="populated"] .state--populated,
-  [data-state="loading"]   .state--loading,
-  [data-state="empty"]     .state--empty,
-  [data-state="error"]     .state--error { display: block; }
+  [data-state="loading"] .state--loading,
+  [data-state="empty"] .state--empty,
+  [data-state="error"] .state--error { display: block; }
 
-  /* Skeletons keep the real layout so nothing jumps when data lands. */
-  .skel { background: var(--ios-fill-control); border-radius: 6px;
-          height: 1em; animation: skel 1.4s ease-in-out infinite; }
+  .skel { height: 1em; border-radius: 6px; background: var(--ios-fill-control);
+          animation: skel 1.4s ease-in-out infinite; }
   @keyframes skel { 0%,100% { opacity: .55 } 50% { opacity: .25 } }
-  @media (prefers-reduced-motion: reduce) { .skel { animation: none } }
+  @media (prefers-reduced-motion: reduce) { .skel { animation: none; } }
 
-  /* The empty/error block. SwiftUI calls this ContentUnavailableView;
-     the web has no built-in, so this is the one to reuse. */
-  .unavailable { text-align: center; padding: 48px 32px; }
-  .unavailable__glyph { font-size: 44px; line-height: 1;
+  .unavailable { max-width: 460px; margin: 0 auto; padding: 72px 28px;
+                 text-align: center; }
+  .unavailable__glyph { font-size: 42px; line-height: 1;
                         color: var(--ios-label-tertiary); }
-  .unavailable__title { font: var(--ios-text-headline);
-                        letter-spacing: var(--ios-track-headline);
-                        margin: 14px 0 4px; }
-  .unavailable__body { font: var(--ios-text-subhead);
+  .unavailable__title { margin: 14px 0 5px; font: var(--ios-text-headline); }
+  .unavailable__body { max-width: 34ch; margin: 0 auto 20px;
                        color: var(--ios-label-secondary);
-                       margin: 0 auto 20px; max-width: 30ch; }
+                       font: var(--ios-text-subhead); }
 """
 
 STATE_JS = """
 <script>
-  // Scaffolding: flips the panel so every state is reachable without a
-  // backend. Delete when the real data layer arrives -- the four panels
-  // are the part worth keeping.
   const root = document.querySelector('[data-state]');
   const initial = new URLSearchParams(location.search).get('state');
   if (initial) root.dataset.state = initial;
@@ -128,63 +99,44 @@ SWITCHER = """<div class="demo__bar" role="group" aria-label="Preview state">
   <button data-set="loading">Loading</button>
   <button data-set="empty">Empty</button>
   <button data-set="error">Error</button>
-</div>
-"""
-
-ERROR_PANEL = """      <section class="state state--error">
-        <div class="unavailable">
-          <div class="unavailable__glyph" aria-hidden="true">!</div>
-          <h2 class="unavailable__title">Couldn't load __THING__</h2>
-          <!-- Say what to do, not what happened. "NetworkError 500" tells
-               nobody anything they can act on. -->
-          <p class="unavailable__body">Check your connection and try again.</p>
-          <button class="ios-btn ios-btn--filled">Try Again</button>
-        </div>
-      </section>
-"""
+</div>"""
 
 EMPTY_PANEL = """      <section class="state state--empty">
         <div class="unavailable">
           <div class="unavailable__glyph" aria-hidden="true">+</div>
           <h2 class="unavailable__title">No __THING__ yet</h2>
-          <!-- FIRST-RUN empty. Filtered-to-nothing and deliberately-cleared
-               are different screens with different copy -- see
-               references/screens.md. Reusing this copy for a filtered list
-               tells someone with 200 items to add their first, which reads
-               as broken. -->
           <p class="unavailable__body">__EMPTY_BODY__</p>
           <button class="ios-btn ios-btn--filled">__EMPTY_CTA__</button>
         </div>
       </section>
 """
 
+ERROR_PANEL = """      <section class="state state--error">
+        <div class="unavailable">
+          <div class="unavailable__glyph" aria-hidden="true">!</div>
+          <h2 class="unavailable__title">Couldn't load __THING__</h2>
+          <p class="unavailable__body">Check your connection and try again.</p>
+          <button class="ios-btn ios-btn--filled">Try Again</button>
+        </div>
+      </section>
+"""
 
-# ------------------------------------------------------------------ ios
+
+# ---------------------------------------------------------------- iOS
 
 IOS_CSS = """
-  .phone { max-width: 430px; width: 100%; margin: 0 auto;
-           display: flex; flex-direction: column;
-           background: var(--ios-bg); }
+  .phone { width: 100%; max-width: 430px; margin: 0 auto; display: flex;
+           flex-direction: column; background: var(--ios-bg); }
   .screen { flex: 1; padding: 16px var(--ios-gutter, 16px) 24px; }
   .rowicon { width: 29px; height: 29px; border-radius: 7px; flex: none;
-             display: grid; place-items: center;
-             font: var(--ios-text-footnote);
-             font-weight: var(--ios-weight-semibold);
-             background: var(--ios-accent); color: #fff; }
+             display: grid; place-items: center; background: var(--ios-accent);
+             color: #fff; font: var(--ios-text-footnote);
+             font-weight: var(--ios-weight-semibold); }
+  .sectionhead { margin: 0 0 7px 16px; color: var(--ios-label-secondary);
+                 font: var(--ios-text-footnote); text-transform: uppercase; }
   .ios-list { margin: 0 0 22px; }
-  /* An 11pt tab label is small text, so it needs 4.5:1 -- and the raw
-     accent is tuned for fills, which only need 3:1. The generator emits
-     a text-safe variant for exactly this; the component recipes have no
-     way to know it exists, so the wiring belongs here. */
   .ios-tabbar__item[aria-selected="true"] { color: var(--accent-text-safe); }
-  /* Same reasoning for a tinted button: its label is accent-coloured
-     text, not a fill, so it needs the text-safe variant too. */
   .ios-btn--tinted { color: var(--accent-text-safe); }
-  .sectionhead { font: var(--ios-text-footnote);
-                 letter-spacing: var(--ios-track-footnote);
-                 text-transform: uppercase;
-                 color: var(--ios-label-secondary);
-                 margin: 0 0 7px 16px; }
 """
 
 IOS_BODY = """<div class="demo">
@@ -192,13 +144,8 @@ __SWITCHER__
   <div class="phone" data-state="populated">
     <nav class="ios-navbar">
       <span class="ios-navbar__title">__SCREEN1__</span>
-      <button class="ios-btn ios-navbar__action" aria-label="Add __THING__">
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="none"
-             stroke="currentColor" stroke-width="2" stroke-linecap="round"
-             aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-      </button>
+      <button class="ios-btn ios-navbar__action" aria-label="Add __THING__">+</button>
     </nav>
-
     <main class="screen">
       <section class="state state--populated">
         <p class="sectionhead">Today</p>
@@ -206,84 +153,93 @@ __SWITCHER__
 __ROWS__
         </ul>
       </section>
-
       <section class="state state--loading">
         <p class="sectionhead">Today</p>
         <ul class="ios-list">
 __SKELROWS__
         </ul>
       </section>
-
 __EMPTY__
 __ERROR__
     </main>
-
-    <nav class="ios-tabbar">
-__TABS__
-    </nav>
+__TABBAR__
   </div>
 </div>
 """
 
 
-# ------------------------------------------------------------------ web
+# ------------------------------------------------------------ web models
 
-WEB_CSS = """
-  .app { display: grid; grid-template-columns: 244px 1fr;
-         min-height: 100vh; }
-  .side { background: var(--ios-bg-card); padding: 20px 12px;
-          border-right: 1px solid var(--ios-separator); }
-  .side__brand { font: var(--ios-text-headline);
-                 letter-spacing: var(--ios-track-headline);
-                 padding: 0 12px 16px; }
-  .side a { display: block; padding: 9px 12px; border-radius: 8px;
-            min-height: var(--ios-hit-target, 44px); box-sizing: border-box;
-            font: var(--ios-text-subhead); text-decoration: none;
-            color: var(--ios-label); }
-  .side a[aria-current="page"] { background: var(--ios-accent); color: #fff; }
-  .main { padding: 28px 32px; max-width: 900px; }
-  .main h1 { font: var(--ios-text-title1);
-             letter-spacing: var(--ios-track-title1); margin: 0 0 20px; }
-  .card { background: var(--ios-bg-card);
-          border-radius: var(--ios-radius-card, 12px);
-          padding: 18px 20px; margin-bottom: 12px;
-          border: 1px solid var(--ios-separator); }
-  .card__title { font: var(--ios-text-headline);
-                 letter-spacing: var(--ios-track-headline); margin: 0 0 4px; }
-  .card__meta { font: var(--ios-text-footnote);
-                color: var(--ios-label-secondary); margin: 0; }
-
-  /* A web app is not a phone. The structure transfers -- navigation,
-     modality, states, hit targets -- the chrome does not, so there is
-     no tab bar here on purpose. */
-  @media (max-width: 720px) {
-    .app { grid-template-columns: 1fr; }
-    .side { border-right: 0; border-bottom: 1px solid var(--ios-separator);
-            display: flex; gap: 4px; overflow-x: auto; }
-    .side__brand { display: none; }
-    .main { padding: 20px 16px; }
+WEB_BASE_CSS = """
+  .web-shell { min-height: 100vh; background: var(--ios-bg-card); }
+  .web-main { min-width: 0; }
+  .eyebrow { margin: 0 0 7px; color: var(--ios-label-secondary);
+             font: var(--ios-text-footnote); text-transform: uppercase;
+             letter-spacing: .04em; }
+  .page-title { margin: 0; font: var(--ios-text-title1);
+                letter-spacing: var(--ios-track-title1); }
+  .page-intro { max-width: 58ch; margin: 8px 0 0; color: var(--ios-label-secondary);
+                font: var(--ios-text-subhead); }
+  .rule { height: 1px; background: var(--ios-separator); }
+  .meta { color: var(--ios-label-secondary); font: var(--ios-text-footnote); }
+  .action-link { color: var(--accent-text-safe); text-decoration: none; }
+  .action-link:hover { text-decoration: underline; }
+  @media (max-width: 760px) {
+    .page-title { font: var(--ios-text-title2); }
   }
 """
 
-WEB_BODY = """<div class="demo">
+WORKSPACE_CSS = """
+  .workspace { display: grid; grid-template-columns: 236px minmax(0, 1fr);
+               min-height: 100vh; }
+  .workspace__side { padding: 22px 12px; border-right: 1px solid var(--ios-separator);
+                     background: color-mix(in srgb, var(--ios-bg) 76%, transparent); }
+  .workspace__brand { padding: 0 10px 18px; font: var(--ios-text-headline); }
+  .workspace__nav { display: grid; gap: 3px; }
+  .workspace__nav a { min-height: 38px; display: flex; align-items: center;
+                      padding: 0 10px; border-radius: 8px; color: var(--ios-label);
+                      text-decoration: none; font: var(--ios-text-subhead); }
+  .workspace__nav a[aria-current="page"] {
+      background: color-mix(in srgb, var(--ios-accent) 14%, transparent);
+      color: var(--ios-label); font-weight: 590; }
+  .workspace__content { max-width: 980px; padding: 34px 42px 56px; }
+  .workspace__head { margin-bottom: 30px; }
+  .record-list { border-top: 1px solid var(--ios-separator); }
+  .record { display: grid; grid-template-columns: minmax(0,1fr) auto;
+            gap: 22px; padding: 17px 2px;
+            border-bottom: 1px solid var(--ios-separator); }
+  .record h2 { margin: 0 0 4px; font: var(--ios-text-headline); }
+  .record p { margin: 0; color: var(--ios-label-secondary);
+              font: var(--ios-text-footnote); }
+  @media (max-width: 760px) {
+    .workspace { grid-template-columns: 1fr; }
+    .workspace__side { border-right: 0; border-bottom: 1px solid var(--ios-separator);
+                       padding: 10px 12px; overflow-x: auto; }
+    .workspace__brand { display: none; }
+    .workspace__nav { display: flex; width: max-content; }
+    .workspace__content { padding: 24px 18px 44px; }
+  }
+"""
+
+WORKSPACE_BODY = """<div class="demo">
 __SWITCHER__
-  <div class="app" data-state="populated">
-    <aside class="side">
-      <div class="side__brand">__NAME__</div>
-__NAVLINKS__
+  <div class="web-shell workspace" data-state="populated">
+    <aside class="workspace__side">
+      <div class="workspace__brand">__NAME__</div>
+      <nav class="workspace__nav">__NAVLINKS__</nav>
     </aside>
-
-    <main class="main">
-      <h1>__SCREEN1__</h1>
-
+    <main class="web-main workspace__content">
+      <header class="workspace__head">
+        <p class="eyebrow">Workspace</p>
+        <h1 class="page-title">__SCREEN1__</h1>
+        <p class="page-intro">The primary work belongs here. Secondary controls should remain contextual.</p>
+      </header>
       <section class="state state--populated">
-__CARDS__
+        <div class="record-list">__RECORDS__</div>
       </section>
-
       <section class="state state--loading">
-__SKELCARDS__
+        <div class="record-list">__SKELRECORDS__</div>
       </section>
-
 __EMPTY__
 __ERROR__
     </main>
@@ -291,298 +247,560 @@ __ERROR__
 </div>
 """
 
+LIST_DETAIL_CSS = """
+  .listdetail { display: grid; grid-template-columns: minmax(280px, 34%) minmax(0, 1fr);
+                min-height: 100vh; }
+  .collection { border-right: 1px solid var(--ios-separator);
+                background: color-mix(in srgb, var(--ios-bg) 72%, transparent); }
+  .collection__head { padding: 28px 24px 18px; }
+  .collection__items { border-top: 1px solid var(--ios-separator); }
+  .collection__item { display: block; padding: 15px 24px;
+                      border-bottom: 1px solid var(--ios-separator);
+                      color: var(--ios-label); text-decoration: none; }
+  .collection__item[aria-current="true"] {
+      background: color-mix(in srgb, var(--ios-accent) 12%, transparent); }
+  .collection__item strong { display: block; font: var(--ios-text-headline); }
+  .collection__item span { display: block; margin-top: 3px;
+                           color: var(--ios-label-secondary);
+                           font: var(--ios-text-footnote); }
+  .detail { max-width: 780px; padding: 52px 54px; }
+  .detail__hero { margin-bottom: 34px; }
+  .detail__value { margin: 16px 0 2px; font-size: clamp(42px, 8vw, 74px);
+                   line-height: .98; letter-spacing: -.045em; font-weight: 650; }
+  .detail__section { max-width: 62ch; padding-top: 24px;
+                     border-top: 1px solid var(--ios-separator); }
+  .detail__section h2 { margin: 0 0 8px; font: var(--ios-text-headline); }
+  .detail__section p { margin: 0; color: var(--ios-label-secondary); line-height: 1.55; }
+  @media (max-width: 760px) {
+    .listdetail { grid-template-columns: 1fr; }
+    .collection { border-right: 0; }
+    .detail { display: none; }
+  }
+"""
 
-# ------------------------------------------------------------ marketing
+LIST_DETAIL_BODY = """<div class="demo">
+__SWITCHER__
+  <div class="web-shell listdetail" data-state="populated">
+    <aside class="collection">
+      <header class="collection__head">
+        <p class="eyebrow">Collection</p>
+        <h1 class="page-title">__SCREEN1__</h1>
+      </header>
+      <section class="state state--populated">
+        <nav class="collection__items">__COLLECTION__</nav>
+      </section>
+      <section class="state state--loading">
+        <div class="collection__items">__SKELCOLLECTION__</div>
+      </section>
+__EMPTY__
+__ERROR__
+    </aside>
+    <main class="detail state state--populated">
+      <div class="detail__hero">
+        <p class="eyebrow">Selected item</p>
+        <h2 class="page-title">Overnight oats</h2>
+        <div class="detail__value">12 min</div>
+        <p class="meta">4 servings · updated today</p>
+      </div>
+      <section class="detail__section">
+        <h2>What matters</h2>
+        <p>Put the selected object's important information here. Actions belong close to the object, not duplicated globally.</p>
+      </section>
+    </main>
+  </div>
+</div>
+"""
+
+DASHBOARD_CSS = """
+  .summary { max-width: 1080px; margin: 0 auto; padding: 42px 30px 64px; }
+  .summary__head { max-width: 720px; margin-bottom: 44px; }
+  .hero-metric { padding: 10px 0 38px; }
+  .hero-metric__value { margin: 0; font-size: clamp(64px, 11vw, 126px);
+                        line-height: .88; letter-spacing: -.065em; font-weight: 650; }
+  .hero-metric__context { margin: 15px 0 0; color: var(--ios-label-secondary);
+                          font-size: 18px; line-height: 1.45; }
+  .evidence { display: grid; grid-template-columns: 1.3fr .7fr; gap: 42px;
+              padding-top: 28px; border-top: 1px solid var(--ios-separator); }
+  .evidence h2 { margin: 0 0 14px; font: var(--ios-text-headline); }
+  .trend { min-height: 210px; display: flex; align-items: end; gap: 8px; }
+  .trend span { flex: 1; min-width: 8px; border-radius: 5px 5px 0 0;
+                background: color-mix(in srgb, var(--ios-accent) 70%, transparent); }
+  .facts { margin: 0; padding: 0; list-style: none; }
+  .facts li { display: flex; justify-content: space-between; gap: 18px;
+              padding: 12px 0; border-bottom: 1px solid var(--ios-separator); }
+  .facts strong { font-weight: 590; }
+  @media (max-width: 760px) {
+    .summary { padding: 28px 18px 48px; }
+    .evidence { grid-template-columns: 1fr; }
+  }
+"""
+
+DASHBOARD_BODY = """<div class="demo">
+__SWITCHER__
+  <main class="web-shell summary" data-state="populated">
+    <header class="summary__head">
+      <p class="eyebrow">Summary</p>
+      <h1 class="page-title">__SCREEN1__</h1>
+      <p class="page-intro">Lead with the answer. Supporting metrics exist to explain it, not compete with it.</p>
+    </header>
+    <section class="state state--populated">
+      <div class="hero-metric">
+        <p class="hero-metric__value">68%</p>
+        <p class="hero-metric__context">Best week since June · up 9 points from last week</p>
+      </div>
+      <div class="evidence">
+        <section>
+          <h2>Trend</h2>
+          <div class="trend" aria-label="Seven-period trend">
+            <span style="height:35%"></span><span style="height:46%"></span>
+            <span style="height:43%"></span><span style="height:58%"></span>
+            <span style="height:54%"></span><span style="height:64%"></span>
+            <span style="height:78%"></span>
+          </div>
+        </section>
+        <section>
+          <h2>Supporting evidence</h2>
+          <ul class="facts">
+            <li><span>Completed</span><strong>34</strong></li>
+            <li><span>Average time</span><strong>18 min</strong></li>
+            <li><span>Change</span><strong>+9 pts</strong></li>
+          </ul>
+        </section>
+      </div>
+    </section>
+    <section class="state state--loading">
+      <div class="hero-metric"><div class="skel" style="width:42%;height:7em"></div></div>
+      <div class="rule"></div>
+      <div class="skel" style="width:100%;height:15em;margin-top:28px"></div>
+    </section>
+__EMPTY__
+__ERROR__
+  </main>
+</div>
+"""
+
+DOCUMENT_CSS = """
+  .document-shell { min-height: 100vh; }
+  .document-top { position: sticky; top: 0; z-index: 3; display: flex;
+                  justify-content: space-between; align-items: center; gap: 20px;
+                  min-height: 52px; padding: 0 22px;
+                  border-bottom: 1px solid var(--ios-separator);
+                  background: color-mix(in srgb, var(--ios-bg-card) 88%, transparent);
+                  backdrop-filter: blur(20px) saturate(150%); }
+  .document-top strong { font: var(--ios-text-headline); }
+  .document-actions { display: flex; gap: 8px; }
+  .document { max-width: 760px; margin: 0 auto; padding: 76px 32px 120px; }
+  .document h1 { max-width: 16ch; margin: 0 0 22px;
+                 font-size: clamp(38px, 7vw, 64px); line-height: 1.02;
+                 letter-spacing: -.04em; font-weight: 650; }
+  .document .lede { max-width: 46ch; margin: 0 0 52px; color: var(--ios-label-secondary);
+                    font-size: 20px; line-height: 1.5; }
+  .document section { max-width: 64ch; margin-top: 34px; }
+  .document h2 { margin: 0 0 9px; font: var(--ios-text-title3); }
+  .document p { margin: 0; line-height: 1.7; }
+  @media (max-width: 760px) {
+    .document { padding: 54px 20px 90px; }
+    .document-top { padding: 0 14px; }
+  }
+"""
+
+DOCUMENT_BODY = """<div class="demo">
+__SWITCHER__
+  <div class="web-shell document-shell" data-state="populated">
+    <header class="document-top">
+      <strong>__NAME__</strong>
+      <div class="document-actions">
+        <button class="ios-btn ios-btn--tinted">Share</button>
+        <button class="ios-btn ios-btn--filled">Done</button>
+      </div>
+    </header>
+    <main class="document">
+      <section class="state state--populated">
+        <p class="eyebrow">__SCREEN1__</p>
+        <h1>Put the work itself at the center.</h1>
+        <p class="lede">A document or canvas interface should make the content dominant and keep controls available without turning them into the composition.</p>
+        <section>
+          <h2>First section</h2>
+          <p>Use a clear reading column, strong type hierarchy, and contextual actions. The interface recedes until the user needs it.</p>
+        </section>
+        <section>
+          <h2>Second section</h2>
+          <p>Do not wrap every paragraph or tool in a card. The document is already the surface.</p>
+        </section>
+      </section>
+      <section class="state state--loading">
+        <div class="skel" style="width:58%;height:3.8em;margin-bottom:24px"></div>
+        <div class="skel" style="width:86%;height:1.4em;margin-bottom:12px"></div>
+        <div class="skel" style="width:70%;height:1.4em"></div>
+      </section>
+__EMPTY__
+__ERROR__
+    </main>
+  </div>
+</div>
+"""
+
+WEB_MODELS = {
+    "workspace": (WORKSPACE_CSS, WORKSPACE_BODY),
+    "list-detail": (LIST_DETAIL_CSS, LIST_DETAIL_BODY),
+    "dashboard": (DASHBOARD_CSS, DASHBOARD_BODY),
+    "document": (DOCUMENT_CSS, DOCUMENT_BODY),
+}
+
+
+# -------------------------------------------------------------- marketing
 
 MKT_CSS = """
-  /* Deliberately not iOS. The HIG does not govern apple.com, and a
-     marketing page built to it becomes a Settings screen with marketing
-     copy in it. What carries over is the craft -- the optical sizing,
-     the tracking, the contrast pass -- not the chrome. */
-  .demo { background: var(--ios-bg-card); }
-  .page { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
-  .hero { padding: 96px 0 72px; }
-  .hero h1 { max-width: 15ch; font-size: clamp(44px, 8vw, 84px); line-height: 1.03;
-             letter-spacing: -0.03em; font-weight: var(--ios-weight-semibold);
-             font-optical-sizing: auto; margin: 0 0 20px; }
-  .hero p { font-size: clamp(19px, 2.2vw, 24px); line-height: 1.45;
-            letter-spacing: -0.01em; color: var(--ios-label-secondary);
-            max-width: 34ch; margin: 0 0 32px; }
-  .row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .marketing { background: var(--ios-bg-card); }
+  .mkt-nav { max-width: 1120px; margin: 0 auto; padding: 18px 28px;
+             display: flex; justify-content: space-between; align-items: center; }
+  .mkt-nav strong { font: var(--ios-text-headline); }
+  .mkt-page { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+  .hero { padding: 104px 0 88px; }
+  .hero h1 { max-width: 13ch; margin: 0 0 22px; font-size: clamp(48px, 9vw, 96px);
+             line-height: .98; letter-spacing: -.055em; font-weight: 650; }
+  .hero p { max-width: 34ch; margin: 0 0 30px; color: var(--ios-label-secondary);
+            font-size: clamp(20px, 2.2vw, 26px); line-height: 1.42; }
+  .mkt-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .mkt-actions .ios-btn { min-height: 50px; padding: 0 24px; }
+  .story { display: grid; grid-template-columns: .75fr 1.25fr; gap: 80px;
+           padding: 72px 0; border-top: 1px solid var(--ios-separator); }
+  .story h2 { margin: 0; font-size: clamp(30px, 4vw, 46px);
+              line-height: 1.08; letter-spacing: -.03em; }
+  .story__body { max-width: 58ch; }
+  .story__body p { margin: 0 0 22px; color: var(--ios-label-secondary);
+                   font-size: 18px; line-height: 1.65; }
+  .proof { margin: 26px 0 0; padding: 0; list-style: none; }
+  .proof li { padding: 14px 0; border-top: 1px solid var(--ios-separator); }
+  .signup { padding: 72px 0 100px; border-top: 1px solid var(--ios-separator); }
+  .signup form { display: flex; gap: 10px; max-width: 460px; flex-wrap: wrap; }
+  .signup .ios-field { flex: 1 1 230px; }
   .ios-btn--tinted { color: var(--accent-text-safe); }
-  /* A marketing CTA carries more weight than a list-row button. */
-  .hero .ios-btn { min-height: 52px; padding: 0 26px;
-                   font: var(--ios-text-headline);
-                   letter-spacing: var(--ios-track-headline); }
-  .sec { padding: 64px 0; border-top: 1px solid var(--ios-separator); }
-  .sec h2 { font-size: clamp(30px, 4vw, 44px); line-height: 1.1;
-            letter-spacing: -0.02em; font-weight: var(--ios-weight-semibold);
-            margin: 0 0 14px; max-width: 18ch; }
-  .sec p { font-size: 18px; line-height: 1.55; max-width: 58ch;
-           color: var(--ios-label-secondary); margin: 0; }
-  .grid { display: grid; gap: 28px; margin-top: 36px;
-          grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
-  .grid h3 { font: var(--ios-text-headline);
-             letter-spacing: var(--ios-track-headline); margin: 0 0 6px; }
-  .grid p { font: var(--ios-text-subhead); }
-
-  /* Even a marketing page has states: the one form on it. */
-  .signup { padding: 64px 0 96px; border-top: 1px solid var(--ios-separator); }
-  .signup form { display: flex; gap: 10px; flex-wrap: wrap;
-                 max-width: 440px; margin-top: 18px; }
-  .signup .ios-field { flex: 1 1 220px; }
+  @media (max-width: 760px) {
+    .mkt-nav, .mkt-page { padding-left: 20px; padding-right: 20px; }
+    .hero { padding: 72px 0 62px; }
+    .story { grid-template-columns: 1fr; gap: 24px; padding: 54px 0; }
+  }
 """
 
 MKT_BODY = """<div class="demo">
 __SWITCHER__
-  <div data-state="populated">
-    <div class="page">
+  <div class="marketing" data-state="populated">
+    <nav class="mkt-nav"><strong>__NAME__</strong><a class="action-link" href="#signup">Get started</a></nav>
+    <main class="mkt-page">
       <section class="hero">
+        <p class="eyebrow">A clear category or promise</p>
         <h1>__HEADLINE__</h1>
         <p>__SUB__</p>
-        <div class="row">
+        <div class="mkt-actions">
           <button class="ios-btn ios-btn--filled">__EMPTY_CTA__</button>
           <button class="ios-btn ios-btn--tinted">See how it works</button>
         </div>
       </section>
-
-      <section class="sec">
-        <h2>The argument this section makes</h2>
-        <p>One idea per section, and each one earns its scroll. Replace
-          this with the actual case -- what changes for someone using
-          __NAME__ that did not before.</p>
-        <div class="grid">
-          <div><h3>First point</h3><p>Concrete, not adjectival.</p></div>
-          <div><h3>Second point</h3><p>Something a competitor cannot say.</p></div>
-          <div><h3>Third point</h3><p>The objection, answered.</p></div>
+      <section class="story">
+        <h2>Make one argument per section.</h2>
+        <div class="story__body">
+          <p>Marketing is narrative, not a grid of feature cards. State the claim, show proof, answer the objection, then move to the next idea.</p>
+          <ul class="proof">
+            <li>Concrete proof point</li>
+            <li>Product demonstration or evidence</li>
+            <li>Meaningful differentiation</li>
+          </ul>
         </div>
       </section>
-
-      <section class="signup">
+      <section class="signup" id="signup">
         <h2>__EMPTY_CTA__</h2>
         <section class="state state--populated">
           <form onsubmit="return false">
-            <input class="ios-field" type="email" placeholder="you@example.com"
-                   aria-label="Email address">
+            <input class="ios-field" type="email" placeholder="you@example.com" aria-label="Email address">
             <button class="ios-btn ios-btn--filled">Sign up</button>
           </form>
         </section>
-
         <section class="state state--loading">
           <form onsubmit="return false">
-            <input class="ios-field" type="email" value="you@example.com" disabled
-                   aria-label="Email address">
-            <!-- Keep the label on a submitting button. Swapping it for a
-                 spinner loses the only thing that says what is happening. -->
+            <input class="ios-field" type="email" value="you@example.com" disabled aria-label="Email address">
             <button class="ios-btn ios-btn--filled" disabled>Signing up...</button>
           </form>
         </section>
-
 __EMPTY__
 __ERROR__
       </section>
-    </div>
+    </main>
   </div>
 </div>
 """
 
 
-# ------------------------------------------------------------- assembly
+# ---------------------------------------------------------------- helpers
 
 def slug(s):
     return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-") or "brand"
 
 
-def rows(screen, thing):
+def navlinks(screens):
+    out = []
+    for i, screen in enumerate(screens):
+        cur = ' aria-current="page"' if i == 0 else ""
+        out.append(f'<a href="#"{cur}>{screen}</a>')
+    return "\n".join(out)
+
+
+def rows(thing):
     demo = [("Overnight oats", "12 min"), ("Sheet-pan chicken", "35 min"),
             ("Miso soup", "8 min")]
     out = []
     for title, value in demo:
         out.append(
             '          <li class="ios-list__row ios-list__row--tappable">\n'
-            f'            <span class="rowicon" aria-hidden="true">'
-            f'{title[0].upper()}</span>\n'
+            f'            <span class="rowicon" aria-hidden="true">{title[0]}</span>\n'
             f'            <span class="ios-list__title">{title}</span>\n'
             f'            <span class="ios-list__value">{value}</span>\n'
-            '            <span class="ios-list__chevron" aria-hidden="true">'
-            '&rsaquo;</span>\n'
+            '            <span class="ios-list__chevron" aria-hidden="true">&rsaquo;</span>\n'
             '          </li>')
     return "\n".join(out)
 
 
 def skel_rows(n=3):
-    out = []
-    for i in range(n):
-        w = (72, 54, 63)[i % 3]
-        out.append(
-            '          <li class="ios-list__row" aria-hidden="true">\n'
-            '            <span class="skel" style="width:29px;height:29px;'
-            'border-radius:7px;flex:none"></span>\n'
-            f'            <span class="skel" style="width:{w}%"></span>\n'
-            '          </li>')
-    return "\n".join(out)
-
-
-def cards():
-    demo = [("Overnight oats", "12 min - 4 servings"),
-            ("Sheet-pan chicken", "35 min - 2 servings"),
-            ("Miso soup", "8 min - 2 servings")]
     return "\n".join(
-        f'        <article class="card">\n'
-        f'          <h2 class="card__title">{t}</h2>\n'
-        f'          <p class="card__meta">{m}</p>\n'
-        f'        </article>' for t, m in demo)
+        '          <li class="ios-list__row" aria-hidden="true">\n'
+        '            <span class="skel" style="width:29px;height:29px;flex:none"></span>\n'
+        f'            <span class="skel" style="width:{(72,54,63)[i%3]}%"></span>\n'
+        '          </li>' for i in range(n))
 
 
-def skel_cards(n=3):
-    return "\n".join(
-        '        <div class="card" aria-hidden="true">\n'
-        f'          <div class="skel" style="width:{(46,58,38)[i%3]}%;'
-        'height:1.2em;margin-bottom:8px"></div>\n'
-        '          <div class="skel" style="width:30%;height:.9em"></div>\n'
-        '        </div>' for i in range(n))
-
-
-# Placeholder tab glyphs. Drawn rather than set in a font, because SF
-# Symbols is not licensed for the web and a lone "o" in every slot reads
-# as a missing icon rather than a stand-in -- which invites leaving it
-# there. currentColor so the selected tab tints with the rest.
 TAB_GLYPHS = [
     '<path d="M3 10.5 12 4l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
     '<path d="M4 6h16M4 12h16M4 18h16"/>',
     '<path d="M5 4h14v16l-7-4-7 4z"/>',
     '<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>',
-    '<circle cx="12" cy="12" r="3.2"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3'
-    'M4.9 4.9l2.1 2.1m10 10 2.1 2.1m0-14.2-2.1 2.1m-10 10-2.1 2.1"/>',
+    '<circle cx="12" cy="12" r="3.2"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3"/>',
 ]
 
 
 def tabs(screens):
     out = []
-    for i, s in enumerate(screens):
-        sel = ' aria-selected="true"' if i == 0 else ""
-        g = TAB_GLYPHS[i % len(TAB_GLYPHS)]
-        icon = (f'<svg viewBox="0 0 24 24" width="25" height="25" '
-                f'fill="none" stroke="currentColor" stroke-width="1.8" '
-                f'stroke-linecap="round" stroke-linejoin="round" '
-                f'aria-hidden="true">{g}</svg>')
-        out.append(f'      <button class="ios-tabbar__item"{sel}>'
-                   f'{icon}{s}</button>')
+    for i, screen in enumerate(screens):
+        selected = ' aria-selected="true"' if i == 0 else ""
+        glyph = TAB_GLYPHS[i % len(TAB_GLYPHS)]
+        icon = (f'<svg viewBox="0 0 24 24" width="25" height="25" fill="none" '
+                f'stroke="currentColor" stroke-width="1.8" aria-hidden="true">{glyph}</svg>')
+        out.append(f'      <button class="ios-tabbar__item"{selected}>{icon}{screen}</button>')
     return "\n".join(out)
 
 
-def navlinks(screens):
-    out = []
-    for i, s in enumerate(screens):
-        cur = ' aria-current="page"' if i == 0 else ""
-        out.append(f'      <a href="#"{cur}>{s}</a>')
-    return "\n".join(out)
+def records():
+    demo = [("Overnight oats", "12 min · 4 servings"),
+            ("Sheet-pan chicken", "35 min · 2 servings"),
+            ("Miso soup", "8 min · 2 servings")]
+    return "\n".join(
+        f'<article class="record"><div><h2>{title}</h2><p>{meta}</p></div>'
+        f'<a class="action-link" href="#">Open</a></article>'
+        for title, meta in demo)
 
 
-def compose(kind, name, screens, thing):
-    empty_cta = f"Add your first {thing.rstrip('s')}"
-    empty_body = (f"Everything you save shows up here. "
-                  f"Start with one and the rest gets easier.")
+def skel_records(n=3):
+    return "\n".join(
+        '<article class="record" aria-hidden="true"><div>'
+        f'<div class="skel" style="width:{(44,58,36)[i%3]}%;height:1.2em;margin-bottom:8px"></div>'
+        '<div class="skel" style="width:30%;height:.9em"></div></div></article>'
+        for i in range(n))
 
+
+def collection_items():
+    demo = [("Overnight oats", "12 min · 4 servings"),
+            ("Sheet-pan chicken", "35 min · 2 servings"),
+            ("Miso soup", "8 min · 2 servings")]
+    return "\n".join(
+        f'<a class="collection__item" href="#"{" aria-current=\"true\"" if i == 0 else ""}>'
+        f'<strong>{title}</strong><span>{meta}</span></a>'
+        for i, (title, meta) in enumerate(demo))
+
+
+def skel_collection(n=3):
+    return "\n".join(
+        '<div class="collection__item" aria-hidden="true">'
+        f'<div class="skel" style="width:{(58,72,46)[i%3]}%;height:1.2em;margin-bottom:8px"></div>'
+        '<div class="skel" style="width:38%;height:.9em"></div></div>'
+        for i in range(n))
+
+
+def panels(thing):
+    singular = thing.rstrip("s")
+    empty_cta = f"Add your first {singular}"
+    empty_body = f"Everything you save shows up here. Start with one and build from there."
     empty = (EMPTY_PANEL.replace("__THING__", thing)
              .replace("__EMPTY_BODY__", empty_body)
              .replace("__EMPTY_CTA__", empty_cta))
     error = ERROR_PANEL.replace("__THING__", thing)
+    return empty_cta, empty, error
+
+
+def compose(kind, model, name, screens, thing):
+    empty_cta, empty, error = panels(thing)
 
     if kind == "marketing":
-        css, body = MKT_CSS, MKT_BODY
-        body = (body.replace("__HEADLINE__", f"{name}, without the faff.")
-                .replace("__SUB__",
-                         "One sentence that says what it is and who it is "
-                         "for. Replace this before anyone sees it."))
+        css = WEB_BASE_CSS + MKT_CSS
+        body = (MKT_BODY.replace("__HEADLINE__", f"{name}, with less in the way.")
+                .replace("__SUB__", "One sentence that says what changes for the person using it."))
+        chosen_model = "editorial"
     elif kind == "web":
-        css, body = WEB_CSS, WEB_BODY
+        css_model, body = WEB_MODELS[model]
+        css = WEB_BASE_CSS + css_model
         body = (body.replace("__NAVLINKS__", navlinks(screens))
-                .replace("__CARDS__", cards())
-                .replace("__SKELCARDS__", skel_cards()))
+                .replace("__RECORDS__", records())
+                .replace("__SKELRECORDS__", skel_records())
+                .replace("__COLLECTION__", collection_items())
+                .replace("__SKELCOLLECTION__", skel_collection()))
+        chosen_model = model
     else:
-        css, body = IOS_CSS, IOS_BODY
-        body = (body.replace("__ROWS__", rows(screens[0], thing))
-                .replace("__SKELROWS__", skel_rows())
-                .replace("__TABS__", tabs(screens)))
+        css = IOS_CSS
+        body = (IOS_BODY.replace("__ROWS__", rows(thing))
+                .replace("__SKELROWS__", skel_rows()))
+        if model == "tabs":
+            if len(screens) > 5:
+                raise ValueError("tabs chosen with more than five screens; reconsider hierarchy or use --model stack")
+            tabbar = '    <nav class="ios-tabbar">\n' + tabs(screens) + '\n    </nav>'
+        else:
+            tabbar = ""
+        body = body.replace("__TABBAR__", tabbar)
+        chosen_model = model
 
     body = (body.replace("__SWITCHER__", SWITCHER)
             .replace("__EMPTY__", empty)
             .replace("__ERROR__", error)
             .replace("__SCREEN1__", screens[0])
             .replace("__EMPTY_CTA__", empty_cta)
-            .replace("__NAME__", name))
+            .replace("__NAME__", name)
+            .replace("__THING__", thing))
 
     head = HEAD.replace("__NAME__", name)
-    return (head + "\n<style>" + STATE_CSS + css + "</style>\n\n"
-            + body + STATE_JS)
+    html = head + "\n<style>" + STATE_CSS + css + "</style>\n\n" + body + STATE_JS
+    return html, chosen_model
 
 
 README = """# __NAME__
 
-Scaffolded by `apple-design`'s `new_project.py`. What is here already
-works: open `index.html` with no server and no network.
+This scaffold deliberately separates **design direction** from infrastructure.
 
-    index.html      one screen, four states, switcher at the top
-    theme.css       generated from __BRAND__ -- regenerate, do not hand-edit
-    vendor/         Apple's measured tokens, the component recipes, the fonts
+    index.html      starter composition + four reachable states
+    DESIGN.md       rationale to replace before polishing
+    theme.css       generated from __BRAND__; regenerate, do not hand-edit
+    vendor/         measured tokens, component recipes, local fonts
 
-## What to change
+## Chosen direction
 
-The content. The rows, the copy, the hierarchy, which screen comes
-first -- that is the design, and it is the part no generator does.
+- kind: `__KIND__`
+- spatial model: `__MODEL__`
+- character: `__CHARACTER__`
 
-## What not to change
+The scaffold is not the design. Replace its sample content and recompose it
+around the real hierarchy. Do not preserve a region merely because the
+generator emitted it.
 
-**The link order in `index.html`.** Fonts, tokens, components, then
-`theme.css` last. Move the theme earlier and the component recipes
-overwrite the brand palette; the page still renders, in Apple's blue,
-which is why this is worth a line of its own.
+## Infrastructure not to break
 
-**`theme.css` by hand.** Regenerate it:
+Keep `theme.css` last in the stylesheet order. Keep fonts local. Regenerate
+`theme.css` instead of editing its bridge by hand:
 
     python3 build_theme.py "__BRAND__" --name __SLUG__ -o theme.css
-
-It ends with a bridge aliasing the brand tokens onto the `--ios-*` names
-the recipes read. Hand-editing loses the bridge and you get a brand
-palette next to Apple-blue buttons.
 
 ## Before calling it done
 
     python3 check_design.py __OUT__
 
-That checks what a screenshot cannot: link order, the bridge surviving,
-no CDN, every state present, contrast, and no overflow at phone width.
+After the mechanical check passes, read
+`references/visual-critique.md` and perform the reduction pass. A mechanically
+valid interface can still be visually generic.
+"""
+
+DESIGN = """# Design direction
+
+## Product character
+
+**Dominant:** __CHARACTER__
+
+Write one supporting quality only if it clarifies the direction.
+
+## Platform mode
+
+`__KIND__`
+
+For web, transfer Apple principles rather than iOS chrome. For native Apple
+platform work, verify behavior and platform claims against `apple-hig`.
+
+## Spatial model
+
+`__MODEL__`
+
+Why this model matches the user's primary task:
+
+> Replace this with one sentence before polishing the interface.
+
+## Information hierarchy
+
+1. **Primary** — what the user came here to see or do.
+2. **Secondary** — context needed to understand or act on the primary.
+3. **Tertiary** — supporting detail that can recede.
+4. **Contextual** — controls shown only when relevant.
+
+Replace those placeholders with actual product content.
+
+## Reduction pass
+
+Before polish:
+- remove containers that do not communicate a boundary or grouping
+- turn unnecessary borders into spacing
+- make secondary controls contextual where possible
+- confirm one primary action
+- confirm density fits the platform
+- remove decorative glass, blur, shadows, pills, and motion
+- check that typography still carries hierarchy with containers mentally removed
+
+Then run `check_design.py` and the visual critique.
 """
 
 
 def main():
     ap = argparse.ArgumentParser(
-        description="Scaffold a working project in Apple's structure.")
+        description="Scaffold design infrastructure after choosing a spatial model.")
     ap.add_argument("--name", required=True, help="product name")
-    ap.add_argument("--brand", required=True, help='brand colour, "#C1552E"')
+    ap.add_argument("--brand", required=True, help='brand colour, e.g. "#C1552E"')
     ap.add_argument("--kind", default="ios",
                     choices=["ios", "web", "marketing", "cross"],
-                    help="decides the shape; marketing gets no iOS chrome")
+                    help="platform context")
+    ap.add_argument("--model",
+                    choices=["tabs", "stack", "workspace", "list-detail", "dashboard", "document"],
+                    help="spatial model; required for web, tabs/stack for ios")
+    ap.add_argument("--character", default="calm",
+                    help='dominant product character, e.g. "dense", "editorial", "utilitarian"')
     ap.add_argument("--screens", default="Home,Browse,Settings",
-                    help="comma-separated, first one is shown")
+                    help="comma-separated screen/destination names")
     ap.add_argument("--thing", default="recipes",
-                    help='what the app holds, for empty-state copy')
+                    help="what the product holds, for sample empty-state copy")
     ap.add_argument("-o", "--out", required=True, help="output directory")
     a = ap.parse_args()
 
     if not os.path.isdir(KIT):
-        sys.exit(f"apple-ui-kit not found next to this skill ({KIT}).\n"
-                 "Both skills need to be installed; the vendored tokens, "
-                 "components and fonts come from there.")
+        sys.exit(f"apple-ui-kit not found next to this skill ({KIT}).")
 
     screens = [s.strip() for s in a.screens.split(",") if s.strip()]
     if not screens:
         sys.exit("--screens needs at least one name")
-    if len(screens) > 5 and a.kind in ("ios", "cross"):
-        print(f"note: {len(screens)} tabs. Apple's own limit is five; past "
-              f"that they are not all top-level, or it wants a sidebar.",
-              file=sys.stderr)
+
+    kind = "ios" if a.kind == "cross" else a.kind
+
+    if kind == "web" and not a.model:
+        sys.exit("--kind web requires --model: workspace, list-detail, dashboard, or document")
+    if kind == "web" and a.model not in WEB_MODELS:
+        sys.exit("--kind web supports --model workspace, list-detail, dashboard, or document")
+    if kind == "marketing":
+        model = "editorial"
+    elif kind == "ios":
+        model = a.model or "stack"
+        if model not in ("tabs", "stack"):
+            sys.exit("--kind ios/cross supports --model tabs or stack")
+    else:
+        model = a.model
 
     out = os.path.abspath(a.out)
     vendor = os.path.join(out, "vendor")
@@ -590,41 +808,58 @@ def main():
 
     shutil.copy2(os.path.join(KIT, "tokens", "ios-tokens.css"), vendor)
     shutil.copy2(os.path.join(KIT, "ios-components.css"), vendor)
-    for f in os.listdir(os.path.join(KIT, "fonts")):
-        shutil.copy2(os.path.join(KIT, "fonts", f),
-                     os.path.join(vendor, "fonts", f))
+    for filename in os.listdir(os.path.join(KIT, "fonts")):
+        shutil.copy2(os.path.join(KIT, "fonts", filename),
+                     os.path.join(vendor, "fonts", filename))
 
-    name = slug(a.name)
+    theme_name = slug(a.name)
     try:
-        css, notes = build_theme.build(a.brand, name)
-    except ValueError as e:
-        sys.exit(str(e))
-    open(os.path.join(out, "theme.css"), "w", encoding="utf-8").write(css)
+        css, notes = build_theme.build(a.brand, theme_name)
+    except ValueError as exc:
+        sys.exit(str(exc))
+    with open(os.path.join(out, "theme.css"), "w", encoding="utf-8") as f:
+        f.write(css)
 
-    kind = "ios" if a.kind == "cross" else a.kind
-    html = compose(kind, a.name, screens, a.thing)
-    open(os.path.join(out, "index.html"), "w", encoding="utf-8").write(html)
+    try:
+        html, chosen_model = compose(kind, model, a.name, screens, a.thing)
+    except ValueError as exc:
+        sys.exit(str(exc))
+    with open(os.path.join(out, "index.html"), "w", encoding="utf-8") as f:
+        f.write(html)
 
-    open(os.path.join(out, "README.md"), "w", encoding="utf-8").write(
-        README.replace("__NAME__", a.name).replace("__BRAND__", a.brand)
-        .replace("__SLUG__", name).replace("__OUT__", a.out))
+    readme = (README.replace("__NAME__", a.name)
+              .replace("__BRAND__", a.brand)
+              .replace("__KIND__", a.kind)
+              .replace("__MODEL__", chosen_model)
+              .replace("__CHARACTER__", a.character)
+              .replace("__SLUG__", theme_name)
+              .replace("__OUT__", a.out))
+    with open(os.path.join(out, "README.md"), "w", encoding="utf-8") as f:
+        f.write(readme)
 
-    # relpath is friendly from inside the project and absurd from
-    # anywhere else ("../../../../tmp/x/y/proj"), so take whichever
-    # actually reads as a path someone could retype.
+    design = (DESIGN.replace("__CHARACTER__", a.character)
+              .replace("__KIND__", a.kind)
+              .replace("__MODEL__", chosen_model))
+    with open(os.path.join(out, "DESIGN.md"), "w", encoding="utf-8") as f:
+        f.write(design)
+
     rel = min(os.path.relpath(out), out, key=len)
     check = os.path.join(HERE, "check_design.py")
     check_rel = min(os.path.relpath(check), check, key=len)
+
     print(f"scaffolded {rel}/")
-    print(f"  index.html   {a.kind} shape, {len(screens)} screens, 4 states")
-    print(f"  theme.css    {a.brand} -> {name}-*, bridged to --ios-*")
-    print(f"  vendor/      tokens, components, fonts (offline)")
+    print(f"  index.html   {a.kind} / {chosen_model}, 4 states")
+    print(f"  DESIGN.md    character={a.character}; replace hierarchy placeholders")
+    print(f"  theme.css    {a.brand} -> {theme_name}-*, bridged to --ios-*")
+    print("  vendor/      tokens, components, fonts (offline)")
+    if notes:
+        print()
+        for note in notes:
+            print("  contrast: " + note)
     print()
-    for n in notes:
-        print("  contrast: " + n)
-    print()
-    print(f"next: edit the content in {rel}/index.html, then")
+    print("next: replace DESIGN.md placeholders, recompose index.html around that hierarchy, then")
     print(f"      python3 {check_rel} {rel}")
+    print("      perform references/visual-critique.md")
     return 0
 
 
