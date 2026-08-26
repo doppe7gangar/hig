@@ -1,17 +1,13 @@
 #!/usr/bin/env python3
-"""Smoke-test the deterministic parts of the apple-design workflow.
+"""Smoke-test deterministic parts of the apple-design workflow.
 
-This is deliberately cheaper than projtest.py: no model call. It proves that
-reference selection, each emitted scaffold model, the mechanical checker, and
-(optionally) the rendered-review setup still execute together.
-
-    python3 scripts/eval/design_workflow_smoke.py
-    python3 scripts/eval/design_workflow_smoke.py --browser
+No model call. It verifies platform-aware reference routing, scaffold models,
+mechanical checks, the direction-evidence guard, and optionally screenshot
+review setup.
 """
 
 import argparse
 import os
-import shutil
 import subprocess
 import sys
 import tempfile
@@ -21,17 +17,16 @@ DESIGN = os.path.join(ROOT, ".claude", "skills", "apple-design")
 SELECT = os.path.join(DESIGN, "select_references.py")
 SCAFFOLD = os.path.join(DESIGN, "new_project.py")
 CHECK = os.path.join(DESIGN, "check_design.py")
+DIRECTION = os.path.join(DESIGN, "check_direction.py")
 RENDER = os.path.join(DESIGN, "render_review.py")
 
 
 def run(args, cwd=None, expect=0):
     p = subprocess.run(args, cwd=cwd, capture_output=True, text=True)
     if p.returncode != expect:
-        cmd = " ".join(args)
         raise RuntimeError(
-            f"command returned {p.returncode}, expected {expect}: {cmd}\n"
-            f"stdout:\n{p.stdout}\nstderr:\n{p.stderr}"
-        )
+            f"command returned {p.returncode}, expected {expect}: {' '.join(args)}\n"
+            f"stdout:\n{p.stdout}\nstderr:\n{p.stderr}")
     return p
 
 
@@ -41,30 +36,31 @@ def exists(path):
 
 
 def test_reference_selector(tmp):
-    out = os.path.join(tmp, "REFERENCES.md")
-    run([sys.executable, SELECT,
-         "--query", "analytics dashboard filters search status settings",
-         "--model", "dashboard", "--limit", "5", "-o", out])
-    exists(out)
-    text = open(out, encoding="utf-8").read()
-    if "## Selected references" not in text or "## Synthesis before composition" not in text:
-        raise RuntimeError("reference selector did not emit the expected review structure")
-    if "apple-hig/references/pages/" not in text:
-        raise RuntimeError("reference selector emitted no HIG provenance")
-    if "apple-hig/assets/ui-kit/" not in text:
-        raise RuntimeError("reference selector emitted no visual references")
-    print("ok reference selector")
+    ios = os.path.join(tmp, "REFERENCES-ios.md")
+    run([sys.executable, SELECT, "--query",
+         "analytics dashboard filters search status settings",
+         "--model", "dashboard", "--platform", "ios", "--limit", "5", "-o", ios])
+    text = open(ios, encoding="utf-8").read()
+    if "apple-hig/references/pages/" not in text or "apple-hig/assets/ui-kit/" not in text:
+        raise RuntimeError("iOS selector lost HIG or measured visual provenance")
+
+    mac = os.path.join(tmp, "REFERENCES-macos.md")
+    run([sys.executable, SELECT, "--query",
+         "mail sidebar toolbar search list detail menus",
+         "--model", "list-detail", "--platform", "macos", "--limit", "5", "-o", mac])
+    text = open(mac, encoding="utf-8").read().lower()
+    if "no measured macos visual corpus" not in text:
+        raise RuntimeError("macOS selector failed to state the measured-corpus boundary")
+    if "inspect these visual states" in text or "**visual folder:**" in text:
+        raise RuntimeError("macOS selector incorrectly exposed iOS visuals as platform evidence")
+    print("ok platform-aware reference selector")
 
 
 def scaffold(tmp, kind, model, name):
     out = os.path.join(tmp, name)
-    args = [sys.executable, SCAFFOLD,
-            "--name", name,
-            "--brand", "#4C7DFF",
-            "--kind", kind,
-            "--screens", "Home,Browse,Settings",
-            "--thing", "items",
-            "-o", out]
+    args = [sys.executable, SCAFFOLD, "--name", name, "--brand", "#4C7DFF",
+            "--kind", kind, "--screens", "Home,Browse,Settings",
+            "--thing", "items", "-o", out]
     if model:
         args[args.index("--screens"):args.index("--screens")] = ["--model", model]
     run(args)
@@ -73,6 +69,9 @@ def scaffold(tmp, kind, model, name):
                 os.path.join("vendor", "ios-components.css")):
         exists(os.path.join(out, rel))
     run([sys.executable, CHECK, out, "--no-browser"])
+    # The scaffold deliberately contains an incomplete design direction. The
+    # direction gate must reject it until the designer records real evidence.
+    run([sys.executable, DIRECTION, out], expect=1)
     return out
 
 
@@ -82,11 +81,9 @@ def test_models(tmp):
         outputs[model] = scaffold(tmp, "web", model, "web-" + model)
         print(f"ok web model {model}")
     outputs["ios-stack"] = scaffold(tmp, "ios", "stack", "ios-stack")
-    print("ok ios stack")
     outputs["ios-tabs"] = scaffold(tmp, "ios", "tabs", "ios-tabs")
-    print("ok ios tabs")
     outputs["marketing"] = scaffold(tmp, "marketing", None, "marketing")
-    print("ok marketing editorial")
+    print("ok iOS and marketing models; incomplete direction correctly rejected")
     return outputs
 
 
@@ -98,34 +95,23 @@ def test_render_review(project):
             print("skip rendered review (browser unavailable)")
             return
         raise RuntimeError(f"render review failed:\n{p.stdout}\n{p.stderr}")
-
-    review = os.path.join(project, "VISUAL_REVIEW.md")
-    audit = os.path.join(project, ".visual-review", "audit.json")
-    exists(review)
-    exists(audit)
-
-    # A freshly generated sheet must fail completion: the pending judgments
-    # are intentional. If this unexpectedly passes, the guard has stopped
-    # guarding the human/model inspection step.
+    exists(os.path.join(project, "VISUAL_REVIEW.md"))
+    exists(os.path.join(project, ".visual-review", "audit.json"))
     run([sys.executable, RENDER, project, "--check"], expect=1)
-    print("ok rendered review produces intentionally incomplete critique")
+    print("ok rendered review requires completed critique")
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--browser", action="store_true",
-                    help="also exercise Playwright screenshot rendering")
+    ap.add_argument("--browser", action="store_true")
     a = ap.parse_args()
-
-    for path in (SELECT, SCAFFOLD, CHECK, RENDER):
+    for path in (SELECT, SCAFFOLD, CHECK, DIRECTION, RENDER):
         exists(path)
-
     with tempfile.TemporaryDirectory(prefix="apple-design-smoke-") as tmp:
         test_reference_selector(tmp)
         outputs = test_models(tmp)
         if a.browser:
             test_render_review(outputs["dashboard"])
-
     print("design workflow smoke test passed")
     return 0
 
