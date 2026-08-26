@@ -1,6 +1,6 @@
 ---
 name: apple-design
-description: Design or redesign a whole product with Apple-level hierarchy, restraint, composition, platform awareness, adaptivity, accessibility, and evidence-based critique. Use for apps, websites, dashboards, SaaS, product surfaces, and cross-platform interfaces when the task is broader than a single component. This skill acts as the design director: it routes through the target platform and HIG, defines information hierarchy and invariants, compares competing spatial directions, inspects relevant references, prefers system components, plans adaptive transformations and interaction states, then validates both mechanical and rendered visual quality. Use when a design technically works but still feels generic, card-heavy, overly decorative, platform-inappropriate, or insufficiently Apple-like.
+description: Design or redesign a whole product with Apple-level hierarchy, restraint, composition, platform awareness, adaptivity, accessibility, and evidence-based critique. Use for apps, websites, dashboards, SaaS, product surfaces, and cross-platform interfaces when the task is broader than a single component. This skill acts as the design director: it routes through the target platform and HIG, defines information hierarchy and invariants, compares competing spatial directions, inspects relevant references, prefers system components, plans adaptive transformations and interaction states, then validates direction evidence, mechanical correctness, and rendered visual quality.
 ---
 
 # Apple Design Director
@@ -10,7 +10,7 @@ This skill decides what the product should feel like before it decides what comp
 Specialists:
 
 - `apple-hig` — authoritative platform rules, behavior, accessibility, components, APIs
-- `apple-ui-kit` — measured iOS visual values/recipes where a system palette is unavailable
+- `apple-ui-kit` — measured iOS visual values/recipes where system appearance is not available
 - `apple-motion` — interaction physics and animation implementation
 - `apple-design` — product hierarchy, platform routing, divergence, composition, invariants, adaptivity, reference selection, reduction, and critique
 
@@ -18,11 +18,11 @@ Specialists:
 
 **No measured visual kit does not mean no Apple guidance.**
 
-For native Apple platforms use this order:
+For native Apple platforms use:
 
 `HIG → platform differences → system APIs/components → product composition → measured visual evidence (when available) → design judgment`
 
-The current measured visual corpus is iOS 27. macOS is still fully HIG-governed; only measured macOS appearance is absent. Never present iOS screenshots as measured macOS evidence.
+The current measured visual corpus is iOS 27. macOS remains fully HIG-governed; measured macOS appearance is simply not registered yet. Never present iOS screenshots as measured macOS evidence.
 
 Read `references/platform-routing.md` whenever platform fit matters.
 
@@ -30,33 +30,23 @@ Read `references/platform-routing.md` whenever platform fit matters.
 
 **Do not begin by placing components. Begin by composing information.**
 
-Before adding a card, panel, border, toolbar, floating control, blur, or shadow, ask whether hierarchy can be communicated through position, alignment, spacing, typography, scale, grouping, progressive disclosure, motion, or context.
+Before adding a card, panel, border, toolbar, floating control, blur, or shadow, ask whether hierarchy can instead be communicated through position, alignment, spacing, typography, scale, grouping, progressive disclosure, motion, or context.
 
-**If the interface still works after removing a container, remove it.**
+If the interface still works after removing a container, remove it.
 
 # Required workflow
 
 ## 1. Understand the product
 
-Establish:
+Establish the primary user, recurring task, primary object/information, what must be instantly visible, secondary/tertiary information, contextual information, required platforms, widths, and input methods.
 
-- primary user
-- primary recurring task
-- primary object/information
-- what must be instantly visible
-- secondary and tertiary information
-- what can remain contextual
-- required platforms/widths/input methods
-
-Infer routine design decisions when the brief is broad rather than pushing them back to the user.
-
-## 2. Route through the platform before divergence
+## 2. Route through platform/HIG before divergence
 
 Read `references/platform-routing.md`.
 
-For native Apple work, inspect `apple-hig/references/platform-diffs.md`, relevant `rules.md`, and relevant components before proposing architecture.
+For native Apple work inspect `apple-hig/references/platform-diffs.md` and relevant `rules.md`/components before proposing architecture.
 
-Before designing custom native controls, search:
+Before creating a custom native control, search:
 
 1. `apple-hig/references/framework-index.md`
 2. relevant HIG component/rules
@@ -66,27 +56,13 @@ Prefer system components unless a concrete product requirement makes them insuff
 
 ### macOS
 
-macOS designs are HIG-first even without a measured Mac kit. Consider where relevant:
+Even without a measured Mac visual kit, follow HIG and consider where relevant: windows/resizing, sidebars/split views, toolbar/title region, inspectors, dense lists/tables, menus/context menus, keyboard commands, pointer/hover/focus, selection/multi-selection, popovers/sheets, multiwindow behavior, drag/drop, inactive-window states.
 
-- windows and resizing
-- sidebar/split view
-- toolbar/title region
-- inspector
-- tables and dense lists
-- menus/context menus
-- keyboard commands
-- pointer/hover/focus
-- selection/multi-selection
-- popovers/sheets
-- multiwindow behavior
-- drag/drop
-- inactive-window states
-
-Reject iPhone-derived assumptions such as bottom tabs, oversized touch density, giant mobile titles, or modal sheets for routine desktop choices unless HIG/task evidence supports them.
+Reject imported iPhone assumptions—bottom tabs, giant touch controls/titles, excessive mobile sheets—unless task/HIG evidence supports them.
 
 ### iOS/iPadOS
 
-Use touch-first hierarchy and HIG navigation. Tabs are not inferred from destination count alone. iPad candidates should exploit width where useful rather than merely enlarge iPhone.
+Use touch-first hierarchy and HIG navigation. Tabs are not inferred from destination count. iPad should exploit width where useful rather than simply enlarge iPhone.
 
 ### Web
 
@@ -94,256 +70,134 @@ Treat the browser as a platform. Transfer Apple principles, not copied iOS chrom
 
 ### Marketing
 
-HIG is not a marketing-page template. Use editorial hierarchy and narrative structure rather than native app chrome.
+HIG is not a marketing-page template. Use editorial hierarchy and narrative structure.
 
 ## 3. Establish product character
 
-Choose one dominant quality and at most one supporting quality:
-
-calm, dense, editorial, utilitarian, immersive, playful, professional, content-first, data-first, tool-like, spatial.
-
-Do not combine every adjective.
+Choose one dominant quality and at most one supporting quality: calm, dense, editorial, utilitarian, immersive, playful, professional, content-first, data-first, tool-like, spatial.
 
 ## 4. Build information hierarchy
 
-Rank contents:
+Rank:
 
-1. **Primary** — why the user is here
-2. **Secondary** — context needed to understand/act
-3. **Tertiary** — supporting detail
-4. **Contextual** — appears only when relevant
+1. Primary
+2. Secondary
+3. Tertiary
+4. Contextual
 
-If everything is visually equal, the design has failed before styling.
-
-Prefer typography/spacing/alignment/disclosure over additional containers.
+If everything is visually equal, the design has failed before styling. Prefer typography, spacing, alignment, and disclosure over extra containers.
 
 ## 5. Define design invariants
 
-Read `references/design-invariants.md` and record 3–5 structural invariants in `DESIGN.md`.
-
-Examples:
-
-- document remains the dominant work surface
-- only selected objects reveal destructive actions
-- today's status is always the first read
-- collection remains navigation; detail does not leak into rows
-- brand color identifies action/selection, not decoration
-
-Invariants must survive responsive changes and states unless explicitly revised with evidence.
+Read `references/design-invariants.md`. Record 3–5 structural invariants in `DESIGN.md` that must survive implementation, responsive changes, and states.
 
 ## 6. Diverge before committing
 
-Read:
+Read `references/spatial-models.md` and `references/design-divergence.md`.
 
-- `references/spatial-models.md`
-- `references/design-divergence.md`
+Consider 2–3 genuinely different structural directions when credible. Platform constraints come first; do not invent obviously invalid candidates. Candidates must differ structurally, not cosmetically.
 
-For major screens/products, consider 2–3 genuinely different structural directions when credible. Platform constraints come first, so do not invent obviously invalid cross-platform candidates.
-
-Candidates must differ in structural dimensions such as dominant region, pane relationship, navigation, persistent chrome, density, sequence/simultaneity, or adaptive transformation. Color/radius/card-style variants do not count.
-
-Compare candidates on:
-
-- primary-task fit
-- hierarchy clarity
-- information relationship
-- platform fit
-- adaptivity
-- restraint
-- product-specific distinctiveness
-
-Explicitly reject alternatives for product-specific reasons. Scores expose trade-offs; they do not choose automatically.
+Compare task fit, hierarchy, information relationship, platform fit, adaptivity, restraint, and product-specific distinctiveness. Explicitly reject alternatives for product-specific reasons.
 
 ## 7. Select and inspect references
 
-Generate a focused shortlist:
+Use a platform-aware shortlist:
 
 ```bash
 python3 select_references.py \
   --query "<task, components, states, navigation>" \
-  --model <leading-model> -o ./design/REFERENCES.md
+  --model <leading-model> --platform <ios|ipados|macos|web|marketing|...> \
+  -o ./design/REFERENCES.md
 ```
 
-Then inspect the **actual images**. Filenames are not visual evidence.
+For platforms without a registered measured corpus, the selector provides HIG/component guidance and explicitly suppresses fake visual evidence. For macOS, this means HIG-first with no iOS screenshots claimed as measured Mac appearance.
 
-Extract relationships:
+Inspect actual images when available. Extract concrete relationships: first read, grouping, persistent/contextual chrome, state differences, material meaning, and what must not transfer. References are evidence, not votes or screenshots to clone.
 
-- first read
-- grouping
-- persistent vs contextual chrome
-- state differences
-- material/tint meaning
-- relationships that should not transfer to this product/platform
+## 8. Commit model and adaptive architecture
 
-Synthesize 3–5 concrete relationships. If references invalidate a candidate assumption, revisit divergence.
+Starter scaffolds: `workspace`, `list-detail`, `dashboard`, `document`, `editorial`, iOS `stack`, iOS `tabs`. Other models remain valid: inspector, command surface, feed, immersive media/map, dense table, multi-pane editor, macOS-specific compositions.
 
-References are evidence, not votes and not screenshots to clone.
+Read `references/adaptivity.md`. Record wide/default and compact architecture, what disappears, what becomes sequential/contextual, how selection survives, and how pointer/keyboard assumptions change for touch.
 
-## 8. Commit the spatial model and adaptive plan
-
-Implemented starter models:
-
-- `workspace`
-- `list-detail`
-- `dashboard`
-- `document`
-- `editorial`
-- iOS `stack`
-- iOS `tabs`
-
-Other valid models include inspector, command surface, feed, immersive media/map, dense table, multi-pane editor, or platform-specific macOS compositions. Never force the product into an available scaffold.
-
-Read `references/adaptivity.md` and record:
-
-- wide/default architecture
-- compact architecture
-- what disappears
-- what becomes sequential
-- what becomes contextual
-- how selection/context survives
-- how pointer/keyboard assumptions change for touch
-
-Responsive design is architectural transformation, not merely smaller CSS.
+Responsive design is architectural transformation, not smaller CSS.
 
 ## 9. Plan interaction states and accessibility before polish
 
 Read `references/interaction-accessibility.md`.
 
-Build a state matrix from what each component actually supports: default, hover, keyboard focus, pressed, selected, disabled, editing, expanded/open, loading/submitting, drag/drop, destructive/undo, inactive-window where relevant.
+Build an applicable state matrix: default, hover, keyboard focus, pressed, selected, disabled, editing, expanded/open, loading/submitting, drag/drop, destructive/undo, inactive-window where relevant.
 
-Check applicable HIG guidance for:
-
-- Dynamic Type/text scaling/browser zoom
-- keyboard navigation/focus order
-- VoiceOver/screen-reader semantics
-- target size/spacing
-- contrast and non-color state communication
-- Reduce Motion
-- Reduce Transparency
-- focus visibility
-- error identification/recovery
-
-A polished default state is not a finished component.
+Check applicable HIG guidance for Dynamic Type/text scaling/zoom, keyboard/focus order, VoiceOver/screen-reader semantics, target size/spacing, contrast/non-color state communication, Reduce Motion, Reduce Transparency, focus visibility, and error recovery.
 
 ## 10. Compose before decorating
 
-For each screen decide:
+Decide dominant/secondary regions, reading order, alignment, density, content width, persistent chrome, contextual chrome, and functional empty space. Only then select surfaces, borders, materials, shadows, and motion.
 
-- dominant region
-- secondary region
-- reading order
-- alignment system
-- density
-- content width
-- persistent chrome
-- contextual chrome
-- functional empty space
+# Restraint
 
-Only then choose surfaces, borders, materials, shadows, and motion.
-
-# Apple restraint rules
-
-Apple-like design is not “rounded + glass + minimal.” Avoid accidental generative-UI habits:
-
-- card grids for unrelated information
-- identical rounded rectangles around every section
-- excessive pills
-- floating containers everywhere
-- decorative glass/blur
-- gratuitous shadows/gradients
-- center-aligned everything
-- repeated icon + title + paragraph feature cards
-- unsupported giant headings
-- duplicate primary actions
-- decorative motion
-
-Use a container only when it communicates a real boundary, grouping, material layer, or interaction region.
-
-## Material discipline
+Avoid accidental generative-UI habits: unrelated card grids, rounded boxes around every region, excessive pills, floating containers everywhere, decorative glass/blur, gratuitous shadows/gradients, repeated centered feature-card sections, unsupported giant headings, duplicate primary actions, decorative motion.
 
 A translucent surface must answer: **what is floating above what, and why?**
 
-Blur, vibrancy, shadow, and depth should communicate hierarchy, modality, separation, or focus. If the relationship is meaningless, simplify.
+# Project gates
 
-## Motion discipline
+Use `references/design-direction-template.md` to expand/replace the scaffolded `DESIGN.md` with real evidence.
 
-Motion should communicate causality, continuity, spatial relationship, state change, or hierarchy. Delegate gesture/spring implementation to `apple-motion`. Never animate merely to make the interface feel less static.
-
-# Project workflow
-
-Use `new_project.py` only after hierarchy, platform routing, divergence, reference inspection, and model commitment.
-
-Examples:
+Direction gate:
 
 ```bash
-python3 new_project.py --name Pulse --brand "#5A67D8" \
-  --kind web --model dashboard --character dense \
-  --screens "Overview,Reports,Settings" -o ./design
-
-python3 new_project.py --name Clay --brand "#C1552E" \
-  --kind ios --model stack --screens "Plan,Recipes,List,Settings" -o ./design
+python3 check_direction.py ./design
 ```
 
-Marketing selects editorial automatically.
+Do not proceed as if the project has a design direction while this fails.
 
-`new_project.py` provides infrastructure, not art direction. Update `DESIGN.md` so it contains actual hierarchy, candidate/rejection rationale, invariants, platform constraints, and adaptive plan before polishing.
-
-## Mechanical gate
+Mechanical gate:
 
 ```bash
 python3 check_design.py ./design
 ```
 
-This checks wiring, resources, states, browser failures, contrast, overflow, targets, and theme integrity. It does not decide whether the design is good.
-
-## Rendered visual gate
+Rendered review:
 
 ```bash
 python3 render_review.py ./design
 ```
 
-Inspect all generated screenshots. Read `references/visual-critique.md` and write findings as:
+Read `references/visual-critique.md`. Every meaningful finding must use:
 
 **evidence → consequence → correction**
 
 Review hierarchy, invariants, composition, containers, typography, density, adaptive transformations, interaction states, accessibility, material/color, system-component usage, platform authenticity, states, and reduction.
 
-After revising and rerendering where needed, replace all `[PENDING]` judgments, set review status to `COMPLETE`, then run:
+After revision/rerender, complete `VISUAL_REVIEW.md` and verify:
 
 ```bash
 python3 render_review.py ./design --check
 ```
 
-Do not call a design visually reviewed or finished while this fails.
+Do not call the design finished while any required gate fails.
 
 # Platform anti-patterns
 
-`references/visual-critique.md` contains the full platform-specific smell list. Especially reject:
+The full list is in `references/visual-critique.md`. Especially reject:
 
-- **macOS:** giant touch controls/titles, bottom tabs, mobile sheets for ordinary choices, missing keyboard/menu affordances, cardified tables
-- **iOS:** desktop sidebars/inspectors squeezed into phone, tiny controls, hover-dependent actions
-- **web:** copied phone chrome, pseudo-native controls that harm browser expectations, glass/cards as the whole language
-- **marketing:** repeated centered heading + three-card sections without narrative reason
+- macOS: giant touch controls/titles, bottom tabs, mobile sheets for ordinary choices, missing keyboard/menu affordances, cardified tables
+- iOS: desktop sidebars/inspectors squeezed into phone, tiny controls, hover-dependent actions
+- web: copied phone chrome, pseudo-native controls that hurt browser expectations, glass/cards as the entire language
+- marketing: repeated centered heading + three-card sections without narrative reason
 
-# Design quality regression
+# Regression testing
 
-Read `references/benchmark-suite.md` when changing this skill materially.
+Read `references/benchmark-suite.md` and run:
 
-The benchmark suite spans analytics, mail, photo editing, finance, plant tracking, notes, developer tools, settings, media, commerce, marketing, operations, messaging, calendar, and files.
+```bash
+python3 scripts/eval/design_quality_eval.py
+```
 
-Regression warnings include:
+The 15-product suite looks for structural sameness across analytics, mail, photo editing, finance, plants, notes, developer tools, settings, media, commerce, marketing, operations, messaging, calendar, and files.
 
-- one spatial model dominating unrelated briefs
-- sidebar + cards appearing everywhere
-- identical navigation across iOS and macOS without task reasons
-- macOS outputs omitting keyboard/menu/pointer thinking
-- marketing reverting to feature-card wallpaper
-- dashboards reverting to equal metric tiles
-- responsive plans that only say shrink/stack
-- custom controls without system-component lookup
-- missing rejected alternatives or invariants
-
-Mechanical correctness plus structural sameness is a failed design skill.
+Mechanical validity plus repeated architecture is a failed design skill.
 
 # Complete loop
 
@@ -353,11 +207,12 @@ brief
 → product character + hierarchy
 → design invariants
 → 2–3 credible structural directions
-→ reference shortlist + image inspection
+→ platform-aware reference shortlist + inspection
 → compare / reject / commit
 → adaptive architecture plan
 → interaction + accessibility matrix
 → scaffold / compose / implement
+→ check_direction.py
 → check_design.py
 → render_review.py
 → screenshot inspection
@@ -367,15 +222,6 @@ brief
 → render_review.py --check
 ```
 
-# Delegation
-
-| Need | Skill |
-|---|---|
-| Product shape, platform routing, hierarchy, divergence, adaptivity, critique | **apple-design** |
-| Apple rules, behavior, accessibility, platform differences, system APIs | **apple-hig** |
-| Measured iOS visual values, typography, radii, colors, CSS recipes | **apple-ui-kit** |
-| Gestures, springs, velocity, interruptibility, motion | **apple-motion** |
-
 # Final standard
 
-A successful result feels Apple-like because it is clear, composed, restrained, adaptive, accessible, platform-correct, spatially coherent, typographically disciplined, purposeful in motion, deliberately chosen over credible alternatives, and proven through rendered inspection — **not because it is covered in rounded glass.**
+A successful result feels Apple-like because it is clear, composed, restrained, adaptive, accessible, platform-correct, spatially coherent, typographically disciplined, purposeful in motion, deliberately chosen over credible alternatives, and proven through rendered inspection—not because it is covered in rounded glass.
