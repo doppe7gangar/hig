@@ -65,20 +65,21 @@ Prefer stronger type instead of a box, spacing instead of a divider, alignment i
 
 ### 5. Choose the spatial model
 
-Pick the composition that matches the task rather than defaulting to a dashboard.
+Read `references/spatial-models.md` before choosing a scaffold.
 
-- **List → detail** — collections, inboxes, files, records
-- **Sidebar workspace** — persistent destinations, desktop productivity
-- **Document / canvas** — editors, creation tools, writing, design
-- **Inspector model** — object/content center, contextual controls adjacent
-- **Dashboard summary** — one answer first, evidence second
-- **Feed** — chronological or discovery content
-- **Immersive surface** — media, maps, spatial exploration
-- **Editorial scroll** — marketing and narrative
-- **Settings / configuration** — grouped by concern
-- **Command surface** — search, launcher, action-first tools
+The implemented starter models are:
 
-Do not let a scaffold choose this accidentally.
+- `workspace` — persistent destinations around sustained desktop work
+- `list-detail` — collection → selection → detail
+- `dashboard` — answer → context → evidence
+- `document` — content/work surface → contextual tools
+- `editorial` — marketing narrative
+- iOS `stack` — hierarchical/task navigation
+- iOS `tabs` — genuinely peer-level, frequently switched destinations
+
+Other models remain valid even if the generator does not emit them: inspector, command surface, feed, immersive surface, dense table, multi-pane editor, or platform-specific macOS compositions.
+
+**Never force the product into an available scaffold.** Use a scaffold for infrastructure and replace its composition if the real product model differs.
 
 ### 6. Compose before decorating
 
@@ -110,10 +111,12 @@ Use containers only when they communicate a real boundary, grouping, material la
 ## Platform authenticity
 
 ### iOS / iPadOS
-Favor directness, touch ergonomics, clear navigation, strong content hierarchy, and progressive disclosure. Use tabs only when destinations are genuinely peer-level and frequently switched. **Do not infer tabs merely from a small destination count.**
+Favor directness, touch ergonomics, clear navigation, strong content hierarchy, and progressive disclosure. Use tabs only when destinations are genuinely peer-level and frequently switched. **Do not infer tabs merely from a small destination count.** Verify platform rules in `apple-hig`.
 
 ### macOS
 Allow higher information density. Prefer sidebars, toolbars, inspectors, tables, split views, popovers, contextual menus, and keyboard-friendly structure where the workflow demands them. Avoid inflating everything to mobile proportions.
+
+The current scaffolder does not claim measured macOS chrome. If a product is macOS-first, use `apple-hig` for the actual platform structure rather than pretending the iOS web kit is a macOS component library.
 
 ### Web apps
 Respect browser expectations and desktop density. Apple principles transfer better than Apple chrome. Use persistent navigation, content grids, tables, command patterns, or sidebars when appropriate, but keep surfaces restrained.
@@ -125,7 +128,7 @@ Think in narrative sections, typographic pacing, product imagery, contrast, and 
 
 Typography should do more work than borders. Build a clear ladder using scale, weight, line-height, tracking, contrast, width, and grouping. The reading order should be understandable before interaction.
 
-Use `apple-ui-kit` for exact native values. For marketing and web, preserve optical discipline rather than blindly reusing native text styles.
+Use `apple-ui-kit` for exact native values where they apply. For marketing and web, preserve optical discipline rather than blindly reusing native text styles.
 
 ## Material discipline
 
@@ -160,25 +163,9 @@ Remove unnecessary elements when they exist.
 
 ## Visual critique pass
 
-Mechanical correctness is not enough. After implementation, evaluate:
+Read `references/visual-critique.md` after the mechanical checker passes.
 
-**Hierarchy.** Can the eye find primary content and action immediately?
-
-**Composition.** Does the arrangement reflect the task, or merely collect components?
-
-**Density.** Is information density appropriate to platform and intent?
-
-**Restraint.** Are surfaces, borders, radii, pills, shadows, and blur sparse and purposeful?
-
-**Typography.** Would hierarchy survive if most containers disappeared?
-
-**Platform authenticity.** Does it fit iOS, macOS, web, or marketing rather than generically “Apple-ish”?
-
-**Interaction.** Are important controls discoverable without being constantly visible?
-
-**Distinctiveness.** Does the product have a point of view, or could the composition belong to any SaaS template?
-
-If it could belong to any SaaS template, redesign the composition before polishing it.
+Evaluate hierarchy, composition, density, restraint, typography, platform authenticity, interaction, and distinctiveness. If the composition could belong to any SaaS template, redesign it before polishing it.
 
 ## Anti-pattern: generic card dashboard
 
@@ -197,16 +184,49 @@ Prefer these narratives:
 
 ## Project tools
 
-`new_project.py` is scaffolding, not art direction. Use it **after** spatial model and hierarchy are decided.
+`new_project.py` is scaffolding, not art direction. Use it **after** product character, hierarchy, and spatial model are decided.
+
+Web projects must name their model explicitly:
 
 ```bash
 python3 new_project.py --name Clay --brand "#C1552E" \
-    --kind ios --screens "Plan,Recipes,List,Settings" -o ./design
+    --kind web --model list-detail --character calm \
+    --screens "Recipes,Plan,Settings" -o ./design
+```
 
+A summary/analytics product might instead use:
+
+```bash
+python3 new_project.py --name Pulse --brand "#5A67D8" \
+    --kind web --model dashboard --character dense \
+    --screens "Overview,Reports,Settings" -o ./design
+```
+
+For iOS, choose navigation deliberately rather than deriving it from destination count:
+
+```bash
+python3 new_project.py --name Clay --brand "#C1552E" \
+    --kind ios --model stack --screens "Plan,Recipes,List,Settings" -o ./design
+```
+
+Use `--model tabs` only when the destination relationship justifies persistent tabs.
+
+Marketing uses the editorial model automatically:
+
+```bash
+python3 new_project.py --name Clay --brand "#C1552E" \
+    --kind marketing --character editorial --screens "Home" -o ./design
+```
+
+The generator writes `DESIGN.md`. Replace its hierarchy and rationale placeholders before polishing the generated interface.
+
+Then run:
+
+```bash
 python3 check_design.py ./design
 ```
 
-The generator handles infrastructure such as stylesheet order, vendored fonts, theme bridging, and states. Do not let its starter markup dictate the final composition.
+The generator handles infrastructure such as stylesheet order, vendored fonts, theme bridging, and reachable states. Do not let its starter markup dictate the final composition.
 
 `check_design.py` catches mechanical regressions. It does **not** decide whether the design is good. Always perform the reduction and visual critique passes after it succeeds.
 
