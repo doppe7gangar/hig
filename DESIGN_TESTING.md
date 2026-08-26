@@ -1,57 +1,84 @@
 # Testing the apple-design workflow
 
-The design skill has two different quality gates:
+The design skill now has three different quality gates:
 
-1. **mechanical correctness** — files, tokens, states, contrast, overflow, targets, browser errors
-2. **visual judgment** — hierarchy, composition, density, restraint, platform fit, and reduction
+1. **direction evidence** — platform routing, hierarchy, invariants, divergence, adaptivity, interaction/accessibility, system-component decisions
+2. **mechanical correctness** — files, tokens, states, contrast, overflow, targets, browser errors
+3. **rendered visual judgment** — hierarchy, composition, density, restraint, platform fit, and reduction
 
-Do not substitute one for the other.
+Do not substitute one for another.
 
-## 1. Smoke-test the deterministic workflow
-
-This does not call a model:
+## 1. Smoke-test deterministic infrastructure
 
 ```bash
 python3 scripts/eval/design_workflow_smoke.py
 ```
 
-It checks that:
+It checks reference retrieval, emitted spatial models, scaffold output, and `check_design.py --no-browser` without calling a model.
 
-- `select_references.py` can retrieve HIG + visual provenance
-- every emitted web model scaffolds: `workspace`, `list-detail`, `dashboard`, `document`
-- iOS `stack` and `tabs` scaffold
-- marketing emits the editorial model
-- each scaffold writes `DESIGN.md`
-- each scaffold passes `check_design.py --no-browser`
-
-To include the screenshot/review path:
+To include screenshot rendering:
 
 ```bash
 python3 scripts/eval/design_workflow_smoke.py --browser
 ```
 
-That additionally confirms `render_review.py` can render screenshots and that a fresh review correctly **fails** `--check` while its judgments are still pending.
+## 2. Test platform-aware reference selection
 
-## 2. Test reference selection directly
+### iOS / measured visual evidence
 
 ```bash
 python3 .claude/skills/apple-design/select_references.py \
-  --query "support analytics dashboard filters search settings" \
-  --model dashboard \
-  -o /tmp/REFERENCES.md
+  --query "plant watering list detail add edit" \
+  --model stack --platform ios \
+  -o /tmp/REFERENCES-ios.md
 ```
 
-The output should contain:
+Expected: HIG provenance plus real `apple-hig/assets/ui-kit/` image paths.
 
-- a small component shortlist rather than the whole corpus
-- HIG page provenance
-- real `apple-hig/assets/ui-kit/` image paths
-- multiple states where available
-- a synthesis section
+### macOS / HIG-first, no fake measured Mac visuals
 
-The selector is only retrieval. A design run still has to open the actual images and record relationships learned from them.
+```bash
+python3 .claude/skills/apple-design/select_references.py \
+  --query "mail sidebar toolbar search list detail menus" \
+  --model list-detail --platform macos \
+  -o /tmp/REFERENCES-macos.md
+```
 
-## 3. Test a whole design manually
+Expected:
+
+- relevant HIG/component vocabulary
+- an explicit statement that no measured macOS visual corpus is registered
+- **no claim that iOS screenshots are measured macOS appearance**
+- pointers to platform differences, rules, framework index, and API map
+
+The selector is retrieval only. A design run still has to inspect available evidence and synthesize relationships.
+
+## 3. Complete the design-direction evidence
+
+Use `references/design-direction-template.md` to expand/replace the scaffolded `DESIGN.md`.
+
+Then run:
+
+```bash
+python3 .claude/skills/apple-design/check_direction.py ./design
+```
+
+It should fail until `DESIGN.md` contains:
+
+- platform constraints
+- real information hierarchy
+- at least three design invariants
+- candidate directions
+- product-specific rejection rationale
+- chosen direction
+- adaptive architecture
+- interaction-state plan
+- accessibility plan
+- system-component decisions
+
+Do not treat a mechanically valid project with a placeholder `DESIGN.md` as designed.
+
+## 4. Test one complete product
 
 Example:
 
@@ -63,48 +90,87 @@ python3 .claude/skills/apple-design/new_project.py \
   -o /tmp/pulse-design
 ```
 
-Replace the placeholders in `DESIGN.md`, select and inspect references, then recompose the sample page around the actual hierarchy.
+Fill `DESIGN.md`, select/inspect references, then recompose the starter page around the actual hierarchy.
 
-Run the mechanical gate:
+Direction gate:
+
+```bash
+python3 .claude/skills/apple-design/check_direction.py /tmp/pulse-design
+```
+
+Mechanical gate:
 
 ```bash
 python3 .claude/skills/apple-design/check_design.py /tmp/pulse-design
 ```
 
-Then create the rendered review:
+Rendered review:
 
 ```bash
 python3 .claude/skills/apple-design/render_review.py /tmp/pulse-design
 ```
 
-Inspect every image under `.visual-review/`. Fill `VISUAL_REVIEW.md`, revise the interface, rerender when needed, replace every `[PENDING]`, and set the status to `COMPLETE`.
+Inspect every image under `.visual-review/`. Write findings as:
 
-Finally:
+**evidence → consequence → correction**
+
+Fill `VISUAL_REVIEW.md`, revise, rerender when needed, replace every `[PENDING]`, set status to `COMPLETE`, then:
 
 ```bash
 python3 .claude/skills/apple-design/render_review.py /tmp/pulse-design --check
 ```
 
-A design is not visually reviewed while this command fails.
+## 5. What to inspect in screenshots
 
-## 4. What to inspect in the screenshots
+Use `references/visual-critique.md` and verify:
 
-Use `apple-design/references/visual-critique.md` and check, in order:
+- two-second reading hierarchy
+- design invariants survived implementation
+- winning direction did not drift into a rejected generic pattern
+- unnecessary containers/persistent chrome were reduced
+- typography carries hierarchy without boxes
+- density fits platform/task
+- compact/wide layouts transform architecturally rather than merely shrink
+- applicable hover/focus/pressed/selected/disabled/editing states exist
+- accessibility settings and keyboard/focus behavior were considered
+- system components were preferred on Apple platforms unless custom behavior is justified
+- blur/shadow/glass describe real layers
+- platform-specific anti-patterns are absent
+- empty/error states preserve the product character
 
-- the two-second reading hierarchy
-- whether the spatial model still matches the real task
-- unnecessary containers and persistent chrome
-- typography without relying on boxes
-- density at phone, tablet, and desktop widths
-- blur/shadow/glass only where they describe a layer
-- platform authenticity
-- empty/error states retaining the same product character
-- concrete reduction decisions after inspection
+DOM signals in `VISUAL_REVIEW.md` are warnings only; screenshots are the evidence.
 
-The DOM signals in `VISUAL_REVIEW.md` are warnings only. A high rounded-surface count can be legitimate; a low one does not make a design good. The screenshots are the evidence.
+## 6. Run the cross-product quality benchmark
 
-## 5. Reference boundary
+The benchmark suite covers 15 unlike products and is designed to catch structural sameness:
 
-The current visual ground truth is the **iOS 27** UI-kit corpus. It is valid evidence for iOS visual relationships and useful comparative evidence for Apple sensibility on the web.
+```bash
+python3 scripts/eval/design_quality_eval.py
+```
 
-It is **not** a measured macOS kit. For macOS-first work, use `apple-hig` for platform structure and behavior until a macOS visual corpus is added. The selector and review workflow are intentionally platform-extensible so that corpus can be added later without changing the design process.
+Or run a smaller subset:
+
+```bash
+python3 scripts/eval/design_quality_eval.py analytics mail landing plants
+```
+
+It calls the design agent, runs both `check_direction.py` and `check_design.py --no-browser`, records basic structural metrics, and warns when unrelated products collapse toward the same composition.
+
+The benchmark criteria live in:
+
+```text
+.claude/skills/apple-design/references/benchmark-suite.md
+```
+
+A suite where every build is mechanically valid but every product uses the same sidebar/card architecture is a failed design system.
+
+## 7. Platform boundary
+
+The current measured visual ground truth is the **iOS 27** UI-kit corpus.
+
+- iOS/iPadOS: measured visuals + HIG where applicable
+- macOS: **HIG/platform/system APIs are still authoritative**; measured Mac appearance is simply not yet registered
+- web/marketing: iOS visual corpus can be comparative evidence, never a native web specification
+- future platform corpora plug into `select_references.py`'s `CORPORA` registry without changing the workflow
+
+No visual kit available never means “design from generic instinct.”
