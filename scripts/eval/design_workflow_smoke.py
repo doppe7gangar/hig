@@ -22,6 +22,7 @@ DIRECTION = os.path.join(DESIGN, "check_direction.py")
 DIVERGENCE = os.path.join(DESIGN, "check_divergence.py")
 CONTENT = os.path.join(DESIGN, "check_content.py")
 INTERACTION = os.path.join(DESIGN, "check_interaction.py")
+GRAMMAR_GATE = os.path.join(DESIGN, "check_grammar.py")
 RENDER = os.path.join(DESIGN, "render_review.py")
 
 
@@ -252,6 +253,91 @@ def test_placeholder_discrimination(tmp):
     print("ok placeholders distinguish ordinary vocabulary from unfilled slots")
 
 
+def test_placeholder_helper():
+    """Unit-level cover for the loose/strict split itself.
+
+    The three gates are checked through their own fixtures, but the
+    helper they all now share had none -- and it is the piece that
+    decides whether "an inline todo list" is a design or an unfilled
+    template. An early version stripped markdown emphasis along with
+    list markers, which ate the "**" of a bold label and let
+    "**When it becomes real:** TBD" through.
+    """
+    sys.path.insert(0, DESIGN)
+    from gate_placeholders import find
+
+    loose = ("lorem ipsum", "clean and modern")
+    strict = ("todo", "tbd", "item 1", "replace this")
+    cases = [
+        ("Each note carries an inline todo list.", []),
+        ("The table shows line item 1 through item 14.", []),
+        ("Rows sorted by date; the todos most at risk surface first.", []),
+        ("A TBD-style column is not what this means.", []),
+        ("| Stage | todo | real |", ["todo"]),
+        ("| Stage | **todo** | real |", ["todo"]),
+        ("- **When the change becomes real:** TBD", ["tbd"]),
+        ("- **When the change becomes real:** on server acknowledgement", []),
+        ("## Content\n\nitem 1\nitem 2", ["item 1"]),
+        ("- [todo]", ["todo"]),
+        ("Body copy is lorem ipsum for now.", ["lorem ipsum"]),
+        ("The design is clean and modern.", ["clean and modern"]),
+        ("Replace this", ["replace this"]),
+        ("Replace this control with a menu above five options.", []),
+    ]
+    for text, want in cases:
+        got = find(text, loose=loose, strict=strict)
+        if got != want:
+            raise SystemExit(
+                f"FAIL gate_placeholders: {text[:44]!r} -> {got}, want {want}")
+    print("ok placeholder helper separates prose from unfilled slots")
+
+
+GRAMMAR = """# Project design grammar
+
+## Scope
+- Product: support operations console, web first.
+- Platform: web app; iOS reader planned.
+- Evidence: three implemented screens plus the shared component sheet.
+
+## Established rules
+| Domain | Rule | Evidence | Scope |
+|---|---|---|---|
+| typography | Section heads are footnote caps | repeated on queue, detail and settings screens | all screens |
+| spacing | Cards sit on a 16pt gutter | queue and dashboard screens; detail inspector | all screens |
+| navigation | Sidebar is the only top-level switch | queue, dashboard and settings views | wide layouts |
+| actions | Primary action lives in the toolbar | queue screen and detail view; never duplicated | all screens |
+| selection | Selection survives detail navigation | queue screen, and restored on back | queue and detail |
+
+## Canonical language
+| Concept | Term | Icon |
+|---|---|---|
+| unresolved item | Ticket | tray |
+
+## Adaptive transformations
+| Structure | Wide | Compact | Invariant |
+|---|---|---|---|
+| queue and detail | side by side | sequential detail | selection and filters persist |
+"""
+
+
+def test_grammar_gate(tmp):
+    """check_grammar.py had no test of any kind."""
+    root = os.path.join(tmp, "grammar-fixture")
+    os.makedirs(root)
+    path = os.path.join(root, "PROJECT_GRAMMAR.md")
+    open(path, "w", encoding="utf-8").write(GRAMMAR)
+    run([sys.executable, GRAMMAR_GATE, root])
+
+    # Drop two rules: the gate wants at least five, across four domains.
+    thin = GRAMMAR.replace(
+        "| actions | Primary action lives in the toolbar | queue screen and detail view; never duplicated | all screens |\n", "")
+    thin = thin.replace(
+        "| selection | Selection survives detail navigation | queue screen, and restored on back | queue and detail |\n", "")
+    open(path, "w", encoding="utf-8").write(thin)
+    run([sys.executable, GRAMMAR_GATE, root], expect=1)
+    print("ok grammar gate accepts an evidenced grammar and rejects a thin one")
+
+
 def scaffold(tmp, kind, model, name):
     out = os.path.join(tmp, name)
     args = [sys.executable, SCAFFOLD, "--name", name, "--brand", "#4C7DFF",
@@ -311,6 +397,8 @@ def main():
         test_interaction_gate(tmp)
         test_divergence_gate(tmp)
         test_placeholder_discrimination(tmp)
+        test_placeholder_helper()
+        test_grammar_gate(tmp)
         outputs = test_models(tmp)
         if a.browser:
             test_render_review(outputs["dashboard"])
