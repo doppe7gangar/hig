@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Smoke-test deterministic parts of the apple-design workflow.
 
-No model call. It verifies platform-aware reference routing, scaffold models,
-mechanical checks, the direction-evidence guard, and optionally screenshot
-review setup.
+No model call. It verifies platform-aware reference routing, structural
+divergence evidence, scaffold models, mechanical checks, direction evidence,
+and optionally screenshot review setup.
 """
 
 import argparse
@@ -18,6 +18,7 @@ SELECT = os.path.join(DESIGN, "select_references.py")
 SCAFFOLD = os.path.join(DESIGN, "new_project.py")
 CHECK = os.path.join(DESIGN, "check_design.py")
 DIRECTION = os.path.join(DESIGN, "check_direction.py")
+DIVERGENCE = os.path.join(DESIGN, "check_divergence.py")
 RENDER = os.path.join(DESIGN, "render_review.py")
 
 
@@ -56,6 +57,69 @@ def test_reference_selector(tmp):
     print("ok platform-aware reference selector")
 
 
+def test_divergence_gate(tmp):
+    root = os.path.join(tmp, "divergence-fixture")
+    os.makedirs(root)
+    valid = r'''# Design direction
+
+## Candidate directions
+
+### Direction: A — Answer first
+- **Model:** dashboard
+- **Design idea:** Today's support health owns the screen while evidence explains it.
+- **Primary region:** one service-health answer and current change
+- **Secondary/contextual regions:** trend and queue evidence below the answer
+- **Persistent chrome:** compact global navigation and time-range control
+- **Compact transformation:** evidence becomes sequential below the primary answer
+- **Strength:** fastest status comprehension during repeated monitoring
+- **Risk:** can under-serve users who spend long sessions inside one ticket
+- **Structural differences:** summary before records; contextual evidence instead of persistent list
+
+### Direction: B — Queue workspace
+- **Model:** workspace
+- **Design idea:** The active queue owns the work surface while status remains contextual.
+- **Primary region:** dense ticket queue and active selection
+- **Secondary/contextual regions:** service health in a quiet summary strip and inspector
+- **Persistent chrome:** destination sidebar and queue controls
+- **Compact transformation:** sidebar collapses and selected ticket becomes sequential detail
+- **Strength:** supports triage sessions where operators act more than monitor
+- **Risk:** overall service health becomes slower to scan at a glance
+- **Structural differences:** persistent queue instead of summary; simultaneous work region instead of evidence sequence
+
+## Direction comparison
+
+| Criterion | Direction A | Direction B |
+|---|---:|---:|
+| Primary-task fit | 5 | 4 |
+| Hierarchy clarity | 5 | 4 |
+| Information relationship | 4 | 5 |
+| Platform fit | 5 | 5 |
+| Adaptivity | 5 | 4 |
+| Restraint | 5 | 3 |
+| Distinctiveness through product logic | 4 | 5 |
+
+**Trade-off interpretation:** Direction B is stronger for prolonged triage, but this product's most frequent opening task is checking current health before deciding whether action is needed. The extra persistent queue chrome therefore costs more than its stronger record relationship helps. Direction A does not win merely by total; its monitoring-first weakness is acceptable because deeper ticket work remains one step away.
+
+## Rejected directions
+
+- Rejected Queue workspace because monitoring is the dominant opening task; making the queue persistent would weaken first-read status clarity.
+
+## Chosen direction
+
+We chose Answer first because the user's recurring task is checking service health. It keeps current status primary, makes queue evidence available without competing for attention, and transforms to a sequential evidence flow on narrow screens.
+'''
+    path = os.path.join(root, "DESIGN.md")
+    open(path, "w", encoding="utf-8").write(valid)
+    run([sys.executable, DIVERGENCE, root])
+
+    broken = valid.replace(
+        "summary before records; contextual evidence instead of persistent list",
+        "different layout")
+    open(path, "w", encoding="utf-8").write(broken)
+    run([sys.executable, DIVERGENCE, root], expect=1)
+    print("ok divergence gate accepts structural comparison and rejects cosmetic/thin evidence")
+
+
 def scaffold(tmp, kind, model, name):
     out = os.path.join(tmp, name)
     args = [sys.executable, SCAFFOLD, "--name", name, "--brand", "#4C7DFF",
@@ -69,9 +133,8 @@ def scaffold(tmp, kind, model, name):
                 os.path.join("vendor", "ios-components.css")):
         exists(os.path.join(out, rel))
     run([sys.executable, CHECK, out, "--no-browser"])
-    # The scaffold deliberately contains an incomplete design direction. The
-    # direction gate must reject it until the designer records real evidence.
     run([sys.executable, DIRECTION, out], expect=1)
+    run([sys.executable, DIVERGENCE, out], expect=1)
     return out
 
 
@@ -83,7 +146,7 @@ def test_models(tmp):
     outputs["ios-stack"] = scaffold(tmp, "ios", "stack", "ios-stack")
     outputs["ios-tabs"] = scaffold(tmp, "ios", "tabs", "ios-tabs")
     outputs["marketing"] = scaffold(tmp, "marketing", None, "marketing")
-    print("ok iOS and marketing models; incomplete direction correctly rejected")
+    print("ok iOS and marketing models; incomplete direction/divergence correctly rejected")
     return outputs
 
 
@@ -105,10 +168,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--browser", action="store_true")
     a = ap.parse_args()
-    for path in (SELECT, SCAFFOLD, CHECK, DIRECTION, RENDER):
+    for path in (SELECT, SCAFFOLD, CHECK, DIRECTION, DIVERGENCE, RENDER):
         exists(path)
     with tempfile.TemporaryDirectory(prefix="apple-design-smoke-") as tmp:
         test_reference_selector(tmp)
+        test_divergence_gate(tmp)
         outputs = test_models(tmp)
         if a.browser:
             test_render_review(outputs["dashboard"])
