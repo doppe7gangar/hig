@@ -32,6 +32,32 @@ REPRESENTATION_TERMS = {
 }
 
 
+def _chose(section_text, kind):
+    """True when `kind` is named in a row's Representation column.
+
+    Falls back to a whole-section scan where there is no table, so a
+    design written as prose is still held to the same requirement.
+    """
+    rows, header = [], None
+    for line in section_text.splitlines():
+        t = line.strip()
+        if not t.startswith("|"):
+            continue
+        cells = [c.strip().lower() for c in t.strip("|").split("|")]
+        if all(set(c) <= set("-: ") for c in cells):
+            continue
+        if header is None:
+            header = cells
+            continue
+        rows.append(cells)
+    if not rows:
+        return kind in section_text.lower()
+    col = 1
+    if header and "representation" in header:
+        col = header.index("representation")
+    return any(kind in (r[col] if col < len(r) else "") for r in rows)
+
+
 def section(text, heading):
     m = re.search(rf"^#+\s+{re.escape(heading)}\s*$([\s\S]*?)(?=^#+\s|\Z)",
                   text, flags=re.I | re.M)
@@ -76,8 +102,14 @@ def main():
             if key not in rlow:
                 failures.append(f"Representation decisions should include {key} rationale")
 
-        # Charts must document the analytical question and basic data context.
-        if "chart" in rlow:
+        # Charts must document the analytical question and basic data
+        # context -- but only where a chart is actually chosen. Testing
+        # the whole section for the word meant "a table, not a chart"
+        # demanded the question, unit and comparison of the chart it had
+        # just ruled out. Declining a chart is the reduction this skill's
+        # own critique asks for; a gate should not fine you for saying so.
+        chose_chart = _chose(reps, "chart")
+        if chose_chart:
             for key in ("question", "unit", "comparison"):
                 if key not in rlow:
                     failures.append(f"chart representation should record {key}")

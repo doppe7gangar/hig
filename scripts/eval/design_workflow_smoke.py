@@ -9,6 +9,7 @@ optionally screenshot review setup.
 
 import argparse
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -61,10 +62,8 @@ def test_reference_selector(tmp):
     print("ok platform-aware reference selector")
 
 
-def test_content_gate(tmp):
-    root = os.path.join(tmp, "content-fixture")
-    os.makedirs(root)
-    valid = '''# Design direction
+def _content_fixture():
+    return '''# Design direction
 
 ## Content model
 
@@ -93,6 +92,12 @@ def test_content_gate(tmp):
 - **Empty:** distinguish genuinely no tickets from not-enough-history; explain what can be done next.
 - **Error:** keep global shell and last known context where safe; retry is primary in the failed region.
 '''
+
+
+def test_content_gate(tmp):
+    root = os.path.join(tmp, "content-fixture")
+    os.makedirs(root)
+    valid = _content_fixture()
     path = os.path.join(root, "DESIGN.md")
     open(path, "w", encoding="utf-8").write(valid)
     run([sys.executable, CONTENT, root])
@@ -338,6 +343,37 @@ def test_grammar_gate(tmp):
     print("ok grammar gate accepts an evidenced grammar and rejects a thin one")
 
 
+def test_declining_a_chart(tmp):
+    """Naming a representation you rejected must not invoke its rules.
+
+    The chart requirements fired on the word appearing anywhere in the
+    section, so "a table, not a chart" was told to record the question,
+    unit and comparison of the chart it had just ruled out. Choosing the
+    simpler representation is the reduction the critique asks for.
+    """
+    root = os.path.join(tmp, "declined-chart")
+    os.makedirs(root)
+    path = os.path.join(root, "DESIGN.md")
+    valid = _content_fixture()
+    sec = re.search(r"(^#+\s+Representation decisions\s*$)([\s\S]*?)(?=^#+\s|\Z)",
+                    valid, re.M | re.I)
+    declined = valid[:sec.start(2)] + """
+| Content | Representation | Why this representation | Failure/misreading risk |
+|---|---|---|---|
+| Queue volume | table | Operators need exact counts per queue; a chart would blur the numbers they read out on calls. | Shows the last good table with a stale marker. |
+""" + valid[sec.end(2):]
+    open(path, "w", encoding="utf-8").write(declined)
+    run([sys.executable, CONTENT, root])
+
+    # A chart actually chosen still owes its evidence.
+    chart_row = next(l for l in valid.splitlines() if "| chart |" in l)
+    undocumented = valid.replace(
+        chart_row, "| Ticket trend | chart | It looks nice over time. | Might mislead. |")
+    open(path, "w", encoding="utf-8").write(undocumented)
+    run([sys.executable, CONTENT, root], expect=1)
+    print("ok declining a representation does not invoke its requirements")
+
+
 def scaffold(tmp, kind, model, name):
     out = os.path.join(tmp, name)
     args = [sys.executable, SCAFFOLD, "--name", name, "--brand", "#4C7DFF",
@@ -399,6 +435,7 @@ def main():
         test_placeholder_discrimination(tmp)
         test_placeholder_helper()
         test_grammar_gate(tmp)
+        test_declining_a_chart(tmp)
         outputs = test_models(tmp)
         if a.browser:
             test_render_review(outputs["dashboard"])
