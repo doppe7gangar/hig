@@ -101,10 +101,8 @@ def test_content_gate(tmp):
     print("ok content gate accepts representation evidence and rejects unreasoned content")
 
 
-def test_interaction_gate(tmp):
-    root = os.path.join(tmp, "interaction-fixture")
-    os.makedirs(root)
-    valid = '''# Design direction
+def _interaction_fixture():
+    return '''# Design direction
 
 ## Primary interaction flow
 
@@ -142,6 +140,12 @@ def test_interaction_gate(tmp):
 - **Focus restoration:** closing menus/popovers returns focus to their trigger; submission returns focus to the composer.
 - **Touch/pointer alternative:** every keyboard command has a visible button/menu action and pointer path.
 '''
+
+
+def test_interaction_gate(tmp):
+    root = os.path.join(tmp, "interaction-fixture")
+    os.makedirs(root)
+    valid = _interaction_fixture()
     path = os.path.join(root, "DESIGN.md")
     open(path, "w", encoding="utf-8").write(valid)
     run([sys.executable, INTERACTION, root])
@@ -215,6 +219,39 @@ We chose Answer first because the user's recurring task is checking service heal
     print("ok divergence gate accepts structural comparison and rejects cosmetic/thin evidence")
 
 
+def test_placeholder_discrimination(tmp):
+    """Ordinary vocabulary passes; a genuinely unfilled slot does not.
+
+    The gates used to match banned words as substrings anywhere in
+    DESIGN.md. That made two of them unpassable -- they banned the very
+    words their own templates mandate -- and left this one as a landmine:
+    "todo" and "item 1" are ordinary in a notes or commerce product, and
+    the content gate *requires* realistic content, so the two rules
+    fought each other. What matters is not which word but where it sits.
+    """
+    root = os.path.join(tmp, "placeholder-fixture")
+    os.makedirs(root)
+    path = os.path.join(root, "DESIGN.md")
+    base = _interaction_fixture()
+
+    # Realistic product vocabulary, in prose. Must pass.
+    prose = base.replace(
+        "- Double-submit the note",
+        "- Each ticket can carry an inline todo list; item 1 through "
+        "item 14 stay numbered on reflow.\n- Double-submit the note")
+    open(path, "w", encoding="utf-8").write(prose)
+    run([sys.executable, INTERACTION, root])
+
+    # A slot left as the template shipped it. Must fail.
+    for unfilled in ("| Entry | TODO |", "| Entry | [pending] |"):
+        broken = base.replace("| Entry | Select a ticket from the queue |",
+                              unfilled)
+        open(path, "w", encoding="utf-8").write(broken)
+        run([sys.executable, INTERACTION, root], expect=1)
+
+    print("ok placeholders distinguish ordinary vocabulary from unfilled slots")
+
+
 def scaffold(tmp, kind, model, name):
     out = os.path.join(tmp, name)
     args = [sys.executable, SCAFFOLD, "--name", name, "--brand", "#4C7DFF",
@@ -273,6 +310,7 @@ def main():
         test_content_gate(tmp)
         test_interaction_gate(tmp)
         test_divergence_gate(tmp)
+        test_placeholder_discrimination(tmp)
         outputs = test_models(tmp)
         if a.browser:
             test_render_review(outputs["dashboard"])

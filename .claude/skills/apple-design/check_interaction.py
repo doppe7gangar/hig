@@ -3,6 +3,10 @@
 
 import argparse
 import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from gate_placeholders import find as find_placeholders  # noqa: E402
 import re
 import sys
 
@@ -13,7 +17,10 @@ REQUIRED_HEADINGS = [
 ]
 
 # Matched anywhere in the document: nobody writes these on purpose.
-PLACEHOLDERS = ["[pending]", "todo", "tbd", "replace this"]
+LOOSE_PLACEHOLDERS = ("[pending]",)
+
+# Standalone only: "an inline todo list" is a filled-in design.
+STRICT_PLACEHOLDERS = ("todo", "tbd", "replace this")
 
 # Matched only as a whole unfilled table cell. These two are also the
 # column headings the flow table is *required* to carry -- see
@@ -73,9 +80,9 @@ def main():
         if not heading(text, h):
             failures.append(f"missing section: {h}")
 
-    for p in PLACEHOLDERS:
-        if p in low:
-            failures.append(f"unfinished interaction placeholder: {p}")
+    for p in find_placeholders(text, loose=LOOSE_PLACEHOLDERS,
+                               strict=STRICT_PLACEHOLDERS):
+        failures.append(f"unfinished interaction placeholder: {p}")
 
     for c in unfilled_cells(text):
         failures.append(f"interaction flow row still holds the template's "
