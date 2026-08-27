@@ -32,43 +32,64 @@ Use this structure to replace/expand the scaffolded `DESIGN.md` before visual po
 
 ## Candidate directions
 
-### Direction A
+Each credible candidate must differ structurally, not cosmetically. The `Structural differences` field must name at least two differences from the other candidates, such as pane structure, navigation, persistent chrome, sequence/simultaneity, density, or primary-action placement.
 
-- Model:
-- Design idea:
-- Primary region:
-- Secondary/contextual regions:
-- Persistent chrome:
-- Compact transformation:
-- Strength:
-- Risk:
+### Direction: A — <short name>
 
-### Direction B
+- **Model:**
+- **Design idea:**
+- **Primary region:**
+- **Secondary/contextual regions:**
+- **Persistent chrome:**
+- **Compact transformation:**
+- **Strength:**
+- **Risk:**
+- **Structural differences:** ______; ______
 
-- Model:
-- Design idea:
-- Primary region:
-- Secondary/contextual regions:
-- Persistent chrome:
-- Compact transformation:
-- Strength:
-- Risk:
+### Direction: B — <short name>
 
-### Direction C (when credible)
+- **Model:**
+- **Design idea:**
+- **Primary region:**
+- **Secondary/contextual regions:**
+- **Persistent chrome:**
+- **Compact transformation:**
+- **Strength:**
+- **Risk:**
+- **Structural differences:** ______; ______
 
-- Model:
-- Design idea:
-- Primary region:
-- Secondary/contextual regions:
-- Persistent chrome:
-- Compact transformation:
-- Strength:
-- Risk:
+### Direction: C — <short name> (when credible)
+
+- **Model:**
+- **Design idea:**
+- **Primary region:**
+- **Secondary/contextual regions:**
+- **Persistent chrome:**
+- **Compact transformation:**
+- **Strength:**
+- **Risk:**
+- **Structural differences:** ______; ______
+
+## Direction comparison
+
+Score 1–5 to expose trade-offs, not to mechanically choose the highest total.
+
+| Criterion | Direction A | Direction B | Direction C (if used) |
+|---|---:|---:|---:|
+| Primary-task fit | | | |
+| Hierarchy clarity | | | |
+| Information relationship | | | |
+| Platform fit | | | |
+| Adaptivity | | | |
+| Restraint | | | |
+| Distinctiveness through product logic | | | |
+
+**Trade-off interpretation:** Explain what the scores reveal, which weakness matters most for this product, and why the final decision is not simply “highest total wins.”
 
 ## Rejected directions
 
-- Rejected ______ because ______.
-- Rejected ______ because ______.
+- Rejected ______ because ______; the consequence would be ______.
+- Rejected ______ because ______; the consequence would be ______.
 
 ## Chosen direction
 
