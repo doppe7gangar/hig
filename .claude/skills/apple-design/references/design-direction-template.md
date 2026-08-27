@@ -152,6 +152,49 @@ Score 1–5 to expose trade-offs, not to mechanically choose the highest total.
 - selection/context preservation:
 - pointer/keyboard → touch changes:
 
+## Primary interaction flow
+
+Model the main task from entry through completion and recovery.
+
+| Stage | User action | System response | State/context preserved | Failure/recovery |
+|---|---|---|---|---|
+| Entry | | | | |
+| Act | | | | |
+| Commit | | | | |
+| Exit/continue | | | | |
+
+## Commit model
+
+- **Model:** immediate / explicit / autosave-continuous
+- **When the change becomes real:**
+- **Undo/cancel/reversal policy:**
+- **Dirty/saving/saved state if applicable:**
+- **Post-completion focus/selection/context:**
+
+## Recovery and interruption
+
+- **Failure condition:**
+- **Interruption/resumption case:**
+- **What is preserved:**
+- **Retry/rollback/restore behavior:**
+- **Conflict/stale-data handling if applicable:**
+
+## Interaction stress cases
+
+- 
+- 
+- 
+
+Examples: double submit, selection changes while pending, navigate away with unsaved work, optimistic failure, object deleted remotely, offline/reconnect, undo after selection change, modal dismissed without commit.
+
+## Keyboard and alternate input
+
+- **Keyboard/command path where expected:**
+- **Escape/cancel and Return/commit semantics:**
+- **Focus restoration:**
+- **Touch/pointer alternative:**
+- **Drag/drop path and non-drag alternative if applicable:**
+
 ## Interaction states
 
 | Component/pattern | Applicable states | Evidence/test |
