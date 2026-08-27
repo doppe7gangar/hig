@@ -24,6 +24,38 @@ Use this structure to replace/expand the scaffolded `DESIGN.md` before visual po
 3. **Tertiary:**
 4. **Contextual:**
 
+## Content model
+
+For each important content region record the decision it supports rather than only its label.
+
+| Content | User question/task | Decision enabled | Content shape | Required context |
+|---|---|---|---|---|
+| | | | | |
+
+## Representation decisions
+
+| Content | Representation | Why this representation | Failure/misreading risk |
+|---|---|---|---|
+| | | | |
+
+If a chart is used, also record its analytical question, unit, comparison/baseline, time/population window, and missing-data behavior.
+
+## Content stress cases
+
+- 
+- 
+- 
+
+Include applicable extremes such as long labels, zero/negative values, missing or stale data, many/few rows, unusual status, and realistic user-generated text.
+
+## State continuity
+
+- **Invariant design idea:**
+- **Loading:** what hierarchy/space remains, what is temporarily unavailable:
+- **Empty:** why it is empty, what remains, what action becomes primary:
+- **Error:** what failed locally, what remains usable, recovery action:
+- **Offline / not-enough-data / stale (if applicable):**
+
 ## Design invariants
 
 - 
