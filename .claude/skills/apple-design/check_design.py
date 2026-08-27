@@ -329,7 +329,12 @@ function surfaceOf(el) {
   return cur;
 }
 
-const lowContrast = [...document.querySelectorAll(
+// Measured in every state, not only the one that happens to be showing.
+// A filled button lives in the empty and error panels, which are hidden
+// by default -- so a light brand shipped white-on-yellow at 1.25:1 and
+// the check called the page ready. Three of the four states were never
+// looked at.
+const collect = () => [...document.querySelectorAll(
     'p, span, a, li, h1, h2, h3, h4, button, label, td, th, div')]
   .filter(e => e.offsetParent !== null
       && !e.closest('[aria-hidden="true"]')
@@ -353,6 +358,23 @@ const lowContrast = [...document.querySelectorAll(
       : null;
   })
   .filter(Boolean);
+
+const root = document.querySelector('[data-state]');
+const seen = new Map();
+const sweep = () => { for (const c of collect())
+    if (!seen.has(c.t) || seen.get(c.t).r > c.r) seen.set(c.t, c); };
+if (root) {
+  const was = root.dataset.state;
+  for (const st of ['populated', 'loading', 'empty', 'error']) {
+    root.dataset.state = st;
+    root.getBoundingClientRect();   // force layout so offsetParent is right
+    sweep();
+  }
+  root.dataset.state = was;
+} else {
+  sweep();
+}
+const lowContrast = [...seen.values()];
   const cs = getComputedStyle(document.documentElement);
   const v = n => cs.getPropertyValue(n).trim();
   const body = getComputedStyle(document.body);
