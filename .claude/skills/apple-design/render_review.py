@@ -14,6 +14,7 @@ import argparse
 import glob
 import json
 import os
+import re
 import sys
 from pathlib import Path
 from urllib.parse import quote
@@ -272,7 +273,11 @@ def check_review(path):
         return 1
     text = open(path, encoding="utf-8").read()
     pending = text.count("[PENDING")
-    complete = re.search(r"^COMPLETE\s*$", text, re.M) is not None
+    # Accept the word however it was emphasised. The sheet's own
+    # instruction reads "Change this to `COMPLETE`", which in the raw
+    # markdown is backticked -- so someone following it literally wrote
+    # a status the check then called incomplete.
+    complete = re.search(r"^\s*[`*_]*COMPLETE[`*_]*\s*$", text, re.M) is not None
     if pending or not complete:
         print(f"FAIL visual review incomplete: {pending} pending judgment(s); status COMPLETE={complete}")
         return 1

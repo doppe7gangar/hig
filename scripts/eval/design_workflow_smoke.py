@@ -374,6 +374,42 @@ def test_declining_a_chart(tmp):
     print("ok declining a representation does not invoke its requirements")
 
 
+def test_visual_review_check(tmp):
+    """--check is browserless, and had never been executed.
+
+    render_review.py used re.search in check_review() without importing
+    re, so every invocation of --check died with NameError -- the
+    enforcement half of the visual review, the part that stops pending
+    judgments shipping, had never run. It went unnoticed because the
+    only test of this tool sits behind --browser and so does not run by
+    default. Reading the sheet needs no browser, so this does.
+    """
+    root = os.path.join(tmp, "visual-review")
+    os.makedirs(root)
+    path = os.path.join(root, "VISUAL_REVIEW.md")
+
+    pending = ("# Visual review\n\n## 1. Hierarchy\n\n"
+               "[PENDING - inspect screenshots]\n\n"
+               "## Review status\n\nPENDING\n")
+    open(path, "w", encoding="utf-8").write(pending)
+    run([sys.executable, RENDER, root, "--check"], expect=1)
+
+    judged = pending.replace("[PENDING - inspect screenshots]",
+                             "The eye reads the hero metric, then the tiles.")
+    open(path, "w", encoding="utf-8").write(judged)
+    run([sys.executable, RENDER, root, "--check"], expect=1)  # status still PENDING
+
+    # However the reviewer emphasised the word -- the sheet's own
+    # instruction shows it backticked.
+    for form in ("COMPLETE", "`COMPLETE`", "**COMPLETE**"):
+        done = judged.replace("## Review status\n\nPENDING\n",
+                              "## Review status\n\n" + form + "\n")
+        open(path, "w", encoding="utf-8").write(done)
+        run([sys.executable, RENDER, root, "--check"])
+
+    print("ok visual review --check rejects pending work and accepts finished work")
+
+
 def scaffold(tmp, kind, model, name):
     out = os.path.join(tmp, name)
     args = [sys.executable, SCAFFOLD, "--name", name, "--brand", "#4C7DFF",
@@ -436,6 +472,7 @@ def main():
         test_placeholder_helper()
         test_grammar_gate(tmp)
         test_declining_a_chart(tmp)
+        test_visual_review_check(tmp)
         outputs = test_models(tmp)
         if a.browser:
             test_render_review(outputs["dashboard"])
