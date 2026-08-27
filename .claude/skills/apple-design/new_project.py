@@ -57,6 +57,17 @@ STATE_CSS = """
       border-color: color-mix(in srgb, var(--ios-accent) 45%, transparent);
       color: var(--ios-label); font-weight: 590; }
 
+  /* Any button that is not filled is accent-coloured *text* -- plain,
+     tinted, a bare navigation-bar action -- so it needs 4.5:1, while
+     --ios-accent is tuned for the 3:1 a fill needs. Scoping this to
+     --tinted alone left a navigation-bar "+" at 3.73:1 on a dark brand.
+     Shared, so a new spatial model cannot be written without it. */
+  .ios-btn:not(.ios-btn--filled):not(.ios-btn--destructive) {
+      color: var(--accent-text-safe); }
+  /* And a filled button takes the label the contrast pass chose, rather
+     than the kit's hard-coded white. */
+  .ios-btn--filled:not(.ios-btn--destructive) { color: var(--ios-on-accent); }
+
   .state { display: none; }
   [data-state="populated"] .state--populated,
   [data-state="loading"] .state--loading,
@@ -136,7 +147,6 @@ IOS_CSS = """
                  font: var(--ios-text-footnote); text-transform: uppercase; }
   .ios-list { margin: 0 0 22px; }
   .ios-tabbar__item[aria-selected="true"] { color: var(--accent-text-safe); }
-  .ios-btn--tinted { color: var(--accent-text-safe); }
 """
 
 IOS_BODY = """<div class="demo">
@@ -259,6 +269,7 @@ LIST_DETAIL_CSS = """
                       color: var(--ios-label); text-decoration: none; }
   .collection__item[aria-current="true"] {
       background: color-mix(in srgb, var(--ios-accent) 12%, transparent); }
+  .collection__item[aria-current="true"] span { color: var(--ios-label); }
   .collection__item strong { display: block; font: var(--ios-text-headline); }
   .collection__item span { display: block; margin-top: 3px;
                            color: var(--ios-label-secondary);
@@ -475,7 +486,6 @@ MKT_CSS = """
   .signup { padding: 72px 0 100px; border-top: 1px solid var(--ios-separator); }
   .signup form { display: flex; gap: 10px; max-width: 460px; flex-wrap: wrap; }
   .signup .ios-field { flex: 1 1 230px; }
-  .ios-btn--tinted { color: var(--accent-text-safe); }
   @media (max-width: 760px) {
     .mkt-nav, .mkt-page { padding-left: 20px; padding-right: 20px; }
     .hero { padding: 72px 0 62px; }
@@ -610,10 +620,15 @@ def collection_items():
     demo = [("Overnight oats", "12 min · 4 servings"),
             ("Sheet-pan chicken", "35 min · 2 servings"),
             ("Miso soup", "8 min · 2 servings")]
-    return "\n".join(
-        f'<a class="collection__item" href="#"{" aria-current=\"true\"" if i == 0 else ""}>'
-        f'<strong>{title}</strong><span>{meta}</span></a>'
-        for i, (title, meta) in enumerate(demo))
+    # The attribute is built outside the f-string: an expression part
+    # cannot contain a backslash before Python 3.12, and this file has to
+    # import on the interpreter people actually have.
+    out = []
+    for i, (title, meta) in enumerate(demo):
+        cur = ' aria-current="true"' if i == 0 else ''
+        out.append(f'<a class="collection__item" href="#"{cur}>'
+                   f'<strong>{title}</strong><span>{meta}</span></a>')
+    return "\n".join(out)
 
 
 def skel_collection(n=3):

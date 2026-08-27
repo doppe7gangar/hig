@@ -33,8 +33,21 @@ CRITERIA = [
     "Distinctiveness through product logic",
 ]
 
+# Aesthetic labels the divergence protocol rejects as reasons, plus the
+# usual unfilled-template markers.
+#
+# "direction a" and "direction b" used to be here and could not be: the
+# comparison table this gate requires is headed
+# `| Criterion | Direction A | Direction B |` in
+# references/design-direction-template.md, candidate_blocks below
+# explicitly accepts "### Direction A" as a heading, and any honest
+# trade-off paragraph names the directions it is weighing. The gate
+# banned the vocabulary its own template mandates, so no document that
+# followed the instructions could pass. Thin or cosmetic divergence is
+# caught by the structural-difference checks further down, which is
+# where it belongs.
 PLACEHOLDERS = (
-    "[pending]", "todo", "tbd", "replace this", "direction a", "direction b",
+    "[pending]", "todo", "tbd", "replace this",
     "clean and modern", "more apple-like", "less apple-like",
 )
 

@@ -12,7 +12,37 @@ REQUIRED_HEADINGS = [
     "Recovery and interruption",
 ]
 
-PLACEHOLDERS = ["[pending]", "todo", "tbd", "replace this", "user action", "system response"]
+# Matched anywhere in the document: nobody writes these on purpose.
+PLACEHOLDERS = ["[pending]", "todo", "tbd", "replace this"]
+
+# Matched only as a whole unfilled table cell. These two are also the
+# column headings the flow table is *required* to carry -- see
+# references/design-direction-template.md -- so scanning for them as
+# substrings rejected every document that followed the template this
+# skill ships, including its own smoke fixture. A gate that cannot be
+# passed by doing exactly what it asks is worse than no gate.
+CELL_PLACEHOLDERS = ["user action", "system response", "stage",
+                     "state/context preserved", "failure/recovery"]
+
+
+def unfilled_cells(text):
+    """Body cells left as the template's own column heading."""
+    found, header = [], None
+    for line in text.splitlines():
+        t = line.strip()
+        if not t.startswith("|"):
+            header = None
+            continue
+        cells = [c.strip().lower() for c in t.strip("|").split("|")]
+        if header is None:
+            header = cells          # first row of a table is its heading
+            continue
+        if all(set(c) <= set("-: ") for c in cells):
+            continue                # the |---| separator
+        for c in cells:
+            if c in CELL_PLACEHOLDERS and c not in found:
+                found.append(c)
+    return found
 
 
 def section(text, name):
@@ -47,6 +77,10 @@ def main():
         if p in low:
             failures.append(f"unfinished interaction placeholder: {p}")
 
+    for c in unfilled_cells(text):
+        failures.append(f"interaction flow row still holds the template's "
+                        f"own heading in a cell: {c}")
+
     flow = section(text, "Primary interaction flow")
     if flow:
         # Expect a Markdown table with at least four meaningful rows/stages.
@@ -72,6 +106,28 @@ def main():
             failures.append("Commit model must state undo/cancel/reversal policy")
         if not any(k in c for k in ("focus", "selection", "context")):
             failures.append("Commit model must state post-completion focus/selection/context")
+
+        # The section's keyword checks all passed on a commit model that
+        # read "changes happen somehow", because the words they look for
+        # were sitting in the neighbouring bullets. The one bullet that
+        # carries the actual answer -- the moment a change stops being a
+        # draft -- was never inspected, so this asks it directly.
+        m = re.search(r"when the change becomes real[^:]*:\s*(.+)", c)
+        if not m:
+            failures.append("Commit model must say when the change becomes "
+                            "real")
+        else:
+            moment = m.group(1)
+            WHEN = ("acknowledg", "server", "immediat", "optimistic", "blur",
+                    "submit", "confirm", "success", "response", "save",
+                    "commit", "local", "debounce", "second", "keystroke",
+                    "close", "accept")
+            if not any(k in moment for k in WHEN):
+                failures.append(
+                    "Commit model says when the change becomes real without "
+                    f"naming a moment: {moment.strip()[:60]!r}. Name the "
+                    "trigger -- server acknowledgement, blur, submit, "
+                    "optimistically with rollback.")
 
     recovery = section(text, "Recovery and interruption")
     if recovery:
