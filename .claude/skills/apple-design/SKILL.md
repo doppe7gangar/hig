@@ -1,6 +1,6 @@
 ---
 name: apple-design
-description: Design or redesign a whole product with Apple-level hierarchy, restraint, composition, platform awareness, adaptivity, accessibility, content integrity, and evidence-based critique. Use for apps, websites, dashboards, SaaS, product surfaces, and cross-platform interfaces when the task is broader than a single component. This skill acts as the design director: it routes through platform/HIG guidance, defines information and content hierarchy, compares structural directions, inspects references, prefers system components, plans adaptive transformations and interaction states, validates representation choices, then checks direction evidence, implementation quality, and rendered visual results.
+description: Design or redesign a whole product with Apple-level hierarchy, restraint, composition, platform awareness, adaptivity, accessibility, content integrity, interaction architecture, and evidence-based critique. Use for apps, websites, dashboards, SaaS, product surfaces, and cross-platform interfaces when the task is broader than a single component. This skill acts as the design director: it routes through platform/HIG guidance, defines information and content hierarchy, compares structural directions, inspects references, prefers system components, plans adaptive transformations and complete task flows, validates representation choices and recovery semantics, then checks direction evidence, implementation quality, and rendered visual results.
 ---
 
 # Apple Design Director
@@ -12,7 +12,7 @@ Specialists:
 - `apple-hig` — authoritative platform rules, behavior, accessibility, components, APIs
 - `apple-ui-kit` — measured iOS visual values/recipes where system appearance is not available
 - `apple-motion` — interaction physics and animation implementation
-- `apple-design` — product hierarchy, content hierarchy, platform routing, divergence, composition, invariants, adaptivity, reference selection, reduction, and critique
+- `apple-design` — product hierarchy, content hierarchy, platform routing, divergence, composition, invariants, adaptivity, interaction architecture, reference selection, reduction, and critique
 
 ## Authority rule
 
@@ -144,7 +144,23 @@ Read `references/adaptivity.md`. Record wide/default and compact architecture, w
 
 Responsive design is architectural transformation, not smaller CSS.
 
-## 10. Plan interaction states and accessibility before polish
+## 10. Design the interaction architecture
+
+Read `references/interaction-architecture.md` before polishing individual control states.
+
+For at least the primary recurring task, model:
+
+`entry → orientation → action → system response → commit point → recovery → exit/continuation`
+
+Record the commit model explicitly: immediate, explicit, or autosave/continuous. Define when the change becomes real, undo/cancel/reversal behavior, what happens after completion, and what focus/selection/context survives.
+
+Resolve realistic interruptions and failures: navigation away mid-edit, pending work while selection changes, offline/network failure, optimistic rollback, stale/conflicting data, modal dismissal, or remote deletion where applicable.
+
+For keyboard-oriented platforms define command paths, Escape/cancel and Return/commit semantics, focus restoration, and visible alternatives. For drag/drop, define copy/move semantics, valid targets, failure feedback, undo, and a non-drag alternative where appropriate.
+
+Interaction architecture is not animation. It is the contract that tells the person when work is committed, whether it can be reversed, and how they recover.
+
+## 11. Plan component states and accessibility before polish
 
 Read `references/interaction-accessibility.md`.
 
@@ -152,7 +168,7 @@ Build an applicable state matrix: default, hover, keyboard focus, pressed, selec
 
 Check applicable HIG guidance for Dynamic Type/text scaling/zoom, keyboard/focus order, VoiceOver/screen-reader semantics, target size/spacing, contrast/non-color state communication, Reduce Motion, Reduce Transparency, focus visibility, and error recovery.
 
-## 11. Compose before decorating
+## 12. Compose before decorating
 
 Decide dominant/secondary regions, reading order, alignment, density, content width, persistent chrome, contextual chrome, and functional empty space. Only then select surfaces, borders, materials, shadows, and motion.
 
@@ -176,6 +192,12 @@ Content gate:
 
 ```bash
 python3 check_content.py ./design
+```
+
+Interaction gate:
+
+```bash
+python3 check_interaction.py ./design
 ```
 
 Direction gate:
@@ -202,7 +224,7 @@ Read `references/visual-critique.md`. Every meaningful finding must use:
 
 **evidence → consequence → correction**
 
-Review hierarchy, content/representation fit, invariants, composition, containers, typography, density, adaptive transformations, interaction states, accessibility, material/color, system-component usage, platform authenticity, state continuity, and reduction.
+Review hierarchy, content/representation fit, invariants, composition, interaction flow, commit/recovery behavior, containers, typography, density, adaptive transformations, component states, accessibility, material/color, system-component usage, platform authenticity, state continuity, and reduction.
 
 After revision/rerender, complete `VISUAL_REVIEW.md` and verify:
 
@@ -231,7 +253,7 @@ python3 scripts/eval/design_quality_eval.py
 
 The 15-product suite looks for structural sameness across analytics, mail, photo editing, finance, plants, notes, developer tools, settings, media, commerce, marketing, operations, messaging, calendar, and files.
 
-Mechanical validity plus repeated architecture is a failed design skill. Strong architecture filled with arbitrary placeholder content is also a failed design skill.
+Mechanical validity plus repeated architecture is a failed design skill. Strong architecture filled with arbitrary placeholder content is also a failed design skill. A polished static mockup with unresolved commit/recovery behavior is also a failed design skill.
 
 # Complete loop
 
@@ -245,10 +267,12 @@ brief
 → platform-aware reference shortlist + inspection
 → compare / reject / commit
 → adaptive architecture plan
-→ interaction + accessibility matrix
+→ primary interaction architecture + recovery/alternate input
+→ component states + accessibility matrix
 → scaffold / compose / implement realistic content
 → check_divergence.py
 → check_content.py
+→ check_interaction.py
 → check_direction.py
 → check_design.py
 → render_review.py
@@ -261,4 +285,4 @@ brief
 
 # Final standard
 
-A successful result feels Apple-like because it is clear, composed, restrained, adaptive, accessible, platform-correct, content-aware, spatially coherent, typographically disciplined, purposeful in motion, deliberately chosen over credible alternatives, and proven through rendered inspection—not because it is covered in rounded glass.
+A successful result feels Apple-like because it is clear, composed, restrained, adaptive, accessible, platform-correct, content-aware, behaviorally dependable, spatially coherent, typographically disciplined, purposeful in motion, deliberately chosen over credible alternatives, and proven through rendered inspection—not because it is covered in rounded glass.
