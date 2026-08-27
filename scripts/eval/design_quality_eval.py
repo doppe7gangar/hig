@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Run diverse product briefs and flag structural sameness/regressions.
+"""Run diverse product briefs and flag structural/content regressions.
 
-Requires the local `claude` CLI. Mechanical, direction, and divergence gates
-are run on each produced design. Cross-run analysis looks for architectural
-collapse without pretending to score beauty.
+Requires the local `claude` CLI. Mechanical, direction, divergence, and
+content gates run on each produced design. Cross-run analysis looks for
+architectural collapse without pretending to score beauty.
 """
 
 import argparse
@@ -20,6 +20,7 @@ SKILLS = os.path.join(ROOT, ".claude", "skills")
 CHECK = os.path.join(SKILLS, "apple-design", "check_design.py")
 DIRECTION = os.path.join(SKILLS, "apple-design", "check_direction.py")
 DIVERGENCE = os.path.join(SKILLS, "apple-design", "check_divergence.py")
+CONTENT = os.path.join(SKILLS, "apple-design", "check_content.py")
 
 BRIEFS = {
     "analytics": "Design a desktop-first web support analytics product: ticket volume, SLA health, response time, staffing. Brand #1F6FEB. Apple sensibility without iOS chrome.",
@@ -69,10 +70,14 @@ def extract_direction(path):
     inv = section(text, "Design invariants")
     candidates = section(text, "Candidate directions")
     candidate_count = len(re.findall(r"^###\s+Direction", candidates, re.I | re.M))
+    content_model = section(text, "Content model")
+    representation = section(text, "Representation decisions")
     return {
         "chosen": re.sub(r"\s+", " ", chosen)[:320],
         "invariants": len(re.findall(r"^\s*[-*]\s+", inv, re.M)),
         "candidate_count": candidate_count,
+        "content_model_chars": len(content_model),
+        "representation_chars": len(representation),
     }
 
 
@@ -104,8 +109,6 @@ def infer_model(text):
 
 def structural_metrics(path):
     text = read_html(path)
-    # These are intentionally coarse. They describe architecture enough to spot
-    # cloning without treating element counts as a quality score.
     metrics = {
         "model": infer_model(text),
         "cards": len(re.findall(r'class="[^"]*\bcard\b', text, re.I)),
@@ -118,8 +121,6 @@ def structural_metrics(path):
         "tabbars": len(re.findall(r"tabbar|tab-bar", text, re.I)),
         "split_regions": len(re.findall(r"grid-template-columns|split|pane|inspector", text, re.I)),
     }
-    # Bucket noisy counts to avoid declaring two layouts different because one
-    # happens to have one extra section.
     def bucket(n):
         if n == 0:
             return "0"
@@ -167,15 +168,18 @@ def run_one(name, brief, workroot, model):
     mec = run_gate(CHECK, design, timeout=300, extra=["--no-browser"])
     direction = run_gate(DIRECTION, design)
     divergence = run_gate(DIVERGENCE, design)
+    content = run_gate(CONTENT, design)
     result.update({
         "mechanical": mec.returncode,
         "direction_gate": direction.returncode,
         "divergence_gate": divergence.returncode,
+        "content_gate": content.returncode,
         "direction": extract_direction(design),
         "metrics": structural_metrics(design),
         "gate_output": {
             "direction": direction.stdout.strip(),
             "divergence": divergence.stdout.strip(),
+            "content": content.stdout.strip(),
         },
     })
     return result
@@ -217,15 +221,19 @@ def summarize(results):
     if one_candidate:
         warnings.append("whole-product runs without 2+ recorded candidates: " + ", ".join(one_candidate))
 
-    missing_direction = [r["id"] for r in usable if r.get("direction_gate") != 0]
-    if missing_direction:
-        warnings.append("direction evidence gate failed: " + ", ".join(missing_direction))
+    for gate_key, label in (("direction_gate", "direction"),
+                            ("divergence_gate", "divergence"),
+                            ("content_gate", "content")):
+        failed = [r["id"] for r in usable if r.get(gate_key) != 0]
+        if failed:
+            warnings.append(f"{label} evidence gate failed: " + ", ".join(failed))
 
-    missing_divergence = [r["id"] for r in usable if r.get("divergence_gate") != 0]
-    if missing_divergence:
-        warnings.append("divergence evidence gate failed: " + ", ".join(missing_divergence))
+    thin_content = [r["id"] for r in usable
+                    if r.get("direction", {}).get("content_model_chars", 0) < 80
+                    or r.get("direction", {}).get("representation_chars", 0) < 80]
+    if thin_content:
+        warnings.append("content/representation evidence suspiciously thin: " + ", ".join(thin_content))
 
-    # Platform-specific regression probes. These are alarms, not proof.
     mac_ids = {"mail", "photo", "settings", "files"}
     mac_runs = [r for r in usable if r["id"] in mac_ids]
     mobileish = [r["id"] for r in mac_runs
@@ -262,11 +270,12 @@ def main():
         for warning in warnings:
             print("WARN " + warning)
     else:
-        print("ok no obvious structural-sameness regression detected")
+        print("ok no obvious structural/content regression detected")
 
     hard = [r for r in results if r.get("mechanical") != 0
             or r.get("direction_gate") != 0
-            or r.get("divergence_gate") != 0]
+            or r.get("divergence_gate") != 0
+            or r.get("content_gate") != 0]
     return 1 if hard else 0
 
 
