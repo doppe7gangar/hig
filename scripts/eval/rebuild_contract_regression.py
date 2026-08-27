@@ -9,6 +9,7 @@ Covers:
 """
 
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -144,12 +145,61 @@ def test_shared_css_and_state_sweep():
     rule_pos = new.find(shared_rule)
     if not (state_pos < rule_pos < ios_pos):
         raise RuntimeError("accent-text rule is not in shared STATE_CSS")
-    for st in ("populated", "loading", "empty", "error"):
-        if f"'{st}'" not in check and f'"{st}"' not in check:
-            raise RuntimeError(f"browser contrast sweep missing state {st}")
-    if "for (const st of ['populated', 'loading', 'empty', 'error'])" not in check:
-        raise RuntimeError("browser checker does not explicitly sweep all four states")
+    # Structural rather than literal. Matching the loop as an exact
+    # string went wrong in both directions: swapping single quotes for
+    # double failed the guard while the behaviour was untouched, and
+    # keeping the line but moving sweep() outside the braces passed it
+    # while the checker went back to measuring one state. So: find the
+    # loop that names all four states, and require it to sweep inside.
+    sweep = None
+    for m in re.finditer(r"for\s*\(\s*const\s+\w+\s+of\s*\[([^\]]*)\]\s*\)\s*\{(.*?)\n  \}",
+                         check, re.S):
+        listed = {t.strip().strip("'\"") for t in m.group(1).split(",")}
+        if {"populated", "loading", "empty", "error"} <= listed:
+            sweep = m
+            break
+    if sweep is None:
+        raise RuntimeError(
+            "browser checker has no loop naming all four states")
+    if "sweep()" not in sweep.group(2):
+        raise RuntimeError(
+            "the four-state loop does not sweep inside its body, so only "
+            "the state it leaves behind gets measured")
     print("ok shared contrast CSS and four-state browser sweep are guarded")
+
+
+def test_hidden_state_contrast_is_caught(tmp):
+    """The sweep has to work, not merely be present in the source.
+
+    Guarding it by grepping the source proved to be a check on
+    formatting: the loop could stay exactly as written with sweep()
+    moved outside the braces, and check_design.py then called a page
+    ready that had white-on-yellow at 1.23:1 in its empty panel. This
+    builds that page and insists the checker rejects it.
+    """
+    out = os.path.join(tmp, "hidden-state")
+    run([sys.executable, NEW, "--name", "Sun", "--brand", "#FFE81A",
+         "--kind", "ios", "--screens", "Home,Browse", "--thing", "items",
+         "-o", out])
+    page = os.path.join(out, "index.html")
+    html = open(page, encoding="utf-8").read()
+    # White on a light brand fails; break only the hidden empty panel, so
+    # a checker that measures just the visible state cannot notice.
+    i, j = html.index('class="state state--empty"'), html.index('class="state state--error"')
+    seg = html[i:j].replace('class="ios-btn ios-btn--filled"',
+                            'class="ios-btn ios-btn--filled" style="color:#FFFFFF"')
+    open(page, "w", encoding="utf-8").write(html[:i] + seg + html[j:])
+
+    p = subprocess.run([sys.executable, CHECK, out], capture_output=True, text=True)
+    if "playwright" in p.stdout.lower() and "skipped" in p.stdout.lower():
+        print("-- browser unavailable; hidden-state contrast not exercised")
+        return
+    if p.returncode == 0:
+        raise RuntimeError(
+            "check_design.py passed a page whose hidden empty state has "
+            "white on a light brand at about 1.2:1 -- the state sweep is "
+            "not actually running")
+    print("ok a contrast failure in a hidden state is still caught")
 
 
 def main():
@@ -160,6 +210,7 @@ def main():
         test_compile_and_scaffold(tmp)
         test_gate_vocabulary(tmp)
         test_shared_css_and_state_sweep()
+        test_hidden_state_contrast_is_caught(tmp)
     print("rebuild contract regression passed")
     return 0
 
