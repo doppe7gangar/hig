@@ -26,8 +26,6 @@ Use this structure to replace/expand the scaffolded `DESIGN.md` before visual po
 
 ## Content model
 
-For each important content region record the decision it supports rather than only its label.
-
 | Content | User question/task | Decision enabled | Content shape | Required context |
 |---|---|---|---|---|
 | | | | | |
@@ -38,7 +36,7 @@ For each important content region record the decision it supports rather than on
 |---|---|---|---|
 | | | | |
 
-If a chart is used, also record its analytical question, unit, comparison/baseline, time/population window, and missing-data behavior.
+If a chart is used, record its analytical question, unit, comparison/baseline, time/population window, and missing-data behavior.
 
 ## Content stress cases
 
@@ -46,14 +44,12 @@ If a chart is used, also record its analytical question, unit, comparison/baseli
 - 
 - 
 
-Include applicable extremes such as long labels, zero/negative values, missing or stale data, many/few rows, unusual status, and realistic user-generated text.
-
 ## State continuity
 
 - **Invariant design idea:**
-- **Loading:** what hierarchy/space remains, what is temporarily unavailable:
-- **Empty:** why it is empty, what remains, what action becomes primary:
-- **Error:** what failed locally, what remains usable, recovery action:
+- **Loading:**
+- **Empty:**
+- **Error:**
 - **Offline / not-enough-data / stale (if applicable):**
 
 ## Design invariants
@@ -64,10 +60,9 @@ Include applicable extremes such as long labels, zero/negative values, missing o
 
 ## Candidate directions
 
-Each credible candidate must differ structurally, not cosmetically. The `Structural differences` field must name at least two differences from the other candidates, such as pane structure, navigation, persistent chrome, sequence/simultaneity, density, or primary-action placement.
+Each credible candidate must differ structurally, not cosmetically. Name at least two structural differences.
 
 ### Direction: A — <short name>
-
 - **Model:**
 - **Design idea:**
 - **Primary region:**
@@ -79,7 +74,6 @@ Each credible candidate must differ structurally, not cosmetically. The `Structu
 - **Structural differences:** ______; ______
 
 ### Direction: B — <short name>
-
 - **Model:**
 - **Design idea:**
 - **Primary region:**
@@ -91,7 +85,6 @@ Each credible candidate must differ structurally, not cosmetically. The `Structu
 - **Structural differences:** ______; ______
 
 ### Direction: C — <short name> (when credible)
-
 - **Model:**
 - **Design idea:**
 - **Primary region:**
@@ -104,8 +97,6 @@ Each credible candidate must differ structurally, not cosmetically. The `Structu
 
 ## Direction comparison
 
-Score 1–5 to expose trade-offs, not to mechanically choose the highest total.
-
 | Criterion | Direction A | Direction B | Direction C (if used) |
 |---|---:|---:|---:|
 | Primary-task fit | | | |
@@ -116,7 +107,7 @@ Score 1–5 to expose trade-offs, not to mechanically choose the highest total.
 | Restraint | | | |
 | Distinctiveness through product logic | | | |
 
-**Trade-off interpretation:** Explain what the scores reveal, which weakness matters most for this product, and why the final decision is not simply “highest total wins.”
+**Trade-off interpretation:**
 
 ## Rejected directions
 
@@ -137,15 +128,12 @@ Score 1–5 to expose trade-offs, not to mechanically choose the highest total.
 ## Adaptive architecture
 
 ### Wide/default
-
 - 
 
 ### Compact/narrow
-
 - 
 
 ### Transformation
-
 - disappears:
 - becomes sequential:
 - becomes contextual:
@@ -153,8 +141,6 @@ Score 1–5 to expose trade-offs, not to mechanically choose the highest total.
 - pointer/keyboard → touch changes:
 
 ## Primary interaction flow
-
-Model the main task from entry through completion and recovery.
 
 | Stage | User action | System response | State/context preserved | Failure/recovery |
 |---|---|---|---|---|
@@ -185,8 +171,6 @@ Model the main task from entry through completion and recovery.
 - 
 - 
 
-Examples: double submit, selection changes while pending, navigate away with unsaved work, optimistic failure, object deleted remotely, offline/reconnect, undo after selection change, modal dismissed without commit.
-
 ## Keyboard and alternate input
 
 - **Keyboard/command path where expected:**
@@ -194,6 +178,41 @@ Examples: double submit, selection changes while pending, navigate away with uns
 - **Focus restoration:**
 - **Touch/pointer alternative:**
 - **Drag/drop path and non-drag alternative if applicable:**
+
+## Product coherence contract
+
+- **Typography roles:**
+- **Spacing rhythm:**
+- **Surface/material roles:**
+- **Action placement:**
+- **Navigation/selection semantics:**
+- **Terminology/icon semantics:**
+- **Shared interaction contracts:**
+
+## Screen-family coherence matrix
+
+| Screen/family | Primary object/task | Title role | Primary action location | Navigation level | Selection model | Density | Surface/material notes |
+|---|---|---|---|---|---|---|---|
+| | | | | | | | |
+| | | | | | | | |
+
+## Intentional differences
+
+- ______ differs from ______ because ______; this difference supports ______.
+
+## Cross-screen transition audit
+
+| Transition | What stays stable | What changes intentionally | Context/focus preservation | Terminology/action continuity |
+|---|---|---|---|---|
+| | | | | |
+| | | | | |
+
+## Coherence drift review
+
+- 
+- 
+
+Check typography roles, spacing rhythm, radii/surfaces, action placement, navigation semantics, terminology/icons, commit/recovery conventions, density, states, and responsive variants for unexplained drift.
 
 ## Interaction states
 
