@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Run diverse product briefs and flag structural/content regressions.
+"""Run diverse product briefs and flag structural/content/interaction regressions.
 
-Requires the local `claude` CLI. Mechanical, direction, divergence, and
-content gates run on each produced design. Cross-run analysis looks for
-architectural collapse without pretending to score beauty.
+Requires the local `claude` CLI. Mechanical, direction, divergence, content,
+and interaction gates run on each produced design. Cross-run analysis looks
+for architectural collapse without pretending to score beauty.
 """
 
 import argparse
@@ -21,6 +21,7 @@ CHECK = os.path.join(SKILLS, "apple-design", "check_design.py")
 DIRECTION = os.path.join(SKILLS, "apple-design", "check_direction.py")
 DIVERGENCE = os.path.join(SKILLS, "apple-design", "check_divergence.py")
 CONTENT = os.path.join(SKILLS, "apple-design", "check_content.py")
+INTERACTION = os.path.join(SKILLS, "apple-design", "check_interaction.py")
 
 BRIEFS = {
     "analytics": "Design a desktop-first web support analytics product: ticket volume, SLA health, response time, staffing. Brand #1F6FEB. Apple sensibility without iOS chrome.",
@@ -59,8 +60,7 @@ def find_design(root):
 
 
 def section(text, name):
-    m = re.search(rf"^#+\s+{re.escape(name)}\s*$([\s\S]*?)(?=^#+\s|\Z)",
-                  text, re.I | re.M)
+    m = re.search(rf"^#+\s+{re.escape(name)}\s*$([\s\S]*?)(?=^#+\s|\Z)", text, re.I | re.M)
     return m.group(1).strip() if m else ""
 
 
@@ -72,12 +72,14 @@ def extract_direction(path):
     candidate_count = len(re.findall(r"^###\s+Direction", candidates, re.I | re.M))
     content_model = section(text, "Content model")
     representation = section(text, "Representation decisions")
+    interaction = section(text, "Primary interaction flow")
     return {
         "chosen": re.sub(r"\s+", " ", chosen)[:320],
         "invariants": len(re.findall(r"^\s*[-*]\s+", inv, re.M)),
         "candidate_count": candidate_count,
         "content_model_chars": len(content_model),
         "representation_chars": len(representation),
+        "interaction_chars": len(interaction),
     }
 
 
@@ -130,13 +132,9 @@ def structural_metrics(path):
             return "3-5"
         return "6+"
     metrics["signature"] = "/".join([
-        metrics["model"],
-        "a" + bucket(metrics["asides"]),
-        "n" + bucket(metrics["navs"]),
-        "t" + bucket(metrics["tables"]),
-        "f" + bucket(metrics["forms"]),
-        "s" + bucket(metrics["split_regions"]),
-        "c" + bucket(metrics["cards"]),
+        metrics["model"], "a" + bucket(metrics["asides"]), "n" + bucket(metrics["navs"]),
+        "t" + bucket(metrics["tables"]), "f" + bucket(metrics["forms"]),
+        "s" + bucket(metrics["split_regions"]), "c" + bucket(metrics["cards"]),
     ])
     return metrics
 
@@ -169,17 +167,20 @@ def run_one(name, brief, workroot, model):
     direction = run_gate(DIRECTION, design)
     divergence = run_gate(DIVERGENCE, design)
     content = run_gate(CONTENT, design)
+    interaction = run_gate(INTERACTION, design)
     result.update({
         "mechanical": mec.returncode,
         "direction_gate": direction.returncode,
         "divergence_gate": divergence.returncode,
         "content_gate": content.returncode,
+        "interaction_gate": interaction.returncode,
         "direction": extract_direction(design),
         "metrics": structural_metrics(design),
         "gate_output": {
             "direction": direction.stdout.strip(),
             "divergence": divergence.stdout.strip(),
             "content": content.stdout.strip(),
+            "interaction": interaction.stdout.strip(),
         },
     })
     return result
@@ -197,8 +198,7 @@ def summarize(results):
     if not total:
         return ["no usable generated designs to compare"]
 
-    chosen_prefixes = collections.Counter(
-        r.get("direction", {}).get("chosen", "").lower()[:90] for r in usable)
+    chosen_prefixes = collections.Counter(r.get("direction", {}).get("chosen", "").lower()[:90] for r in usable)
     for key, n in repeated(chosen_prefixes, total):
         warnings.append(f"chosen-direction wording/structure repeats in {n}/{total} runs: {key}")
 
@@ -209,21 +209,18 @@ def summarize(results):
     signatures = collections.Counter(r["metrics"]["signature"] for r in usable)
     for sig, n in repeated(signatures, total, minimum=3, fraction=.4):
         ids = [r["id"] for r in usable if r["metrics"]["signature"] == sig]
-        warnings.append(
-            f"near-identical structural signature repeats in {n}/{total}: {sig} ({', '.join(ids)})")
+        warnings.append(f"near-identical structural signature repeats in {n}/{total}: {sig} ({', '.join(ids)})")
 
     card_heavy = [r["id"] for r in usable if r["metrics"].get("cards", 0) >= 6]
     if len(card_heavy) >= max(4, int(total * .5 + .999)):
         warnings.append("many unrelated products are card-heavy: " + ", ".join(card_heavy))
 
-    one_candidate = [r["id"] for r in usable
-                     if r.get("direction", {}).get("candidate_count", 0) < 2]
+    one_candidate = [r["id"] for r in usable if r.get("direction", {}).get("candidate_count", 0) < 2]
     if one_candidate:
         warnings.append("whole-product runs without 2+ recorded candidates: " + ", ".join(one_candidate))
 
-    for gate_key, label in (("direction_gate", "direction"),
-                            ("divergence_gate", "divergence"),
-                            ("content_gate", "content")):
+    for gate_key, label in (("direction_gate", "direction"), ("divergence_gate", "divergence"),
+                            ("content_gate", "content"), ("interaction_gate", "interaction")):
         failed = [r["id"] for r in usable if r.get(gate_key) != 0]
         if failed:
             warnings.append(f"{label} evidence gate failed: " + ", ".join(failed))
@@ -234,10 +231,13 @@ def summarize(results):
     if thin_content:
         warnings.append("content/representation evidence suspiciously thin: " + ", ".join(thin_content))
 
+    thin_interaction = [r["id"] for r in usable if r.get("direction", {}).get("interaction_chars", 0) < 160]
+    if thin_interaction:
+        warnings.append("primary interaction-flow evidence suspiciously thin: " + ", ".join(thin_interaction))
+
     mac_ids = {"mail", "photo", "settings", "files"}
     mac_runs = [r for r in usable if r["id"] in mac_ids]
-    mobileish = [r["id"] for r in mac_runs
-                 if r["metrics"]["model"] in ("ios-tabs", "ios-stack") or r["metrics"]["tabbars"]]
+    mobileish = [r["id"] for r in mac_runs if r["metrics"]["model"] in ("ios-tabs", "ios-stack") or r["metrics"]["tabbars"]]
     if mobileish:
         warnings.append("macOS benchmark emitted mobile-style navigation: " + ", ".join(mobileish))
 
@@ -270,12 +270,13 @@ def main():
         for warning in warnings:
             print("WARN " + warning)
     else:
-        print("ok no obvious structural/content regression detected")
+        print("ok no obvious structural/content/interaction regression detected")
 
     hard = [r for r in results if r.get("mechanical") != 0
             or r.get("direction_gate") != 0
             or r.get("divergence_gate") != 0
-            or r.get("content_gate") != 0]
+            or r.get("content_gate") != 0
+            or r.get("interaction_gate") != 0]
     return 1 if hard else 0
 
 
