@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Validate project-local design grammar evidence."""
 
+import argparse
 import os
 import re
 import sys
@@ -34,7 +35,14 @@ def rows(sec):
 
 
 def main():
-    root=sys.argv[1] if len(sys.argv)>1 else "."
+    # argparse, like the other gates. Reading sys.argv[1] raw meant
+    # --help was taken as a directory name, so the tool answered a
+    # request for its own documentation with "FAIL missing
+    # PROJECT_GRAMMAR.md" and exit 1.
+    ap = argparse.ArgumentParser(
+        description="Validate the project's design grammar memory.")
+    ap.add_argument("directory", nargs="?", default=".")
+    root = ap.parse_args().directory
     path=os.path.join(root,"PROJECT_GRAMMAR.md")
     if not os.path.exists(path):
         print("FAIL missing PROJECT_GRAMMAR.md")
@@ -51,7 +59,15 @@ def main():
         errors.append("need at least five established semantic rules")
     seen=set()
     for i,r in enumerate(data,1):
-        if len(r)<4 or sum(meaningful(c) for c in r[:4])<4:
+        # meaningful() asks for ten characters of substance, which is the
+        # right test for a rule, its evidence and its scope, and the
+        # wrong one for the domain -- that cell is a one-word enum,
+        # already validated against DOMAINS below. Applying the length
+        # floor to it rejected twelve of the sixteen domains this gate
+        # accepts, including spacing, actions, icons and selection, so a
+        # grammar could only satisfy "rules across at least four
+        # domains" by using the exact four long enough to qualify.
+        if len(r) < 4 or not r[0].strip() or sum(meaningful(c) for c in r[1:4]) < 3:
             errors.append(f"established rule {i} lacks domain/rule/evidence/scope")
             continue
         d=r[0].lower().strip(); seen.add(d)

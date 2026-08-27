@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Validate cross-screen product-coherence evidence in DESIGN.md."""
 
+import argparse
 import os
 import re
 import sys
@@ -35,7 +36,10 @@ def table_rows(sec):
 
 
 def main():
-    root = sys.argv[1] if len(sys.argv) > 1 else "."
+    ap = argparse.ArgumentParser(
+        description="Validate cross-screen product coherence evidence.")
+    ap.add_argument("directory", nargs="?", default=".")
+    root = ap.parse_args().directory
     path = os.path.join(root, "DESIGN.md")
     if not os.path.exists(path):
         print("FAIL missing DESIGN.md")
