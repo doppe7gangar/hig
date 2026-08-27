@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """Run diverse product briefs and flag structural sameness/regressions.
 
-Requires the local `claude` CLI. Mechanical and direction gates are run on each
-produced design. The cross-run summary looks for repeated architecture; it does
-not pretend to score beauty.
+Requires the local `claude` CLI. Mechanical, direction, and divergence gates
+are run on each produced design. Cross-run analysis looks for architectural
+collapse without pretending to score beauty.
 """
 
 import argparse
+import collections
 import json
 import os
 import re
@@ -18,6 +19,7 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 SKILLS = os.path.join(ROOT, ".claude", "skills")
 CHECK = os.path.join(SKILLS, "apple-design", "check_design.py")
 DIRECTION = os.path.join(SKILLS, "apple-design", "check_direction.py")
+DIVERGENCE = os.path.join(SKILLS, "apple-design", "check_divergence.py")
 
 BRIEFS = {
     "analytics": "Design a desktop-first web support analytics product: ticket volume, SLA health, response time, staffing. Brand #1F6FEB. Apple sensibility without iOS chrome.",
@@ -55,35 +57,94 @@ def find_design(root):
     return min(candidates, key=len) if candidates else None
 
 
+def section(text, name):
+    m = re.search(rf"^#+\s+{re.escape(name)}\s*$([\s\S]*?)(?=^#+\s|\Z)",
+                  text, re.I | re.M)
+    return m.group(1).strip() if m else ""
+
+
 def extract_direction(path):
     text = open(os.path.join(path, "DESIGN.md"), encoding="utf-8").read()
-    def section(name):
-        m = re.search(rf"^#+\s+{re.escape(name)}\s*$([\s\S]*?)(?=^#+\s|\Z)",
-                      text, re.I | re.M)
-        return m.group(1).strip() if m else ""
-    chosen = section("Chosen direction") or section("Spatial model")
-    inv = section("Design invariants")
+    chosen = section(text, "Chosen direction") or section(text, "Spatial model")
+    inv = section(text, "Design invariants")
+    candidates = section(text, "Candidate directions")
+    candidate_count = len(re.findall(r"^###\s+Direction", candidates, re.I | re.M))
     return {
-        "chosen": re.sub(r"\s+", " ", chosen)[:240],
+        "chosen": re.sub(r"\s+", " ", chosen)[:320],
         "invariants": len(re.findall(r"^\s*[-*]\s+", inv, re.M)),
+        "candidate_count": candidate_count,
     }
 
 
-def structural_metrics(path):
+def read_html(path):
     htmls = []
     for dp, dns, files in os.walk(path):
         dns[:] = [d for d in dns if d not in ("vendor", "node_modules")]
-        for f in files:
-            if f.endswith(".html"):
-                htmls.append(open(os.path.join(dp, f), encoding="utf-8").read())
-    text = "\n".join(htmls)
-    return {
+        for filename in files:
+            if filename.endswith(".html"):
+                htmls.append(open(os.path.join(dp, filename), encoding="utf-8").read())
+    return "\n".join(htmls)
+
+
+def infer_model(text):
+    probes = [
+        ("workspace", r"\bworkspace(?:__|\b)"),
+        ("list-detail", r"\blistdetail\b|\bcollection__item\b"),
+        ("dashboard", r"\bhero-metric\b|\bsummary__head\b"),
+        ("document", r"\bdocument-shell\b|\bdocument-top\b"),
+        ("editorial", r"\bmarketing\b|\bmkt-page\b"),
+        ("ios-tabs", r"ios-tabbar"),
+        ("ios-stack", r'class="phone"'),
+    ]
+    for name, pattern in probes:
+        if re.search(pattern, text, re.I):
+            return name
+    return "custom/unknown"
+
+
+def structural_metrics(path):
+    text = read_html(path)
+    # These are intentionally coarse. They describe architecture enough to spot
+    # cloning without treating element counts as a quality score.
+    metrics = {
+        "model": infer_model(text),
         "cards": len(re.findall(r'class="[^"]*\bcard\b', text, re.I)),
         "asides": len(re.findall(r"<aside\b", text, re.I)),
         "navs": len(re.findall(r"<nav\b", text, re.I)),
         "tables": len(re.findall(r"<table\b", text, re.I)),
+        "sections": len(re.findall(r"<section\b", text, re.I)),
+        "dialogs": len(re.findall(r"<dialog\b|role=[\"']dialog", text, re.I)),
+        "forms": len(re.findall(r"<form\b", text, re.I)),
         "tabbars": len(re.findall(r"tabbar|tab-bar", text, re.I)),
+        "split_regions": len(re.findall(r"grid-template-columns|split|pane|inspector", text, re.I)),
     }
+    # Bucket noisy counts to avoid declaring two layouts different because one
+    # happens to have one extra section.
+    def bucket(n):
+        if n == 0:
+            return "0"
+        if n <= 2:
+            return "1-2"
+        if n <= 5:
+            return "3-5"
+        return "6+"
+    metrics["signature"] = "/".join([
+        metrics["model"],
+        "a" + bucket(metrics["asides"]),
+        "n" + bucket(metrics["navs"]),
+        "t" + bucket(metrics["tables"]),
+        "f" + bucket(metrics["forms"]),
+        "s" + bucket(metrics["split_regions"]),
+        "c" + bucket(metrics["cards"]),
+    ])
+    return metrics
+
+
+def run_gate(script, design, timeout=60, extra=None):
+    args = [sys.executable, script, design]
+    if extra:
+        args.extend(extra)
+    return subprocess.run(args, capture_output=True, text=True, timeout=timeout)
 
 
 def run_one(name, brief, workroot, model):
@@ -102,38 +163,78 @@ def run_one(name, brief, workroot, model):
     if not design:
         result["failure"] = "no design directory with DESIGN.md + HTML"
         return result
-    mec = subprocess.run([sys.executable, CHECK, design, "--no-browser"],
-                         capture_output=True, text=True, timeout=300)
-    direction = subprocess.run([sys.executable, DIRECTION, design],
-                               capture_output=True, text=True, timeout=60)
+
+    mec = run_gate(CHECK, design, timeout=300, extra=["--no-browser"])
+    direction = run_gate(DIRECTION, design)
+    divergence = run_gate(DIVERGENCE, design)
     result.update({
         "mechanical": mec.returncode,
         "direction_gate": direction.returncode,
+        "divergence_gate": divergence.returncode,
         "direction": extract_direction(design),
         "metrics": structural_metrics(design),
+        "gate_output": {
+            "direction": direction.stdout.strip(),
+            "divergence": divergence.stdout.strip(),
+        },
     })
     return result
 
 
+def repeated(counter, total, minimum=3, fraction=.6):
+    threshold = max(minimum, int(total * fraction + .999))
+    return [(key, n) for key, n in counter.items() if key and n >= threshold]
+
+
 def summarize(results):
     warnings = []
-    chosen = [r.get("direction", {}).get("chosen", "") for r in results]
-    prefixes = {}
-    for c in chosen:
-        key = c.lower()[:80]
-        if key:
-            prefixes[key] = prefixes.get(key, 0) + 1
-    for key, n in prefixes.items():
-        if n >= max(3, int(len(results) * .6)):
-            warnings.append(f"chosen-direction wording/structure repeats in {n}/{len(results)} runs: {key}")
+    usable = [r for r in results if r.get("metrics")]
+    total = len(usable)
+    if not total:
+        return ["no usable generated designs to compare"]
 
-    card_heavy = [r["id"] for r in results if r.get("metrics", {}).get("cards", 0) >= 6]
-    if len(card_heavy) >= max(4, int(len(results) * .5)):
+    chosen_prefixes = collections.Counter(
+        r.get("direction", {}).get("chosen", "").lower()[:90] for r in usable)
+    for key, n in repeated(chosen_prefixes, total):
+        warnings.append(f"chosen-direction wording/structure repeats in {n}/{total} runs: {key}")
+
+    models = collections.Counter(r["metrics"]["model"] for r in usable)
+    for model, n in repeated(models, total, minimum=4, fraction=.6):
+        warnings.append(f"spatial-model collapse: {model} appears in {n}/{total} unrelated products")
+
+    signatures = collections.Counter(r["metrics"]["signature"] for r in usable)
+    for sig, n in repeated(signatures, total, minimum=3, fraction=.4):
+        ids = [r["id"] for r in usable if r["metrics"]["signature"] == sig]
+        warnings.append(
+            f"near-identical structural signature repeats in {n}/{total}: {sig} ({', '.join(ids)})")
+
+    card_heavy = [r["id"] for r in usable if r["metrics"].get("cards", 0) >= 6]
+    if len(card_heavy) >= max(4, int(total * .5 + .999)):
         warnings.append("many unrelated products are card-heavy: " + ", ".join(card_heavy))
 
-    missing_direction = [r["id"] for r in results if r.get("direction_gate") not in (0,)]
+    one_candidate = [r["id"] for r in usable
+                     if r.get("direction", {}).get("candidate_count", 0) < 2]
+    if one_candidate:
+        warnings.append("whole-product runs without 2+ recorded candidates: " + ", ".join(one_candidate))
+
+    missing_direction = [r["id"] for r in usable if r.get("direction_gate") != 0]
     if missing_direction:
         warnings.append("direction evidence gate failed: " + ", ".join(missing_direction))
+
+    missing_divergence = [r["id"] for r in usable if r.get("divergence_gate") != 0]
+    if missing_divergence:
+        warnings.append("divergence evidence gate failed: " + ", ".join(missing_divergence))
+
+    # Platform-specific regression probes. These are alarms, not proof.
+    mac_ids = {"mail", "photo", "settings", "files"}
+    mac_runs = [r for r in usable if r["id"] in mac_ids]
+    mobileish = [r["id"] for r in mac_runs
+                 if r["metrics"]["model"] in ("ios-tabs", "ios-stack") or r["metrics"]["tabbars"]]
+    if mobileish:
+        warnings.append("macOS benchmark emitted mobile-style navigation: " + ", ".join(mobileish))
+
+    if any(r["id"] == "landing" and r["metrics"].get("cards", 0) >= 6 for r in usable):
+        warnings.append("marketing benchmark regressed to feature-card-heavy composition")
 
     return warnings
 
@@ -158,12 +259,14 @@ def main():
     warnings = summarize(results)
     print("\nCross-run regression review:")
     if warnings:
-        for w in warnings:
-            print("WARN " + w)
+        for warning in warnings:
+            print("WARN " + warning)
     else:
         print("ok no obvious structural-sameness regression detected")
 
-    hard = [r for r in results if r.get("mechanical") not in (0,) or r.get("direction_gate") not in (0,)]
+    hard = [r for r in results if r.get("mechanical") != 0
+            or r.get("direction_gate") != 0
+            or r.get("divergence_gate") != 0]
     return 1 if hard else 0
 
 
