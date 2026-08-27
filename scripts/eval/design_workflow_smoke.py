@@ -2,8 +2,9 @@
 """Smoke-test deterministic parts of the apple-design workflow.
 
 No model call. It verifies platform-aware reference routing, structural
-divergence evidence, content-design evidence, scaffold models, mechanical
-checks, direction evidence, and optionally screenshot review setup.
+divergence evidence, content-design evidence, interaction-architecture
+evidence, scaffold models, mechanical checks, direction evidence, and
+optionally screenshot review setup.
 """
 
 import argparse
@@ -20,6 +21,7 @@ CHECK = os.path.join(DESIGN, "check_design.py")
 DIRECTION = os.path.join(DESIGN, "check_direction.py")
 DIVERGENCE = os.path.join(DESIGN, "check_divergence.py")
 CONTENT = os.path.join(DESIGN, "check_content.py")
+INTERACTION = os.path.join(DESIGN, "check_interaction.py")
 RENDER = os.path.join(DESIGN, "render_review.py")
 
 
@@ -93,11 +95,62 @@ def test_content_gate(tmp):
     path = os.path.join(root, "DESIGN.md")
     open(path, "w", encoding="utf-8").write(valid)
     run([sys.executable, CONTENT, root])
-
     broken = valid.replace("Why this representation", "Style")
     open(path, "w", encoding="utf-8").write(broken)
     run([sys.executable, CONTENT, root], expect=1)
     print("ok content gate accepts representation evidence and rejects unreasoned content")
+
+
+def test_interaction_gate(tmp):
+    root = os.path.join(tmp, "interaction-fixture")
+    os.makedirs(root)
+    valid = '''# Design direction
+
+## Primary interaction flow
+
+| Stage | User action | System response | State/context preserved | Failure/recovery |
+|---|---|---|---|---|
+| Entry | Select a ticket from the queue | Detail opens and the row remains selected | queue scroll position and current filters are preserved | if ticket disappeared, keep queue context and explain removal |
+| Act | Change assignee and add a note | local controls update immediately while note remains editable | selected ticket and keyboard focus stay in detail | validation failure remains beside the note and preserves text |
+| Commit | Press Command-Return to submit note | note enters pending state then confirms on server success | ticket selection and draft context are preserved until success | network failure restores editable draft and offers retry |
+| Exit/continue | Move to next ticket | next row becomes selected and detail updates | queue position and filters are preserved | if pending work exists, keep draft and prevent silent loss |
+
+## Commit model
+
+- **Model:** explicit for notes; immediate for assignee changes.
+- **When the change becomes real:** note after server acknowledgement; assignee optimistically with rollback on failure.
+- **Undo/cancel/reversal policy:** note can be cancelled before submit; assignee offers Undo after success and rolls back automatically on failure.
+- **Post-completion focus/selection/context:** selection stays on the current ticket and focus returns to the note composer after submission.
+
+## Recovery and interruption
+
+- **Failure condition:** network failure after optimistic assignee change triggers rollback and an inline retry message.
+- **Interruption/resumption case:** navigating to another ticket while a note draft exists preserves the draft per ticket and restores it on return.
+- **What is preserved:** queue filters, scroll position, selection history, and unsent draft.
+- **Retry/rollback/restore behavior:** failed async work can retry in place; optimistic state rolls back without changing selection.
+
+## Interaction stress cases
+
+- Double-submit the note with mouse and keyboard nearly simultaneously; only one request is accepted.
+- Change selection while assignee update is pending; completion applies to the original ticket without stealing focus.
+- Go offline after typing a draft; the draft survives reconnect and can be submitted later.
+
+## Keyboard and alternate input
+
+- **Keyboard/command path where expected:** arrows move queue selection, Command-Return submits the note, Command-Z invokes Undo.
+- **Escape/cancel and Return/commit semantics:** Escape closes transient UI or cancels an uncommitted edit; Return inserts a line break while Command-Return submits.
+- **Focus restoration:** closing menus/popovers returns focus to their trigger; submission returns focus to the composer.
+- **Touch/pointer alternative:** every keyboard command has a visible button/menu action and pointer path.
+'''
+    path = os.path.join(root, "DESIGN.md")
+    open(path, "w", encoding="utf-8").write(valid)
+    run([sys.executable, INTERACTION, root])
+
+    broken = valid.replace("note after server acknowledgement; assignee optimistically with rollback on failure.",
+                           "changes happen somehow.")
+    open(path, "w", encoding="utf-8").write(broken)
+    run([sys.executable, INTERACTION, root], expect=1)
+    print("ok interaction gate accepts complete task flow and rejects ambiguous commit semantics")
 
 
 def test_divergence_gate(tmp):
@@ -154,7 +207,6 @@ We chose Answer first because the user's recurring task is checking service heal
     path = os.path.join(root, "DESIGN.md")
     open(path, "w", encoding="utf-8").write(valid)
     run([sys.executable, DIVERGENCE, root])
-
     broken = valid.replace(
         "summary before records; contextual evidence instead of persistent list",
         "different layout")
@@ -179,6 +231,7 @@ def scaffold(tmp, kind, model, name):
     run([sys.executable, DIRECTION, out], expect=1)
     run([sys.executable, DIVERGENCE, out], expect=1)
     run([sys.executable, CONTENT, out], expect=1)
+    run([sys.executable, INTERACTION, out], expect=1)
     return out
 
 
@@ -190,7 +243,7 @@ def test_models(tmp):
     outputs["ios-stack"] = scaffold(tmp, "ios", "stack", "ios-stack")
     outputs["ios-tabs"] = scaffold(tmp, "ios", "tabs", "ios-tabs")
     outputs["marketing"] = scaffold(tmp, "marketing", None, "marketing")
-    print("ok iOS and marketing models; incomplete direction/divergence/content correctly rejected")
+    print("ok iOS and marketing models; incomplete evidence correctly rejected")
     return outputs
 
 
@@ -212,11 +265,13 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--browser", action="store_true")
     a = ap.parse_args()
-    for path in (SELECT, SCAFFOLD, CHECK, DIRECTION, DIVERGENCE, CONTENT, RENDER):
+    for path in (SELECT, SCAFFOLD, CHECK, DIRECTION, DIVERGENCE, CONTENT,
+                 INTERACTION, RENDER):
         exists(path)
     with tempfile.TemporaryDirectory(prefix="apple-design-smoke-") as tmp:
         test_reference_selector(tmp)
         test_content_gate(tmp)
+        test_interaction_gate(tmp)
         test_divergence_gate(tmp)
         outputs = test_models(tmp)
         if a.browser:
