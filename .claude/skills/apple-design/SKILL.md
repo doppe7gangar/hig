@@ -1,6 +1,6 @@
 ---
 name: apple-design
-description: Design or redesign a whole product with Apple-level hierarchy, restraint, composition, platform awareness, adaptivity, accessibility, and evidence-based critique. Use for apps, websites, dashboards, SaaS, product surfaces, and cross-platform interfaces when the task is broader than a single component. This skill acts as the design director: it routes through the target platform and HIG, defines information hierarchy and invariants, compares competing spatial directions, inspects relevant references, prefers system components, plans adaptive transformations and interaction states, then validates direction evidence, mechanical correctness, and rendered visual quality.
+description: Design or redesign a whole product with Apple-level hierarchy, restraint, composition, platform awareness, adaptivity, accessibility, content integrity, and evidence-based critique. Use for apps, websites, dashboards, SaaS, product surfaces, and cross-platform interfaces when the task is broader than a single component. This skill acts as the design director: it routes through platform/HIG guidance, defines information and content hierarchy, compares structural directions, inspects references, prefers system components, plans adaptive transformations and interaction states, validates representation choices, then checks direction evidence, implementation quality, and rendered visual results.
 ---
 
 # Apple Design Director
@@ -12,7 +12,7 @@ Specialists:
 - `apple-hig` — authoritative platform rules, behavior, accessibility, components, APIs
 - `apple-ui-kit` — measured iOS visual values/recipes where system appearance is not available
 - `apple-motion` — interaction physics and animation implementation
-- `apple-design` — product hierarchy, platform routing, divergence, composition, invariants, adaptivity, reference selection, reduction, and critique
+- `apple-design` — product hierarchy, content hierarchy, platform routing, divergence, composition, invariants, adaptivity, reference selection, reduction, and critique
 
 ## Authority rule
 
@@ -87,11 +87,33 @@ Rank:
 
 If everything is visually equal, the design has failed before styling. Prefer typography, spacing, alignment, and disclosure over extra containers.
 
-## 5. Define design invariants
+## 5. Build the content model
+
+Read `references/content-hierarchy.md`.
+
+For each important content region record:
+
+- the user question/task
+- the decision it enables
+- the content/data shape
+- required context such as comparison, unit, target, recency, source, or none
+- the chosen representation
+- why that representation fits
+- how it could mislead or fail
+
+Do not choose a chart, table, metric, timeline, card, or media treatment because it looks appropriate to the genre.
+
+Use realistic content before final review: realistic ranges, names, units, statuses, dates, long/short labels, exceptional values, and enough rows/items to expose density assumptions.
+
+Test applicable stress cases such as zero/negative values, missing or stale data, long labels, large collections, one-item collections, urgent states, and user-generated text.
+
+Loading, empty, error, stale/offline, and not-enough-data states must preserve the populated screen's design idea rather than becoming unrelated fallback screens.
+
+## 6. Define design invariants
 
 Read `references/design-invariants.md`. Record 3–5 structural invariants in `DESIGN.md` that must survive implementation, responsive changes, and states.
 
-## 6. Diverge before committing
+## 7. Diverge before committing
 
 Read `references/spatial-models.md` and `references/design-divergence.md`.
 
@@ -99,7 +121,7 @@ Consider 2–3 genuinely different structural directions when credible. Platform
 
 Compare task fit, hierarchy, information relationship, platform fit, adaptivity, restraint, and product-specific distinctiveness. Explicitly reject alternatives for product-specific reasons.
 
-## 7. Select and inspect references
+## 8. Select and inspect references
 
 Use a platform-aware shortlist:
 
@@ -114,7 +136,7 @@ For platforms without a registered measured corpus, the selector provides HIG/co
 
 Inspect actual images when available. Extract concrete relationships: first read, grouping, persistent/contextual chrome, state differences, material meaning, and what must not transfer. References are evidence, not votes or screenshots to clone.
 
-## 8. Commit model and adaptive architecture
+## 9. Commit model and adaptive architecture
 
 Starter scaffolds: `workspace`, `list-detail`, `dashboard`, `document`, `editorial`, iOS `stack`, iOS `tabs`. Other models remain valid: inspector, command surface, feed, immersive media/map, dense table, multi-pane editor, macOS-specific compositions.
 
@@ -122,7 +144,7 @@ Read `references/adaptivity.md`. Record wide/default and compact architecture, w
 
 Responsive design is architectural transformation, not smaller CSS.
 
-## 9. Plan interaction states and accessibility before polish
+## 10. Plan interaction states and accessibility before polish
 
 Read `references/interaction-accessibility.md`.
 
@@ -130,7 +152,7 @@ Build an applicable state matrix: default, hover, keyboard focus, pressed, selec
 
 Check applicable HIG guidance for Dynamic Type/text scaling/zoom, keyboard/focus order, VoiceOver/screen-reader semantics, target size/spacing, contrast/non-color state communication, Reduce Motion, Reduce Transparency, focus visibility, and error recovery.
 
-## 10. Compose before decorating
+## 11. Compose before decorating
 
 Decide dominant/secondary regions, reading order, alignment, density, content width, persistent chrome, contextual chrome, and functional empty space. Only then select surfaces, borders, materials, shadows, and motion.
 
@@ -144,19 +166,31 @@ A translucent surface must answer: **what is floating above what, and why?**
 
 Use `references/design-direction-template.md` to expand/replace the scaffolded `DESIGN.md` with real evidence.
 
+Divergence gate:
+
+```bash
+python3 check_divergence.py ./design
+```
+
+Content gate:
+
+```bash
+python3 check_content.py ./design
+```
+
 Direction gate:
 
 ```bash
 python3 check_direction.py ./design
 ```
 
-Do not proceed as if the project has a design direction while this fails.
-
 Mechanical gate:
 
 ```bash
 python3 check_design.py ./design
 ```
+
+Do not proceed as if a product has a resolved design while any applicable evidence gate fails.
 
 Rendered review:
 
@@ -168,7 +202,7 @@ Read `references/visual-critique.md`. Every meaningful finding must use:
 
 **evidence → consequence → correction**
 
-Review hierarchy, invariants, composition, containers, typography, density, adaptive transformations, interaction states, accessibility, material/color, system-component usage, platform authenticity, states, and reduction.
+Review hierarchy, content/representation fit, invariants, composition, containers, typography, density, adaptive transformations, interaction states, accessibility, material/color, system-component usage, platform authenticity, state continuity, and reduction.
 
 After revision/rerender, complete `VISUAL_REVIEW.md` and verify:
 
@@ -197,21 +231,24 @@ python3 scripts/eval/design_quality_eval.py
 
 The 15-product suite looks for structural sameness across analytics, mail, photo editing, finance, plants, notes, developer tools, settings, media, commerce, marketing, operations, messaging, calendar, and files.
 
-Mechanical validity plus repeated architecture is a failed design skill.
+Mechanical validity plus repeated architecture is a failed design skill. Strong architecture filled with arbitrary placeholder content is also a failed design skill.
 
 # Complete loop
 
 ```text
 brief
 → platform/HIG routing
-→ product character + hierarchy
+→ product character + information hierarchy
+→ content model + representation decisions + stress cases
 → design invariants
 → 2–3 credible structural directions
 → platform-aware reference shortlist + inspection
 → compare / reject / commit
 → adaptive architecture plan
 → interaction + accessibility matrix
-→ scaffold / compose / implement
+→ scaffold / compose / implement realistic content
+→ check_divergence.py
+→ check_content.py
 → check_direction.py
 → check_design.py
 → render_review.py
@@ -224,4 +261,4 @@ brief
 
 # Final standard
 
-A successful result feels Apple-like because it is clear, composed, restrained, adaptive, accessible, platform-correct, spatially coherent, typographically disciplined, purposeful in motion, deliberately chosen over credible alternatives, and proven through rendered inspection—not because it is covered in rounded glass.
+A successful result feels Apple-like because it is clear, composed, restrained, adaptive, accessible, platform-correct, content-aware, spatially coherent, typographically disciplined, purposeful in motion, deliberately chosen over credible alternatives, and proven through rendered inspection—not because it is covered in rounded glass.
