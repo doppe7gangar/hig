@@ -2,8 +2,8 @@
 """Smoke-test deterministic parts of the apple-design workflow.
 
 No model call. It verifies platform-aware reference routing, structural
-divergence evidence, scaffold models, mechanical checks, direction evidence,
-and optionally screenshot review setup.
+divergence evidence, content-design evidence, scaffold models, mechanical
+checks, direction evidence, and optionally screenshot review setup.
 """
 
 import argparse
@@ -19,6 +19,7 @@ SCAFFOLD = os.path.join(DESIGN, "new_project.py")
 CHECK = os.path.join(DESIGN, "check_design.py")
 DIRECTION = os.path.join(DESIGN, "check_direction.py")
 DIVERGENCE = os.path.join(DESIGN, "check_divergence.py")
+CONTENT = os.path.join(DESIGN, "check_content.py")
 RENDER = os.path.join(DESIGN, "render_review.py")
 
 
@@ -55,6 +56,48 @@ def test_reference_selector(tmp):
     if "inspect these visual states" in text or "**visual folder:**" in text:
         raise RuntimeError("macOS selector incorrectly exposed iOS visuals as platform evidence")
     print("ok platform-aware reference selector")
+
+
+def test_content_gate(tmp):
+    root = os.path.join(tmp, "content-fixture")
+    os.makedirs(root)
+    valid = '''# Design direction
+
+## Content model
+
+| Content | User question/task | Decision enabled | Content shape | Required context |
+|---|---|---|---|---|
+| SLA health | Are we within target today? | Decide whether intervention is needed | single metric + comparison | unit %, 90% target, prior day, freshness |
+| Ticket trend | Is load improving or worsening? | Decide staffing/escalation | time series | tickets/hour, previous day comparison, last 12h |
+
+## Representation decisions
+
+| Content | Representation | Why this representation | Failure/misreading risk |
+|---|---|---|---|
+| SLA health | metric | One current value answers the opening question; target and prior period change interpretation | A bare percentage would hide whether 92% is good or bad |
+| Ticket trend | chart | The analytical question is how volume changes over time; line shape matters more than exact lookup. Unit: tickets/hour. Comparison: previous day. | Missing periods could look like improvement, so gaps stay explicit |
+
+## Content stress cases
+
+- Zero tickets during a quiet hour without implying data failure.
+- SLA falls below target and change becomes negative.
+- A queue name expands to 48 characters without breaking hierarchy.
+
+## State continuity
+
+- **Invariant design idea:** today's service health remains the first-read question.
+- **Loading:** reserve hero metric and trend geometry with skeletons; navigation remains usable.
+- **Empty:** distinguish genuinely no tickets from not-enough-history; explain what can be done next.
+- **Error:** keep global shell and last known context where safe; retry is primary in the failed region.
+'''
+    path = os.path.join(root, "DESIGN.md")
+    open(path, "w", encoding="utf-8").write(valid)
+    run([sys.executable, CONTENT, root])
+
+    broken = valid.replace("Why this representation", "Style")
+    open(path, "w", encoding="utf-8").write(broken)
+    run([sys.executable, CONTENT, root], expect=1)
+    print("ok content gate accepts representation evidence and rejects unreasoned content")
 
 
 def test_divergence_gate(tmp):
@@ -135,6 +178,7 @@ def scaffold(tmp, kind, model, name):
     run([sys.executable, CHECK, out, "--no-browser"])
     run([sys.executable, DIRECTION, out], expect=1)
     run([sys.executable, DIVERGENCE, out], expect=1)
+    run([sys.executable, CONTENT, out], expect=1)
     return out
 
 
@@ -146,7 +190,7 @@ def test_models(tmp):
     outputs["ios-stack"] = scaffold(tmp, "ios", "stack", "ios-stack")
     outputs["ios-tabs"] = scaffold(tmp, "ios", "tabs", "ios-tabs")
     outputs["marketing"] = scaffold(tmp, "marketing", None, "marketing")
-    print("ok iOS and marketing models; incomplete direction/divergence correctly rejected")
+    print("ok iOS and marketing models; incomplete direction/divergence/content correctly rejected")
     return outputs
 
 
@@ -168,10 +212,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--browser", action="store_true")
     a = ap.parse_args()
-    for path in (SELECT, SCAFFOLD, CHECK, DIRECTION, DIVERGENCE, RENDER):
+    for path in (SELECT, SCAFFOLD, CHECK, DIRECTION, DIVERGENCE, CONTENT, RENDER):
         exists(path)
     with tempfile.TemporaryDirectory(prefix="apple-design-smoke-") as tmp:
         test_reference_selector(tmp)
+        test_content_gate(tmp)
         test_divergence_gate(tmp)
         outputs = test_models(tmp)
         if a.browser:
