@@ -3,6 +3,10 @@
 
 import argparse
 import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from gate_placeholders import find as find_placeholders  # noqa: E402
 import re
 import sys
 
@@ -13,9 +17,14 @@ REQUIRED_HEADINGS = [
     "State continuity",
 ]
 
-PLACEHOLDERS = [
-    "[pending]", "todo", "tbd", "replace this", "item 1", "lorem ipsum",
-]
+# Never legitimate anywhere in a design document.
+LOOSE_PLACEHOLDERS = ("[pending]", "lorem ipsum")
+
+# Placeholders only when they stand alone -- a whole cell, bullet, line,
+# or a marked [todo]. This gate demands realistic content, and realistic
+# content for a notes or commerce product says "todo" and "item 1" in
+# passing; banning the substring made the two rules fight each other.
+STRICT_PLACEHOLDERS = ("todo", "tbd", "replace this", "item 1")
 
 REPRESENTATION_TERMS = {
     "number", "metric", "list", "table", "chart", "timeline", "prose",
@@ -47,9 +56,9 @@ def main():
             failures.append(f"missing or empty section: {heading}")
 
     low = text.lower()
-    for p in PLACEHOLDERS:
-        if p in low:
-            failures.append(f"unfinished/generic content marker: {p}")
+    for p in find_placeholders(text, loose=LOOSE_PLACEHOLDERS,
+                               strict=STRICT_PLACEHOLDERS):
+        failures.append(f"unfinished/generic content marker: {p}")
 
     content = section(text, "Content model")
     if content:

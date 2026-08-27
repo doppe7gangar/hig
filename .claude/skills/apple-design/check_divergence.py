@@ -8,6 +8,10 @@ retroactively naming cosmetic variants after one layout had already won.
 
 import argparse
 import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from gate_placeholders import find as find_placeholders  # noqa: E402
 import re
 import sys
 
@@ -46,10 +50,12 @@ CRITERIA = [
 # followed the instructions could pass. Thin or cosmetic divergence is
 # caught by the structural-difference checks further down, which is
 # where it belongs.
-PLACEHOLDERS = (
-    "[pending]", "todo", "tbd", "replace this",
-    "clean and modern", "more apple-like", "less apple-like",
-)
+# Aesthetic labels the divergence protocol rejects as reasons: these
+# have no legitimate use, so a substring match is right.
+LOOSE_PLACEHOLDERS = ("[pending]", "clean and modern",
+                      "more apple-like", "less apple-like")
+
+STRICT_PLACEHOLDERS = ("todo", "tbd", "replace this")
 
 
 def section(text, heading):
@@ -109,9 +115,9 @@ def main():
     failures = []
 
     low = text.lower()
-    for p in PLACEHOLDERS:
-        if p in low:
-            failures.append(f"unfinished/cosmetic divergence language: {p}")
+    for p in find_placeholders(text, loose=LOOSE_PLACEHOLDERS,
+                               strict=STRICT_PLACEHOLDERS):
+        failures.append(f"unfinished/cosmetic divergence language: {p}")
 
     candidates_body = section(text, "Candidate directions")
     if candidates_body is None:
