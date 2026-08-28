@@ -543,6 +543,12 @@ __ERROR__
 
 # ---------------------------------------------------------------- helpers
 
+def _camel_file(name):
+    """HarborColor.swift rather than harbor-color.swift."""
+    parts = re.split(r"[^A-Za-z0-9]+", name)
+    return "".join(p[:1].upper() + p[1:] for p in parts if p) or "Brand"
+
+
 def slug(s):
     return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-") or "brand"
 
@@ -829,11 +835,33 @@ def main():
 
     theme_name = slug(a.name)
     try:
-        css, notes = build_theme.build(a.brand, theme_name)
+        css, notes, values = build_theme.build(a.brand, theme_name)
     except ValueError as exc:
         sys.exit(str(exc))
     with open(os.path.join(out, "theme.css"), "w", encoding="utf-8") as f:
         f.write(css)
+
+    # --kind cross used to be a synonym for ios: it accepted the flag,
+    # emitted a web page, and left the native teams to copy hex codes out
+    # of a stylesheet by hand. The contrast pass has already resolved
+    # every value for both appearances, so the honest thing is to hand
+    # them over in the form each platform reads. The web build stays --
+    # it is the shared prototype the three platforms argue over.
+    native = []
+    if a.kind == "cross":
+        tokens_dir = os.path.join(out, "tokens")
+        os.makedirs(tokens_dir, exist_ok=True)
+        exports = {
+            _camel_file(theme_name) + "Color.swift": "swift",
+            _camel_file(theme_name) + "Colors.kt": "kotlin",
+            "colors.xml": "xml",
+        }
+        for filename, fmt in exports.items():
+            emitter = build_theme.FORMATS[fmt]
+            with open(os.path.join(tokens_dir, filename), "w",
+                      encoding="utf-8") as f:
+                f.write(emitter(values, theme_name, a.brand))
+            native.append(filename)
 
     try:
         html, chosen_model = compose(kind, model, a.name, screens, a.thing)
@@ -867,6 +895,9 @@ def main():
     print(f"  DESIGN.md    character={a.character}; replace hierarchy placeholders")
     print(f"  theme.css    {a.brand} -> {theme_name}-*, bridged to --ios-*")
     print("  vendor/      tokens, components, fonts (offline)")
+    if native:
+        print(f"  tokens/      {', '.join(native)} -- same values, "
+              f"both appearances")
     if notes:
         print()
         for note in notes:
