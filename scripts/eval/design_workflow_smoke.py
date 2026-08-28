@@ -410,6 +410,50 @@ def test_visual_review_check(tmp):
     print("ok visual review --check rejects pending work and accepts finished work")
 
 
+def test_cross_platform_tokens(tmp):
+    """--kind cross has to deliver something the flag's name promises.
+
+    It used to be a synonym for ios: it took the flag, emitted a web
+    page, and left the native teams to copy hex codes out of a
+    stylesheet. The contrast pass had already resolved every value for
+    both appearances, so the exports and the CSS must agree by
+    construction -- which is the property worth asserting, since two
+    palettes that drift are worse than one.
+    """
+    out = os.path.join(tmp, "cross-tokens")
+    run([sys.executable, SCAFFOLD, "--name", "Harbor", "--brand", "#1B2A4A",
+         "--kind", "cross", "--screens", "Today,Vessels", "--thing", "vessels",
+         "-o", out])
+    tokens = os.path.join(out, "tokens")
+    for filename in ("HarborColor.swift", "HarborColors.kt", "colors.xml"):
+        exists(os.path.join(tokens, filename))
+
+    css = open(os.path.join(out, "theme.css"), encoding="utf-8").read()
+    xml = open(os.path.join(tokens, "colors.xml"), encoding="utf-8").read()
+    kt = open(os.path.join(tokens, "HarborColors.kt"), encoding="utf-8").read()
+    light = css.split("@media")[0]
+    dark = re.search(r"@media \(prefers-color-scheme: dark\) \{(.*?)\n  \}",
+                     css, re.S).group(1)
+
+    for name, key in (("accent", "accent"), ("accent_text", "accentText"),
+                      ("on_accent", "onAccent")):
+        css_light = re.search(rf"--harbor-{name.replace('_', '-')}: (#\w{{6}})",
+                              light).group(1).upper()
+        css_dark = re.search(rf"--harbor-{name.replace('_', '-')}: (#\w{{6}})",
+                             dark).group(1).upper()
+        xml_light = re.search(rf'<color name="{name}">(#\w{{6}})<', xml).group(1).upper()
+        xml_dark = re.search(rf'<color name="{name}_dark">(#\w{{6}})<', xml).group(1).upper()
+        kt_light = "#" + re.search(rf"val {key} = Color\(0xFF(\w{{6}})\)", kt).group(1).upper()
+        kt_dark = "#" + re.search(rf"val {key}Dark = Color\(0xFF(\w{{6}})\)", kt).group(1).upper()
+        if not (css_light == xml_light == kt_light):
+            raise SystemExit(f"FAIL {name} light differs: css {css_light}, "
+                             f"xml {xml_light}, kotlin {kt_light}")
+        if not (css_dark == xml_dark == kt_dark):
+            raise SystemExit(f"FAIL {name} dark differs: css {css_dark}, "
+                             f"xml {xml_dark}, kotlin {kt_dark}")
+    print("ok cross-platform exports carry the same palette as the stylesheet")
+
+
 def scaffold(tmp, kind, model, name):
     out = os.path.join(tmp, name)
     args = [sys.executable, SCAFFOLD, "--name", name, "--brand", "#4C7DFF",
@@ -473,6 +517,7 @@ def main():
         test_grammar_gate(tmp)
         test_declining_a_chart(tmp)
         test_visual_review_check(tmp)
+        test_cross_platform_tokens(tmp)
         outputs = test_models(tmp)
         if a.browser:
             test_render_review(outputs["dashboard"])

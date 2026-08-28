@@ -84,6 +84,30 @@ Do not dress a web product in native iOS chrome unless the task truly imitates a
 
 HIG does not define the marketing layout. Use Apple-like editorial discipline, but rely on web accessibility and browser behavior rather than native-app chrome.
 
+## Cross-platform (`--kind cross`)
+
+Structure transfers; appearance does not. A shared information
+hierarchy, a shared commit model and a shared vocabulary are worth
+holding across iOS, Android and web. A tab bar, a grouped list and a
+capsule button are not — Android has its own controls and its own
+expectations, and importing Apple's produces an app that reads as a port.
+
+What the scaffolder emits for this kind:
+
+- the web build, as the shared prototype the three platforms argue over
+- `tokens/` — the same brand palette as `.swift`, `.kt` and `colors.xml`,
+  both appearances, derived by the contrast pass that produced
+  `theme.css` rather than copied out of it
+
+Carry the palette where brand consistency is a deliberate decision.
+Carry the *structure* always. Do not carry the chrome.
+
+On Apple platforms prefer the semantic APIs over these literals —
+`Color.accentColor`, `.primary` — since they follow Dark Mode and
+Increase Contrast without being told. The exported values are for the
+cases the semantic API cannot reach: custom drawing, a canvas, or a
+brand colour the system has no name for.
+
 ## Platform constraint before divergence
 
 Before proposing candidate layouts, state:
