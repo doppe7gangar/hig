@@ -1,6 +1,6 @@
 ---
 name: apple-design
-description: Design or redesign a whole product with Apple-level hierarchy, restraint, composition, platform awareness, adaptivity, accessibility, content integrity, interaction architecture, cross-screen coherence, project design grammar, implementation-derived grammar evidence, and rendered critique.
+description: Design or redesign a whole product with Apple-level hierarchy, restraint, composition, platform awareness, adaptivity, accessibility, content integrity, interaction architecture, cross-screen coherence, project design grammar, implementation-derived grammar evidence, and rendered critique. Use whenever someone describes a product they want rather than asking about a specific control — "I want an app for splitting bills", "I'm building a dashboard for our support team", "we need a landing page", "help me make a tool that…", "can you build me…" — with or without the word design, and with or without a platform or brand colour named. Also for: starting any app, website, dashboard, marketing page or cross-platform project; deciding what screens exist and how they connect; generating a design system or brand palette; and fixing a build that ships only its happy path. If the request names a product and not a component, this skill runs first. For a specific rule or spec use apple-hig; for exact iOS values and CSS use apple-ui-kit; for animation use apple-motion.
 ---
 
 # Apple Design Director

@@ -49,6 +49,28 @@ BRIEFS = {
         want="canvas-first: the image dominates, tools are contextual; not a "
              "sidebar-and-cards dashboard wearing an editor's name"),
 
+    # A split-pane review tool: diff on one side, threaded comments
+    # anchored into it, and a keyboard path that has to be the primary
+    # one rather than an accessibility afterthought. Neither canvas,
+    # dashboard, list-detail nor editorial covers this shape.
+    "p-review": dict(
+        prompt="A macOS app for reviewing pull requests \u2014 diff on the "
+               "left, comments inline, keyboard-driven. Brand colour "
+               "#E4572E",
+        want="split diff with anchored inline threads; keyboard as the "
+             "primary path, with focus and selection surviving navigation; "
+             "not a sidebar-and-cards dashboard wearing a reviewer's name"),
+
+    # Deliberately thin, and with no platform or brand colour given:
+    # a real person's first message rarely carries either. What the run
+    # chooses when nothing is specified is part of what is under test.
+    "p-split": dict(
+        prompt="I want an app for splitting bills with friends \u2014 add a "
+               "bill, split it, see who owes what, settle up.",
+        want="iOS, where the measured kit applies; money legible at a "
+             "glance; who-owes-whom answered without arithmetic; not a "
+             "generic list of transactions"),
+
     "p-plants": dict(
         prompt="Design me an iOS app for tracking when my house plants "
                "need watering. Brand colour #4C8C3F.",
