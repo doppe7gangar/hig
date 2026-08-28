@@ -20,7 +20,7 @@ Apple's design guidance, restructured for doing work rather than browsing. Nine 
 | `references/assets-index.md` | **What components actually look like** — 947 screenshots from Apple's iOS 27 UI kit, every interaction state. |
 | `references/pages/<slug>.md` | Full prose when a rule's *reasoning* matters. |
 
-Grep first. `grep -A1 -i "sheet" references/rules.md` returns every sheet rule in seconds; reading `pages/sheets.md` to find the same thing costs far more context. Reach for the full page when you need the *why*, not the *what*.
+Grep first. `grep -A1 -i "sheet" references/rules.md` returns every sheet rule in seconds; reading `references/pages/sheets.md` to find the same thing costs far more context. Reach for the full page when you need the *why*, not the *what*.
 
 ## Writing new UI
 
@@ -52,11 +52,11 @@ The most common design question, and Apple defines these by *purpose* — match 
 
 | Use | When | Source |
 |---|---|---|
-| **Alert** | Critical information needed right away; an uncommon, destructive, unrecoverable action | `pages/alerts.md` |
-| **Action sheet** | Choices related to an action *the person just initiated* — "not an alert", explicitly | `pages/action-sheets.md` |
-| **Sheet** | A scoped task closely tied to the current context | `pages/sheets.md` |
-| **Popover** | A small amount of information or functionality, transient, anchored to a control | `pages/popovers.md` |
-| **Full-screen modal** | In-depth content or a complex task | `pages/modality.md` |
+| **Alert** | Critical information needed right away; an uncommon, destructive, unrecoverable action | `references/pages/alerts.md` |
+| **Action sheet** | Choices related to an action *the person just initiated* — "not an alert", explicitly | `references/pages/action-sheets.md` |
+| **Sheet** | A scoped task closely tied to the current context | `references/pages/sheets.md` |
+| **Popover** | A small amount of information or functionality, transient, anchored to a control | `references/pages/popovers.md` |
+| **Full-screen modal** | In-depth content or a complex task | `references/pages/modality.md` |
 
 Rules that resolve most real cases:
 - **Don't alert for common, undoable destructive actions.** Deleting an email needs no confirmation. Alert when the action is uncommon *and* unrecoverable.
@@ -120,9 +120,9 @@ So: **"the HIG doesn't cover X" needs a `concepts.md` check first.** It's a clai
 
 Quote the number *and* its platform. Most of these tables have a different value per platform, and quoting one row as universal is the easiest way to be confidently wrong.
 
-**Hit targets are stated twice, and the two don't say the same thing.** `pages/buttons.md`: *"As a general rule, a button needs a hit region of at least 44x44 pt — in visionOS, 60x60 pt — to ensure that people can select it easily […]"* The accessibility *Mobility* table in `specs.md` instead gives iOS/iPadOS a **44×44 default** and a **28×28 minimum**. So a 30×30 control is below the general rule and above the stated floor — whichever source you grep first decides the verdict, and reviews have gone both ways on the same button.
+**Hit targets are stated twice, and the two don't say the same thing.** `references/pages/buttons.md`: *"As a general rule, a button needs a hit region of at least 44x44 pt — in visionOS, 60x60 pt — to ensure that people can select it easily […]"* The accessibility *Mobility* table in `specs.md` instead gives iOS/iPadOS a **44×44 default** and a **28×28 minimum**. So a 30×30 control is below the general rule and above the stated floor — whichever source you grep first decides the verdict, and reviews have gone both ways on the same button.
 
-Both are real, so give both rather than picking the one you found first. 44×44 is the target; 28×28 is an accessibility floor, and Apple's framing around the table is *"Strive to meet the recommended minimum control size for each platform"* — clearing 28 is not the same as being fine. Where Apple explains which applies, it splits on how often the control is used: *"Make sure frequently used controls are a minimum size of 44x44 pt, and less important controls, such as menus, are a minimum size of 28x28 pt"* (`pages/game-controls.md` — a games context, the only place the split is stated outright).
+Both are real, so give both rather than picking the one you found first. 44×44 is the target; 28×28 is an accessibility floor, and Apple's framing around the table is *"Strive to meet the recommended minimum control size for each platform"* — clearing 28 is not the same as being fine. Where Apple explains which applies, it splits on how often the control is used: *"Make sure frequently used controls are a minimum size of 44x44 pt, and less important controls, such as menus, are a minimum size of 28x28 pt"* (`references/pages/game-controls.md` — a games context, the only place the split is stated outright).
 
 So a frequently-used control at 30×30 is a real finding against the 44 pt general rule; a rarely-used one at 28×28 sits on the floor and is defensible, with spacing carrying more weight than size at that point (*"Consider spacing between controls as important as size"*). What's wrong is citing one number as though the other doesn't exist.
 
@@ -139,10 +139,10 @@ When a platform has no entry for a topic, the HIG states no exception and the ge
 ## Accuracy
 
 - **Quote, don't paraphrase from memory.** These files carry Apple's current wording and exact numbers; the value here is not restating what the model already half-remembers.
-- **Quotation marks mean character-exact.** Copy the sentence from the file into the answer; don't retype it from what you just read. This is the failure that's hardest to catch by eye, because a smoothed-over quote reads *more* like Apple than the original. Measured on real answers, roughly one quote in twelve had been reworded — including `pages/toolbars.md`'s warning that without the standard highlight effect "people might think they're **broken**," quoted back as "not interactive." Different claim, same confident voice.
+- **Quotation marks mean character-exact.** Copy the sentence from the file into the answer; don't retype it from what you just read. This is the failure that's hardest to catch by eye, because a smoothed-over quote reads *more* like Apple than the original. Measured on real answers, roughly one quote in twelve had been reworded — including `references/pages/toolbars.md`'s warning that without the standard highlight effect "people might think they're **broken**," quoted back as "not interactive." Different claim, same confident voice.
 - **Shorten honestly.** Trailing `…` when you stop early, `[…]` when you cut from the middle. Ending a quote with a period Apple didn't write silently moves where the rule ends — Apple's "essential commands *that people use frequently*" becomes a blanket "essential commands." Never merge two rules into one set of quotation marks: square buttons, image buttons, and help buttons each have their own toolbar rule, and fusing them invents a sentence Apple never wrote.
 - **Paraphrase in your own voice instead.** Outside quotation marks, summarizing is fine and often better. The rule is only that quoted text is Apple's, verbatim.
-- **Cite the page** so the claim is checkable — `pages/buttons.md`.
+- **Cite the page** so the claim is checkable — `references/pages/buttons.md`.
 - **Check the quotes when it matters.** `python3 verify_quotes.py -` reads a draft on stdin and grades every quoted span against the corpus: VERBATIM, ELIDED (honest `...`), TRUNCATED (ends early), ALTERED (reworded or two rules fused). Worth running before a review someone will act on, or any answer built mostly of quotations.
 - **Snapshot dated 2026-08-11.** If a question turns on something a recent OS release may have changed, answer from the corpus and say it's a point-in-time copy worth confirming at developer.apple.com.
 - **Images are hotlinked** to Apple's CDN, not stored locally.

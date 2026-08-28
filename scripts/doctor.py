@@ -220,10 +220,19 @@ def check_skill_paths(d):
             continue
         base = os.path.join(SKILLS, sk)
         text = read(path)
-        for m in re.finditer(
-                r"`((?:references|tokens|fonts|assets)/[\w./ -]+)`", text):
+        # Any backticked directory/file path, not only the four known
+        # prefixes. apple-hig's SKILL.md pointed at `pages/buttons.md`
+        # ten times over, including the routing table that decides which
+        # page to open -- correct inside references/, where those files
+        # live, and dead from the skill root where SKILL.md sits. The
+        # prefix-limited pattern could not see it.
+        # `../apple-hig/...` is how one skill points into a sibling, the
+        # same form apple-design already uses for apple-ui-kit. Resolved
+        # against the skills root so the reference is checked rather than
+        # skipped -- a cross-skill path is exactly the kind that rots.
+        for m in re.finditer(r"`((?:\.\./)?[\w-]+/[\w./ -]*[\w-]+\.\w+)`", text):
             p = m.group(1)
-            if "<" in p or p.endswith("/"):
+            if "<" in p or p.startswith("scripts/"):
                 continue
             d.check(os.path.exists(os.path.join(base, p)),
                     f"{sk}: {p} present when installed")

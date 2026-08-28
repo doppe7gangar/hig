@@ -38,6 +38,17 @@ BRIEFS = {
                "we're launching. Brand green is #0F7B4F. Make it good.",
         want="marketing/editorial model: narrative sections, not iOS chrome or feature-card wallpaper"),
 
+    # A canvas product: the shape is an image plus contextual tools, and
+    # neither list-detail nor a dashboard is the answer. Kept out of the
+    # repo's other fixtures on purpose, so a run cannot have met it.
+    "p-photo": dict(
+        prompt="I'm building a photo editing app for macOS — open a photo, "
+               "adjust exposure and colour, crop, compare against the "
+               "original, export. Single window. Brand colour #7A5AF8. "
+               "Design it.",
+        want="canvas-first: the image dominates, tools are contextual; not a "
+             "sidebar-and-cards dashboard wearing an editor's name"),
+
     "p-plants": dict(
         prompt="Design me an iOS app for tracking when my house plants "
                "need watering. Brand colour #4C8C3F.",
