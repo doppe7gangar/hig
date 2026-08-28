@@ -715,6 +715,9 @@ This scaffold deliberately separates **design direction** from infrastructure.
 - character: `__CHARACTER__`
 
 The scaffold is not the design. Replace its sample content and recompose it
+around your own hierarchy -- but keep the ios-* recipes it uses; they carry
+the measured metrics, and hand-rolling them is what makes a build read as
+almost-iOS
 around the real hierarchy. Do not preserve a region merely because the
 generator emitted it.
 
@@ -903,7 +906,9 @@ def main():
         for note in notes:
             print("  contrast: " + note)
     print()
-    print("next: replace DESIGN.md placeholders, recompose index.html around that hierarchy, then")
+    print("next: replace DESIGN.md placeholders, recompose index.html around")
+    print("      that hierarchy -- keeping the ios-* recipes, which carry the")
+    print("      measured metrics -- then")
     print(f"      python3 {check_rel} {rel}")
     print("      perform references/visual-critique.md")
     return 0
