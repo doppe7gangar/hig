@@ -79,6 +79,10 @@ Compose regions, reading order, density, persistent/contextual chrome, and funct
 
 ```bash
 python3 check_divergence.py ./design
+# All of them at once, in the order the evidence appears:
+python3 grade.py ./design            # add --quick to skip the browser pass
+
+# Or one at a time, when you want the full list of what a gate wants:
 python3 check_content.py ./design
 python3 check_interaction.py ./design
 python3 check_coherence.py ./design
