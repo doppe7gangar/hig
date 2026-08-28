@@ -24,7 +24,8 @@ standing and mixing them is how motion advice becomes folklore:
 - **Principles → `apple-hig`.** *"Add motion purposefully."* *"Make
   motion optional."* *"Strive for realistic feedback motion that follows
   people's gestures and expectations."* These are Apple's own words, in
-  `pages/motion.md`. Quote those, not the paraphrases here.
+  `../apple-hig/references/pages/motion.md`. Quote those, not the
+  paraphrases here.
 - **Spring names and their behaviour → SwiftUI's API.** `.smooth`,
   `.snappy`, `.bouncy` are real API with real defaults. The bounce
   percentages in `motion-animation.md` are characterisations of them,
