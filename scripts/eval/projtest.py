@@ -71,12 +71,18 @@ def run(name, spec):
     install(root)
 
     env = {k: v for k, v in os.environ.items() if k != "CLAUDECODE"}
+    # 2400s was set when the workflow was a scaffold and a checker. The
+    # rebuilt pipeline -- direction, divergence, content, interaction,
+    # coherence, grammar, implementation audit, render, visual review --
+    # took 37 minutes on a macOS photo editor and was killed on its last
+    # step by a limit that had nothing to do with the design. A run that
+    # finishes and is then reported as a timeout is worse than a slow one.
     p = subprocess.run(
         ["claude", "-p", spec["prompt"], "--output-format", "stream-json",
          "--verbose", "--model", MODEL,
          "--permission-mode", "acceptEdits",
          "--allowedTools", "Bash,Read,Write,Edit,Glob,Grep,Skill,WebFetch"],
-        cwd=root, env=env, capture_output=True, text=True, timeout=2400)
+        cwd=root, env=env, capture_output=True, text=True, timeout=7200)
 
     parts, skills, ran = [], set(), set()
     for line in p.stdout.splitlines():
