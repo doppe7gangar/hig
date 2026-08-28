@@ -240,6 +240,84 @@ def check_token_overrides(path, html):
         ok(f"{name}: does not override the Apple tokens by hand")
 
 
+# Components the kit measures that carry the platform's shape. A design
+# can skip the switch or the segmented control and still look native; an
+# Apple-platform design with none of these has rebuilt the system from
+# scratch rather than used it.
+STRUCTURAL = ("ios-list", "ios-navbar", "ios-tabbar")
+
+# Only iOS and iPadOS, because those are the platforms this corpus has
+# measured renderings for. macOS is HIG-first without a measured kit --
+# see references/platform-routing.md -- so demanding the iOS grouped list
+# of a Mac app would be worse advice than none.
+TOUCH_PLATFORM = re.compile(r"\b(ios|iphone|ipad|ipados)\b", re.I)
+
+
+def kit_classes(path, html):
+    """Component families the linked ios-components.css defines."""
+    root = os.path.dirname(path)
+    for href in re.findall(r'<link[^>]+href=["\']([^"\']*ios-components\.css)["\']',
+                           html, re.I):
+        f = os.path.join(root, href.split("?")[0])
+        if os.path.exists(f):
+            css = open(f, encoding="utf-8", errors="replace").read()
+            return {c.split("--")[0]
+                    for c in re.findall(r"^\.([a-z][\w-]*)", css, re.M)}
+    return set()
+
+
+def target_platform(path):
+    d = os.path.join(os.path.dirname(path), "DESIGN.md")
+    if not os.path.exists(d):
+        return None
+    # The value after the colon, up to the first sentence break. The
+    # whole line would include clauses like "Not a web app wearing iOS
+    # chrome", and matching "web" inside a sentence that denies it is how
+    # an iOS design escaped this check.
+    m = re.search(r"^[-*\s]*\**Target platform\(?s?\)?:?\**:?\s*(.+)$",
+                  open(d, encoding="utf-8").read(), re.M | re.I)
+    if not m:
+        return None
+    return re.split(r"(?<=[a-z])\.\s|\s[—-]\s", m.group(1))[0].strip()
+
+
+def check_uses_kit(path, html):
+    """Linking the measured components is not the same as using them.
+
+    Every run so far vendored the kit, linked it in the right order, kept
+    the bridge alive, passed contrast -- and then hand-rolled its own
+    list, navigation bar and tab bar. The scaffold ships eighteen
+    ios-list rows; the finished designs had none, three times out of
+    three. Order, bridge, contrast and states all stay true while you
+    rebuild the system from scratch, so nothing here could see it, and
+    the result reads as an approximation of iOS rather than iOS.
+    """
+    name = os.path.basename(path)
+    families = kit_classes(path, html)
+    if not families:
+        return
+    used = {c for c in families
+            if re.search(r'class="[^"]*\b' + re.escape(c) + r'\b', html)}
+    if not used:
+        bad(f"{name}: links ios-components.css and uses none of its "
+            f"{len(families)} component recipes. The measured values were "
+            f"vendored and then bypassed -- either use them or stop "
+            f"shipping the stylesheet.")
+        return
+
+    plat = target_platform(path)
+    if plat and TOUCH_PLATFORM.search(plat):
+        missing = [c for c in STRUCTURAL if c in families and c not in used]
+        if len(missing) == len(STRUCTURAL):
+            bad(f"{name}: targets an Apple platform ({plat.strip()[:48]}) "
+                f"and uses none of {', '.join(STRUCTURAL)}. Those carry the "
+                f"grouped-list metrics, the bar heights and the tracking "
+                f"this corpus measured; hand-rolling them is what makes a "
+                f"design read as almost-iOS.")
+            return
+    ok(f"{name}: uses {len(used)} of the kit's measured components")
+
+
 def check_hardcoded(path, html):
     """Colours written into the page instead of taken from the system."""
     name = os.path.basename(path)
@@ -617,6 +695,7 @@ def main():
         check_states(p, html)
         check_hardcoded(p, html)
         check_token_overrides(p, html)
+        check_uses_kit(p, html)
         if not a.no_browser:
             check_browser(p, brand)
 

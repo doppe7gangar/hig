@@ -19,6 +19,8 @@ The measured visual corpus is currently iOS 27. Never present iOS screenshots as
 ## Governing principle
 **Do not begin by placing components. Begin by composing information.** Prefer hierarchy through position, alignment, spacing, typography, scale, grouping, disclosure, motion, or context over unnecessary containers.
 
+**Then express that hierarchy with the measured recipes, rather than rebuilding them.** Deciding structure first is not a licence to hand-roll the list, the navigation bar and the tab bar afterwards. `apple-ui-kit`'s `ios-components.css` carries the grouped-list metrics, the bar heights, the control geometry and the tracking this corpus measured from Apple's own renderings; a from-scratch approximation of them is the difference between a design that reads as iOS and one that reads as almost-iOS. Change the content, the composition and the palette. Keep the recipes. On macOS there is no measured kit, so compose from `apple-hig` and say so.
+
 # Required workflow
 
 ## 1–11. Product reasoning
