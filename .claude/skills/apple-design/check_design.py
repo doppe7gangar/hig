@@ -437,6 +437,33 @@ const collect = () => [...document.querySelectorAll(
   })
   .filter(Boolean);
 
+
+// Distinct surface treatments. iOS has essentially one card: a white
+// rounded panel on the grouped background. A design carrying eight,
+// where two do all the work and six appear once or twice, has accreted
+// surfaces rather than chosen them -- and that accretion is most of what
+// reads as generic. Reported by name so the reduction pass has a target
+// list instead of the advice to prefer hierarchy over containers.
+const treatments = (() => {
+  const seen = new Map();
+  for (const e of document.querySelectorAll('*')) {
+    if (e.offsetParent === null) continue;
+    const cs = getComputedStyle(e);
+    const bg = parseColor(cs.backgroundColor);
+    if (!bg || bg[3] <= 0.02) continue;
+    const r = parseFloat(cs.borderRadius) || 0;
+    if (r < 6 || e.getBoundingClientRect().width < 60) continue;
+    const key = [cs.backgroundColor, Math.round(r), cs.borderTopWidth,
+                 cs.borderTopColor, (cs.boxShadow || 'none').slice(0, 40)].join(' | ');
+    const rec = seen.get(key) || {n: 0, sample: ''};
+    rec.n++;
+    if (!rec.sample) rec.sample = (e.className || e.tagName).toString().slice(0, 28);
+    seen.set(key, rec);
+  }
+  return [...seen.entries()].map(([k, v]) => ({key: k, n: v.n, sample: v.sample}))
+      .sort((a, b) => b.n - a.n);
+})();
+
 const root = document.querySelector('[data-state]');
 const seen = new Map();
 const sweep = () => { for (const c of collect())
@@ -476,6 +503,7 @@ const lowContrast = [...seen.values()];
     overflow: de.scrollWidth - de.clientWidth,
     small: small.slice(0, 6),
     lowContrast: lowContrast.slice(0, 8),
+    treatments: treatments.slice(0, 12),
     lowCount: lowContrast.length,
   };
 }"""
@@ -596,6 +624,26 @@ def check_browser(path, brand):
                     if not hard and not soft:
                         ok(f"{name} {scheme}: every text run meets its "
                            f"contrast requirement")
+
+                    # Surfaces that appear once or twice have not earned a
+                    # treatment of their own. Warned rather than failed:
+                    # a canvas, an inspector and a dialog legitimately
+                    # differ, so this is a smell to answer, not a defect.
+                    treats = d.get("treatments") or []
+                    oneoffs = [t for t in treats if t["n"] <= 2]
+                    if len(treats) >= 6 and len(oneoffs) >= 3:
+                        listed = ", ".join(
+                            f"{t['sample'] or 'unnamed'} (x{t['n']})"
+                            for t in oneoffs[:4])
+                        warn(f"{name} {scheme}: {len(treats)} distinct surface "
+                             f"treatments, {len(oneoffs)} of them used once or "
+                             f"twice: {listed}. iOS has essentially one card. "
+                             f"Each of these has to earn being different or "
+                             f"fold into the one above it.")
+                    elif treats:
+                        ok(f"{name} {scheme}: {len(treats)} surface "
+                           f"treatment(s), none stranded")
+
                     if d["accent"]:
                         got = d["accent"].lower().replace(" ", "")
                         ok(f"{name} {scheme}: --ios-accent resolves to {got}")
