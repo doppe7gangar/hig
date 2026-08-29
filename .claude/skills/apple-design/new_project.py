@@ -177,14 +177,17 @@ IOS_CSS = """
     .device { width: 100%; height: 100vh; border-radius: 0; box-shadow: none; }
     .statusbar { display: none; }
   }
-  .screen { flex: 1; padding: 16px var(--ios-gutter, 16px) 24px; }
+  .screen { flex: 1; padding: 16px var(--ios-gutter, 16px) 88px; }
   /* The kit's 11px row padding is measured for a text row: a 22px line
      box plus 11 above and below is exactly the 44pt target. A 29px icon
      does not fit that arithmetic and pushed every row to 51. iOS keeps
      the row at 44 and lets the icon take the padding, so the row with
      an icon gets 7px and lands back on the measured height. */
   .ios-list__row:has(.rowicon) { padding-top: 7px; padding-bottom: 7px; }
-  .rowicon { width: 29px; height: 29px; border-radius: 7px; flex: none;
+  /* Apple's own rows use a round, saturated glyph -- Maps' place
+     categories, Health's metrics -- not a squared monogram tile, which
+     is a Notion/Splitwise habit. */
+  .rowicon { width: 29px; height: 29px; border-radius: 999px; flex: none;
              display: grid; place-items: center; background: var(--ios-accent);
              color: #fff; font: var(--ios-text-footnote);
              font-weight: var(--ios-weight-semibold); }
@@ -197,6 +200,18 @@ IOS_CSS = """
      title in the bar hidden until it is earned. Real iOS swaps them on
      scroll; the script below does that so the collapse is visible rather
      than described. */
+  /* At rest the bar carries no material: the large title is the screen's
+     title and the area above it is just background, which is why Calendar
+     and Health show content running straight up to the status bar. The
+     glass arrives together with the compact title on scroll, so the bar
+     appears exactly when it has something to hold. */
+  .device:not([data-scrolled="1"]) .ios-navbar {
+      background: none; backdrop-filter: none; border-color: transparent;
+      /* The rim is drawn as a box-shadow, so clearing the border alone
+         left the hairline exactly where the bar was meant to vanish. */
+      box-shadow: none; }
+  .device:not([data-scrolled="1"]) .ios-navbar::before { opacity: 0; }
+  .ios-navbar { transition: background .18s ease; }
   .ios-navbar__title { opacity: 0; transition: opacity .18s ease; }
   .device[data-scrolled="1"] .ios-navbar__title { opacity: 1; }
   .largetitle { margin: 4px var(--ios-gutter, 16px) 8px;
