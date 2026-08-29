@@ -359,17 +359,30 @@ body {
    the rest sit at secondary. */
 
 .ios-tabbar {
+  /* iOS 26 floats the tab bar: a translucent capsule inset from the
+     edges with content scrolling underneath it, not a full-bleed bar
+     ruled off by a hairline. The kit already measured the Liquid Glass
+     material and then shaped this like the bar it replaced -- which is
+     the most visible thing on any screen, sitting at the bottom of all
+     of them, and the surest tell that a mockup predates the current OS.
+     Compare App Store, Apple TV, Health: all capsule, all floating. */
   position: sticky;
-  bottom: 0;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 10px);
+  z-index: 10;
+  width: max-content;
+  max-width: calc(100% - 24px);
+  margin: -62px auto 10px;          /* negative, so content passes under */
   display: flex;
-  justify-content: space-around;
-  border-width: 0.5px 0 0 0;
-  border-radius: 0;
-  padding-bottom: env(safe-area-inset-bottom, 0);
+  justify-content: center;
+  gap: 2px;
+  padding: 5px 6px;
+  border-width: 0;
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .16), 0 2px 6px rgba(0, 0, 0, .08);
 }
 
 .ios-tabbar__item {
-  flex: 1;
+  flex: 0 0 auto;
   min-height: 49px;                 /* iOS tab bar height */
   display: flex;
   flex-direction: column;
@@ -381,9 +394,13 @@ body {
   background: none;
   border: none;
   cursor: pointer;
+  padding: 0 15px;
+  min-height: 46px;
+  border-radius: 999px;
 }
 
-.ios-tabbar__item[aria-selected="true"] { color: var(--ios-accent); }
+.ios-tabbar__item[aria-selected="true"] {
+  background: color-mix(in srgb, var(--ios-accent) 14%, transparent); color: var(--ios-accent); }
 
 /* --------------------------------------------------------------- Material
 
