@@ -16,6 +16,7 @@ import re
 import sys
 
 FIELDS = [
+    "Frame",
     "Model",
     "Design idea",
     "Primary region",
@@ -56,6 +57,45 @@ LOOSE_PLACEHOLDERS = ("[pending]", "clean and modern",
                       "more apple-like", "less apple-like")
 
 STRICT_PLACEHOLDERS = ("todo", "tbd", "replace this")
+
+
+# Where the task lives. Not how it is laid out -- a stack and a tab bar
+# are the same frame, which is the whole point of asking separately.
+#
+# A split-bill brief came back with two directions, "stack with balances
+# at root" and "tabs with groups as peers", and the gate passed them as
+# structurally different. They are the same product with the furniture
+# moved. Nothing in FIELDS could ask the question Apple actually asks
+# here, which is whether this should be a ledger at all: Apple Cash has
+# none, because the money moves inside the conversation where the meal
+# was already being discussed.
+#
+# Members are matched as substrings, never length-tested. A vocabulary
+# its own gate rejects is a bug this file has had before.
+FRAMES = {
+    "standalone app": ("standalone", "its own app", "dedicated app",
+                       "full app", "app of its own", "separate app"),
+    "inside another product": ("inside", "embedded", "within another",
+                               "host app", "part of an existing"),
+    "share sheet or extension": ("share sheet", "share extension",
+                                 "extension", "app clip"),
+    "the conversation": ("conversation", "message", "thread", "imessage",
+                         "chat"),
+    "a glanceable surface": ("widget", "complication", "live activity",
+                             "lock screen", "dynamic island", "watch face"),
+    "a system entry point": ("control cent", "notification", "shortcut",
+                             "siri", "spotlight", "system surface",
+                             "quick action"),
+    "a document": ("document", "file", "spreadsheet", "note"),
+    "the web": ("web page", "browser", "url", "link people open"),
+}
+
+
+def frame_of(value):
+    """Which frame a candidate's Frame field names, if any."""
+    low = (value or "").lower()
+    return {name for name, cues in FRAMES.items()
+            if any(cue in low for cue in cues)}
 
 
 def section(text, heading):
@@ -130,7 +170,7 @@ def main():
         if len(candidates) > 3:
             failures.append("use at most 3 candidate directions; divergence should stay selective")
 
-    models = []
+    models, frames = [], []
     for title, block in candidates:
         for field in FIELDS:
             value = field_value(block, field)
@@ -141,6 +181,7 @@ def main():
         model = field_value(block, "Model")
         if model:
             models.append(model.lower())
+        frames.append((title, field_value(block, "Frame")))
         differences = field_value(block, "Structural differences") or ""
         # Require at least two declared differences, using semicolon/comma/and
         # as a lightweight auditable signal. The prose still carries judgment.
@@ -194,6 +235,27 @@ def main():
         for word in required_words:
             if word not in chosen.lower():
                 failures.append(f"Chosen direction must explain {word}")
+
+
+    named = set()
+    unrecognised = []
+    for title, value in frames:
+        got = frame_of(value)
+        if got:
+            named |= got
+        elif value:
+            unrecognised.append(f"{title}: {value[:40]}")
+    if frames and len(named) < 2:
+        failures.append(
+            "candidates share one frame" + (f" ({', '.join(sorted(named))})"
+                                            if named else "")
+            + ". Rearranging navigation is not divergence: a stack and a tab "
+              "bar put the same product in the same place. At least one "
+              "candidate must move where the task lives -- "
+            + ", ".join(sorted(FRAMES)) + ".")
+        if unrecognised:
+            failures.append("Frame not recognised as a place the task could "
+                            "live: " + "; ".join(unrecognised))
 
     if failures:
         for failure in dict.fromkeys(failures):
