@@ -184,15 +184,38 @@ IOS_CSS = """
      the row at 44 and lets the icon take the padding, so the row with
      an icon gets 7px and lands back on the measured height. */
   .ios-list__row:has(.rowicon) { padding-top: 7px; padding-bottom: 7px; }
-  /* Apple's own rows use a round, saturated glyph -- Maps' place
-     categories, Health's metrics -- not a squared monogram tile, which
-     is a Notion/Splitwise habit. */
-  .rowicon { width: 29px; height: 29px; border-radius: 999px; flex: none;
-             display: grid; place-items: center; background: var(--ios-accent);
-             color: #fff; font: var(--ios-text-footnote);
-             font-weight: var(--ios-weight-semibold); }
-  .sectionhead { margin: 0 0 7px 16px; color: var(--ios-label-secondary);
-                 font: var(--ios-text-footnote); text-transform: uppercase; }
+  /* A tinted symbol on nothing, which is what Apple's rows carry --
+     Tips, Maps, Health all show a coloured glyph with no plate behind
+     it. A filled tile with a letter in it is a Notion habit and reads
+     as one. Replace the glyph with the real symbol when you have it. */
+  .rowicon { width: 29px; height: 29px; flex: none; display: grid;
+             place-items: center; color: var(--accent-text-safe);
+             font: var(--ios-text-title3); }
+  /* iOS 26 sets a section header as a title, not as a caption: 22pt
+     bold, primary label, sentence case. The small uppercase grey
+     footnote is the previous generation's grouped-list header -- see
+     Tips ("Get Started", "Next Steps") and Pages ("Included with Apple
+     Creator Studio"), all large and white. Getting this wrong makes a
+     screen read as a settings pane whatever else is right. */
+  .sectionhead { display: flex; align-items: baseline;
+                 justify-content: space-between; gap: 12px;
+                 margin: 22px 4px 8px; color: var(--ios-label);
+                 font: var(--ios-text-title2);
+                 font-weight: var(--ios-weight-bold);
+                 letter-spacing: var(--ios-track-title2); }
+  /* Apple pairs the header with an accent action rather than burying the
+     rest of the list behind a chevron on the last row. */
+  .sectionhead__action { font: var(--ios-text-body);
+                         font-weight: var(--ios-weight-regular);
+                         color: var(--accent-text-safe);
+                         text-decoration: none;
+                         /* An inline link is 15px tall and reads as text
+                            rather than a control. Padded to the target
+                            and pulled back out with a negative margin so
+                            the baseline still lines up with the title. */
+                         display: inline-flex; align-items: center;
+                         min-height: var(--ios-hit-target);
+                         padding: 0 4px; margin: -14px -4px; }
   /* The large title is the most recognisable thing about an iOS screen
      and the scaffold did not have one: a 17pt headline in the bar is the
      *collapsed* state, which is what you see after scrolling, not what a
@@ -239,13 +262,13 @@ __SWITCHER__
     <h1 class="largetitle">__SCREEN1__</h1>
     <main class="screen">
       <section class="state state--populated">
-        <p class="sectionhead">Today</p>
+        <p class="sectionhead">Today<a class="sectionhead__action" href="#">See All</a></p>
         <ul class="ios-list">
 __ROWS__
         </ul>
       </section>
       <section class="state state--loading">
-        <p class="sectionhead">Today</p>
+        <p class="sectionhead">Today<a class="sectionhead__action" href="#">See All</a></p>
         <ul class="ios-list">
 __SKELROWS__
         </ul>
