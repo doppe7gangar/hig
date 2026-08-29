@@ -257,7 +257,8 @@ __SWITCHER__
    <div class="phone">
     <nav class="ios-navbar">
       <span class="ios-navbar__title">__SCREEN1__</span>
-      <button class="ios-btn ios-navbar__action" aria-label="Add __THING__">+</button>
+      <button class="ios-btn ios-navbar__action" data-sf-symbol="plus"
+              aria-label="Add __THING__">+</button>
     </nav>
     <h1 class="largetitle">__SCREEN1__</h1>
     <main class="screen">
@@ -674,7 +675,8 @@ def rows(thing):
     for title, value in demo:
         out.append(
             '          <li class="ios-list__row ios-list__row--tappable">\n'
-            f'            <span class="rowicon" aria-hidden="true">{title[0]}</span>\n'
+            f'            <span class="rowicon" data-sf-symbol="fork.knife"'
+            f' aria-hidden="true">{title[0]}</span>\n'
             f'            <span class="ios-list__title">{title}</span>\n'
             f'            <span class="ios-list__value">{value}</span>\n'
             '            <span class="ios-list__chevron" aria-hidden="true">&rsaquo;</span>\n'
@@ -690,6 +692,15 @@ def skel_rows(n=3):
         '          </li>' for i in range(n))
 
 
+# The symbol each placeholder stands for. SF Symbols cannot ship here --
+# Apple's licence covers use inside apps running on Apple platforms, not
+# extraction into a web kit, and the library is not in this repo -- so
+# the drawing is a stand-in and the *name* is the deliverable. An
+# engineer reading this markup gets Image(systemName: "house.fill"),
+# which is the part that has to be exact.
+TAB_SYMBOLS = ["house.fill", "list.bullet", "bookmark.fill",
+               "person.crop.circle", "gearshape.fill"]
+
 TAB_GLYPHS = [
     '<path d="M3 10.5 12 4l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
     '<path d="M4 6h16M4 12h16M4 18h16"/>',
@@ -704,7 +715,8 @@ def tabs(screens):
     for i, screen in enumerate(screens):
         selected = ' aria-selected="true"' if i == 0 else ""
         glyph = TAB_GLYPHS[i % len(TAB_GLYPHS)]
-        icon = (f'<svg viewBox="0 0 24 24" width="25" height="25" fill="none" '
+        sym = TAB_SYMBOLS[i % len(TAB_SYMBOLS)]
+        icon = (f'<svg data-sf-symbol="{sym}" viewBox="0 0 24 24" width="25" height="25" fill="none" '
                 f'stroke="currentColor" stroke-width="1.8" aria-hidden="true">{glyph}</svg>')
         out.append(f'      <button class="ios-tabbar__item"{selected}>{icon}{screen}</button>')
     return "\n".join(out)

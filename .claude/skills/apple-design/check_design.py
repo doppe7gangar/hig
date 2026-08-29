@@ -318,6 +318,40 @@ def check_uses_kit(path, html):
     ok(f"{name}: uses {len(used)} of the kit's measured components")
 
 
+def check_symbols_named(path, html):
+    """Icons must say which SF Symbol they stand for.
+
+    SF Symbols cannot ship in a web kit: Apple's licence covers use
+    inside apps running on Apple platforms, not extraction into a font or
+    reproduction as SVG. So every glyph here is a stand-in, and the thing
+    that has to be exact is the *name* -- an engineer reading the markup
+    needs Image(systemName: "house.fill"), not a drawing that resembles a
+    house. Naming it costs one attribute and turns a mockup into a
+    specification.
+    """
+    name = os.path.basename(path)
+    body = body_of(html)
+    slots = re.findall(
+        r'<[a-z]+[^>]*class="[^"]*(?:rowicon|ios-tabbar__item|'
+        r'ios-navbar__action)[^"]*"[^>]*>', body)
+    if not slots:
+        return
+    unnamed = [t for t in slots if "data-sf-symbol" not in t]
+    # An SVG nested inside the slot may carry the attribute instead.
+    if unnamed:
+        for t in list(unnamed):
+            m = re.search(re.escape(t) + r"(.{0,400}?)</", body, re.S)
+            if m and "data-sf-symbol" in m.group(1):
+                unnamed.remove(t)
+    if unnamed:
+        warn(f"{name}: {len(unnamed)} of {len(slots)} icon slot(s) do not "
+             f"name the SF Symbol they stand for. The drawing is a "
+             f"placeholder either way; the name is what the "
+             f"implementation needs. Add data-sf-symbol=\"house.fill\".")
+    else:
+        ok(f"{name}: all {len(slots)} icon slots name their SF Symbol")
+
+
 def check_hardcoded(path, html):
     """Colours written into the page instead of taken from the system."""
     name = os.path.basename(path)
@@ -744,6 +778,7 @@ def main():
         check_hardcoded(p, html)
         check_token_overrides(p, html)
         check_uses_kit(p, html)
+        check_symbols_named(p, html)
         if not a.no_browser:
             check_browser(p, brand)
 
