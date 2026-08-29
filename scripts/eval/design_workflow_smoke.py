@@ -65,6 +65,21 @@ def test_reference_selector(tmp):
 def _content_fixture():
     return '''# Design direction
 
+## What the product knows
+
+Every question the interface asks is one the product declined to answer
+for itself. Name what it infers, and where each answer comes from.
+
+- **Inferred:** the place, from location and the time of day — a bill at
+  8pm within fifty metres of a restaurant needs no venue field.
+- **Inferred:** who is present, from the last group settled at this place
+  and the people already in the conversation.
+- **Inferred:** the total, from the photographed receipt rather than a
+  typed figure.
+- **Asked:** how to divide it, because that is the one thing the people
+  at the table are still deciding — and guessing it wrongly is worse than
+  asking.
+
 ## Content model
 
 | Content | User question/task | Decision enabled | Content shape | Required context |

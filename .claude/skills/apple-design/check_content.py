@@ -11,6 +11,7 @@ import re
 import sys
 
 REQUIRED_HEADINGS = [
+    "What the product knows",
     "Content model",
     "Representation decisions",
     "Content stress cases",
@@ -58,6 +59,20 @@ def _chose(section_text, kind):
     return any(kind in (r[col] if col < len(r) else "") for r in rows)
 
 
+# Places a product can get an answer from instead of asking for it. The
+# distinctly Apple move on this axis is subtraction of input: a split
+# bill at a restaurant already knows where you are, what time it is, who
+# you are with and what you last did -- and every one of those it infers
+# is a field somebody does not fill in. Substrings, never length-tested.
+INFERENCE_SOURCES = (
+    "location", "place", "nearby", "time", "date", "calendar", "contacts",
+    "recent", "history", "last time", "previously", "already", "photo",
+    "receipt", "scan", "camera", "default", "pattern", "habit", "usual",
+    "device", "account", "sign-in", "signed in", "clipboard", "share sheet",
+    "current", "context", "in the thread", "conversation",
+)
+
+
 def section(text, heading):
     m = re.search(rf"^#+\s+{re.escape(heading)}\s*$([\s\S]*?)(?=^#+\s|\Z)",
                   text, flags=re.I | re.M)
@@ -92,6 +107,28 @@ def main():
         for key in needed:
             if key not in content.lower():
                 failures.append(f"Content model should record {key}")
+
+    # Every question the interface asks is one the product declined to
+    # answer for itself. Requiring this named, with where the answer
+    # comes from, makes input economy a design decision rather than an
+    # afterthought -- and it is where Apple's difference usually shows
+    # before any pixel does.
+    knows = section(text, "What the product knows")
+    if knows:
+        low = knows.lower()
+        inferred = [b for b in re.findall(r"^\s*[-*]\s+(.+)$", knows, re.M)
+                    if any(src in b.lower() for src in INFERENCE_SOURCES)]
+        if len(inferred) < 2:
+            failures.append(
+                "What the product knows needs at least two things it infers "
+                "rather than asks, each naming where the answer comes from "
+                "(location, time, contacts, a receipt, what happened last "
+                "time). Every question the interface asks is one the product "
+                "declined to answer for itself.")
+        if not re.search(r"\bask|\bprompt|\brequest|\benter\b|\btype\b", low):
+            failures.append(
+                "What the product knows must also say what it deliberately "
+                "asks for, and why that one is worth a question.")
 
     reps = section(text, "Representation decisions")
     if reps:
