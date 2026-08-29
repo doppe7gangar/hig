@@ -91,6 +91,18 @@ STATE_CSS = """
 
 STATE_JS = """
 <script>
+  // The large title collapses into the bar on scroll, the way the
+  // platform does it. Shown rather than described, because "it
+  // collapses" is the sort of claim a static mockup makes and never has
+  // to honour.
+  for (const ph of document.querySelectorAll('.phone')) {
+    const dev = ph.closest('.device');
+    if (!dev) continue;
+    const sync = () => { dev.dataset.scrolled = ph.scrollTop > 24 ? '1' : '0'; };
+    ph.addEventListener('scroll', sync, {passive: true});
+    sync();
+  }
+
   const root = document.querySelector('[data-state]');
   const initial = new URLSearchParams(location.search).get('state');
   if (initial) root.dataset.state = initial;
@@ -166,12 +178,32 @@ IOS_CSS = """
     .statusbar { display: none; }
   }
   .screen { flex: 1; padding: 16px var(--ios-gutter, 16px) 24px; }
+  /* The kit's 11px row padding is measured for a text row: a 22px line
+     box plus 11 above and below is exactly the 44pt target. A 29px icon
+     does not fit that arithmetic and pushed every row to 51. iOS keeps
+     the row at 44 and lets the icon take the padding, so the row with
+     an icon gets 7px and lands back on the measured height. */
+  .ios-list__row:has(.rowicon) { padding-top: 7px; padding-bottom: 7px; }
   .rowicon { width: 29px; height: 29px; border-radius: 7px; flex: none;
              display: grid; place-items: center; background: var(--ios-accent);
              color: #fff; font: var(--ios-text-footnote);
              font-weight: var(--ios-weight-semibold); }
   .sectionhead { margin: 0 0 7px 16px; color: var(--ios-label-secondary);
                  font: var(--ios-text-footnote); text-transform: uppercase; }
+  /* The large title is the most recognisable thing about an iOS screen
+     and the scaffold did not have one: a 17pt headline in the bar is the
+     *collapsed* state, which is what you see after scrolling, not what a
+     screen opens as. 34pt bold, left, under the bar, with the compact
+     title in the bar hidden until it is earned. Real iOS swaps them on
+     scroll; the script below does that so the collapse is visible rather
+     than described. */
+  .ios-navbar__title { opacity: 0; transition: opacity .18s ease; }
+  .device[data-scrolled="1"] .ios-navbar__title { opacity: 1; }
+  .largetitle { margin: 4px var(--ios-gutter, 16px) 8px;
+                font: var(--ios-text-large-title);
+                font-weight: var(--ios-weight-bold);
+                letter-spacing: var(--ios-track-large-title);
+                color: var(--ios-label); }
   .ios-list { margin: 0 0 22px; }
   .ios-tabbar__item[aria-selected="true"] { color: var(--accent-text-safe); }
 """
@@ -189,6 +221,7 @@ __SWITCHER__
       <span class="ios-navbar__title">__SCREEN1__</span>
       <button class="ios-btn ios-navbar__action" aria-label="Add __THING__">+</button>
     </nav>
+    <h1 class="largetitle">__SCREEN1__</h1>
     <main class="screen">
       <section class="state state--populated">
         <p class="sectionhead">Today</p>
@@ -836,6 +869,12 @@ def main():
                     help="comma-separated screen/destination names")
     ap.add_argument("--thing", default="recipes",
                     help="what the product holds, for sample empty-state copy")
+    ap.add_argument("--sf", action="store_true",
+                    help="use the bundled SF Pro rather than Inter on "
+                         "non-Apple platforms. Apple's licence covers "
+                         "mocking up interfaces for Apple platforms; it "
+                         "does not cover serving the face from a public "
+                         "site, so this is opt-in.")
     ap.add_argument("-o", "--out", required=True, help="output directory")
     a = ap.parse_args()
 
@@ -876,6 +915,15 @@ def main():
         css, notes, values = build_theme.build(a.brand, theme_name)
     except ValueError as exc:
         sys.exit(str(exc))
+    if a.sf:
+        css += (
+            "\n/* --sf: the bundled SF Pro ahead of Inter, for platforms\n"
+            "   where -apple-system finds nothing. Licence covers mockups,\n"
+            "   not public serving -- see fonts/sf.css. */\n"
+            ":root {\n"
+            "  --ios-font: -apple-system, BlinkMacSystemFont, 'SF Pro',\n"
+            "      'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;\n"
+            "}\n")
     with open(os.path.join(out, "theme.css"), "w", encoding="utf-8") as f:
         f.write(css)
 
