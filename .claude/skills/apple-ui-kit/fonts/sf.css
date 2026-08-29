@@ -9,9 +9,23 @@
  * through Black, and font-optical-sizing: auto makes large type tighten
  * the way it does on device instead of merely scaling up.
  *
- * Order note: -apple-system still comes first in --ios-font, so Macs and
- * iPhones use the copy already installed and download nothing. This file
- * is what Windows, Android and Linux get.
+ * Order note: -apple-system comes first in --ios-font, so Macs and
+ * iPhones use the copy already installed and download nothing.
+ *
+ * This file is NOT what Windows, Android and Linux get by default, which
+ * an earlier version of this note claimed. 'SF Pro' is deliberately
+ * absent from --ios-font -- see the reasoning in build_design_tokens.py
+ * -- so linking this stylesheet declares the face and nothing requests
+ * it, and those platforms render Inter. That is the licence-safe
+ * default and it is the right one for anything served publicly.
+ *
+ * To use it for a mockup, which is what Apple's licence does cover, opt
+ * in explicitly:
+ *
+ *   :root { --ios-font: -apple-system, BlinkMacSystemFont, 'SF Pro',
+ *                       'Inter', system-ui, sans-serif; }
+ *
+ * new_project.py --sf writes exactly that line into theme.css.
  *
  * Licence: Apple's font licence covers designing and mocking up
  * interfaces for Apple platforms. It does not grant webfont embedding or

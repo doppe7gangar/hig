@@ -239,6 +239,11 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
+  /* border-box, so min-height is the row height rather than the height
+     of its contents. As content-box the 11px padding added to the 44
+     and every single-line row came out at 66 -- half again as tall as
+     the value it was set from, and the loosest thing about the result. */
+  box-sizing: border-box;
   min-height: var(--ios-hit-target);
   padding: 11px var(--ios-gutter);
   position: relative;
