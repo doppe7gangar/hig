@@ -136,8 +136,35 @@ ERROR_PANEL = """      <section class="state state--error">
 # ---------------------------------------------------------------- iOS
 
 IOS_CSS = """
-  .phone { width: 100%; max-width: 430px; margin: 0 auto; display: flex;
-           flex-direction: column; background: var(--ios-bg); }
+  /* The deliverable is an app screen, not a board of artboards. The same
+     markup shown as a stack of panels with commentary between them reads
+     as a specification; shown once, in a device, with a status bar, it
+     reads as the product. Nothing about the design changes -- only what
+     a reviewer is looking at, which turned out to be a large share of
+     why finished work did not look like iOS. The commentary belongs in
+     DESIGN.md, where it already lives. */
+  .stage { min-height: 100vh; display: grid; place-items: center;
+           padding: 32px 16px; background: #0E0E10; }
+  .device { width: 393px; max-width: 100%; height: 852px; position: relative;
+            display: flex; flex-direction: column; overflow: hidden;
+            border-radius: 52px; background: var(--ios-bg);
+            box-shadow: 0 0 0 11px #1C1C1E, 0 0 0 13px #3A3A3C,
+                        0 26px 60px rgba(0,0,0,.45); }
+  .statusbar { flex: none; height: 54px; display: flex; align-items: flex-end;
+               justify-content: space-between; padding: 0 30px 6px;
+               font: var(--ios-text-footnote); color: var(--ios-label);
+               font-weight: var(--ios-weight-semibold); }
+  .statusbar__glyphs { letter-spacing: 1px; }
+  .phone { flex: 1; min-height: 0; width: 100%; display: flex;
+           flex-direction: column; background: var(--ios-bg);
+           overflow-y: auto; }
+  @media (max-width: 460px) {
+    /* On a real phone the device frame is a costume: the browser is
+       already the frame. Shed it rather than draw a phone in a phone. */
+    .stage { padding: 0; background: var(--ios-bg); place-items: stretch; }
+    .device { width: 100%; height: 100vh; border-radius: 0; box-shadow: none; }
+    .statusbar { display: none; }
+  }
   .screen { flex: 1; padding: 16px var(--ios-gutter, 16px) 24px; }
   .rowicon { width: 29px; height: 29px; border-radius: 7px; flex: none;
              display: grid; place-items: center; background: var(--ios-accent);
@@ -151,7 +178,13 @@ IOS_CSS = """
 
 IOS_BODY = """<div class="demo">
 __SWITCHER__
-  <div class="phone" data-state="populated">
+ <div class="stage">
+  <div class="device" data-state="populated">
+   <div class="statusbar" aria-hidden="true">
+     <span>9:41</span>
+     <span class="statusbar__glyphs">&#9679;&#9679;&#9679; &#9207; &#9632;</span>
+   </div>
+   <div class="phone">
     <nav class="ios-navbar">
       <span class="ios-navbar__title">__SCREEN1__</span>
       <button class="ios-btn ios-navbar__action" aria-label="Add __THING__">+</button>
@@ -173,7 +206,9 @@ __EMPTY__
 __ERROR__
     </main>
 __TABBAR__
+   </div>
   </div>
+ </div>
 </div>
 """
 
