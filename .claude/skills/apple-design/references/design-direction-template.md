@@ -63,6 +63,7 @@ If a chart is used, record its analytical question, unit, comparison/baseline, t
 Each credible candidate must differ structurally, not cosmetically. Name at least two structural differences.
 
 ### Direction: A — <short name>
+- **Frame:** standalone app
 - **Model:**
 - **Design idea:**
 - **Primary region:**
@@ -74,6 +75,7 @@ Each credible candidate must differ structurally, not cosmetically. Name at leas
 - **Structural differences:** ______; ______
 
 ### Direction: B — <short name>
+- **Frame:** the conversation — it lives in the thread
 - **Model:**
 - **Design idea:**
 - **Primary region:**
@@ -85,6 +87,7 @@ Each credible candidate must differ structurally, not cosmetically. Name at leas
 - **Structural differences:** ______; ______
 
 ### Direction: C — <short name> (when credible)
+- **Frame:** a glanceable surface — a widget on the Home Screen
 - **Model:**
 - **Design idea:**
 - **Primary region:**
@@ -151,6 +154,7 @@ Each credible candidate must differ structurally, not cosmetically. Name at leas
 
 ## Commit model
 
+- **Frame:** standalone app
 - **Model:** immediate / explicit / autosave-continuous
 - **When the change becomes real:**
 - **Undo/cancel/reversal policy:**

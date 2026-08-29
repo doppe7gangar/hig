@@ -121,6 +121,7 @@ def _interaction_fixture():
 
 ## Commit model
 
+- **Frame:** standalone app
 - **Model:** explicit for notes; immediate for assignee changes.
 - **When the change becomes real:** note after server acknowledgement; assignee optimistically with rollback on failure.
 - **Undo/cancel/reversal policy:** note can be cancelled before submit; assignee offers Undo after success and rolls back automatically on failure.
@@ -171,6 +172,7 @@ def test_divergence_gate(tmp):
 ## Candidate directions
 
 ### Direction: A — Answer first
+- **Frame:** the conversation — it lives in the thread
 - **Model:** dashboard
 - **Design idea:** Today's support health owns the screen while evidence explains it.
 - **Primary region:** one service-health answer and current change
@@ -182,6 +184,7 @@ def test_divergence_gate(tmp):
 - **Structural differences:** summary before records; contextual evidence instead of persistent list
 
 ### Direction: B — Queue workspace
+- **Frame:** a glanceable surface — a widget on the Home Screen
 - **Model:** workspace
 - **Design idea:** The active queue owns the work surface while status remains contextual.
 - **Primary region:** dense ticket queue and active selection

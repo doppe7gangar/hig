@@ -33,6 +33,7 @@ For each direction write:
 
 ### Direction: <short name>
 
+- **Frame:** standalone app
 - **Model:** workspace / list-detail / dashboard / document / editorial / stack / tabs / other
 - **Design idea:** one sentence describing what owns the screen
 - **Primary region:** what receives first attention
@@ -77,6 +78,27 @@ For each rejected direction state a **product-specific reason and consequence**.
 - “Rejected dashboard because the user spends most of the session editing one record; monitoring-first hierarchy would bury the actual work.”
 - “Rejected persistent sidebar because the two destinations are infrequently switched; it would consume width without supporting the core loop.”
 - “Rejected simultaneous panes on phone because preserving both compresses the selected content; compact mode becomes sequential navigation instead.”
+
+## Frame before model
+
+The first thing each candidate declares is where the task lives, and it
+is asked separately from the navigation model because the two get
+confused. A stack and a tab bar are the same frame: a standalone app,
+with its furniture arranged differently. Two candidates that differ only
+there have not diverged, they have redecorated.
+
+A split-bill brief once came back with three directions -- balances at
+the root of a stack, groups as tab peers, and a ledger feed -- and all
+three were the same product. The question none of them asked is the one
+Apple asks first: should this be a ledger at all? Apple Cash has no
+ledger. The money moves inside the conversation where the meal was
+already being discussed, and most of the balance-sheet furniture stops
+existing.
+
+So at least one candidate must move the task somewhere else: into
+another product's flow, a share sheet, the conversation, a widget or
+other glanceable surface, a system entry point, a document, the web.
+The value of a reframe is what it deletes; say what disappears.
 
 Do not reject a direction because it is “less Apple-like,” “less modern,” or “less clean.” Those are aesthetic labels, not product consequences.
 

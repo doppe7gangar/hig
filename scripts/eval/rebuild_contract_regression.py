@@ -57,6 +57,7 @@ def test_gate_vocabulary(tmp):
 
 ## Candidate directions
 ### Direction A
+- **Frame:** standalone app
 - **Model:** dashboard
 - **Design idea:** Current health owns the first read.
 - **Primary region:** service health and change
@@ -68,6 +69,7 @@ def test_gate_vocabulary(tmp):
 - **Structural differences:** answer before records; contextual evidence instead of persistent queue
 
 ### Direction B
+- **Frame:** the conversation — it lives in the thread
 - **Model:** workspace
 - **Design idea:** Active queue owns the work surface.
 - **Primary region:** queue and active selection
@@ -106,6 +108,7 @@ We chose Direction A because current health is the primary recurring task; evide
 | Exit/continue | Select next incident | Next detail opens | queue scroll preserved | pending operation stays attached to original incident |
 
 ## Commit model
+- **Frame:** a glanceable surface — a widget on the Home Screen
 - **Model:** explicit for note submission and immediate for assignee selection.
 - **When the change becomes real:** after server acknowledgement; assignee may update optimistically with rollback.
 - **Undo/cancel/reversal policy:** cancel before submit and undo a completed reassignment.
