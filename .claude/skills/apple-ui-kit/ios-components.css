@@ -11,57 +11,17 @@
  */
 
 /* Sizes are measured as the box you see, so the box has to be the one
-   being sized. Twice now a measured value has been quietly inflated by
-   padding under content-box: a 44pt row came out at 66, and a 270pt
-   alert at 302. Scoped to the classes this file defines rather than
-   applied globally, so importing the kit does not change the box model
-   of a page it knows nothing about. */
-.ios-alert,
-.ios-alert--stacked,
-.ios-alert__actions,
-.ios-alert__cancel,
-.ios-alert__message,
-.ios-alert__title,
-.ios-btn,
-.ios-btn--destructive,
-.ios-btn--filled,
-.ios-btn--tinted,
-.ios-controls,
-.ios-controls--vertical,
-.ios-controls__item,
-.ios-empty,
-.ios-empty__action,
-.ios-empty__body,
-.ios-empty__glyph,
-.ios-empty__title,
-.ios-field,
-.ios-glass,
-.ios-glass--capsule,
-.ios-glass--card,
-.ios-glass--clear,
-.ios-glass--dark,
-.ios-glass--light,
-.ios-glass--prominent,
-.ios-glass-btn,
-.ios-list,
-.ios-list__chevron,
-.ios-list__footer,
-.ios-list__header,
-.ios-list__row,
-.ios-list__row--tappable,
-.ios-list__title,
-.ios-list__value,
-.ios-material,
-.ios-navbar,
-.ios-navbar__title,
-.ios-segmented,
-.ios-statusbar,
-.ios-statusbar__indicators,
-.ios-statusbar__island,
-.ios-switch,
-.ios-switch__track,
-.ios-tabbar,
-.ios-tabbar__item {
+   being sized. Twice a measured value was quietly inflated by padding
+   under content-box: a 44pt row came out at 66, a 270pt alert at 302.
+
+   This was an enumerated list of every class in the file, which went
+   stale the moment the next component was added -- the action sheet
+   landed at 393pt against its own 361pt max-width for exactly that
+   reason. Matching the namespace instead keeps it true as the kit
+   grows, and still touches nothing outside it: importing the kit
+   should not change the box model of a page it knows nothing about. */
+[class^="ios-"],
+[class*=" ios-"] {
   box-sizing: border-box;
 }
 
@@ -886,4 +846,76 @@ body {
 .ios-alert__cancel {
   background: var(--ios-fill-control);
   color: var(--ios-label);
+}
+
+/* ----------------------------------------------------- Action sheet
+
+   From assets/ui-kit/Action Sheets/. The structure is certain and the
+   proportions are not: unlike the alert and the status bar, that
+   rendering carries no reliable scale -- three passes at measuring it
+   gave three different capsule heights, because the point size of the
+   canvas has to be assumed. So the shape below is read off the image
+   and the numbers are chosen to sit with the rest of the kit rather
+   than claimed as measured. Say so rather than quote a figure derived
+   from a guess.
+
+   What is certain, and is not what people build from memory: the
+   actions are full-width pill capsules stacked with a gap between them,
+   on a grey fill, with the title and message LEFT aligned above. The
+   old action sheet -- full-width rows divided by hairlines, cancel in a
+   detached card below -- is the one everyone remembers. A destructive
+   action is red LABEL on the same grey capsule, never a red fill; the
+   fill is reserved for the confirming action in an alert. */
+
+.ios-actionsheet {
+  width: 100%;
+  max-width: 361px;
+  padding: 18px 16px 16px;
+  border-radius: 26px;
+  background: var(--ios-bg-card);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, .3);
+  text-align: left;
+}
+
+.ios-actionsheet__title {
+  margin: 0;
+  color: var(--ios-label);
+  font: var(--ios-text-headline);
+  letter-spacing: var(--ios-track-headline);
+}
+
+.ios-actionsheet__message {
+  margin: 4px 0 0;
+  color: var(--ios-label-secondary);
+  font: var(--ios-text-subhead);
+  letter-spacing: var(--ios-track-subhead);
+}
+
+.ios-actionsheet__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+/* Specific enough to defend itself. A consumer stylesheet reasonably
+   says "a button that is not filled takes the accent colour", and that
+   is right everywhere except here: an action sheet's choices are label
+   coloured, and only the destructive one is tinted. The component has
+   to win that argument without the page having to know. */
+.ios-actionsheet .ios-actionsheet__actions .ios-btn:not(.ios-btn--filled):not(.ios-btn--destructive) {
+  width: 100%;
+  min-height: 50px;
+  border-radius: 999px;
+  background: var(--ios-fill-control);
+  color: var(--ios-label);
+  font: var(--ios-text-body);
+  letter-spacing: var(--ios-track-body);
+}
+
+/* Red label, grey capsule. A destructive action in an action sheet is
+   one of several choices, not the confirming one. */
+.ios-actionsheet .ios-actionsheet__actions .ios-btn.ios-btn--destructive {
+  background: var(--ios-fill-control);
+  color: var(--ios-red);
 }
