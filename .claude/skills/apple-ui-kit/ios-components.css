@@ -666,3 +666,57 @@ body {
 .ios-controls__item[aria-current="page"] {
   background: color-mix(in srgb, var(--ios-accent) 16%, transparent);
 }
+
+/* ------------------------------------------------------- Empty state
+
+   Measured from assets/ui-kit/Empty States/, which renders the family at
+   393x854pt: the copy sits centred at about 46% down, and the primary
+   action is a capsule inset 35pt each side, 52pt tall, 35pt clear of the
+   bottom edge. That last part is the bit designs get wrong -- the action
+   is pinned to the bottom of the screen, not tucked under the sentence
+   -- and it is why an empty state built by eye reads as a dialog rather
+   than as a screen.
+
+   references/screens.md asks for three distinct empties (first run,
+   filtered to nothing, deliberately cleared). This is the shape; the
+   copy is what separates them. */
+
+.ios-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-height: 0;
+  padding: 24px 35px 35px;
+  text-align: center;
+}
+
+.ios-empty__glyph {
+  color: var(--ios-label-tertiary);
+  margin-bottom: 12px;
+}
+
+.ios-empty__title {
+  margin: 0;
+  color: var(--ios-label);
+  font: var(--ios-text-headline);
+  letter-spacing: var(--ios-track-headline);
+}
+
+.ios-empty__body {
+  margin: 2px 0 0;
+  max-width: 28ch;
+  color: var(--ios-label-secondary);
+  font: var(--ios-text-body);
+  letter-spacing: var(--ios-track-body);
+}
+
+/* Pinned, not trailing the copy: margin-top auto pushes it to the
+   bottom of whatever box the state occupies. */
+.ios-empty__action {
+  margin-top: auto;
+  align-self: stretch;
+  min-height: 52px;
+  border-radius: 999px;
+}
