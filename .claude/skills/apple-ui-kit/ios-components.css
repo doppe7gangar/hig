@@ -10,6 +10,62 @@
  *     <link rel="stylesheet" href="ios-components.css">
  */
 
+/* Sizes are measured as the box you see, so the box has to be the one
+   being sized. Twice now a measured value has been quietly inflated by
+   padding under content-box: a 44pt row came out at 66, and a 270pt
+   alert at 302. Scoped to the classes this file defines rather than
+   applied globally, so importing the kit does not change the box model
+   of a page it knows nothing about. */
+.ios-alert,
+.ios-alert--stacked,
+.ios-alert__actions,
+.ios-alert__cancel,
+.ios-alert__message,
+.ios-alert__title,
+.ios-btn,
+.ios-btn--destructive,
+.ios-btn--filled,
+.ios-btn--tinted,
+.ios-controls,
+.ios-controls--vertical,
+.ios-controls__item,
+.ios-empty,
+.ios-empty__action,
+.ios-empty__body,
+.ios-empty__glyph,
+.ios-empty__title,
+.ios-field,
+.ios-glass,
+.ios-glass--capsule,
+.ios-glass--card,
+.ios-glass--clear,
+.ios-glass--dark,
+.ios-glass--light,
+.ios-glass--prominent,
+.ios-glass-btn,
+.ios-list,
+.ios-list__chevron,
+.ios-list__footer,
+.ios-list__header,
+.ios-list__row,
+.ios-list__row--tappable,
+.ios-list__title,
+.ios-list__value,
+.ios-material,
+.ios-navbar,
+.ios-navbar__title,
+.ios-segmented,
+.ios-statusbar,
+.ios-statusbar__indicators,
+.ios-statusbar__island,
+.ios-switch,
+.ios-switch__track,
+.ios-tabbar,
+.ios-tabbar__item {
+  box-sizing: border-box;
+}
+
+
 :root {
   /* Not measured. The kit exports components on transparent or
      placeholder backgrounds, so there is no screenshot to read a page
@@ -239,11 +295,6 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
-  /* border-box, so min-height is the row height rather than the height
-     of its contents. As content-box the 11px padding added to the 44
-     and every single-line row came out at 66 -- half again as tall as
-     the value it was set from, and the loosest thing about the result. */
-  box-sizing: border-box;
   min-height: var(--ios-hit-target);
   padding: 11px var(--ios-gutter);
   position: relative;
@@ -768,3 +819,71 @@ body {
 }
 
 .ios-statusbar__indicators svg { display: block; }
+
+/* ------------------------------------------------------------ Alert
+
+   Measured from assets/ui-kit/Alerts/: 270pt wide, ~21pt corner radius,
+   buttons 34pt tall laid side by side as capsules.
+
+   Two things here are not what most people build. The title and message
+   are LEFT aligned, not centred -- the centred alert is the older iOS
+   one and it is what everyone reaches for from memory. And the buttons
+   are capsules sitting next to each other, not full-width text
+   separated by hairlines. Stacked is the variant, used when a label is
+   long or an action is destructive enough to want its own row; side by
+   side is the default.
+
+   The 34pt button height is Apple's and is below the 44pt general rule
+   while above the 28pt accessibility floor -- the same two numbers
+   pages/buttons.md and specs.md disagree on. Kept as measured, because
+   the width does the work here and inventing a taller button would make
+   this stop matching the thing it was measured from. */
+
+.ios-alert {
+  width: 270px;
+  max-width: calc(100vw - 48px);
+  padding: 19px 16px 16px;
+  border-radius: 21px;
+  background: var(--ios-bg-card);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, .34);
+  text-align: left;
+}
+
+.ios-alert__title {
+  margin: 0;
+  color: var(--ios-label);
+  font: var(--ios-text-headline);
+  letter-spacing: var(--ios-track-headline);
+}
+
+.ios-alert__message {
+  margin: 4px 0 0;
+  color: var(--ios-label);
+  font: var(--ios-text-subhead);
+  letter-spacing: var(--ios-track-subhead);
+}
+
+.ios-alert__actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.ios-alert--stacked .ios-alert__actions {
+  flex-direction: column-reverse;   /* the confirming action sits on top */
+}
+
+.ios-alert__actions .ios-btn {
+  flex: 1;
+  min-height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  font: var(--ios-text-headline);
+  letter-spacing: var(--ios-track-headline);
+}
+
+/* Cancel is a filled grey capsule here, not a plain text button. */
+.ios-alert__cancel {
+  background: var(--ios-fill-control);
+  color: var(--ios-label);
+}
