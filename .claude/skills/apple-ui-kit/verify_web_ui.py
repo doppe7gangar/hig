@@ -116,7 +116,14 @@ def run(pw, scheme, c, contrast_more=False):
                     color_scheme=scheme,
                     contrast="more" if contrast_more else "no-preference")
     pg.goto(PAGE)
-    pg.wait_for_timeout(200)
+    # A fixed 200ms is a race, not a wait: one run in several asserted
+    # against the fallback face because the woff2 had not arrived yet,
+    # and a check that fails at random teaches people to re-run it rather
+    # than read it. document.fonts.ready resolves when the faces the page
+    # actually uses have loaded.
+    pg.wait_for_function("() => document.fonts.status === 'loaded'",
+                         timeout=10000)
+    pg.wait_for_timeout(120)
     print(f"\n== {scheme}{' + prefers-contrast:more' if contrast_more else ''} ==")
 
     # 1. every token resolves to something

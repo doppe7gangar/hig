@@ -189,8 +189,19 @@ def test_hidden_state_contrast_is_caught(tmp):
     # White on a light brand fails; break only the hidden empty panel, so
     # a checker that measures just the visible state cannot notice.
     i, j = html.index('class="state state--empty"'), html.index('class="state state--error"')
-    seg = html[i:j].replace('class="ios-btn ios-btn--filled"',
-                            'class="ios-btn ios-btn--filled" style="color:#FFFFFF"')
+    # Match the class attribute rather than one exact spelling of it.
+    # The scaffold later added ios-empty__action to that button and the
+    # exact-string replace silently did nothing: the page stayed correct,
+    # check_design rightly passed, and this test reported that the state
+    # sweep was broken. A fixture that can quietly no-op accuses the
+    # wrong component.
+    seg, n = re.subn(r'(class="[^"]*\bios-btn--filled\b[^"]*")',
+                     r'\1 style="color:#FFFFFF"', html[i:j], count=1)
+    if n != 1:
+        raise RuntimeError(
+            "hidden-state fixture did not apply: no ios-btn--filled inside "
+            "the empty panel, so this test would assert nothing. Fix the "
+            "injection before trusting the result.")
     open(page, "w", encoding="utf-8").write(html[:i] + seg + html[j:])
 
     p = subprocess.run([sys.executable, CHECK, out], capture_output=True, text=True)

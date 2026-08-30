@@ -125,21 +125,31 @@ SWITCHER = """<div class="demo__bar" role="group" aria-label="Preview state">
 </div>"""
 
 EMPTY_PANEL = """      <section class="state state--empty">
-        <div class="unavailable">
-          <div class="unavailable__glyph" aria-hidden="true">+</div>
-          <h2 class="unavailable__title">No __THING__ yet</h2>
-          <p class="unavailable__body">__EMPTY_BODY__</p>
-          <button class="ios-btn ios-btn--filled">__EMPTY_CTA__</button>
+        <div class="ios-empty">
+          <div class="ios-empty__glyph" data-sf-symbol="tray"
+               aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="38" height="38" fill="none"
+                 stroke="currentColor" stroke-width="1.4" stroke-linecap="round"
+                 stroke-linejoin="round"><path d="M3 13h5l2 3h4l2-3h5"/><path d="M5 5l-2 8v5a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-5l-2-8z"/></svg>
+          </div>
+          <h2 class="ios-empty__title">No __THING__ yet</h2>
+          <p class="ios-empty__body">__EMPTY_BODY__</p>
+          <button class="ios-btn ios-btn--filled ios-empty__action">__EMPTY_CTA__</button>
         </div>
       </section>
 """
 
 ERROR_PANEL = """      <section class="state state--error">
-        <div class="unavailable">
-          <div class="unavailable__glyph" aria-hidden="true">!</div>
-          <h2 class="unavailable__title">Couldn't load __THING__</h2>
-          <p class="unavailable__body">Check your connection and try again.</p>
-          <button class="ios-btn ios-btn--filled">Try Again</button>
+        <div class="ios-empty">
+          <div class="ios-empty__glyph" data-sf-symbol="exclamationmark.triangle"
+               aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="38" height="38" fill="none"
+                 stroke="currentColor" stroke-width="1.4" stroke-linecap="round"
+                 stroke-linejoin="round"><path d="M12 3 2 20h20z"/><path d="M12 9v5m0 3v.5"/></svg>
+          </div>
+          <h2 class="ios-empty__title">Couldn't load __THING__</h2>
+          <p class="ios-empty__body">Check your connection and try again.</p>
+          <button class="ios-btn ios-btn--filled ios-empty__action">Try Again</button>
         </div>
       </section>
 """
