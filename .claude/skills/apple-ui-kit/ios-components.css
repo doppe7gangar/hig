@@ -1024,3 +1024,86 @@ body {
 .ios-pagecontrol--many .ios-pagecontrol__dot:nth-last-child(2) {
   transform: scale(.75);
 }
+
+/* ----------------------------------------------------------- Slider
+
+   Measured from assets/ui-kit/Sliders/: a 4pt track with the knob at
+   24x16pt. The knob is a CAPSULE, wider than it is tall -- not the
+   circle it was for a decade, and the thing that dates a hand-built
+   slider instantly. Ticks and a leading/trailing symbol are variants
+   the family renders; both are optional and neither is the default.
+
+   Built on <input type=range> so it keeps the platform's keyboard
+   behaviour: arrows step, Home and End jump to the bounds. A div with
+   a drag handler looks the same and cannot be operated without a
+   pointer, which is the usual reason a custom slider fails an audit. */
+
+.ios-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 16px;             /* the knob's height, so the hit area matches */
+  background: transparent;
+  cursor: pointer;
+}
+
+/* The fill left of the knob. Firefox has ::-moz-range-progress and
+   WebKit has no equivalent, so a gradient stop does the work in both --
+   driven by --ios-slider-value, which the page sets to the percentage:
+
+     <input class="ios-slider" type="range" value="72"
+            style="--ios-slider-value: 72">
+
+   Without it the track renders unfilled, which is what this component
+   did on Chromium until the rendering was put next to it. */
+.ios-slider::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(to right,
+      var(--ios-accent) calc(var(--ios-slider-value, 0) * 1%),
+      var(--ios-fill-track) calc(var(--ios-slider-value, 0) * 1%));
+}
+.ios-slider::-moz-range-track {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--ios-fill-track);
+}
+.ios-slider::-moz-range-progress {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--ios-accent);
+}
+
+.ios-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 16px;
+  margin-top: -6px;         /* centre the 16pt knob on the 4pt track */
+  border-radius: 999px;
+  background: #FFFFFF;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .18), 0 0 0 .5px rgba(0, 0, 0, .04);
+}
+.ios-slider::-moz-range-thumb {
+  width: 24px;
+  height: 16px;
+  border: 0;
+  border-radius: 999px;
+  background: #FFFFFF;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .18);
+}
+
+.ios-slider:focus-visible { outline: none; }
+.ios-slider:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .18), 0 0 0 3px var(--ios-accent);
+}
+.ios-slider:disabled { opacity: var(--ios-disabled-opacity); cursor: default; }
+
+/* The row a slider usually lives in: a symbol either side of the track,
+   which is how volume and brightness read. */
+.ios-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--ios-label-secondary);
+}
