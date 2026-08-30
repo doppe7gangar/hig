@@ -720,3 +720,51 @@ body {
   min-height: 52px;
   border-radius: 999px;
 }
+
+/* -------------------------------------------------------- Status bar
+
+   Measured from assets/ui-kit/Status Bars and Menu Bars/iPhone/ at
+   393pt wide: the time sits 52pt from the leading edge, the Dynamic
+   Island is 122x36pt and exactly centred (its midpoint lands on 196.4
+   against the screen's 196.5), and the three indicators are right
+   grouped at 12-13pt tall with roughly 7pt between them.
+
+   The glyphs here are drawn, not Apple's. SF Symbols cannot ship in a
+   web kit and these are the shapes the corpus renders -- ascending
+   bars, arcs, a rounded cell -- at the measured sizes. A mockup needs
+   the proportion and the position to be right; it does not need to
+   pass off the artwork as the original. */
+
+.ios-statusbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 54px;
+  padding: 0 38px 0 52px;
+  color: var(--ios-label);
+  font: var(--ios-text-footnote);
+  font-weight: var(--ios-weight-semibold);
+  font-variant-numeric: tabular-nums;
+  user-select: none;
+}
+
+.ios-statusbar__island {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 13px;
+  width: 122px;
+  height: 36px;
+  border-radius: 999px;
+  background: #000;
+  pointer-events: none;
+}
+
+.ios-statusbar__indicators {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.ios-statusbar__indicators svg { display: block; }

@@ -158,4 +158,9 @@ def main():
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    try:
+        sys.exit(main())
+    except BrokenPipeError:
+        # Piping to head is the normal way to read this. Exiting with a
+        # traceback because the reader went away is noise.
+        os._exit(0)

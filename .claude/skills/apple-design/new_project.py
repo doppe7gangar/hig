@@ -172,11 +172,6 @@ IOS_CSS = """
             border-radius: 52px; background: var(--ios-bg);
             box-shadow: 0 0 0 11px #1C1C1E, 0 0 0 13px #3A3A3C,
                         0 26px 60px rgba(0,0,0,.45); }
-  .statusbar { flex: none; height: 54px; display: flex; align-items: flex-end;
-               justify-content: space-between; padding: 0 30px 6px;
-               font: var(--ios-text-footnote); color: var(--ios-label);
-               font-weight: var(--ios-weight-semibold); }
-  .statusbar__glyphs { letter-spacing: 1px; }
   .phone { flex: 1; min-height: 0; width: 100%; display: flex;
            flex-direction: column; background: var(--ios-bg);
            overflow-y: auto; }
@@ -185,7 +180,7 @@ IOS_CSS = """
        already the frame. Shed it rather than draw a phone in a phone. */
     .stage { padding: 0; background: var(--ios-bg); place-items: stretch; }
     .device { width: 100%; height: 100vh; border-radius: 0; box-shadow: none; }
-    .statusbar { display: none; }
+    .ios-statusbar { display: none; }
   }
   .screen { flex: 1; padding: 16px var(--ios-gutter, 16px) 88px; }
   /* The kit's 11px row padding is measured for a text row: a 22px line
@@ -265,9 +260,35 @@ IOS_BODY = """<div class="demo">
 __SWITCHER__
  <div class="stage">
   <div class="device" data-state="populated">
-   <div class="statusbar" aria-hidden="true">
+   <div class="ios-statusbar" aria-hidden="true">
      <span>9:41</span>
-     <span class="statusbar__glyphs">&#9679;&#9679;&#9679; &#9207; &#9632;</span>
+     <span class="ios-statusbar__island"></span>
+     <span class="ios-statusbar__indicators">
+       <svg width="19" height="13" viewBox="0 0 19 13" fill="currentColor"
+            data-sf-symbol="cellularbars" aria-hidden="true">
+         <rect x="0"  y="9"   width="3" height="4"  rx="1"/>
+         <rect x="5"  y="6.5" width="3" height="6.5" rx="1"/>
+         <rect x="10" y="3.5" width="3" height="9.5" rx="1"/>
+         <rect x="15" y="0"   width="3" height="13" rx="1"/>
+       </svg>
+       <svg width="17" height="13" viewBox="0 0 17 13" fill="none"
+            stroke="currentColor" stroke-linecap="round"
+            data-sf-symbol="wifi" aria-hidden="true">
+         <path d="M1.4 4.6a10 10 0 0 1 14.2 0" stroke-width="2.1"/>
+         <path d="M4.4 7.9a5.8 5.8 0 0 1 8.2 0" stroke-width="2.1"/>
+         <circle cx="8.5" cy="11.3" r="1.5" fill="currentColor" stroke="none"/>
+       </svg>
+       <svg width="27" height="13" viewBox="0 0 27 13"
+            data-sf-symbol="battery.75" aria-hidden="true">
+         <rect x="0.6" y="0.6" width="23.3" height="11.8" rx="3.8"
+               fill="none" stroke="currentColor" stroke-opacity=".38"
+               stroke-width="1.1"/>
+         <rect x="2.2" y="2.2" width="16" height="8.6" rx="2.4"
+               fill="currentColor"/>
+         <path d="M25.4 4.6v3.8a2 2 0 0 0 0-3.8z" fill="currentColor"
+               fill-opacity=".38"/>
+       </svg>
+     </span>
    </div>
    <div class="phone">
     <nav class="ios-navbar">
