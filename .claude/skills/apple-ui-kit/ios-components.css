@@ -583,3 +583,86 @@ body {
   .ios-switch__track,
   .ios-switch__track::after { transition: none; }
 }
+
+/* ---------------------------------------------------------- Controls
+
+   A floating capsule that holds one or more controls, which is how iOS
+   26 groups them: Calendar's back pill and its list/search/add trio,
+   Pages' Cancel and its overflow circle, Maps' 3D/globe/locate stack.
+   The kit had the material and the capsule radius and no component that
+   put them together, so every design either hand-rolled the group or
+   fell back on the flat bar the capsule replaced.
+
+   Composes with .ios-glass: the group takes the material, the items are
+   plain controls inside it, and a hairline separates them the way it
+   separates list rows. */
+
+.ios-controls {
+  display: inline-flex;
+  align-items: stretch;
+  padding: 3px;
+  gap: 0;
+  border-width: 0;
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .14), 0 1px 3px rgba(0, 0, 0, .08);
+}
+
+.ios-controls--vertical {
+  flex-direction: column;
+  border-radius: 22px;
+}
+
+.ios-controls__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  /* Full target even where the glyph is small: these sit at a screen
+     edge, which is the hardest place to hit accurately. */
+  min-height: var(--ios-hit-target);
+  min-width: var(--ios-hit-target);
+  padding: 0 14px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ios-accent);
+  font: var(--ios-text-body);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* A hairline between siblings, never on the ends. Drawn as a positioned
+   element rather than an inset shadow or a border: the item is fully
+   rounded, so either of those follows the corner and the divider comes
+   out as an arc rather than a rule. */
+.ios-controls__item { position: relative; }
+.ios-controls__item + .ios-controls__item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 22%;
+  bottom: 22%;
+  width: 1px;
+  transform: scaleX(.5);
+  background: var(--ios-separator);
+  pointer-events: none;
+}
+.ios-controls--vertical .ios-controls__item + .ios-controls__item::before {
+  left: 22%;
+  right: 22%;
+  top: 0;
+  bottom: auto;
+  width: auto;
+  height: 1px;
+  transform: scaleY(.5);
+}
+
+.ios-controls__item:active { transform: scale(.94); }
+.ios-controls__item:focus-visible {
+  outline: 3px solid var(--ios-accent);
+  outline-offset: 2px;
+}
+.ios-controls__item[aria-pressed="true"],
+.ios-controls__item[aria-current="page"] {
+  background: color-mix(in srgb, var(--ios-accent) 16%, transparent);
+}

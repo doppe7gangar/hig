@@ -234,7 +234,12 @@ IOS_CSS = """
          left the hairline exactly where the bar was meant to vanish. */
       box-shadow: none; }
   .device:not([data-scrolled="1"]) .ios-navbar::before { opacity: 0; }
-  .ios-navbar { transition: background .18s ease; }
+  .ios-navbar { transition: background .18s ease;
+                padding-top: 6px; padding-bottom: 6px; }
+  /* Calendar and Pages float their actions rather than seating them in a
+     bar: the capsule carries the material, the bar behind it is only
+     there to hold the compact title once the large one has gone. */
+  .ios-navbar .ios-controls { margin-left: auto; }
   .ios-navbar__title { opacity: 0; transition: opacity .18s ease; }
   .device[data-scrolled="1"] .ios-navbar__title { opacity: 1; }
   .largetitle { margin: 4px var(--ios-gutter, 16px) 8px;
@@ -257,8 +262,20 @@ __SWITCHER__
    <div class="phone">
     <nav class="ios-navbar">
       <span class="ios-navbar__title">__SCREEN1__</span>
-      <button class="ios-btn ios-navbar__action" data-sf-symbol="plus"
-              aria-label="Add __THING__">+</button>
+      <div class="ios-glass ios-controls">
+        <button class="ios-controls__item" data-sf-symbol="line.3.horizontal.decrease"
+                aria-label="Filter __THING__">
+          <svg viewBox="0 0 24 24" width="19" height="19" fill="none"
+               stroke="currentColor" stroke-width="1.9" stroke-linecap="round"
+               aria-hidden="true"><path d="M4 7h16M7 12h10M10 17h4"/></svg>
+        </button>
+        <button class="ios-controls__item" data-sf-symbol="plus"
+                aria-label="Add __THING__">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none"
+               stroke="currentColor" stroke-width="2" stroke-linecap="round"
+               aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+      </div>
     </nav>
     <h1 class="largetitle">__SCREEN1__</h1>
     <main class="screen">
