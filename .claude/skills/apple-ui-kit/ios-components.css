@@ -919,3 +919,108 @@ body {
   background: var(--ios-fill-control);
   color: var(--ios-red);
 }
+
+/* ---------------------------------------------------------- Stepper
+
+   The tokens for this were measured long ago -- --ios-stepper-w 46,
+   --ios-stepper-h 32, --ios-stepper-radius 16 -- and nothing ever used
+   them. A measured value with no component to spend it on is the same
+   half-finished state the coverage audit exists to surface.
+
+   From assets/ui-kit/Steppers/: one grey pill holding minus and plus,
+   divided by a hairline that stops short of the ends. Each half is the
+   full 46x32; the control is 92 wide in total. That is under the 44pt
+   hit target, which is Apple's own call here -- a stepper sits inside a
+   row that is itself 44 tall, and the two halves are wide rather than
+   tall. */
+
+.ios-stepper {
+  display: inline-flex;
+  align-items: stretch;
+  height: var(--ios-stepper-h);
+  border-radius: var(--ios-stepper-radius);
+  background: var(--ios-fill-control);
+  overflow: hidden;
+}
+
+.ios-stepper__btn {
+  position: relative;
+  width: var(--ios-stepper-w);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  color: var(--ios-label);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* The divider, positioned rather than bordered: the pill is rounded and
+   a border follows the curve. Same reason as .ios-controls. */
+.ios-stepper__btn + .ios-stepper__btn::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  transform: scaleX(.5);
+  background: var(--ios-separator);
+}
+
+.ios-stepper__btn:active { background: var(--ios-fill-track); }
+.ios-stepper__btn:disabled {
+  opacity: var(--ios-disabled-opacity);
+  cursor: default;
+}
+.ios-stepper__btn:focus-visible {
+  outline: 3px solid var(--ios-accent);
+  outline-offset: -3px;
+}
+
+/* ----------------------------------------------------- Page control
+
+   Measured from assets/ui-kit/Page Controls/, which renders the family
+   at three lengths and shows the thing nobody implements: past six
+   pages the dots SHRINK toward the ends, so a long control still reads
+   as a fixed-width row rather than marching off the screen.
+
+   The ratios are exact in the rendering:
+
+     1-6 pages   every dot full size
+     7 pages     outermost pair at 0.75
+     8+ pages    outermost pair at 0.5, the next pair at 0.75
+
+   Dot and gap are equal, which is what makes the rhythm read. */
+
+.ios-pagecontrol {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ios-pagecontrol__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--ios-label);
+  opacity: .3;
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.ios-pagecontrol__dot[aria-current="true"] { opacity: 1; }
+
+.ios-pagecontrol--seven .ios-pagecontrol__dot:first-child,
+.ios-pagecontrol--seven .ios-pagecontrol__dot:last-child {
+  transform: scale(.75);
+}
+
+.ios-pagecontrol--many .ios-pagecontrol__dot:first-child,
+.ios-pagecontrol--many .ios-pagecontrol__dot:last-child {
+  transform: scale(.5);
+}
+.ios-pagecontrol--many .ios-pagecontrol__dot:nth-child(2),
+.ios-pagecontrol--many .ios-pagecontrol__dot:nth-last-child(2) {
+  transform: scale(.75);
+}
