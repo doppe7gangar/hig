@@ -264,51 +264,13 @@ what `verify_web_ui.py` and the eval runs are for.
 
 ---
 
-## 7. Auditing the third-party skills in `design-skills/`
+## 7. Where `apple-motion` comes from
 
-`design-skills/` holds 106 skills from six collections, several covering
-the same ground as `apple-ui-kit`. Installing them alongside it means two
-sources disagreeing about what systemBlue is, and the model sees both.
-
-```bash
-python3 scripts/audit_design_skills.py
-```
-
-It checks their stated Apple values against this repo's measured ones —
-colours off the UI kit renderings, weights from SF Pro's `fvar` table,
-tracking from the HIG's own table — and reports every contradiction with
-both values.
-
-It found 43 real disagreements — the pre-iOS-26 palette, SF's weights
-given as the CSS ladder, and one stating the tracking rule backwards for
-display sizes. All are now reconciled, so it should report **no
-disagreements**. If it reports some again, something upstream was
-re-copied over the corrections.
-
-```bash
-python3 scripts/fix_design_skills.py --dry-run   # what it would change
-python3 scripts/fix_design_skills.py             # apply
-```
-
-The fixer only touches straight substitutions, and skips lines where the
-old value is named as an anti-pattern — "hardcoding `#007AFF` is a
-maintenance trap, use `Color.blue`" is correct advice that happens to
-contain the old hex, and rewriting it would turn guidance into nonsense.
-Four such lines are excluded by design. The one prose claim was edited by
-hand, because rewriting an argument mechanically produces something that
-reads like it means something and doesn't.
-
-None of this made them bad skills. Those values were correct until iOS 26
-and are what circulates everywhere.
-
-### What was kept
-
-`apple-motion` is the one addition: the HIG covers motion as principle
-and has no spring parameters at all, so it was a real gap rather than a
-duplicate. It defers values to `apple-ui-kit` and principles to
+`apple-motion` fills a real gap: the HIG covers motion as principle
+and has no spring parameters at all. It defers values to `apple-ui-kit` and principles to
 `apple-hig`, and says plainly which of its own claims are API fact and
 which are one author's observation.
 
-The rest of `design-skills/` stays as reference material rather than
-installed skills. Installing 106 of them means several all claiming
-"Apple design" and colliding on every request.
+Its references are adapted from the MIT-licensed apple-design-skills
+collection, with Apple values reconciled against `apple-ui-kit`'s
+measurements; the notice is in `.claude/skills/apple-motion/LICENSE.txt`.

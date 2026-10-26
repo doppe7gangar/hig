@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
-"""Turn the SF Pro source in Fonts/ into a webfont the skill can use.
+"""Turn Apple's SF Pro download into a webfont the skill can use.
 
-Fonts/ holds what Apple ships: a 6.1 MB variable TrueType plus 58 static
+The font isn't in this repo; its licence doesn't allow redistributing it.
+Download SF Pro from developer.apple.com/fonts and install it, then point
+this at the variable SF-Pro.ttf. Apple ships a 6.1 MB variable TrueType plus 58 static
 .otf cuts, none of which belong on a web page. The variable file already
 covers everything the statics do -- opsz 17-28 and wght 1-1000, so Text
 through Display and Ultralight through Black -- so this takes that one
 file, subsets it to the Latin ranges a UI actually sets, and compresses
 it to woff2. 6.1 MB becomes 212 KB, smaller than Inter.
 
-    python3 scripts/build_fonts.py
+    python3 scripts/build_fonts.py /path/to/SF-Pro.ttf
 """
 
 import os
@@ -21,7 +23,6 @@ except ImportError:
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
-SRC = os.path.join(REPO, "Fonts", "San-Francisco-Pro-Fonts-master", "SF-Pro.ttf")
 OUT = os.path.join(REPO, ".claude", "skills", "apple-ui-kit", "fonts",
                    "SF-Pro-latin.woff2")
 
@@ -34,10 +35,14 @@ UNICODES = ("U+0000-00FF,U+0100-017F,U+0180-024F,U+2000-206F,"
 
 
 def main():
-    if not os.path.exists(SRC):
-        sys.exit(f"SF Pro source not found: {SRC}")
+    if len(sys.argv) != 2:
+        sys.exit("usage: build_fonts.py /path/to/SF-Pro.ttf  "
+                 "(download SF Pro from developer.apple.com/fonts)")
+    src = sys.argv[1]
+    if not os.path.exists(src):
+        sys.exit(f"SF Pro source not found: {src}")
     subset.main([
-        SRC, f"--output-file={OUT}", "--flavor=woff2",
+        src, f"--output-file={OUT}", "--flavor=woff2",
         f"--unicodes={UNICODES}",
         "--layout-features=*",   # keep kerning and the rest
         "--no-hinting",          # hinting is ignored by browsers here

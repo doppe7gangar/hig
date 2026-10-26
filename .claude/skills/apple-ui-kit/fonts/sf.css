@@ -1,7 +1,8 @@
 /* SF Pro, self-hosted.
  *
- * Built from the variable SF-Pro.ttf in the repo's Fonts/ folder by
- * scripts/build_fonts.py, subset to Latin and compressed to woff2:
+ * Built from the variable SF-Pro.ttf in Apple's SF Pro download
+ * (developer.apple.com/fonts) by scripts/build_fonts.py, subset to Latin
+ * and compressed to woff2:
  * 6.1 MB of TrueType becomes 212 KB, smaller than Inter.
  *
  * The variable file carries both of Apple's axes -- opsz 17-28 and

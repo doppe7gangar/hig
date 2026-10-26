@@ -1,3 +1,4 @@
+<!-- Adapted from apple-design-skills (MIT, see ../LICENSE.txt). -->
 # Gestures & Interaction Patterns
 Reference for the `apple-design-motion` skill family. Covers the core iOS/iPadOS gesture vocabulary, system interactions (Dynamic Island, home indicator, app switcher), pointer/trackpad behavior on iPad, and faithful web replication strategies including code recipes.
 

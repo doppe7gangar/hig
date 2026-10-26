@@ -14,7 +14,7 @@ import shutil
 import subprocess
 import tempfile
 
-SKILLS_SRC = "/tmp/hig-eval/hig-build/.claude/skills"
+SKILLS_SRC = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "..", ".claude", "skills"))
 MODEL = "claude-opus-5"
 TIMEOUT = 600
 

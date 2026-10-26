@@ -31,8 +31,9 @@ standing and mixing them is how motion advice becomes folklore:
   percentages in `motion-animation.md` are characterisations of them,
   not published constants — treat them as a starting point you tune, and
   don't quote them as Apple's specification.
-- **Everything else → observation.** These references came from a
-  third-party skill collection and are marked `[observed]` where the
+- **Everything else → observation.** These references are adapted from
+  the MIT-licensed apple-design-skills collection (notice in
+  `LICENSE.txt`) and are marked `[observed]` where the
   author inferred behaviour from shipping apps. Useful, not
   authoritative.
 

@@ -1,6 +1,7 @@
-<!-- Apple values in this file were reconciled against the measurements in
-     .claude/skills/apple-ui-kit/tokens/ by scripts/fix_design_skills.py.
-     The originals were the pre-iOS-26 palette and the CSS weight ladder. -->
+<!-- Adapted from apple-design-skills (MIT, see ../LICENSE.txt). Apple values
+     in this file were reconciled against the measurements in
+     .claude/skills/apple-ui-kit/tokens/. The originals were the pre-iOS-26
+     palette and the CSS weight ladder. -->
 # Apple Motion & Animation — Design & Engineering Reference
 **Scope**: Spring physics first-principles, Apple's fluid-interface rules, SwiftUI presets & transitions, and faithful web replication recipes.
 
