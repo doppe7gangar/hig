@@ -288,11 +288,14 @@ body {
   flex: none;
 }
 
+/* List/_Header/Nested Header: 17pt semibold in the secondary label
+   colour, sentence case. Read off the rendering, its cap height (12pt)
+   and stem match SF Pro at 17pt/590, and its ink is rgba(60,60,67,.6).
+   The small uppercase footnote this replaces is the pre-iOS 26 header,
+   and it dated every grouped list built on the kit. */
 .ios-list__header {
-  font: var(--ios-text-footnote);
-  letter-spacing: var(--ios-track-footnote);
-  text-transform: uppercase;
-  letter-spacing: .06em;
+  font: var(--ios-text-headline);
+  letter-spacing: var(--ios-track-headline);
   color: var(--ios-label-secondary);
   margin: 24px calc(var(--ios-gutter) * 2) 7px;
 }

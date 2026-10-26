@@ -58,7 +58,14 @@ brand consistency is the deliberate goal; it is a bad default.
 
 ## Using it
 
-For the web, copy the two CSS files in and load tokens first:
+For the web, start by copying the kit into the project, before writing
+any CSS of your own:
+
+```bash
+cp -R <this skill's directory>/{tokens,fonts,ios-components.css} ./
+```
+
+Then load the tokens first:
 
 ```html
 <link rel="stylesheet" href="fonts/inter.css">      <!-- or fonts/sf.css -->
@@ -73,8 +80,18 @@ here so a page needs no network fetch at all. Reaching for
 third-party dependency, and nothing offline — and asked to build a
 settings screen, that is exactly what happened in testing while both
 fonts sat unused in the skill directory. If the deliverable is a single
-self-contained file, inline the tokens and base64 the one font you need,
-or copy `fonts/` next to it. Either beats a CDN.
+self-contained file, inline `tokens/ios-tokens.css` and
+`ios-components.css` verbatim, `--ios-*` names and all, and base64 the
+one font you need, or copy `fonts/` next to it. Either beats a CDN.
+
+**Build with the kit, not beside it.** Use the recipes' classes
+(`ios-list`, `ios-navbar`, `ios-btn`, …) and the `--ios-*` variables.
+Don't re-declare the kit's values under your own names
+(`--accent: #0088FF`), and don't rebuild a list, bar or button the
+kit already has. In testing, a page built that way got every colour
+right and still looked almost like iOS rather than like iOS, because
+the lists, bars and buttons around those colours were approximations,
+not the measured recipes.
 
 `sf.css` must load **after** `tokens/ios-tokens.css` — it overrides
 `--ios-font`, and the token sheet would otherwise overwrite it back.

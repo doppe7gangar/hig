@@ -39,7 +39,21 @@ Follow these references in order as applicable:
 
 Use realistic content, stress cases, explicit commit/recovery behavior, and task-driven differences rather than genre defaults.
 
-## 12. Extract or inherit the project design grammar
+## 12. Scaffold, then build on it
+Once the platform and spatial model are chosen, generate the project instead of writing a page from scratch. That includes a one-screen request:
+
+```bash
+python3 new_project.py --name Ledger --brand "#0088FF" \
+  --kind ios --model stack --screens "Expenses,Add Expense" -o ./design
+
+python3 new_project.py --name Pulse --brand "#5A67D8" \
+  --kind web --model dashboard --character dense \
+  --screens "Overview,Reports,Settings" -o ./design
+```
+
+It copies the measured kit into the project (`./design/vendor/ios-tokens.css`, `./design/vendor/ios-components.css`), wires the brand into `theme.css`, and writes the `DESIGN.md` skeleton and the loading, empty and error states the gates check for. Replace its placeholder content with the real design. Don't paste copies of the tokens inline or rebuild the components it links. A hand-written page skips all of it, and the result looks almost like iOS instead of like iOS. Marketing pages select the editorial model on their own. If no generated model fits (`references/spatial-models.md`), scaffold the closest one and record in `DESIGN.md` where the design departs from it.
+
+## 13. Extract or inherit the project design grammar
 Read `references/design-grammar.md`.
 
 If `PROJECT_GRAMMAR.md` exists, read it before designing new screens. Inherit applicable **established** rules by default. Allow justified exceptions when task, content, platform, or input model requires them.
@@ -48,7 +62,7 @@ After at least two meaningful screen/state families exist, create or refresh `PR
 
 Do not convert accidental repetition into a rule. Do not turn the grammar into a token dump.
 
-## 13. Audit the implementation against the grammar
+## 14. Audit the implementation against the grammar
 Once implementation exists, run:
 
 ```bash
@@ -73,10 +87,10 @@ python3 audit_grammar.py ./design --check
 
 If implementation evidence changes the grammar, update `PROJECT_GRAMMAR.md` deliberately and rerun `check_grammar.py`. Never let code silently redefine the design system.
 
-## 14. Plan component states and accessibility
+## 15. Plan component states and accessibility
 Read `references/interaction-accessibility.md`. Check applicable focus, hover, pressed, selected, disabled, editing, loading, drag/drop, destructive/undo and inactive-window states plus scaling/zoom, assistive semantics, targets, non-color communication, Reduce Motion/Transparency, focus visibility, and recovery.
 
-## 15. Compose and review
+## 16. Compose and review
 Compose regions, reading order, density, persistent/contextual chrome, and functional empty space before decorative material choices. Avoid card wallpaper, excessive pills, decorative glass/blur, gratuitous shadows, unsupported giant headings, duplicate primary actions, and decorative motion.
 
 # Project gates
@@ -121,7 +135,8 @@ brief
 → adaptivity + interaction architecture
 → cross-screen coherence
 → extract/update project grammar
-→ implement
+→ scaffold (new_project.py)
+→ implement on the scaffold
 → implementation grammar audit
 → classify observed repetition/drift
 → update grammar deliberately if warranted

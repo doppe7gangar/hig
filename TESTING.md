@@ -51,17 +51,30 @@ Ask for something ordinary:
 
 **What tells you it worked:**
 
-- It reads `apple-ui-kit/SKILL.md` early on, before writing any CSS.
+- It opens `apple-ui-kit` or `apple-design` before writing any CSS. A
+  request for a whole page or app goes through `apple-design`, which
+  scaffolds the project and brings the kit in; that's expected and can
+  take half an hour, because it runs its own checks.
+- It copies `ios-tokens.css` and `ios-components.css` in rather than
+  reinventing them, and the page uses the kit's classes (`ios-list`,
+  `ios-navbar`, `ios-btn`).
 - The files it writes reference `var(--ios-accent)` and friends, not
   raw hex codes.
-- It copies `tokens/ios-tokens.css` and `ios-components.css` in rather
-  than reinventing them.
 
 **What tells you it didn't:** hardcoded `#007AFF` anywhere. That's the
 old palette from search results — the measured iOS 27 accent is
-`#0088FF`. It's the clearest single tell.
+`#0088FF`. It's the clearest single tell. The subtler one is a page that
+has the right colours on hand-built lists and bars: it looks almost like
+iOS, which is the failure this kit exists to prevent.
 
 Open the result and compare it against `example.html` side by side.
+
+The same check, run and graded for you, screenshots included:
+
+```bash
+python3 scripts/eval/test_ui_kit_build.py --save /tmp/uikit
+python3 scripts/eval/test_ui_kit_build.py --grade ./design   # grade your own build
+```
 
 ---
 
