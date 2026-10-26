@@ -1,310 +1,163 @@
 # apple-hig
 
-A complete offline Markdown mirror of Apple's [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines) (HIG) — the guidance and best practices for designing apps and games across iOS, iPadOS, macOS, tvOS, visionOS, and watchOS.
+Design, build and review apps the way Apple does, with an AI coding agent
+that reads Apple's actual rules instead of half-remembering them.
 
-Content is scraped directly from Apple's DocC JSON data API and converted to Markdown, preserving headings, lists, tables, asides, and links. See [`content/human-interface-guidelines.md`](content/human-interface-guidelines.md) for the overview page.
+Four skills for Claude Code (and any agent that reads `AGENTS.md`), plus
+Apple's full Human Interface Guidelines as offline Markdown for them to
+quote.
 
-178 pages, current as of 2026-08-11.
+## Set up (one minute)
 
-## Contents
-
-- [Apple Design (overview)](content/design.md) — the developer.apple.com/design/ landing page: links into the HIG, Resources, and Apple's design tools, plus featured videos and developer stories
-- [Design Resources](content/resources.md) — index of Apple's downloadable design kits (Figma/Sketch/Photoshop templates, fonts, icons, product bezels); links out to the actual files rather than mirroring them
-- [Icon Composer](content/icon-composer.md) — the Icon Composer app: Liquid Glass icon design tool
-- [SF Symbols (app)](content/sf-symbols-app.md) — the SF Symbols app landing page (distinct from [Foundations → SF Symbols](content/sf-symbols.md), which is HIG usage guidance)
-- [Pass Designer](content/pass-designer.md) — the Pass Designer app for Apple Wallet passes
-- [Reality Composer Pro](content/reality-composer-pro.md) — the Reality Composer Pro app for spatial/3D content
-- [Getting started](content/getting-started.md)
-  - [Design principles](content/design-principles.md)
-  - [Designing for iOS](content/designing-for-ios.md)
-  - [Designing for iPadOS](content/designing-for-ipados.md)
-  - [Designing for macOS](content/designing-for-macos.md)
-  - [Designing for tvOS](content/designing-for-tvos.md)
-  - [Designing for visionOS](content/designing-for-visionos.md)
-  - [Designing for watchOS](content/designing-for-watchos.md)
-  - [Designing for games](content/designing-for-games.md)
-- [Foundations](content/foundations.md)
-  - [Accessibility](content/accessibility.md)
-  - [App icons](content/app-icons.md)
-  - [Branding](content/branding.md)
-  - [Color](content/color.md)
-  - [Dark Mode](content/dark-mode.md)
-  - [Icons](content/icons.md)
-  - [Images](content/images.md)
-  - [Immersive experiences](content/immersive-experiences.md)
-  - [Inclusion](content/inclusion.md)
-  - [Layout](content/layout.md)
-  - [Materials](content/materials.md)
-  - [Motion](content/motion.md)
-  - [Privacy](content/privacy.md)
-  - [Right to left](content/right-to-left.md)
-  - [SF Symbols](content/sf-symbols.md)
-  - [Spatial layout](content/spatial-layout.md)
-  - [Typography](content/typography.md)
-  - [Writing](content/writing.md)
-- [Patterns](content/patterns.md)
-  - [Charting data](content/charting-data.md)
-  - [Collaboration and sharing](content/collaboration-and-sharing.md)
-  - [Drag and drop](content/drag-and-drop.md)
-  - [Entering data](content/entering-data.md)
-  - [Feedback](content/feedback.md)
-  - [File management](content/file-management.md)
-  - [Going full screen](content/going-full-screen.md)
-  - [Launching](content/launching.md)
-  - [Live-viewing apps](content/live-viewing-apps.md)
-  - [Loading](content/loading.md)
-  - [Managing accounts](content/managing-accounts.md)
-  - [Managing notifications](content/managing-notifications.md)
-  - [Modality](content/modality.md)
-  - [Multitasking](content/multitasking.md)
-  - [Offering help](content/offering-help.md)
-  - [Onboarding](content/onboarding.md)
-  - [Playing audio](content/playing-audio.md)
-  - [Playing haptics](content/playing-haptics.md)
-  - [Playing video](content/playing-video.md)
-  - [Printing](content/printing.md)
-  - [Ratings and reviews](content/ratings-and-reviews.md)
-  - [Searching](content/searching.md)
-  - [Settings](content/settings.md)
-  - [Undo and redo](content/undo-and-redo.md)
-  - [Workouts](content/workouts.md)
-- [Components](content/components.md)
-  - [Content](content/content.md)
-    - [Charts](content/charts.md)
-    - [Image views](content/image-views.md)
-    - [Text views](content/text-views.md)
-    - [Web views](content/web-views.md)
-  - [Layout and organization](content/layout-and-organization.md)
-    - [Boxes](content/boxes.md)
-    - [Collections](content/collections.md)
-    - [Column views](content/column-views.md)
-    - [Disclosure controls](content/disclosure-controls.md)
-    - [Labels](content/labels.md)
-    - [Lists and tables](content/lists-and-tables.md)
-    - [Lockups](content/lockups.md)
-    - [Outline views](content/outline-views.md)
-    - [Split views](content/split-views.md)
-    - [Tab views](content/tab-views.md)
-  - [Menus and actions](content/menus-and-actions.md)
-    - [Activity views](content/activity-views.md)
-    - [Buttons](content/buttons.md)
-    - [Context menus](content/context-menus.md)
-    - [Dock menus](content/dock-menus.md)
-    - [Edit menus](content/edit-menus.md)
-    - [Home Screen quick actions](content/home-screen-quick-actions.md)
-    - [Menus](content/menus.md)
-    - [Ornaments](content/ornaments.md)
-    - [Pop-up buttons](content/pop-up-buttons.md)
-    - [Pull-down buttons](content/pull-down-buttons.md)
-    - [The menu bar](content/the-menu-bar.md)
-    - [Toolbars](content/toolbars.md)
-  - [Navigation and search](content/navigation-and-search.md)
-    - [Path controls](content/path-controls.md)
-    - [Search fields](content/search-fields.md)
-    - [Sidebars](content/sidebars.md)
-    - [Tab bars](content/tab-bars.md)
-    - [Token fields](content/token-fields.md)
-  - [Presentation](content/presentation.md)
-    - [Action sheets](content/action-sheets.md)
-    - [Alerts](content/alerts.md)
-    - [Page controls](content/page-controls.md)
-    - [Panels](content/panels.md)
-    - [Popovers](content/popovers.md)
-    - [Scroll views](content/scroll-views.md)
-    - [Sheets](content/sheets.md)
-    - [Windows](content/windows.md)
-  - [Selection and input](content/selection-and-input.md)
-    - [Color wells](content/color-wells.md)
-    - [Combo boxes](content/combo-boxes.md)
-    - [Digit entry views](content/digit-entry-views.md)
-    - [Image wells](content/image-wells.md)
-    - [Pickers](content/pickers.md)
-    - [Segmented controls](content/segmented-controls.md)
-    - [Sliders](content/sliders.md)
-    - [Steppers](content/steppers.md)
-    - [Text fields](content/text-fields.md)
-    - [Toggles](content/toggles.md)
-    - [Virtual keyboards](content/virtual-keyboards.md)
-  - [Status](content/status.md)
-    - [Activity rings](content/activity-rings.md)
-    - [Gauges](content/gauges.md)
-    - [Progress indicators](content/progress-indicators.md)
-    - [Rating indicators](content/rating-indicators.md)
-  - [System experiences](content/system-experiences.md)
-    - [App Shortcuts](content/app-shortcuts.md)
-    - [Complications](content/complications.md)
-    - [Controls](content/controls.md)
-    - [Live Activities](content/live-activities.md)
-    - [Notifications](content/notifications.md)
-    - [Snippets](content/snippets.md)
-    - [Status bars](content/status-bars.md)
-    - [Top Shelf](content/top-shelf.md)
-    - [Watch faces](content/watch-faces.md)
-    - [Widgets](content/widgets.md)
-- [Inputs](content/inputs.md)
-  - [Action button](content/action-button.md)
-  - [Apple Pencil and Scribble](content/apple-pencil-and-scribble.md)
-  - [Camera Control](content/camera-control.md)
-  - [Digital Crown](content/digital-crown.md)
-  - [Eyes](content/eyes.md)
-  - [Focus and selection](content/focus-and-selection.md)
-  - [Game controls](content/game-controls.md)
-  - [Gestures](content/gestures.md)
-  - [Gyroscope and accelerometer](content/gyro-and-accelerometer.md)
-  - [Keyboards](content/keyboards.md)
-  - [Nearby interactions](content/nearby-interactions.md)
-  - [Pointing devices](content/pointing-devices.md)
-  - [Remotes](content/remotes.md)
-- [Technologies](content/technologies.md)
-  - [AirPlay](content/airplay.md)
-  - [Always On](content/always-on.md)
-  - [App Clips](content/app-clips.md)
-  - [Apple Pay](content/apple-pay.md)
-  - [Augmented reality](content/augmented-reality.md)
-  - [CareKit](content/carekit.md)
-  - [CarPlay](content/carplay.md)
-  - [Game Center](content/game-center.md)
-  - [Generative AI](content/generative-ai.md)
-  - [HealthKit](content/healthkit.md)
-  - [HomeKit](content/homekit.md)
-  - [iCloud](content/icloud.md)
-  - [ID Verifier](content/id-verifier.md)
-  - [iMessage apps and stickers](content/imessage-apps-and-stickers.md)
-  - [In-app purchase](content/in-app-purchase.md)
-  - [Live Photos](content/live-photos.md)
-  - [Mac Catalyst](content/mac-catalyst.md)
-  - [Machine learning](content/machine-learning.md)
-  - [Maps](content/maps.md)
-  - [NFC](content/nfc.md)
-  - [Photo editing](content/photo-editing.md)
-  - [ResearchKit](content/researchkit.md)
-  - [SharePlay](content/shareplay.md)
-  - [ShazamKit](content/shazamkit.md)
-  - [Sign in with Apple](content/sign-in-with-apple.md)
-  - [Siri](content/siri.md)
-  - [Tap to Pay on iPhone](content/tap-to-pay-on-iphone.md)
-  - [VoiceOver](content/voiceover.md)
-  - [Wallet](content/wallet.md)
-
-## Re-scraping
-
-`scripts/scrape_hig.py` re-crawls the live site and regenerates everything under `content/`:
-
-```
-python3 scripts/scrape_hig.py
+```bash
+git clone https://github.com/doppe7gangar/hig ~/hig
+mkdir -p ~/.claude/skills
+cp -R ~/hig/.claude/skills/apple-* ~/.claude/skills/
 ```
 
-It walks Apple's DocC JSON data API (`https://developer.apple.com/tutorials/data/design/human-interface-guidelines/...json`) starting from the root page, follows every in-section topic link, and renders each page's content model to Markdown. Images are embedded as Markdown image links pointing at Apple's asset CDN (`docs-assets.developer.apple.com` / `devimages-cdn.apple.com`), so they render inline wherever the Markdown is viewed, without the files being downloaded into this repo.
+That installs them for every project. Inside this repo they load
+automatically. You don't call them by name: describe what you want and the
+right one picks itself.
 
-`scripts/scrape_resources.py` regenerates `content/resources.md` from [developer.apple.com/design/resources](https://developer.apple.com/design/resources) (plain HTML, not DocC), listing every design kit and its download links by section. It requires `beautifulsoup4` (`pip install beautifulsoup4`):
+## What do you want to do?
 
+| You want to… | Say something like | Skill | You get |
+|---|---|---|---|
+| Turn an idea into an app or site | *"I want an app for splitting bills with friends"* | `apple-design` | The screens and how they connect, a working HTML project, and a checker run before it's handed over |
+| Make a web, Android, Flutter or React Native UI look like iOS | *"Make this settings page feel like an Apple app"* | `apple-ui-kit` | Apple's measured colours, type and control sizes as tokens, plus ready CSS components |
+| Check a design or SwiftUI code against Apple's rules | *"Review this screen before I ship it"* | `apple-hig` | Findings sorted into hard violations, soft guidance and judgment calls, each citing the page it comes from |
+| Get a straight answer | *"Sheet or popover here?"*, *"Is this button too small?"* | `apple-hig` | Apple's number or rule, quoted, with where it says so |
+| Make it move right | *"This transition feels floaty"* | `apple-motion` | The spring, the timing, and the Reduce Motion fallback |
+
+### Try it in five minutes
+
+Open Claude Code in an empty folder and paste:
+
+> build me a simple expense tracker web page — a list of expenses, a total
+> at the top, and an add button. make it feel like an Apple app.
+
+**It worked if** the CSS uses `var(--ios-accent)` and friends rather than raw
+hex codes, and `tokens/ios-tokens.css` and `ios-components.css` were copied
+in rather than reinvented. **It didn't if** you see `#007AFF` anywhere.
+That's the old accent from search results; the iOS 27 accent measured from
+Apple's kit is `#0088FF`.
+
+For a whole product, ask for one and then grade what's on disk, not what
+the transcript says:
+
+```bash
+python3 ~/.claude/skills/apple-design/check_design.py ./design
 ```
-python3 scripts/scrape_resources.py
-```
 
-`scripts/scrape_marketing_page.py` renders any other developer.apple.com marketing/landing page (also plain HTML) to Markdown — headings, paragraphs, CTA links, and card/tile link lists, skipping images/video/site chrome. Used for `content/design.md`, `content/icon-composer.md`, `content/sf-symbols-app.md`, `content/pass-designer.md`, and `content/reality-composer-pro.md`:
+More recipes, and what good output looks like for each, are in
+[TESTING.md](TESTING.md).
 
-```
-python3 scripts/scrape_marketing_page.py <url> <out-path>
-```
+## The numbers you'll reach for most
 
-## The skill
+From the guidelines and Apple's iOS 27 UI kit. Each one is in
+`.claude/skills/apple-hig/references/specs.md` or the kit's tokens, with
+its source.
 
-`.claude/skills/apple-hig/` turns this content into something usable for actual
-work, rather than a search index over 178 pages. Copy the `apple-hig` directory
-into a project's `.claude/skills/`, or into `~/.claude/skills/` to have it
-everywhere. Inside this repo it's picked up automatically.
-
-Apple states every guideline as a bolded imperative followed by its reasoning,
-and puts every hard number in a table. Both are mechanically extractable, and
-both are far more usable in that form than as prose spread across the corpus:
-
-| Reference | What it holds |
+| What | Value |
 |---|---|
-| `rules.md` | All **2,280 guidelines** as one-line imperatives, by topic, platform-tagged. A greppable review checklist. |
-| `specs.md` | **Every number** in the corpus — sizes, ratios, limits — with source tables intact. |
-| `platform-diffs.md` | What actually changes per platform, grouped by platform. |
-| `pages/` | The full 178 pages, for when a rule's *reasoning* matters. |
+| Minimum tap target, iOS | 44×44 pt default, 28×28 pt minimum |
+| Text contrast | 4.5:1 up to 17 pt; 3:1 at 18 pt or bold |
+| iOS text sizes (default) | Large Title 34 · Title 1 28 · Title 2 22 · Title 3 20 · Body 17 · Subhead 15 · Footnote 13 · Caption 12 / 11 |
+| Accent colour | `#0088FF` (not `#007AFF`) |
+| Primary label | `#1A1A1A` (not pure black) |
 
-`SKILL.md` carries the procedure rather than an index: how to scope a UI review
-and sort findings into violations (a stated number, objective), guidance
-(prefer/avoid, deviable with reason), and judgment (the HIG is silent — say so
-instead of inventing a rule); decision tables for the recurring choices, like
-sheet vs popover vs alert vs action sheet; and what to watch when adapting a
-design to another platform.
+## Find the guidance for what you're building
 
-An earlier version shipped seven skills — one general, six per-platform. The
-platform skills carried only each platform's *deltas*, which meant they could
-win a question whose answer lived in the general guidance they omitted. Folding
-them into `platform-diffs.md` alongside the full rules removes that failure mode
-and leaves one skill to install.
+Grouped by the job in front of you rather than by Apple's chapter order.
+Each link opens the full page.
 
-Rebuild after re-scraping:
+| Building… | Read |
+|---|---|
+| A list, settings or detail screen | [Lists and tables](content/lists-and-tables.md) · [Settings](content/settings.md) · [Toggles](content/toggles.md) · [Layout](content/layout.md) |
+| Navigation between screens | [Tab bars](content/tab-bars.md) · [Sidebars](content/sidebars.md) · [Split views](content/split-views.md) · [Toolbars](content/toolbars.md) |
+| Asking the user to confirm or choose | [Alerts](content/alerts.md) · [Action sheets](content/action-sheets.md) · [Sheets](content/sheets.md) · [Popovers](content/popovers.md) · [Modality](content/modality.md) |
+| Menus and buttons | [Buttons](content/buttons.md) · [Menus](content/menus.md) · [Context menus](content/context-menus.md) · [Pop-up buttons](content/pop-up-buttons.md) · [Pull-down buttons](content/pull-down-buttons.md) |
+| Forms and data entry | [Entering data](content/entering-data.md) · [Text fields](content/text-fields.md) · [Pickers](content/pickers.md) · [Steppers](content/steppers.md) · [Segmented controls](content/segmented-controls.md) · [Virtual keyboards](content/virtual-keyboards.md) |
+| Search | [Searching](content/searching.md) · [Search fields](content/search-fields.md) |
+| Empty, loading and error states | [Loading](content/loading.md) · [Feedback](content/feedback.md) · [Progress indicators](content/progress-indicators.md) |
+| First run, sign-in and accounts | [Launching](content/launching.md) · [Onboarding](content/onboarding.md) · [Managing accounts](content/managing-accounts.md) · [Sign in with Apple](content/sign-in-with-apple.md) · [Privacy](content/privacy.md) |
+| Notifications, widgets, Live Activities | [Managing notifications](content/managing-notifications.md) · [Notifications](content/notifications.md) · [Widgets](content/widgets.md) · [Live Activities](content/live-activities.md) |
+| Taking payment | [Apple Pay](content/apple-pay.md) · [In-app purchase](content/in-app-purchase.md) · [Wallet](content/wallet.md) |
+| Charts and dashboards | [Charting data](content/charting-data.md) · [Charts](content/charts.md) · [Gauges](content/gauges.md) |
+| The look: colour, type, icons, materials | [Color](content/color.md) · [Dark Mode](content/dark-mode.md) · [Typography](content/typography.md) · [SF Symbols](content/sf-symbols.md) · [Materials](content/materials.md) · [App icons](content/app-icons.md) |
+| Motion and haptics | [Motion](content/motion.md) · [Playing haptics](content/playing-haptics.md) · [Gestures](content/gestures.md) |
+| Something everyone can use | [Accessibility](content/accessibility.md) · [VoiceOver](content/voiceover.md) · [Inclusion](content/inclusion.md) · [Right to left](content/right-to-left.md) · [Writing](content/writing.md) |
+| The same app on another device | [iOS](content/designing-for-ios.md) · [iPadOS](content/designing-for-ipados.md) · [macOS](content/designing-for-macos.md) · [watchOS](content/designing-for-watchos.md) · [tvOS](content/designing-for-tvos.md) · [visionOS](content/designing-for-visionos.md) · [games](content/designing-for-games.md) |
+| An AI feature | [Generative AI](content/generative-ai.md) · [Machine learning](content/machine-learning.md) |
 
-```
-python3 scripts/build_skill.py
-```
+Everything else, in Apple's order: **[all 178 pages](content/README.md)**.
 
-### Before trusting a re-scrape
+## Without an AI
 
-```
-python3 scripts/audit_block_coverage.py
-```
+The references are plain Markdown, so a terminal is enough:
 
-Walks Apple's live JSON, enumerates every block type it emits, and reports
-any the scraper doesn't render — exiting non-zero if an unhandled type
-carries prose or tables.
-
-This exists because every other check here compares extracted output against
-what the parser saw, which makes a block type the parser never recognized
-structurally invisible. `tabNavigator` went unrendered from the first scrape:
-151 panes across 28 pages, including the entire iOS Dynamic Type scale, and
-no parity audit could detect it because those tables were never produced to
-be counted. Run this after any scraper change, and prefer the full corpus
-over `--quick` — tabNavigator appears on 28 of 172 pages, so a sample
-reports a clean bill of health.
-
-### Using it outside Claude Code
-
-The references are plain Markdown, so any tool that can read files in the
-repo can use them. Only the discovery mechanism differs.
-
-**Claude Code** — `.claude/skills/apple-hig/` is picked up automatically in
-this repo. To use it in another project, copy that directory into the
-project's `.claude/skills/`, or into `~/.claude/skills/` for every project.
-
-**Cursor, Windsurf, aider, Zed, Copilot** and other agents that read
-`AGENTS.md` — the `AGENTS.md` at the repo root points at the same
-references. Copy it plus `.claude/skills/apple-hig/references/` into the
-project; nothing else is Claude-specific. Tools reading `.cursorrules` or
-`.github/copilot-instructions.md` instead can use `AGENTS.md` as the source
-text for those files.
-
-**Any CLI or editor** — the references work as plain files:
-
-```
-grep -A1 -i "sheet" references/rules.md        # every sheet rule
-grep -A6 "^## Toggles" references/specs.md     # the numbers
-grep -A4 "^\*\*Sheets\*\*" references/api-map.md  # the API
+```bash
+cd ~/.claude/skills/apple-hig/references
+grep -i "^- .*sheet" rules.md          # every sheet rule, one line each
+grep -A12 "^## Buttons" specs.md       # the numbers
+grep -A4 "^\*\*Sheets\*\*" api-map.md   # the SwiftUI / UIKit / AppKit API
 ```
 
-`references/patterns.md` is the entry point for writing new UI —
-correct-by-default SwiftUI with the constraints already applied.
+To check an answer that quotes Apple rather than trust it:
 
-### Checking that it works
-
-A reference skill can be well written and still worthless, since skills are
-pull-based — Claude decides whether to consult one, and this corpus competes
-with what the model already believes it knows:
-
-```
-python3 scripts/eval/test_skill_triggering.py
+```bash
+pbpaste | python3 ~/.claude/skills/apple-hig/verify_quotes.py -
 ```
 
-`scripts/eval/README.md` documents measurement traps worth knowing before
-trusting any triggering result, including a favourable one.
+Every quoted span comes back as verbatim, elided, truncated or altered.
+
+**Cursor, Windsurf, aider, Zed, Copilot** and other tools that read
+`AGENTS.md`: copy [AGENTS.md](AGENTS.md) plus
+`.claude/skills/apple-hig/references/` into your project. Nothing in either
+is tool-specific.
+
+## What's in here
+
+| Path | What it is |
+|---|---|
+| `.claude/skills/apple-design/` | Idea → screens → scaffolded project → checked design |
+| `.claude/skills/apple-ui-kit/` | Measured iOS 27 tokens for CSS, SwiftUI, Compose, Android XML, Flutter and TypeScript, plus web components and a live [example](.claude/skills/apple-ui-kit/example.html) |
+| `.claude/skills/apple-hig/` | 2,326 rules as one-line imperatives, every spec table, an API map across 32 frameworks, 947 screenshots of real components in every state, and all 178 pages |
+| `.claude/skills/apple-motion/` | Springs, transitions, haptic pairing, Reduce Motion |
+| `content/` | The guidelines as Markdown, rebuilt from Apple's site |
+| `scripts/` | The scrapers, the skill builders, and the checks |
+
+## Keeping it current
+
+Apple revises the guidelines every OS cycle. To pull the latest and
+rebuild:
+
+```bash
+python3 scripts/scrape_hig.py               # re-crawl the guidelines into content/
+python3 scripts/audit_block_coverage.py     # anything Apple now emits that isn't rendered?
+python3 scripts/build_skill.py              # regenerate the skill's references
+python3 scripts/doctor.py                   # every count and claim in the docs still true?
+```
+
+Run the coverage audit on the full corpus, not `--quick`. It exists because
+a block type the scraper doesn't recognise is invisible to every other
+check: Apple's tabbed panes went unrendered for a whole scrape, taking the
+iOS Dynamic Type scale with them, and nothing downstream could notice.
+
+The design resources and landing pages are plain HTML rather than Apple's
+JSON, so they have their own scrapers:
+`scripts/scrape_resources.py` (needs `beautifulsoup4`) and
+`scripts/scrape_marketing_page.py <url> <out-path>`.
+
+Testing the skills themselves: [TESTING.md](TESTING.md) for the reference
+and UI-kit skills, [DESIGN_TESTING.md](DESIGN_TESTING.md) for the design
+workflow, and [scripts/eval/README.md](scripts/eval/README.md) before
+trusting any triggering result.
 
 ## Notes
 
-- Content belongs to Apple and is provided here for offline reference and local search only.
-- Diagrams, illustrations, and photos render via hotlinked URLs to Apple's own asset CDN rather than being mirrored as binary files in this repo; viewing them requires an internet connection.
+- The guidelines and the UI-kit images belong to Apple and are here for
+  offline reference.
+- Diagrams in `content/` load from Apple's CDN, so they need a connection.
+- SF Pro's licence covers designing for Apple platforms, not serving it as
+  a webfont. `fonts/inter.css` in the UI kit is the unrestricted fallback.
