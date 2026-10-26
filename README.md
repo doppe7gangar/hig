@@ -159,5 +159,8 @@ trusting any triggering result.
 - The guidelines and the UI-kit images belong to Apple and are here for
   offline reference.
 - Diagrams in `content/` load from Apple's CDN, so they need a connection.
-- SF Pro's licence covers designing for Apple platforms, not serving it as
-  a webfont. `fonts/inter.css` in the UI kit is the unrestricted fallback.
+- SF Pro isn't included: Apple's licence doesn't allow redistributing it.
+  Macs and iPhones use their own copy anyway, and elsewhere pages fall back
+  to Inter. If you have Apple's SF Pro download,
+  `.claude/skills/apple-ui-kit/fonts/sf.css` explains how to use your own
+  copy for mockups.

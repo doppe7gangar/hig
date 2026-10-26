@@ -1,38 +1,28 @@
-/* SF Pro, self-hosted.
+/* SF Pro, from your own copy. The kit doesn't ship it.
  *
- * Built from the variable SF-Pro.ttf in Apple's SF Pro download
- * (developer.apple.com/fonts) by scripts/build_fonts.py, subset to Latin
- * and compressed to woff2:
- * 6.1 MB of TrueType becomes 212 KB, smaller than Inter.
+ * Apple's licence for SF Pro doesn't allow redistributing it, so it isn't
+ * here. On a Mac, iPhone or iPad you don't need it: -apple-system at the
+ * front of --ios-font is already the system's SF Pro.
  *
- * The variable file carries both of Apple's axes -- opsz 17-28 and
- * wght 1-1000 -- so one file covers Text through Display and Ultralight
- * through Black, and font-optical-sizing: auto makes large type tighten
- * the way it does on device instead of merely scaling up.
+ * Elsewhere, if you have Apple's SF Pro download (developer.apple.com/fonts),
+ * you can use your own copy for mockups:
  *
- * Order note: -apple-system comes first in --ios-font, so Macs and
- * iPhones use the copy already installed and download nothing.
+ *   1. Copy SF-Pro.ttf next to this file. A Mac with SF Pro installed has
+ *      it at /Library/Fonts/SF-Pro.ttf. On Windows or Linux, extract it
+ *      from Apple's download with 7-Zip.
+ *   2. Link this file after the tokens:
+ *        <link rel="stylesheet" href="tokens/ios-tokens.css">
+ *        <link rel="stylesheet" href="fonts/sf.css">
  *
- * This file is NOT what Windows, Android and Linux get by default, which
- * an earlier version of this note claimed. 'SF Pro' is deliberately
- * absent from --ios-font -- see the reasoning in build_design_tokens.py
- * -- so linking this stylesheet declares the face and nothing requests
- * it, and those platforms render Inter. That is the licence-safe
- * default and it is the right one for anything served publicly.
+ * Don't link it without the font file next to it: the browser reports the
+ * missing file and falls back to Inter. Keep the font out of commits and
+ * off public sites -- Apple's licence covers mockups for Apple platforms.
  *
- * To use it for a mockup, which is what Apple's licence does cover, opt
- * in explicitly:
- *
- *   :root { --ios-font: -apple-system, BlinkMacSystemFont, 'SF Pro',
- *                       'Inter', system-ui, sans-serif; }
- *
- * new_project.py --sf writes exactly that line into theme.css.
- *
- * Licence: Apple's font licence covers designing and mocking up
- * interfaces for Apple platforms. It does not grant webfont embedding or
- * redistribution, so serving this from a public site is on you, not on
- * the licence. Inter (fonts/inter.css) is the unrestricted alternative
- * and is what the skill uses if this file is not linked.
+ * Why the file rather than an installed copy found by name: SF-Pro.ttf is
+ * a variable font whose optical size defaults to Display. Loaded from a
+ * file, the browser sets the optical size from the text size, so body text
+ * gets Text spacing and titles get Display spacing, as on the device.
+ * Found by name on Linux, it set 17pt text 11% too tight.
  */
 
 @font-face {
@@ -40,7 +30,7 @@
   font-style: normal;
   font-weight: 1 1000;
   font-display: swap;
-  src: url("SF-Pro-latin.woff2") format("woff2");
+  src: url("SF-Pro.ttf") format("truetype");
 }
 
 :root {

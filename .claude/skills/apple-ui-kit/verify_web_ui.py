@@ -258,9 +258,12 @@ def run(pw, scheme, c, contrast_more=False):
     # falls through silently and the page still looks plausible in
     # whatever the platform substitutes. So measure: the rendered text
     # run has to match one of the faces shipped here and not the
-    # platform fallback. Which one depends on load order, and both are
-    # legitimate: SF Pro when fonts/sf.css is linked after the tokens,
-    # Inter otherwise. A Range is used rather than the element box,
+    # platform fallback. That is the system font where -apple-system
+    # resolves (SF Pro on a Mac), the bundled Inter elsewhere, or SF Pro
+    # when someone has put their own copy next to fonts/sf.css. The kit
+    # doesn't ship SF Pro, so it can't be the reference on a Mac; the
+    # system font is measured instead, and counts only if it resolved.
+    # A Range is used rather than the element box,
     # because these labels are blocks and their box is the container
     # width, not the text.
     font = pg.evaluate(
@@ -284,13 +287,20 @@ def run(pw, scheme, c, contrast_more=False):
                const w = s.getBoundingClientRect().width; s.remove(); return w;
              };
              return {real, sf: m('"SF Pro"'), inter: m('Inter'),
+                     system: m('-apple-system, BlinkMacSystemFont'),
+                     unresolved: m('no-such-family'),
                      fallback: m('"DejaVu Sans"')}; }""")
     if font:
-        bundled = {"SF Pro": font["sf"], "Inter": font["inter"]}
-        name, width = min(bundled.items(),
+        # A face that didn't resolve measures as the browser's default
+        # font, so it only counts if it measured as something else.
+        faces = {name: width for name, width in (
+                     ("the system font", font["system"]),
+                     ("SF Pro", font["sf"]), ("Inter", font["inter"]))
+                 if abs(width - font["unresolved"]) > 0.5}
+        name, width = min(faces.items(), default=("no intended face", 0.0),
                           key=lambda kv: abs(kv[1] - font["real"]))
         c(abs(width - font["real"]) < 1.0,
-          "text renders in a bundled face, not a substitute",
+          "text renders in the system font, Inter or your own SF Pro",
           f"{name} at {font['real']:.1f}px "
           f"(fallback would be {font['fallback']:.1f}px)")
         c(abs(font["real"] - font["fallback"]) > 1.0,

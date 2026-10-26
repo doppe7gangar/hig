@@ -68,18 +68,18 @@ cp -R <this skill's directory>/{tokens,fonts,ios-components.css} ./
 Then load the tokens first:
 
 ```html
-<link rel="stylesheet" href="fonts/inter.css">      <!-- or fonts/sf.css -->
+<link rel="stylesheet" href="fonts/inter.css">
 <link rel="stylesheet" href="tokens/ios-tokens.css">
 <link rel="stylesheet" href="ios-components.css">
 ```
 
 **Copy the font files too — don't link a CDN.** The fonts in `fonts/`
-are the point: `SF-Pro-latin.woff2` (212 KB) and the two Inter cuts ship
-here so a page needs no network fetch at all. Reaching for
+are the point: the two Inter cuts ship here so a page needs no network
+fetch at all. Reaching for
 `fonts.googleapis.com` to load Inter gives you a slower page, a
 third-party dependency, and nothing offline — and asked to build a
-settings screen, that is exactly what happened in testing while both
-fonts sat unused in the skill directory. If the deliverable is a single
+settings screen, that is exactly what happened in testing while the
+bundled fonts sat unused in the skill directory. If the deliverable is a single
 self-contained file, inline `tokens/ios-tokens.css` and
 `ios-components.css` verbatim, `--ios-*` names and all, and base64 the
 one font you need, or copy `fonts/` next to it. Either beats a CDN.
@@ -92,9 +92,6 @@ kit already has. In testing, a page built that way got every colour
 right and still looked almost like iOS rather than like iOS, because
 the lists, bars and buttons around those colours were approximations,
 not the measured recipes.
-
-`sf.css` must load **after** `tokens/ios-tokens.css` — it overrides
-`--ios-font`, and the token sheet would otherwise overwrite it back.
 
 Then use the tokens rather than literals. `var(--ios-accent)` adapts to
 dark mode on its own; `#0088FF` does not.
@@ -300,24 +297,20 @@ change that breaks it fails rather than merely looking fine.
 
 ## What does not transfer, and don't pretend it does
 
-- **SF Pro — now self-hosted.** `fonts/sf.css` serves the real thing,
-  built from the variable `SF-Pro.ttf` by `scripts/build_fonts.py`:
-  subset to Latin and compressed to woff2, 6.1 MB becomes **212 KB**,
-  smaller than Inter. It carries both of Apple's axes (`opsz 17–28`,
-  `wght 1–1000`), so one file spans Text through Display and Ultralight
-  through Black.
+- **SF Pro — bring your own.** Apple's licence doesn't allow
+  redistributing it, so the kit doesn't ship it, and off Apple devices
+  the stack lands on Inter. Macs, iPhones and iPads need nothing:
+  `-apple-system` leads the stack and is the system's own SF Pro.
 
-  Link it **after** `tokens/ios-tokens.css` — it overrides `--ios-font`,
-  and the token sheet will otherwise overwrite it straight back.
-  `-apple-system` still leads the stack, so Macs and iPhones use the
-  copy they already have and download nothing; this is what Windows,
-  Android and Linux get.
-
-  Its licence covers designing and mocking up interfaces for Apple
-  platforms, not webfont embedding or redistribution. Serving it from a
-  public site is a call you're making, not one the licence grants.
-  `fonts/inter.css` is the unrestricted alternative and is what the
-  skill uses when `sf.css` isn't linked.
+  Anyone with Apple's download can use their own copy for mockups: copy
+  `SF-Pro.ttf` into `fonts/` and link `fonts/sf.css` **after**
+  `tokens/ios-tokens.css`, which would otherwise set `--ios-font` straight
+  back. The scaffold does the same with `new_project.py --sf
+  /path/to/SF-Pro.ttf`. Load the file rather than relying on an installed
+  copy found by name: the variable font's optical size defaults to
+  Display, and only a loaded file gets it set from the text size. Found
+  by name on Linux, 17pt text came out 11% too tight. The copy is
+  gitignored; keep it off public sites.
 
 - **Liquid Glass — the refraction only.** The live bending of what sits
   behind the surface has no browser equivalent. Everything else about it

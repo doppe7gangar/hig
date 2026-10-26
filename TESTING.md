@@ -23,8 +23,8 @@ green switches, separators that start at the text rather than the card
 edge.
 
 On a Mac the type renders in SF Pro from your own system copy, because
-`-apple-system` finds it first. Everywhere else it loads the bundled
-SF Pro webfont, falling back to Inter if `fonts/sf.css` isn't linked.
+`-apple-system` finds it first. Everywhere else it renders in the bundled
+Inter. `fonts/sf.css` explains how to use your own copy of SF Pro instead.
 
 ---
 
@@ -172,13 +172,11 @@ system palette to ask. On the web specifically it can't carry:
   bug.
 - **Native behaviour** — sheet physics, rubber-banding, haptics.
 
-**SF Pro is no longer on that list.** It is self-hosted from
-`fonts/sf.css` — a 212 KB Latin subset of the variable file — and Apple
-devices still use their own copy via `-apple-system` without
-downloading it. The remaining question there is licensing, not
-capability: the licence covers designing for Apple platforms, not
-webfont serving, so shipping it on a public site is your call.
-`fonts/inter.css` is the unrestricted fallback.
+**SF Pro isn't shipped.** Apple's licence doesn't allow redistributing
+it. Apple devices use their own copy through `-apple-system`, and
+everywhere else the kit falls back to the bundled Inter. If you have
+Apple's download, `fonts/sf.css` explains how to use your own copy for
+mockups.
 
 And in light mode Apple's own palette sits under Apple's own contrast
 threshold (secondary label 3.44:1 against a required 4.5:1). That's real,

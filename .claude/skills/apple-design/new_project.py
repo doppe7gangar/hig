@@ -34,7 +34,6 @@ HEAD = """<!doctype html>
 <!-- Order is load-bearing: fonts, measured tokens, component recipes,
      then the brand theme LAST so its bridge wins. -->
 <link rel="stylesheet" href="vendor/fonts/inter.css">
-<link rel="stylesheet" href="vendor/fonts/sf.css">
 <link rel="stylesheet" href="vendor/ios-tokens.css">
 <link rel="stylesheet" href="vendor/ios-components.css">
 <link rel="stylesheet" href="theme.css">
@@ -967,12 +966,12 @@ def main():
                     help="comma-separated screen/destination names")
     ap.add_argument("--thing", default="recipes",
                     help="what the product holds, for sample empty-state copy")
-    ap.add_argument("--sf", action="store_true",
-                    help="use the bundled SF Pro rather than Inter on "
-                         "non-Apple platforms. Apple's licence covers "
-                         "mocking up interfaces for Apple platforms; it "
-                         "does not cover serving the face from a public "
-                         "site, so this is opt-in.")
+    ap.add_argument("--sf", nargs="?", const="", metavar="SF-Pro.ttf",
+                    help="use your own copy of SF Pro ahead of Inter on "
+                         "Windows and Linux, for mockups. The kit doesn't "
+                         "ship it: pass the path to Apple's SF-Pro.ttf, or "
+                         "copy it into apple-ui-kit/fonts/ first. It goes "
+                         "into vendor/fonts/ and the project's .gitignore.")
     ap.add_argument("-o", "--out", required=True, help="output directory")
     a = ap.parse_args()
 
@@ -1005,23 +1004,30 @@ def main():
     shutil.copy2(os.path.join(KIT, "tokens", "ios-tokens.css"), vendor)
     shutil.copy2(os.path.join(KIT, "ios-components.css"), vendor)
     for filename in os.listdir(os.path.join(KIT, "fonts")):
+        # A copy of SF Pro someone dropped into the kit is theirs, not the
+        # project's; it only travels with --sf.
+        if filename.startswith("SF-Pro"):
+            continue
         shutil.copy2(os.path.join(KIT, "fonts", filename),
                      os.path.join(vendor, "fonts", filename))
+
+    if a.sf is not None:
+        sf = a.sf or os.path.join(KIT, "fonts", "SF-Pro.ttf")
+        if not os.path.isfile(sf):
+            sys.exit("--sf needs your own SF-Pro.ttf: pass its path, e.g. "
+                     "--sf /Library/Fonts/SF-Pro.ttf on a Mac with SF Pro "
+                     "installed. Apple's download is at "
+                     "developer.apple.com/fonts; the kit doesn't ship it.")
+        shutil.copy2(sf, os.path.join(vendor, "fonts", "SF-Pro.ttf"))
+        with open(os.path.join(out, ".gitignore"), "a", encoding="utf-8") as f:
+            f.write("# Your own SF Pro, for mockups. Apple's licence doesn't "
+                    "allow redistributing it.\nvendor/fonts/SF-Pro.ttf\n")
 
     theme_name = slug(a.name)
     try:
         css, notes, values = build_theme.build(a.brand, theme_name)
     except ValueError as exc:
         sys.exit(str(exc))
-    if a.sf:
-        css += (
-            "\n/* --sf: the bundled SF Pro ahead of Inter, for platforms\n"
-            "   where -apple-system finds nothing. Licence covers mockups,\n"
-            "   not public serving -- see fonts/sf.css. */\n"
-            ":root {\n"
-            "  --ios-font: -apple-system, BlinkMacSystemFont, 'SF Pro',\n"
-            "      'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;\n"
-            "}\n")
     with open(os.path.join(out, "theme.css"), "w", encoding="utf-8") as f:
         f.write(css)
 
@@ -1051,6 +1057,13 @@ def main():
         html, chosen_model = compose(kind, model, a.name, screens, a.thing)
     except ValueError as exc:
         sys.exit(str(exc))
+    if a.sf is not None:
+        # After the tokens, which would otherwise set --ios-font back.
+        tokens = '<link rel="stylesheet" href="vendor/ios-tokens.css">\n'
+        if tokens not in html:
+            sys.exit("internal: token stylesheet link not found for --sf")
+        html = html.replace(tokens, tokens + '<link rel="stylesheet" '
+                            'href="vendor/fonts/sf.css">\n', 1)
     with open(os.path.join(out, "index.html"), "w", encoding="utf-8") as f:
         f.write(html)
 
