@@ -11,7 +11,7 @@ determines whether any of this pays off.
 python3 scripts/eval/test_skill_triggering.py
 ```
 
-Installs every `apple-hig*` skill into a throwaway project, runs `claude -p`
+Installs all four `apple-*` skills into a throwaway project, runs `claude -p`
 against realistic queries, and reports which skill was invoked. Cases include
 Apple-adjacent near-misses (Xcode code signing, Core Data migrations) because
 a skill that fires on those is interrupting work it can't help with.
@@ -51,10 +51,21 @@ rather than a process that died.
 
 ## Interpreting results
 
-Ambiguity is expected and mostly fine. A macOS question landing on
-`apple-hig` rather than `apple-hig-macos` still gets a correct answer from
-the full corpus — it just misses the concentrated platform notes. The
-failure worth acting on is the reverse: a platform skill winning a
-cross-platform question, since those skills deliberately carry only the
-platform deltas and answering from deltas alone is confidently incomplete.
-Each platform `SKILL.md` warns about exactly this.
+Every platform question should land on `apple-hig`: the per-platform
+skills were folded into its `platform-diffs.md`. The routing cases that
+matter most are between the four skills — a product brief should start
+`apple-design`, a web page meant to look like iOS should reach
+`apple-ui-kit`, a stiff animation `apple-motion`. Loading a second skill
+alongside the expected one is fine; missing the expected one is not.
+
+## Did the skill change the answer?
+
+```
+python3 scripts/eval/test_with_without.py
+```
+
+A correct answer with the skill installed proves little when the model
+could have given it from memory. This asks each question twice, with all
+four skills and with none, and only counts a case as evidence when the
+two differ. The cases are ones memory gets wrong: values that changed in
+iOS 26/27, and verbatim quotations, graded by `verify_quotes.py`.
