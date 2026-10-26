@@ -12,6 +12,7 @@ import os
 import re
 import shutil
 import subprocess
+import sys
 import tempfile
 
 SKILLS_SRC = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "..", ".claude", "skills"))
@@ -22,7 +23,12 @@ CASES = [
     ("does apple's HIG say anything about empty states? i've got a list screen "
      "with no items yet and i'm not sure what to put there",
      [r"blank screen|empty state", r"writing|next step"],
-     r"no guidance|doesn't cover|not covered|silent",
+     # Same lesson as the error-handling case below: a bare "silent" also
+     # matched the correct answer explaining why people *conclude* the HIG
+     # is silent. Only a denial that the guidance exists is a failure.
+     r"(no|isn't any|is no) (specific )?(guidance|rule)s? (on|about|for) empty"
+     r"|(doesn't|does not) (cover|address|mention) empty"
+     r"|(hig|apple) (is|stays) silent on empty",
      "THE ORIGINAL FAILURE: empty-state rule lives in writing.md"),
 
     ("what does apple say about error handling in my iOS app? like when a "
@@ -87,3 +93,4 @@ if __name__ == "__main__":
             print(f"   WRONGLY CLAIMED NO GUIDANCE: '{wrongly_denied.group(0)}'")
         print(f"   ANSWER: {' '.join(ans.split())[:340]}")
     print(f"\n{passed}/{len(CASES)} concept lookups answered without falsely denying coverage")
+    sys.exit(0 if passed == len(CASES) else 1)

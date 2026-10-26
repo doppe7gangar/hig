@@ -105,16 +105,16 @@ def truth():
 # true statement about a subset -- flagging it as a stale total was the
 # checker being wrong, not the doc.
 CLAIMS = [
-    (r"all ([\d,]+) HIG rules", "rules"),
-    (r"\*\*([\d,]+) rules as one-line imperatives\*\*", "rules"),
-    (r"holds all ([\d,]+) HIG rules", "rules"),
-    (r"Contains all ([\d,]+) HIG rules", "rules"),
-    (r"([\d,]+)-page corpus", "pages"),
-    (r"([\d,]+)\s+(?:real component\s+)?screenshots", "screenshots"),
+    (r"all (\d[\d,]*) HIG rules", "rules"),
+    (r"\*\*(\d[\d,]*) rules as one-line imperatives\*\*", "rules"),
+    (r"holds all (\d[\d,]*) HIG rules", "rules"),
+    (r"Contains all (\d[\d,]*) HIG rules", "rules"),
+    (r"(\d[\d,]*)-page corpus", "pages"),
+    (r"(\d[\d,]*)\s+(?:real component\s+)?screenshots", "screenshots"),
     (r"(\d+)\+ Apple frameworks", "frameworks"),
     (r"(\d+)\+ other frameworks", "frameworks"),
     (r"(\d+)\+ frameworks including", "frameworks"),
-    (r"([\d,]+) renderings", "measurements"),
+    (r"(\d[\d,]*) renderings", "measurements"),
 ]
 
 

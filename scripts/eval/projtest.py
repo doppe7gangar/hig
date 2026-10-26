@@ -82,8 +82,11 @@ def install(dst):
     d = os.path.join(dst, ".claude", "skills")
     os.makedirs(d, exist_ok=True)
     for name in ("apple-hig", "apple-ui-kit", "apple-motion", "apple-design"):
+        # The whole skill, screenshots included: that is what the README
+        # tells people to copy, and apple-design's references point into
+        # apple-hig/assets/ui-kit/.
         shutil.copytree(os.path.join(SKILLS, name), os.path.join(d, name),
-                        ignore=shutil.ignore_patterns("assets", "__pycache__"))
+                        ignore=shutil.ignore_patterns("__pycache__"))
 
 
 def run(name, spec):
