@@ -14,6 +14,7 @@ reported results the files didn't contain.
     python3 scripts/eval/run_live.py                    # every test, 3 runs
     python3 scripts/eval/run_live.py --runs 5 --only triggering,with_without
     python3 scripts/eval/run_live.py --out /tmp/live    # default scripts/eval/out/live
+    python3 scripts/eval/run_live.py --resume           # keep runs that finished
 """
 
 import argparse
@@ -39,22 +40,37 @@ TESTS = {
 }
 
 
-def run(name, n, out):
-    """One run of one test. Returns its record; never raises."""
+FOOTER = re.compile(r"^run_live: (\S+) min, exit (\S+)$", re.M)
+
+
+def run(name, n, out, resume=False):
+    """One run of one test. Returns its record; never raises.
+
+    Every log ends with a footer line, written only once the run is over.
+    With resume, a log that has one is read back instead of run again, so
+    a container restart costs the runs that were in flight, not all of
+    them."""
     cmd, pattern, limit = TESTS[name]
     log = os.path.join(out, f"{name}-{n}.txt")
-    env = dict(os.environ, PROJTEST_WORK=os.path.join(out, f"{name}-{n}.work"))
-    started = time.time()
-    try:
-        p = subprocess.run([sys.executable, os.path.join(HERE, cmd[0])] + cmd[1:],
-                           cwd=os.path.dirname(os.path.dirname(HERE)), env=env,
-                           capture_output=True, text=True, timeout=limit * 60)
-        text, code = p.stdout + p.stderr, p.returncode
-    except subprocess.TimeoutExpired as e:
-        text = (e.stdout or "") if isinstance(e.stdout, str) else (e.stdout or b"").decode("utf-8", "replace")
-        text, code = text + f"\nTIMEOUT after {limit} min\n", None
-    with open(log, "w", encoding="utf-8") as f:
-        f.write(text)
+    previous = open(log, encoding="utf-8").read() if resume and os.path.exists(log) else ""
+    footer = FOOTER.search(previous)
+    if footer:
+        text, minutes = previous, float(footer.group(1))
+        code = None if footer.group(2) == "None" else int(footer.group(2))
+    else:
+        env = dict(os.environ, PROJTEST_WORK=os.path.join(out, f"{name}-{n}.work"))
+        started = time.time()
+        try:
+            p = subprocess.run([sys.executable, os.path.join(HERE, cmd[0])] + cmd[1:],
+                               cwd=os.path.dirname(os.path.dirname(HERE)), env=env,
+                               capture_output=True, text=True, timeout=limit * 60)
+            text, code = p.stdout + p.stderr, p.returncode
+        except subprocess.TimeoutExpired as e:
+            text = (e.stdout or "") if isinstance(e.stdout, str) else (e.stdout or b"").decode("utf-8", "replace")
+            text, code = text + f"\nTIMEOUT after {limit} min\n", None
+        minutes = (time.time() - started) / 60
+        with open(log, "w", encoding="utf-8") as f:
+            f.write(text + f"\nrun_live: {minutes:.1f} min, exit {code}\n")
 
     m = list(re.finditer(pattern, text))
     if not m:
@@ -71,7 +87,7 @@ def run(name, n, out):
                 fails.append(lines[i + 1].rstrip())
     ok = total is not None and passed == total
     return dict(name=name, n=n, ok=ok, passed=passed, total=total, code=code,
-                minutes=(time.time() - started) / 60, fails=fails, log=log)
+                minutes=minutes, fails=fails, log=log)
 
 
 def summary(records, names, runs, out, started, done):
@@ -119,6 +135,8 @@ def main():
     ap.add_argument("--workers", type=int, default=2,
                     help="runs at once; each test also runs its own cases in parallel")
     ap.add_argument("--out", default=os.path.join(HERE, "out", "live"))
+    ap.add_argument("--resume", action="store_true",
+                    help="reuse runs whose logs say they finished")
     a = ap.parse_args()
 
     names = a.only.split(",") if a.only else list(TESTS)
@@ -132,7 +150,8 @@ def main():
 
     jobs = [(name, n) for n in range(1, a.runs + 1) for name in names]
     with cf.ThreadPoolExecutor(max_workers=a.workers) as ex:
-        for fut in cf.as_completed([ex.submit(run, name, n, out) for name, n in jobs]):
+        for fut in cf.as_completed([ex.submit(run, name, n, out, a.resume)
+                                    for name, n in jobs]):
             with lock:
                 records.append(fut.result())
                 summary(records, names, a.runs, out, started, done=False)
