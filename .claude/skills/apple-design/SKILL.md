@@ -23,6 +23,16 @@ The measured visual corpus is currently iOS 27. Never present iOS screenshots as
 
 **Then express that hierarchy with the measured recipes, rather than rebuilding them.** Deciding structure first is not a licence to hand-roll the list, the navigation bar and the tab bar afterwards. `apple-ui-kit`'s `ios-components.css` carries the grouped-list metrics, the bar heights, the control geometry and the tracking this corpus measured from Apple's own renderings; a from-scratch approximation of them is the difference between a design that reads as iOS and one that reads as almost-iOS. Change the content, the composition and the palette. Keep the recipes. On macOS there is no measured kit, so compose from `apple-hig` and say so.
 
+## Size the process to the request
+One screen or page takes the short path: a single primary task, with its sheets and states. That's most single-page requests: an expense tracker page, a settings screen, a sign-up form.
+
+1. Route the platform and name the one question the screen answers: `references/platform-routing.md`, `references/content-hierarchy.md`.
+2. Scaffold (step 12) and build the screen on it, with real content and its loading, empty and error states.
+3. Run `python3 check_design.py ./design` until it passes.
+4. Run `python3 render_review.py ./design`, look at the screenshots, and fix what they show.
+
+Skip the rest. Divergence candidates, cross-screen coherence, project grammar and the implementation audit exist for products with several screens; on one screen they take most of the time for little of the value. Say in one line that you took the short path. A product with screens to move between, or a request for design directions, takes the full workflow below.
+
 # Required workflow
 
 ## 1–11. Product reasoning

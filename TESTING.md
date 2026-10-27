@@ -273,6 +273,22 @@ What it will **not** catch: whether the values are right. A confidently
 wrong measurement stated consistently everywhere passes cleanly. That's
 what `verify_web_ui.py` and the eval runs are for.
 
+### The live tests, several times over
+
+```bash
+python3 scripts/eval/run_live.py              # every live test, 3 runs each
+python3 scripts/eval/run_live.py --only triggering,ui_kit_build --runs 5
+```
+
+The live tests ask a real model, and a model answers differently from one
+run to the next, so a single pass proves less than it looks. This runs
+each one several times and writes `scripts/eval/out/live/SUMMARY.md`:
+pass rate per test, every failing line, and minutes per run. The file
+ends with a DONE line only when every run has finished, so read it rather
+than trusting a notice that something completed. Three runs of
+everything takes a couple of hours, most of it the whole-app design
+brief.
+
 ---
 
 ## 7. Where `apple-motion` comes from

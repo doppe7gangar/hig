@@ -24,6 +24,9 @@ BUILD = os.path.abspath(os.path.join(HERE, "..", ".."))
 SKILLS = os.path.join(BUILD, ".claude", "skills")
 CHECK = os.path.join(SKILLS, "apple-design", "check_design.py")
 MODEL = "claude-opus-5"
+# Where runs build and write their transcripts. run_live.py gives each
+# repeat its own, since a run wipes its brief's folder when it starts.
+WORK = os.environ.get("PROJTEST_WORK", HERE)
 
 BRIEFS = {
     "p-dash": dict(
@@ -90,7 +93,7 @@ def install(dst):
 
 
 def run(name, spec):
-    root = os.path.join(HERE, "pwork", name)
+    root = os.path.join(WORK, "pwork", name)
     shutil.rmtree(root, ignore_errors=True)
     os.makedirs(root)
     install(root)
@@ -136,8 +139,8 @@ def run(name, spec):
             parts.append(ev["result"])
 
     text = "\n\n".join(dict.fromkeys(parts))
-    os.makedirs(os.path.join(HERE, "pout"), exist_ok=True)
-    open(os.path.join(HERE, "pout", name + ".md"), "w").write(text)
+    os.makedirs(os.path.join(WORK, "pout"), exist_ok=True)
+    open(os.path.join(WORK, "pout", name + ".md"), "w").write(text)
     return text, sorted(skills), sorted(ran), root
 
 

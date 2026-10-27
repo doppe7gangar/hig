@@ -69,3 +69,15 @@ could have given it from memory. This asks each question twice, with all
 four skills and with none, and only counts a case as evidence when the
 two differ. The cases are ones memory gets wrong: values that changed in
 iOS 26/27, and verbatim quotations, graded by `verify_quotes.py`.
+
+## Run them more than once
+
+```
+python3 scripts/eval/run_live.py --runs 3
+```
+
+Every test here asks a real model, and one pass of a test that samples a
+model is one sample. `run_live.py` repeats each test, keeps every run's
+output, and writes `out/live/SUMMARY.md` with pass rates and every failing
+line. It ends with a DONE line only when all runs have finished: read
+that, not a notice from whatever launched it.

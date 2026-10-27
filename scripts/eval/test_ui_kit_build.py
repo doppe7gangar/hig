@@ -34,6 +34,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SKILLS = os.path.normpath(os.path.join(HERE, "..", "..", ".claude", "skills"))
@@ -128,7 +129,9 @@ def main():
         root, skills, finished = os.path.abspath(a.grade), None, True
     else:
         root = project()
+        started = time.time()
         skills, finished = build(root)
+        minutes = (time.time() - started) / 60
     files = produced(root)
     pages = [f for f in files if f.endswith(".html")]
     own = [f for f in files if os.path.basename(f) not in KIT_FILES
@@ -150,7 +153,8 @@ def main():
     if skills is not None:
         checks += [
             (f"finished within {TIMEOUT // 60} minutes", finished,
-             "" if finished else "graded on what it had written"),
+             f"{minutes:.0f} min" if finished
+             else "graded on what it had written"),
             ("apple-ui-kit or apple-design was consulted",
              bool({"apple-ui-kit", "apple-design"} & set(skills)),
              ",".join(skills) or "no skill"),
