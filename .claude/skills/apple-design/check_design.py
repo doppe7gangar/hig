@@ -30,6 +30,14 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from build_theme import contrast, hex_to_rgb  # noqa: E402
 
+# Symbol names are checked against the Mac's own list when sf_symbols.py
+# has copied it; the module lives with apple-hig, a sibling skill.
+sys.path.insert(0, os.path.join(os.path.dirname(HERE), "apple-hig"))
+try:
+    import sf_symbols  # noqa: E402
+except ImportError:
+    sf_symbols = None
+
 APPLE_BLUE = {"#0088ff", "#007aff", "#0a84ff", "#0091ff"}
 
 PASS, FAIL, WARN = [], [], []
@@ -331,6 +339,27 @@ def check_symbols_named(path, html):
     """
     name = os.path.basename(path)
     body = body_of(html)
+
+    # A name that doesn't exist is worse than none: it reads as a spec and
+    # Image(systemName:) draws nothing. Checked when the Mac's list is here,
+    # on every literal name, whatever element carries it.
+    db = sf_symbols.load() if sf_symbols else None
+    names = sorted(set(n for n in re.findall(r'(?<![\w:.-])data-sf-symbol="([^"]+)"', body)
+                       if re.fullmatch(r"[A-Za-z0-9.]+", n)))
+    if db and names:
+        bad = []
+        for n in names:
+            status, detail = sf_symbols.lookup(db, n)
+            if status == "unknown":
+                bad.append(f"{n}" + (f" (did you mean {detail}?)" if detail else ""))
+            elif status == "renamed":
+                bad.append(f"{n} (renamed {detail})")
+        if bad:
+            warn(f"{name}: {len(bad)} data-sf-symbol name(s) aren't SF Symbols, so the "
+                 f"implementation would draw nothing: " + ", ".join(bad))
+        else:
+            ok(f"{name}: all {len(names)} SF Symbol names exist")
+
     slots = re.findall(
         r'<[a-z]+[^>]*class="[^"]*(?:rowicon|ios-tabbar__item|'
         r'ios-navbar__action)[^"]*"[^>]*>', body)

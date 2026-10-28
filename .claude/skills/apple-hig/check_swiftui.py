@@ -17,6 +17,11 @@ not equally serious:
 Every HIG finding names the page in references/pages/ that says so, and
 anything in quotation marks is Apple's sentence, verbatim.
 
+SF Symbol names are checked too, once sf_symbols.py --install has copied
+your Mac's list: a name that doesn't exist, or that needs a newer OS than
+the deployment target, draws nothing. The target comes from --ios, or
+from the project's settings when the folder holds them.
+
 Some things need eyes, not a regex -- whether an alert interrupts a
 common, undoable action, or whether a chart separates series by colour
 alone. Those aren't reported here; review them.
@@ -28,10 +33,14 @@ Exit status is 1 if anything is a violation, 0 otherwise.
 """
 
 import argparse
+import glob
 import json
 import os
 import re
 import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import sf_symbols  # noqa: E402
 
 DESTRUCTIVE = re.compile(r"\b(delete|remove|erase|reset|discard|clear|wipe|destroy)\b", re.I)
 
@@ -182,6 +191,69 @@ class File:
 def finding(f, pos, kind, rule, message, page=None):
     return dict(path=f.path, line=f.line(pos), kind=kind, rule=rule,
                 message=message, page=page)
+
+
+def symbol_names(f):
+    """(position, name) for every symbol a systemName:/systemImage: argument can be."""
+    for m in re.finditer(r"\b(?:systemName|systemImage)\s*:", f.code):
+        depth, j = 0, m.end()
+        while j < len(f.code):
+            c = f.code[j]
+            if c in "([{":
+                depth += 1
+            elif c in ")]}":
+                if depth == 0:
+                    break
+                depth -= 1
+            elif c == "," and depth == 0:
+                break
+            j += 1
+        for start, end, text in f.strings:
+            if m.end() <= start < j and re.fullmatch(r"[A-Za-z0-9.]+", text):
+                yield start, text
+
+
+def check_symbols(f, db, ios):
+    out = []
+    for pos, name in symbol_names(f):
+        status, detail = sf_symbols.lookup(db, name, ios)
+        if status == "unknown":
+            hint = f" Did you mean `{detail}`?" if detail else ""
+            out.append(finding(f, pos, "api", "sf-symbol",
+                f"There's no SF Symbol named `{name}`, so this draws nothing.{hint}"))
+        elif status == "too-new":
+            out.append(finding(f, pos, "api", "sf-symbol",
+                f"`{name}` arrived in iOS {detail}; below that it draws nothing "
+                f"(deployment target iOS {ios})."))
+        elif status == "renamed":
+            out.append(finding(f, pos, "api", "sf-symbol",
+                f"`{name}` was renamed `{detail}`."))
+    return out
+
+
+def deployment_target(paths):
+    """The lowest iOS deployment target in the Xcode project or Package.swift
+    the paths belong to: looked for below each path, then in the folders
+    above it, up to the repository root."""
+    found = []
+    for p in paths:
+        root = os.path.abspath(p if os.path.isdir(p) else os.path.dirname(p) or ".")
+        files = (glob.glob(os.path.join(root, "**", "project.pbxproj"), recursive=True)
+                 + glob.glob(os.path.join(root, "**", "Package.swift"), recursive=True))
+        d = root
+        while not files and not os.path.isdir(os.path.join(d, ".git")) \
+                and os.path.dirname(d) != d:
+            d = os.path.dirname(d)
+            files = (glob.glob(os.path.join(d, "*.xcodeproj", "project.pbxproj"))
+                     + glob.glob(os.path.join(d, "Package.swift")))
+        for f in files:
+            if re.search(r"[/\\](\.build|checkouts|DerivedData|Pods|Carthage)[/\\]", f):
+                continue                 # dependencies, with targets of their own
+            text = open(f, encoding="utf-8", errors="replace").read()
+            found += re.findall(r'IPHONEOS_DEPLOYMENT_TARGET = "?([0-9.]+)"?;', text)
+            found += [g[2] or ".".join(x for x in g[:2] if x) for g in
+                      re.findall(r'\.iOS\(\s*(?:\.v(\d+)(?:_(\d+))?|"([0-9.]+)")', text)]
+    return min(found, key=sf_symbols.version) if found else None
 
 
 def check(f):
@@ -348,12 +420,16 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("paths", nargs="+", help="Swift files or folders")
     ap.add_argument("--json", action="store_true", help="print findings as JSON")
+    ap.add_argument("--ios", help="deployment target for symbol availability, e.g. 17")
     a = ap.parse_args()
 
+    db = sf_symbols.load()
+    ios = a.ios or deployment_target(a.paths)
     found = []
     for path in swift_files(a.paths):
         with open(path, encoding="utf-8", errors="replace") as fh:
-            found += check(File(path, fh.read()))
+            f = File(path, fh.read())
+        found += check(f) + (check_symbols(f, db, ios) if db else [])
     found.sort(key=lambda x: (x["path"], x["line"]))
 
     if a.json:
@@ -368,6 +444,13 @@ def main():
         counts = {k: sum(x["kind"] == k for x in found) for k in order}
         print(f"\n{counts['violation']} violations, {counts['guidance']} guidance, "
               f"{counts['api']} API issues")
+        if not db:
+            print("SF Symbol names not checked: run  python3 sf_symbols.py --install  on a Mac.")
+        elif not ios:
+            print("SF Symbol names checked; availability not, as no deployment target was "
+                  "found. Pass --ios 17 to check it.")
+        else:
+            print(f"SF Symbol names checked, and that each exists on iOS {ios}.")
     return 1 if any(x["kind"] == "violation" for x in found) else 0
 
 

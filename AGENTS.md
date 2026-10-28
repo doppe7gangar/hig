@@ -37,6 +37,7 @@ All paths under `.claude/skills/apple-hig/`:
 | `references/assets-index.md` | 947 screenshots, every interaction state |
 | `references/pages/` | Full prose when a rule's reasoning matters |
 | `check_swiftui.py` | HIG problems in SwiftUI code that the code alone decides, before shipping |
+| `sf_symbols.py` | Run `--install` once on a Mac: the checkers then flag SF Symbol names that don't exist or need a newer OS |
 
 ## How to use it
 

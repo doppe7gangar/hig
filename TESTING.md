@@ -142,6 +142,21 @@ should get 34/41 for Large Title, 17/22 body, 13/18 footnote.
 
 Or paste real SwiftUI and ask for a review before shipping.
 
+### Checking SwiftUI without a model
+
+```bash
+python3 ~/.claude/skills/apple-hig/check_swiftui.py MyApp/
+python3 scripts/eval/test_check_swiftui.py    # the checker against a seeded app
+```
+
+On a Mac, `python3 ~/.claude/skills/apple-hig/sf_symbols.py --install`
+copies the SF Symbol names, renames and release versions from macOS or
+Xcode into `~/.cache/apple-hig/`, and both checkers start flagging names
+that don't exist or need a newer OS. If it finds nothing, point `--from`
+at a folder holding `name_availability.plist`.
+`python3 scripts/eval/test_sf_symbols.py` tests the reading and the checks
+against a small stand-in list, since Apple's own can't be committed here.
+
 ### Checking an answer rather than trusting it
 
 Any answer that quotes Apple can be verified:

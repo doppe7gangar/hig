@@ -111,6 +111,12 @@ targets), each finding citing its page:
 python3 ~/.claude/skills/apple-hig/check_swiftui.py MyApp/
 ```
 
+On a Mac, run `python3 ~/.claude/skills/apple-hig/sf_symbols.py --install`
+once and it checks SF Symbol names as well. A misspelt name, or one newer
+than your deployment target, draws nothing and nothing warns you. It
+copies the names from your own Mac, not the symbols, so nothing of
+Apple's ships here.
+
 To check an answer that quotes Apple rather than trust it:
 
 ```bash
