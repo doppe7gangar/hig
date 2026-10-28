@@ -11,6 +11,13 @@ all of them have. Read that file rather than trusting a "finished" notice
 from whatever launched this: in testing, such notices arrived early and
 reported results the files didn't contain.
 
+The tests run on your account's usage. If it hits a limit, every model
+call fails at once and a test looks broken when it never ran. So a run
+that fails is checked against the limit -- its own output, then a
+one-word probe -- and if the limit is the reason, the run is marked
+blocked, not failed, and no further runs start. --resume picks up from
+there once the limit resets.
+
     python3 scripts/eval/run_live.py                    # every test, 3 runs
     python3 scripts/eval/run_live.py --runs 5 --only triggering,with_without
     python3 scripts/eval/run_live.py --out /tmp/live    # default scripts/eval/out/live
@@ -39,24 +46,44 @@ TESTS = {
     "design_brief":   (["projtest.py", "p-split"], r"verdict: (PASS|FAIL)", 150),
 }
 
-
 FOOTER = re.compile(r"^run_live: (\S+) min, exit (\S+)$", re.M)
+LIMIT = re.compile(r"hit your \w+ limit[^\n]*|\b(usage|session|rate) limit[^\n]*", re.I)
+HALT = threading.Event()
+REASON = []
+
+
+def limit_reached(text):
+    """The limit message, from the output or from a one-word probe."""
+    m = LIMIT.search(text)
+    if m:
+        return m.group(0).strip()
+    try:
+        p = subprocess.run(["claude", "-p", "reply with the single word ok"],
+                           capture_output=True, text=True, timeout=120,
+                           env={k: v for k, v in os.environ.items() if k != "CLAUDECODE"})
+        m = LIMIT.search(p.stdout + p.stderr)
+        return m.group(0).strip() if m else None
+    except Exception:
+        return None
 
 
 def run(name, n, out, resume=False):
     """One run of one test. Returns its record; never raises.
 
-    Every log ends with a footer line, written only once the run is over.
-    With resume, a log that has one is read back instead of run again, so
-    a container restart costs the runs that were in flight, not all of
-    them."""
+    A finished run's log ends with a footer line. With resume, a log that
+    has one is read back instead of run again; a blocked run's log has a
+    different footer, so it runs again."""
     cmd, pattern, limit = TESTS[name]
     log = os.path.join(out, f"{name}-{n}.txt")
+    record = dict(name=name, n=n, ok=False, passed=0, total=None, code=None,
+                  minutes=0.0, fails=[], log=log, status="done")
     previous = open(log, encoding="utf-8").read() if resume and os.path.exists(log) else ""
     footer = FOOTER.search(previous)
     if footer:
-        text, minutes = previous, float(footer.group(1))
-        code = None if footer.group(2) == "None" else int(footer.group(2))
+        text, record["minutes"] = previous, float(footer.group(1))
+        record["code"] = None if footer.group(2) == "None" else int(footer.group(2))
+    elif HALT.is_set():
+        return dict(record, status="not run")
     else:
         env = dict(os.environ, PROJTEST_WORK=os.path.join(out, f"{name}-{n}.work"))
         started = time.time()
@@ -64,45 +91,57 @@ def run(name, n, out, resume=False):
             p = subprocess.run([sys.executable, os.path.join(HERE, cmd[0])] + cmd[1:],
                                cwd=os.path.dirname(os.path.dirname(HERE)), env=env,
                                capture_output=True, text=True, timeout=limit * 60)
-            text, code = p.stdout + p.stderr, p.returncode
+            text, record["code"] = p.stdout + p.stderr, p.returncode
         except subprocess.TimeoutExpired as e:
             text = (e.stdout or "") if isinstance(e.stdout, str) else (e.stdout or b"").decode("utf-8", "replace")
-            text, code = text + f"\nTIMEOUT after {limit} min\n", None
-        minutes = (time.time() - started) / 60
-        with open(log, "w", encoding="utf-8") as f:
-            f.write(text + f"\nrun_live: {minutes:.1f} min, exit {code}\n")
+            text += f"\nTIMEOUT after {limit} min\n"
+        record["minutes"] = (time.time() - started) / 60
 
     m = list(re.finditer(pattern, text))
-    if not m:
-        passed, total = 0, None
-    elif m[-1].group(1) in ("PASS", "FAIL"):
-        passed, total = int(m[-1].group(1) == "PASS"), 1
-    else:
-        passed, total = int(m[-1].group(1)), int(m[-1].group(2))
-    fails, lines = [], text.splitlines()
+    if m and m[-1].group(1) in ("PASS", "FAIL"):
+        record.update(passed=int(m[-1].group(1) == "PASS"), total=1)
+    elif m:
+        record.update(passed=int(m[-1].group(1)), total=int(m[-1].group(2)))
+    record["ok"] = record["total"] is not None and record["passed"] == record["total"]
+    lines = text.splitlines()
     for i, line in enumerate(lines):
         if re.search(r"\bFAIL\b|TIMEOUT|ERROR|Traceback", line):
-            fails.append(line.rstrip())
+            record["fails"].append(line.rstrip())
             if i + 1 < len(lines) and lines[i + 1].startswith(" "):
-                fails.append(lines[i + 1].rstrip())
-    ok = total is not None and passed == total
-    return dict(name=name, n=n, ok=ok, passed=passed, total=total, code=code,
-                minutes=minutes, fails=fails, log=log)
+                record["fails"].append(lines[i + 1].rstrip())
+
+    if not footer:
+        reason = None if record["ok"] else limit_reached(text)
+        with open(log, "w", encoding="utf-8") as f:
+            if reason:
+                f.write(text + f"\nrun_live: blocked by a usage limit: {reason}\n")
+            else:
+                f.write(text + f"\nrun_live: {record['minutes']:.1f} min, exit {record['code']}\n")
+        if reason:
+            REASON.append(reason)
+            HALT.set()
+            record["status"] = "blocked"
+    return record
 
 
 def summary(records, names, runs, out, started, done):
     rows, detail = [], []
     for name in names:
         rs = sorted((r for r in records if r["name"] == name), key=lambda r: r["n"])
+        ran = [r for r in rs if r["status"] == "done"]
+        missing = len(rs) - len(ran)
         if not rs:
             rows.append(f"| {name} | waiting | | |")
             continue
-        cases = sum(r["passed"] for r in rs)
-        total = sum(r["total"] or 0 for r in rs)
-        rows.append(f"| {name} | {sum(r['ok'] for r in rs)}/{len(rs)}"
-                    f"{'' if len(rs) == runs else f' of {runs}'} | {cases}/{total} | "
-                    + ", ".join(f"{r['minutes']:.0f}" for r in rs) + " |")
-        for r in rs:
+        if not ran:
+            rows.append(f"| {name} | none finished ({missing} stopped by the limit) | | |")
+            continue
+        cases = sum(r["passed"] for r in ran)
+        total = sum(r["total"] or 0 for r in ran)
+        note = f" ({missing} stopped by the limit)" if missing else ""
+        rows.append(f"| {name} | {sum(r['ok'] for r in ran)}/{len(ran)}{note} | {cases}/{total} | "
+                    + ", ".join(f"{r['minutes']:.0f}" for r in ran) + " |")
+        for r in ran:
             if not r["ok"]:
                 if r["code"] is None:
                     why = "timed out"
@@ -114,15 +153,21 @@ def summary(records, names, runs, out, started, done):
                               + "\n".join("    " + l for l in r["fails"][:20])
                               + f"\n\nFull output: `{r['log']}`\n")
     t0 = time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime(started))
-    body = [f"# Live tests, {runs} run{'s' if runs > 1 else ''} each, started {t0}", "",
-            "| Test | Runs passed | Cases passed | Minutes per run |", "|---|---|---|---|",
-            *rows, ""]
-    body += ["## Failures", "", *detail] if detail else ["No failures.", ""]
+    body = [f"# Live tests, {runs} run{'s' if runs > 1 else ''} each, started {t0}", ""]
+    if REASON:
+        body += [f"**Stopped early: the account hit a usage limit** ({REASON[0]}). "
+                 "Runs it stopped are not counted as failures. Re-run with "
+                 "`--resume` once it resets; finished runs are kept.", ""]
+    body += ["| Test | Runs passed | Cases passed | Minutes per run |", "|---|---|---|---|",
+             *rows, ""]
+    body += ["## Failures", "", *detail] if detail else ["No failures among finished runs.", ""]
+    finished = sum(r["status"] == "done" for r in records)
     if done:
         body.append(f"DONE {time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())}: "
-                    f"{len(records)} runs finished, outputs in {out}")
+                    f"{finished} runs finished, {len(records) - finished} stopped by "
+                    f"the limit, outputs in {out}")
     else:
-        body.append(f"IN PROGRESS: {len(records)} of {len(names) * runs} runs finished")
+        body.append(f"IN PROGRESS: {finished} of {len(names) * runs} runs finished")
     with open(os.path.join(out, "SUMMARY.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(body) + "\n")
     return "\n".join(body)
@@ -156,6 +201,8 @@ def main():
                 records.append(fut.result())
                 summary(records, names, a.runs, out, started, done=False)
     print(summary(records, names, a.runs, out, started, done=True))
+    if HALT.is_set():
+        return 2
     return 0 if all(r["ok"] for r in records) else 1
 
 
