@@ -38,7 +38,11 @@
   --ios-bg-card: #FFFFFF;     /* secondarySystemGroupedBackground: rows */
   --ios-separator: rgba(60, 60, 67, 0.29);
 
-  --ios-radius-card: 10px;
+  /* iOS 26 rounded grouped sections up. Read off Apple's own screens in
+     the HIG, a circle fit to the corner gives 26pt on the Calendar New
+     Event sheet (iOS 26) and 10pt on the Health summary (iOS 17). The
+     10px this replaces was the older value, and it dated every list. */
+  --ios-radius-card: 26px;
   --ios-radius-control: 12px;
   --ios-gutter: 16px;      /* layout.md: standard content margin */
 }
@@ -176,9 +180,11 @@ body {
 /* ---------------------------------------------------------------- Switch
 
    64x28 with a 14 radius, measured off the kit. The knob is a white
-   circle inset 2px; "on" is systemGreen, "off" is the translucent grey
-   fill. Built on a real checkbox so it is keyboard- and
-   screen-reader-operable without extra work. */
+   38x24 pill inset 2px, read off Toggles/*_Idle_* -- iOS 26's knob, not
+   the 24pt circle of earlier versions -- so it travels 22px, from 2 to
+   24. "On" is systemGreen, "off" is the translucent grey fill. Built on
+   a real checkbox so it is keyboard- and screen-reader-operable without
+   extra work. */
 
 .ios-switch {
   position: relative;
@@ -211,9 +217,9 @@ body {
   position: absolute;
   top: 2px;
   left: 2px;
-  width: calc(var(--ios-switch-h) - 4px);
+  width: 38px;
   height: calc(var(--ios-switch-h) - 4px);
-  border-radius: 50%;
+  border-radius: 999px;
   background: #FFFFFF;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .18);
   transition: transform .2s ease;
@@ -224,7 +230,7 @@ body {
 }
 
 .ios-switch input:checked + .ios-switch__track::after {
-  transform: translateX(calc(var(--ios-switch-w) - var(--ios-switch-h)));
+  transform: translateX(calc(var(--ios-switch-w) - 38px - 4px));
 }
 
 .ios-switch input:disabled + .ios-switch__track {
@@ -251,25 +257,48 @@ body {
   overflow: hidden;
 }
 
+/* Measured from assets/ui-kit/List/_Row: a regular row is drawn on a
+   53pt canvas and a two-line row on 69pt, each a hairline plus 52pt and
+   68pt. 14pt of padding gives both: 22pt of body text reaches the 52pt
+   minimum, and a title over a subtitle lands on 68. The 44pt row this
+   replaces is the older list, and it packed every screen too tight. */
 .ios-list__row {
   display: flex;
   align-items: center;
   gap: 12px;
-  min-height: var(--ios-hit-target);
-  padding: 11px var(--ios-gutter);
+  min-height: 52px;
+  padding: 14px var(--ios-gutter);
   position: relative;
 }
 
+/* The hairline runs from 16pt to 284pt on Apple's 300pt row: inset at
+   both ends, not run into the trailing edge. After a leading icon it
+   starts at 57pt, where the text does: 16 + a 29pt icon + 12. */
 .ios-list__row + .ios-list__row::before {
   content: "";
   position: absolute;
   top: 0;
   left: var(--ios-gutter);
-  right: 0;
+  right: var(--ios-gutter);
   height: 1px;
   background: var(--ios-separator);
   transform: scaleY(.5);          /* hairline on 2x displays */
   transform-origin: top;
+}
+
+/* A row holding a control or a leading icon stays a 52pt row, as Apple's
+   do (List/_Row, with and without an icon): the item is centred in the
+   minimum height rather than padded past it. Padding a 28pt switch by
+   14 made its row 56, a 38pt chip's 66, a 30pt icon's 58. */
+.ios-list__row:has(.ios-switch, .ios-chip, .ios-stepper, > .rowicon, > .ios-list__icon) {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* .rowicon is the scaffold's leading-icon slot; .ios-list__icon is the
+   same thing for pages built on the kit directly. */
+.ios-list__row + .ios-list__row:has(> .rowicon, > .ios-list__icon)::before {
+  left: calc(var(--ios-gutter) + 29px + 12px);
 }
 
 .ios-list__row--tappable { cursor: pointer; }
@@ -331,23 +360,29 @@ body {
 /* -------------------------------------------------------- Segmented control
 
    A real radiogroup underneath, so arrow keys work and the selection is
-   announced. The selected segment is a raised white pill on the track. */
+   announced. iOS 26 draws it as a capsule. Read off Apple's Calendar New
+   Event sheet (HIG, segmented-controls-calendar-new-event): a 33pt track
+   with semicircular ends, a white capsule thumb inset about 4pt, and
+   labels in 13pt semibold. The 9pt and 7pt corners this replaces, with
+   15pt regular labels, are the iOS 13-18 control. */
 
 .ios-segmented {
   display: inline-flex;
   background: var(--ios-fill-control);
-  border-radius: 9px;
-  padding: 2px;
-  gap: 2px;
+  border-radius: 999px;
+  padding: 4px;
+  gap: 0;
 }
 
 .ios-segmented label {
   position: relative;
   flex: 1;
   text-align: center;
-  padding: 7px 14px;
-  border-radius: 7px;
-  font: var(--ios-text-subhead);
+  padding: 3.5px 14px;
+  border-radius: 999px;
+  font: var(--ios-text-footnote);
+  font-weight: var(--ios-weight-semibold);
+  letter-spacing: var(--ios-track-footnote);
   color: var(--ios-label);
   cursor: pointer;
   white-space: nowrap;
@@ -921,6 +956,125 @@ body {
 .ios-actionsheet .ios-actionsheet__actions .ios-btn.ios-btn--destructive {
   background: var(--ios-fill-control);
   color: var(--ios-red);
+}
+
+/* ------------------------------------------------------------ Sheet
+
+   iOS 26's sheet, read off Apple's own screenshot in the HIG
+   (sheets-buttons-placement-cancel-done): top corners about 39pt, a
+   36x5pt grabber about 5pt below the edge, and the bar's two actions as
+   44pt circles 16pt in from the sides, centred about 37pt below the top.
+   Cancel is glass; the action that commits is the accent, filled. Text
+   buttons reading Cancel and Done in the corners are the older sheet.
+
+     <div class="ios-sheet" role="dialog" aria-modal="true" aria-labelledby="t">
+       <div class="ios-sheet__grabber"></div>
+       <div class="ios-sheet__bar">
+         <button class="ios-glass ios-glass-btn ios-sheet__btn" aria-label="Cancel"
+                 data-sf-symbol="xmark">...</button>
+         <h2 class="ios-sheet__title" id="t">New Expense</h2>
+         <button class="ios-glass ios-glass--prominent ios-glass-btn ios-sheet__btn"
+                 aria-label="Add" data-sf-symbol="checkmark">...</button>
+       </div>
+       ...ios-list, ios-segmented...
+     </div>
+
+   In dark mode a sheet sits one level up, as iOS raises it: the sheet on
+   #1C1C1E and its rows on #2C2C2E rather than black and #1C1C1E. */
+
+.ios-sheet {
+  position: relative;
+  background: var(--ios-bg);
+  border-radius: 39px 39px 0 0;
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+  box-shadow: 0 -8px 30px rgba(0, 0, 0, .08);
+}
+
+@media (prefers-color-scheme: dark) {
+  .ios-sheet { background: #1C1C1E; --ios-bg-card: #2C2C2E; }
+}
+
+/* Absolutely placed: Apple's sheets put the buttons at the same height
+   with or without a grabber (compare Calendar's New Event, which has
+   none), so the grabber mustn't push the bar down. */
+.ios-sheet__grabber {
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  width: 36px;
+  height: 5px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: var(--ios-label-tertiary);
+}
+
+.ios-sheet__bar {
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
+  align-items: center;
+  gap: 8px;
+  padding: 15px var(--ios-gutter) 12px;
+}
+
+.ios-sheet__title {
+  margin: 0;
+  text-align: center;
+  font: var(--ios-text-headline);
+  letter-spacing: var(--ios-track-headline);
+  color: var(--ios-label);
+}
+
+.ios-sheet__btn {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.ios-sheet__btn svg { width: 20px; height: 20px; }
+
+/* The dimming behind a sheet: white content under it reads as #CCCCCC
+   in the same screenshot, which is black at 20%. */
+.ios-sheet-scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .2);
+}
+
+/* ------------------------------------------------------------- Chip
+
+   The capsule a date or a time sits in on a form row: Calendar's Starts
+   and Ends. Read off the same New Event screenshot, it is about 38pt tall
+   with fully round ends, its text 11pt in, 8pt between a pair, filled
+   with the control fill. A <button>, so its picker opens from the
+   keyboard too. 38pt is Apple's height; the pseudo-element extends the
+   target to 44 without changing what is drawn.
+
+     <span class="ios-list__value">
+       <button class="ios-chip">Jul 31, 2025</button><button class="ios-chip">6:00 PM</button>
+     </span>
+*/
+.ios-chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 11px;
+  border: none;
+  border-radius: 999px;
+  background: var(--ios-fill-control);
+  font: var(--ios-text-body);
+  letter-spacing: var(--ios-track-body);
+  color: var(--ios-label);
+  cursor: pointer;
+}
+
+.ios-chip::before { content: ""; position: absolute; inset: -3px 0; }
+.ios-chip + .ios-chip { margin-left: 8px; }
+
+.ios-chip:focus-visible {
+  outline: 3px solid var(--ios-accent);
+  outline-offset: 2px;
 }
 
 /* ---------------------------------------------------------- Stepper

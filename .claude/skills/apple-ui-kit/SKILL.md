@@ -1,6 +1,6 @@
 ---
 name: apple-ui-kit
-description: Apple's iOS 27 design values — colour, type scale, control geometry, interaction states — measured from Apple's real UI kit and exported for every platform: CSS custom properties, Design Tokens JSON, SwiftUI, Jetpack Compose, Android XML, Flutter/Dart, and TypeScript for React Native. Plus ready web component recipes (buttons, switches, grouped lists, fields, segmented controls, tab bars, materials). Use whenever UI should look like Apple's on a target that has no system palette to ask — a web app, landing page, dashboard, React/Vue/Svelte component, Android or Flutter or React Native app, or a design system — and whenever someone says "make it look like Apple", "iOS style", "Apple aesthetic", or asks for a polished app UI with Apple as the obvious reference. Values are measured, not remembered: the accent is #0088FF, not the #007AFF that circulates online, and the primary label is #1A1A1A, not black. Also use when reviewing UI that is trying to look Apple-like and getting details wrong. For Apple's actual rules — which control to use, how layouts adapt, platform differences — and for native SwiftUI/UIKit/AppKit work, use the apple-hig skill.
+description: Apple's iOS 27 design values — colour, type scale, control geometry, interaction states — measured from Apple's real UI kit and exported for every platform: CSS custom properties, Design Tokens JSON, SwiftUI, Jetpack Compose, Android XML, Flutter/Dart, and TypeScript for React Native. Plus ready web component recipes measured against iOS 26/27: navigation bar, tab bar, grouped lists, sheets, alerts, action sheets, buttons, switches, segmented controls, steppers, sliders, date chips, page controls, empty states, status bar, Liquid Glass. Use whenever UI should look like Apple's on a target that has no system palette to ask — a web app, landing page, dashboard, React/Vue/Svelte component, Android or Flutter or React Native app, or a design system — and whenever someone says "make it look like Apple", "iOS style", "Apple aesthetic", or asks for a polished app UI with Apple as the obvious reference. Values are measured, not remembered: the accent is #0088FF, not the #007AFF that circulates online, and the primary label is #1A1A1A, not black. Also use when reviewing UI that is trying to look Apple-like and getting details wrong. For Apple's actual rules — which control to use, how layouts adapt, platform differences — and for native SwiftUI/UIKit/AppKit work, use the apple-hig skill.
 ---
 
 # Apple UI for the web
@@ -27,7 +27,7 @@ which is the reason to trust the ones that don't overlap.
 |---|---|
 | `tokens/` | **The measured values**, one file per target — see below. Generated; don't hand-edit. |
 | `fonts/` | **Inter, bundled** (SIL OFL) — the non-Apple fallback for SF Pro, with its licence. |
-| `ios-components.css` | **Web component recipes** built on the CSS tokens — buttons, switch, grouped list, field, segmented, tab bar, material. |
+| `ios-components.css` | **Web component recipes** built on the CSS tokens. Bars: `ios-navbar`, `ios-tabbar`, `ios-controls` (floating glass group), `ios-statusbar`. Content: `ios-list` (52pt rows, 26pt corners), `ios-empty`. Presentation: `ios-sheet`, `ios-alert`, `ios-actionsheet`. Controls: `ios-btn`, `ios-glass-btn`, `ios-switch`, `ios-segmented`, `ios-stepper`, `ios-slider`, `ios-chip`, `ios-field`, `ios-pagecontrol`. Material: `ios-glass`. Read a recipe's section of the file before using it: its selectors name the parts it expects inside. |
 | `example.html` | Working reference page. Open it to see every recipe, light and dark. |
 | `ui-kit-tokens.json` | **Every measurement**, 945 renderings × colours + geometry + state. Query it for anything the recipes don't cover. |
 
@@ -357,10 +357,10 @@ python3 scripts/verify_web_ui.py           # asserts the rendered result
 `verify_web_ui.py` drives a real browser over `example.html` and checks
 computed values, not appearance: every token resolves, the type scale
 lands on the specs.md numbers to the pixel, the switch measures 64x28
-with a 36px knob travel, hit targets clear 44px, separators skip each
+with a 38×24 pill knob travelling 22px, hit targets clear 44px, separators skip each
 list's first row, the grouped backgrounds are the right way round, and
 every colour pair meets the contrast it should, and a bundled face
-actually renders rather than falling through to a substitute. 167 checks
+actually renders rather than falling through to a substitute. 170 checks
 across light, dark, and increased contrast.
 
 ## Rules, not just looks

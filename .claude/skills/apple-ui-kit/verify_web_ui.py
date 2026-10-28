@@ -180,14 +180,18 @@ def run(pw, scheme, c, contrast_more=False):
       f"{sw['onBg']} vs {sw['offBg']}")
     c(float(sw["disOpacity"]) < 1, "switch disabled fades", sw["disOpacity"])
 
-    # knob must travel exactly width - height, or it overhangs the track
-    travel = pg.evaluate(
+    # The knob is a 38x24 pill in Apple's renderings (Toggles/*_Idle_*),
+    # so it travels width - knob - 2x2 inset = 22px. A circle knob
+    # travelling 36 is the older switch, and this used to assert it.
+    knob = pg.evaluate(
         """() => { const t = document.querySelector('.ios-switch input:checked')
                      .nextElementSibling;
-             const m = getComputedStyle(t, '::after').transform;
-             if (m === 'none') return 0;
-             return Math.round(parseFloat(m.split(',')[4])); }""")
-    c(travel == 36, "switch knob travel = w-h = 36px", str(travel))
+             const cs = getComputedStyle(t, '::after'); const m = cs.transform;
+             return {w: parseFloat(cs.width), h: parseFloat(cs.height),
+                     travel: m === 'none' ? 0 : Math.round(parseFloat(m.split(',')[4]))}; }""")
+    c(knob["w"] == 38 and knob["h"] == 24, "switch knob is a 38x24 pill",
+      f"{knob['w']}x{knob['h']}")
+    c(knob["travel"] == 22, "switch knob travel = 64-38-4 = 22px", str(knob["travel"]))
 
     # 5. grouped background pairing, and the right way round in light
     bg = vals["--ios-bg"]

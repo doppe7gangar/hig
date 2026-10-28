@@ -94,10 +94,10 @@ cd ~/Documents/GitHub/hig
 python3 scripts/verify_web_ui.py -v
 ```
 
-167 checks in a real browser, across light, dark, and increased
+170 checks in a real browser, across light, dark, and increased
 contrast. It asserts computed values rather than appearance: every token
 resolves, the type scale lands on the HIG's numbers to the pixel, the
-switch measures 64×28 with 36px of knob travel, hit targets clear 44px,
+switch measures 64×28 with a 38×24 pill knob travelling 22px, hit targets clear 44px,
 separators skip each list's first row, the colour pairs meet the contrast
 they should, and a bundled face actually renders rather than silently
 falling through to whatever the platform substitutes.

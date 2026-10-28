@@ -21,13 +21,15 @@ The measured visual corpus is currently iOS 27. Never present iOS screenshots as
 
 **Name the SF Symbol behind every icon.** They cannot ship here — Apple's licence covers using them inside apps that run on Apple platforms, not extracting them into a web kit — so every glyph in a mockup is a stand-in and the name is the part that has to be exact. Write `data-sf-symbol="house.fill"` on the slot. It costs an attribute and turns a drawing that resembles a house into `Image(systemName:)`, which is what the implementation actually needs. The status bar is symbols too, and its placeholder characters are placeholders.
 
+**Draw the stand-in at the symbol's weight.** Measured from SF Pro's own symbol glyphs, SF Symbols stroke at 0.08em in regular and 0.11em in semibold: `stroke-width="2"` on a 24-unit `viewBox` beside regular text, about 2.7 beside semibold, always with round caps and joins. Strokes of 1.4 to 1.7, the web icon-set default, are what made generated lists read as a website. Use the filled shape when the name ends in `.fill`, and colour by meaning, as Health does with an orange flame and a red heart, rather than putting every glyph in the accent.
+
 **Then express that hierarchy with the measured recipes, rather than rebuilding them.** Deciding structure first is not a licence to hand-roll the list, the navigation bar and the tab bar afterwards. `apple-ui-kit`'s `ios-components.css` carries the grouped-list metrics, the bar heights, the control geometry and the tracking this corpus measured from Apple's own renderings; a from-scratch approximation of them is the difference between a design that reads as iOS and one that reads as almost-iOS. Change the content, the composition and the palette. Keep the recipes. On macOS there is no measured kit, so compose from `apple-hig` and say so.
 
 ## Size the process to the request
 One screen or page takes the short path: a single primary task, with its sheets and states. That's most single-page requests: an expense tracker page, a settings screen, a sign-up form.
 
 1. Route the platform and name the one question the screen answers: `references/platform-routing.md`, `references/content-hierarchy.md`.
-2. Scaffold (step 12) and build the screen on it, with real content and its loading, empty and error states.
+2. Scaffold (step 12) and build the screen on it, with real content and its loading, empty and error states. Keep its large title: a top-level iOS screen without one reads as a web page.
 3. Run `python3 check_design.py ./design` until it passes.
 4. Run `python3 render_review.py ./design`, look at the screenshots, and fix what they show.
 
