@@ -28,9 +28,9 @@ Activity rings are available in iOS with [HKActivityRingView](https://developer.
 - With an Apple Watch paired, iOS shows all three Activity rings.
 - Without an Apple Watch paired, iOS shows the Move ring only, which represents an approximation of a person’s activity based on their steps and workout information from other apps.
 
-![A screenshot of the Activity summary in the iOS Fitness app with Apple Watch paired. All three Activity rings are displayed.](/images/com.apple.HIG/activity-rings-watch-paired@2x.png)
+![A screenshot of the Activity summary in the iOS Fitness app with Apple Watch paired. All three Activity rings are displayed.](https://developer.apple.com/tutorials/images/com.apple.HIG/activity-rings-watch-paired@2x.png)
 
-![A screenshot of the Activity summary in the iOS Fitness app with no Apple Watch paired. Only the Move ring is displayed.](/images/com.apple.HIG/activity-rings-no-watch-paired@2x.png)
+![A screenshot of the Activity summary in the iOS Fitness app with no Apple Watch paired. Only the Move ring is displayed.](https://developer.apple.com/tutorials/images/com.apple.HIG/activity-rings-no-watch-paired@2x.png)
 
 Because iOS shows Activity rings whether or not an Apple Watch is paired, activity history can include a combination of both styles. For example, Activity rings in Fitness have three rings when a person exercises with their Apple Watch paired, and only the Move ring when they exercise without their Apple Watch.
 
@@ -58,9 +58,9 @@ By default, iOS and iPadOS use the secondary and tertiary background [colors](ht
 
 **Configure a button to display an activity indicator when you need to provide feedback about an action that doesn’t instantly complete.** Displaying an activity indicator within a button can save space in your user interface while clearly communicating the reason for the delay. To help clarify what’s happening, you can also configure the button to display a different label alongside the activity indicator. For example, the label “Checkout” could change to “Checking out…” while the activity indicator is visible. When a delay occurs after people click or tap your configured button, the system displays the activity indicator next to the original or alternative label, hiding the button image, if there is one.
 
-![An illustration of a button labeled Checkout.](/images/com.apple.HIG/button-activity-indicator-hidden@2x.png)
+![An illustration of a button labeled Checkout.](https://developer.apple.com/tutorials/images/com.apple.HIG/button-activity-indicator-hidden@2x.png)
 
-![An illustration of a button labeled Checking out, with an activity indicator on the leading side of the label.](/images/com.apple.HIG/button-activity-indicator-visible@2x.png)
+![An illustration of a button labeled Checking out, with an activity indicator on the leading side of the label.](https://developer.apple.com/tutorials/images/com.apple.HIG/button-activity-indicator-visible@2x.png)
 
 ### Collections
 <sub>`pages/collections.md` — upstream heading: iOS, iPadOS</sub>
@@ -109,11 +109,11 @@ In iOS and iPadOS, a context menu can display a preview of the current content n
 
 In Dark Mode, the system uses two sets of background colors — called *base* and *elevated* — to enhance the perception of depth when one dark interface is layered above another. The base colors are dimmer, making background interfaces appear to recede, and the elevated colors are brighter, making foreground interfaces appear to advance.
 
-![A diagram that shows a stack of 4 terms on top of a black background. The term at the top shows the most contrast with the background and the term at the bottom shows the least.](/images/com.apple.HIG/base-with-four-semantic-colors@2x.png)
+![A diagram that shows a stack of 4 terms on top of a black background. The term at the top shows the most contrast with the background and the term at the bottom shows the least.](https://developer.apple.com/tutorials/images/com.apple.HIG/base-with-four-semantic-colors@2x.png)
 
-![A diagram that shows a stack of 4 terms on top of a nearly black background. The term at the top shows the most contrast with the background and the term at the bottom shows the least.](/images/com.apple.HIG/elevated-with-four-semantic-colors@2x.png)
+![A diagram that shows a stack of 4 terms on top of a nearly black background. The term at the top shows the most contrast with the background and the term at the bottom shows the least.](https://developer.apple.com/tutorials/images/com.apple.HIG/elevated-with-four-semantic-colors@2x.png)
 
-![A diagram that shows a stack of 4 terms on top of a white background. The term at the top shows the most contrast with the background and the term at the bottom shows the least.](/images/com.apple.HIG/light-with-four-semantic-colors@2x.png)
+![A diagram that shows a stack of 4 terms on top of a white background. The term at the top shows the most contrast with the background and the term at the bottom shows the least.](https://developer.apple.com/tutorials/images/com.apple.HIG/light-with-four-semantic-colors@2x.png)
 
 **Prefer the system background colors.** Dark Mode is dynamic, which means that the background color automatically changes from base to elevated when an interface is in the foreground, such as a popover or modal sheet. The system also uses the elevated background color to provide visual separation between apps in a multitasking environment and between windows in a multiple-window context. Using a custom background color can make it harder for people to perceive these system-provided visual distinctions.
 
@@ -160,7 +160,7 @@ The document launcher consists of three main parts:
 
 You can customize all three parts of the document launcher. Although the system automatically displays your app name in the title card, you specify the text and functions of the card’s primary and secondary buttons. You can also create a custom background image, one or more accessory images to surround the title card, and provide some custom controls that can appear in the file browser’s toolbar.
 
-![A screenshot of a writing app's document launcher on iPad in landscape orientation. The document launcher displays a custom background and two accessory images. At the bottom, the file browser sheet provides 3 tabs: Recents, Shared, and Browse.](/images/com.apple.HIG/file-management-document-launcher@2x.png)
+![A screenshot of a writing app's document launcher on iPad in landscape orientation. The document launcher displays a custom background and two accessory images. At the bottom, the file browser sheet provides 3 tabs: Recents, Shared, and Browse.](https://developer.apple.com/tutorials/images/com.apple.HIG/file-management-document-launcher@2x.png)
 
 **Assign the title card’s buttons to your app’s most important functions.** The primary button typically creates a new document, and the secondary button can provide additional options. For example, the primary button in Numbers is Start Writing and the secondary button is Choose a Template.
 
@@ -210,9 +210,9 @@ In addition to the [Standard gestures](https://developer.apple.com/design/human-
 
 **Use an info button only to reveal more information about a row’s content.** An info button — called a *detail disclosure button* when it appears in a list row — doesn’t support navigation through a hierarchical table or list. If you need to let people drill into a list or table row’s subviews, use a disclosure indicator accessory control. For developer guidance, see [UITableViewCell.AccessoryType.disclosureIndicator](https://developer.apple.com/documentation/uikit/uitableviewcell/accessorytype-swift.enum/disclosureindicator).
 
-![An illustration of a grouped list of rows. Each list item includes an info button at the trailing end of the row.](/images/com.apple.HIG/info-button-in-list@2x.png)
+![An illustration of a grouped list of rows. Each list item includes an info button at the trailing end of the row.](https://developer.apple.com/tutorials/images/com.apple.HIG/info-button-in-list@2x.png)
 
-![An illustration of a grouped list of rows. Each list item includes a right-pointing chevron at the trailing end of the row.](/images/com.apple.HIG/disclosure-indicator-in-list@2x.png)
+![An illustration of a grouped list of rows. Each list item includes a right-pointing chevron at the trailing end of the row.](https://developer.apple.com/tutorials/images/com.apple.HIG/disclosure-indicator-in-list@2x.png)
 
 **Avoid adding an index to a table that displays controls — like disclosure indicators — in the trailing ends of its rows.** An *index* typically consists of the letters in an alphabet, displayed vertically at the trailing side of a list. People can jump to a specific section in the list by choosing the index letter that maps to it. Because both the index and elements like disclosure indicators appear on the trailing side of a list, it can be difficult for people to use one element without activating the other.
 
@@ -221,13 +221,13 @@ In addition to the [Standard gestures](https://developer.apple.com/design/human-
 
 In addition to Liquid Glass, iOS and iPadOS continue to provide four standard materials — ultra-thin, thin, regular (default), and thick — which you can use in the content layer to help create visual distinction.
 
-![An illustration of the iOS and iPadOS ultraThin material above a colorful background. Where the material overlaps the background, it provides a diffuse gradient of the background colors.](/images/com.apple.HIG/materials-ios-material-background-ultrathin@2x.png)
+![An illustration of the iOS and iPadOS ultraThin material above a colorful background. Where the material overlaps the background, it provides a diffuse gradient of the background colors.](https://developer.apple.com/tutorials/images/com.apple.HIG/materials-ios-material-background-ultrathin@2x.png)
 
-![An illustration of the iOS and iPadOS thin material above a colorful background. Where the material overlaps the background, it provides a diffuse and slightly darkened gradient of the background colors.](/images/com.apple.HIG/materials-ios-material-background-thin@2x.png)
+![An illustration of the iOS and iPadOS thin material above a colorful background. Where the material overlaps the background, it provides a diffuse and slightly darkened gradient of the background colors.](https://developer.apple.com/tutorials/images/com.apple.HIG/materials-ios-material-background-thin@2x.png)
 
-![An illustration of the iOS and iPadOS regular material above a colorful background. Where the material overlaps the background, it provides a diffuse and darkened gradient of the background colors.](/images/com.apple.HIG/materials-ios-material-background-regular@2x.png)
+![An illustration of the iOS and iPadOS regular material above a colorful background. Where the material overlaps the background, it provides a diffuse and darkened gradient of the background colors.](https://developer.apple.com/tutorials/images/com.apple.HIG/materials-ios-material-background-regular@2x.png)
 
-![An illustration of the iOS and iPadOS thick material above a colorful background. Where the material overlaps the background, it provides a dark, muted gradient of the background colors.](/images/com.apple.HIG/materials-ios-material-background-thick@2x.png)
+![An illustration of the iOS and iPadOS thick material above a colorful background. Where the material overlaps the background, it provides a dark, muted gradient of the background colors.](https://developer.apple.com/tutorials/images/com.apple.HIG/materials-ios-material-background-thick@2x.png)
 
 iOS and iPadOS also define vibrant colors for labels, fills, and separators that are specifically designed to work with each material. Labels and fills both have several levels of vibrancy; separators have one level. The name of a level indicates the relative amount of contrast between an element and the background: The default level has the highest contrast, whereas quaternary (when it exists) has the lowest contrast.
 
@@ -251,7 +251,7 @@ The system provides a single, default vibrancy value for a [UIVibrancyEffectStyl
 
 In iOS and iPadOS, a menu can display items in one of the following three layouts.
 
-![A diagram showing small, medium, and large menu layouts, each containing the same set of menu items.](/images/com.apple.HIG/small-medium-large-menu-layouts@2x.png)
+![A diagram showing small, medium, and large menu layouts, each containing the same set of menu items.](https://developer.apple.com/tutorials/images/com.apple.HIG/small-medium-large-menu-layouts@2x.png)
 
 - **Small.** A row of four items appears at the top of the menu, above a list that contains the remaining items. For each item in the top row, the menu displays a symbol or icon, but no label.
 - **Medium.** A row of three items appears at the top of the menu, above a list that contains the remaining items. For each item in the top row, the menu displays a symbol or icon above a short label.
@@ -266,9 +266,9 @@ For developer guidance, see [preferredElementSize](https://developer.apple.com/d
 
 On iPhone, multitasking lets people use FaceTime or watch a video in Picture in Picture while they also use a different app.
 
-![A screenshot of the app switcher on iPhone, showing four open apps.](/images/com.apple.HIG/multitasking-app-switcher-iphone@2x.png)
+![A screenshot of the app switcher on iPhone, showing four open apps.](https://developer.apple.com/tutorials/images/com.apple.HIG/multitasking-app-switcher-iphone@2x.png)
 
-![A screenshot of Mail on iPhone, showing an individual email. On top of the email body content, a small image in the bottom-left corner shows the person currently in a FaceTime call.](/images/com.apple.HIG/multitasking-pip-iphone@2x.png)
+![A screenshot of Mail on iPhone, showing an individual email. On top of the email body content, a small image in the bottom-left corner shows the person currently in a FaceTime call.](https://developer.apple.com/tutorials/images/com.apple.HIG/multitasking-pip-iphone@2x.png)
 
 ### Nearby interactions
 <sub>`pages/nearby-interactions.md`</sub>
@@ -280,7 +280,7 @@ On iPhone, Nearby Interaction APIs provide a peer device’s distance and direct
 
 A page control can adjust the appearance of indicators to provide more information about the list. For example, the control highlights the indicator of the current page so people can estimate the page’s relative position in the list. When there are more indicators than fit in the space, the control can shrink indicators at both sides to suggest that more pages are available.
 
-![An illustration of a page control. The page control displays a total of 9 dots. The center 5 dots use the default size; the second and eighth dots are about half the default size and the first and ninth dots are about one quarter the default size. The center dot is filled, indicating the location of the current page in the list.](/images/com.apple.HIG/page-controls-many-indicators@2x.png)
+![An illustration of a page control. The page control displays a total of 9 dots. The center 5 dots use the default size; the second and eighth dots are about half the default size and the first and ninth dots are about one quarter the default size. The center dot is filled, indicating the location of the current page in the list.](https://developer.apple.com/tutorials/images/com.apple.HIG/page-controls-many-indicators@2x.png)
 
 People interact with page controls by tapping or scrubbing (to *scrub*, people touch the control and drag left or right). Tapping on the leading or trailing side of the current-page indicator reveals the next or previous page; in iPadOS, people can also use the pointer to target a specific indicator. Scrubbing opens pages in sequence, and scrubbing past the leading or trailing edge of the control helps people quickly reach the first or last page.
 
@@ -321,15 +321,15 @@ Here are several examples of date pickers showing different combinations of styl
 
 **Compact**
 
-![An illustration of a compact date picker, with a single inline row showing the currently selected date. The picker opens as a popover extending down from the row, and includes a full calendar month for choosing the date.](/images/com.apple.HIG/pickers-date-picker-compact-expanded@2x.png)
+![An illustration of a compact date picker, with a single inline row showing the currently selected date. The picker opens as a popover extending down from the row, and includes a full calendar month for choosing the date.](https://developer.apple.com/tutorials/images/com.apple.HIG/pickers-date-picker-compact-expanded@2x.png)
 
 **Inline**
 
-![An illustration of an inline date picker, titled 'Date'. A toggle at the top is switched on, and a calendar month for choosing the date appears below the title and toggle.](/images/com.apple.HIG/pickers-date-picker-inline-expanded@2x.png)
+![An illustration of an inline date picker, titled 'Date'. A toggle at the top is switched on, and a calendar month for choosing the date appears below the title and toggle.](https://developer.apple.com/tutorials/images/com.apple.HIG/pickers-date-picker-inline-expanded@2x.png)
 
 **Wheels**
 
-![An illustration of an inline time picker, titled 'Time'. The currently selected time appears in the title row, and three vertical wheels appear below the title row for choosing the hour, minute, and AM or PM value.](/images/com.apple.HIG/pickers-time-picker-inline-wheel@2x.png)
+![An illustration of an inline time picker, titled 'Time'. The currently selected time appears in the title row, and three vertical wheels appear below the title row for choosing the hour, minute, and AM or PM value.](https://developer.apple.com/tutorials/images/com.apple.HIG/pickers-time-picker-inline-wheel@2x.png)
 
 
 **Use a compact date picker when space is constrained.** The compact style displays a button that shows the current value in your app’s accent color. When people tap the button, the date picker opens a modal view, providing access to a familiar calendar-style editor and time picker. Within the modal view, people can make multiple edits to dates and times before tapping outside the view to confirm their choices.
@@ -390,7 +390,7 @@ Selection haptics provide feedback while the values of a UI element are changing
 
 A refresh control lets people immediately reload content, typically in a table view, without waiting for the next automatic content update to occur. A refresh control is a specialized type of activity indicator that’s hidden by default, becoming visible when people drag down the view they want to reload. In Mail, for example, people can drag down the list of Inbox messages to check for new messages.
 
-![A screenshot of a refresh content control spinning while Mail checks for new messages.](/images/com.apple.HIG/refresh-controls@2x.png)
+![A screenshot of a refresh content control spinning while Mail checks for new messages.](https://developer.apple.com/tutorials/images/com.apple.HIG/refresh-controls@2x.png)
 
 **Perform automatic content updates.** Although people appreciate being able to do an immediate content refresh, they also expect automatic refreshes to occur periodically. Don’t make people responsible for initiating every update. Keep data fresh by updating it regularly.
 
@@ -405,9 +405,9 @@ For developer guidance, see [UIRefreshControl](https://developer.apple.com/docum
 
 **Consider using a More pull-down button to present items that don’t need prominent positions in the main interface.** A More button can help you offer a range of items where space is constrained, but it can also hinder discoverability. Although people generally understand that a More button offers additional functionality related to the current context, the ellipsis icon doesn’t necessarily help them predict its contents. To design an effective More button, weigh the convenience of its size against its impact on discoverability to find a balance that works in your app.
 
-![A screenshot of the Notes app on iPhone, open to a Notes document titled Nature Walks. The top toolbar includes a More button on the trailing edge.](/images/com.apple.HIG/menu-secondary-actions-collapsed@2x.png)
+![A screenshot of the Notes app on iPhone, open to a Notes document titled Nature Walks. The top toolbar includes a More button on the trailing edge.](https://developer.apple.com/tutorials/images/com.apple.HIG/menu-secondary-actions-collapsed@2x.png)
 
-![A screenshot of the Notes app on iPhone, open to a Notes document titled Nature Walks. The More button in the top toolbar is expanded, revealing the More menu with additional funtionality.](/images/com.apple.HIG/menu-secondary-actions-expanded@2x.png)
+![A screenshot of the Notes app on iPhone, open to a Notes document titled Nature Walks. The More button in the top toolbar is expanded, revealing the More menu with additional funtionality.](https://developer.apple.com/tutorials/images/com.apple.HIG/menu-secondary-actions-expanded@2x.png)
 
 ### Scroll views
 <sub>`pages/scroll-views.md` — upstream heading: iOS, iPadOS</sub>
@@ -422,9 +422,9 @@ As an alternative to search in a tab bar, you can also place search in a toolbar
 - You can include search in a bottom toolbar either as an expanded field or as a toolbar button, depending on how much space is available. When someone taps it, it animates into a search field above the keyboard so they can begin typing.
 - You can include search in a top toolbar, also called a navigation bar, where it appears as a toolbar button. When someone taps it, it animates into a search field that appears either above the keyboard or at the top if there isn’t space at the bottom.
 
-![An illustration of an iPhone screen with search in a bottom toolbar. The search field is positioned in an isolated group between a Filter button on the leading edge and a Compose button on the trailing edge.](/images/com.apple.HIG/search-fields-ios-toolbar-with-items@2x.png)
+![An illustration of an iPhone screen with search in a bottom toolbar. The search field is positioned in an isolated group between a Filter button on the leading edge and a Compose button on the trailing edge.](https://developer.apple.com/tutorials/images/com.apple.HIG/search-fields-ios-toolbar-with-items@2x.png)
 
-![An illustration of an iPhone screen with search in a top toolbar. A Back button appears on the leading edge, and an Add button appears on the trailing edge. A button group with Search and More appears next to the Add button.](/images/com.apple.HIG/search-fields-ios-navigation-bar-item@2x.png)
+![An illustration of an iPhone screen with search in a top toolbar. A Back button appears on the leading edge, and an Add button appears on the trailing edge. A button group with Search and More appears next to the Add button.](https://developer.apple.com/tutorials/images/com.apple.HIG/search-fields-ios-navigation-bar-item@2x.png)
 
 **Place search at the bottom if there’s room.** You can either add a search field to an existing toolbar, or as a new toolbar where search is the only item. Search at the bottom is useful in any situation where search is a priority, since it keeps the search experience easy to reach. Examples of apps with search at the bottom in various toolbar layouts include Settings, where it’s the only item, and Mail and Notes, where it fits alongside other important controls.
 
@@ -458,9 +458,9 @@ You can place search as a tab in a tab bar, which keeps search visible and alway
 - **Standard tab.** This style displays the search tab uniformly with the rest of the tab bar. Tapping the search tab navigates people to a search landing page with a search field at the top.
 - **Button appearance.** This style displays the search tab as a separate button and allows people to start searching immediately. Tapping the search tab brings focus to the search field and displays the keyboard.
 
-![An illustration of a tab bar at the bottom of an iPhone screen. A tab for search appears as part of the tab bar.](/images/com.apple.HIG/search-fields-search-as-tab-standard@2x.png)
+![An illustration of a tab bar at the bottom of an iPhone screen. A tab for search appears as part of the tab bar.](https://developer.apple.com/tutorials/images/com.apple.HIG/search-fields-search-as-tab-standard@2x.png)
 
-![An illustration of a tab bar at the bottom of an iPhone screen. A tab for search appears on the trailing edge as a separate button.](/images/com.apple.HIG/search-fields-search-as-tab-prominent@2x.png)
+![An illustration of a tab bar at the bottom of an iPhone screen. A tab for search appears on the trailing edge as a separate button.](https://developer.apple.com/tutorials/images/com.apple.HIG/search-fields-search-as-tab-prominent@2x.png)
 
 **Choose the standard tab style to provide suggestions, promote discovery, and encourage exploration.** This style of search tab creates a dedicated landing page for search, providing an opportunity to reveal any content or suggestions that might be helpful before someone taps the field to begin the search. This approach is great for an app with a variety of rich content that people might want to explore. For example, Apple TV uses this search tab style to present its various genres and categories, helping ground people in what’s available before they search.
 
@@ -471,35 +471,35 @@ You can place search as a tab in a tab bar, which keeps search visible and alway
 
 **Consider a segmented control to switch between closely related subviews.** A segmented control can be useful as a way to quickly switch between related subviews. For example, the segmented control in Calendar’s New Event sheet switches between the subviews for creating a new event and a new reminder. For switching between completely separate sections of an app, use a [Tab bars](https://developer.apple.com/design/human-interface-guidelines/tab-bars) instead.
 
-![A screenshot of the top half of the iOS Calendar app, showing the New Event sheet. A segmented control provides the ability to switch between adding a new event and a new reminder.](/images/com.apple.HIG/segmented-controls-calendar-new-event@2x.png)
+![A screenshot of the top half of the iOS Calendar app, showing the New Event sheet. A segmented control provides the ability to switch between adding a new event and a new reminder.](https://developer.apple.com/tutorials/images/com.apple.HIG/segmented-controls-calendar-new-event@2x.png)
 
 ### Sheets
 <sub>`pages/sheets.md` — upstream heading: iOS, iPadOS</sub>
 
 In iOS and iPadOS, for sheets with a single view, the Cancel button belongs on the leading edge of the top toolbar. When present, the Done button belongs on the trailing edge.
 
-![An illustration of the top half of a sheet on iPhone. A Cancel button appears in the top-left corner of the view, and a Done button appears in the top-right corner.](/images/com.apple.HIG/sheets-buttons-placement-cancel-done@2x.png)
+![An illustration of the top half of a sheet on iPhone. A Cancel button appears in the top-left corner of the view, and a Done button appears in the top-right corner.](https://developer.apple.com/tutorials/images/com.apple.HIG/sheets-buttons-placement-cancel-done@2x.png)
 
 For sheets with a multi-step flow, the placement of buttons can vary across steps.
 
 **First step**
 
-![An illustration of the top half of a sheet on iPhone. A Cancel button appears in the top-left corner of the view, and an inactive Done button appears in the top-right corner.](/images/com.apple.HIG/sheets-buttons-placement-navigation-first-page@2x.png)
+![An illustration of the top half of a sheet on iPhone. A Cancel button appears in the top-left corner of the view, and an inactive Done button appears in the top-right corner.](https://developer.apple.com/tutorials/images/com.apple.HIG/sheets-buttons-placement-navigation-first-page@2x.png)
 
 **Subsequent step**
 
-![An illustration of the top half of a sheet on iPhone. A Back button appears in the top-left corner of the view, and an inactive Done button appears in the top-right corner.](/images/com.apple.HIG/sheets-buttons-placement-navigation-subsequent-page@2x.png)
+![An illustration of the top half of a sheet on iPhone. A Back button appears in the top-left corner of the view, and an inactive Done button appears in the top-right corner.](https://developer.apple.com/tutorials/images/com.apple.HIG/sheets-buttons-placement-navigation-subsequent-page@2x.png)
 
 **Final step**
 
-![An illustration of the top half of a sheet on iPhone. A Back button appears in the top-left corner of the view, and a Done button appears in the top-right corner.](/images/com.apple.HIG/sheets-buttons-placement-navigation-final-page@2x.png)
+![An illustration of the top half of a sheet on iPhone. A Back button appears in the top-left corner of the view, and a Done button appears in the top-right corner.](https://developer.apple.com/tutorials/images/com.apple.HIG/sheets-buttons-placement-navigation-final-page@2x.png)
 
 
 A resizable sheet expands when people scroll its contents or drag the *grabber*, which is a small horizontal indicator that can appear at the top edge of a sheet. Sheets resize according to their *detents*, which are particular heights at which a sheet naturally rests. Designed for iPhone, detents specify particular heights at which a sheet naturally rests. The system defines two detents: *large* is the height of a fully expanded sheet and *medium* is about half of the fully expanded height. Sheets can have one or more custom detent values.
 
-![An illustration showing an iPhone screen in portrait orientation containing a solid rounded rectangle that occupies almost all of the screen, representing a full-screen sheet. A rounded close button appears in the upper-left corner of the sheet.](/images/com.apple.HIG/sheets-large-detent@2x.png)
+![An illustration showing an iPhone screen in portrait orientation containing a solid rounded rectangle that occupies almost all of the screen, representing a full-screen sheet. A rounded close button appears in the upper-left corner of the sheet.](https://developer.apple.com/tutorials/images/com.apple.HIG/sheets-large-detent@2x.png)
 
-![An illustration showing an iPhone screen in portrait orientation containing a solid rounded rectangle that occupies half of the screen, representing a half-screen sheet. A rounded close button appears in the upper-left corner of the sheet.](/images/com.apple.HIG/sheets-medium-detent@2x.png)
+![An illustration showing an iPhone screen in portrait orientation containing a solid rounded rectangle that occupies half of the screen, representing a half-screen sheet. A rounded close button appears in the upper-left corner of the sheet.](https://developer.apple.com/tutorials/images/com.apple.HIG/sheets-medium-detent@2x.png)
 
 Sheets automatically support the large detent. Adding the medium detent allows the sheet to rest at both heights, whereas specifying only medium prevents the sheet from expanding to full height. For developer guidance, see [detents](https://developer.apple.com/documentation/uikit/uisheetpresentationcontroller/detents).
 
@@ -539,9 +539,9 @@ A tab bar floats above content at the bottom of the screen. Its items rest on a 
 
 For tab bars with an attached accessory, like the MiniPlayer in Music, you can choose to minimize the tab bar and move the accessory inline with it when a person scrolls down. A person can exit the minimized state by tapping a tab or scrolling to the top of the view. For developer guidance, see [TabBarMinimizeBehavior](https://developer.apple.com/documentation/swiftui/tabbarminimizebehavior) and [UITabBarController.MinimizeBehavior](https://developer.apple.com/documentation/uikit/uitabbarcontroller/minimizebehavior).
 
-![An illustration of the bottom half of an iPhone in portrait orientation, with the Music app open. The MiniPlayer is open above the tab bar at the bottom of the screen.](/images/com.apple.HIG/tab-bar-with-accessory-expanded@2x.png)
+![An illustration of the bottom half of an iPhone in portrait orientation, with the Music app open. The MiniPlayer is open above the tab bar at the bottom of the screen.](https://developer.apple.com/tutorials/images/com.apple.HIG/tab-bar-with-accessory-expanded@2x.png)
 
-![An illustration of the bottom half of an iPhone in portrait orientation, with the Music app open. The tab bar is minimized into the currently open tab at the leading bottom corner of the screen, with the MiniPlayer at the bottom center, and the search tab in the trailing corner.](/images/com.apple.HIG/tab-bar-with-accessory-collapsed@2x.png)
+![An illustration of the bottom half of an iPhone in portrait orientation, with the Music app open. The tab bar is minimized into the currently open tab at the leading bottom corner of the screen, with the MiniPlayer at the bottom center, and the search tab in the trailing corner.](https://developer.apple.com/tutorials/images/com.apple.HIG/tab-bar-with-accessory-collapsed@2x.png)
 
 A tab bar can include a dedicated search tab at the trailing end. For guidance, see [Search fields](https://developer.apple.com/design/human-interface-guidelines/search-fields).
 
@@ -569,15 +569,15 @@ For similar functionality, consider using a [segmented control](https://develope
 
 **Change the default color of a switch only if necessary.** The default green color tends to work well in most cases, but you might want to use your app’s accent color instead. Be sure to use a color that provides enough contrast with the uncolored appearance to be perceptible.
 
-![An illustration of two list rows, one with an active switch toggle and one with an inactive switch toggle. The active toggle is tinted green with the standard switch color.](/images/com.apple.HIG/toggles-ios-default-color@2x.png)
+![An illustration of two list rows, one with an active switch toggle and one with an inactive switch toggle. The active toggle is tinted green with the standard switch color.](https://developer.apple.com/tutorials/images/com.apple.HIG/toggles-ios-default-color@2x.png)
 
-![An illustration of two list rows, one with an active switch toggle and one with an inactive switch toggle. The active toggle is tinted purple with a custom switch color.](/images/com.apple.HIG/toggles-ios-custom-color@2x.png)
+![An illustration of two list rows, one with an active switch toggle and one with an inactive switch toggle. The active toggle is tinted purple with a custom switch color.](https://developer.apple.com/tutorials/images/com.apple.HIG/toggles-ios-custom-color@2x.png)
 
 **Outside of a list, use a button that behaves like a toggle, not a switch.** For example, the Phone app uses a toggle on the filter button to let users filter their recent calls.  The app adds a blue highlight to indicate when the toggle is active, and removes it when the toggle is inactive.
 
-![A screenshot of the top half of the Phone app on iPhone, showing the filtered list of recent missed calls. The filter button in the top trailing corner has a blue highlight, indicating that the toggle is active.](/images/com.apple.HIG/toggles-ios-phone-filter-on@2x.png)
+![A screenshot of the top half of the Phone app on iPhone, showing the filtered list of recent missed calls. The filter button in the top trailing corner has a blue highlight, indicating that the toggle is active.](https://developer.apple.com/tutorials/images/com.apple.HIG/toggles-ios-phone-filter-on@2x.png)
 
-![A screenshot of the top half of the Phone app on iPhone, showing all recent calls. The filter button in the top trailing corner has no highlight, indicating that the toggle is inactive.](/images/com.apple.HIG/toggles-ios-phone-filter-off@2x.png)
+![A screenshot of the top half of the Phone app on iPhone, showing all recent calls. The filter button in the top trailing corner has no highlight, indicating that the toggle is inactive.](https://developer.apple.com/tutorials/images/com.apple.HIG/toggles-ios-phone-filter-off@2x.png)
 
 **Avoid supplying a label that explains the button’s purpose.** The interface icon you create — combined with the alternative background appearances you supply — help people understand what the button does. For developer guidance, see [changesSelectionAsPrimaryAction](https://developer.apple.com/documentation/uikit/uibutton/changesselectionasprimaryaction).
 
@@ -605,17 +605,17 @@ SF Pro is the system font in iOS and iPadOS. iOS and iPadOS apps can also use NY
 
 **Use the keyboard layout guide to make the keyboard feel like an integrated part of your interface.** Using the layout guide also helps you keep important parts of your interface visible while the virtual keyboard is onscreen. For developer guidance, see [Adjusting your layout with keyboard layout guide](https://developer.apple.com/documentation/uikit/adjusting-your-layout-with-keyboard-layout-guide).
 
-![An illustration of an app layout on iPhone, showing two stacked text fields and a button above the keyboard.](/images/com.apple.HIG/ui-fully-visible@2x.png)
+![An illustration of an app layout on iPhone, showing two stacked text fields and a button above the keyboard.](https://developer.apple.com/tutorials/images/com.apple.HIG/ui-fully-visible@2x.png)
 
-![A checkmark in a circle to indicate a correct example.](/images/com.apple.HIG/checkmark@2x.png)
+![A checkmark in a circle to indicate a correct example.](https://developer.apple.com/tutorials/images/com.apple.HIG/checkmark@2x.png)
 
-![An illustration of an app layout on iPhone, showing two stacked text fields. The keyboard covers part of the bottom text field.](/images/com.apple.HIG/text-field-hidden@2x.png)
+![An illustration of an app layout on iPhone, showing two stacked text fields. The keyboard covers part of the bottom text field.](https://developer.apple.com/tutorials/images/com.apple.HIG/text-field-hidden@2x.png)
 
-![An X in a circle to indicate an incorrect example.](/images/com.apple.HIG/crossout@2x.png)
+![An X in a circle to indicate an incorrect example.](https://developer.apple.com/tutorials/images/com.apple.HIG/crossout@2x.png)
 
-![An illustration of an app layout on iPhone, showing two stacked text fields and a button above the keyboard. The keyboard covers part of the button.](/images/com.apple.HIG/button-hidden@2x.png)
+![An illustration of an app layout on iPhone, showing two stacked text fields and a button above the keyboard. The keyboard covers part of the button.](https://developer.apple.com/tutorials/images/com.apple.HIG/button-hidden@2x.png)
 
-![An X in a circle to indicate an incorrect example.](/images/com.apple.HIG/crossout@2x.png)
+![An X in a circle to indicate an incorrect example.](https://developer.apple.com/tutorials/images/com.apple.HIG/crossout@2x.png)
 
 **Place custom controls above the keyboard thoughtfully.** Some apps position an input accessory view containing custom controls above the keyboard to offer app-specific functionality related to the data people are working with. For example, Numbers displays controls that help people apply standard or custom calculations to spreadsheet data. If your app offers custom controls that augment the keyboard, make sure they’re relevant to the current task. If other views in your app use Liquid Glass, or if your view looks out of place above the keyboard, apply Liquid Glass to the view that contains your controls to maintain consistency. If you use a standard toolbar to contain your controls, it automatically adopts Liquid Glass. Use the keyboard layout guide and standard padding to ensure the system positions your controls as expected within the view. For developer guidance, see [ToolbarItemPlacement](https://developer.apple.com/documentation/swiftui/toolbaritemplacement) (SwiftUI), [inputAccessoryView](https://developer.apple.com/documentation/uikit/uiresponder/inputaccessoryview) (UIKit), and [UIKeyboardLayoutGuide](https://developer.apple.com/documentation/uikit/uikeyboardlayoutguide) (UIKit).
 
@@ -628,22 +628,22 @@ On iPhone in StandBy, the system displays two small system family widgets side-b
 
 **Correct usage**
 
-![An image of iPhone in StandBy. It shows a Clock widget on the left that displays the time as 9:41 a.m. and a Weather widget set to Cupertino with the temperature at 70 degrees Fahrenheit on the right.](/images/com.apple.HIG/widgets-standby-removed-background-correct@2x.png)
+![An image of iPhone in StandBy. It shows a Clock widget on the left that displays the time as 9:41 a.m. and a Weather widget set to Cupertino with the temperature at 70 degrees Fahrenheit on the right.](https://developer.apple.com/tutorials/images/com.apple.HIG/widgets-standby-removed-background-correct@2x.png)
 
-![A checkmark in a circle to indicate correct usage.](/images/com.apple.HIG/checkmark@2x.png)
+![A checkmark in a circle to indicate correct usage.](https://developer.apple.com/tutorials/images/com.apple.HIG/checkmark@2x.png)
 
 **Incorrect usage**
 
-![An image of iPhone in StandBy. It shows a Clock widget on the left that displays the time as 9:41 a.m. and a Weather widget set to Cupertino with the temperature at 70 degrees Fahrenheit on the right. The Watch widget appears with the background removed and the Weather widget isn't optimized for StandBy.](/images/com.apple.HIG/widgets-standby-with-background-incorrect@2x.png)
+![An image of iPhone in StandBy. It shows a Clock widget on the left that displays the time as 9:41 a.m. and a Weather widget set to Cupertino with the temperature at 70 degrees Fahrenheit on the right. The Watch widget appears with the background removed and the Weather widget isn't optimized for StandBy.](https://developer.apple.com/tutorials/images/com.apple.HIG/widgets-standby-with-background-incorrect@2x.png)
 
-![An X in a circle to indicate incorrect usage.](/images/com.apple.HIG/crossout@2x.png)
+![An X in a circle to indicate incorrect usage.](https://developer.apple.com/tutorials/images/com.apple.HIG/crossout@2x.png)
 
 
 For developer guidance, see [Displaying the right widget background](https://developer.apple.com/documentation/widgetkit/displaying-the-right-widget-background).
 
 On iPhone in StandBy in low-light conditions, the system renders widgets in a monochromatic look with a red tint.
 
-![An image of iPhone in low-light conditions. It shows a Clock widget on the left that displays the time as 9:41 a.m. and a Weather widget set to Cupertino with the temperature at 70 degrees Fahrenheit on the right.](/images/com.apple.HIG/widgets-standby-low-light@2x.png)
+![An image of iPhone in low-light conditions. It shows a Clock widget on the left that displays the time as 9:41 a.m. and a Weather widget set to Cupertino with the temperature at 70 degrees Fahrenheit on the right.](https://developer.apple.com/tutorials/images/com.apple.HIG/widgets-standby-low-light@2x.png)
 
 ### Widgets
 <sub>`pages/widgets.md` — upstream heading: iOS, iPadOS</sub>
@@ -652,7 +652,7 @@ Widgets on the Lock Screen are functionally similar to watch complications and f
 
 Your app can offer widgets on the Lock Screen in three different shapes: as inline text that appears above the clock, and as circular and rectangular shapes that appear below the clock.
 
-![A partial screenshot of the Lock Screen on iPhone that shows a Calendar widget and two Weather widgets below the time. From the left, the widgets are an inline text widget and two circular widgets.](/images/com.apple.HIG/widget-lock-screen-display-appearances@2x.png)
+![A partial screenshot of the Lock Screen on iPhone that shows a Calendar widget and two Weather widgets below the time. From the left, the widgets are an inline text widget and two circular widgets.](https://developer.apple.com/tutorials/images/com.apple.HIG/widget-lock-screen-display-appearances@2x.png)
 
 **Support the Always-On display on iPhone.** Devices with the Always-On display render widgets on the Lock Screen with reduced luminance. Use levels of gray that provide enough contrast in the Always-On display, and make sure your content remains legible.
 
@@ -693,9 +693,9 @@ By default, iOS and iPadOS use the secondary and tertiary background [colors](ht
 
 **Configure a button to display an activity indicator when you need to provide feedback about an action that doesn’t instantly complete.** Displaying an activity indicator within a button can save space in your user interface while clearly communicating the reason for the delay. To help clarify what’s happening, you can also configure the button to display a different label alongside the activity indicator. For example, the label “Checkout” could change to “Checking out…” while the activity indicator is visible. When a delay occurs after people click or tap your configured button, the system displays the activity indicator next to the original or alternative label, hiding the button image, if there is one.
 
-![An illustration of a button labeled Checkout.](/images/com.apple.HIG/button-activity-indicator-hidden@2x.png)
+![An illustration of a button labeled Checkout.](https://developer.apple.com/tutorials/images/com.apple.HIG/button-activity-indicator-hidden@2x.png)
 
-![An illustration of a button labeled Checking out, with an activity indicator on the leading side of the label.](/images/com.apple.HIG/button-activity-indicator-visible@2x.png)
+![An illustration of a button labeled Checking out, with an activity indicator on the leading side of the label.](https://developer.apple.com/tutorials/images/com.apple.HIG/button-activity-indicator-visible@2x.png)
 
 ### Collections
 <sub>`pages/collections.md` — upstream heading: iOS, iPadOS</sub>
@@ -744,11 +744,11 @@ In iOS and iPadOS, a context menu can display a preview of the current content n
 
 In Dark Mode, the system uses two sets of background colors — called *base* and *elevated* — to enhance the perception of depth when one dark interface is layered above another. The base colors are dimmer, making background interfaces appear to recede, and the elevated colors are brighter, making foreground interfaces appear to advance.
 
-![A diagram that shows a stack of 4 terms on top of a black background. The term at the top shows the most contrast with the background and the term at the bottom shows the least.](/images/com.apple.HIG/base-with-four-semantic-colors@2x.png)
+![A diagram that shows a stack of 4 terms on top of a black background. The term at the top shows the most contrast with the background and the term at the bottom shows the least.](https://developer.apple.com/tutorials/images/com.apple.HIG/base-with-four-semantic-colors@2x.png)
 
-![A diagram that shows a stack of 4 terms on top of a nearly black background. The term at the top shows the most contrast with the background and the term at the bottom shows the least.](/images/com.apple.HIG/elevated-with-four-semantic-colors@2x.png)
+![A diagram that shows a stack of 4 terms on top of a nearly black background. The term at the top shows the most contrast with the background and the term at the bottom shows the least.](https://developer.apple.com/tutorials/images/com.apple.HIG/elevated-with-four-semantic-colors@2x.png)
 
-![A diagram that shows a stack of 4 terms on top of a white background. The term at the top shows the most contrast with the background and the term at the bottom shows the least.](/images/com.apple.HIG/light-with-four-semantic-colors@2x.png)
+![A diagram that shows a stack of 4 terms on top of a white background. The term at the top shows the most contrast with the background and the term at the bottom shows the least.](https://developer.apple.com/tutorials/images/com.apple.HIG/light-with-four-semantic-colors@2x.png)
 
 **Prefer the system background colors.** Dark Mode is dynamic, which means that the background color automatically changes from base to elevated when an interface is in the foreground, such as a popover or modal sheet. The system also uses the elevated background color to provide visual separation between apps in a multitasking environment and between windows in a multiple-window context. Using a custom background color can make it harder for people to perceive these system-provided visual distinctions.
 
@@ -795,7 +795,7 @@ The document launcher consists of three main parts:
 
 You can customize all three parts of the document launcher. Although the system automatically displays your app name in the title card, you specify the text and functions of the card’s primary and secondary buttons. You can also create a custom background image, one or more accessory images to surround the title card, and provide some custom controls that can appear in the file browser’s toolbar.
 
-![A screenshot of a writing app's document launcher on iPad in landscape orientation. The document launcher displays a custom background and two accessory images. At the bottom, the file browser sheet provides 3 tabs: Recents, Shared, and Browse.](/images/com.apple.HIG/file-management-document-launcher@2x.png)
+![A screenshot of a writing app's document launcher on iPad in landscape orientation. The document launcher displays a custom background and two accessory images. At the bottom, the file browser sheet provides 3 tabs: Recents, Shared, and Browse.](https://developer.apple.com/tutorials/images/com.apple.HIG/file-management-document-launcher@2x.png)
 
 **Assign the title card’s buttons to your app’s most important functions.** The primary button typically creates a new document, and the secondary button can provide additional options. For example, the primary button in Numbers is Start Writing and the secondary button is Choose a Template.
 
@@ -819,15 +819,15 @@ Onscreen components can indicate focus by using the halo effect or the highlight
 
 The *halo* focus effect — also known as the *focus ring* — displays a customizable outline around the component. You can apply the halo effect to custom views and to fully opaque content within a collection or list cell, such as an image.
 
-![An illustration of a collection view of photos showing the standard halo effect that outlines the focused photo.](/images/com.apple.HIG/focus-and-selection-halo-focus-effect@2x.png)
+![An illustration of a collection view of photos showing the standard halo effect that outlines the focused photo.](https://developer.apple.com/tutorials/images/com.apple.HIG/focus-and-selection-halo-focus-effect@2x.png)
 
 **Customize the halo focus effect when necessary.** By default, the system uses an item’s shape to infer the shape of its halo. If the system-provided halo doesn’t give you the appearance you want, you can refine it to match contours like rounded corners or shapes defined by Bézier paths. You can also adjust a halo’s position if another component occludes or clips it. For example, you might need to ensure that a badge appears above the halo or that a parent view doesn’t clip it. For developer guidance, see [UIFocusHaloEffect](https://developer.apple.com/documentation/uikit/uifocushaloeffect).
 
-![An illustration of a collection view of photos showing a rounded-rectangle halo effect that outlines the focused photo.](/images/com.apple.HIG/focus-and-selection-customized-halo@2x.png)
+![An illustration of a collection view of photos showing a rounded-rectangle halo effect that outlines the focused photo.](https://developer.apple.com/tutorials/images/com.apple.HIG/focus-and-selection-customized-halo@2x.png)
 
 The *highlighted* appearance — in which the component’s text uses the app’s accent color — also indicates focus, but it’s not a focus effect. The highlight appearance occurs automatically when people select a collection view cell on which you’ve set content configurations (for developer guidance, see [UICollectionViewCell](https://developer.apple.com/documentation/uikit/uicollectionviewcell)).
 
-![An illustration of a list of menu items with the second item highlighted. The item's title and icon are tinted with a red accent color.](/images/com.apple.HIG/focus-and-selection-highlighted-appearance@2x.png)
+![An illustration of a list of menu items with the second item highlighted. The item's title and icon are tinted with a red accent color.](https://developer.apple.com/tutorials/images/com.apple.HIG/focus-and-selection-highlighted-appearance@2x.png)
 
 **Ensure that focus moves through your custom views in ways that make sense.** As people continue pressing the Tab key, focus moves through focus groups in reading order: leading to trailing, and top to bottom. Although focus moves through system-provided views in ways that people expect, you might need to adjust the order in which the focus system visits your custom views. For example, if you want focus to move down through a vertical stack of custom views before it moves in the trailing direction to the next view, you need to identify the stack container as a single focus group. For developer guidance, see [focusGroupIdentifier](https://developer.apple.com/documentation/uikit/uifocusenvironment/focusgroupidentifier).
 
@@ -873,9 +873,9 @@ People can freely resize windows down to a minimum width and height, similar to 
 
 **Use an info button only to reveal more information about a row’s content.** An info button — called a *detail disclosure button* when it appears in a list row — doesn’t support navigation through a hierarchical table or list. If you need to let people drill into a list or table row’s subviews, use a disclosure indicator accessory control. For developer guidance, see [UITableViewCell.AccessoryType.disclosureIndicator](https://developer.apple.com/documentation/uikit/uitableviewcell/accessorytype-swift.enum/disclosureindicator).
 
-![An illustration of a grouped list of rows. Each list item includes an info button at the trailing end of the row.](/images/com.apple.HIG/info-button-in-list@2x.png)
+![An illustration of a grouped list of rows. Each list item includes an info button at the trailing end of the row.](https://developer.apple.com/tutorials/images/com.apple.HIG/info-button-in-list@2x.png)
 
-![An illustration of a grouped list of rows. Each list item includes a right-pointing chevron at the trailing end of the row.](/images/com.apple.HIG/disclosure-indicator-in-list@2x.png)
+![An illustration of a grouped list of rows. Each list item includes a right-pointing chevron at the trailing end of the row.](https://developer.apple.com/tutorials/images/com.apple.HIG/disclosure-indicator-in-list@2x.png)
 
 **Avoid adding an index to a table that displays controls — like disclosure indicators — in the trailing ends of its rows.** An *index* typically consists of the letters in an alphabet, displayed vertically at the trailing side of a list. People can jump to a specific section in the list by choosing the index letter that maps to it. Because both the index and elements like disclosure indicators appear on the trailing side of a list, it can be difficult for people to use one element without activating the other.
 
@@ -884,13 +884,13 @@ People can freely resize windows down to a minimum width and height, similar to 
 
 In addition to Liquid Glass, iOS and iPadOS continue to provide four standard materials — ultra-thin, thin, regular (default), and thick — which you can use in the content layer to help create visual distinction.
 
-![An illustration of the iOS and iPadOS ultraThin material above a colorful background. Where the material overlaps the background, it provides a diffuse gradient of the background colors.](/images/com.apple.HIG/materials-ios-material-background-ultrathin@2x.png)
+![An illustration of the iOS and iPadOS ultraThin material above a colorful background. Where the material overlaps the background, it provides a diffuse gradient of the background colors.](https://developer.apple.com/tutorials/images/com.apple.HIG/materials-ios-material-background-ultrathin@2x.png)
 
-![An illustration of the iOS and iPadOS thin material above a colorful background. Where the material overlaps the background, it provides a diffuse and slightly darkened gradient of the background colors.](/images/com.apple.HIG/materials-ios-material-background-thin@2x.png)
+![An illustration of the iOS and iPadOS thin material above a colorful background. Where the material overlaps the background, it provides a diffuse and slightly darkened gradient of the background colors.](https://developer.apple.com/tutorials/images/com.apple.HIG/materials-ios-material-background-thin@2x.png)
 
-![An illustration of the iOS and iPadOS regular material above a colorful background. Where the material overlaps the background, it provides a diffuse and darkened gradient of the background colors.](/images/com.apple.HIG/materials-ios-material-background-regular@2x.png)
+![An illustration of the iOS and iPadOS regular material above a colorful background. Where the material overlaps the background, it provides a diffuse and darkened gradient of the background colors.](https://developer.apple.com/tutorials/images/com.apple.HIG/materials-ios-material-background-regular@2x.png)
 
-![An illustration of the iOS and iPadOS thick material above a colorful background. Where the material overlaps the background, it provides a dark, muted gradient of the background colors.](/images/com.apple.HIG/materials-ios-material-background-thick@2x.png)
+![An illustration of the iOS and iPadOS thick material above a colorful background. Where the material overlaps the background, it provides a dark, muted gradient of the background colors.](https://developer.apple.com/tutorials/images/com.apple.HIG/materials-ios-material-background-thick@2x.png)
 
 iOS and iPadOS also define vibrant colors for labels, fills, and separators that are specifically designed to work with each material. Labels and fills both have several levels of vibrancy; separators have one level. The name of a level indicates the relative amount of contrast between an element and the background: The default level has the highest contrast, whereas quaternary (when it exists) has the lowest contrast.
 
@@ -914,7 +914,7 @@ The system provides a single, default vibrancy value for a [UIVibrancyEffectStyl
 
 In iOS and iPadOS, a menu can display items in one of the following three layouts.
 
-![A diagram showing small, medium, and large menu layouts, each containing the same set of menu items.](/images/com.apple.HIG/small-medium-large-menu-layouts@2x.png)
+![A diagram showing small, medium, and large menu layouts, each containing the same set of menu items.](https://developer.apple.com/tutorials/images/com.apple.HIG/small-medium-large-menu-layouts@2x.png)
 
 - **Small.** A row of four items appears at the top of the menu, above a list that contains the remaining items. For each item in the top row, the menu displays a symbol or icon, but no label.
 - **Medium.** A row of three items appears at the top of the menu, above a list that contains the remaining items. For each item in the top row, the menu displays a symbol or icon above a short label.
@@ -931,11 +931,11 @@ On iPad, people can view and interact with the [Windows](https://developer.apple
 
 People can use iPad with either full-screen or windowed apps. When full screen, apps occupy the full screen, and people can switch between individual app windows using the app switcher.
 
-![A screenshot of the iPad app switcher in landscape orientation, showing five open apps. Thumbnail representations of the apps are arranged in a grid.](/images/com.apple.HIG/multitasking-ipad-app-switcher@2x.png)
+![A screenshot of the iPad app switcher in landscape orientation, showing five open apps. Thumbnail representations of the apps are arranged in a grid.](https://developer.apple.com/tutorials/images/com.apple.HIG/multitasking-ipad-app-switcher@2x.png)
 
 When using windowed apps, app windows are resizable, and people can arrange them to suit their needs with behavior similar to macOS. The system provides window controls for common tiling configurations, entering full screen, minimizing, and closing windows. The system identifies the frontmost window by coloring its window controls and casting a drop shadow on windows behind it. For guidance, see [iPadOS](https://developer.apple.com/design/human-interface-guidelines/windows#iPadOS).
 
-![A screenshot of two windowed apps on iPad in landscape orientation. The frontmost app window overlaps and casts a shadow on the one behind it, and has colored window controls to indicate that the window is active. Both windows sit atop the Home Screen background, and the Dock appears at the bottom.](/images/com.apple.HIG/multitasking-ipad-windows-maps-landmarks@2x.png)
+![A screenshot of two windowed apps on iPad in landscape orientation. The frontmost app window overlaps and casts a shadow on the one behind it, and has colored window controls to indicate that the window is active. Both windows sit atop the Home Screen background, and the Dock appears at the bottom.](https://developer.apple.com/tutorials/images/com.apple.HIG/multitasking-ipad-windows-maps-landmarks@2x.png)
 
 Additionally, videos and FaceTime calls can also play in a Picture in Picture overlay above other content regardless of whether apps are full screen or windowed.
 
@@ -948,7 +948,7 @@ To help your app respond correctly when people open it while windowed, make sure
 
 A page control can adjust the appearance of indicators to provide more information about the list. For example, the control highlights the indicator of the current page so people can estimate the page’s relative position in the list. When there are more indicators than fit in the space, the control can shrink indicators at both sides to suggest that more pages are available.
 
-![An illustration of a page control. The page control displays a total of 9 dots. The center 5 dots use the default size; the second and eighth dots are about half the default size and the first and ninth dots are about one quarter the default size. The center dot is filled, indicating the location of the current page in the list.](/images/com.apple.HIG/page-controls-many-indicators@2x.png)
+![An illustration of a page control. The page control displays a total of 9 dots. The center 5 dots use the default size; the second and eighth dots are about half the default size and the first and ninth dots are about one quarter the default size. The center dot is filled, indicating the location of the current page in the list.](https://developer.apple.com/tutorials/images/com.apple.HIG/page-controls-many-indicators@2x.png)
 
 People interact with page controls by tapping or scrubbing (to *scrub*, people touch the control and drag left or right). Tapping on the leading or trailing side of the current-page indicator reveals the next or previous page; in iPadOS, people can also use the pointer to target a specific indicator. Scrubbing opens pages in sequence, and scrubbing past the leading or trailing edge of the control helps people quickly reach the first or last page.
 
@@ -989,15 +989,15 @@ Here are several examples of date pickers showing different combinations of styl
 
 **Compact**
 
-![An illustration of a compact date picker, with a single inline row showing the currently selected date. The picker opens as a popover extending down from the row, and includes a full calendar month for choosing the date.](/images/com.apple.HIG/pickers-date-picker-compact-expanded@2x.png)
+![An illustration of a compact date picker, with a single inline row showing the currently selected date. The picker opens as a popover extending down from the row, and includes a full calendar month for choosing the date.](https://developer.apple.com/tutorials/images/com.apple.HIG/pickers-date-picker-compact-expanded@2x.png)
 
 **Inline**
 
-![An illustration of an inline date picker, titled 'Date'. A toggle at the top is switched on, and a calendar month for choosing the date appears below the title and toggle.](/images/com.apple.HIG/pickers-date-picker-inline-expanded@2x.png)
+![An illustration of an inline date picker, titled 'Date'. A toggle at the top is switched on, and a calendar month for choosing the date appears below the title and toggle.](https://developer.apple.com/tutorials/images/com.apple.HIG/pickers-date-picker-inline-expanded@2x.png)
 
 **Wheels**
 
-![An illustration of an inline time picker, titled 'Time'. The currently selected time appears in the title row, and three vertical wheels appear below the title row for choosing the hour, minute, and AM or PM value.](/images/com.apple.HIG/pickers-time-picker-inline-wheel@2x.png)
+![An illustration of an inline time picker, titled 'Time'. The currently selected time appears in the title row, and three vertical wheels appear below the title row for choosing the hour, minute, and AM or PM value.](https://developer.apple.com/tutorials/images/com.apple.HIG/pickers-time-picker-inline-wheel@2x.png)
 
 
 **Use a compact date picker when space is constrained.** The compact style displays a button that shows the current value in your app’s accent color. When people tap the button, the date picker opens a modal view, providing access to a familiar calendar-style editor and time picker. Within the modal view, people can make multiple edits to dates and times before tapping outside the view to confirm their choices.
@@ -1020,7 +1020,7 @@ Here are several examples of date pickers showing different combinations of styl
 
 **Consider enhancing the pointer experience by displaying custom annotations that provide useful information.** For example, you could display X and Y values when people hold the pointer over a graphing area in your app. Keynote uses annotations to display the current width and height of a resizable image.
 
-![An illustration of a custom pointer hovering over a resize handle on the edge of a shaded rectangle. Above the pointer is a small annotation that displays the image’s width and height values against a dark background.](/images/com.apple.HIG/useful-pointer-annotation@2x.png)
+![An illustration of a custom pointer hovering over a resize handle on the edge of a shaded rectangle. Above the pointer is a small annotation that displays the image’s width and height values against a dark background.](https://developer.apple.com/tutorials/images/com.apple.HIG/useful-pointer-annotation@2x.png)
 
 **Avoid displaying instructional text with a pointer.** A pointer that displays instructional text can make an app seem complicated and difficult to use. Instead of providing instructions, prioritize clarity and simplicity in your interface, so that people can quickly grasp how to use your app whether they’re using the pointer or touching the screen.
 
@@ -1039,11 +1039,11 @@ Here are several examples of date pickers showing different combinations of styl
 
 **Add padding around interactive elements to create comfortable hit regions.** You might need to experiment to determine the right size for an element’s hit region. If the hit region is too small, it can make people feel that they have to be extra precise when interacting with the element. On the other hand, when an element’s hit region is too large, people can feel that it takes a lot of effort to pull the pointer away from the element. In general, it works well to add about 12 points of padding around elements that include a bezel; for elements without a bezel, it works well to add about 24 points of padding around the element’s visible edges.
 
-![An illustration of a button that has a filled, rounded-rectangle bezel. The button is centered on top of a shaded rectangle that extends beyond the button by the same distance on all sides. Centered on each side, a callout indicates that the padding between the button and each edge of the shaded rectangle is 12 points.](/images/com.apple.HIG/padding-for-button-with-bezel@2x.png)
+![An illustration of a button that has a filled, rounded-rectangle bezel. The button is centered on top of a shaded rectangle that extends beyond the button by the same distance on all sides. Centered on each side, a callout indicates that the padding between the button and each edge of the shaded rectangle is 12 points.](https://developer.apple.com/tutorials/images/com.apple.HIG/padding-for-button-with-bezel@2x.png)
 
-![An illustration of a symbol centered on top of a shaded rectangle that extends beyond the symbol by the same distance on all sides. Centered on each side, a callout indicates that the padding between the symbol and each edge of the shaded rectangle is 24 points.](/images/com.apple.HIG/padding-for-glyph@2x.png)
+![An illustration of a symbol centered on top of a shaded rectangle that extends beyond the symbol by the same distance on all sides. Centered on each side, a callout indicates that the padding between the symbol and each edge of the shaded rectangle is 24 points.](https://developer.apple.com/tutorials/images/com.apple.HIG/padding-for-glyph@2x.png)
 
-![An illustration of a button without a bezel, centered on top of a shaded rectangle that extends beyond the button by the same distance on all sides. Centered on each side, a callout indicates that the padding between the button and each edge of the shaded rectangle is 24 points.](/images/com.apple.HIG/padding-for-button-without-bezel@2x.png)
+![An illustration of a button without a bezel, centered on top of a shaded rectangle that extends beyond the button by the same distance on all sides. Centered on each side, a callout indicates that the padding between the button and each edge of the shaded rectangle is 24 points.](https://developer.apple.com/tutorials/images/com.apple.HIG/padding-for-button-without-bezel@2x.png)
 
 **Create contiguous hit regions for custom bar buttons.** If there’s space between the hit regions of adjacent buttons in a bar, people may experience a distracting motion when the pointer reverts briefly to its default shape as it moves between buttons.
 
@@ -1124,7 +1124,7 @@ The *lift* effect combines a subtle parallax with the appearance of elevation to
 
 A refresh control lets people immediately reload content, typically in a table view, without waiting for the next automatic content update to occur. A refresh control is a specialized type of activity indicator that’s hidden by default, becoming visible when people drag down the view they want to reload. In Mail, for example, people can drag down the list of Inbox messages to check for new messages.
 
-![A screenshot of a refresh content control spinning while Mail checks for new messages.](/images/com.apple.HIG/refresh-controls@2x.png)
+![A screenshot of a refresh content control spinning while Mail checks for new messages.](https://developer.apple.com/tutorials/images/com.apple.HIG/refresh-controls@2x.png)
 
 **Perform automatic content updates.** Although people appreciate being able to do an immediate content refresh, they also expect automatic refreshes to occur periodically. Don’t make people responsible for initiating every update. Keep data fresh by updating it regularly.
 
@@ -1139,9 +1139,9 @@ For developer guidance, see [UIRefreshControl](https://developer.apple.com/docum
 
 **Consider using a More pull-down button to present items that don’t need prominent positions in the main interface.** A More button can help you offer a range of items where space is constrained, but it can also hinder discoverability. Although people generally understand that a More button offers additional functionality related to the current context, the ellipsis icon doesn’t necessarily help them predict its contents. To design an effective More button, weigh the convenience of its size against its impact on discoverability to find a balance that works in your app.
 
-![A screenshot of the Notes app on iPhone, open to a Notes document titled Nature Walks. The top toolbar includes a More button on the trailing edge.](/images/com.apple.HIG/menu-secondary-actions-collapsed@2x.png)
+![A screenshot of the Notes app on iPhone, open to a Notes document titled Nature Walks. The top toolbar includes a More button on the trailing edge.](https://developer.apple.com/tutorials/images/com.apple.HIG/menu-secondary-actions-collapsed@2x.png)
 
-![A screenshot of the Notes app on iPhone, open to a Notes document titled Nature Walks. The More button in the top toolbar is expanded, revealing the More menu with additional funtionality.](/images/com.apple.HIG/menu-secondary-actions-expanded@2x.png)
+![A screenshot of the Notes app on iPhone, open to a Notes document titled Nature Walks. The More button in the top toolbar is expanded, revealing the More menu with additional funtionality.](https://developer.apple.com/tutorials/images/com.apple.HIG/menu-secondary-actions-expanded@2x.png)
 
 ### Scroll views
 <sub>`pages/scroll-views.md` — upstream heading: iOS, iPadOS</sub>
@@ -1153,19 +1153,19 @@ For developer guidance, see [UIRefreshControl](https://developer.apple.com/docum
 
 The placement and behavior of the search field in iPadOS and macOS is similar. If your app is available on both iPad and Mac, try to keep the search experience as consistent as possible across both platforms.
 
-![An illustration of an iPad screen with a search field on the trailing edge of the top toolbar. The search field has the word Design entered into the field, and three search suggestions appear in a list beneath the field.](/images/com.apple.HIG/search-fields-toolbar-search-ipad@2x.png)
+![An illustration of an iPad screen with a search field on the trailing edge of the top toolbar. The search field has the word Design entered into the field, and three search suggestions appear in a list beneath the field.](https://developer.apple.com/tutorials/images/com.apple.HIG/search-fields-toolbar-search-ipad@2x.png)
 
-![An illustration of a Mac screen with a search field on the trailing edge of the toolbar. The search field has the word Design entered into the field, and three search suggestions appear in a list beneath the field.](/images/com.apple.HIG/search-fields-toolbar-search-mac@2x.png)
+![An illustration of a Mac screen with a search field on the trailing edge of the toolbar. The search field has the word Design entered into the field, and three search suggestions appear in a list beneath the field.](https://developer.apple.com/tutorials/images/com.apple.HIG/search-fields-toolbar-search-mac@2x.png)
 
 **Put a search field at the trailing side of the toolbar for many common uses.** Many apps benefit from the familiar pattern of search in the toolbar, particularly apps with split views that need to search across multiple columns of information, like Mail, Notes, and Voice Memos. This placement makes great use of space because it lets people navigate results while keeping their selection visible in the detail view. Additionally, consider placing search in the toolbar if results appear in the detail view of your app, like in Freeform, where search in the toolbar filters the boards in the detail view below.
 
 **Include search at the top of the sidebar when filtering content or navigation there.** Apps such as Settings take advantage of search to quickly filter the sidebar and expose sections that may be multiple levels deep, providing a simple way for people to search, preview, and navigate to the section or setting they’re looking for. This approach is useful if your app has a rich detail view and you need to create a distinct separation between the sidebar you’re filtering and the adjacent view.
 
-![An illustration of an iPad screen with a search field at the top of the sidebar on the leading edge of the screen.](/images/com.apple.HIG/search-fields-ipad-search-in-sidebar@2x.png)
+![An illustration of an iPad screen with a search field at the top of the sidebar on the leading edge of the screen.](https://developer.apple.com/tutorials/images/com.apple.HIG/search-fields-ipad-search-in-sidebar@2x.png)
 
 **Include search as an item in the sidebar or tab bar when you want an area dedicated to discovery.** If your search is paired with rich suggestions, categories, or content that needs more space, it can be helpful to have a dedicated area for it. This is particularly useful for apps where browsing and search go hand in hand, like Music and TV, where it provides a unified location to highlight suggested content, categories, and recent searches. A dedicated area also ensures search is always available as people navigate and switch sections of your app.
 
-![An illustration of an iPad screen with a tab bar at the top edge. The trailing side of the tab bar includes a Search tab with a distinct background color to differentiate it from other tab areas.](/images/com.apple.HIG/search-fields-ipad-search-in-tab-bar@2x.png)
+![An illustration of an iPad screen with a tab bar at the top edge. The trailing side of the tab bar includes a Search tab with a distinct background color to differentiate it from other tab areas.](https://developer.apple.com/tutorials/images/com.apple.HIG/search-fields-ipad-search-in-tab-bar@2x.png)
 
 **In a search field in a dedicated area, consider immediately focusing the field when a person navigates to the area to help them search faster and locate the field more easily.** An exception to this is on iPad when only a virtual keyboard is available, in which case it’s better to leave the field unfocused to prevent the keyboard from unexpectedly covering the view.
 
@@ -1176,35 +1176,35 @@ The placement and behavior of the search field in iPadOS and macOS is similar. I
 
 **Consider a segmented control to switch between closely related subviews.** A segmented control can be useful as a way to quickly switch between related subviews. For example, the segmented control in Calendar’s New Event sheet switches between the subviews for creating a new event and a new reminder. For switching between completely separate sections of an app, use a [Tab bars](https://developer.apple.com/design/human-interface-guidelines/tab-bars) instead.
 
-![A screenshot of the top half of the iOS Calendar app, showing the New Event sheet. A segmented control provides the ability to switch between adding a new event and a new reminder.](/images/com.apple.HIG/segmented-controls-calendar-new-event@2x.png)
+![A screenshot of the top half of the iOS Calendar app, showing the New Event sheet. A segmented control provides the ability to switch between adding a new event and a new reminder.](https://developer.apple.com/tutorials/images/com.apple.HIG/segmented-controls-calendar-new-event@2x.png)
 
 ### Sheets
 <sub>`pages/sheets.md` — upstream heading: iOS, iPadOS</sub>
 
 In iOS and iPadOS, for sheets with a single view, the Cancel button belongs on the leading edge of the top toolbar. When present, the Done button belongs on the trailing edge.
 
-![An illustration of the top half of a sheet on iPhone. A Cancel button appears in the top-left corner of the view, and a Done button appears in the top-right corner.](/images/com.apple.HIG/sheets-buttons-placement-cancel-done@2x.png)
+![An illustration of the top half of a sheet on iPhone. A Cancel button appears in the top-left corner of the view, and a Done button appears in the top-right corner.](https://developer.apple.com/tutorials/images/com.apple.HIG/sheets-buttons-placement-cancel-done@2x.png)
 
 For sheets with a multi-step flow, the placement of buttons can vary across steps.
 
 **First step**
 
-![An illustration of the top half of a sheet on iPhone. A Cancel button appears in the top-left corner of the view, and an inactive Done button appears in the top-right corner.](/images/com.apple.HIG/sheets-buttons-placement-navigation-first-page@2x.png)
+![An illustration of the top half of a sheet on iPhone. A Cancel button appears in the top-left corner of the view, and an inactive Done button appears in the top-right corner.](https://developer.apple.com/tutorials/images/com.apple.HIG/sheets-buttons-placement-navigation-first-page@2x.png)
 
 **Subsequent step**
 
-![An illustration of the top half of a sheet on iPhone. A Back button appears in the top-left corner of the view, and an inactive Done button appears in the top-right corner.](/images/com.apple.HIG/sheets-buttons-placement-navigation-subsequent-page@2x.png)
+![An illustration of the top half of a sheet on iPhone. A Back button appears in the top-left corner of the view, and an inactive Done button appears in the top-right corner.](https://developer.apple.com/tutorials/images/com.apple.HIG/sheets-buttons-placement-navigation-subsequent-page@2x.png)
 
 **Final step**
 
-![An illustration of the top half of a sheet on iPhone. A Back button appears in the top-left corner of the view, and a Done button appears in the top-right corner.](/images/com.apple.HIG/sheets-buttons-placement-navigation-final-page@2x.png)
+![An illustration of the top half of a sheet on iPhone. A Back button appears in the top-left corner of the view, and a Done button appears in the top-right corner.](https://developer.apple.com/tutorials/images/com.apple.HIG/sheets-buttons-placement-navigation-final-page@2x.png)
 
 
 A resizable sheet expands when people scroll its contents or drag the *grabber*, which is a small horizontal indicator that can appear at the top edge of a sheet. Sheets resize according to their *detents*, which are particular heights at which a sheet naturally rests. Designed for iPhone, detents specify particular heights at which a sheet naturally rests. The system defines two detents: *large* is the height of a fully expanded sheet and *medium* is about half of the fully expanded height. Sheets can have one or more custom detent values.
 
-![An illustration showing an iPhone screen in portrait orientation containing a solid rounded rectangle that occupies almost all of the screen, representing a full-screen sheet. A rounded close button appears in the upper-left corner of the sheet.](/images/com.apple.HIG/sheets-large-detent@2x.png)
+![An illustration showing an iPhone screen in portrait orientation containing a solid rounded rectangle that occupies almost all of the screen, representing a full-screen sheet. A rounded close button appears in the upper-left corner of the sheet.](https://developer.apple.com/tutorials/images/com.apple.HIG/sheets-large-detent@2x.png)
 
-![An illustration showing an iPhone screen in portrait orientation containing a solid rounded rectangle that occupies half of the screen, representing a half-screen sheet. A rounded close button appears in the upper-left corner of the sheet.](/images/com.apple.HIG/sheets-medium-detent@2x.png)
+![An illustration showing an iPhone screen in portrait orientation containing a solid rounded rectangle that occupies half of the screen, representing a half-screen sheet. A rounded close button appears in the upper-left corner of the sheet.](https://developer.apple.com/tutorials/images/com.apple.HIG/sheets-medium-detent@2x.png)
 
 Sheets automatically support the large detent. Adding the medium detent allows the sheet to rest at both heights, whereas specifying only medium prevents the sheet from expanding to full height. For developer guidance, see [detents](https://developer.apple.com/documentation/uikit/uisheetpresentationcontroller/detents).
 
@@ -1246,11 +1246,11 @@ The system displays a tab bar near the top of the screen. You can choose to have
 
 **Tab bar**
 
-![A screenshot showing the Music app on iPad with the tab bar near the top of the screen.](/images/com.apple.HIG/ipad-tab-bar-music-app@2x.png)
+![A screenshot showing the Music app on iPad with the tab bar near the top of the screen.](https://developer.apple.com/tutorials/images/com.apple.HIG/ipad-tab-bar-music-app@2x.png)
 
 **Sidebar**
 
-![A screenshot showing the Music app on iPad with the tab bar converted to a sidebar on the leading edge of the screen.](/images/com.apple.HIG/ipad-sidebar-music-app@2x.png)
+![A screenshot showing the Music app on iPad with the tab bar converted to a sidebar on the leading edge of the screen.](https://developer.apple.com/tutorials/images/com.apple.HIG/ipad-sidebar-music-app@2x.png)
 
 
 > **Note:** To present a sidebar without the option to convert it to a tab bar, use a [navigation split view](https://developer.apple.com/documentation/swiftui/navigationsplitview) instead of a tab view. For guidance, see [Sidebars](https://developer.apple.com/design/human-interface-guidelines/sidebars).
@@ -1307,15 +1307,15 @@ As with the macOS menu bar, the iPadOS menu bar provides a familiar way for peop
 
 **Change the default color of a switch only if necessary.** The default green color tends to work well in most cases, but you might want to use your app’s accent color instead. Be sure to use a color that provides enough contrast with the uncolored appearance to be perceptible.
 
-![An illustration of two list rows, one with an active switch toggle and one with an inactive switch toggle. The active toggle is tinted green with the standard switch color.](/images/com.apple.HIG/toggles-ios-default-color@2x.png)
+![An illustration of two list rows, one with an active switch toggle and one with an inactive switch toggle. The active toggle is tinted green with the standard switch color.](https://developer.apple.com/tutorials/images/com.apple.HIG/toggles-ios-default-color@2x.png)
 
-![An illustration of two list rows, one with an active switch toggle and one with an inactive switch toggle. The active toggle is tinted purple with a custom switch color.](/images/com.apple.HIG/toggles-ios-custom-color@2x.png)
+![An illustration of two list rows, one with an active switch toggle and one with an inactive switch toggle. The active toggle is tinted purple with a custom switch color.](https://developer.apple.com/tutorials/images/com.apple.HIG/toggles-ios-custom-color@2x.png)
 
 **Outside of a list, use a button that behaves like a toggle, not a switch.** For example, the Phone app uses a toggle on the filter button to let users filter their recent calls.  The app adds a blue highlight to indicate when the toggle is active, and removes it when the toggle is inactive.
 
-![A screenshot of the top half of the Phone app on iPhone, showing the filtered list of recent missed calls. The filter button in the top trailing corner has a blue highlight, indicating that the toggle is active.](/images/com.apple.HIG/toggles-ios-phone-filter-on@2x.png)
+![A screenshot of the top half of the Phone app on iPhone, showing the filtered list of recent missed calls. The filter button in the top trailing corner has a blue highlight, indicating that the toggle is active.](https://developer.apple.com/tutorials/images/com.apple.HIG/toggles-ios-phone-filter-on@2x.png)
 
-![A screenshot of the top half of the Phone app on iPhone, showing all recent calls. The filter button in the top trailing corner has no highlight, indicating that the toggle is inactive.](/images/com.apple.HIG/toggles-ios-phone-filter-off@2x.png)
+![A screenshot of the top half of the Phone app on iPhone, showing all recent calls. The filter button in the top trailing corner has no highlight, indicating that the toggle is inactive.](https://developer.apple.com/tutorials/images/com.apple.HIG/toggles-ios-phone-filter-off@2x.png)
 
 **Avoid supplying a label that explains the button’s purpose.** The interface icon you create — combined with the alternative background appearances you supply — help people understand what the button does. For developer guidance, see [changesSelectionAsPrimaryAction](https://developer.apple.com/documentation/uikit/uibutton/changesselectionasprimaryaction).
 
@@ -1341,17 +1341,17 @@ SF Pro is the system font in iOS and iPadOS. iOS and iPadOS apps can also use NY
 
 **Use the keyboard layout guide to make the keyboard feel like an integrated part of your interface.** Using the layout guide also helps you keep important parts of your interface visible while the virtual keyboard is onscreen. For developer guidance, see [Adjusting your layout with keyboard layout guide](https://developer.apple.com/documentation/uikit/adjusting-your-layout-with-keyboard-layout-guide).
 
-![An illustration of an app layout on iPhone, showing two stacked text fields and a button above the keyboard.](/images/com.apple.HIG/ui-fully-visible@2x.png)
+![An illustration of an app layout on iPhone, showing two stacked text fields and a button above the keyboard.](https://developer.apple.com/tutorials/images/com.apple.HIG/ui-fully-visible@2x.png)
 
-![A checkmark in a circle to indicate a correct example.](/images/com.apple.HIG/checkmark@2x.png)
+![A checkmark in a circle to indicate a correct example.](https://developer.apple.com/tutorials/images/com.apple.HIG/checkmark@2x.png)
 
-![An illustration of an app layout on iPhone, showing two stacked text fields. The keyboard covers part of the bottom text field.](/images/com.apple.HIG/text-field-hidden@2x.png)
+![An illustration of an app layout on iPhone, showing two stacked text fields. The keyboard covers part of the bottom text field.](https://developer.apple.com/tutorials/images/com.apple.HIG/text-field-hidden@2x.png)
 
-![An X in a circle to indicate an incorrect example.](/images/com.apple.HIG/crossout@2x.png)
+![An X in a circle to indicate an incorrect example.](https://developer.apple.com/tutorials/images/com.apple.HIG/crossout@2x.png)
 
-![An illustration of an app layout on iPhone, showing two stacked text fields and a button above the keyboard. The keyboard covers part of the button.](/images/com.apple.HIG/button-hidden@2x.png)
+![An illustration of an app layout on iPhone, showing two stacked text fields and a button above the keyboard. The keyboard covers part of the button.](https://developer.apple.com/tutorials/images/com.apple.HIG/button-hidden@2x.png)
 
-![An X in a circle to indicate an incorrect example.](/images/com.apple.HIG/crossout@2x.png)
+![An X in a circle to indicate an incorrect example.](https://developer.apple.com/tutorials/images/com.apple.HIG/crossout@2x.png)
 
 **Place custom controls above the keyboard thoughtfully.** Some apps position an input accessory view containing custom controls above the keyboard to offer app-specific functionality related to the data people are working with. For example, Numbers displays controls that help people apply standard or custom calculations to spreadsheet data. If your app offers custom controls that augment the keyboard, make sure they’re relevant to the current task. If other views in your app use Liquid Glass, or if your view looks out of place above the keyboard, apply Liquid Glass to the view that contains your controls to maintain consistency. If you use a standard toolbar to contain your controls, it automatically adopts Liquid Glass. Use the keyboard layout guide and standard padding to ensure the system positions your controls as expected within the view. For developer guidance, see [ToolbarItemPlacement](https://developer.apple.com/documentation/swiftui/toolbaritemplacement) (SwiftUI), [inputAccessoryView](https://developer.apple.com/documentation/uikit/uiresponder/inputaccessoryview) (UIKit), and [UIKeyboardLayoutGuide](https://developer.apple.com/documentation/uikit/uikeyboardlayoutguide) (UIKit).
 
@@ -1364,22 +1364,22 @@ On iPhone in StandBy, the system displays two small system family widgets side-b
 
 **Correct usage**
 
-![An image of iPhone in StandBy. It shows a Clock widget on the left that displays the time as 9:41 a.m. and a Weather widget set to Cupertino with the temperature at 70 degrees Fahrenheit on the right.](/images/com.apple.HIG/widgets-standby-removed-background-correct@2x.png)
+![An image of iPhone in StandBy. It shows a Clock widget on the left that displays the time as 9:41 a.m. and a Weather widget set to Cupertino with the temperature at 70 degrees Fahrenheit on the right.](https://developer.apple.com/tutorials/images/com.apple.HIG/widgets-standby-removed-background-correct@2x.png)
 
-![A checkmark in a circle to indicate correct usage.](/images/com.apple.HIG/checkmark@2x.png)
+![A checkmark in a circle to indicate correct usage.](https://developer.apple.com/tutorials/images/com.apple.HIG/checkmark@2x.png)
 
 **Incorrect usage**
 
-![An image of iPhone in StandBy. It shows a Clock widget on the left that displays the time as 9:41 a.m. and a Weather widget set to Cupertino with the temperature at 70 degrees Fahrenheit on the right. The Watch widget appears with the background removed and the Weather widget isn't optimized for StandBy.](/images/com.apple.HIG/widgets-standby-with-background-incorrect@2x.png)
+![An image of iPhone in StandBy. It shows a Clock widget on the left that displays the time as 9:41 a.m. and a Weather widget set to Cupertino with the temperature at 70 degrees Fahrenheit on the right. The Watch widget appears with the background removed and the Weather widget isn't optimized for StandBy.](https://developer.apple.com/tutorials/images/com.apple.HIG/widgets-standby-with-background-incorrect@2x.png)
 
-![An X in a circle to indicate incorrect usage.](/images/com.apple.HIG/crossout@2x.png)
+![An X in a circle to indicate incorrect usage.](https://developer.apple.com/tutorials/images/com.apple.HIG/crossout@2x.png)
 
 
 For developer guidance, see [Displaying the right widget background](https://developer.apple.com/documentation/widgetkit/displaying-the-right-widget-background).
 
 On iPhone in StandBy in low-light conditions, the system renders widgets in a monochromatic look with a red tint.
 
-![An image of iPhone in low-light conditions. It shows a Clock widget on the left that displays the time as 9:41 a.m. and a Weather widget set to Cupertino with the temperature at 70 degrees Fahrenheit on the right.](/images/com.apple.HIG/widgets-standby-low-light@2x.png)
+![An image of iPhone in low-light conditions. It shows a Clock widget on the left that displays the time as 9:41 a.m. and a Weather widget set to Cupertino with the temperature at 70 degrees Fahrenheit on the right.](https://developer.apple.com/tutorials/images/com.apple.HIG/widgets-standby-low-light@2x.png)
 
 ### Widgets
 <sub>`pages/widgets.md` — upstream heading: iOS, iPadOS</sub>
@@ -1388,7 +1388,7 @@ Widgets on the Lock Screen are functionally similar to watch complications and f
 
 Your app can offer widgets on the Lock Screen in three different shapes: as inline text that appears above the clock, and as circular and rectangular shapes that appear below the clock.
 
-![A partial screenshot of the Lock Screen on iPhone that shows a Calendar widget and two Weather widgets below the time. From the left, the widgets are an inline text widget and two circular widgets.](/images/com.apple.HIG/widget-lock-screen-display-appearances@2x.png)
+![A partial screenshot of the Lock Screen on iPhone that shows a Calendar widget and two Weather widgets below the time. From the left, the widgets are an inline text widget and two circular widgets.](https://developer.apple.com/tutorials/images/com.apple.HIG/widget-lock-screen-display-appearances@2x.png)
 
 **Support the Always-On display on iPhone.** Devices with the Always-On display render widgets on the Lock Screen with reduced luminance. Use levels of gray that provide enough contrast in the Always-On display, and make sure your content remains legible.
 
@@ -1406,11 +1406,11 @@ Windows present in one of two ways depending on a person’s choice in Multitask
 
 **Full screen**
 
-![A screenshot of the Notes app in full screen on iPad, with an open document titled Nature Walks. The app interface fills the entire screen, with no visible border to the window.](/images/com.apple.HIG/windows-ipad-notes-fullscreen@2x.png)
+![A screenshot of the Notes app in full screen on iPad, with an open document titled Nature Walks. The app interface fills the entire screen, with no visible border to the window.](https://developer.apple.com/tutorials/images/com.apple.HIG/windows-ipad-notes-fullscreen@2x.png)
 
 **Windowed**
 
-![A screenshot of the Notes app  in a window on iPad, with an open document titled Nature Walks. The document window occupies the center of the screen, with the Home Screen background filling the rest of the screen behind it, and the Dock at the bottom.](/images/com.apple.HIG/windows-ipad-notes-windowed@2x.png)
+![A screenshot of the Notes app  in a window on iPad, with an open document titled Nature Walks. The document window occupies the center of the screen, with the Home Screen background filling the rest of the screen behind it, and the Dock at the bottom.](https://developer.apple.com/tutorials/images/com.apple.HIG/windows-ipad-notes-windowed@2x.png)
 
 
 **Make sure window controls don’t overlap toolbar items.** When windowed, app windows include window controls at the leading edge of the toolbar. If your app has toolbar buttons at the leading edge, they might be hidden by window controls when they appear. To prevent this, instead of placing buttons directly on the leading edge, move them inward when the window controls appear.
@@ -1514,7 +1514,7 @@ The standard button type in macOS is known as a *push button*. You can configure
 
 Beginning in macOS 11, you can specify an *accent color* to customize the appearance of your app’s buttons, selection highlighting, and sidebar icons. The system applies your accent color when the current value in General > Accent color settings is *multicolor*.
 
-![A screenshot of the accent color picker in the System Settings app.](/images/com.apple.HIG/colors-accent-colors-picker-multicolor@2x.png)
+![A screenshot of the accent color picker in the System Settings app.](https://developer.apple.com/tutorials/images/com.apple.HIG/colors-accent-colors-picker-multicolor@2x.png)
 
 If people set their accent color setting to a value other than multicolor, the system applies their chosen color to the relevant items throughout your app, replacing your accent color. The exception is a sidebar icon that uses a fixed color you specify. Because a fixed-color sidebar icon uses a specific color to provide meaning, the system doesn’t override its color when people change the value of accent color settings. For guidance, see [Sidebars](https://developer.apple.com/design/human-interface-guidelines/sidebars).
 
@@ -1638,11 +1638,11 @@ In addition to supporting gauges, macOS also defines a level indicator that disp
 
 The capacity style can depict discrete or continuous values.
 
-![An image of a continuous capacity indicator that uses the default green fill to indicate an amount of about two-thirds of the total capacity.](/images/com.apple.HIG/indicators-continuous@2x.png)
+![An image of a continuous capacity indicator that uses the default green fill to indicate an amount of about two-thirds of the total capacity.](https://developer.apple.com/tutorials/images/com.apple.HIG/indicators-continuous@2x.png)
 
 **Continuous.** A horizontal translucent track that fills with a solid bar to indicate the current value.
 
-![An image of a discrete capacity indicator that uses the default green fill to indicate an amount of three-quarters of the total capacity.](/images/com.apple.HIG/indicators-discrete@2x.png)
+![An image of a discrete capacity indicator that uses the default green fill to indicate an amount of three-quarters of the total capacity.](https://developer.apple.com/tutorials/images/com.apple.HIG/indicators-discrete@2x.png)
 
 **Discrete.** A horizontal row of separate, equally sized, rectangular segments. The number of segments matches the total capacity, and the segments fill completely — never partially — with color to indicate the current value.
 
@@ -1650,7 +1650,7 @@ The capacity style can depict discrete or continuous values.
 
 **Consider changing the fill color to inform people about significant parts of the range.** By default, the fill color for both capacity indicator styles is green. If it makes sense in your app, you can change the fill color when the current value reaches certain levels, such as very low, very high, or just past the middle. You can change the fill color of the entire indicator or you can use the tiered state to show a sequence of several colors in one indicator, as shown below.
 
-![An image of a continuous capacity indicator in which the leftmost one-eigth is red, the next three-eighths are yellow, the next one-fourth is green, and the last one-fourth is unfilled.](/images/com.apple.HIG/indicators-continuous-tiered@2x.png)
+![An image of a continuous capacity indicator in which the leftmost one-eigth is red, the next three-eighths are yellow, the next one-fourth is green, and the last one-fourth is unfilled.](https://developer.apple.com/tutorials/images/com.apple.HIG/indicators-continuous-tiered@2x.png)
 
 For guidance using the rating style to help people rank something, see [Rating indicators](https://developer.apple.com/design/human-interface-guidelines/rating-indicators).
 
@@ -1679,25 +1679,25 @@ If your macOS app can use a custom document type, you can create a document icon
 
 If you don’t supply a document icon for a file type you support, macOS creates one for you by compositing your app icon and the file’s extension onto the canvas. For example, Preview uses a system-generated document icon to represent JPG files.
 
-![An image of the Preview document icon for a JPG file.](/images/com.apple.HIG/doc-icon-generated@2x.png)
+![An image of the Preview document icon for a JPG file.](https://developer.apple.com/tutorials/images/com.apple.HIG/doc-icon-generated@2x.png)
 
 In some cases, it can make sense to create a set of document icons to represent a range of file types your app handles. For example, Xcode uses custom document icons to help people distinguish projects, AR objects, and Swift code files.
 
-![Image of an Xcode project document icon.](/images/com.apple.HIG/doc-icon-custom-1@2x.png)
+![Image of an Xcode project document icon.](https://developer.apple.com/tutorials/images/com.apple.HIG/doc-icon-custom-1@2x.png)
 
-![Image of a document icon for an AR object.](/images/com.apple.HIG/doc-icon-custom-2@2x.png)
+![Image of a document icon for an AR object.](https://developer.apple.com/tutorials/images/com.apple.HIG/doc-icon-custom-2@2x.png)
 
-![Image of a document icon for a Swift file.](/images/com.apple.HIG/doc-icon-custom-3@2x.png)
+![Image of a document icon for a Swift file.](https://developer.apple.com/tutorials/images/com.apple.HIG/doc-icon-custom-3@2x.png)
 
 To create a custom document icon, you can supply any combination of background fill, center image, and text. The system layers, positions, and masks these elements as needed and composites them onto the familiar folded-corner icon shape.
 
-![A square canvas that contains a grid of pink lines and a jagged white EKG line that runs horizontally across the middle. The pink grid gets lighter in color toward the bottom edge.](/images/com.apple.HIG/doc-icon-parts-background-fill@2x.png)
+![A square canvas that contains a grid of pink lines and a jagged white EKG line that runs horizontally across the middle. The pink grid gets lighter in color toward the bottom edge.](https://developer.apple.com/tutorials/images/com.apple.HIG/doc-icon-parts-background-fill@2x.png)
 
-![A solid pink heart.](/images/com.apple.HIG/doc-icon-parts-center-image@2x.png)
+![A solid pink heart.](https://developer.apple.com/tutorials/images/com.apple.HIG/doc-icon-parts-center-image@2x.png)
 
-![The word heart in all caps.](/images/com.apple.HIG/doc-icon-parts-text@2x.png)
+![The word heart in all caps.](https://developer.apple.com/tutorials/images/com.apple.HIG/doc-icon-parts-text@2x.png)
 
-![A custom document icon that displays the pink heart and the word heart on top of the pink grid and white EKG line.](/images/com.apple.HIG/doc-icon-parts@2x.png)
+![A custom document icon that displays the pink heart and the word heart on top of the pink grid and white EKG line.](https://developer.apple.com/tutorials/images/com.apple.HIG/doc-icon-parts@2x.png)
 
 [Apple Design Resources](https://developer.apple.com/design/resources/#macos-apps) provides a template you can use to create a custom background fill and center image for a document icon. As you use this template, follow the guidelines below.
 
@@ -1705,17 +1705,17 @@ To create a custom document icon, you can supply any combination of background f
 
 **Designing a single, expressive image for the background fill can be a great way to help people understand and recognize a document type.** For example, Xcode and TextEdit both use rich background images that don’t include a center image.
 
-![Image of an Xcode project document icon.](/images/com.apple.HIG/doc-icon-custom-1@2x.png)
+![Image of an Xcode project document icon.](https://developer.apple.com/tutorials/images/com.apple.HIG/doc-icon-custom-1@2x.png)
 
-![Image of a TextEdit rich text document icon.](/images/com.apple.HIG/doc-icon-fill-only@2x.png)
+![Image of a TextEdit rich text document icon.](https://developer.apple.com/tutorials/images/com.apple.HIG/doc-icon-fill-only@2x.png)
 
 **Consider reducing complexity in the small versions of your document icon.** Icon details that are clear in large versions can look blurry and be hard to recognize in small versions. For example, to ensure that the grid lines in the custom heart document icon remain clear in intermediate sizes, you might use fewer lines and thicken them by aligning them to the reduced pixel grid. In the 16x16 px size, you might remove the lines altogether.
 
-![Pixelated image of the heart document icon. The grid, the EKG line, the heart shape, and the word heart are visible but blurry.](/images/com.apple.HIG/doc-icon-fewer-details-1@2x.png)
+![Pixelated image of the heart document icon. The grid, the EKG line, the heart shape, and the word heart are visible but blurry.](https://developer.apple.com/tutorials/images/com.apple.HIG/doc-icon-fewer-details-1@2x.png)
 
-![Pixelated image of the heart document icon, in which only the blurry heart shape and EKG line are visible.](/images/com.apple.HIG/doc-icon-fewer-details-2@2x.png)
+![Pixelated image of the heart document icon, in which only the blurry heart shape and EKG line are visible.](https://developer.apple.com/tutorials/images/com.apple.HIG/doc-icon-fewer-details-2@2x.png)
 
-![Pixelated image of the heart document icon, in which only the blurry heart shape is visible.](/images/com.apple.HIG/doc-icon-fewer-details-3@2x.png)
+![Pixelated image of the heart document icon, in which only the blurry heart shape is visible.](https://developer.apple.com/tutorials/images/com.apple.HIG/doc-icon-fewer-details-3@2x.png)
 
 **Avoid placing important content in the top-right corner of your background fill.** The system automatically masks your image to fit the document icon shape and draws the white folded corner on top of the fill. Create a set of background images in the sizes listed below.
 
@@ -1734,11 +1734,11 @@ To create a custom document icon, you can supply any combination of background f
 
 **Define a margin that measures about 10% of the image canvas and keep most of the image within it.** Although parts of the image can extend into this margin for optical alignment, it’s best when the image occupies about 80% of the image canvas. For example, most of the center image in a 256x256 px canvas would fit in an area that measures 205x205 px.
 
-![Diagram of the solid pink heart shape within blue margins that measure 10 percent of the canvas width.](/images/com.apple.HIG/doc-icon-parts-margins@2x.png)
+![Diagram of the solid pink heart shape within blue margins that measure 10 percent of the canvas width.](https://developer.apple.com/tutorials/images/com.apple.HIG/doc-icon-parts-margins@2x.png)
 
 **Specify a succinct term if it helps people understand your document type.** By default, the system displays a document’s extension at the bottom edge of the document icon, but if the extension is unfamiliar you can supply a more descriptive term. For example, the document icon for a SceneKit scene file uses the term *scene* instead of the file extension *scn*. The system automatically scales the extension text to fit in the document icon, so be sure to use a term that’s short enough to be legible at small sizes. By default, the system capitalizes every letter in the text.
 
-![Image of a SceneKit scene document icon.](/images/com.apple.HIG/doc-icon-custom-extension@2x.png)
+![Image of a SceneKit scene document icon.](https://developer.apple.com/tutorials/images/com.apple.HIG/doc-icon-custom-extension@2x.png)
 
 ### Image views
 <sub>`pages/image-views.md`</sub>
@@ -1794,7 +1794,7 @@ On Mac, multitasking is the default experience because people typically run more
 
 A *tooltip* (called a *help tag* in user documentation) displays a small, transient view that briefly describes how to use a component in the interface. In apps that run on a Mac — including iPhone and iPad apps — tooltips can appear when a person holds the pointer over an element; in visionOS apps, a tooltip can appear when a person looks at an element or holds the pointer over it. For developer guidance, see [help(_:)](https://developer.apple.com/documentation/swiftui/view/help(_:)-6oiyb).
 
-![An illustration of a toolbar in macOS Finder with the pointer over the Back button. A tooltip with the title See folders you viewed previously appears beneath the pointer.](/images/com.apple.HIG/offering-help-macos-tooltip-help-tag@2x.png)
+![An illustration of a toolbar in macOS Finder with the pointer over the Back button. A tooltip with the title See folders you viewed previously appears beneath the pointer.](https://developer.apple.com/tutorials/images/com.apple.HIG/offering-help-macos-tooltip-help-tag@2x.png)
 
 **Describe only the control that people indicate interest in.** When people want to know how to use a specific control, they don’t want to learn how to use nearby controls or how to perform a larger task.
 
@@ -1840,24 +1840,24 @@ macOS offers a variety of standard pointer styles, which your app can use to com
 
 | Pointer | Name | Meaning | AppKit API |
 | --- | --- | --- | --- |
-| ![A pointer that resembles a diagonal arrow pointing up and to the left.](/images/com.apple.HIG/pointers-arrow@2x.png) | Arrow | Standard pointer for selecting and interacting with content and interface elements. | [arrow](https://developer.apple.com/documentation/appkit/nscursor/arrow) |
-| ![A closed, gloved hand.](/images/com.apple.HIG/pointers-closed-hand@2x.png) | Closed hand | Dragging to reposition the display of content within a view—for example, dragging a map around in Maps. | [closedHand](https://developer.apple.com/documentation/appkit/nscursor/closedhand) |
-| ![A pointer arrow with a small menu-like square to the right of the arrow.](/images/com.apple.HIG/pointers-contextual-menu@2x.png) | Contextual menu | A contextual menu is available for the content below the pointer. This pointer is generally shown only when the Control key is pressed. | [contextualMenu](https://developer.apple.com/documentation/appkit/nscursor/contextualmenu) |
-| ![A plus symbol.](/images/com.apple.HIG/pointers-crosshair@2x.png) | Crosshair | Precise rectangular selection is possible, such as when viewing an image in Preview. | [crosshair](https://developer.apple.com/documentation/appkit/nscursor/crosshair) |
-| ![A small pointer arrowhead with a circle underneath; the circle contains an Ex.](/images/com.apple.HIG/pointers-disappearing-item@2x.png) | Disappearing item | A dragged item will disappear when dropped. If the item references an original item, the original is unaffected. For example, when dragging a mailbox out of the favorites bar in Mail, the original mailbox isn’t removed. | [disappearingItem](https://developer.apple.com/documentation/appkit/nscursor/disappearingitem) |
-| ![A small pointer arrowhead with a circle underneath; the circle contains a plus symbol.](/images/com.apple.HIG/pointers-drag-copy@2x.png) | Drag copy | Duplicates a dragged—not moved—item when dropped into the destination. Appears when pressing the Option key during a drag operation. | [dragCopy](https://developer.apple.com/documentation/appkit/nscursor/dragcopy) |
-| ![A curved arrow, pointing up and to the right.](/images/com.apple.HIG/pointers-drag-link@2x.png) | Drag link | During a drag and drop operation, creates an alias of the selected file when dropped. The alias points to the original file, which remains unmoved. Appears when pressing the Option and Command keys during a drag operation. | [dragLink](https://developer.apple.com/documentation/appkit/nscursor/draglink) |
-| ![Opposing veritcal braces, used to form an insertion marker.](/images/com.apple.HIG/pointers-horizontal-beam@2x.png) | Horizontal I beam | Selection and insertion of text is possible in a horizontal layout, such as a TextEdit or Pages document. | [iBeam](https://developer.apple.com/documentation/appkit/nscursor/ibeam) |
-| ![An open, gloved hand.](/images/com.apple.HIG/pointers-open-hand@2x.png) | Open hand | Dragging to reposition content within a view is possible. | [openHand](https://developer.apple.com/documentation/appkit/nscursor/openhand) |
-| ![A small pointer arrowhead with a do not enter symbol underneath.](/images/com.apple.HIG/pointers-operation-not-allowed@2x.png) | Operation not allowed | A dragged item can’t be dropped in the current location. | [operationNotAllowed](https://developer.apple.com/documentation/appkit/nscursor/operationnotallowed) |
-| ![A gloved hand, with the index finger extended.](/images/com.apple.HIG/pointers-pointing-hand@2x.png) | Pointing hand | The content beneath the pointer is a URL link to a webpage, document, or other item. | [pointingHand](https://developer.apple.com/documentation/appkit/nscursor/pointinghand) |
-| ![A horizontal bar with a downward-pointing arrow at its midpoint.](/images/com.apple.HIG/pointers-resize-down@2x.png) | Resize down | Resize or move a window, view, or element downward. | [resizeDown](https://developer.apple.com/documentation/appkit/nscursor/resizedown) |
-| ![A vertical bar with a left-pointing arrow at its midpoint.](/images/com.apple.HIG/pointers-resize-left@2x.png) | Resize left | Resize or move a window, view, or element to the left. | [resizeLeft](https://developer.apple.com/documentation/appkit/nscursor/resizeleft) |
-| ![A vertical bar with left- and right-pointing arrows extending from its midpoint.](/images/com.apple.HIG/pointers-resize-left-right@2x.png) | Resize left/right | Resize or move a window, view, or element to the left or right. | [resizeLeftRight](https://developer.apple.com/documentation/appkit/nscursor/resizeleftright) |
-| ![A vertical bar with a right-pointing arrow at its midpoint.](/images/com.apple.HIG/pointers-resize-right@2x.png) | Resize right | Resize or move a window, view, or element to the right. | [resizeRight](https://developer.apple.com/documentation/appkit/nscursor/resizeright) |
-| ![A horizontal bar with an up-pointing arrow at its midpoint.](/images/com.apple.HIG/pointers-resize-up@2x.png) | Resize up | Resize or move a window, view, or element upward. | [resizeUp](https://developer.apple.com/documentation/appkit/nscursor/resizeup) |
-| ![A horizontal bar with up- and down-pointing arrows extending from its midpoint.](/images/com.apple.HIG/pointers-resize-up-down@2x.png) | Resize up/down | Resize or move a window, view, or element upward or downward. | [resizeUpDown](https://developer.apple.com/documentation/appkit/nscursor/resizeupdown) |
-| ![Opposing horizontal braces, used to form an insertion marker.](/images/com.apple.HIG/pointers-vertical-beam@2x.png) | Vertical I beam | Selection and insertion of text is possible in a vertical layout. | [iBeamCursorForVerticalLayout](https://developer.apple.com/documentation/appkit/nscursor/ibeamcursorforverticallayout) |
+| ![A pointer that resembles a diagonal arrow pointing up and to the left.](https://developer.apple.com/tutorials/images/com.apple.HIG/pointers-arrow@2x.png) | Arrow | Standard pointer for selecting and interacting with content and interface elements. | [arrow](https://developer.apple.com/documentation/appkit/nscursor/arrow) |
+| ![A closed, gloved hand.](https://developer.apple.com/tutorials/images/com.apple.HIG/pointers-closed-hand@2x.png) | Closed hand | Dragging to reposition the display of content within a view—for example, dragging a map around in Maps. | [closedHand](https://developer.apple.com/documentation/appkit/nscursor/closedhand) |
+| ![A pointer arrow with a small menu-like square to the right of the arrow.](https://developer.apple.com/tutorials/images/com.apple.HIG/pointers-contextual-menu@2x.png) | Contextual menu | A contextual menu is available for the content below the pointer. This pointer is generally shown only when the Control key is pressed. | [contextualMenu](https://developer.apple.com/documentation/appkit/nscursor/contextualmenu) |
+| ![A plus symbol.](https://developer.apple.com/tutorials/images/com.apple.HIG/pointers-crosshair@2x.png) | Crosshair | Precise rectangular selection is possible, such as when viewing an image in Preview. | [crosshair](https://developer.apple.com/documentation/appkit/nscursor/crosshair) |
+| ![A small pointer arrowhead with a circle underneath; the circle contains an Ex.](https://developer.apple.com/tutorials/images/com.apple.HIG/pointers-disappearing-item@2x.png) | Disappearing item | A dragged item will disappear when dropped. If the item references an original item, the original is unaffected. For example, when dragging a mailbox out of the favorites bar in Mail, the original mailbox isn’t removed. | [disappearingItem](https://developer.apple.com/documentation/appkit/nscursor/disappearingitem) |
+| ![A small pointer arrowhead with a circle underneath; the circle contains a plus symbol.](https://developer.apple.com/tutorials/images/com.apple.HIG/pointers-drag-copy@2x.png) | Drag copy | Duplicates a dragged—not moved—item when dropped into the destination. Appears when pressing the Option key during a drag operation. | [dragCopy](https://developer.apple.com/documentation/appkit/nscursor/dragcopy) |
+| ![A curved arrow, pointing up and to the right.](https://developer.apple.com/tutorials/images/com.apple.HIG/pointers-drag-link@2x.png) | Drag link | During a drag and drop operation, creates an alias of the selected file when dropped. The alias points to the original file, which remains unmoved. Appears when pressing the Option and Command keys during a drag operation. | [dragLink](https://developer.apple.com/documentation/appkit/nscursor/draglink) |
+| ![Opposing veritcal braces, used to form an insertion marker.](https://developer.apple.com/tutorials/images/com.apple.HIG/pointers-horizontal-beam@2x.png) | Horizontal I beam | Selection and insertion of text is possible in a horizontal layout, such as a TextEdit or Pages document. | [iBeam](https://developer.apple.com/documentation/appkit/nscursor/ibeam) |
+| ![An open, gloved hand.](https://developer.apple.com/tutorials/images/com.apple.HIG/pointers-open-hand@2x.png) | Open hand | Dragging to reposition content within a view is possible. | [openHand](https://developer.apple.com/documentation/appkit/nscursor/openhand) |
+| ![A small pointer arrowhead with a do not enter symbol underneath.](https://developer.apple.com/tutorials/images/com.apple.HIG/pointers-operation-not-allowed@2x.png) | Operation not allowed | A dragged item can’t be dropped in the current location. | [operationNotAllowed](https://developer.apple.com/documentation/appkit/nscursor/operationnotallowed) |
+| ![A gloved hand, with the index finger extended.](https://developer.apple.com/tutorials/images/com.apple.HIG/pointers-pointing-hand@2x.png) | Pointing hand | The content beneath the pointer is a URL link to a webpage, document, or other item. | [pointingHand](https://developer.apple.com/documentation/appkit/nscursor/pointinghand) |
+| ![A horizontal bar with a downward-pointing arrow at its midpoint.](https://developer.apple.com/tutorials/images/com.apple.HIG/pointers-resize-down@2x.png) | Resize down | Resize or move a window, view, or element downward. | [resizeDown](https://developer.apple.com/documentation/appkit/nscursor/resizedown) |
+| ![A vertical bar with a left-pointing arrow at its midpoint.](https://developer.apple.com/tutorials/images/com.apple.HIG/pointers-resize-left@2x.png) | Resize left | Resize or move a window, view, or element to the left. | [resizeLeft](https://developer.apple.com/documentation/appkit/nscursor/resizeleft) |
+| ![A vertical bar with left- and right-pointing arrows extending from its midpoint.](https://developer.apple.com/tutorials/images/com.apple.HIG/pointers-resize-left-right@2x.png) | Resize left/right | Resize or move a window, view, or element to the left or right. | [resizeLeftRight](https://developer.apple.com/documentation/appkit/nscursor/resizeleftright) |
+| ![A vertical bar with a right-pointing arrow at its midpoint.](https://developer.apple.com/tutorials/images/com.apple.HIG/pointers-resize-right@2x.png) | Resize right | Resize or move a window, view, or element to the right. | [resizeRight](https://developer.apple.com/documentation/appkit/nscursor/resizeright) |
+| ![A horizontal bar with an up-pointing arrow at its midpoint.](https://developer.apple.com/tutorials/images/com.apple.HIG/pointers-resize-up@2x.png) | Resize up | Resize or move a window, view, or element upward. | [resizeUp](https://developer.apple.com/documentation/appkit/nscursor/resizeup) |
+| ![A horizontal bar with up- and down-pointing arrows extending from its midpoint.](https://developer.apple.com/tutorials/images/com.apple.HIG/pointers-resize-up-down@2x.png) | Resize up/down | Resize or move a window, view, or element upward or downward. | [resizeUpDown](https://developer.apple.com/documentation/appkit/nscursor/resizeupdown) |
+| ![Opposing horizontal braces, used to form an insertion marker.](https://developer.apple.com/tutorials/images/com.apple.HIG/pointers-vertical-beam@2x.png) | Vertical I beam | Selection and insertion of text is possible in a vertical layout. | [iBeamCursorForVerticalLayout](https://developer.apple.com/documentation/appkit/nscursor/ibeamcursorforverticallayout) |
 
 ### Pointing devices
 <sub>`pages/pointing-devices.md`</sub>
@@ -1890,11 +1890,11 @@ You can make a popover detachable in macOS, which becomes a separate panel when 
 
 **Attached popover**
 
-![An illustration of an event in Calendar with the attached version of the event's popover next to and pointing to it.](/images/com.apple.HIG/attached-popover@2x.png)
+![An illustration of an event in Calendar with the attached version of the event's popover next to and pointing to it.](https://developer.apple.com/tutorials/images/com.apple.HIG/attached-popover@2x.png)
 
 **Detached popover**
 
-![An illustration of an event in Calendar with the detached version of the event's popover next to it.](/images/com.apple.HIG/detached-popover@2x.png)
+![An illustration of an event in Calendar with the detached version of the event's popover next to it.](https://developer.apple.com/tutorials/images/com.apple.HIG/detached-popover@2x.png)
 
 
 **Consider letting people detach a popover.** People might appreciate being able to convert a popover into a panel if they want to view other information while the popover remains visible.
@@ -1930,9 +1930,9 @@ You can make a popover detachable in macOS, which becomes a separate panel when 
 
 In macOS, an indeterminate progress indicator can have a bar or circular appearance. Both versions use an animated image to indicate that the app is performing a task.
 
-![An image of a completely filled horizontal progress bar in macOS. The fill is animated to cycle through various shade changes as progress continues.](/images/com.apple.HIG/progress-indicator-intermediate-bar@2x.png)
+![An image of a completely filled horizontal progress bar in macOS. The fill is animated to cycle through various shade changes as progress continues.](https://developer.apple.com/tutorials/images/com.apple.HIG/progress-indicator-intermediate-bar@2x.png)
 
-![An image of a spinning, circular activity indicator in macOS.](/images/com.apple.HIG/progress-indicator-intermediate-spinner@2x.png)
+![An image of a spinning, circular activity indicator in macOS.](https://developer.apple.com/tutorials/images/com.apple.HIG/progress-indicator-intermediate-spinner@2x.png)
 
 **Prefer an activity indicator (spinner) to communicate the status of a background operation or when space is constrained.** Spinners are small and unobtrusive, so they’re useful for asynchronous background tasks, like retrieving messages from a server. Spinners are also good for communicating progress within a small area, such as within a text field or next to a specific control, such as a button.
 
@@ -1950,19 +1950,19 @@ In macOS, a *scroll indicator* is commonly called a *scroll bar*.
 
 The placement and behavior of the search field in iPadOS and macOS is similar. If your app is available on both iPad and Mac, try to keep the search experience as consistent as possible across both platforms.
 
-![An illustration of an iPad screen with a search field on the trailing edge of the top toolbar. The search field has the word Design entered into the field, and three search suggestions appear in a list beneath the field.](/images/com.apple.HIG/search-fields-toolbar-search-ipad@2x.png)
+![An illustration of an iPad screen with a search field on the trailing edge of the top toolbar. The search field has the word Design entered into the field, and three search suggestions appear in a list beneath the field.](https://developer.apple.com/tutorials/images/com.apple.HIG/search-fields-toolbar-search-ipad@2x.png)
 
-![An illustration of a Mac screen with a search field on the trailing edge of the toolbar. The search field has the word Design entered into the field, and three search suggestions appear in a list beneath the field.](/images/com.apple.HIG/search-fields-toolbar-search-mac@2x.png)
+![An illustration of a Mac screen with a search field on the trailing edge of the toolbar. The search field has the word Design entered into the field, and three search suggestions appear in a list beneath the field.](https://developer.apple.com/tutorials/images/com.apple.HIG/search-fields-toolbar-search-mac@2x.png)
 
 **Put a search field at the trailing side of the toolbar for many common uses.** Many apps benefit from the familiar pattern of search in the toolbar, particularly apps with split views that need to search across multiple columns of information, like Mail, Notes, and Voice Memos. This placement makes great use of space because it lets people navigate results while keeping their selection visible in the detail view. Additionally, consider placing search in the toolbar if results appear in the detail view of your app, like in Freeform, where search in the toolbar filters the boards in the detail view below.
 
 **Include search at the top of the sidebar when filtering content or navigation there.** Apps such as Settings take advantage of search to quickly filter the sidebar and expose sections that may be multiple levels deep, providing a simple way for people to search, preview, and navigate to the section or setting they’re looking for. This approach is useful if your app has a rich detail view and you need to create a distinct separation between the sidebar you’re filtering and the adjacent view.
 
-![An illustration of an iPad screen with a search field at the top of the sidebar on the leading edge of the screen.](/images/com.apple.HIG/search-fields-ipad-search-in-sidebar@2x.png)
+![An illustration of an iPad screen with a search field at the top of the sidebar on the leading edge of the screen.](https://developer.apple.com/tutorials/images/com.apple.HIG/search-fields-ipad-search-in-sidebar@2x.png)
 
 **Include search as an item in the sidebar or tab bar when you want an area dedicated to discovery.** If your search is paired with rich suggestions, categories, or content that needs more space, it can be helpful to have a dedicated area for it. This is particularly useful for apps where browsing and search go hand in hand, like Music and TV, where it provides a unified location to highlight suggested content, categories, and recent searches. A dedicated area also ensures search is always available as people navigate and switch sections of your app.
 
-![An illustration of an iPad screen with a tab bar at the top edge. The trailing side of the tab bar includes a Search tab with a distinct background color to differentiate it from other tab areas.](/images/com.apple.HIG/search-fields-ipad-search-in-tab-bar@2x.png)
+![An illustration of an iPad screen with a tab bar at the top edge. The trailing side of the tab bar includes a Search tab with a distinct background color to differentiate it from other tab areas.](https://developer.apple.com/tutorials/images/com.apple.HIG/search-fields-ipad-search-in-tab-bar@2x.png)
 
 **In a search field in a dedicated area, consider immediately focusing the field when a person navigates to the area to help them search faster and locate the field more easily.** An exception to this is on iPad when only a virtual keyboard is available, in which case it’s better to leave the field unfocused to prevent the keyboard from unexpectedly covering the view.
 
@@ -1975,7 +1975,7 @@ The placement and behavior of the search field in iPadOS and macOS is similar. I
 
 **Use a tab view in the main window area — instead of a segmented control — for view switching.** A [Tab views](https://developer.apple.com/design/human-interface-guidelines/tab-views) supports efficient view switching and is similar in appearance to a [Boxes](https://developer.apple.com/design/human-interface-guidelines/boxes) combined with a segmented control. Consider using a segmented control to help people switch views in a toolbar or inspector pane.
 
-![A screenshot of the macOS Calendar app. The main window area shows a tab view that contains four tabs: Day, Week, Month, and Year. The sidebar shows a segmented control that contains two segments: New and Replied.](/images/com.apple.HIG/macos-calendar-tab-view-segmented-control-comparison@2x.png)
+![A screenshot of the macOS Calendar app. The main window area shows a tab view that contains four tabs: Day, Week, Month, and Year. The sidebar shows a segmented control that contains two segments: New and Replied.](https://developer.apple.com/tutorials/images/com.apple.HIG/macos-calendar-tab-view-segmented-control-comparison@2x.png)
 
 **Consider supporting spring loading.** On a Mac equipped with a Magic Trackpad, spring loading lets people activate a segment by dragging selected items over it and force clicking without dropping the selected items. People can also continue dragging the items after a segment activates.
 
@@ -1999,7 +1999,7 @@ When people choose the Settings item in your app’s or game’s App menu, your 
 
 In macOS, a sheet is a cardlike view with rounded corners that floats on top of its parent window. The parent window is dimmed while the sheet is onscreen, signaling that people can’t interact with it until they dismiss the sheet. However, people expect to interact with other app windows before dismissing a sheet.
 
-![A screenshot of the Notes app, with the What's New in Notes sheet centered on top of a dimmed Notes document in the background.](/images/com.apple.HIG/sheets-macos-notes@2x.png)
+![A screenshot of the Notes app, with the What's New in Notes sheet centered on top of a dimmed Notes document in the background.](https://developer.apple.com/tutorials/images/com.apple.HIG/sheets-macos-notes@2x.png)
 
 **Present a sheet in a reasonable default size.** People don’t generally expect to resize sheets, so it’s important to use a size that’s appropriate for the content you display. In some cases, however, people appreciate a resizable sheet — such as when they need to expand the contents for a clearer view — so it’s a good idea to support resizing.
 
@@ -2025,11 +2025,11 @@ In a linear slider either with or without tick marks, the thumb is a narrow loze
 
 In a circular slider, the thumb appears as a small circle. Tick marks, when present, appear as evenly spaced dots around the circumference of the slider.
 
-![An illustration of a horizontal slider with the thumb in the middle. The leading portion of the track up to the thumb is filled with a blue highlight color.](/images/com.apple.HIG/sliders-no-tick-marks@2x.png)
+![An illustration of a horizontal slider with the thumb in the middle. The leading portion of the track up to the thumb is filled with a blue highlight color.](https://developer.apple.com/tutorials/images/com.apple.HIG/sliders-no-tick-marks@2x.png)
 
-![An illustration of a horizontal slider with the thumb between two tick marks in the middle of the slider. The leading portion of the track up to the thumb is filled with a blue highlight color.](/images/com.apple.HIG/sliders-tick-marks@2x.png)
+![An illustration of a horizontal slider with the thumb between two tick marks in the middle of the slider. The leading portion of the track up to the thumb is filled with a blue highlight color.](https://developer.apple.com/tutorials/images/com.apple.HIG/sliders-tick-marks@2x.png)
 
-![An illustration of a circular slider with the thumb at the 12 o'clock position.](/images/com.apple.HIG/sliders-circular@2x.png)
+![An illustration of a circular slider with the thumb at the 12 o'clock position.](https://developer.apple.com/tutorials/images/com.apple.HIG/sliders-circular@2x.png)
 
 **Consider giving live feedback as the value of a slider changes.** Live feedback shows people results in real time. For example, your Dock icons are dynamically scaled when adjusting the Size slider in Dock settings.
 
@@ -2039,7 +2039,7 @@ In a circular slider, the thumb appears as a small circle. Tick marks, when pres
 
 **Use tick marks to increase clarity and accuracy.** Tick marks help people understand the scale of measurements and make it easier to locate specific values.
 
-![A partial screenshot of the Energy Saver settings pane in macOS, cropped to show the slider that controls how long the display remains on after inactivity.](/images/com.apple.HIG/sliders-labels@2x.png)
+![A partial screenshot of the Energy Saver settings pane in macOS, cropped to show the slider that controls how long the display remains on after inactivity.](https://developer.apple.com/tutorials/images/com.apple.HIG/sliders-labels@2x.png)
 
 **Consider adding labels to tick marks for even greater clarity.** Labels can be numbers or words, depending on the slider’s values. It’s unnecessary to label every tick mark unless doing so is needed to reduce confusion. In many cases, labeling only the minimum and maximum values is sufficient. When the values of the slider are nonlinear, like in the Energy Saver settings pane, periodic labels provide context. It’s also a good idea to provide a [tooltip](https://developer.apple.com/design/human-interface-guidelines/offering-help#macOS-visionOS) that displays the value of the thumb when people hold their pointer over it.
 
@@ -2050,15 +2050,15 @@ In macOS, you can arrange the panes of a split view vertically, horizontally, or
 
 **Vertical**
 
-![An illustration of a laptop screen that shows two panes stacked vertically.](/images/com.apple.HIG/vertical-split-view@2x.png)
+![An illustration of a laptop screen that shows two panes stacked vertically.](https://developer.apple.com/tutorials/images/com.apple.HIG/vertical-split-view@2x.png)
 
 **Horizontal**
 
-![An illustration of a laptop screen that shows two panes arranged side by side, with a narrower pane on the left and a wider pane on the right.](/images/com.apple.HIG/horizontal-split-view@2x.png)
+![An illustration of a laptop screen that shows two panes arranged side by side, with a narrower pane on the left and a wider pane on the right.](https://developer.apple.com/tutorials/images/com.apple.HIG/horizontal-split-view@2x.png)
 
 **Multiple**
 
-![An illustration of a laptop screen divided into three panes, split both vertically and horizontally.](/images/com.apple.HIG/multiple-split-view@2x.png)
+![An illustration of a laptop screen divided into three panes, split both vertically and horizontally.](https://developer.apple.com/tutorials/images/com.apple.HIG/multiple-split-view@2x.png)
 
 
 **Set reasonable defaults for minimum and maximum pane sizes.** If people can resize the panes in your app’s split view, make sure to use sizes that keep the divider visible. If a pane gets too small, the divider can seem to disappear, becoming difficult to use.
@@ -2086,7 +2086,7 @@ A menu bar extra exposes app-specific functionality using an icon that appears i
 
 When necessary, the system hides menu bar extras to make room for app menus. Similarly, if there are too many menu bar extras, the system may hide some to avoid crowding app menus.
 
-![A screenshot of the Input menu bar extra and its menu.](/images/com.apple.HIG/menu-bar-extras@2x.png)
+![A screenshot of the Input menu bar extra and its menu.](https://developer.apple.com/tutorials/images/com.apple.HIG/menu-bar-extras@2x.png)
 
 **Consider using a symbol to represent your menu bar extra.** You can create an [Icons](https://developer.apple.com/design/human-interface-guidelines/icons) or you can choose one of the [SF Symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols), using it as-is or customizing it to suit your needs. Both interface icons and symbols use black and clear colors to define their shapes; the system can apply other colors to the black areas in each image so it looks good on both dark and light menu bars, and when your menu bar extra is selected. The menu bar’s height is 24 pt.
 
@@ -2123,7 +2123,7 @@ A checkbox is a small, square button that’s empty when the button is off, cont
 
 **Use a checkbox instead of a switch if you need to present a hierarchy of settings.** The visual style of checkboxes helps them align well and communicate grouping. By using alignment — generally along the leading edge of the checkboxes — and indentation, you can show dependencies, such as when the state of a checkbox governs the state of subordinate checkboxes.
 
-![An illustration showing a layout that includes two levels of checkboxes.](/images/com.apple.HIG/checkbox-alignment@2x.png)
+![An illustration showing a layout that includes two levels of checkboxes.](https://developer.apple.com/tutorials/images/com.apple.HIG/checkbox-alignment@2x.png)
 
 **Consider using radio buttons if you need to present a set of more than two mutually exclusive options.** When people need to choose from options in addition to just “on” or “off,” using multiple radio buttons can help you clarify each option with a unique label.
 
@@ -2131,24 +2131,24 @@ A checkbox is a small, square button that’s empty when the button is off, cont
 
 **Accurately reflect a checkbox’s state in its appearance.** A checkbox’s state can be on, off, or mixed. If you use a checkbox to globally turn on and off multiple subordinate checkboxes, show a mixed state when the subordinate checkboxes have different states. For example, you might need to present a text-style setting that turns all styles on or off, but also lets people choose a subset of individual style settings like bold, italic, or underline. For developer guidance, see [allowsMixedState](https://developer.apple.com/documentation/appkit/nsbutton/allowsmixedstate).
 
-![An illustration that shows a checkbox with the on state, which looks like a small rounded square with blue fill and a white checkmark.](/images/com.apple.HIG/checkbox-selected@2x.png)
+![An illustration that shows a checkbox with the on state, which looks like a small rounded square with blue fill and a white checkmark.](https://developer.apple.com/tutorials/images/com.apple.HIG/checkbox-selected@2x.png)
 
-![An illustration that shows a checkbox with the off state, which looks like a small rounded square with no fill.](/images/com.apple.HIG/checkbox-deselected@2x.png)
+![An illustration that shows a checkbox with the off state, which looks like a small rounded square with no fill.](https://developer.apple.com/tutorials/images/com.apple.HIG/checkbox-deselected@2x.png)
 
-![An illustration that shows a checkbox with the mixed state, which looks like a small rounded square with blue fill and a white hyphen.](/images/com.apple.HIG/checkbox-mixed@2x.png)
+![An illustration that shows a checkbox with the mixed state, which looks like a small rounded square with blue fill and a white hyphen.](https://developer.apple.com/tutorials/images/com.apple.HIG/checkbox-mixed@2x.png)
 
 ### Toggles
 <sub>`pages/toggles.md`</sub>
 
 A radio button is a small, circular button followed by a label. Typically displayed in groups of two to five, radio buttons present a set of mutually exclusive choices.
 
-![An illustration that shows five items in a column, each with a radio button preceding the text Radio Button Label. The radio button for the third item is filled, indicating that it's selected.](/images/com.apple.HIG/radio-button-example@2x.png)
+![An illustration that shows five items in a column, each with a radio button preceding the text Radio Button Label. The radio button for the third item is filled, indicating that it's selected.](https://developer.apple.com/tutorials/images/com.apple.HIG/radio-button-example@2x.png)
 
 A radio button’s state is either selected (a filled circle) or deselected (an empty circle). Although a radio button can also display a mixed state (indicated by a dash), this state is rarely useful because you can communicate multiple states by using additional radio buttons. If you need to show that a setting or item has a mixed state, consider using a checkbox instead.
 
-![An illustration that shows a selected radio button, which looks like a white dot centered in a small circle with a dark fill.](/images/com.apple.HIG/radio-button-selected@2x.png)
+![An illustration that shows a selected radio button, which looks like a white dot centered in a small circle with a dark fill.](https://developer.apple.com/tutorials/images/com.apple.HIG/radio-button-selected@2x.png)
 
-![An illustration that shows a deselected radio button, which looks like a small, empty circle.](/images/com.apple.HIG/radio-button-deselected@2x.png)
+![An illustration that shows a deselected radio button, which looks like a small, empty circle.](https://developer.apple.com/tutorials/images/com.apple.HIG/radio-button-deselected@2x.png)
 
 **Prefer a set of radio buttons to present mutually exclusive options.** If you need to let people choose multiple options in a set, use checkboxes instead.
 
@@ -2158,7 +2158,7 @@ A radio button’s state is either selected (a filled circle) or deselected (an 
 
 **Use consistent spacing when you display radio buttons horizontally.** Measure the space needed to accommodate the longest button label, and use that measurement consistently.
 
-![An illustration that shows three items in a row, with a radio button preceding each item. The first and third items have long text labels, while the second has a short label. The horizontal space each item occupies is equal. A filled radio button precedes the second item, indicating that it's selected.](/images/com.apple.HIG/radio-button-equal-spacing@2x.png)
+![An illustration that shows three items in a row, with a radio button preceding each item. The first and third items have long text labels, while the second has a short label. The horizontal space each item occupies is equal. A filled radio button precedes the second item, indicating that it's selected.](https://developer.apple.com/tutorials/images/com.apple.HIG/radio-button-equal-spacing@2x.png)
 
 ### Toggles
 <sub>`pages/toggles.md`</sub>
@@ -2172,7 +2172,7 @@ In addition to the switch toggle style, macOS supports the checkbox style and al
 
 In a macOS app, the toolbar resides in the frame at the top of a window, either below or integrated with the title bar. Note that window titles can display inline with controls, and toolbar items don’t include a bezel.
 
-![A diagram of a Finder window in macOS with callouts showing the location of the toolbar and the window frame.](/images/com.apple.HIG/toolbars-mac-window-anatomy@2x.png)
+![A diagram of a Finder window in macOS with callouts showing the location of the toolbar and the window frame.](https://developer.apple.com/tutorials/images/com.apple.HIG/toolbars-mac-window-anatomy@2x.png)
 
 **Make every toolbar item available as a command in the menu bar.** Because people can customize the toolbar or hide it, it can’t be the only place that presents a command. In contrast, it doesn’t make sense to provide a toolbar item for every menu item, because not all menu commands are important enough or used often enough to warrant space in the toolbar.
 
@@ -2214,7 +2214,7 @@ A macOS window can have one of three states:
 
 The system gives main, key, and inactive windows different appearances to help people visually identify them. For example, the key window uses color in the title bar options for closing, minimizing, and zooming; inactive windows and main windows that aren’t key use gray in these options. Also, inactive windows don’t use [Materials](https://developer.apple.com/design/human-interface-guidelines/materials) (an effect that can pull color into a window from the content underneath it), which makes them appear subdued and seem visually farther away than the main and key windows.
 
-![An illustration of a stack of three windows, as follows: An inactive window in the background, an app’s main window in the middle, and a key window appearing above the other two windows.](/images/com.apple.HIG/window-states@2x.png)
+![An illustration of a stack of three windows, as follows: An inactive window in the background, an app’s main window in the middle, and a key window appearing above the other two windows.](https://developer.apple.com/tutorials/images/com.apple.HIG/window-states@2x.png)
 
 > **Note:** Some windows — typically, panels like Colors or Fonts — become the key window only when people click the window’s title bar or a component that requires keyboard input, such as a text field.
 
@@ -2243,7 +2243,7 @@ To learn about setting up a window to display your game in macOS, see [Managing 
 
 **Include a safe zone to ensure the system doesn’t crop your content.** When someone focuses your app icon, the system may crop content around the edges as the icon scales and moves. To ensure that your icon’s content is always visible, keep a safe zone around it. Be aware that the safe zone can vary, depending on the image size, layer depth, and motion, and the system crops foreground layers more than background layers.
 
-![A diagram of the Settings icon in tvOS with a white dotted line inside the outer border, which indicates the safe zone.](/images/com.apple.HIG/tvos-app-icon-safe-zone@2x.png)
+![A diagram of the Settings icon in tvOS with a white dotted line inside the outer border, which indicates the safe zone.](https://developer.apple.com/tutorials/images/com.apple.HIG/tvos-app-icon-safe-zone@2x.png)
 
 ### Color
 <sub>`pages/color.md`</sub>
@@ -2263,11 +2263,11 @@ To learn about setting up a window to display your game in macOS, see [Managing 
 
 | State | Description |
 | --- | --- |
-| ![An image of an unfocused button on top of a photograph. A small drop shadow makes it appear very close to the content behind it, with a translucent background infused by the colors of the content, and a high-contrast text color.](/images/com.apple.HIG/focus-and-selection-state-unfocused@2x.png) | The viewer hasn’t brought focus to the item. Unfocused items appear less prominent than focused items. |
-| ![An image of a focused button on top of a photograph. It’s larger than an unfocused button, and a drop shadow makes it appear farther away from the content behind it, with an opaque white background and a black text label.](/images/com.apple.HIG/focus-and-selection-state-focused@2x.png) | The viewer brings focus to the item. A focused item visually stands out from the other onscreen content through elevation to the foreground, illumination, and animation. |
-| ![An image of a highlighted button on top of a photograph. It’s the same size as an unfocused button, and a drop shadow makes it appear a little farther away from the surface of the content behind it, with an opaque white background and a black text label.](/images/com.apple.HIG/focus-and-selection-state-highlighted@2x.png) | The viewer chooses the focused item. A focused item provides instant visual feedback when people choose it. For example, a button might briefly invert its colors and animate before it transitions to its selected appearance. |
-| ![An image of a selected button on top of a photograph. It’s the same size as an unfocused button, and a small drop shadow makes it appear very close to the content behind it, with an opaque white background and a black text label.](/images/com.apple.HIG/focus-and-selection-state-selected@2x.png) | The viewer has chosen or activated the item in some way. For example, a heart-shaped button that people can use to favorite a photo might appear filled in the selected state and empty in the deselected state. |
-| ![An image of an unavailable button on top of a photograph. It’s the same size as an unfocused button. It lacks a drop shadow and appears to rest directly on the content behind it, with a translucent background tinted by the the colors of nearby content, and a low-contrast text color.](/images/com.apple.HIG/focus-and-selection-state-unavailable@2x.png) | The viewer can’t bring focus to the item or choose it. An unavailable item appears inactive. |
+| ![An image of an unfocused button on top of a photograph. A small drop shadow makes it appear very close to the content behind it, with a translucent background infused by the colors of the content, and a high-contrast text color.](https://developer.apple.com/tutorials/images/com.apple.HIG/focus-and-selection-state-unfocused@2x.png) | The viewer hasn’t brought focus to the item. Unfocused items appear less prominent than focused items. |
+| ![An image of a focused button on top of a photograph. It’s larger than an unfocused button, and a drop shadow makes it appear farther away from the content behind it, with an opaque white background and a black text label.](https://developer.apple.com/tutorials/images/com.apple.HIG/focus-and-selection-state-focused@2x.png) | The viewer brings focus to the item. A focused item visually stands out from the other onscreen content through elevation to the foreground, illumination, and animation. |
+| ![An image of a highlighted button on top of a photograph. It’s the same size as an unfocused button, and a drop shadow makes it appear a little farther away from the surface of the content behind it, with an opaque white background and a black text label.](https://developer.apple.com/tutorials/images/com.apple.HIG/focus-and-selection-state-highlighted@2x.png) | The viewer chooses the focused item. A focused item provides instant visual feedback when people choose it. For example, a button might briefly invert its colors and animate before it transitions to its selected appearance. |
+| ![An image of a selected button on top of a photograph. It’s the same size as an unfocused button, and a small drop shadow makes it appear very close to the content behind it, with an opaque white background and a black text label.](https://developer.apple.com/tutorials/images/com.apple.HIG/focus-and-selection-state-selected@2x.png) | The viewer has chosen or activated the item in some way. For example, a heart-shaped button that people can use to favorite a photo might appear filled in the selected state and empty in the deselected state. |
+| ![An image of an unavailable button on top of a photograph. It’s the same size as an unfocused button. It lacks a drop shadow and appears to rest directly on the content behind it, with a translucent background tinted by the the colors of nearby content, and a low-contrast text color.](https://developer.apple.com/tutorials/images/com.apple.HIG/focus-and-selection-state-unavailable@2x.png) | The viewer can’t bring focus to the item or choose it. An unavailable item appears inactive. |
 
 For developer guidance, see [Adding user-focusable elements to a tvOS app](https://developer.apple.com/documentation/uikit/adding-user-focusable-elements-to-a-tvos-app).
 
@@ -2276,7 +2276,7 @@ For developer guidance, see [Adding user-focusable elements to a tvOS app](https
 
 **Display an optional image at the top of the dashboard.** In tvOS, you can add an additional piece of artwork to the dashboard to highlight your game’s aesthetic. Use a simple, easily recognizable image that looks great at a distance. Consider using your game’s logo or word mark; however, don’t use your app icon for this image. Use the following specifications to create a dashboard image.
 
-![A diagram of the layout for a tvOS dashboard image, with a callout indicating the image size.](/images/com.apple.HIG/tvos-dashboard-image@2x.png)
+![A diagram of the layout for a tvOS dashboard image, with a callout indicating the image size.](https://developer.apple.com/tutorials/images/com.apple.HIG/tvos-dashboard-image@2x.png)
 
 | Attribute | Value |
 | --- | --- |
@@ -2348,11 +2348,11 @@ Layered images are at the heart of the Apple TV user experience. The system comb
 
 **Adhere to the screen’s safe area.** Inset primary content 60 points from the top and bottom of the screen, and 80 points from the sides. It can be difficult for people to see content that close to the edges, and unintended cropping can occur due to overscanning on older TVs. Allow only partially displayed offscreen content and elements that deliberately flow offscreen to appear outside this zone.
 
-![An illustration of a TV with a safe zone border on all sides. In width, the top and bottom borders measure 60 points, and the side borders both measure 80 points.](/images/com.apple.HIG/visual-design-safe-zone@2x.png)
+![An illustration of a TV with a safe zone border on all sides. In width, the top and bottom borders measure 60 points, and the side borders both measure 80 points.](https://developer.apple.com/tutorials/images/com.apple.HIG/visual-design-safe-zone@2x.png)
 
 **Include appropriate padding between focusable elements.** When you use UIKit and the focus APIs, an element gets bigger when it comes into focus. Consider how elements look when they’re focused, and make sure you don’t let them overlap important information. For developer guidance, see [About focus interactions for Apple TV](https://developer.apple.com/documentation/uikit/about-focus-interactions-for-apple-tv).
 
-![An illustration that uses vertical shaded rectangles to show padding between focusable items.](/images/com.apple.HIG/visual-design-padding@2x.png)
+![An illustration that uses vertical shaded rectangles to show padding between focusable items.](https://developer.apple.com/tutorials/images/com.apple.HIG/visual-design-padding@2x.png)
 
 ### Layout
 <sub>`pages/layout.md`</sub>
@@ -2363,7 +2363,7 @@ If you use the UIKit collection view flow element, the number of columns in a gr
 
 **Two-column**
 
-![An illustration of Apple TV, displaying a two-column grid of media items. Additional media items are partially visible on the right side and bottom edge of the screen.](/images/com.apple.HIG/visual-design-grid-2-column@2x.png)
+![An illustration of Apple TV, displaying a two-column grid of media items. Additional media items are partially visible on the right side and bottom edge of the screen.](https://developer.apple.com/tutorials/images/com.apple.HIG/visual-design-grid-2-column@2x.png)
 
 ### Layout
 <sub>`pages/layout.md`</sub>
@@ -2392,7 +2392,7 @@ If you use the UIKit collection view flow element, the number of columns in a gr
 
 **Nine-column**
 
-![An illustration of Apple TV, displaying a nine-column grid of media items.](/images/com.apple.HIG/visual-design-grid-9-column@2x.png)
+![An illustration of Apple TV, displaying a nine-column grid of media items.](https://developer.apple.com/tutorials/images/com.apple.HIG/visual-design-grid-9-column@2x.png)
 
 ### Layout
 <sub>`pages/layout.md`</sub>
@@ -2405,7 +2405,7 @@ If you use the UIKit collection view flow element, the number of columns in a gr
 
 **Eight-column**
 
-![An illustration of Apple TV, displaying an eight-column grid of media items. Additional media items are partially visible on the right side and bottom edge of the screen.](/images/com.apple.HIG/visual-design-grid-8-column@2x.png)
+![An illustration of Apple TV, displaying an eight-column grid of media items. Additional media items are partially visible on the right side and bottom edge of the screen.](https://developer.apple.com/tutorials/images/com.apple.HIG/visual-design-grid-8-column@2x.png)
 
 ### Layout
 <sub>`pages/layout.md`</sub>
@@ -2418,7 +2418,7 @@ If you use the UIKit collection view flow element, the number of columns in a gr
 
 **Seven-column**
 
-![An illustration of Apple TV, displaying a seven-column grid of media items. Additional media items are partially visible on the right side of the screen.](/images/com.apple.HIG/visual-design-grid-7-column@2x.png)
+![An illustration of Apple TV, displaying a seven-column grid of media items. Additional media items are partially visible on the right side of the screen.](https://developer.apple.com/tutorials/images/com.apple.HIG/visual-design-grid-7-column@2x.png)
 
 ### Layout
 <sub>`pages/layout.md`</sub>
@@ -2431,7 +2431,7 @@ If you use the UIKit collection view flow element, the number of columns in a gr
 
 **Six-column**
 
-![An illustration of Apple TV, displaying a six-column grid of media items. Additional media items are partially visible on the right side and bottom edge of the screen.](/images/com.apple.HIG/visual-design-grid-6-column@2x.png)
+![An illustration of Apple TV, displaying a six-column grid of media items. Additional media items are partially visible on the right side and bottom edge of the screen.](https://developer.apple.com/tutorials/images/com.apple.HIG/visual-design-grid-6-column@2x.png)
 
 ### Layout
 <sub>`pages/layout.md`</sub>
@@ -2444,7 +2444,7 @@ If you use the UIKit collection view flow element, the number of columns in a gr
 
 **Five-column**
 
-![An illustration of Apple TV, displaying a five-column grid of media items. Additional media items are partially visible on the right side and bottom edge of the screen.](/images/com.apple.HIG/visual-design-grid-5-column@2x.png)
+![An illustration of Apple TV, displaying a five-column grid of media items. Additional media items are partially visible on the right side and bottom edge of the screen.](https://developer.apple.com/tutorials/images/com.apple.HIG/visual-design-grid-5-column@2x.png)
 
 ### Layout
 <sub>`pages/layout.md`</sub>
@@ -2457,7 +2457,7 @@ If you use the UIKit collection view flow element, the number of columns in a gr
 
 **Four-column**
 
-![An illustration of Apple TV, displaying a four-column grid of media items. Additional media items are partially visible on the right side of the screen.](/images/com.apple.HIG/visual-design-grid-4-column@2x.png)
+![An illustration of Apple TV, displaying a four-column grid of media items. Additional media items are partially visible on the right side of the screen.](https://developer.apple.com/tutorials/images/com.apple.HIG/visual-design-grid-4-column@2x.png)
 
 ### Layout
 <sub>`pages/layout.md`</sub>
@@ -2470,7 +2470,7 @@ If you use the UIKit collection view flow element, the number of columns in a gr
 
 **Three-column**
 
-![An illustration of Apple TV, displaying a three-column grid of media items. Additional media items are partially visible on the right side and bottom edge of the screen.](/images/com.apple.HIG/visual-design-grid-3-column@2x.png)
+![An illustration of Apple TV, displaying a three-column grid of media items. Additional media items are partially visible on the right side and bottom edge of the screen.](https://developer.apple.com/tutorials/images/com.apple.HIG/visual-design-grid-3-column@2x.png)
 
 ### Lists and tables
 <sub>`pages/lists-and-tables.md`</sub>
@@ -2493,7 +2493,7 @@ Most people interact with Apple TV using a remote, not a keyboard, so ask for th
 
 In tvOS, Liquid Glass appears throughout navigation elements and system experiences such as Top Shelf and Control Center. Certain interface elements, like image views and buttons, adopt Liquid Glass when they gain focus.
 
-![A screenshot of the Destination Video app running in tvOS. The app shows a screen with details about a video called A BOT-anist Adventure. The background is a colorful image of the main character in a scene from the video. The interface elements floating above the background adopt a Liquid Glass appearance to allow background color to show through and create a more immersive media experience.](/images/com.apple.HIG/materials-tvos-media-player@2x.png)
+![A screenshot of the Destination Video app running in tvOS. The app shows a screen with details about a video called A BOT-anist Adventure. The background is a colorful image of the main character in a scene from the video. The interface elements floating above the background adopt a Liquid Glass appearance to allow background color to show through and create a more immersive media experience.](https://developer.apple.com/tutorials/images/com.apple.HIG/materials-tvos-media-player@2x.png)
 
 In addition to Liquid Glass, tvOS continues to provide standard materials, which you can use to help define structure in the content layer. The thickness of a standard material affects how prominently the underlying content shows through. For example, consider using standard materials in the following ways:
 
@@ -2541,7 +2541,7 @@ Views in tvOS can scroll, but they aren’t treated as distinct objects with scr
 
 A search screen is a specialized keyboard screen that helps people enter search text, displaying search results beneath the keyboard in a fully customizable view. For developer guidance, see [UISearchController](https://developer.apple.com/documentation/uikit/uisearchcontroller).
 
-![An illustration of a search screen in tvOS. The screen includes a field with a keyboard input area at the top, a scope bar, and a grid of top results at the bottom.](/images/com.apple.HIG/search-fields-tvos-search@2x.png)
+![An illustration of a search screen in tvOS. The screen includes a field with a keyboard input area at the top, a scope bar, and a grid of top results at the bottom.](https://developer.apple.com/tutorials/images/com.apple.HIG/search-fields-tvos-search@2x.png)
 
 **Provide suggestions to make searching easier.** People typically don’t want to do a lot of typing in tvOS. To improve the search experience, provide popular and context-specific search suggestions, including recent searches when available. For developer guidance, see [Using suggested searches with a search controller](https://developer.apple.com/documentation/uikit/using-suggested-searches-with-a-search-controller).
 
@@ -2623,7 +2623,7 @@ visionOS offers a variety of accessibility features people can use to interact w
 
 **Zoom**
 
-![A screenshot of an app's window in visionOS. A zoom lens is visible above a portion of the window, and displays a zoomed-in version of the content beneath the lens.](/images/com.apple.HIG/visionos-accessibility-zoom-lens@2x.png)
+![A screenshot of an app's window in visionOS. A zoom lens is visible above a portion of the window, and displays a zoomed-in version of the content beneath the lens.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-accessibility-zoom-lens@2x.png)
 
 
 **Prioritize comfort.** The immersive nature of visionOS means that interfaces, animations, and interactions have a greater chance of causing motion sickness, and visual and ergonomic discomfort for people. To ensure the most comfortable experience, consider these tips:
@@ -2672,13 +2672,13 @@ There are three standard button shapes in visionOS. Typically, an icon-only butt
 
 visionOS buttons use different visual styles to communicate four different interaction states.
 
-![An image of a circular button that contains an icon of an outlined square with rounded corners. The button background is dark and the dashed outline is white.](/images/com.apple.HIG/visionos-button-state-idle@2x.png)
+![An image of a circular button that contains an icon of an outlined square with rounded corners. The button background is dark and the dashed outline is white.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-button-state-idle@2x.png)
 
-![An image of a circular button that contains an icon of an outlined square with rounded corners. The button background is medium dark and the outline is white.](/images/com.apple.HIG/visionos-button-state-hover@2x.png)
+![An image of a circular button that contains an icon of an outlined square with rounded corners. The button background is medium dark and the outline is white.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-button-state-hover@2x.png)
 
-![An image of a circular button that contains an icon of an outlined square with rounded corners. The button background is white and the outline is black.](/images/com.apple.HIG/visionos-button-state-selected@2x.png)
+![An image of a circular button that contains an icon of an outlined square with rounded corners. The button background is white and the outline is black.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-button-state-selected@2x.png)
 
-![An image of a circular button that contains an icon of an outlined square with rounded corners. The button background is very dark and the outline is light.](/images/com.apple.HIG/visionos-button-state-unavailable@2x.png)
+![An image of a circular button that contains an icon of an outlined square with rounded corners. The button background is very dark and the outline is light.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-button-state-unavailable@2x.png)
 
 > **Note:** In visionOS, buttons don’t support custom hover effects.
 
@@ -2690,10 +2690,10 @@ In visionOS, buttons can have the following sizes.
 
 | Shape | Mini (28 pt) | Small (32 pt) | Regular (44 pt) | Large (52 pt) | Extra large (64 pt) |
 | --- | --- | --- | --- | --- | --- |
-| Circular | ![A checkmark denoting availability.](/images/com.apple.HIG/table-availability-checkmark@2x.png) | ![A checkmark denoting availability.](/images/com.apple.HIG/table-availability-checkmark@2x.png) | ![A checkmark denoting availability.](/images/com.apple.HIG/table-availability-checkmark@2x.png) | ![A checkmark denoting availability.](/images/com.apple.HIG/table-availability-checkmark@2x.png) | ![A checkmark denoting availability.](/images/com.apple.HIG/table-availability-checkmark@2x.png) |
-| Capsule (text only) |  | ![A checkmark denoting availability.](/images/com.apple.HIG/table-availability-checkmark@2x.png) | ![A checkmark denoting availability.](/images/com.apple.HIG/table-availability-checkmark@2x.png) | ![A checkmark denoting availability.](/images/com.apple.HIG/table-availability-checkmark@2x.png) |  |
-| Capsule (text and icon) |  |  | ![A checkmark denoting availability.](/images/com.apple.HIG/table-availability-checkmark@2x.png) | ![A checkmark denoting availability.](/images/com.apple.HIG/table-availability-checkmark@2x.png) |  |
-| Rounded rectangle |  | ![A checkmark denoting availability.](/images/com.apple.HIG/table-availability-checkmark@2x.png) | ![A checkmark denoting availability.](/images/com.apple.HIG/table-availability-checkmark@2x.png) | ![A checkmark denoting availability.](/images/com.apple.HIG/table-availability-checkmark@2x.png) |  |
+| Circular | ![A checkmark denoting availability.](https://developer.apple.com/tutorials/images/com.apple.HIG/table-availability-checkmark@2x.png) | ![A checkmark denoting availability.](https://developer.apple.com/tutorials/images/com.apple.HIG/table-availability-checkmark@2x.png) | ![A checkmark denoting availability.](https://developer.apple.com/tutorials/images/com.apple.HIG/table-availability-checkmark@2x.png) | ![A checkmark denoting availability.](https://developer.apple.com/tutorials/images/com.apple.HIG/table-availability-checkmark@2x.png) | ![A checkmark denoting availability.](https://developer.apple.com/tutorials/images/com.apple.HIG/table-availability-checkmark@2x.png) |
+| Capsule (text only) |  | ![A checkmark denoting availability.](https://developer.apple.com/tutorials/images/com.apple.HIG/table-availability-checkmark@2x.png) | ![A checkmark denoting availability.](https://developer.apple.com/tutorials/images/com.apple.HIG/table-availability-checkmark@2x.png) | ![A checkmark denoting availability.](https://developer.apple.com/tutorials/images/com.apple.HIG/table-availability-checkmark@2x.png) |  |
+| Capsule (text and icon) |  |  | ![A checkmark denoting availability.](https://developer.apple.com/tutorials/images/com.apple.HIG/table-availability-checkmark@2x.png) | ![A checkmark denoting availability.](https://developer.apple.com/tutorials/images/com.apple.HIG/table-availability-checkmark@2x.png) |  |
+| Rounded rectangle |  | ![A checkmark denoting availability.](https://developer.apple.com/tutorials/images/com.apple.HIG/table-availability-checkmark@2x.png) | ![A checkmark denoting availability.](https://developer.apple.com/tutorials/images/com.apple.HIG/table-availability-checkmark@2x.png) | ![A checkmark denoting availability.](https://developer.apple.com/tutorials/images/com.apple.HIG/table-availability-checkmark@2x.png) |  |
 
 **Prefer buttons that have a discernible background shape and fill.** It tends to be easier for people to see a button when it’s enclosed in a shape that uses a contrasting background fill. The exception is a button in a toolbar, context menu, alert, or [Ornaments](https://developer.apple.com/design/human-interface-guidelines/ornaments) where the shape and material of the larger component make the button comfortably visible. The following guidelines can help you ensure that a button looks good in different contexts:
 
@@ -2760,7 +2760,7 @@ visionOS supports the same focus system as in iPadOS and tvOS, letting people us
 
 If you want to offer a specific interaction for your experience that people can’t perform using an existing system gesture, consider designing a custom gesture. To offer this type of interaction, your app needs to be running in a Full Space, and you must request people’s permission to access information about their hands. For developer guidance, see [Setting up access to ARKit data](https://developer.apple.com/documentation/visionos/setting-up-access-to-arkit-data).
 
-![A screenshot of a person's hands performing a custom gesture, placing the two hands together to form a heart, while playing a visionOS game.](/images/com.apple.HIG/visionos-custom-spatial-gesture-happy-beam@2x.png)
+![A screenshot of a person's hands performing a custom gesture, placing the two hands together to form a heart, while playing a visionOS game.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-custom-spatial-gesture-happy-beam@2x.png)
 
 **Prioritize comfort.** Continually test ergonomics of all interactions that require custom gestures. A custom interaction that requires people to keep their arms raised for even a little while can be physically tiring, and repeating very similar movements many times in succession can stress people’s muscles and joints.
 
@@ -2779,19 +2779,19 @@ When designing apps and games that use custom gestures or anchor content to a pe
 
 **Reserve the area around a person’s hand for system overlays and their related gestures.** If possible, don’t anchor content to a person’s hands or wrists. If you’re designing a game that involves hand-anchored content, place it outside of the immediate area of someone’s hand to avoid colliding with the Home indicator.
 
-![An illustration of a person's open hand with the palm facing upward. A dashed circular line above the hand indicates the area reserved for system overlays.](/images/com.apple.HIG/visionos-hand-area-of-focus@2x.png)
+![An illustration of a person's open hand with the palm facing upward. A dashed circular line above the hand indicates the area reserved for system overlays.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-hand-area-of-focus@2x.png)
 
-![An illustration of a person's open hand with the palm facing upward. A button with a circle icon representing the Home indicator appears above the palm.](/images/com.apple.HIG/visionos-spatial-gesture-home-indicator@2x.png)
+![An illustration of a person's open hand with the palm facing upward. A button with a circle icon representing the Home indicator appears above the palm.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-spatial-gesture-home-indicator@2x.png)
 
-![An illustration of a person's open hand with the palm facing downward. An overlay with the status bar appears above the hand.](/images/com.apple.HIG/visionos-spatial-gesture-control-center@2x.png)
+![An illustration of a person's open hand with the palm facing downward. An overlay with the status bar appears above the hand.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-spatial-gesture-control-center@2x.png)
 
 **Consider deferring the system overlay behavior when designing an immersive app or game.** In certain circumstances, you may not want the Home indicator to appear when someone looks at the palm of their hand. For example, a game that uses virtual hands or gloves may want to keep someone within the world of the story, even if they happen to look at their hands from different angles. In such cases, when your app is running in a Full Space, you can choose to require a tap to reveal the Home indicator instead. For developer guidance, see [persistentSystemOverlays(_:)](https://developer.apple.com/documentation/swiftui/view/persistentsystemoverlays(_:)).
 
-![An image of a person's open hand with the palm facing upward, shown from the person's perspective. A button with a circle icon representing the Home indicator appears above the palm. The image background shows the room that's the person's surroundings.](/images/com.apple.HIG/gestures-default-home-indicator@2x.png)
+![An image of a person's open hand with the palm facing upward, shown from the person's perspective. A button with a circle icon representing the Home indicator appears above the palm. The image background shows the room that's the person's surroundings.](https://developer.apple.com/tutorials/images/com.apple.HIG/gestures-default-home-indicator@2x.png)
 
-![An image of a person's open hand with the palm facing upward, shown from the person's perspective. A button with a circle icon representing the Home indicator appears above the palm. The image background shows a forest in a fully immersive space.](/images/com.apple.HIG/gestures-home-indicator-in-immersive-space@2x.png)
+![An image of a person's open hand with the palm facing upward, shown from the person's perspective. A button with a circle icon representing the Home indicator appears above the palm. The image background shows a forest in a fully immersive space.](https://developer.apple.com/tutorials/images/com.apple.HIG/gestures-home-indicator-in-immersive-space@2x.png)
 
-![An image of a person's open hand wearing a bulky space suit glove, shown from the person's perspective. The palm faces upward, and no button appears above it. The image background shows a starry sky in a fully immersive space.](/images/com.apple.HIG/gestures-fully-immersive-game-with-glove@2x.png)
+![An image of a person's open hand wearing a bulky space suit glove, shown from the person's perspective. The palm faces upward, and no button appears above it. The image background shows a starry sky in a fully immersive space.](https://developer.apple.com/tutorials/images/com.apple.HIG/gestures-fully-immersive-game-with-glove@2x.png)
 
 > **Note:** Apps and games that you built for visionOS 1 defer the system overlay behavior by default. When a person looks at their palm with your app running in a Full Space, the Home indicator won’t appear unless they tap first.
 
@@ -2901,9 +2901,9 @@ The guidance below can help you lay out content within the windows of your visio
 
 **Use an info button only to reveal more information about a row’s content.** An info button — called a *detail disclosure button* when it appears in a list row — doesn’t support navigation through a hierarchical table or list. If you need to let people drill into a list or table row’s subviews, use a disclosure indicator accessory control. For developer guidance, see [UITableViewCell.AccessoryType.disclosureIndicator](https://developer.apple.com/documentation/uikit/uitableviewcell/accessorytype-swift.enum/disclosureindicator).
 
-![An illustration of a grouped list of rows. Each list item includes an info button at the trailing end of the row.](/images/com.apple.HIG/info-button-in-list@2x.png)
+![An illustration of a grouped list of rows. Each list item includes an info button at the trailing end of the row.](https://developer.apple.com/tutorials/images/com.apple.HIG/info-button-in-list@2x.png)
 
-![An illustration of a grouped list of rows. Each list item includes a right-pointing chevron at the trailing end of the row.](/images/com.apple.HIG/disclosure-indicator-in-list@2x.png)
+![An illustration of a grouped list of rows. Each list item includes a right-pointing chevron at the trailing end of the row.](https://developer.apple.com/tutorials/images/com.apple.HIG/disclosure-indicator-in-list@2x.png)
 
 **Avoid adding an index to a table that displays controls — like disclosure indicators — in the trailing ends of its rows.** An *index* typically consists of the letters in an alphabet, displayed vertically at the trailing side of a list. People can jump to a specific section in the list by choosing the index letter that maps to it. Because both the index and elements like disclosure indicators appear on the trailing side of a list, it can be difficult for people to use one element without activating the other.
 
@@ -2923,13 +2923,13 @@ In visionOS, windows generally use an unmodifiable system-defined material calle
 
 **Prefer translucency to opaque colors in windows.** Areas of opacity can block people’s view, making them feel constricted and reducing their awareness of the virtual and physical objects around them.
 
-![An illustration of a field of view in visionOS with a window in the center. The window has an opaque background that obstructs its surroundings.](/images/com.apple.HIG/materials-visionos-opaque-window-incorrect@2x.png)
+![An illustration of a field of view in visionOS with a window in the center. The window has an opaque background that obstructs its surroundings.](https://developer.apple.com/tutorials/images/com.apple.HIG/materials-visionos-opaque-window-incorrect@2x.png)
 
-![An X in a circle to indicate incorrect usage](/images/com.apple.HIG/crossout@2x.png)
+![An X in a circle to indicate incorrect usage](https://developer.apple.com/tutorials/images/com.apple.HIG/crossout@2x.png)
 
-![An illustration of a field of view in visionOS with a window in the center. The window has a translucent material background that allows its surroundings to pass through.](/images/com.apple.HIG/materials-visionos-glass-window@2x.png)
+![An illustration of a field of view in visionOS with a window in the center. The window has a translucent material background that allows its surroundings to pass through.](https://developer.apple.com/tutorials/images/com.apple.HIG/materials-visionos-glass-window@2x.png)
 
-![A checkmark in a circle to indicate correct usage](/images/com.apple.HIG/checkmark@2x.png)
+![A checkmark in a circle to indicate correct usage](https://developer.apple.com/tutorials/images/com.apple.HIG/checkmark@2x.png)
 
 **If necessary, choose materials that help you create visual separations or indicate interactivity in your app.** If you need to create a custom component, you may need to specify a system material for it. Use the following examples for guidance.
 
@@ -2937,7 +2937,7 @@ In visionOS, windows generally use an unmodifiable system-defined material calle
 - The [regular](https://developer.apple.com/documentation/swiftui/material/regular) material can help you visually separate sections of your app, like a sidebar or a grouped table view.
 - The [thick](https://developer.apple.com/documentation/swiftui/material/thick) material lets you create a dark element that remains visually distinct when it’s on top of an area that uses a `regular` background.
 
-![An illustration of a field of view in visionOS with a window in the center. The window is composed of a sidebar on the left and a content area on the right, with a text field at the top and a button in the lower-right corner. The sidebar uses regular material, while the text field uses thick material and the button uses thin material.](/images/com.apple.HIG/visionos-materials-window-example@2x.png)
+![An illustration of a field of view in visionOS with a window in the center. The window is composed of a sidebar on the left and a content area on the right, with a text field at the top and a button in the lower-right corner. The sidebar uses regular material, while the text field uses thick material and the button uses thin material.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-materials-window-example@2x.png)
 
 To ensure foreground content remains legible when it displays on top of a material, visionOS applies vibrancy to text, symbols, and fills. Vibrancy enhances the sense of depth by pulling light and color forward from both virtual and physical surroundings.
 
@@ -2947,11 +2947,11 @@ visionOS defines three vibrancy values that help you communicate a hierarchy of 
 - Use [UIVibrancyEffectStyle.secondaryLabel](https://developer.apple.com/documentation/uikit/uivibrancyeffectstyle/secondarylabel) for descriptive text like footnotes and subtitles.
 - Use [UIVibrancyEffectStyle.tertiaryLabel](https://developer.apple.com/documentation/uikit/uivibrancyeffectstyle/tertiarylabel) for inactive elements, and only when text doesn’t need high legibility.
 
-![An illustration of a Share button with a translucent background material and a symbol. The symbol uses the default vibrant label color and has very high contrast against the background material.](/images/com.apple.HIG/materials-visionos-label-vibrant-primary@2x.png)
+![An illustration of a Share button with a translucent background material and a symbol. The symbol uses the default vibrant label color and has very high contrast against the background material.](https://developer.apple.com/tutorials/images/com.apple.HIG/materials-visionos-label-vibrant-primary@2x.png)
 
-![An illustration of a Share button with a translucent background material and a symbol. The symbol uses the secondary vibrant label color and has high contrast against the background material.](/images/com.apple.HIG/materials-visionos-label-vibrant-secondary@2x.png)
+![An illustration of a Share button with a translucent background material and a symbol. The symbol uses the secondary vibrant label color and has high contrast against the background material.](https://developer.apple.com/tutorials/images/com.apple.HIG/materials-visionos-label-vibrant-secondary@2x.png)
 
-![An illustration of a Share button with a translucent background material and a symbol. The symbol uses the tertiary vibrant label color and has muted contrast against the background material.](/images/com.apple.HIG/materials-visionos-label-vibrant-tertiary@2x.png)
+![An illustration of a Share button with a translucent background material and a symbol. The symbol uses the tertiary vibrant label color and has muted contrast against the background material.](https://developer.apple.com/tutorials/images/com.apple.HIG/materials-visionos-label-vibrant-tertiary@2x.png)
 
 ### Menus
 <sub>`pages/menus.md`</sub>
@@ -2960,7 +2960,7 @@ In visionOS, a menu can display items using the small or large layout styles tha
 
 **Prefer displaying a menu near the content it controls.** Because people need to look at a menu item before tapping it, they might miss the item’s effect if the content it controls is too far away.
 
-![A partial screenshot showing an app window in visionOS. The window contains several buttons, including a 'More' button, which is selected. A menu containing a list of actions is displayed beneath the button.](/images/com.apple.HIG/visionos-notes-menu-popover-style@2x.png)
+![A partial screenshot showing an app window in visionOS. The window contains several buttons, including a 'More' button, which is selected. A menu containing a list of actions is displayed beneath the button.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-notes-menu-popover-style@2x.png)
 
 **Prefer the subtle breakthrough effect in most cases.** This effect blends the presentation with its surrounding content, to maintain legibility and usability while preserving the depth and context of the scene. When you select [automatic](https://developer.apple.com/documentation/swiftui/breakthrougheffect/automatic) for the breakthrough effect of a menu that overlaps with 3D content, the system applies [subtle](https://developer.apple.com/documentation/swiftui/breakthrougheffect/subtle) by default. You can use [prominent](https://developer.apple.com/documentation/swiftui/breakthrougheffect/prominent) if it’s important to display a menu prominently over the entire scene in your app or game, but this can disrupt the experience for people and potentially cause discomfort. Alternatively, you can use [none](https://developer.apple.com/documentation/swiftui/breakthrougheffect/none) to fully occlude your menu behind other 3D content — for example, in a puzzle game that requires people to navigate around barriers — but this may make it difficult for people to see and access the menu.
 
@@ -3005,7 +3005,7 @@ Only one window is active at a time in the Shared Space. When people look from o
 
 A *tooltip* (called a *help tag* in user documentation) displays a small, transient view that briefly describes how to use a component in the interface. In apps that run on a Mac — including iPhone and iPad apps — tooltips can appear when a person holds the pointer over an element; in visionOS apps, a tooltip can appear when a person looks at an element or holds the pointer over it. For developer guidance, see [help(_:)](https://developer.apple.com/documentation/swiftui/view/help(_:)-6oiyb).
 
-![An illustration of a toolbar in macOS Finder with the pointer over the Back button. A tooltip with the title See folders you viewed previously appears beneath the pointer.](/images/com.apple.HIG/offering-help-macos-tooltip-help-tag@2x.png)
+![An illustration of a toolbar in macOS Finder with the pointer over the Back button. A tooltip with the title See folders you viewed previously appears beneath the pointer.](https://developer.apple.com/tutorials/images/com.apple.HIG/offering-help-macos-tooltip-help-tag@2x.png)
 
 **Describe only the control that people indicate interest in.** When people want to know how to use a specific control, they don’t want to learn how to use nearby controls or how to perform a larger task.
 
@@ -3134,15 +3134,15 @@ When people feel that they’re truly sharing an experience, social dynamics can
 
 The side-by-side template places participants next to each other along a curved line segment, all facing the shared content. The side-by-side template gives everyone a great view of the content, making it a good choice for helping people watch media together. Because people aren’t facing each other in this arrangement, the side-by-side template can encourage less nonverbal interaction than other spatial Persona templates.
 
-![An illustration representing a side-by-side shared activity in visionOS. Participants are positioned next to one another and facing a shared screen.](/images/com.apple.HIG/visionos-shareplay-side-by-side@2x.png)
+![An illustration representing a side-by-side shared activity in visionOS. Participants are positioned next to one another and facing a shared screen.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-shareplay-side-by-side@2x.png)
 
 The system-applied surround template arranges participants all the way around the shared content in the center. This spatial Persona template works especially well when the content is 3D, because each participant views it from a different angle. In the surround template, participants face each other as if they were grouped around a table, promoting both verbal and nonverbal interactions.
 
-![An illustration representing a surround shared activity in visionOS. Participants are gathered in a circle around shared content.](/images/com.apple.HIG/visionos-shareplay-surround@2x.png)
+![An illustration representing a surround shared activity in visionOS. Participants are gathered in a circle around shared content.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-shareplay-surround@2x.png)
 
 The conversational template also groups participants around a center point, but places your content along the circle, not at its center. Because of this position, not everyone has the same view of your content, and it might not be convenient for everyone to interact with it. Consider using the conversational arrangement if your experience is more about people being together while your app performs a task in the background like playing music.
 
-![An illustration representing a conversational shared activity in visionOS. Participants are positioned in a semi-circle formation around shared content.](/images/com.apple.HIG/visionos-shareplay-conversational@2x.png)
+![An illustration representing a conversational shared activity in visionOS. Participants are positioned in a semi-circle formation around shared content.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-shareplay-conversational@2x.png)
 
 For developer guidance, see [SystemCoordinator](https://developer.apple.com/documentation/groupactivities/systemcoordinator) and [SpatialTemplatePreference](https://developer.apple.com/documentation/groupactivities/spatialtemplatepreference).
 
@@ -3159,7 +3159,7 @@ Sometimes, it makes sense to adjust the shared context of a shared activity so e
 
 **Let people personalize their experience without changing the experience for others.** For example, people might need to adjust various settings, like volume or subtitles, to make views and interactions accessible or make themselves more comfortable.
 
-![An image of a TV window in visionOS. The image is split down the center to contrast the personalized experiences of two people: Person 1 has subtitles turned on, while Person 2 has subtitles turned off.](/images/com.apple.HIG/visionos-shareplay-subtitles-personalization@2x.png)
+![An image of a TV window in visionOS. The image is split down the center to contrast the personalized experiences of two people: Person 1 has subtitles turned on, while Person 2 has subtitles turned off.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-shareplay-subtitles-personalization@2x.png)
 
 **Consider when to give each participant a unique view of the shared content.** Some content looks best when people view it from a specific perspective. For example, people can share a Spatial Capture in a standard window with other people’s spatial Personas visible around it. However, to perceive the depth in a Spatial Capture, each person needs to view it from the right angle. In this scenario, a person could temporarily transition to a Full Space that hides other participants and ensures the right viewing angle for them, even while everyone else continues to view the standard window and each other. If it makes sense to provide per-person versions of your shared content, be sure to continue synchronizing people’s positions and your app context to maintain the shared experience.
 
@@ -3180,15 +3180,15 @@ When your shared activity runs in a Full Space, the system helps your app mainta
 
 **Private**
 
-![An image of a private TV window in visionOS, with a translucent button above the window labeled Not Shared.](/images/com.apple.HIG/visionos-shareplay-status-idle@2x.png)
+![An image of a private TV window in visionOS, with a translucent button above the window labeled Not Shared.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-shareplay-status-idle@2x.png)
 
 **Selected**
 
-![An image of a private TV window in visionOS, with the button above the window selected. A menu emerges downward from the button with options for sharing the window.](/images/com.apple.HIG/visionos-shareplay-status-selected@2x.png)
+![An image of a private TV window in visionOS, with the button above the window selected. A menu emerges downward from the button with options for sharing the window.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-shareplay-status-selected@2x.png)
 
 **Shared**
 
-![An image of a shared TV window in visionOS. The button above the window is labeled with the SharePlay icon and the text Shared.](/images/com.apple.HIG/visionos-shareplay-status-sharing@2x.png)
+![An image of a shared TV window in visionOS. The button above the window is labeled with the SharePlay icon and the text Shared.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-shareplay-status-sharing@2x.png)
 
 ### Sheets
 <sub>`pages/sheets.md`</sub>
@@ -3206,7 +3206,7 @@ While a sheet is visible in a visionOS app, it floats in front of its parent win
 
 **If your app’s hierarchy is deep, consider using a sidebar within a tab in a tab bar.** In this situation, a sidebar can support secondary navigation within the tab. If you do this, be sure to prevent selections in the sidebar from changing which tab is currently open.
 
-![A partial screenshot of the Music app in visionOS. The app's window includes a sidebar for navigating the music library, and the secondary pane includes a grid of playlists.](/images/com.apple.HIG/visionos-sidebar-music@2x.png)
+![A partial screenshot of the Music app in visionOS. The app's window includes a sidebar for navigating the music library, and the secondary pane includes a grid of playlists.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-sidebar-music@2x.png)
 
 ### Sliders
 <sub>`pages/sliders.md`</sub>
@@ -3227,9 +3227,9 @@ In visionOS, a tab bar is always vertical, floating in a position that’s fixed
 
 **Supply a symbol and a text label for each tab.** A tab’s symbol is always visible in the tab bar. When people look at the tab bar, the system reveals tab labels, too. Even though the tab bar expands, you need to keep tab labels short so people can read them at a glance.
 
-![A screenshot showing a collapsed tab bar containing only symbols.](/images/com.apple.HIG/visionos-tab-bar-collapsed@2x.png)
+![A screenshot showing a collapsed tab bar containing only symbols.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-tab-bar-collapsed@2x.png)
 
-![A screenshot showing an expanded tab bar containing both symbols and labels.](/images/com.apple.HIG/visionos-tab-bar-expanded@2x.png)
+![A screenshot showing an expanded tab bar containing both symbols and labels.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-tab-bar-expanded@2x.png)
 
 **If it makes sense in your app, consider using a sidebar within a tab.** If your app’s hierarchy is deep, you might want to use a [Sidebars](https://developer.apple.com/design/human-interface-guidelines/sidebars) to support secondary navigation within a tab. If you do this, be sure to prevent selections in the sidebar from changing which tab is currently open.
 
@@ -3238,7 +3238,7 @@ In visionOS, a tab bar is always vertical, floating in a position that’s fixed
 
 In visionOS, the system-provided toolbar appears along the bottom edge of a window, above the window-management controls, and in a parallel plane that’s slightly in front of the window along the z-axis.
 
-![A screenshot of a toolbar along the bottom of the Notes app window in visionOS.](/images/com.apple.HIG/visionos-toolbar-notes-app@2x.png)
+![A screenshot of a toolbar along the bottom of the Notes app window in visionOS.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-toolbar-notes-app@2x.png)
 
 To maintain the legibility of toolbar items as content scrolls behind them, visionOS uses a variable blur in the bar background. The variable blur anchors the bar above the scrolling content while letting the view’s glass material remain uniform and undivided.
 
@@ -3246,7 +3246,7 @@ In visionOS, you can supply either a symbol or a text label for each toolbar ite
 
 **Prefer using a system-provided toolbar.** The standard toolbar has a consistent and familiar appearance and is optimized to work well with eye and hand input. In addition, the system automatically places a standard toolbar in the correct position in relation to its window.
 
-![A screenshot of a toolbar in visionOS.](/images/com.apple.HIG/visionos-toolbar-standard-layout@2x.png)
+![A screenshot of a toolbar in visionOS.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-toolbar-standard-layout@2x.png)
 
 **Avoid creating a vertical toolbar.** In visionOS, [Tab bars](https://developer.apple.com/design/human-interface-guidelines/tab-bars) are vertical, so presenting a vertical toolbar could confuse people.
 
@@ -3265,13 +3265,13 @@ visionOS uses bolder versions of the Dynamic Type body and title styles and it i
 
 **In general, prefer 2D text.** The more visual depth text characters have, the more difficult they can be to read. Although a small amount of 3D text can provide a fun visual element that draws people’s attention, if you’re going to display content that people need to read and understand, prefer using text that has little or no visual depth.
 
-![A screenshot that shows the correct placement of 2D text on a window in visionOS.](/images/com.apple.HIG/visionos-typography-2d-text-correct@2x.png)
+![A screenshot that shows the correct placement of 2D text on a window in visionOS.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-typography-2d-text-correct@2x.png)
 
-![A checkmark in a circle to indicate correct usage.](/images/com.apple.HIG/checkmark@2x.png)
+![A checkmark in a circle to indicate correct usage.](https://developer.apple.com/tutorials/images/com.apple.HIG/checkmark@2x.png)
 
-![A screenshot that shows the incorrect placement of 3D text on a window in visionOS.](/images/com.apple.HIG/visionos-typography-3d-text-incorrect@2x.png)
+![A screenshot that shows the incorrect placement of 3D text on a window in visionOS.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-typography-3d-text-incorrect@2x.png)
 
-![An X in a circle to indicate incorrect usage.](/images/com.apple.HIG/crossout@2x.png)
+![An X in a circle to indicate incorrect usage.](https://developer.apple.com/tutorials/images/com.apple.HIG/crossout@2x.png)
 
 **Make sure text looks good and remains legible when people scale it.** Use a text style that makes the text look good at full scale, then test it for legibility at different scales.
 
@@ -3339,9 +3339,9 @@ For developer guidance, see [Updating your widgets for visionOS](https://develop
 
 Widgets on Apple Vision Pro can adapt based on a person’s proximity, and visionOS provides widgets with two key thresholds to design for: the [simplified](https://developer.apple.com/documentation/widgetkit/levelofdetail/simplified) threshold for when a person views a widget at a distance, and the [default](https://developer.apple.com/documentation/widgetkit/levelofdetail/default) threshold when a person views it nearby.
 
-![A placeholder image showing a widget viewed from a distance in visionOS.](/images/com.apple.HIG/widgets-extra-large-portrait-far-proximity@2x.png)
+![A placeholder image showing a widget viewed from a distance in visionOS.](https://developer.apple.com/tutorials/images/com.apple.HIG/widgets-extra-large-portrait-far-proximity@2x.png)
 
-![A placeholder image showing a widget viewed from nearby in visionOS.](/images/com.apple.HIG/widgets-extra-large-portrait-close-proximity@2x.png)
+![A placeholder image showing a widget viewed from nearby in visionOS.](https://developer.apple.com/tutorials/images/com.apple.HIG/widgets-extra-large-portrait-close-proximity@2x.png)
 
 Because widgets can appear throughout a person’s environment, it’s also important to match a widget’s size to the type of content it contains, and to be aware of how it appears at a variety of distances.
 
@@ -3356,7 +3356,7 @@ Because widgets can appear throughout a person’s environment, it’s also impo
 
 The default window style consists of an upright plane that uses an unmodifiable background [Materials](https://developer.apple.com/design/human-interface-guidelines/materials) called *glass* and includes a close button, window bar, and resize controls that let people close, move, and resize the window. A window can also include a Share button, [Tab bars](https://developer.apple.com/design/human-interface-guidelines/tab-bars), [Toolbars](https://developer.apple.com/design/human-interface-guidelines/toolbars), and one or more [Ornaments](https://developer.apple.com/design/human-interface-guidelines/ornaments). By default, visionOS uses dynamic [Scale](https://developer.apple.com/design/human-interface-guidelines/spatial-layout#Scale) to help a window’s size appear to remain consistent regardless of its proximity to the viewer. For developer guidance, see [DefaultWindowStyle](https://developer.apple.com/documentation/swiftui/defaultwindowstyle).
 
-![A screenshot of a window for an app named 'Hello World' in visionOS. The window includes text and buttons for entering different experiences.](/images/com.apple.HIG/visionos-window-2d@2x.png)
+![A screenshot of a window for an app named 'Hello World' in visionOS. The window includes text and buttons for entering different experiences.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-window-2d@2x.png)
 
 **Prefer using a window to present a familiar interface and to support familiar tasks.** Help people feel at home in your app by displaying an interface they’re already comfortable with, reserving more [Immersive experiences](https://developer.apple.com/design/human-interface-guidelines/immersive-experiences) for the meaningful content and activities you offer. If you want to showcase bounded 3D content like a game board, consider using a [visionOS volumes](https://developer.apple.com/design/human-interface-guidelines/windows#visionOS-volumes).
 
@@ -3368,7 +3368,7 @@ The default window style consists of an upright plane that uses an unmodifiable 
 
 **Choose a minimum and maximum size for each window to help keep your content looking great.** People appreciate being able to resize windows as they customize their space, but you need to make sure your layout adjusts well across all sizes. If you don’t set a minimum and maximum size for a window, people could make it so small that UI elements overlap or so large that your app or game becomes unusable. For developer guidance, see [Positioning and sizing windows](https://developer.apple.com/documentation/visionos/positioning-and-sizing-windows).
 
-![A screenshot of a window for an app in visionOS. The window includes text that discusses objects in orbit, and it includes buttons for viewing a satellite, the moon, and a telescope. The satellite button is selected and a 3D satellite is displayed.](/images/com.apple.HIG/visionos-window-2d-with-volume@2x.png)
+![A screenshot of a window for an app in visionOS. The window includes text that discusses objects in orbit, and it includes buttons for viewing a satellite, the moon, and a telescope. The satellite button is selected and a 3D satellite is displayed.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-window-2d-with-volume@2x.png)
 
 **Minimize the depth of 3D content you display in a window.** The system adds highlights and shadows to the views and controls within a window, giving them the appearance of [Depth](https://developer.apple.com/design/human-interface-guidelines/spatial-layout#Depth) and helping them feel more substantial, especially when people view the window from an angle. Although you can display 3D content in a window, the system clips it if the content extends too far from the window’s surface. To display 3D content that has greater depth, use a volume.
 
@@ -3377,7 +3377,7 @@ The default window style consists of an upright plane that uses an unmodifiable 
 
 You can use a volume to display 2D or 3D content that people can view from any angle. A volume includes window-management controls just like a window, but unlike in a window, a volume’s close button and window bar shift position to face the viewer as they move around the volume. For developer guidance, see [VolumetricWindowStyle](https://developer.apple.com/documentation/swiftui/volumetricwindowstyle).
 
-![A screenshot of a volume containing a 3D globe in visionOS, beside a window.](/images/com.apple.HIG/visionos-window-3d@2x.png)
+![A screenshot of a volume containing a 3D globe in visionOS, beside a window.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-window-3d@2x.png)
 
 **Prefer using a volume to display rich, 3D content.** In contrast, if you want to present a familiar, UI-centric interface, it generally works best to use a [visionOS windows](https://developer.apple.com/design/human-interface-guidelines/windows#visionOS-windows).
 
@@ -3396,9 +3396,9 @@ You can use a volume to display 2D or 3D content that people can view from any a
 
 visionOS defines two main window styles: default and volumetric. Both a default window (called a *window*) and a volumetric window (called a *volume*) can display 2D and 3D content, and people can view multiple windows and volumes at the same time in both the Shared Space and a Full Space.
 
-![An illustration representing a window in visionOS. The illustration consists of two parallel rounded rectangles, slightly separated and displayed on an angle, positioned above a window bar.](/images/com.apple.HIG/visionos-window-style-2d-window@2x.png)
+![An illustration representing a window in visionOS. The illustration consists of two parallel rounded rectangles, slightly separated and displayed on an angle, positioned above a window bar.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-window-style-2d-window@2x.png)
 
-![An illustration representing a volume in visionOS. The illustration consists of a translucent cube. The base of the cube is darker than the other sides. The front of the cube is positioned above a window bar.](/images/com.apple.HIG/visionos-window-style-3d-volume@2x.png)
+![An illustration representing a volume in visionOS. The illustration consists of a translucent cube. The base of the cube is darker than the other sides. The front of the cube is positioned above a window bar.](https://developer.apple.com/tutorials/images/com.apple.HIG/visionos-window-style-3d-volume@2x.png)
 
 > **Note:** visionOS also defines the *plain* window style, which is similar to the default style, except that the upright plane doesn’t use the glass background. For developer guidance, see [PlainWindowStyle](https://developer.apple.com/documentation/swiftui/plainwindowstyle).
 
@@ -3422,7 +3422,7 @@ In watchOS, a person can assign the Action button’s first press to drop a wayp
 
 The system-defined style for action sheets includes a title, an optional message, a Cancel button, and one or more additional buttons. The appearance of this interface is different depending on the device.
 
-![An illustration of an action sheet on Apple Watch, showing content that represents text in the top half of the watch screen and two stacked buttons in the bottom half.](/images/com.apple.HIG/action-sheet-watch-system-defined@2x.png)
+![An illustration of an action sheet on Apple Watch, showing content that represents text in the top half of the watch screen and two stacked buttons in the bottom half.](https://developer.apple.com/tutorials/images/com.apple.HIG/action-sheet-watch-system-defined@2x.png)
 
 Each button has an associated style that conveys information about the button’s effect. There are three system-defined button styles:
 
@@ -3444,11 +3444,11 @@ Each button has an associated style that conveys information about the button’
 
 watchOS displays all inline buttons using the [capsule](https://developer.apple.com/documentation/swiftui/buttonbordershape/capsule) button shape. When you place a button inline with content, it gains a material effect that contrasts with the background to ensure legibility.
 
-![An illustration that represents a screen on Apple Watch, which includes capsule-shaped Primary and Secondary buttons.](/images/com.apple.HIG/buttons-watch-full-width@2x.png)
+![An illustration that represents a screen on Apple Watch, which includes capsule-shaped Primary and Secondary buttons.](https://developer.apple.com/tutorials/images/com.apple.HIG/buttons-watch-full-width@2x.png)
 
 **Use a toolbar to place buttons in the corners.** The system automatically moves the time and title to accommodate toolbar buttons. The system also applies the [Liquid Glass](https://developer.apple.com/design/human-interface-guidelines/materials#Liquid-Glass) appearance to toolbar buttons, providing a clear visual distinction from the content beneath them.
 
-![An illustration showing toolbar buttons in the top leading and trailing corners, as well as three toolbar buttons across the bottom of the screen.](/images/com.apple.HIG/buttons-watch-toolbar-corners@2x.png)
+![An illustration showing toolbar buttons in the top leading and trailing corners, as well as three toolbar buttons across the bottom of the screen.](https://developer.apple.com/tutorials/images/com.apple.HIG/buttons-watch-toolbar-corners@2x.png)
 
 **Prefer buttons that span the width of the screen for primary actions in your app.** Full-width buttons look better and are easier for people to tap. If two buttons must share the same horizontal space, use the same height for both, and use images or short text titles for each button’s content.
 
@@ -3521,9 +3521,9 @@ The sign-up screen in your watchOS app needs to display the same set of informat
 
 **Clearly describe the differences between versions of your app that run on different devices.** If your watchOS app supports different functionality or provides a subset of the content that’s available on other devices, be sure to clarify these differences in your description. Be straightforward about the advantages of accessing subscription content through your watchOS app without implying that the experience is identical to the ones in other versions of your app.
 
-![A screenshot of an app running on Apple Watch. The screen includes text that reads: Intrepid Pro. Unlock 90,000 topographic maps, advanced GPS features, and offline access for trail guidance anywhere. A Close button appears in the top-left corner of the screen.](/images/com.apple.HIG/clarify-description-before@2x.png)
+![A screenshot of an app running on Apple Watch. The screen includes text that reads: Intrepid Pro. Unlock 90,000 topographic maps, advanced GPS features, and offline access for trail guidance anywhere. A Close button appears in the top-left corner of the screen.](https://developer.apple.com/tutorials/images/com.apple.HIG/clarify-description-before@2x.png)
 
-![A screenshot of an app running on Apple Watch. The screen includes text that reads: Intrepid Pro. Use advanced GPS features for trail guidance on Apple Watch. Unlock 90,000 topographic maps for use on iPhone and other devices. A Close button appears in the top-left corner of the screen.](/images/com.apple.HIG/clarify-description-after@2x.png)
+![A screenshot of an app running on Apple Watch. The screen includes text that reads: Intrepid Pro. Use advanced GPS features for trail guidance on Apple Watch. Unlock 90,000 topographic maps for use on iPhone and other devices. A Close button appears in the top-left corner of the screen.](https://developer.apple.com/tutorials/images/com.apple.HIG/clarify-description-after@2x.png)
 
 **Consider using a modal sheet to display the required information.** After people respond to your call to action to learn more about your subscription offers, you can use a modal sheet to present all required items in a single view. Even though people must scroll the view to access all the information, displaying it in a modal sheet helps your app UI remain streamlined and concise. Also, a modal sheet’s default Close button makes it easy for people to return to your free content with one tap. If you create a custom sign-up view instead of using a modal sheet, design a complete, efficient flow and include a Close or Cancel button that lets people return to your free content.
 
@@ -3532,18 +3532,18 @@ The sign-up screen in your watchOS app needs to display the same set of informat
 - Display each option in a separate button. Using one button per payment option lets people start the signup process with one tap. In this design, it’s important to lock up each button with its description so that people can see how these elements are related, especially while scrolling.
 - Display a list of options, followed by a button people tap to start the signup process. Using a list to display one option per row gives you a compact design that minimizes scrolling while making subscription choices easy to scan and understand. In this design, the button’s title can update to reflect the chosen option.
 
-![A screenshot of an app running on Apple Watch. The screen includes two subscription buttons: $4.99 per month and $29.99 per year. A Close button appears in the top-left corner of the screen.](/images/com.apple.HIG/lock-up-option-information@2x.png)
+![A screenshot of an app running on Apple Watch. The screen includes two subscription buttons: $4.99 per month and $29.99 per year. A Close button appears in the top-left corner of the screen.](https://developer.apple.com/tutorials/images/com.apple.HIG/lock-up-option-information@2x.png)
 
-![A screenshot of an app running on Apple Watch. The screen includes a list of subscription options: $4.99 billed monthly and $29.99 billed yearly. The $29.99 option is selected. A $29.99 per year button appears at the bottom of the screen, and a Close button appears in the top-left corner of the screen.](/images/com.apple.HIG/list-option-information@2x.png)
+![A screenshot of an app running on Apple Watch. The screen includes a list of subscription options: $4.99 billed monthly and $29.99 billed yearly. The $29.99 option is selected. A $29.99 per year button appears at the bottom of the screen, and a Close button appears in the top-left corner of the screen.](https://developer.apple.com/tutorials/images/com.apple.HIG/list-option-information@2x.png)
 
 ### Labels
 <sub>`pages/labels.md`</sub>
 
 Date and time text components (shown below on the left) display the current date, the current time, or a combination of both. You can configure a date text component to use a variety of formats, calendars, and time zones. A countdown timer text component (shown below on the right) displays a precise countdown or count-up timer. You can configure a timer text component to display its count value in a variety of formats.
 
-![An illustration of date and time text components on Apple Watch, with the date aligned to the leading edge and the time aligned to the trailing edge.](/images/com.apple.HIG/labels-date-time-text-component@2x.png)
+![An illustration of date and time text components on Apple Watch, with the date aligned to the leading edge and the time aligned to the trailing edge.](https://developer.apple.com/tutorials/images/com.apple.HIG/labels-date-time-text-component@2x.png)
 
-![An illustration of a countdown timer text component on Apple Watch, with the time value at the center.](/images/com.apple.HIG/labels-countdown-timer-text-component@2x.png)
+![An illustration of a countdown timer text component on Apple Watch, with the time value at the center.](https://developer.apple.com/tutorials/images/com.apple.HIG/labels-countdown-timer-text-component@2x.png)
 
 When you use the system-provided date and timer text components, watchOS automatically adjusts the label’s presentation to fit the available space. The system also updates the content without further input from your app.
 
@@ -3554,11 +3554,11 @@ Consider using date and timer components in complications. For design guidance, 
 
 **Design your content to extend from one edge of the screen to the other.** The Apple Watch bezel provides a natural visual padding around your content. To avoid wasting valuable space, consider minimizing the padding between elements.
 
-![An illustration of the Workout app’s main list of workouts on Apple Watch. A callout indicates that the currently focused workout item spans the full width of the available screen area.](/images/com.apple.HIG/layout-full-width@2x.png)
+![An illustration of the Workout app’s main list of workouts on Apple Watch. A callout indicates that the currently focused workout item spans the full width of the available screen area.](https://developer.apple.com/tutorials/images/com.apple.HIG/layout-full-width@2x.png)
 
 **Avoid placing more than two or three controls side by side in your interface.** As a general rule, display no more than three buttons that contain glyphs — or two buttons that contain text — in a row. Although it’s usually better to let text buttons span the full width of the screen, two side-by-side buttons with short text labels can also work well, as long as the screen doesn’t scroll.
 
-![A diagram of an Apple Watch screen showing two side-by-side buttons beneath three lines of text.](/images/com.apple.HIG/layout-controls@2x.png)
+![A diagram of an Apple Watch screen showing two side-by-side buttons beneath three lines of text.](https://developer.apple.com/tutorials/images/com.apple.HIG/layout-controls@2x.png)
 
 **Support autorotation in views people might want to show others.** When people flip their wrist away, apps typically respond to the motion by sleeping the display, but in some cases it makes sense to autorotate the content. For example, a wearer might want to show an image to a friend or display a QR code to a reader. For developer guidance, see [isAutorotating](https://developer.apple.com/documentation/watchkit/wkextension/isautorotating).
 
@@ -3580,11 +3580,11 @@ If you offer a watchOS app and someone taps the Live Activity in the Smart Stack
 
 **Carefully consider including buttons or toggles in your custom layout.** The custom watchOS layout also applies to your Live Activity in CarPlay where the system deactivates interactive elements. If people are likely to start or observe your Live Activity while driving, don’t include buttons or toggles in your custom watchOS layout. For developer guidance, see [Creating custom views for Live Activities](https://developer.apple.com/documentation/activitykit/creating-custom-views-for-live-activities).
 
-![An illustration that shows the compact presentation of a Live Activity in the Dynamic Island on iPhone.](/images/com.apple.HIG/live-activities-ios-dynamic-island-default@2x.png)
+![An illustration that shows the compact presentation of a Live Activity in the Dynamic Island on iPhone.](https://developer.apple.com/tutorials/images/com.apple.HIG/live-activities-ios-dynamic-island-default@2x.png)
 
-![An illustration that shows the automatically generated default presentation of a Live Activity in a Smart Stack view, with the leading and trailing elements from the iPhone compact view spaced apart in the lower corners.](/images/com.apple.HIG/live-activity-watch-default-implementation@2x.png)
+![An illustration that shows the automatically generated default presentation of a Live Activity in a Smart Stack view, with the leading and trailing elements from the iPhone compact view spaced apart in the lower corners.](https://developer.apple.com/tutorials/images/com.apple.HIG/live-activity-watch-default-implementation@2x.png)
 
-![An illustration that shows a custom presentation of a Live Activity in a Smart Stack view, with a balanced design that shows a graphical countdown timer balanced with explanatory text.](/images/com.apple.HIG/live-activity-watch-custom-implementation@2x.png)
+![An illustration that shows a custom presentation of a Live Activity in a Smart Stack view, with a balanced design that shows a graphical countdown timer balanced with explanatory text.](https://developer.apple.com/tutorials/images/com.apple.HIG/live-activity-watch-custom-implementation@2x.png)
 
 **Focus on essential information and significant updates.** Use space in the Smart Stack as efficiently as possible and think of the most useful information that a Live Activity can convey:
 
@@ -3612,7 +3612,7 @@ By default, the notification settings people use for apps on their iPhone apply 
 
 On Apple Watch, maps are static snapshots of geographic locations. Place a map in your interface at design time and show the appropriate region at runtime. The displayed region isn’t interactive; tapping it opens the Maps app on Apple Watch. You can add up to five annotations to a map to highlight points of interest or other relevant information. For developer guidance, see [WKInterfaceMap](https://developer.apple.com/documentation/watchkit/wkinterfacemap).
 
-![A screenshot of a map on Apple Watch, displaying Apple Park and some of the surrounding area.](/images/com.apple.HIG/maps-watch1@2x.png)
+![A screenshot of a map on Apple Watch, displaying Apple Park and some of the surrounding area.](https://developer.apple.com/tutorials/images/com.apple.HIG/maps-watch1@2x.png)
 
 **Fit the map interface element to the screen.** The entire element needs to be visible on the Apple Watch display without requiring scrolling.
 
@@ -3625,7 +3625,7 @@ For developer guidance, see [WKInterfaceMap](https://developer.apple.com/documen
 
 **Use materials to provide context in a full-screen modal view.** Because full-screen modal views are common in watchOS, the contrast provided by material layers can help orient people in your app and distinguish controls and system elements from other content. Avoid removing or replacing material backgrounds for modal sheets when they’re provided by default.
 
-![An illustration of a modal view in watchOS with an example title, descriptive text, and a single action button. The modal completely covers the screen with a transparent material, and uses a thinner material for the button along with vibrant label text.](/images/com.apple.HIG/watchos-modal-view-material-background@2x.png)
+![An illustration of a modal view in watchOS with an example title, descriptive text, and a single action button. The modal completely covers the screen with a transparent material, and uses a thinner material for the button along with vibrant label text.](https://developer.apple.com/tutorials/images/com.apple.HIG/watchos-modal-view-material-background@2x.png)
 
 ### Motion
 <sub>`pages/motion.md`</sub>
@@ -3644,7 +3644,7 @@ On Apple Watch, Nearby Interaction APIs provide a peer device’s distance. Also
 
 A short look appears when the wearer’s wrist is raised and disappears when it’s lowered.
 
-![An illustration that represents a short look notification from a generic app. It includes a large primary image in the center, a title, and a short preview of the notification content.](/images/com.apple.HIG/notifications-short-looks@2x.png)
+![An illustration that represents a short look notification from a generic app. It includes a large primary image in the center, a title, and a short preview of the notification content.](https://developer.apple.com/tutorials/images/com.apple.HIG/notifications-short-looks@2x.png)
 
 **Avoid using a short look as the only way to communicate important information.** A short look appears only briefly, giving people just enough time to see what the notification is about and which app sent it. If your notification information is critical, make sure you deliver it in other ways, too.
 
@@ -3655,7 +3655,7 @@ A short look appears when the wearer’s wrist is raised and disappears when it�
 
 Long looks provide more detail about a notification. If necessary, people can swipe vertically or use the Digital Crown to scroll a long look. After viewing a long look, people can dismiss it by tapping it or simply by lowering their wrist.
 
-![An illustration that represents a long look notification from a generic app. It includes a small primary image in the upper left corner, badging a platter with the notification title and content. Beneath the notification are two full width action buttons, the second of which extends off the screen to indicate that the view is scrollable.](/images/com.apple.HIG/notifications-long-looks@2x.png)
+![An illustration that represents a long look notification from a generic app. It includes a small primary image in the upper left corner, badging a platter with the notification title and content. Beneath the notification are two full width action buttons, the second of which extends off the screen to indicate that the view is scrollable.](https://developer.apple.com/tutorials/images/com.apple.HIG/notifications-long-looks@2x.png)
 
 A custom long-look interface can be static or dynamic. The *static* interface lets you display a notification’s message along with additional static text and images. The *dynamic* interface gives you access to the notification’s full content and offers more options for configuring the appearance of the interface.
 
@@ -3690,9 +3690,9 @@ People can double-tap to respond to notifications on supported devices. When a p
 
 In watchOS, page controls can be displayed at the bottom of the screen for horizontal pagination, or next to the Digital Crown when presenting a vertical [tab view](https://developer.apple.com/design/human-interface-guidelines/components/layout-and-organization/tab-views). When using vertical tab views, the page indicator shows people where they are in the navigation, both within the current page and within the set of pages. The page control transitions between scrolling through a page’s content and scrolling to other pages.
 
-![An illustration representing a screen that includes a vertical tab view on Apple Watch. A page control next to the Digital Crown shows that the fourth tab is currently selected.](/images/com.apple.HIG/page-controls-watch-vertical@2x.png)
+![An illustration representing a screen that includes a vertical tab view on Apple Watch. A page control next to the Digital Crown shows that the fourth tab is currently selected.](https://developer.apple.com/tutorials/images/com.apple.HIG/page-controls-watch-vertical@2x.png)
 
-![An illustration representing a screen that includes a horizontal tab view on Apple Watch. A page control at the bottom shows that the second tab is currently selected.](/images/com.apple.HIG/page-controls-watch-horizontal@2x.png)
+![An illustration representing a screen that includes a horizontal tab view on Apple Watch. A page control at the bottom shows that the second tab is currently selected.](https://developer.apple.com/tutorials/images/com.apple.HIG/page-controls-watch-horizontal@2x.png)
 
 **Use vertical pagination to separate multiple views into distinct, purposeful pages.** Give each page a clear purpose, and let people scroll through the pages using the Digital Crown. In watchOS, this design is more effective than horizontal pagination or many levels of hierarchical navigation.
 
@@ -3705,19 +3705,19 @@ Pickers display lists of items that people navigate using the Digital Crown, whi
 
 A picker can display a list of items using the wheels style. watchOS can also display date and time pickers using the wheels style. For developer guidance, see [Picker](https://developer.apple.com/documentation/swiftui/picker) and [DatePicker](https://developer.apple.com/documentation/swiftui/datepicker).
 
-![An illustration representing a screen containing a picker view on Apple Watch, showing three items in a list. The center item is highlighted.](/images/com.apple.HIG/pickers-wheel-watch@2x.png)
+![An illustration representing a screen containing a picker view on Apple Watch, showing three items in a list. The center item is highlighted.](https://developer.apple.com/tutorials/images/com.apple.HIG/pickers-wheel-watch@2x.png)
 
-![An illustration representing a screen containing a date picker on Apple Watch, with the day highlighted.](/images/com.apple.HIG/pickers-date-watch@2x.png)
+![An illustration representing a screen containing a date picker on Apple Watch, with the day highlighted.](https://developer.apple.com/tutorials/images/com.apple.HIG/pickers-date-watch@2x.png)
 
-![An illustration representing a screen containing a time picker on Apple Watch, with the minutes highlighted.](/images/com.apple.HIG/pickers-time-watch@2x.png)
+![An illustration representing a screen containing a time picker on Apple Watch, with the minutes highlighted.](https://developer.apple.com/tutorials/images/com.apple.HIG/pickers-time-watch@2x.png)
 
 You can configure a picker to display an outline, caption, and scrolling indicator.
 
 For longer lists, the navigation link displays the picker as a button. When someone taps the button, the system shows the list of options. The person can also scrub through the options using the Digital Crown without tapping the button. For developer guidance, see [navigationLink](https://developer.apple.com/documentation/swiftui/pickerstyle/navigationlink).
 
-![An illustration representing a screen that contains a picker button on Apple Watch. The button’s text denotes that the second item is selected.](/images/com.apple.HIG/pickers-navigation-button-watch@2x.png)
+![An illustration representing a screen that contains a picker button on Apple Watch. The button’s text denotes that the second item is selected.](https://developer.apple.com/tutorials/images/com.apple.HIG/pickers-navigation-button-watch@2x.png)
 
-![An illustration representing a screen showing a list of items on Apple Watch. The second item in the list is selected.](/images/com.apple.HIG/pickers-navigation-list-watch@2x.png)
+![An illustration representing a screen showing a list of items on Apple Watch. The second item in the list is selected.](https://developer.apple.com/tutorials/images/com.apple.HIG/pickers-navigation-list-watch@2x.png)
 
 ### Playing audio
 <sub>`pages/playing-audio.md`</sub>
@@ -3815,11 +3815,11 @@ In watchOS, the system manages video playback. Apps can play short video clips w
 
 By default the system displays the progress indicators in white over the scene’s background color. You can change the color of the progress indicator by setting its tint color.
 
-![An image of a progress bar filling from left to right in watchOS.](/images/com.apple.HIG/progress-bar-watch@2x.png)
+![An image of a progress bar filling from left to right in watchOS.](https://developer.apple.com/tutorials/images/com.apple.HIG/progress-bar-watch@2x.png)
 
-![An image of a circular progress indicator filling clockwise in watchOS.](/images/com.apple.HIG/progress-ring-watch@2x.png)
+![An image of a circular progress indicator filling clockwise in watchOS.](https://developer.apple.com/tutorials/images/com.apple.HIG/progress-ring-watch@2x.png)
 
-![An image of a spinning activity indicator in watchOS.](/images/com.apple.HIG/activity-indicators-watch@2x.png)
+![An image of a spinning activity indicator in watchOS.](https://developer.apple.com/tutorials/images/com.apple.HIG/activity-indicators-watch@2x.png)
 
 ### Scroll views
 <sub>`pages/scroll-views.md`</sub>
@@ -3845,7 +3845,7 @@ In watchOS, apps and games don’t add custom settings to the system-provided Se
 
 In watchOS, a sheet is a full-screen view that slides over your app’s current content. The sheet is semitransparent to help maintain the current context, but the system applies a material to the background that blurs and desaturates the covered content.
 
-![A screenshot of a sheet with a primary Action button and a default cancel button on Apple Watch.](/images/com.apple.HIG/sheets-watch-overlay@2x.png)
+![A screenshot of a sheet with a primary Action button and a default cancel button on Apple Watch.](https://developer.apple.com/tutorials/images/com.apple.HIG/sheets-watch-overlay@2x.png)
 
 **Use a sheet only when your modal task requires a custom title or custom content presentation.** If you need to give people important information or present a set of choices, consider using an [Alerts](https://developer.apple.com/design/human-interface-guidelines/alerts) or [Action sheets](https://developer.apple.com/design/human-interface-guidelines/action-sheets).
 
@@ -3853,26 +3853,26 @@ In watchOS, a sheet is a full-screen view that slides over your app’s current 
 
 **If you change the default label, prefer using SF Symbols to represent the action.** Avoid using a label that might mislead people into thinking that the sheet is part of a hierarchical navigation interface. Also, if the text in the top-leading corner looks like a page or app title, people won’t know how to dismiss the sheet. For guidance, see [Standard icons](https://developer.apple.com/design/human-interface-guidelines/icons#Standard-icons).
 
-![A screenshot that shows a top toolbar with a custom Back button at the top of the screen on Apple Watch.](/images/com.apple.HIG/modal-sheet-watchos-do-not-1@2x.png)
+![A screenshot that shows a top toolbar with a custom Back button at the top of the screen on Apple Watch.](https://developer.apple.com/tutorials/images/com.apple.HIG/modal-sheet-watchos-do-not-1@2x.png)
 
-![An X in a circle to indicate incorrect usage.](/images/com.apple.HIG/crossout@2x.png)
+![An X in a circle to indicate incorrect usage.](https://developer.apple.com/tutorials/images/com.apple.HIG/crossout@2x.png)
 
-![A screenshot that shows a top toolbar with a button with the words Page title at the top of the screen on Apple Watch.](/images/com.apple.HIG/modal-sheet-watchos-do-not-2@2x.png)
+![A screenshot that shows a top toolbar with a button with the words Page title at the top of the screen on Apple Watch.](https://developer.apple.com/tutorials/images/com.apple.HIG/modal-sheet-watchos-do-not-2@2x.png)
 
-![An X in a circle to indicate incorrect usage.](/images/com.apple.HIG/crossout@2x.png)
+![An X in a circle to indicate incorrect usage.](https://developer.apple.com/tutorials/images/com.apple.HIG/crossout@2x.png)
 
-![A screenshot that shows a top toolbar with the default Cancel button at the top of the screen on Apple Watch.](/images/com.apple.HIG/modal-sheet-watchos-do@2x.png)
+![A screenshot that shows a top toolbar with the default Cancel button at the top of the screen on Apple Watch.](https://developer.apple.com/tutorials/images/com.apple.HIG/modal-sheet-watchos-do@2x.png)
 
-![A checkmark in a circle to indicate correct usage.](/images/com.apple.HIG/checkmark@2x.png)
+![A checkmark in a circle to indicate correct usage.](https://developer.apple.com/tutorials/images/com.apple.HIG/checkmark@2x.png)
 
 ### Sliders
 <sub>`pages/sliders.md`</sub>
 
 A slider is a horizontal track — appearing as a set of discrete steps or as a continuous bar — that represents a finite range of values. People can tap buttons on the sides of the slider to increase or decrease its value by a predefined amount.
 
-![An illustration of a watchOS volume slider with discrete steps. The first two of three steps are filled with a green highlight color, indicating the volume level.](/images/com.apple.HIG/sliders-watchos-discrete@2x.png)
+![An illustration of a watchOS volume slider with discrete steps. The first two of three steps are filled with a green highlight color, indicating the volume level.](https://developer.apple.com/tutorials/images/com.apple.HIG/sliders-watchos-discrete@2x.png)
 
-![An illustration of a watchOS volume slider with a continuous bar. Two-thirds of the bar is filled with a green highlight color, indicating the volume level.](/images/com.apple.HIG/sliders-watchos-continuous@2x.png)
+![An illustration of a watchOS volume slider with a continuous bar. Two-thirds of the bar is filled with a green highlight color, indicating the volume level.](https://developer.apple.com/tutorials/images/com.apple.HIG/sliders-watchos-continuous@2x.png)
 
 **If necessary, create custom glyphs to communicate what the slider does.** The system displays plus and minus signs by default.
 
@@ -3885,14 +3885,14 @@ In watchOS, the split view displays either the list view or a detail view as a f
 
 **If your app displays multiple detail pages, place the detail views in a vertical [Tab views](https://developer.apple.com/design/human-interface-guidelines/tab-views).** People can then use the Digital Crown to scroll between the detail view’s tabs. watchOS also displays a page indicator next to the Digital Crown, indicating the number of tabs and the currently selected tab.
 
-![A screenshot showing a detail view with a vertical tab on Apple Watch. The page indicator next to the Digital Crown shows that the fifth tab is currently selected.](/images/com.apple.HIG/split-view-watch-vertical-tab@2x.png)
+![A screenshot showing a detail view with a vertical tab on Apple Watch. The page indicator next to the Digital Crown shows that the fifth tab is currently selected.](https://developer.apple.com/tutorials/images/com.apple.HIG/split-view-watch-vertical-tab@2x.png)
 
 ### Tab views
 <sub>`pages/tab-views.md`</sub>
 
 watchOS displays tab views using [page controls](https://developer.apple.com/design/human-interface-guidelines/components/presentation/page-controls). For developer guidance, see [TabView](https://developer.apple.com/documentation/swiftui/tabview).
 
-![An illustration showing the page control next to the Digital Crown on Apple Watch. The current dot is enlarged, indicating that people can scroll through the current content, as well as scroll between pages.](/images/com.apple.HIG/tab-view-watch-vertical@2x.png)
+![An illustration showing the page control next to the Digital Crown on Apple Watch. The current dot is enlarged, indicating that people can scroll through the current content, as well as scroll between pages.](https://developer.apple.com/tutorials/images/com.apple.HIG/tab-view-watch-vertical@2x.png)
 
 ### Text fields
 <sub>`pages/text-fields.md`</sub>
@@ -3904,17 +3904,17 @@ watchOS displays tab views using [page controls](https://developer.apple.com/des
 
 A toolbar button lets you offer important app functionality in a view that displays related content. You can place toolbar buttons in the top corners or along the bottom. If you place these buttons above scrolling content, the buttons always remain visible, as the content scrolls under them.
 
-![A screenshot showing toolbar buttons in the top leading and trailing corners.](/images/com.apple.HIG/toolbars-watch-top-buttons@2x.png)
+![A screenshot showing toolbar buttons in the top leading and trailing corners.](https://developer.apple.com/tutorials/images/com.apple.HIG/toolbars-watch-top-buttons@2x.png)
 
-![A screenshot showing two toolbar buttons in the bottom leading and trailing corners.](/images/com.apple.HIG/toolbars-watch-bottom-buttons@2x.png)
+![A screenshot showing two toolbar buttons in the bottom leading and trailing corners.](https://developer.apple.com/tutorials/images/com.apple.HIG/toolbars-watch-bottom-buttons@2x.png)
 
 For developer guidance, see [topBarLeading](https://developer.apple.com/documentation/swiftui/toolbaritemplacement/topbarleading), [topBarTrailing](https://developer.apple.com/documentation/swiftui/toolbaritemplacement/topbartrailing), or [bottomBar](https://developer.apple.com/documentation/swiftui/toolbaritemplacement/bottombar).
 
 You can also place a button in the scrolling view. By default, a scrolling toolbar button remains hidden until people reveal it by scrolling up. People frequently scroll to the top of a scrolling view, so discovering a toolbar button is automatic.
 
-![A screenshot showing two toolbar buttons in the top leading and trailing corners. The toolbar also has a primary action button in the scroll view, but it's hidden.](/images/com.apple.HIG/toolbars-watch-primary-button-hidden@2x.png)
+![A screenshot showing two toolbar buttons in the top leading and trailing corners. The toolbar also has a primary action button in the scroll view, but it's hidden.](https://developer.apple.com/tutorials/images/com.apple.HIG/toolbars-watch-primary-button-hidden@2x.png)
 
-![A screenshot showing two toolbar buttons in the top leading and trailing corners. The toolbar also displays a primary action button in the scroll view.](/images/com.apple.HIG/toolbars-watch-primary-button-visible@2x.png)
+![A screenshot showing two toolbar buttons in the top leading and trailing corners. The toolbar also displays a primary action button in the scroll view.](https://developer.apple.com/tutorials/images/com.apple.HIG/toolbars-watch-primary-button-visible@2x.png)
 
 For developer guidance, see [primaryAction](https://developer.apple.com/documentation/swiftui/toolbaritemplacement/primaryaction).
 
@@ -3937,15 +3937,15 @@ People can also use a nearby paired iPhone to enter text on Apple Watch.
 
 On Apple Watch, Wallet displays passes in a scrolling carousel of cards. People can add your pass to their Apple Watch even if you don’t create a watch-specific app, so it’s important to understand how your pass can look on the device.
 
-![A screenshot of a selected flight pass in a list of passes on Apple Watch. The pass includes information about a flight from SFO to LGA. The next pass in the list is a gym membership card with a barcode.](/images/com.apple.HIG/watch-card-and-details@2x.png)
+![A screenshot of a selected flight pass in a list of passes on Apple Watch. The pass includes information about a flight from SFO to LGA. The next pass in the list is a gym membership card with a barcode.](https://developer.apple.com/tutorials/images/com.apple.HIG/watch-card-and-details@2x.png)
 
 People can tap a pass on their Apple Watch to reveal a details screen that displays additional information in a scroll view. In some cases, people can also tap a specific transaction to get more information.
 
-![A screenshot of a flight pass on Apple Watch. The pass includes information about a flight from SFO to LGA, and appears above a QR code.](/images/com.apple.HIG/watch-pass-design-intro@2x.png)
+![A screenshot of a flight pass on Apple Watch. The pass includes information about a flight from SFO to LGA, and appears above a QR code.](https://developer.apple.com/tutorials/images/com.apple.HIG/watch-pass-design-intro@2x.png)
 
 Each pass style specifies the fields and images that can appear in the basic layout areas shown below:
 
-![A diagram that shows the basic layout of a pass on Apple Watch. A top row contains a logo image and an essential field area. A second row contains a primary field area. A third row contains a secondary and auxiliary fields area.](/images/com.apple.HIG/watch-layout-diagram@2x.png)
+![A diagram that shows the basic layout of a pass on Apple Watch. A top row contains a logo image and an essential field area. A second row contains a primary field area. A third row contains a secondary and auxiliary fields area.](https://developer.apple.com/tutorials/images/com.apple.HIG/watch-layout-diagram@2x.png)
 
 If some information doesn’t fit within the layout areas, the system displays it in the scrolling details screen.
 
@@ -3953,23 +3953,23 @@ If some information doesn’t fit within the layout areas, the system displays i
 
 **Boarding**
 
-![A diagram that shows the layout of a boarding pass on Apple Watch. The first row contains a logo image and departure or boarding time information. The second row contains origin and destination information. The third row contains the passenger name and seat.](/images/com.apple.HIG/watch-layout-boarding-pass@2x.png)
+![A diagram that shows the layout of a boarding pass on Apple Watch. The first row contains a logo image and departure or boarding time information. The second row contains origin and destination information. The third row contains the passenger name and seat.](https://developer.apple.com/tutorials/images/com.apple.HIG/watch-layout-boarding-pass@2x.png)
 
 **Coupon**
 
-![A diagram that shows the layout of a coupon pass on Apple Watch. The first row contains a logo image and expiration date. The second row contains a strip image. The third row is unused.](/images/com.apple.HIG/watch-layout-coupon@2x.png)
+![A diagram that shows the layout of a coupon pass on Apple Watch. The first row contains a logo image and expiration date. The second row contains a strip image. The third row is unused.](https://developer.apple.com/tutorials/images/com.apple.HIG/watch-layout-coupon@2x.png)
 
 **Store**
 
-![A diagram that shows the layout of a store card on Apple Watch. The top first row contains a logo image and an unused area. The second row contains a strip image. The third row contains a member name and number.](/images/com.apple.HIG/watch-layout-store-card@2x.png)
+![A diagram that shows the layout of a store card on Apple Watch. The top first row contains a logo image and an unused area. The second row contains a strip image. The third row contains a member name and number.](https://developer.apple.com/tutorials/images/com.apple.HIG/watch-layout-store-card@2x.png)
 
 **Event**
 
-![A diagram that shows the layout of an event ticket on Apple Watch. The first row contains a logo image and an event start date. The second row contains information about the event. The third row contains an attendee name and seat location.](/images/com.apple.HIG/watch-layout-event-ticket@2x.png)
+![A diagram that shows the layout of an event ticket on Apple Watch. The first row contains a logo image and an event start date. The second row contains information about the event. The third row contains an attendee name and seat location.](https://developer.apple.com/tutorials/images/com.apple.HIG/watch-layout-event-ticket@2x.png)
 
 **Generic**
 
-![A diagram that shows the layout of a generic pass on Apple Watch. The first row contains a logo image and an expiration date. The second row contains a strip image. The third row contains a name and number.](/images/com.apple.HIG/watch-layout-generic-pass@2x.png)
+![A diagram that shows the layout of a generic pass on Apple Watch. The first row contains a logo image and an expiration date. The second row contains a strip image. The third row contains a name and number.](https://developer.apple.com/tutorials/images/com.apple.HIG/watch-layout-generic-pass@2x.png)
 
 ### Widgets
 <sub>`pages/widgets.md`</sub>

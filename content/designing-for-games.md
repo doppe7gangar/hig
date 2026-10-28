@@ -2,7 +2,7 @@
 
 When people play your game on an Apple device, they dive into the world you designed while relying on the platform features they love.
 
-![A stylized representation of a game controller shown on top of a grid. The image is overlaid with rectangular and circular grid lines and is tinted green to subtly reflect the green in the original six-color Apple logo.](/images/com.apple.HIG/platforms-games-intro@2x.png)
+![A stylized representation of a game controller shown on top of a grid. The image is overlaid with rectangular and circular grid lines and is tinted green to subtly reflect the green in the original six-color Apple logo.](https://developer.apple.com/tutorials/images/com.apple.HIG/platforms-games-intro@2x.png)
 
 As you create or adapt a game for Apple platforms, learn how to integrate the fundamental platform characteristics and patterns that help your game feel at home on all Apple devices. To learn what makes each platform unique, see [Designing for iOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-ios), [Designing for iPadOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-ipados), [Designing for macOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-macos), [Designing for tvOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-tvos), [Designing for visionOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-visionos), and [Designing for watchOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-watchos). For developer guidance, see [Games Pathway](https://developer.apple.com/games/pathway/).
 

@@ -158,7 +158,9 @@ trusting any triggering result.
 
 - The guidelines and the UI-kit images belong to Apple and are here for
   offline reference.
-- Diagrams in `content/` load from Apple's CDN, so they need a connection.
+- Images in `content/` load from developer.apple.com, so they need a
+  connection. Seven of the 1,261 no longer exist on Apple's side since
+  the snapshot; a re-scrape picks up their replacements.
 - SF Pro isn't included: Apple's licence doesn't allow redistributing it.
   Macs and iPhones use their own copy anyway, and elsewhere pages fall back
   to Inter. If you have Apple's SF Pro download,

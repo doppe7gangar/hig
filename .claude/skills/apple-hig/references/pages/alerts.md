@@ -2,7 +2,7 @@
 
 An alert gives people critical information they need right away.
 
-![A stylized representation of an alert mockup that includes a title, description, primary button, and secondary button. The image is tinted red to subtly reflect the red in the original six-color Apple logo.](/images/com.apple.HIG/components-alert-intro@2x.png)
+![A stylized representation of an alert mockup that includes a title, description, primary button, and secondary button. The image is tinted red to subtly reflect the red in the original six-color Apple logo.](https://developer.apple.com/tutorials/images/com.apple.HIG/components-alert-intro@2x.png)
 
 For example, an alert can tell people about a problem, warn them when their action might destroy data, and give them an opportunity to confirm a purchase or another important action they initiated.
 
@@ -22,23 +22,23 @@ An alert is a modal view that can look different in different platforms and devi
 
 **iOS**
 
-![An illustration of an alert in the middle of the screen on iPhone.](/images/com.apple.HIG/alert-ios@2x.png)
+![An illustration of an alert in the middle of the screen on iPhone.](https://developer.apple.com/tutorials/images/com.apple.HIG/alert-ios@2x.png)
 
 **macOS**
 
-![An illustration of an alert in the middle of the screen on a Mac.](/images/com.apple.HIG/alert-macos@2x.png)
+![An illustration of an alert in the middle of the screen on a Mac.](https://developer.apple.com/tutorials/images/com.apple.HIG/alert-macos@2x.png)
 
 **tvOS**
 
-![An illustration of an alert on tvOS.](/images/com.apple.HIG/alert-tvos@2x.jpg)
+![An illustration of an alert on tvOS.](https://developer.apple.com/tutorials/images/com.apple.HIG/alert-tvos@2x.jpg)
 
 **visionOS**
 
-![An illustration of an alert on Apple Vision Pro.](/images/com.apple.HIG/alert-visionos@2x.png)
+![An illustration of an alert on Apple Vision Pro.](https://developer.apple.com/tutorials/images/com.apple.HIG/alert-visionos@2x.png)
 
 **watchOS**
 
-![An illustration of an alert on Apple Watch.](/images/com.apple.HIG/alert-watchos@2x.png)
+![An illustration of an alert on Apple Watch.](https://developer.apple.com/tutorials/images/com.apple.HIG/alert-watchos@2x.png)
 
 
 ## Content

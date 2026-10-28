@@ -2,7 +2,7 @@
 
 A context menu provides access to functionality that’s directly related to an item, without cluttering the interface.
 
-![A stylized representation of a contextual menu beneath a clicking pointer. The image is tinted red to subtly reflect the red in the original six-color Apple logo.](/images/com.apple.HIG/components-context-menu-intro@2x.png)
+![A stylized representation of a contextual menu beneath a clicking pointer. The image is tinted red to subtly reflect the red in the original six-color Apple logo.](https://developer.apple.com/tutorials/images/com.apple.HIG/components-context-menu-intro@2x.png)
 
 Although a context menu provides convenient access to frequently used items, it’s hidden by default, so people might not know it’s there. To reveal a context menu, people generally choose a view or select some content and then perform an action, using the input modes their current configuration supports. For example:
 

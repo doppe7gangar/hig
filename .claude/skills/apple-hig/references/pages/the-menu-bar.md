@@ -2,7 +2,7 @@
 
 On a Mac or an iPad, the menu bar at the top of the screen displays the top-level menus in your app or game.
 
-![A stylized representation of the macOS menu bar displaying a selected menu. The image is tinted red to subtly reflect the red in the original six-color Apple logo.](/images/com.apple.HIG/components-the-menu-bar-intro@2x.png)
+![A stylized representation of the macOS menu bar displaying a selected menu. The image is tinted red to subtly reflect the red in the original six-color Apple logo.](https://developer.apple.com/tutorials/images/com.apple.HIG/components-the-menu-bar-intro@2x.png)
 
 Mac users are very familiar with the macOS menu bar, and they rely on it to help them learn what an app does and find the commands they need. To help your app or game feel at home in macOS, it’s essential to provide a consistent menu bar experience.
 
@@ -10,7 +10,7 @@ Menu bar menus on iPad are similar to those on Mac, appearing in the same order 
 
 Keyboard shortcuts in iPadOS use the same patterns as in macOS. For guidance, see [Standard keyboard shortcuts](https://developer.apple.com/design/human-interface-guidelines/keyboards#Standard-keyboard-shortcuts).
 
-![An illustration of an app window on iPad, with its menu bar appearing at the top of the screen and the Edit menu open.](/images/com.apple.HIG/menu-bar-ipad-overview@2x.png)
+![An illustration of an app window on iPad, with its menu bar appearing at the top of the screen and the Edit menu open.](https://developer.apple.com/tutorials/images/com.apple.HIG/menu-bar-ipad-overview@2x.png)
 
 Menus in the menu bar share most of the appearance and behavior characteristics that all menu types have. To learn about menus in general — and how to organize and label menu items — see [Menus](https://developer.apple.com/design/human-interface-guidelines/menus).
 
@@ -241,7 +241,7 @@ A menu bar extra exposes app-specific functionality using an icon that appears i
 
 When necessary, the system hides menu bar extras to make room for app menus. Similarly, if there are too many menu bar extras, the system may hide some to avoid crowding app menus.
 
-![A screenshot of the Input menu bar extra and its menu.](/images/com.apple.HIG/menu-bar-extras@2x.png)
+![A screenshot of the Input menu bar extra and its menu.](https://developer.apple.com/tutorials/images/com.apple.HIG/menu-bar-extras@2x.png)
 
 **Consider using a symbol to represent your menu bar extra.** You can create an [Icons](https://developer.apple.com/design/human-interface-guidelines/icons) or you can choose one of the [SF Symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols), using it as-is or customizing it to suit your needs. Both interface icons and symbols use black and clear colors to define their shapes; the system can apply other colors to the black areas in each image so it looks good on both dark and light menu bars, and when your menu bar extra is selected. The menu bar’s height is 24 pt.
 

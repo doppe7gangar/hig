@@ -2,7 +2,7 @@
 
 A consistent layout that adapts to various contexts makes your experience more approachable and helps people enjoy their favorite apps and games on all their devices.
 
-![A sketch of a small rectangle in the upper-left quadrant of a larger rectangle, suggesting the position of a user interface element within a window. The image is overlaid with rectangular and circular grid lines and is tinted yellow to subtly reflect the yellow in the original six-color Apple logo.](/images/com.apple.HIG/foundations-layout-intro@2x.png)
+![A sketch of a small rectangle in the upper-left quadrant of a larger rectangle, suggesting the position of a user interface element within a window. The image is overlaid with rectangular and circular grid lines and is tinted yellow to subtly reflect the yellow in the original six-color Apple logo.](https://developer.apple.com/tutorials/images/com.apple.HIG/foundations-layout-intro@2x.png)
 
 Your app’s layout helps ground people in your content from the moment they open it. People expect familiar relationships between controls and content to help them use and discover your app’s features, and designing the layout to take advantage of this makes your app feel at home on the platform.
 
@@ -18,7 +18,7 @@ Apple provides templates, guides, and other resources that can help you integrat
 
 When your content doesn’t span the full window, use a background extension view to provide the appearance of content behind the control layer on either side of the screen, such as beneath the sidebar or inspector. For developer guidance, see [backgroundExtensionEffect()](https://developer.apple.com/documentation/swiftui/view/backgroundextensioneffect()) and [UIBackgroundExtensionView](https://developer.apple.com/documentation/uikit/uibackgroundextensionview).
 
-![A screenshot of a full screen iPad app with a sidebar on the leading edge. A photo of Mount Fuji fills the top half of the content area. The photo subtly blurs as it reaches the top of the screen, where toolbar items float above it grouped on the trailing edge. Where the photo meets the sidebar, the image flips, blurs, and extends fully beneath the sidebar to the edge of the screen.](/images/com.apple.HIG/layout-background-extention-view@2x.png)
+![A screenshot of a full screen iPad app with a sidebar on the leading edge. A photo of Mount Fuji fills the top half of the content area. The photo subtly blurs as it reaches the top of the screen, where toolbar items float above it grouped on the trailing edge. Where the photo meets the sidebar, the image flips, blurs, and extends fully beneath the sidebar to the edge of the screen.](https://developer.apple.com/tutorials/images/com.apple.HIG/layout-background-extention-view@2x.png)
 
 ## Visual hierarchy
 
@@ -97,11 +97,11 @@ People can freely resize windows down to a minimum width and height, similar to 
 
 **Adhere to the screen’s safe area.** Inset primary content 60 points from the top and bottom of the screen, and 80 points from the sides. It can be difficult for people to see content that close to the edges, and unintended cropping can occur due to overscanning on older TVs. Allow only partially displayed offscreen content and elements that deliberately flow offscreen to appear outside this zone.
 
-![An illustration of a TV with a safe zone border on all sides. In width, the top and bottom borders measure 60 points, and the side borders both measure 80 points.](/images/com.apple.HIG/visual-design-safe-zone@2x.png)
+![An illustration of a TV with a safe zone border on all sides. In width, the top and bottom borders measure 60 points, and the side borders both measure 80 points.](https://developer.apple.com/tutorials/images/com.apple.HIG/visual-design-safe-zone@2x.png)
 
 **Include appropriate padding between focusable elements.** When you use UIKit and the focus APIs, an element gets bigger when it comes into focus. Consider how elements look when they’re focused, and make sure you don’t let them overlap important information. For developer guidance, see [About focus interactions for Apple TV](https://developer.apple.com/documentation/uikit/about-focus-interactions-for-apple-tv).
 
-![An illustration that uses vertical shaded rectangles to show padding between focusable items.](/images/com.apple.HIG/visual-design-padding@2x.png)
+![An illustration that uses vertical shaded rectangles to show padding between focusable items.](https://developer.apple.com/tutorials/images/com.apple.HIG/visual-design-padding@2x.png)
 
 #### Grids
 
@@ -111,7 +111,7 @@ If you use the UIKit collection view flow element, the number of columns in a gr
 
 **Two-column**
 
-![An illustration of Apple TV, displaying a two-column grid of media items. Additional media items are partially visible on the right side and bottom edge of the screen.](/images/com.apple.HIG/visual-design-grid-2-column@2x.png)
+![An illustration of Apple TV, displaying a two-column grid of media items. Additional media items are partially visible on the right side and bottom edge of the screen.](https://developer.apple.com/tutorials/images/com.apple.HIG/visual-design-grid-2-column@2x.png)
 
 #### Two-column grid
 
@@ -123,7 +123,7 @@ If you use the UIKit collection view flow element, the number of columns in a gr
 
 **Three-column**
 
-![An illustration of Apple TV, displaying a three-column grid of media items. Additional media items are partially visible on the right side and bottom edge of the screen.](/images/com.apple.HIG/visual-design-grid-3-column@2x.png)
+![An illustration of Apple TV, displaying a three-column grid of media items. Additional media items are partially visible on the right side and bottom edge of the screen.](https://developer.apple.com/tutorials/images/com.apple.HIG/visual-design-grid-3-column@2x.png)
 
 #### Three-column grid
 
@@ -135,7 +135,7 @@ If you use the UIKit collection view flow element, the number of columns in a gr
 
 **Four-column**
 
-![An illustration of Apple TV, displaying a four-column grid of media items. Additional media items are partially visible on the right side of the screen.](/images/com.apple.HIG/visual-design-grid-4-column@2x.png)
+![An illustration of Apple TV, displaying a four-column grid of media items. Additional media items are partially visible on the right side of the screen.](https://developer.apple.com/tutorials/images/com.apple.HIG/visual-design-grid-4-column@2x.png)
 
 #### Four-column grid
 
@@ -147,7 +147,7 @@ If you use the UIKit collection view flow element, the number of columns in a gr
 
 **Five-column**
 
-![An illustration of Apple TV, displaying a five-column grid of media items. Additional media items are partially visible on the right side and bottom edge of the screen.](/images/com.apple.HIG/visual-design-grid-5-column@2x.png)
+![An illustration of Apple TV, displaying a five-column grid of media items. Additional media items are partially visible on the right side and bottom edge of the screen.](https://developer.apple.com/tutorials/images/com.apple.HIG/visual-design-grid-5-column@2x.png)
 
 #### Five-column grid
 
@@ -159,7 +159,7 @@ If you use the UIKit collection view flow element, the number of columns in a gr
 
 **Six-column**
 
-![An illustration of Apple TV, displaying a six-column grid of media items. Additional media items are partially visible on the right side and bottom edge of the screen.](/images/com.apple.HIG/visual-design-grid-6-column@2x.png)
+![An illustration of Apple TV, displaying a six-column grid of media items. Additional media items are partially visible on the right side and bottom edge of the screen.](https://developer.apple.com/tutorials/images/com.apple.HIG/visual-design-grid-6-column@2x.png)
 
 #### Six-column grid
 
@@ -171,7 +171,7 @@ If you use the UIKit collection view flow element, the number of columns in a gr
 
 **Seven-column**
 
-![An illustration of Apple TV, displaying a seven-column grid of media items. Additional media items are partially visible on the right side of the screen.](/images/com.apple.HIG/visual-design-grid-7-column@2x.png)
+![An illustration of Apple TV, displaying a seven-column grid of media items. Additional media items are partially visible on the right side of the screen.](https://developer.apple.com/tutorials/images/com.apple.HIG/visual-design-grid-7-column@2x.png)
 
 #### Seven-column grid
 
@@ -183,7 +183,7 @@ If you use the UIKit collection view flow element, the number of columns in a gr
 
 **Eight-column**
 
-![An illustration of Apple TV, displaying an eight-column grid of media items. Additional media items are partially visible on the right side and bottom edge of the screen.](/images/com.apple.HIG/visual-design-grid-8-column@2x.png)
+![An illustration of Apple TV, displaying an eight-column grid of media items. Additional media items are partially visible on the right side and bottom edge of the screen.](https://developer.apple.com/tutorials/images/com.apple.HIG/visual-design-grid-8-column@2x.png)
 
 #### Eight-column grid
 
@@ -195,7 +195,7 @@ If you use the UIKit collection view flow element, the number of columns in a gr
 
 **Nine-column**
 
-![An illustration of Apple TV, displaying a nine-column grid of media items.](/images/com.apple.HIG/visual-design-grid-9-column@2x.png)
+![An illustration of Apple TV, displaying a nine-column grid of media items.](https://developer.apple.com/tutorials/images/com.apple.HIG/visual-design-grid-9-column@2x.png)
 
 #### Nine-column grid
 
@@ -230,11 +230,11 @@ The guidance below can help you lay out content within the windows of your visio
 
 **Design your content to extend from one edge of the screen to the other.** The Apple Watch bezel provides a natural visual padding around your content. To avoid wasting valuable space, consider minimizing the padding between elements.
 
-![An illustration of the Workout app’s main list of workouts on Apple Watch. A callout indicates that the currently focused workout item spans the full width of the available screen area.](/images/com.apple.HIG/layout-full-width@2x.png)
+![An illustration of the Workout app’s main list of workouts on Apple Watch. A callout indicates that the currently focused workout item spans the full width of the available screen area.](https://developer.apple.com/tutorials/images/com.apple.HIG/layout-full-width@2x.png)
 
 **Avoid placing more than two or three controls side by side in your interface.** As a general rule, display no more than three buttons that contain glyphs — or two buttons that contain text — in a row. Although it’s usually better to let text buttons span the full width of the screen, two side-by-side buttons with short text labels can also work well, as long as the screen doesn’t scroll.
 
-![A diagram of an Apple Watch screen showing two side-by-side buttons beneath three lines of text.](/images/com.apple.HIG/layout-controls@2x.png)
+![A diagram of an Apple Watch screen showing two side-by-side buttons beneath three lines of text.](https://developer.apple.com/tutorials/images/com.apple.HIG/layout-controls@2x.png)
 
 **Support autorotation in views people might want to show others.** When people flip their wrist away, apps typically respond to the motion by sleeping the display, but in some cases it makes sense to autorotate the content. For example, a wearer might want to show an image to a friend or display a QR code to a reader. For developer guidance, see [isAutorotating](https://developer.apple.com/documentation/watchkit/wkextension/isautorotating).
 

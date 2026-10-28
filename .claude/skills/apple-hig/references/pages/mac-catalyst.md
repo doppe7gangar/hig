@@ -2,7 +2,7 @@
 
 When you use Mac Catalyst to create a Mac version of your iPad app, you give people the opportunity to enjoy the experience in a new environment.
 
-![A sketch of an iPad overlapping a Mac, suggesting an iPad app running on Mac. The image is overlaid with rectangular and circular grid lines and is tinted blue to subtly reflect the blue in the original six-color Apple logo.](/images/com.apple.HIG/technologies-Mac-Catalyst-intro@2x.png)
+![A sketch of an iPad overlapping a Mac, suggesting an iPad app running on Mac. The image is overlaid with rectangular and circular grid lines and is tinted blue to subtly reflect the blue in the original six-color Apple logo.](https://developer.apple.com/tutorials/images/com.apple.HIG/technologies-Mac-Catalyst-intro@2x.png)
 
 ## Before you start
 
@@ -57,11 +57,11 @@ You’re most likely to benefit from the Mac idiom if your app displays a lot of
 
 **iPad idiom**
 
-![Zoomed icon for the California Academy of Sciences point-of-interest in Maps to show how the system renders it with less details if you choose the iPad idiom.](/images/com.apple.HIG/ipad-idiom@2x.png)
+![Zoomed icon for the California Academy of Sciences point-of-interest in Maps to show how the system renders it with less details if you choose the iPad idiom.](https://developer.apple.com/tutorials/images/com.apple.HIG/ipad-idiom@2x.png)
 
 **Mac idiom**
 
-![Zoomed icon for the California Academy of Sciences point-of-interest in Maps to show how the system renders it with more details if you choose the Mac idiom.](/images/com.apple.HIG/mac-idiom@2x.png)
+![Zoomed icon for the California Academy of Sciences point-of-interest in Maps to show how the system renders it with more details if you choose the Mac idiom.](https://developer.apple.com/tutorials/images/com.apple.HIG/mac-idiom@2x.png)
 
 
 > **Note:** When you adopt the Mac idiom, the unscaled views and interface elements report different metrics, often resulting in a significant amount of additional work. To reduce the amount of work, avoid using fixed font, view, or layout sizes. For developer guidance, see [Choosing a user interface idiom for your Mac app](https://developer.apple.com/documentation/uikit/choosing-a-user-interface-idiom-for-your-mac-app).

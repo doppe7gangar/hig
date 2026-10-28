@@ -2,7 +2,7 @@
 
 A picker displays one or more scrollable lists of distinct values that people can choose from.
 
-![A stylized representation of a selected item in a scrollable list. The image is tinted red to subtly reflect the red in the original six-color Apple logo.](/images/com.apple.HIG/components-pickers-intro@2x.png)
+![A stylized representation of a selected item in a scrollable list. The image is tinted red to subtly reflect the red in the original six-color Apple logo.](https://developer.apple.com/tutorials/images/com.apple.HIG/components-pickers-intro@2x.png)
 
 The system provides several styles of pickers, each of which offers different types of selectable values and has a different appearance. The exact values shown in a picker, and their order, depend on the device language.
 
@@ -44,15 +44,15 @@ Here are several examples of date pickers showing different combinations of styl
 
 **Compact**
 
-![An illustration of a compact date picker, with a single inline row showing the currently selected date. The picker opens as a popover extending down from the row, and includes a full calendar month for choosing the date.](/images/com.apple.HIG/pickers-date-picker-compact-expanded@2x.png)
+![An illustration of a compact date picker, with a single inline row showing the currently selected date. The picker opens as a popover extending down from the row, and includes a full calendar month for choosing the date.](https://developer.apple.com/tutorials/images/com.apple.HIG/pickers-date-picker-compact-expanded@2x.png)
 
 **Inline**
 
-![An illustration of an inline date picker, titled 'Date'. A toggle at the top is switched on, and a calendar month for choosing the date appears below the title and toggle.](/images/com.apple.HIG/pickers-date-picker-inline-expanded@2x.png)
+![An illustration of an inline date picker, titled 'Date'. A toggle at the top is switched on, and a calendar month for choosing the date appears below the title and toggle.](https://developer.apple.com/tutorials/images/com.apple.HIG/pickers-date-picker-inline-expanded@2x.png)
 
 **Wheels**
 
-![An illustration of an inline time picker, titled 'Time'. The currently selected time appears in the title row, and three vertical wheels appear below the title row for choosing the hour, minute, and AM or PM value.](/images/com.apple.HIG/pickers-time-picker-inline-wheel@2x.png)
+![An illustration of an inline time picker, titled 'Time'. The currently selected time appears in the title row, and three vertical wheels appear below the title row for choosing the hour, minute, and AM or PM value.](https://developer.apple.com/tutorials/images/com.apple.HIG/pickers-time-picker-inline-wheel@2x.png)
 
 
 **Use a compact date picker when space is constrained.** The compact style displays a button that shows the current value in your app’s accent color. When people tap the button, the date picker opens a modal view, providing access to a familiar calendar-style editor and time picker. Within the modal view, people can make multiple edits to dates and times before tapping outside the view to confirm their choices.
@@ -73,19 +73,19 @@ Pickers display lists of items that people navigate using the Digital Crown, whi
 
 A picker can display a list of items using the wheels style. watchOS can also display date and time pickers using the wheels style. For developer guidance, see [Picker](https://developer.apple.com/documentation/swiftui/picker) and [DatePicker](https://developer.apple.com/documentation/swiftui/datepicker).
 
-![An illustration representing a screen containing a picker view on Apple Watch, showing three items in a list. The center item is highlighted.](/images/com.apple.HIG/pickers-wheel-watch@2x.png)
+![An illustration representing a screen containing a picker view on Apple Watch, showing three items in a list. The center item is highlighted.](https://developer.apple.com/tutorials/images/com.apple.HIG/pickers-wheel-watch@2x.png)
 
-![An illustration representing a screen containing a date picker on Apple Watch, with the day highlighted.](/images/com.apple.HIG/pickers-date-watch@2x.png)
+![An illustration representing a screen containing a date picker on Apple Watch, with the day highlighted.](https://developer.apple.com/tutorials/images/com.apple.HIG/pickers-date-watch@2x.png)
 
-![An illustration representing a screen containing a time picker on Apple Watch, with the minutes highlighted.](/images/com.apple.HIG/pickers-time-watch@2x.png)
+![An illustration representing a screen containing a time picker on Apple Watch, with the minutes highlighted.](https://developer.apple.com/tutorials/images/com.apple.HIG/pickers-time-watch@2x.png)
 
 You can configure a picker to display an outline, caption, and scrolling indicator.
 
 For longer lists, the navigation link displays the picker as a button. When someone taps the button, the system shows the list of options. The person can also scrub through the options using the Digital Crown without tapping the button. For developer guidance, see [navigationLink](https://developer.apple.com/documentation/swiftui/pickerstyle/navigationlink).
 
-![An illustration representing a screen that contains a picker button on Apple Watch. The button’s text denotes that the second item is selected.](/images/com.apple.HIG/pickers-navigation-button-watch@2x.png)
+![An illustration representing a screen that contains a picker button on Apple Watch. The button’s text denotes that the second item is selected.](https://developer.apple.com/tutorials/images/com.apple.HIG/pickers-navigation-button-watch@2x.png)
 
-![An illustration representing a screen showing a list of items on Apple Watch. The second item in the list is selected.](/images/com.apple.HIG/pickers-navigation-list-watch@2x.png)
+![An illustration representing a screen showing a list of items on Apple Watch. The second item in the list is selected.](https://developer.apple.com/tutorials/images/com.apple.HIG/pickers-navigation-list-watch@2x.png)
 
 ## Resources
 

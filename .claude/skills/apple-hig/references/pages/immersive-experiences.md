@@ -2,7 +2,7 @@
 
 In visionOS, you can design apps and games that extend beyond windows and volumes, immersing people in your content.
 
-![A sketch that suggests Apple Vision Pro. The image is overlaid with rectangular and circular grid lines and is tinted yellow to subtly reflect the yellow in the original six-color Apple logo.](/images/com.apple.HIG/foundations-immersive-experiences-intro@2x.png)
+![A sketch that suggests Apple Vision Pro. The image is overlaid with rectangular and circular grid lines and is tinted yellow to subtly reflect the yellow in the original six-color Apple logo.](https://developer.apple.com/tutorials/images/com.apple.HIG/foundations-immersive-experiences-intro@2x.png)
 
 You can choose whether your visionOS app or game launches in the Shared Space or in a Full Space. In the *Shared Space*, your software runs alongside other experiences, and people can switch between them much as they do on a Mac; in a *Full Space*, your app or game runs alone, hiding other experiences and helping people immerse themselves in your content. Apps and games can support different types of immersion, and can transition fluidly between the Shared Space and a Full Space at any time.
 
@@ -24,11 +24,11 @@ visionOS offers several ways to immerse people in your content in the Shared Spa
 
 **Without dimmed passthrough**
 
-![A screenshot of a window in the Shared Space.](/images/com.apple.HIG/immersive-spaces-shared-space-regular-content@2x.png)
+![A screenshot of a window in the Shared Space.](https://developer.apple.com/tutorials/images/com.apple.HIG/immersive-spaces-shared-space-regular-content@2x.png)
 
 **With dimmed passthrough**
 
-![A screenshot of a highlighted window in the Shared Space with dimmed passthrough.](/images/com.apple.HIG/immersive-spaces-shared-space-dimmed-content@2x.png)
+![A screenshot of a highlighted window in the Shared Space with dimmed passthrough.](https://developer.apple.com/tutorials/images/com.apple.HIG/immersive-spaces-shared-space-dimmed-content@2x.png)
 
 
 - **Create unbounded 3D experiences.** Use the `mixed` immersion style in a Full Space to blend your content with passthrough. When your app or game runs in a Full Space, you can request access to information about nearby physical objects and room layout, helping you display virtual content in a person’s surroundings. The `mixed` immersion style doesn’t define a boundary. Instead, when a person gets too close to a physical object, the system automatically makes nearby content semi-opaque to help them remain aware of their surroundings. For developer guidance, see [mixed](https://developer.apple.com/documentation/swiftui/immersionstyle/mixed) and [ARKit](https://developer.apple.com/documentation/arkit).
@@ -40,15 +40,15 @@ visionOS offers several ways to immerse people in your content in the Shared Spa
 
 **Full Space (Mixed)**
 
-![A screenshot of an app running in a Full Space using the mixed immersion style in visionOS.](/images/com.apple.HIG/immersive-spaces-full-space-mixed-style@2x.png)
+![A screenshot of an app running in a Full Space using the mixed immersion style in visionOS.](https://developer.apple.com/tutorials/images/com.apple.HIG/immersive-spaces-full-space-mixed-style@2x.png)
 
 **Full Space (Progressive)**
 
-![A screenshot of an app running in a Full Space using the progressive immersion style in visionOS.](/images/com.apple.HIG/immersive-spaces-full-space-progressive-style@2x.png)
+![A screenshot of an app running in a Full Space using the progressive immersion style in visionOS.](https://developer.apple.com/tutorials/images/com.apple.HIG/immersive-spaces-full-space-progressive-style@2x.png)
 
 **Full Space (Immersive)**
 
-![A screenshot of an app running in a Full Space using the full immersion style in visionOS.](/images/com.apple.HIG/immersive-spaces-full-space-full-style@2x.png)
+![A screenshot of an app running in a Full Space using the full immersion style in visionOS.](https://developer.apple.com/tutorials/images/com.apple.HIG/immersive-spaces-full-space-full-style@2x.png)
 
 
 ## Best practices

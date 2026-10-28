@@ -2,7 +2,7 @@
 
 People expect to enjoy rich video experiences on their devices, regardless of the app or game they’re using.
 
-![A sketch of a play button, suggesting video playback. The image is overlaid with rectangular and circular grid lines and is tinted orange to subtly reflect the orange in the original six-color Apple logo.](/images/com.apple.HIG/patterns-playing-video-intro@2x.png)
+![A sketch of a play button, suggesting video playback. The image is overlaid with rectangular and circular grid lines and is tinted orange to subtly reflect the orange in the original six-color Apple logo.](https://developer.apple.com/tutorials/images/com.apple.HIG/patterns-playing-video-intro@2x.png)
 
 The system provides video players designed for you to use to embed playback experiences within your app or game in iOS, iPadOS, macOS, tvOS, and visionOS. You can also offer your content through the TV app in these platforms, which gives people a convenient and consistent viewing experience.
 
@@ -23,27 +23,27 @@ Here are some examples that show how padding can affect video display on iPhone 
 
 **Result of padding a 4:3 video**
 
-![An illustration of iPhone in landscape orientation. A blue rectangle shows the AVKit safe area within the screen. Overlaying the safe area and extending beyond it on all sides is a purple rectangle that represents the 4:3 video area, which doesn't include any embedded padding.](/images/com.apple.HIG/video-fill-4-3-right@2x.png)
+![An illustration of iPhone in landscape orientation. A blue rectangle shows the AVKit safe area within the screen. Overlaying the safe area and extending beyond it on all sides is a purple rectangle that represents the 4:3 video area, which doesn't include any embedded padding.](https://developer.apple.com/tutorials/images/com.apple.HIG/video-fill-4-3-right@2x.png)
 
-![A checkmark in a circle to indicate correct usage.](/images/com.apple.HIG/checkmark@2x.png)
+![A checkmark in a circle to indicate correct usage.](https://developer.apple.com/tutorials/images/com.apple.HIG/checkmark@2x.png)
 
-![An illustration of iPhone in landscape orientation. A blue rectangle shows the AVKit safe area within the screen. Overlaying the safe area and extending beyond its top and bottom edges is a purple rectangle that represents the 4:3 video area. Attached to the left and right edges of the purple rectangle are two vertical pink rectangles that extend to the left and right device edges, representing embedded pillarboxes.](/images/com.apple.HIG/video-fill-4-3-wrong@2x.png)
+![An illustration of iPhone in landscape orientation. A blue rectangle shows the AVKit safe area within the screen. Overlaying the safe area and extending beyond its top and bottom edges is a purple rectangle that represents the 4:3 video area. Attached to the left and right edges of the purple rectangle are two vertical pink rectangles that extend to the left and right device edges, representing embedded pillarboxes.](https://developer.apple.com/tutorials/images/com.apple.HIG/video-fill-4-3-wrong@2x.png)
 
-![An X in a circle to indicate incorrect usage.](/images/com.apple.HIG/crossout@2x.png)
+![An X in a circle to indicate incorrect usage.](https://developer.apple.com/tutorials/images/com.apple.HIG/crossout@2x.png)
 
-![A legend for the illustrations, identifying blue as the AVKit safe area, purple as the video area, and pink as the embedded padding.](/images/com.apple.HIG/legend-letter-pillar@2x.png)
+![A legend for the illustrations, identifying blue as the AVKit safe area, purple as the video area, and pink as the embedded padding.](https://developer.apple.com/tutorials/images/com.apple.HIG/legend-letter-pillar@2x.png)
 
 **Result of padding a 21:9 video**
 
-![An illustration of iPhone in landscape orientation. A blue rectangle shows the AVKit safe area within the screen. Overlaying the safe area and extending to the top and bottom edges of the device is a purple rectangle representing the 21:9 video area, which doesn't include any embedded padding.](/images/com.apple.HIG/video-fit-21-9-right@2x.png)
+![An illustration of iPhone in landscape orientation. A blue rectangle shows the AVKit safe area within the screen. Overlaying the safe area and extending to the top and bottom edges of the device is a purple rectangle representing the 21:9 video area, which doesn't include any embedded padding.](https://developer.apple.com/tutorials/images/com.apple.HIG/video-fit-21-9-right@2x.png)
 
-![A checkmark in a circle to indicate correct usage.](/images/com.apple.HIG/checkmark@2x.png)
+![A checkmark in a circle to indicate correct usage.](https://developer.apple.com/tutorials/images/com.apple.HIG/checkmark@2x.png)
 
-![An illustration of iPhone in landscape orientation. A blue rectangle shows the AVKit safe area within the screen. Overlaying the safe area is a purple rectangle representing the 21:9 video area plus two horizontal pink rectangles attached to its top and bottom edges, representing embedded letterboxes. The area that includes the video and the letterboxes extends to the top and bottom edges of the device, but doesn't extend to the left and right edges of the safe area.](/images/com.apple.HIG/video-fit-21-9-wrong@2x.png)
+![An illustration of iPhone in landscape orientation. A blue rectangle shows the AVKit safe area within the screen. Overlaying the safe area is a purple rectangle representing the 21:9 video area plus two horizontal pink rectangles attached to its top and bottom edges, representing embedded letterboxes. The area that includes the video and the letterboxes extends to the top and bottom edges of the device, but doesn't extend to the left and right edges of the safe area.](https://developer.apple.com/tutorials/images/com.apple.HIG/video-fit-21-9-wrong@2x.png)
 
-![An X in a circle to indicate incorrect usage.](/images/com.apple.HIG/crossout@2x.png)
+![An X in a circle to indicate incorrect usage.](https://developer.apple.com/tutorials/images/com.apple.HIG/crossout@2x.png)
 
-![A legend for the illustrations, identifying blue as the AVKit safe area, purple as the video area, and pink as the embedded padding.](/images/com.apple.HIG/legend-letter-pillar@2x.png)
+![A legend for the illustrations, identifying blue as the AVKit safe area, purple as the video area, and pink as the embedded padding.](https://developer.apple.com/tutorials/images/com.apple.HIG/legend-letter-pillar@2x.png)
 
 
 **Provide additional information when it adds value.** In iOS, iPadOS, tvOS, and visionOS, you can customize a video’s additional information by providing an image, title, description, and other useful information. In general, restrict this content so that it doesn’t obscure media playback. For developer guidance, see [externalMetadata](https://developer.apple.com/documentation/avfoundation/avplayeritem/externalmetadata).

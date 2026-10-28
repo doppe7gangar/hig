@@ -15,6 +15,10 @@ from collections import deque
 ROOT_PATH = "/design/human-interface-guidelines"
 DATA_BASE = "https://developer.apple.com/tutorials/data"
 SITE_BASE = "https://developer.apple.com"
+# Image variants come back as /images/com.apple.HIG/...; Apple serves them
+# under /tutorials, where the page data lives. Left relative, every image
+# in content/ pointed at nothing.
+IMAGE_BASE = SITE_BASE + "/tutorials"
 OUT_DIR = os.path.join(os.path.dirname(__file__), "..", "content")
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
@@ -105,7 +109,7 @@ def resolve_image_url(ref):
     light-appearance, highest-resolution asset from Apple's CDN."""
     variants = ref.get("variants") or []
     if not variants:
-        return ref.get("url")
+        return absolute_image(ref.get("url"))
 
     def score(variant):
         traits = variant.get("traits", [])
@@ -117,7 +121,11 @@ def resolve_image_url(ref):
         return (res, -dark)
 
     best = max(variants, key=score)
-    return best.get("url")
+    return absolute_image(best.get("url"))
+
+
+def absolute_image(url):
+    return IMAGE_BASE + url if url and url.startswith("/") else url
 
 
 # ---------- block content rendering ----------
