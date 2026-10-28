@@ -1,6 +1,6 @@
 ---
 name: apple-design
-description: Design or redesign a whole product with Apple-level hierarchy, restraint, composition, platform awareness, adaptivity, accessibility, content integrity, interaction architecture, cross-screen coherence, project design grammar, implementation-derived grammar evidence, and rendered critique. Use whenever someone describes a product they want rather than asking about a specific control — "I want an app for splitting bills", "I'm building a dashboard for our support team", "we need a landing page", "help me make a tool that…", "can you build me…" — with or without the word design, and with or without a platform or brand colour named. Also for: starting any app, website, dashboard, marketing page or cross-platform project; deciding what screens exist and how they connect; generating a design system or brand palette; and fixing a build that ships only its happy path. If the request names a product and not a component, this skill runs first. For a specific rule or spec use apple-hig; for exact iOS values and CSS use apple-ui-kit; for animation use apple-motion.
+description: Design or redesign a whole product with Apple-level hierarchy, restraint, composition, platform awareness, adaptivity, accessibility, content integrity, interaction architecture, cross-screen coherence, project design grammar, implementation-derived grammar evidence, and rendered critique. Use whenever someone describes a product they want rather than asking about a specific control — "I want an app for splitting bills", "I'm building a dashboard for our support team", "we need a landing page", "help me make a tool that…", "can you build me…" — with or without the word design, and with or without a platform or brand colour named. Also for: starting any app, website, dashboard, marketing page or cross-platform project; deciding what screens exist and how they connect; generating a design system or brand palette; fixing a build that ships only its happy path; and turning an approved design into SwiftUI without losing screens, states or symbols on the way. If the request names a product and not a component, this skill runs first. For a specific rule or spec use apple-hig; for exact iOS values and CSS use apple-ui-kit; for animation use apple-motion.
 ---
 
 # Apple Design Director
@@ -32,6 +32,7 @@ One screen or page takes the short path: a single primary task, with its sheets 
 2. Scaffold (step 12) and build the screen on it, with real content and its loading, empty and error states. Keep its large title: a top-level iOS screen without one reads as a web page.
 3. Run `python3 check_design.py ./design` until it passes.
 4. Run `python3 render_review.py ./design`, look at the screenshots, and fix what they show.
+5. If the app is SwiftUI and the request includes the code, hand off (step 17).
 
 Skip the rest. Divergence candidates, cross-screen coherence, project grammar and the implementation audit exist for products with several screens; on one screen they take most of the time for little of the value. Say in one line that you took the short path. A product with screens to move between, or a request for design directions, takes the full workflow below.
 
@@ -105,6 +106,18 @@ Read `references/interaction-accessibility.md`. Check applicable focus, hover, p
 ## 16. Compose and review
 Compose regions, reading order, density, persistent/contextual chrome, and functional empty space before decorative material choices. Avoid card wallpaper, excessive pills, decorative glass/blur, gratuitous shadows, unsupported giant headings, duplicate primary actions, and decorative motion.
 
+## 17. Hand off to SwiftUI
+When the design is approved and the app is SwiftUI, write the views from the design rather than from memory of it. `references/swiftui-handoff.md` maps every kit component to its SwiftUI construct, shows the one-view, four-preview pattern for the loading, empty and error states, and lists what to leave behind: row heights, separators, radii and hex colours are what the browser had to be told and what iOS already draws. The brand colour goes in the `AccentColor` asset.
+
+Then check that nothing was lost on the way, and that the Swift holds up on its own:
+
+```bash
+python3 check_handoff.py ./design ./MyApp
+python3 ../apple-hig/check_swiftui.py ./MyApp
+```
+
+`check_handoff.py` reads the design for its screen titles, tabs, sheets, states, SF Symbols, components, button labels and accent, and reports each one it can't find in the Swift. It reads the Swift as text; nothing here compiles it. Say so when you hand over, and give the Mac steps at the end of the reference.
+
 # Project gates
 
 ```bash
@@ -156,6 +169,7 @@ brief
 → rendered review
 → correction / reduction
 → rerender + completed audit checks
+→ SwiftUI handoff (check_handoff + check_swiftui)
 ```
 
 # Final standard

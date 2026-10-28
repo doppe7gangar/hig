@@ -157,6 +157,21 @@ at a folder holding `name_availability.plist`.
 `python3 scripts/eval/test_sf_symbols.py` tests the reading and the checks
 against a small stand-in list, since Apple's own can't be committed here.
 
+### Checking a handoff from design to SwiftUI
+
+```bash
+python3 .claude/skills/apple-design/check_handoff.py ./design ./MyApp
+python3 scripts/eval/test_check_handoff.py
+```
+
+`scripts/eval/handoff/` holds a small design and a faithful SwiftUI
+translation of it. The test requires the faithful one to come back clean
+from both checkers, then breaks it eleven ways a real handoff drifts (a
+renamed tab, a swapped symbol, a lost loading state, the accent written
+as a hex literal, and so on) and requires each to be reported. None of
+it compiles Swift; on a Mac, open the views in Xcode and compare each
+`#Preview` with the design's matching state.
+
 ### Checking an answer rather than trusting it
 
 Any answer that quotes Apple can be verified:

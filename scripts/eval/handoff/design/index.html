@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ledger</title>
+<!-- A test fixture for check_handoff.py: a small design in the kit's
+     markup, with the SwiftUI it hands off to in ../swift/. -->
+<link rel="stylesheet" href="vendor/ios-tokens.css">
+<link rel="stylesheet" href="vendor/ios-components.css">
+<link rel="stylesheet" href="theme.css">
+</head>
+<body>
+<div class="demo__bar">
+  <button data-set="populated">Populated</button>
+  <button data-set="loading">Loading</button>
+  <button data-set="empty">Empty</button>
+  <button data-set="error">Error</button>
+</div>
+
+<div class="device" data-state="populated" data-screen="expenses">
+  <div class="ios-statusbar" aria-hidden="true">
+    <span class="ios-statusbar__indicators">
+      <svg data-sf-symbol="cellularbars" aria-hidden="true"></svg>
+      <svg data-sf-symbol="wifi" aria-hidden="true"></svg>
+      <svg data-sf-symbol="battery.100" aria-hidden="true"></svg>
+    </span>
+  </div>
+
+  <section class="scr scr--expenses">
+    <nav class="ios-navbar">
+      <span class="ios-navbar__title">Expenses</span>
+      <div class="ios-glass ios-controls">
+        <button class="ios-controls__item" data-sf-symbol="plus" aria-label="Add Expense"
+                data-open="add"><svg aria-hidden="true"></svg></button>
+      </div>
+    </nav>
+    <h1 class="largetitle">Expenses</h1>
+
+    <section class="state state--populated">
+      <div class="ios-segmented" role="radiogroup" aria-label="Period">
+        <label><input type="radio" name="period">Week</label>
+        <label><input type="radio" name="period" checked>Month</label>
+      </div>
+      <ul class="ios-list">
+        <li class="ios-list__row ios-list__row--tappable" data-go="detail">
+          <span class="rowicon" data-sf-symbol="fork.knife" aria-hidden="true">F</span>
+          <span class="ios-list__title">Lunch at Kiln</span>
+          <span class="ios-list__value">£18.40</span>
+          <span class="ios-list__chevron" aria-hidden="true">&rsaquo;</span>
+        </li>
+        <li class="ios-list__row ios-list__row--tappable" data-go="detail">
+          <span class="rowicon" data-sf-symbol="tram.fill" aria-hidden="true">T</span>
+          <span class="ios-list__title">Monthly tram pass</span>
+          <span class="ios-list__value">£42.00</span>
+          <span class="ios-list__chevron" aria-hidden="true">&rsaquo;</span>
+        </li>
+        <li class="ios-list__row ios-list__row--tappable" data-go="detail">
+          <span class="rowicon" data-sf-symbol="cart.fill" aria-hidden="true">G</span>
+          <span class="ios-list__title">Groceries</span>
+          <span class="ios-list__value">£63.15</span>
+          <span class="ios-list__chevron" aria-hidden="true">&rsaquo;</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="state state--loading">
+      <ul class="ios-list"><li class="ios-list__row" aria-hidden="true"></li></ul>
+    </section>
+
+    <section class="state state--empty">
+      <div class="ios-empty">
+        <div class="ios-empty__glyph" data-sf-symbol="tray" aria-hidden="true"></div>
+        <h2 class="ios-empty__title">No expenses yet</h2>
+        <p class="ios-empty__body">Everything you spend shows up here.</p>
+        <button class="ios-btn ios-btn--filled ios-empty__action" data-open="add">Add Expense</button>
+      </div>
+    </section>
+
+    <section class="state state--error">
+      <div class="ios-empty">
+        <div class="ios-empty__glyph" data-sf-symbol="exclamationmark.triangle" aria-hidden="true"></div>
+        <h2 class="ios-empty__title">Couldn’t load expenses</h2>
+        <p class="ios-empty__body">Check your connection and try again.</p>
+        <button class="ios-btn ios-btn--filled ios-empty__action">Try Again</button>
+      </div>
+    </section>
+  </section>
+
+  <section class="scr scr--detail">
+    <nav class="ios-navbar">
+      <button class="ios-controls__item" data-sf-symbol="chevron.left" aria-label="Back"
+              data-go="expenses"><svg aria-hidden="true"></svg></button>
+    </nav>
+    <h1 class="largetitle">Lunch at Kiln</h1>
+    <ul class="ios-list">
+      <li class="ios-list__row"><span class="ios-list__title">Amount</span>
+        <span class="ios-list__value">£18.40</span></li>
+    </ul>
+    <ul class="ios-list">
+      <li class="ios-list__row"><button class="share" data-component="ShareLink"
+          data-sf-symbol="square.and.arrow.up">Share</button></li>
+      <li class="ios-list__row"><button class="ios-btn ios-btn--destructive"
+          data-open="delete">Delete Expense</button></li>
+    </ul>
+  </section>
+
+  <nav class="ios-tabbar">
+    <button class="ios-tabbar__item" aria-selected="true"><span data-sf-symbol="list.bullet" aria-hidden="true">▤</span>Expenses</button>
+    <button class="ios-tabbar__item"><span data-sf-symbol="chart.pie" aria-hidden="true">◔</span>Budgets</button>
+    <button class="ios-tabbar__item"><span data-sf-symbol="gear" aria-hidden="true">⚙</span>Settings</button>
+  </nav>
+
+  <div class="ios-sheet" role="dialog" aria-modal="true" data-sheet-name="add">
+    <div class="ios-sheet__grabber" aria-hidden="true"></div>
+    <div class="ios-sheet__bar">
+      <button class="ios-sheet__btn ios-glass" aria-label="Cancel" data-sf-symbol="xmark"></button>
+      <span class="ios-sheet__title">New Expense</span>
+      <button class="ios-sheet__btn ios-glass ios-glass--prominent" aria-label="Add" data-sf-symbol="checkmark"></button>
+    </div>
+    <ul class="ios-list">
+      <li class="ios-list__row"><input class="ios-field" placeholder="Description"></li>
+      <li class="ios-list__row"><input class="ios-field" placeholder="Amount" inputmode="decimal"></li>
+      <li class="ios-list__row"><span class="ios-list__title">Split with others</span>
+        <label class="ios-switch"><input type="checkbox" role="switch"><span class="ios-switch__track"></span></label></li>
+    </ul>
+  </div>
+
+  <div class="ios-actionsheet" role="dialog" aria-modal="true">
+    <div class="ios-actionsheet__title">Delete this expense?</div>
+    <div class="ios-actionsheet__message">This can’t be undone.</div>
+    <div class="ios-actionsheet__actions">
+      <button class="ios-btn ios-btn--destructive">Delete Expense</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

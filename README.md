@@ -111,6 +111,14 @@ targets), each finding citing its page:
 python3 ~/.claude/skills/apple-hig/check_swiftui.py MyApp/
 ```
 
+To check SwiftUI written from one of apple-design's mockups, screen by
+screen and state by state, for titles, tabs, symbols and controls that got
+lost on the way:
+
+```bash
+python3 ~/.claude/skills/apple-design/check_handoff.py ./design MyApp/
+```
+
 On a Mac, run `python3 ~/.claude/skills/apple-hig/sf_symbols.py --install`
 once and it checks SF Symbol names as well. A misspelt name, or one newer
 than your deployment target, draws nothing and nothing warns you. It
