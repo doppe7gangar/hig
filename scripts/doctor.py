@@ -106,7 +106,7 @@ def truth():
 # checker being wrong, not the doc.
 CLAIMS = [
     (r"all (\d[\d,]*) HIG rules", "rules"),
-    (r"\*\*(\d[\d,]*) rules as one-line imperatives\*\*", "rules"),
+    (r"(\d[\d,]*) (?:rules|guidelines) as one-line imperatives", "rules"),
     (r"holds all (\d[\d,]*) HIG rules", "rules"),
     (r"Contains all (\d[\d,]*) HIG rules", "rules"),
     (r"(\d[\d,]*)-page corpus", "pages"),

@@ -28,7 +28,7 @@ All paths under `.claude/skills/apple-hig/`:
 | File | Answers |
 |---|---|
 | `references/patterns.md` | **"What do I write?"** — correct-by-default SwiftUI scaffolding |
-| `references/rules.md` | 2,280 guidelines as one-line imperatives, by topic |
+| `references/rules.md` | 2,326 rules as one-line imperatives, by topic |
 | `references/specs.md` | Every number — sizes, ratios, limits — with source tables |
 | `references/concepts.md` | Where guidance lives for concerns that aren't components |
 | `references/api-map.md` | HIG concept → exact API, 30+ frameworks |
