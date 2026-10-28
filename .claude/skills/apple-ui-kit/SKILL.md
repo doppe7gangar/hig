@@ -1,6 +1,6 @@
 ---
 name: apple-ui-kit
-description: Apple's iOS 27 design values — colour, type scale, control geometry, interaction states — measured from Apple's real UI kit and exported for every platform: CSS custom properties, Design Tokens JSON, SwiftUI, Jetpack Compose, Android XML, Flutter/Dart, and TypeScript for React Native. Plus ready web component recipes measured against iOS 26/27: navigation bar, tab bar, grouped lists, sheets, alerts, action sheets, buttons, switches, segmented controls, steppers, sliders, date chips, page controls, empty states, status bar, Liquid Glass. Use whenever UI should look like Apple's on a target that has no system palette to ask — a web app, landing page, dashboard, React/Vue/Svelte component, Android or Flutter or React Native app, or a design system — and whenever someone says "make it look like Apple", "iOS style", "Apple aesthetic", or asks for a polished app UI with Apple as the obvious reference. Values are measured, not remembered: the accent is #0088FF, not the #007AFF that circulates online, and the primary label is #1A1A1A, not black. Also use when reviewing UI that is trying to look Apple-like and getting details wrong. For Apple's actual rules — which control to use, how layouts adapt, platform differences — and for native SwiftUI/UIKit/AppKit work, use the apple-hig skill.
+description: Apple's iOS 27 design values — colour, type scale, control geometry, interaction states — measured from Apple's real UI kit and exported for every platform: CSS custom properties, Design Tokens JSON, SwiftUI, Jetpack Compose, Android XML, Flutter/Dart, and TypeScript for React Native. Plus ready web component recipes measured against iOS 26/27: navigation bar, tab bar, grouped lists, sheets, alerts, action sheets, buttons, switches, segmented controls, steppers, sliders, date chips, page controls, empty states, status bar, Liquid Glass, as CSS classes, as accessible React components, and as a Tailwind v4/v3 theme. Use whenever UI should look like Apple's on a target that has no system palette to ask — a web app, landing page, dashboard, React/Vue/Svelte component, Android or Flutter or React Native app, or a design system — and whenever someone says "make it look like Apple", "iOS style", "Apple aesthetic", or asks for a polished app UI with Apple as the obvious reference. Values are measured, not remembered: the accent is #0088FF, not the #007AFF that circulates online, and the primary label is #1A1A1A, not black. Also use when reviewing UI that is trying to look Apple-like and getting details wrong. For Apple's actual rules — which control to use, how layouts adapt, platform differences — and for native SwiftUI/UIKit/AppKit work, use the apple-hig skill.
 ---
 
 # Apple UI for the web
@@ -29,6 +29,8 @@ which is the reason to trust the ones that don't overlap.
 | `fonts/` | **Inter, bundled** (SIL OFL) — the non-Apple fallback for SF Pro, with its licence. |
 | `ios-components.css` | **Web component recipes** built on the CSS tokens. Bars: `ios-navbar`, `ios-tabbar`, `ios-controls` (floating glass group), `ios-statusbar`. Content: `ios-list` (52pt rows, 26pt corners), `ios-empty`. Presentation: `ios-sheet`, `ios-alert`, `ios-actionsheet`. Controls: `ios-btn`, `ios-glass-btn`, `ios-switch`, `ios-segmented`, `ios-stepper`, `ios-slider`, `ios-chip`, `ios-field`, `ios-pagecontrol`. Material: `ios-glass`. Read a recipe's section of the file before using it: its selectors name the parts it expects inside. |
 | `example.html` | Working reference page. Open it to see every recipe, light and dark. |
+| `react/` | **React components** over the recipes (`ios.jsx`, types in `ios.d.ts`, `ios-react.css`), with the keyboard and screen-reader behaviour the static recipes can't have. `example.jsx` uses every one. |
+| `tailwind/` | **Tailwind themes**: `theme.css` for v4, `preset.cjs` for v3. Utilities such as `bg-ios-accent`, `rounded-ios-card` and `ios-text-body` that read the kit's variables. |
 | `ui-kit-tokens.json` | **Every measurement**, 945 renderings × colours + geometry + state. Query it for anything the recipes don't cover. |
 
 ## Picking a target
@@ -107,9 +109,63 @@ dark mode on its own; `#0088FF` does not.
 </label>
 ```
 
-For a framework, port the CSS as-is and keep the token layer — the
-recipes are plain classes with no JS, so they drop into React, Vue,
-Svelte, or Tailwind's `@layer components` unchanged.
+For Vue or Svelte, use the CSS as-is and keep the token layer: the
+recipes are plain classes with no JS.
+
+### React
+
+`react/ios.jsx` renders the recipes' markup and adds what a static page
+can't: a sheet that opens on its first field, keeps Tab inside, closes
+on Escape and gives focus back to what opened it; an alert that starts
+on Cancel; tabs that follow the arrow keys; switches named by their row;
+tappable rows that are real buttons, named "title, value". Copy it with
+the kit:
+
+```bash
+cp -R <this skill's directory>/{tokens,fonts,ios-components.css,react} ./src/ios/
+```
+
+```jsx
+import "./ios/tokens/ios-tokens.css";
+import "./ios/ios-components.css";
+import "./ios/react/ios-react.css";
+import { NavBar, LargeTitle, List, Row, Switch, Sheet, useCollapsed } from "./ios/react/ios.jsx";
+
+<NavBar title="Settings" collapsed={useCollapsed()} />
+<LargeTitle>Settings</LargeTitle>
+<List header="Reminders">
+  <Row title="Daily nudge" accessory={<Switch checked={on} onChange={setOn} />} />
+  <Row title="Account" value="Signed in" onClick={openAccount} />
+</List>
+```
+
+Pass `symbol="fork.knife"` wherever an icon goes: the drawing is your
+stand-in, the name is what an Apple-platform build needs. Light mode
+keeps Apple's own palette, so a contrast audit flags the same places the
+contrast section below describes, and only those.
+
+### Tailwind
+
+The themes map utilities onto the kit's variables, so Tailwind classes
+follow Dark Mode and Increase Contrast exactly as the recipes do. Load
+the tokens as well as the theme:
+
+```css
+/* v4 */
+@import "tailwindcss";
+@import "./ios/tokens/ios-tokens.css";
+@import "./ios/ios-components.css";
+@import "./ios/tailwind/theme.css";
+```
+
+For v3, `presets: [require("./ios/tailwind/preset.cjs")]` in the config,
+and the two CSS files in your stylesheet. v3 can't put an opacity
+modifier on a variable colour (`bg-ios-accent/50`); v4 can.
+
+Utilities for the parts, recipes for the components: `bg-ios-bg-card`
+and `px-ios-gutter` lay out your own content, while a list is still
+`ios-list`, which carries row heights, separators and insets that a
+string of utilities would only approximate.
 
 ## The values that are *not* what people think
 

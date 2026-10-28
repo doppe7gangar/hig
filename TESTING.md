@@ -157,6 +157,23 @@ at a folder holding `name_availability.plist`.
 `python3 scripts/eval/test_sf_symbols.py` tests the reading and the checks
 against a small stand-in list, since Apple's own can't be committed here.
 
+### The React components and the Tailwind theme
+
+```bash
+python3 scripts/eval/test_react_kit.py       # keyboard, screen reader, axe, light and dark
+python3 scripts/eval/test_tailwind_theme.py  # compiles with v4 and v3, colours match the kit
+python3 scripts/build_tailwind.py            # regenerate the themes after a token change
+```
+
+The React test bundles `react/example.jsx` and drives it from the
+keyboard: Enter on a row, arrows through tabs and the segmented control,
+Space on a switch, Tab inside an open sheet without escaping it, Escape,
+and focus back where it started. axe-core audits the page with each
+modal open. Colour contrast is counted separately rather than failed:
+light mode keeps Apple's palette, which falls short of 4.5:1 in places
+Apple itself chose. Both tests need node and npm, and install what they
+use into `scripts/eval/out/`.
+
 ### Checking a handoff from design to SwiftUI
 
 ```bash

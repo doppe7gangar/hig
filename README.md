@@ -25,6 +25,8 @@ right one picks itself.
 |---|---|---|---|
 | Turn an idea into an app or site | *"I want an app for splitting bills with friends"* | `apple-design` | The screens and how they connect, a working HTML project, and a checker run before it's handed over |
 | Make a web, Android, Flutter or React Native UI look like iOS | *"Make this settings page feel like an Apple app"* | `apple-ui-kit` | Apple's measured colours, type and control sizes as tokens, plus ready CSS components |
+| Build that UI in React or Tailwind | *"Give me an iOS-style settings screen in React"* | `apple-ui-kit` | Accessible React components over the same recipes, and a Tailwind v4/v3 theme on the same tokens |
+| Turn an approved design into SwiftUI | *"The design in ./design is approved. Write the SwiftUI app"* | `apple-design` | Views per screen with a preview per state, checked against the design for anything lost |
 | Check a design or SwiftUI code against Apple's rules | *"Review this screen before I ship it"* | `apple-hig` | Findings sorted into hard violations, soft guidance and judgment calls, each citing the page it comes from |
 | Get a straight answer | *"Sheet or popover here?"*, *"Is this button too small?"* | `apple-hig` | Apple's number or rule, quoted, with where it says so |
 | Make it move right | *"This transition feels floaty"* | `apple-motion` | The spring, the timing, and the Reduce Motion fallback |
@@ -143,7 +145,7 @@ is tool-specific.
 | Path | What it is |
 |---|---|
 | `.claude/skills/apple-design/` | Idea → screens → scaffolded project → checked design |
-| `.claude/skills/apple-ui-kit/` | Measured iOS 27 tokens for CSS, SwiftUI, Compose, Android XML, Flutter and TypeScript, plus web components and a live [example](.claude/skills/apple-ui-kit/example.html) |
+| `.claude/skills/apple-ui-kit/` | Measured iOS 27 tokens for CSS, SwiftUI, Compose, Android XML, Flutter and TypeScript, plus web components, React components, a Tailwind theme and a live [example](.claude/skills/apple-ui-kit/example.html) |
 | `.claude/skills/apple-hig/` | 2,326 rules as one-line imperatives, every spec table, an API map across 32 frameworks, 947 screenshots of real components in every state, and all 178 pages |
 | `.claude/skills/apple-motion/` | Springs, transitions, haptic pairing, Reduce Motion |
 | `content/` | The guidelines as Markdown, rebuilt from Apple's site |
