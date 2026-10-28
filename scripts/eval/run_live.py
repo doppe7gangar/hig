@@ -44,6 +44,7 @@ TESTS = {
     "concept_lookup": (["test_concept_lookup.py"], r"(\d+)/(\d+) concept lookups", 60),
     "ui_kit_build":   (["test_ui_kit_build.py"], r"(\d+)/(\d+) checks passed", 75),
     "design_brief":   (["projtest.py", "p-split"], r"verdict: (PASS|FAIL)", 150),
+    "handoff_build":  (["test_handoff_build.py"], r"(\d+)/(\d+) checks passed", 75),
 }
 
 FOOTER = re.compile(r"^run_live: (\S+) min, exit (\S+)$", re.M)
