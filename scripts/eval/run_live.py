@@ -47,7 +47,10 @@ TESTS = {
 }
 
 FOOTER = re.compile(r"^run_live: (\S+) min, exit (\S+)$", re.M)
-LIMIT = re.compile(r"hit your \w+ limit[^\n]*|\b(usage|session|rate) limit[^\n]*", re.I)
+# Seen so far: "hit your weekly limit", "hit your 5-hour limit", each
+# followed by "· resets <time>". Match the shape, not a list of words.
+LIMIT = re.compile(r"hit your [^\n]{0,30}?limit[^\n]*|limit · resets[^\n]*|"
+                   r"\b(usage|session|rate) limit[^\n]*", re.I)
 HALT = threading.Event()
 REASON = []
 
