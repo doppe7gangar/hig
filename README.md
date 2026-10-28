@@ -103,6 +103,14 @@ grep -A12 "^## Buttons" specs.md       # the numbers
 grep -A4 "^\*\*Sheets\*\*" api-map.md   # the SwiftUI / UIKit / AppKit API
 ```
 
+To check SwiftUI code before it ships (fixed font sizes, colours that won't
+adapt, unlabelled icon buttons, destructive buttons without the role, small
+targets), each finding citing its page:
+
+```bash
+python3 ~/.claude/skills/apple-hig/check_swiftui.py MyApp/
+```
+
 To check an answer that quotes Apple rather than trust it:
 
 ```bash

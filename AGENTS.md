@@ -36,6 +36,7 @@ All paths under `.claude/skills/apple-hig/`:
 | `references/platform-diffs.md` | What changes per platform |
 | `references/assets-index.md` | 947 screenshots, every interaction state |
 | `references/pages/` | Full prose when a rule's reasoning matters |
+| `check_swiftui.py` | HIG problems in SwiftUI code that the code alone decides, before shipping |
 
 ## How to use it
 

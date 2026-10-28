@@ -34,6 +34,7 @@ It also ends with a pre-ship checklist. The items on it are the violations that 
 
 The failure mode here is dumping 40 observations of mixed importance. Scope it:
 
+0. **For SwiftUI, run the checker first:** `python3 check_swiftui.py <folder>`. It reports what the code alone decides: fixed font sizes, colours that won't adapt, icon-only buttons without labels, destructive buttons without the role, targets under 44 pt, overflow tabs, red/green-only status, hand-built modals. Findings come sorted into violations and guidance, each citing its page, with deprecated or broken API kept apart. It can't see intent, so the steps below still decide whether an alert interrupts a common, undoable action, whether a chart tells series apart by colour alone, and whether the presentation is the right one.
 1. **Inventory what's actually there.** List the components and patterns in the code — a `TabView`, a `.sheet`, a destructive `Button`, a custom control replacing a system one. Review those, not the whole HIG.
 2. **Pull their rules.** `grep -A1 -i "<component>" references/rules.md` for each. Check numbers against `specs.md`.
 3. **Check the API against `api-map.md`.** A hand-rolled view where a system component already exists (a custom modal built from a `ZStack` instead of `.sheet`, a bespoke button instead of `UIButton`/`NSButton`) is itself worth flagging — Apple's guidance assumes the system component, and a reimplementation usually drifts from it silently.
