@@ -1,6 +1,6 @@
 ---
 name: apple-ui-kit
-description: Apple's iOS 27 design values — colour, type scale, control geometry, interaction states — measured from Apple's real UI kit and exported for every platform: CSS custom properties, Design Tokens JSON, SwiftUI, Jetpack Compose, Android XML, Flutter/Dart, and TypeScript for React Native. Plus ready web component recipes measured against iOS 26/27: navigation bar, tab bar, grouped lists, sheets, alerts, action sheets, buttons, switches, segmented controls, steppers, sliders, date chips, page controls, empty states, status bar, Liquid Glass, as CSS classes, as accessible React components, and as a Tailwind v4/v3 theme. Use whenever UI should look like Apple's on a target that has no system palette to ask — a web app, landing page, dashboard, React/Vue/Svelte component, Android or Flutter or React Native app, or a design system — and whenever someone says "make it look like Apple", "iOS style", "Apple aesthetic", or asks for a polished app UI with Apple as the obvious reference. Values are measured, not remembered: the accent is #0088FF, not the #007AFF that circulates online, and the primary label is #1A1A1A, not black. Also use when reviewing UI that is trying to look Apple-like and getting details wrong. For Apple's actual rules — which control to use, how layouts adapt, platform differences — and for native SwiftUI/UIKit/AppKit work, use the apple-hig skill.
+description: Apple's iOS 27 design values — colour, type scale, control geometry, interaction states — measured from Apple's real UI kit and exported for every platform: CSS custom properties, Design Tokens JSON, SwiftUI, Jetpack Compose, Android XML, Flutter/Dart, and TypeScript for React Native. Plus ready web component recipes measured against iOS 26/27: navigation bar, tab bar, grouped lists, sheets, alerts, action sheets, buttons, switches, segmented controls, steppers, sliders, date chips, page controls, empty states, status bar, Liquid Glass, as CSS classes, as accessible React components, and as a Tailwind v4/v3 theme. Use whenever UI should look like Apple's on a target that has no system palette to ask — a web app, landing page, dashboard, React/Vue/Svelte component, a Mac app mockup, Android or Flutter or React Native app, or a design system — and whenever someone says "make it look like Apple", "iOS style", "Apple aesthetic", or asks for a polished app UI with Apple as the obvious reference. Values are measured, not remembered: the accent is #0088FF, not the #007AFF that circulates online, and the primary label is #1A1A1A, not black. Also use when reviewing UI that is trying to look Apple-like and getting details wrong. For Apple's actual rules — which control to use, how layouts adapt, platform differences — and for native SwiftUI/UIKit/AppKit work, use the apple-hig skill.
 ---
 
 # Apple UI for the web
@@ -29,6 +29,8 @@ which is the reason to trust the ones that don't overlap.
 | `fonts/` | **Inter, bundled** (SIL OFL) — the non-Apple fallback for SF Pro, with its licence. |
 | `ios-components.css` | **Web component recipes** built on the CSS tokens. Bars: `ios-navbar`, `ios-tabbar`, `ios-controls` (floating glass group), `ios-statusbar`. Content: `ios-list` (52pt rows, 26pt corners), `ios-empty`. Presentation: `ios-sheet`, `ios-alert`, `ios-actionsheet`. Controls: `ios-btn`, `ios-glass-btn`, `ios-switch`, `ios-segmented`, `ios-stepper`, `ios-slider`, `ios-chip`, `ios-field`, `ios-pagecontrol`. Material: `ios-glass`. Read a recipe's section of the file before using it: its selectors name the parts it expects inside. |
 | `example.html` | Working reference page. Open it to see every recipe, light and dark. |
+| `macos-components.css` | **macOS 26 recipes**, measured from Apple's own Mac screenshots: `mac-window` with its traffic lights, `mac-sidebar`, `mac-toolbar` with glass `mac-tool`, `mac-toolgroup`, `mac-tabs` and `mac-toolsearch`, `mac-btn`, `mac-popup`, `mac-field`, `mac-search`, `mac-segmented`, `mac-check`, `mac-radio`, `mac-switch`, `mac-progress`, `mac-list`, `mac-table`, `mac-menu`, `mac-sheet`, `mac-alert`, `mac-popover`, `mac-empty`, `mac-inspector`. |
+| `mac-example.html` | Every macOS recipe in four windows, light and dark. `verify_mac_ui.py` measures it. |
 | `react/` | **React components** over the recipes (`ios.jsx`, types in `ios.d.ts`, `ios-react.css`), with the keyboard and screen-reader behaviour the static recipes can't have. `example.jsx` uses every one. |
 | `tailwind/` | **Tailwind themes**: `theme.css` for v4, `preset.cjs` for v3. Utilities such as `bg-ios-accent`, `rounded-ios-card` and `ios-text-body` that read the kit's variables. |
 | `ui-kit-tokens.json` | **Every measurement**, 945 renderings × colours + geometry + state. Query it for anything the recipes don't cover. |
@@ -38,6 +40,7 @@ which is the reason to trust the ones that don't overlap.
 | Building for | Use | Note |
 |---|---|---|
 | Web, any framework | `tokens/ios-tokens.css` + `ios-components.css` | Recipes included |
+| A Mac app, as a mockup | `macos-components.css` | Window, sidebar, toolbar, controls; see **macOS** below |
 | React Native / JS | `tokens/tokens.ts` | Colours + metrics, typed |
 | Android (Compose) | `tokens/AppleKitTokens.kt` | Light and dark objects |
 | Android (views) | `tokens/colors.xml` | Light values |
@@ -57,6 +60,66 @@ native work you almost certainly want **apple-hig** instead.
 colour roles, its own switch, and its own conventions that users expect.
 An iOS palette on Android is a legitimate choice when cross-platform
 brand consistency is the deliberate goal; it is a bad default.
+
+## macOS
+
+`macos-components.css` is the Mac's counterpart to the iOS recipes,
+self-contained, measured from Apple's own screenshots of macOS 26 in
+the HIG: Calendar's window, Notes with its toolbar, menu and sheet, the save
+panel, an alert, a toolbar search field. Those images don't state their
+scale and come at five different ones, so each was anchored on its 13pt
+text (macOS's body size, specs.md); anchored that way they agree to
+within a point. It covers fewer components than the iOS kit, which had
+Apple's 945 kit renderings behind it, and every value that had nothing
+to anchor it says so in the stylesheet.
+
+What comes out of it, and what people get wrong from memory:
+
+- **Windows** have 26pt corners (panels 20, sheets 19), and the traffic
+  lights are **14pt circles on a 22pt pitch**, centred 25.5pt in from
+  the corner. Not 12 on 20; that is the old Mac.
+- **Toolbars** are a 52pt band with nothing drawn across it. The
+  controls float in it as 36pt glass circles and capsules.
+- **Sidebars** run to the top of the window under the traffic lights.
+  Rows are 30pt pills on a 32pt pitch, lined up with the close button.
+  A selected row is a light pill with **accent-coloured text and icon**,
+  not a solid accent fill. Section headers are 11pt bold in the label
+  colour.
+- **Text is 13pt**, not iOS's 17. Use the `--mac-text-*` styles.
+- **Push buttons** are 24pt capsules. An **alert** is 260pt wide, with
+  its title and message left aligned and 28pt buttons stacked full
+  width. A highlighted **menu** item is a solid accent pill inside 11pt
+  corners.
+
+```html
+<link rel="stylesheet" href="macos-components.css">
+
+<div class="mac-desktop">
+  <div class="mac-window">
+    <div class="mac-lights"><span></span><span></span><span></span></div>
+    <nav class="mac-sidebar">
+      <div class="mac-sidebar__header">Library</div>
+      <a class="mac-sidebar__item" aria-current="page">
+        <span class="mac-sidebar__icon" data-sf-symbol="tray.full">…</span>All Documents</a>
+    </nav>
+    <div class="mac-main">
+      <header class="mac-toolbar">
+        <h1 class="mac-toolbar__title">All Documents<span class="mac-toolbar__subtitle">24 documents</span></h1>
+        <span class="mac-toolbar__spacer"></span>
+        <button class="mac-tool" aria-label="New Document" data-sf-symbol="plus">…</button>
+      </header>
+      <main class="mac-content">…</main>
+    </div>
+  </div>
+</div>
+```
+
+The accent is the HIG's system blue, or the brand when a `theme.css`
+from apple-design bridges one in; selections are derived from it. Set
+`--mac-accent` to change it by hand. The Mac kit's verifier,
+`python3 verify_mac_ui.py`, measures `mac-example.html` against all of
+this in 56 checks. For a whole Mac app, apple-design's
+`new_project.py --kind macos` scaffolds the window.
 
 ## Using it
 

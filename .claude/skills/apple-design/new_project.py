@@ -697,6 +697,218 @@ __ERROR__
 
 # ---------------------------------------------------------------- helpers
 
+# ---------------------------------------------------------------- macOS
+
+HEAD_MAC = HEAD.replace(
+    '<link rel="stylesheet" href="vendor/ios-components.css">\n',
+    '<!-- The iOS tokens are loaded for the palette theme.css bridges into;\n'
+    '     the Mac recipes take their accent from it. -->\n'
+    '<link rel="stylesheet" href="vendor/macos-components.css">\n')
+
+MAC_CSS = """
+  /* A Mac design is a window on a desktop, not a page: the desktop is the
+     background and the window keeps its own size, scrolling inside. */
+  body { margin: 0; font: var(--mac-text-body); letter-spacing: var(--mac-track-body); }
+  .demo { background: transparent; }
+  .mac-desktop { padding: 28px 24px 40px; }
+  .mac-window { --mac-window-h: min(660px, calc(100vh - 120px)); }
+  .mac-content .state { padding-top: 2px; }
+  .mac-table td:first-child { display: flex; align-items: center; gap: 8px; }
+  .mac-table td:first-child svg { flex: none; color: var(--mac-label-secondary); }
+  .page { max-width: 640px; margin: 8px auto 40px; padding: 48px 56px;
+          background: var(--mac-content-bg);
+          box-shadow: 0 0 0 1px var(--mac-separator), 0 6px 24px rgba(0,0,0,.08); }
+  .page h2 { margin: 0 0 12px; font: var(--mac-text-title1); letter-spacing: var(--mac-track-title1); }
+  .page p { margin: 0 0 12px; font: var(--mac-text-body); line-height: 20px; }
+  /* A phone can't show a Mac window at size; it gets a narrower one. */
+  @media (max-width: 700px) { .mac-window { --mac-sidebar-w: 150px; } .mac-toolsearch { display: none; } }
+"""
+
+# Stand-ins drawn at SF Symbols' regular weight for 13pt text.
+MAC_SYMBOLS = [
+    ("tray.full", '<path d="M3 13h5l2 3h4l2-3h5"/><path d="M5 5l-2 8v5a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-5l-2-8z"/>'),
+    ("star", '<path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/>'),
+    ("clock", '<circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/>'),
+    ("folder", '<path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4l2 2h9A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z"/>'),
+    ("gearshape", '<circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M5.6 18.4l1.8-1.8M16.6 7.4l1.8-1.8"/>'),
+]
+
+
+def mac_svg(paths, size=17, sw=1.7):
+    return (f'<svg viewBox="0 0 24 24" width="{size}" height="{size}" fill="none" '
+            f'stroke="currentColor" stroke-width="{sw}" stroke-linecap="round" '
+            f'stroke-linejoin="round" aria-hidden="true">{paths}</svg>')
+
+
+def mac_sidebar(screens):
+    out = []
+    for i, screen in enumerate(screens):
+        sym, glyph = MAC_SYMBOLS[i % len(MAC_SYMBOLS)]
+        cur = ' aria-current="page"' if i == 0 else ""
+        out.append(f'        <a class="mac-sidebar__item" href="#"{cur}>'
+                   f'<span class="mac-sidebar__icon" data-sf-symbol="{sym}">'
+                   f'{mac_svg(glyph)}</span>{screen}</a>')
+    return "\n".join(out)
+
+
+def mac_rows(thing):
+    demo = [("Overnight oats", "12 min", "4", "Today, 08:14"),
+            ("Sheet-pan chicken", "35 min", "2", "Yesterday"),
+            ("Miso soup", "8 min", "2", "12 Mar"),
+            ("Lemon ricotta pancakes", "25 min", "3", "9 Mar"),
+            ("Weeknight dal", "40 min", "6", "2 Mar")]
+    doc = '<path d="M7 3h7l4 4v14H7zM14 3v4h4"/>'
+    out = []
+    for i, (title, t, n, mod) in enumerate(demo):
+        sel = ' aria-selected="true"' if i == 0 else ""
+        out.append(f'            <tr{sel}><td><span data-sf-symbol="doc.text">'
+                   f'{mac_svg(doc, 15, 1.6)}</span>{title}</td><td>{t}</td>'
+                   f'<td>{n}</td><td>{mod}</td></tr>')
+    return "\n".join(out)
+
+
+def mac_skel_rows(n=5):
+    return "\n".join(
+        '            <tr aria-hidden="true"><td><span class="skel" style="width:15px;height:15px"></span>'
+        f'<span class="skel" style="width:{(52, 38, 61, 44, 57)[i % 5]}%"></span></td>'
+        '<td><span class="skel" style="width:40px"></span></td><td><span class="skel" style="width:14px"></span></td>'
+        '<td><span class="skel" style="width:70px"></span></td></tr>' for i in range(n))
+
+
+MAC_EMPTY_PANEL = """        <section class="state state--empty">
+          <div class="mac-empty">
+            <div class="mac-empty__glyph" data-sf-symbol="tray">__TRAY__</div>
+            <h2 class="mac-empty__title">No __THING__ yet</h2>
+            <p class="mac-empty__body">__EMPTY_BODY__</p>
+            <button class="mac-btn mac-btn--default">__EMPTY_CTA__</button>
+          </div>
+        </section>
+"""
+
+MAC_ERROR_PANEL = """        <section class="state state--error">
+          <div class="mac-empty">
+            <div class="mac-empty__glyph" data-sf-symbol="exclamationmark.triangle">__WARN__</div>
+            <h2 class="mac-empty__title">Couldn't load __THING__</h2>
+            <p class="mac-empty__body">Check your connection and try again.</p>
+            <button class="mac-btn">Try Again</button>
+          </div>
+        </section>
+"""
+
+MAC_SIDEBAR_BODY = """<div class="demo">
+__SWITCHER__
+<div class="mac-desktop" data-state="populated">
+  <div class="mac-window">
+    <div class="mac-lights" aria-hidden="true"><span></span><span></span><span></span></div>
+    <nav class="mac-sidebar" aria-label="__NAME__">
+      <div class="mac-sidebar__header">__NAME__</div>
+__SIDEBAR__
+    </nav>
+    <div class="mac-main">
+      <header class="mac-toolbar">
+        <h1 class="mac-toolbar__title">__SCREEN1__<span class="mac-toolbar__subtitle">5 __THING__</span></h1>
+        <span class="mac-toolbar__spacer"></span>
+        <div class="mac-toolgroup">
+          <button aria-label="Sort" data-sf-symbol="arrow.up.arrow.down">__SORT__</button>
+          <button aria-label="Filter" data-sf-symbol="line.3.horizontal.decrease">__FILTER__</button>
+        </div>
+        <button class="mac-tool" aria-label="New __SINGULAR__" data-sf-symbol="plus">__PLUS__</button>
+        <label class="mac-toolsearch"><span data-sf-symbol="magnifyingglass">__SEARCH__</span><input type="search" placeholder="Search" aria-label="Search __THING__"></label>
+      </header>
+      <main class="mac-content">
+        <section class="state state--populated">
+          <table class="mac-table">
+            <thead><tr><th>Name</th><th>Time</th><th>Serves</th><th>Modified</th></tr></thead>
+            <tbody>
+__ROWS__
+            </tbody>
+          </table>
+        </section>
+        <section class="state state--loading" aria-busy="true">
+          <table class="mac-table">
+            <thead><tr><th>Name</th><th>Time</th><th>Serves</th><th>Modified</th></tr></thead>
+            <tbody>
+__SKELROWS__
+            </tbody>
+          </table>
+        </section>
+__EMPTY__
+__ERROR__
+      </main>
+    </div>
+  </div>
+</div>
+</div>
+"""
+
+MAC_DOCUMENT_BODY = """<div class="demo">
+__SWITCHER__
+<div class="mac-desktop" data-state="populated">
+  <div class="mac-window" style="--mac-window-w: 900px">
+    <div class="mac-lights" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="mac-main">
+      <header class="mac-toolbar">
+        <h1 class="mac-toolbar__title">__SCREEN1__<span class="mac-toolbar__subtitle">Edited just now</span></h1>
+        <span class="mac-toolbar__spacer"></span>
+        <div class="mac-toolgroup">
+          <button aria-label="Bold" data-sf-symbol="bold">__BOLD__</button>
+          <button aria-label="Italic" data-sf-symbol="italic">__ITALIC__</button>
+          <button aria-label="List" data-sf-symbol="list.bullet">__LIST__</button>
+        </div>
+        <button class="mac-tool" aria-label="Share" data-sf-symbol="square.and.arrow.up">__SHARE__</button>
+      </header>
+      <main class="mac-content">
+        <section class="state state--populated">
+          <article class="page">
+            <h2>Overnight oats</h2>
+            <p>Stir the oats, milk and a pinch of salt together, cover, and leave them overnight. In the morning, loosen with a splash of milk and top with whatever fruit is ripe.</p>
+            <p>Serves four. Keeps three days in the fridge.</p>
+          </article>
+        </section>
+        <section class="state state--loading" aria-busy="true">
+          <article class="page" aria-hidden="true">
+            <div class="skel" style="width:46%;height:22px;margin-bottom:18px"></div>
+            <div class="skel" style="width:96%;margin-bottom:8px"></div>
+            <div class="skel" style="width:88%;margin-bottom:8px"></div>
+            <div class="skel" style="width:64%"></div>
+          </article>
+        </section>
+__EMPTY__
+__ERROR__
+      </main>
+    </div>
+  </div>
+</div>
+</div>
+"""
+
+MAC_GLYPHS = {
+    "__SORT__": '<path d="M8 4v15M4.5 7.5 8 4l3.5 3.5M16 20V5M12.5 16.5 16 20l3.5-3.5"/>',
+    "__FILTER__": '<path d="M4 7h16M7 12h10M10 17h4"/>',
+    "__PLUS__": '<path d="M12 5v14M5 12h14"/>',
+    "__SEARCH__": '<circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/>',
+    "__BOLD__": '<path d="M7 5h6a3.5 3.5 0 0 1 0 7H7zM7 12h7a3.5 3.5 0 0 1 0 7H7z"/>',
+    "__ITALIC__": '<path d="M10 5h8M6 19h8M14 5l-4 14"/>',
+    "__LIST__": '<path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"/>',
+    "__SHARE__": '<path d="M12 3v12M8 7l4-4 4 4M6 11v8.5A1.5 1.5 0 0 0 7.5 21h9a1.5 1.5 0 0 0 1.5-1.5V11"/>',
+    "__TRAY__": '<path d="M3 13h5l2 3h4l2-3h5"/><path d="M5 5l-2 8v5a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-5l-2-8z"/>',
+    "__WARN__": '<path d="M12 3 2 20h20z"/><path d="M12 9v5m0 3v.5"/>',
+}
+
+
+def mac_panels(thing):
+    singular = thing.rstrip("s")
+    empty_cta = f"New {singular.title()}"
+    empty_body = "Everything you save shows up here. Start with one and build from there."
+    empty = (MAC_EMPTY_PANEL.replace("__THING__", thing)
+             .replace("__EMPTY_BODY__", empty_body)
+             .replace("__EMPTY_CTA__", empty_cta))
+    error = MAC_ERROR_PANEL.replace("__THING__", thing)
+    empty = empty.replace("__TRAY__", mac_svg(MAC_GLYPHS["__TRAY__"], 44, 1.4))
+    error = error.replace("__WARN__", mac_svg(MAC_GLYPHS["__WARN__"], 44, 1.4))
+    return empty_cta, empty, error
+
+
 def _camel_file(name):
     """HarborColor.swift rather than harbor-color.swift."""
     parts = re.split(r"[^A-Za-z0-9]+", name)
@@ -824,7 +1036,19 @@ def panels(thing):
 def compose(kind, model, name, screens, thing):
     empty_cta, empty, error = panels(thing)
 
-    if kind == "marketing":
+    if kind == "macos":
+        empty_cta, empty, error = mac_panels(thing)
+        css = MAC_CSS
+        body = MAC_DOCUMENT_BODY if model == "document" else MAC_SIDEBAR_BODY
+        body = (body.replace("__SIDEBAR__", mac_sidebar(screens))
+                .replace("__ROWS__", mac_rows(thing))
+                .replace("__SKELROWS__", mac_skel_rows())
+                .replace("__SINGULAR__", thing.rstrip("s")))
+        for key, glyph in MAC_GLYPHS.items():
+            size = 44 if key in ("__TRAY__", "__WARN__") else 18
+            body = body.replace(key, mac_svg(glyph, size, 1.4 if size == 44 else 1.7))
+        chosen_model = model
+    elif kind == "marketing":
         css = WEB_BASE_CSS + MKT_CSS
         body = (MKT_BODY.replace("__HEADLINE__", f"{name}, with less in the way.")
                 .replace("__SUB__", "One sentence that says what changes for the person using it."))
@@ -859,7 +1083,7 @@ def compose(kind, model, name, screens, thing):
             .replace("__NAME__", name)
             .replace("__THING__", thing))
 
-    head = HEAD.replace("__NAME__", name)
+    head = (HEAD_MAC if kind == "macos" else HEAD).replace("__NAME__", name)
     html = head + "\n<style>" + STATE_CSS + css + "</style>\n\n" + body + STATE_JS
     return html, chosen_model
 
@@ -955,11 +1179,12 @@ def main():
     ap.add_argument("--name", required=True, help="product name")
     ap.add_argument("--brand", required=True, help='brand colour, e.g. "#C1552E"')
     ap.add_argument("--kind", default="ios",
-                    choices=["ios", "web", "marketing", "cross"],
+                    choices=["ios", "macos", "web", "marketing", "cross"],
                     help="platform context")
     ap.add_argument("--model",
-                    choices=["tabs", "stack", "workspace", "list-detail", "dashboard", "document"],
-                    help="spatial model; required for web, tabs/stack for ios")
+                    choices=["tabs", "stack", "sidebar", "workspace", "list-detail", "dashboard", "document"],
+                    help="spatial model; required for web, tabs/stack for ios, "
+                         "sidebar/document for macos")
     ap.add_argument("--character", default="calm",
                     help='dominant product character, e.g. "dense", "editorial", "utilitarian"')
     ap.add_argument("--screens", default="Home,Browse,Settings",
@@ -994,6 +1219,10 @@ def main():
         model = a.model or "stack"
         if model not in ("tabs", "stack"):
             sys.exit("--kind ios/cross supports --model tabs or stack")
+    elif kind == "macos":
+        model = a.model or "sidebar"
+        if model not in ("sidebar", "document"):
+            sys.exit("--kind macos supports --model sidebar or document")
     else:
         model = a.model
 
@@ -1003,6 +1232,8 @@ def main():
 
     shutil.copy2(os.path.join(KIT, "tokens", "ios-tokens.css"), vendor)
     shutil.copy2(os.path.join(KIT, "ios-components.css"), vendor)
+    if kind == "macos":
+        shutil.copy2(os.path.join(KIT, "macos-components.css"), vendor)
     for filename in os.listdir(os.path.join(KIT, "fonts")):
         # A copy of SF Pro someone dropped into the kit is theirs, not the
         # project's; it only travels with --sf.
@@ -1100,8 +1331,9 @@ def main():
         for note in notes:
             print("  contrast: " + note)
     print()
+    recipes = "mac-*" if kind == "macos" else "ios-*"
     print("next: replace DESIGN.md placeholders, recompose index.html around")
-    print("      that hierarchy -- keeping the ios-* recipes, which carry the")
+    print(f"      that hierarchy -- keeping the {recipes} recipes, which carry the")
     print("      measured metrics -- then")
     print(f"      python3 {check_rel} {rel}")
     print("      perform references/visual-critique.md")

@@ -30,7 +30,14 @@ For native Apple-platform work, inspect these before composition:
 
 Do not use remembered platform folklore when the corpus can answer the question.
 
-## macOS: HIG-first, even without a measured Mac kit
+## macOS: a window, not a phone
+
+Scaffold with `new_project.py --kind macos` (`--model sidebar` for a
+library or inbox, `document` for a canvas) and build on
+`macos-components.css`. Its window, traffic lights, sidebar, toolbar glass
+controls, buttons, fields, menus, sheets and alerts are measured from
+Apple's own Mac screenshots in the HIG; it has fewer recipes than iOS, so
+compose what it lacks from `apple-hig` and say so.
 
 For macOS-first work, explicitly reason about:
 
@@ -48,9 +55,9 @@ For macOS-first work, explicitly reason about:
 - inactive-window state where relevant
 - drag and drop where relevant
 
-Use SwiftUI/AppKit system components where available. Do not import iPhone proportions, oversized touch spacing, bottom-tab assumptions, or mobile modality simply to make the interface look Apple-like.
+Use SwiftUI/AppKit system components where available. Do not import iPhone proportions, oversized touch spacing, bottom-tab assumptions, or mobile modality simply to make the interface look Apple-like. Body text on a Mac is 13pt, controls are 24pt, and the sidebar and toolbar replace the tab bar and navigation bar.
 
-The current iOS measured corpus may be used for broad comparative relationships only, and must never be described as measured macOS appearance.
+Never describe an iOS measurement as macOS appearance, or the reverse.
 
 ## iOS
 

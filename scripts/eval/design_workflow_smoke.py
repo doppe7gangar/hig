@@ -501,7 +501,33 @@ def test_models(tmp):
     outputs["ios-tabs"] = scaffold(tmp, "ios", "tabs", "ios-tabs")
     outputs["marketing"] = scaffold(tmp, "marketing", None, "marketing")
     print("ok iOS and marketing models; incomplete evidence correctly rejected")
+    for model in ("sidebar", "document"):
+        outputs["mac-" + model] = scaffold(tmp, "macos", model, "mac-" + model)
+        exists(os.path.join(outputs["mac-" + model], "vendor", "macos-components.css"))
+    print("ok macOS models")
     return outputs
+
+
+def test_mac_chrome(project):
+    """A Mac design wearing iPhone chrome, or missing the window, fails."""
+    page = os.path.join(project, "index.html")
+    original = open(page, encoding="utf-8").read()
+    try:
+        open(page, "w", encoding="utf-8").write(original.replace(
+            '<main class="mac-content">',
+            '<nav class="ios-tabbar"><button class="ios-tabbar__item" data-sf-symbol="house">Home</button></nav>'
+            '<main class="mac-content">', 1))
+        out = run([sys.executable, CHECK, project, "--no-browser"], expect=1).stdout
+        if "iPhone chrome" not in out:
+            raise RuntimeError("a Mac design with an iOS tab bar was not called out:\n" + out)
+        open(page, "w", encoding="utf-8").write(
+            original.replace("mac-window", "window").replace("mac-toolbar", "toolbar"))
+        out = run([sys.executable, CHECK, project, "--no-browser"], expect=1).stdout
+        if "a Mac design without" not in out:
+            raise RuntimeError("a Mac design without its window was not called out:\n" + out)
+    finally:
+        open(page, "w", encoding="utf-8").write(original)
+    print("ok iPhone chrome and a missing window fail a Mac design")
 
 
 def test_render_review(project):
@@ -537,6 +563,7 @@ def main():
         test_visual_review_check(tmp)
         test_cross_platform_tokens(tmp)
         outputs = test_models(tmp)
+        test_mac_chrome(outputs["mac-sidebar"])
         if a.browser:
             test_render_review(outputs["dashboard"])
     print("design workflow smoke test passed")

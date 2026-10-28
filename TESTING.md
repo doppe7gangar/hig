@@ -157,6 +157,22 @@ at a folder holding `name_availability.plist`.
 `python3 scripts/eval/test_sf_symbols.py` tests the reading and the checks
 against a small stand-in list, since Apple's own can't be committed here.
 
+### The macOS recipes
+
+```bash
+python3 .claude/skills/apple-ui-kit/verify_mac_ui.py -v
+```
+
+Measures `mac-example.html` in Chromium, light, dark and Increased
+Contrast: the window's corners, the traffic lights' size, pitch and
+position, the toolbar band and its glass controls, sidebar rows, menu
+rows and their concentric highlight, the alert, the sheet, the type
+sizes and the colours. Every expected number is the one
+`macos-components.css` says it measured from Apple's Mac screenshots.
+`python3 scripts/eval/design_workflow_smoke.py` scaffolds both Mac models
+and checks that a Mac design with an iPhone tab bar, or without its
+window, fails `check_design.py`.
+
 ### The React components and the Tailwind theme
 
 ```bash

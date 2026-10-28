@@ -254,24 +254,42 @@ def check_token_overrides(path, html):
 # scratch rather than used it.
 STRUCTURAL = ("ios-list", "ios-navbar", "ios-tabbar")
 
-# Only iOS and iPadOS, because those are the platforms this corpus has
-# measured renderings for. macOS is HIG-first without a measured kit --
-# see references/platform-routing.md -- so demanding the iOS grouped list
-# of a Mac app would be worse advice than none.
+# iOS and iPadOS here; a Mac design is held to the Mac recipes instead
+# (MAC_STRUCTURAL), since demanding the iOS grouped list of a Mac app
+# would be worse advice than none.
 TOUCH_PLATFORM = re.compile(r"\b(ios|iphone|ipad|ipados)\b", re.I)
 
 
 def kit_classes(path, html):
-    """Component families the linked ios-components.css defines."""
-    root = os.path.dirname(path)
-    for href in re.findall(r'<link[^>]+href=["\']([^"\']*ios-components\.css)["\']',
+    """Component families the linked ios- and macos-components.css define."""
+    root, families = os.path.dirname(path), set()
+    for href in re.findall(r'<link[^>]+href=["\']([^"\']*(?:ios|macos)-components\.css)["\']',
                            html, re.I):
         f = os.path.join(root, href.split("?")[0])
         if os.path.exists(f):
             css = open(f, encoding="utf-8", errors="replace").read()
-            return {c.split("--")[0]
-                    for c in re.findall(r"^\.([a-z][\w-]*)", css, re.M)}
-    return set()
+            families |= {c.split("--")[0]
+                         for c in re.findall(r"^\.([a-z][\w-]*)", css, re.M)}
+    return families
+
+
+# The Mac recipes that carry a Mac window's shape, and the iPhone chrome
+# that has no place in one.
+MAC_STRUCTURAL = ("mac-window", "mac-toolbar")
+IPHONE_CHROME = ("ios-tabbar", "ios-navbar", "ios-statusbar")
+
+
+def is_mac(path, html):
+    """A Mac design: it links the Mac recipes, or DESIGN.md says macOS."""
+    if re.search(r'href=["\'][^"\']*macos-components\.css', html, re.I):
+        return True
+    plat = target_platform(path) or ""
+    d = os.path.join(os.path.dirname(path), "DESIGN.md")
+    mode = ""
+    if os.path.exists(d):
+        m = re.search(r"^## Platform mode\s+`?([\w-]+)`?", open(d, encoding="utf-8").read(), re.M)
+        mode = m.group(1) if m else ""
+    return bool(re.search(r"\bmac(os)?\b", plat, re.I)) or mode.lower() == "macos"
 
 
 def target_platform(path):
@@ -311,6 +329,24 @@ def check_uses_kit(path, html):
             f"{len(families)} component recipes. The measured values were "
             f"vendored and then bypassed -- either use them or stop "
             f"shipping the stylesheet.")
+        return
+
+    if is_mac(path, html):
+        chrome = [c for c in IPHONE_CHROME
+                  if re.search(r'class="[^"]*\b' + re.escape(c) + r'\b', html)]
+        if chrome:
+            bad(f"{name}: a Mac design using iPhone chrome ({', '.join(chrome)}). A Mac "
+                f"window has a sidebar and a toolbar, not a tab bar, a navigation "
+                f"bar or a status bar; macos-components.css has the measured ones.")
+            return
+        missing = [c for c in MAC_STRUCTURAL if c in families and c not in used]
+        if missing:
+            bad(f"{name}: a Mac design without {', '.join(missing)}. The window, its "
+                f"26pt corners, the traffic lights and the 52pt toolbar band with "
+                f"its glass controls are what make it read as a Mac app; "
+                f"hand-built, it reads as a web page with a title bar.")
+            return
+        ok(f"{name}: a Mac window built from {len(used)} of the kit's measured components")
         return
 
     plat = target_platform(path)
@@ -362,7 +398,11 @@ def check_symbols_named(path, html):
 
     slots = re.findall(
         r'<[a-z]+[^>]*class="[^"]*(?:rowicon|ios-tabbar__item|'
-        r'ios-navbar__action)[^"]*"[^>]*>', body)
+        r'ios-navbar__action|mac-sidebar__icon|mac-tool(?![\w-])|mac-menu__icon)'
+        r'[^"]*"[^>]*>', body)
+    # A Mac toolbar control with a word in it is a button, not an icon slot.
+    slots = [t for t in slots if "mac-tool" not in t or
+             re.search(re.escape(t) + r"\s*<svg", body)]
     if not slots:
         return
     unnamed = [t for t in slots if "data-sf-symbol" not in t]
@@ -554,7 +594,20 @@ const lowContrast = [...seen.values()];
                 return {t: (e.textContent||e.getAttribute('aria-label')||'?')
                           .trim().slice(0, 28),
                         w: Math.round(r.width), h: Math.round(r.height)}; })
-    .filter(o => o.w > 0 && o.h > 0 && Math.min(o.w, o.h) < 28);
+    .filter(o => o.w > 0 && o.h > 0 && Math.min(o.w, o.h) < (window.__HIG_MIN_TARGET || 28));
+  // In a Mac window, body text is 13pt. Text runs at 16px and up, outside
+  // headings and titles, are iOS sizes brought to the desk.
+  const macWin = document.querySelector('.mac-window');
+  let macText = null;
+  if (macWin) {
+    const runs = [...macWin.querySelectorAll('*')].filter(e =>
+      e.offsetParent !== null && !e.closest('h1, h2, h3, [class*="title"], [aria-hidden="true"]') &&
+      [...e.childNodes].some(n => n.nodeType === 3 && n.textContent.trim()));
+    const big = runs.filter(e => parseFloat(getComputedStyle(e).fontSize) >= 16);
+    macText = {runs: runs.length, big: big.length,
+               sample: big.slice(0, 3).map(e => e.textContent.trim().slice(0, 24) +
+                                           ' ' + getComputedStyle(e).fontSize)};
+  }
   return {
     accent: v('--ios-accent'),
     label: v('--ios-label'),
@@ -565,6 +618,7 @@ const lowContrast = [...seen.values()];
     ls: body.letterSpacing,
     overflow: de.scrollWidth - de.clientWidth,
     small: small.slice(0, 6),
+    macText,
     lowContrast: lowContrast.slice(0, 8),
     treatments: treatments.slice(0, 12),
     lowCount: lowContrast.length,
@@ -601,6 +655,10 @@ def check_browser(path, brand):
     name = os.path.basename(path)
     url = "file://" + os.path.abspath(path)
     errors, failed = [], []
+    # macOS's floor is 20x20pt and its push buttons are 24pt tall
+    # (specs.md); holding a Mac window to iOS's 28 would flag Apple's own.
+    mac = is_mac(path, open(path, encoding="utf-8", errors="replace").read())
+    floor = 20 if mac else 28
 
     def sample(b, scheme, more):
         """Failing text runs for one appearance, optionally under IC."""
@@ -637,6 +695,8 @@ def check_browser(path, brand):
                       lambda r: failed.append(r.url))
                 pg.goto(url, wait_until="load")
                 pg.wait_for_timeout(220)
+                if mac:
+                    pg.evaluate("() => { window.__HIG_MIN_TARGET = 20; }")
                 d = pg.evaluate(BROWSER_JS)
 
                 tag = f"{name} {scheme} {width}px"
@@ -730,11 +790,22 @@ def check_browser(path, brand):
                     if d["small"]:
                         listed = ", ".join(
                             f"{s['t']} ({s['w']}x{s['h']})" for s in d["small"])
-                        warn(f"{name}: {len(d['small'])} target(s) under 28pt, "
-                             f"which is Apple's accessibility floor -- the "
-                             f"general rule is 44: {listed}")
+                        rule = ("macOS's minimum -- its default is 28"
+                                if mac else "which is Apple's accessibility floor -- "
+                                            "the general rule is 44")
+                        warn(f"{name}: {len(d['small'])} target(s) under {floor}pt, "
+                             f"{rule}: {listed}")
                     else:
-                        ok(f"{name}: every visible target clears 28pt")
+                        ok(f"{name}: every visible target clears {floor}pt")
+                    mt = d.get("macText")
+                    if mt and mt["runs"] >= 5:
+                        if mt["big"] > 0.3 * mt["runs"]:
+                            warn(f"{name}: {mt['big']} of {mt['runs']} text runs in the "
+                                 f"Mac window are 16px or larger ({'; '.join(mt['sample'])}). "
+                                 f"Body text on a Mac is 13pt, not iOS's 17 (specs.md); "
+                                 f"use the --mac-text-* styles.")
+                        else:
+                            ok(f"{name}: text in the Mac window is sized for the Mac")
 
                 # Every state has to actually render something.
                 for st in ("populated", "loading", "empty", "error"):

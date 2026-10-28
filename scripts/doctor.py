@@ -135,33 +135,39 @@ def check_counts(d, facts):
 
 
 def check_verifier_count(d):
-    """The docs quote how many checks verify_web_ui runs. Run it and see."""
-    claims = []
+    """The docs quote how many checks each kit verifier runs. Run them and see.
+
+    A count on a line about the Mac kit is verify_mac_ui.py's; any other
+    is verify_web_ui.py's."""
+    claims = {"verify_web_ui.py": [], "verify_mac_ui.py": []}
     for sk, path in skill_docs():
-        for m in re.finditer(r"(\d+) checks\b", read(path)):
-            claims.append((os.path.relpath(path, REPO), int(m.group(1))))
-    if not claims:
-        return
-    script = os.path.join(SKILLS, "apple-ui-kit", "verify_web_ui.py")
-    if not os.path.exists(script):
-        d.check(False, "verify_web_ui.py present")
-        return
-    try:
-        out = subprocess.run([sys.executable, script], capture_output=True,
-                             text=True, timeout=900).stdout
-    except Exception as e:
-        d.check(False, "verify_web_ui.py runs", str(e))
-        return
-    m = re.search(r"(\d+)/(\d+) checks passed", out)
-    if not m:
-        d.check(False, "verify_web_ui.py reports a total", out[-200:])
-        return
-    actual = int(m.group(2))
-    d.check(m.group(1) == m.group(2), "verify_web_ui all pass",
-            f"{m.group(1)}/{actual}")
-    for rel, claimed in claims:
-        d.check(claimed == actual, f"{rel}: check count",
-                f"says {claimed}, actual {actual}")
+        for line in read(path).splitlines():
+            for m in re.finditer(r"(\d+) checks\b", line):
+                mac = re.search(r"verify_mac_ui|\bmac(os)?\b|Mac kit", line, re.I)
+                claims["verify_mac_ui.py" if mac else "verify_web_ui.py"].append(
+                    (os.path.relpath(path, REPO), int(m.group(1))))
+    for name, found in claims.items():
+        if not found:
+            continue
+        script = os.path.join(SKILLS, "apple-ui-kit", name)
+        if not os.path.exists(script):
+            d.check(False, f"{name} present")
+            continue
+        try:
+            out = subprocess.run([sys.executable, script], capture_output=True,
+                                 text=True, timeout=900).stdout
+        except Exception as e:
+            d.check(False, f"{name} runs", str(e))
+            continue
+        m = re.search(r"(\d+)/(\d+) checks passed", out)
+        if not m:
+            d.check(False, f"{name} reports a total", out[-200:])
+            continue
+        actual = int(m.group(2))
+        d.check(m.group(1) == m.group(2), f"{name} all pass", f"{m.group(1)}/{actual}")
+        for rel, claimed in found:
+            d.check(claimed == actual, f"{rel}: {name} check count",
+                    f"says {claimed}, actual {actual}")
 
 
 def check_script_refs(d):

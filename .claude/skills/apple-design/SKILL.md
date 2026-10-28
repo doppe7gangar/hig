@@ -14,7 +14,7 @@ Specialists:
 ## Authority rule
 Use `HIG → platform differences → system APIs/components → product composition → measured visual evidence (when available) → project grammar → design judgment`.
 
-The measured visual corpus is currently iOS 27. Never present iOS screenshots as measured macOS evidence.
+The measured visual corpus is iOS 27, from Apple's kit renderings, and macOS 26, from Apple's Mac screenshots in the HIG (fewer components). Never present an iOS measurement as macOS evidence, or the reverse.
 
 ## Governing principle
 **Do not begin by placing components. Begin by composing information.** Prefer hierarchy through position, alignment, spacing, typography, scale, grouping, disclosure, motion, or context over unnecessary containers.
@@ -23,13 +23,13 @@ The measured visual corpus is currently iOS 27. Never present iOS screenshots as
 
 **Draw the stand-in at the symbol's weight.** Measured from SF Pro's own symbol glyphs, SF Symbols stroke at 0.08em in regular and 0.11em in semibold: `stroke-width="2"` on a 24-unit `viewBox` beside regular text, about 2.7 beside semibold, always with round caps and joins. Strokes of 1.4 to 1.7, the web icon-set default, are what made generated lists read as a website. Use the filled shape when the name ends in `.fill`, and colour by meaning, as Health does with an orange flame and a red heart, rather than putting every glyph in the accent.
 
-**Then express that hierarchy with the measured recipes, rather than rebuilding them.** Deciding structure first is not a licence to hand-roll the list, the navigation bar and the tab bar afterwards. `apple-ui-kit`'s `ios-components.css` carries the grouped-list metrics, the bar heights, the control geometry and the tracking this corpus measured from Apple's own renderings; a from-scratch approximation of them is the difference between a design that reads as iOS and one that reads as almost-iOS. Change the content, the composition and the palette. Keep the recipes. On macOS there is no measured kit, so compose from `apple-hig` and say so.
+**Then express that hierarchy with the measured recipes, rather than rebuilding them.** Deciding structure first is not a licence to hand-roll the list, the navigation bar and the tab bar afterwards. `apple-ui-kit`'s `ios-components.css` carries the grouped-list metrics, the bar heights, the control geometry and the tracking this corpus measured from Apple's own renderings; a from-scratch approximation of them is the difference between a design that reads as iOS and one that reads as almost-iOS. Change the content, the composition and the palette. Keep the recipes. On the Mac the same goes for `macos-components.css`: the window, its traffic lights, the sidebar, the toolbar's glass controls and the 13pt controls measured from Apple's own Mac screenshots. It has fewer recipes than iOS; where it has none, compose from `apple-hig` and say so.
 
 ## Size the process to the request
 One screen or page takes the short path: a single primary task, with its sheets and states. That's most single-page requests: an expense tracker page, a settings screen, a sign-up form.
 
 1. Route the platform and name the one question the screen answers: `references/platform-routing.md`, `references/content-hierarchy.md`.
-2. Scaffold (step 12) and build the screen on it, with real content and its loading, empty and error states. Keep its large title: a top-level iOS screen without one reads as a web page.
+2. Scaffold (step 12) and build the screen on it, with real content and its loading, empty and error states. On iOS keep its large title: a top-level iOS screen without one reads as a web page. For a Mac app scaffold `--kind macos` and keep the window, sidebar and toolbar: with a tab bar or 17pt text it reads as an iPad app on a desk.
 3. Run `python3 check_design.py ./design` until it passes.
 4. Run `python3 render_review.py ./design`, look at the screenshots, and fix what they show.
 5. If the app is SwiftUI and the request includes the code, hand off (step 17).
@@ -62,9 +62,13 @@ python3 new_project.py --name Ledger --brand "#0088FF" \
 python3 new_project.py --name Pulse --brand "#5A67D8" \
   --kind web --model dashboard --character dense \
   --screens "Overview,Reports,Settings" -o ./design
+
+python3 new_project.py --name Pantry --brand "#2F7D5B" \
+  --kind macos --model sidebar \
+  --screens "All Recipes,Favorites,Recent" -o ./design
 ```
 
-It copies the measured kit into the project (`./design/vendor/ios-tokens.css`, `./design/vendor/ios-components.css`), wires the brand into `theme.css`, and writes the `DESIGN.md` skeleton and the loading, empty and error states the gates check for. Replace its placeholder content with the real design. Don't paste copies of the tokens inline or rebuild the components it links. A hand-written page skips all of it, and the result looks almost like iOS instead of like iOS. Marketing pages select the editorial model on their own. If no generated model fits (`references/spatial-models.md`), scaffold the closest one and record in `DESIGN.md` where the design departs from it.
+It copies the measured kit into the project (`./design/vendor/ios-tokens.css`, `./design/vendor/ios-components.css`, and for `--kind macos` `./design/vendor/macos-components.css`), wires the brand into `theme.css`, and writes the `DESIGN.md` skeleton and the loading, empty and error states the gates check for. Replace its placeholder content with the real design. Don't paste copies of the tokens inline or rebuild the components it links. A hand-written page skips all of it, and the result looks almost like iOS instead of like iOS. Marketing pages select the editorial model on their own. If no generated model fits (`references/spatial-models.md`), scaffold the closest one and record in `DESIGN.md` where the design departs from it.
 
 ## 13. Extract or inherit the project design grammar
 Read `references/design-grammar.md`.

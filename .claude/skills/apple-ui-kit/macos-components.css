@@ -1,0 +1,930 @@
+/* macOS 26 component recipes for the web.
+ *
+ * Measured from Apple's own macOS 26 screenshots in the Human Interface
+ * Guidelines: Calendar's window (tab view, toolbar, sidebar, Today
+ * button, segmented control), Notes with its toolbar, menu and sheet,
+ * the save panel, an alert, and a toolbar search field. None of those
+ * images states its scale, and they were exported at five different
+ * ones, so each was anchored on its own 13pt text: macOS's body size is
+ * 13pt (specs.md), SF Pro's capital is 0.705em, and the measured height
+ * of a capital gives pixels per point. Anchored that way, the five
+ * agree with each other to within a point. A value with nothing to
+ * anchor it says so in its comment, and is a choice, not a measurement.
+ *
+ * What is not what people build from memory:
+ *
+ *   The traffic lights are 14pt circles on a 22pt pitch, centred 25.5pt
+ *   in from the window's top-left corner. Not 12 on 20: Calendar and
+ *   Notes agree on 22 once their text sets the scale.
+ *   Windows have 26pt corners; a panel, 20; a sheet, 19.
+ *   Toolbar controls are 36pt glass capsules floating in a 52pt band,
+ *   not icons on a bar. Push buttons are 24pt capsules; an alert's are
+ *   28pt and stacked full width.
+ *   An alert is 260pt wide with its title and message left aligned.
+ *   A selected sidebar row is a light pill with accent-coloured text and
+ *   icon, not a solid accent fill. A selected menu item is a solid
+ *   accent pill, concentric with the menu's 11pt corners.
+ *
+ * Load it on its own. Loaded after the iOS tokens and a theme.css made
+ * by new_project.py, it takes the brand's accent from them.
+ */
+
+:root {
+  --mac-font: -apple-system, BlinkMacSystemFont, "SF Pro", "Inter", system-ui,
+              "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Text styles: specs.md, "macOS built-in text styles", tracked with
+     the macOS tracking table. Body text on a Mac is 13pt, not iOS's 17. */
+  --mac-text-large-title: 400 26px/32px var(--mac-font);  --mac-track-large-title: 0.22px;
+  --mac-text-title1: 400 22px/26px var(--mac-font);       --mac-track-title1: -0.26px;
+  --mac-text-title2: 400 17px/22px var(--mac-font);       --mac-track-title2: -0.43px;
+  --mac-text-title3: 400 15px/20px var(--mac-font);       --mac-track-title3: -0.23px;
+  --mac-text-headline: 700 13px/16px var(--mac-font);     --mac-track-headline: -0.08px;
+  --mac-text-body: 400 13px/16px var(--mac-font);         --mac-track-body: -0.08px;
+  --mac-text-callout: 400 12px/15px var(--mac-font);      --mac-track-callout: 0px;
+  --mac-text-subheadline: 400 11px/14px var(--mac-font);  --mac-track-subheadline: 0.06px;
+  --mac-text-footnote: 400 10px/13px var(--mac-font);     --mac-track-footnote: 0.12px;
+  --mac-text-caption1: 400 10px/13px var(--mac-font);     --mac-track-caption1: 0.12px;
+  --mac-text-caption2: 500 10px/13px var(--mac-font);     --mac-track-caption2: 0.12px;
+
+  /* Accent: the HIG's unified system blue, the same on every platform
+     (#0088FF, #0091FF in dark). A theme.css bridges its brand in through
+     --ios-accent; or set --mac-accent yourself. Only the system blue
+     changes with the appearance, so a brand set here survives Dark Mode. */
+  --mac-system-blue: #0088FF;
+  --mac-accent: var(--ios-accent, var(--mac-system-blue));
+  --mac-accent-text: var(--accent-text-safe, var(--mac-accent));
+  --mac-on-accent: var(--ios-on-accent, #FFFFFF);
+  --mac-red: #FF383C;
+
+  /* Labels: text measured at 85% black on the sidebar, a secondary
+     label at exactly #808080 on white, which is 50%. */
+  --mac-label: rgba(0, 0, 0, .85);
+  --mac-label-secondary: rgba(0, 0, 0, .5);
+  --mac-label-tertiary: rgba(0, 0, 0, .26);     /* chosen: not in any image */
+  --mac-separator: rgba(0, 0, 0, .1);           /* #E6E6E6 on white */
+
+  /* Surfaces. Content is white and the sidebar a flat #E3E3E3, both
+     measured in Calendar and the save panel. */
+  --mac-content-bg: #FFFFFF;
+  --mac-sidebar-bg: #E3E3E3;
+  --mac-sidebar-selection: rgba(255, 255, 255, .4);  /* #EEEFF0 on #E3E3E2 */
+  --mac-control-fill: rgba(0, 0, 0, .07);            /* #EDEDED on white */
+  --mac-control-fill-pressed: rgba(0, 0, 0, .14);    /* chosen */
+  --mac-field-bg: #FFFFFF;
+  --mac-field-edge: rgba(0, 0, 0, .06);
+  /* A selected row: the accent, darkened. The save panel's #2962D9 is
+     its default button's #3478F6 at 85%, so it follows the accent. */
+  --mac-selection: color-mix(in srgb, var(--mac-accent) 85%, #000);
+  --mac-glass: rgba(255, 255, 255, .9);              /* #F8F8F8-#FCFCFC */
+  --mac-glass-edge: rgba(0, 0, 0, .1);
+  --mac-glass-shadow: 0 1px 2px rgba(0, 0, 0, .06), 0 4px 12px rgba(0, 0, 0, .06);
+  --mac-tab-selected: rgba(0, 0, 0, .08);            /* #E4E4E4 on the glass */
+  --mac-menu-bg: rgba(248, 248, 248, .94);
+  --mac-menu-edge: rgba(0, 0, 0, .14);
+  --mac-alert-bg: #E8E8E8;
+  --mac-alert-secondary: #D6D6D6;
+  --mac-alert-rim: rgba(255, 255, 255, .75);         /* the alert's bright inner edge */
+  --mac-scrim: rgba(0, 0, 0, .2);                    /* white reads #CCCCCC */
+  --mac-window-edge: rgba(0, 0, 0, .15);             /* #DADADA on white */
+  --mac-window-shadow: 0 24px 70px rgba(0, 0, 0, .26), 0 6px 18px rgba(0, 0, 0, .12);
+
+  /* The traffic lights, as Calendar renders them in both appearances. */
+  --mac-close: #FF5C60;
+  --mac-minimize: #FAC800;
+  --mac-zoom: #35C759;
+  --mac-light-inactive: rgba(0, 0, 0, .18);
+
+  /* Geometry, in points (CSS px). */
+  --mac-window-radius: 26px;
+  --mac-panel-radius: 20px;
+  --mac-sheet-radius: 19px;
+  --mac-toolbar-h: 52px;
+  --mac-light: 14px;
+  --mac-light-pitch: 22px;
+  --mac-light-left: 18.5px;          /* the close button's edge; centre 25.5 */
+  --mac-control-h: 24px;             /* push button, pop-up, segmented */
+  --mac-control-h-large: 28px;       /* an alert's buttons */
+  --mac-field-h: 26px;               /* text and search fields */
+  --mac-tool-h: 36px;                /* toolbar glass controls */
+  --mac-sidebar-w: 220px;            /* Calendar's is 235, the save panel's 147 */
+  --mac-sidebar-row: 30px;           /* on a 32pt pitch */
+  --mac-menu-row: 23.5px;
+  --mac-menu-radius: 11px;
+  --mac-menu-inset: 5.5px;
+  --mac-alert-w: 260px;
+  --mac-alert-radius: 26px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --mac-system-blue: #0091FF;
+    --mac-red: #FF4245;
+    --mac-label: rgba(255, 255, 255, .85);
+    /* AppKit's secondaryLabelColor. The save panel's dark form labels
+       measured lighter, .43, which is under 4.5:1 on #1E1E1E. */
+    --mac-label-secondary: rgba(255, 255, 255, .55);
+    --mac-label-tertiary: rgba(255, 255, 255, .25);    /* chosen */
+    --mac-separator: rgba(255, 255, 255, .1);
+    --mac-content-bg: #1E1E1E;
+    --mac-sidebar-bg: #272727;
+    --mac-sidebar-selection: rgba(255, 255, 255, .04); /* barely there, as measured */
+    --mac-control-fill: rgba(255, 255, 255, .09);
+    --mac-control-fill-pressed: rgba(255, 255, 255, .16);
+    --mac-field-bg: #232323;
+    --mac-field-edge: rgba(255, 255, 255, .06);
+    --mac-selection: color-mix(in srgb, var(--mac-accent) 80%, #000);
+    --mac-glass: rgba(58, 58, 58, .9);                 /* #343434-#3D3D3D */
+    --mac-glass-edge: rgba(255, 255, 255, .12);
+    --mac-glass-shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 12px rgba(0, 0, 0, .25);
+    --mac-tab-selected: rgba(255, 255, 255, .1);       /* #4D4D50 on the glass */
+    --mac-menu-bg: rgba(26, 26, 26, .94);
+    --mac-menu-edge: rgba(255, 255, 255, .12);
+    --mac-alert-bg: #1A1A1B;
+    --mac-alert-secondary: #2E2E2F;
+    --mac-alert-rim: rgba(255, 255, 255, .12);
+    --mac-scrim: rgba(0, 0, 0, .3);
+    --mac-window-edge: rgba(0, 0, 0, .5);
+    --mac-window-shadow: 0 24px 70px rgba(0, 0, 0, .55), 0 6px 18px rgba(0, 0, 0, .3),
+                         inset 0 0 0 1px rgba(255, 255, 255, .08);
+    --mac-light-inactive: rgba(255, 255, 255, .14);
+  }
+}
+/* The same values, forced: data-theme="dark" on <html> shows dark on a
+   light system, which is how a review compares the two side by side. */
+:root[data-theme="dark"] {
+  --mac-system-blue: #0091FF;
+  --mac-red: #FF4245;
+  --mac-label: rgba(255, 255, 255, .85);
+  --mac-label-secondary: rgba(255, 255, 255, .55);
+  --mac-label-tertiary: rgba(255, 255, 255, .25);
+  --mac-separator: rgba(255, 255, 255, .1);
+  --mac-content-bg: #1E1E1E;
+  --mac-sidebar-bg: #272727;
+  --mac-sidebar-selection: rgba(255, 255, 255, .04);
+  --mac-control-fill: rgba(255, 255, 255, .09);
+  --mac-control-fill-pressed: rgba(255, 255, 255, .16);
+  --mac-field-bg: #232323;
+  --mac-field-edge: rgba(255, 255, 255, .06);
+  --mac-selection: color-mix(in srgb, var(--mac-accent) 80%, #000);
+  --mac-glass: rgba(58, 58, 58, .9);
+  --mac-glass-edge: rgba(255, 255, 255, .12);
+  --mac-glass-shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 12px rgba(0, 0, 0, .25);
+  --mac-tab-selected: rgba(255, 255, 255, .1);
+  --mac-menu-bg: rgba(26, 26, 26, .94);
+  --mac-menu-edge: rgba(255, 255, 255, .12);
+  --mac-alert-bg: #1A1A1B;
+  --mac-alert-secondary: #2E2E2F;
+  --mac-alert-rim: rgba(255, 255, 255, .12);
+  --mac-scrim: rgba(0, 0, 0, .3);
+  --mac-window-edge: rgba(0, 0, 0, .5);
+  --mac-window-shadow: 0 24px 70px rgba(0, 0, 0, .55), 0 6px 18px rgba(0, 0, 0, .3),
+                       inset 0 0 0 1px rgba(255, 255, 255, .08);
+  --mac-light-inactive: rgba(255, 255, 255, .14);
+}
+
+/* Increase Contrast. Apple's default light palette sits under the 4.5:1
+   that accessibility.md asks of text up to 17pt -- the secondary label is
+   3.95:1 on white, white on the accent 3.54:1 -- and the setting is the
+   remedy. The blues are the HIG's published Increased Contrast values;
+   the label opacities are chosen to clear 4.5:1 on every surface here. */
+@media (prefers-contrast: more) {
+  :root {
+    --mac-system-blue: #1E6EF4;
+    --mac-accent-text: var(--accent-text-safe, #1E6EF4);
+    --mac-label-secondary: rgba(0, 0, 0, .62);
+    --mac-label-tertiary: rgba(0, 0, 0, .5);
+    --mac-separator: rgba(0, 0, 0, .2);
+  }
+}
+@media (prefers-contrast: more) and (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --mac-system-blue: #0091FF;
+    --mac-accent-text: var(--accent-text-safe, #5CB8FF);
+    --mac-label-secondary: rgba(255, 255, 255, .65);
+    --mac-label-tertiary: rgba(255, 255, 255, .45);
+    --mac-separator: rgba(255, 255, 255, .2);
+  }
+}
+
+/* Every size here is the box you see, padding included. */
+[class^="mac-"], [class*=" mac-"],
+[class^="mac-"]::before, [class*=" mac-"]::before,
+[class^="mac-"]::after, [class*=" mac-"]::after { box-sizing: border-box; }
+
+/* ------------------------------------------------------------ Desktop
+
+   A mockup needs something behind the window, or its corners and its
+   shadow have nothing to read against. A plain wash, not a wallpaper:
+   the window is the subject. */
+
+.mac-desktop {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  gap: 40px;
+  padding: 48px 24px;
+  background: linear-gradient(160deg, #DCE5F0, #C5D2E3);
+  color: var(--mac-label);
+  font: var(--mac-text-body);
+  letter-spacing: var(--mac-track-body);
+  -webkit-font-smoothing: antialiased;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .mac-desktop { background: linear-gradient(160deg, #1D2533, #0E131B); }
+}
+:root[data-theme="dark"] .mac-desktop { background: linear-gradient(160deg, #1D2533, #0E131B); }
+
+/* ------------------------------------------------------------- Window
+
+     <div class="mac-window">
+       <div class="mac-lights"><span></span><span></span><span></span></div>
+       <aside class="mac-sidebar">…</aside>
+       <div class="mac-main">
+         <header class="mac-toolbar">…</header>
+         <main class="mac-content">…</main>
+       </div>
+     </div>
+
+   The sidebar runs to the top of the window and the traffic lights sit
+   on it; the toolbar is a band across the content side only. */
+
+.mac-window {
+  position: relative;
+  display: flex;
+  width: min(100%, var(--mac-window-w, 960px));
+  height: var(--mac-window-h, 620px);
+  overflow: hidden;
+  border-radius: var(--mac-window-radius);
+  background: var(--mac-content-bg);
+  box-shadow: 0 0 0 1px var(--mac-window-edge), var(--mac-window-shadow);
+  color: var(--mac-label);
+  font: var(--mac-text-body);
+  letter-spacing: var(--mac-track-body);
+  text-align: left;
+}
+.mac-window--panel { border-radius: var(--mac-panel-radius); }
+
+.mac-lights {
+  position: absolute;
+  z-index: 5;
+  top: calc(var(--mac-toolbar-h) / 2 - var(--mac-light) / 2);
+  left: var(--mac-light-left);
+  display: flex;
+  gap: calc(var(--mac-light-pitch) - var(--mac-light));
+}
+.mac-lights > span {
+  width: var(--mac-light);
+  height: var(--mac-light);
+  border-radius: 50%;
+  background: var(--mac-close);
+  box-shadow: inset 0 0 0 .5px rgba(0, 0, 0, .12);
+}
+.mac-lights > :nth-child(2) { background: var(--mac-minimize); }
+.mac-lights > :nth-child(3) { background: var(--mac-zoom); }
+.mac-window--inactive .mac-lights > span { background: var(--mac-light-inactive); box-shadow: none; }
+
+.mac-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--mac-content-bg);
+}
+.mac-content {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 8px 20px 20px;
+}
+
+/* ------------------------------------------------------------ Sidebar
+
+   From the save panel: rows are 30pt pills on a 32pt pitch, inset so
+   their left edge lines up with the close button, an icon column 20pt
+   wide and the text 54pt in from the window's edge. Section headers
+   are 11pt bold in the label colour, not grey. */
+
+.mac-sidebar {
+  flex: 0 0 var(--mac-sidebar-w);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--mac-toolbar-h) 10px 12px var(--mac-light-left);
+  background: var(--mac-sidebar-bg);
+}
+.mac-sidebar__header {
+  margin: 14px 0 2px 6px;
+  font: 700 11px/14px var(--mac-font);
+  letter-spacing: .06px;
+  color: var(--mac-label);
+}
+.mac-sidebar__header:first-child { margin-top: 2px; }
+.mac-sidebar__item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: var(--mac-sidebar-row);
+  margin: 1px 0;
+  padding: 0 6px 0 9px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--mac-label);
+  font: var(--mac-text-body);
+  letter-spacing: var(--mac-track-body);
+  text-align: left;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  cursor: default;
+}
+.mac-sidebar__icon {
+  flex: 0 0 20px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+.mac-sidebar__icon svg { width: 17px; height: 17px; }
+.mac-sidebar__count { margin-left: auto; color: var(--mac-label-secondary); font: var(--mac-text-callout); }
+.mac-sidebar__item[aria-current],
+.mac-sidebar__item.is-selected {
+  background: var(--mac-sidebar-selection);
+  color: var(--mac-accent-text);
+}
+.mac-sidebar__item:focus-visible { outline: 2px solid var(--mac-accent); outline-offset: -2px; }
+
+/* ------------------------------------------------------------ Toolbar
+
+   A 52pt band with nothing drawn across it: the controls float in it
+   as 36pt glass capsules, centred on the same line as the traffic
+   lights, about 13pt from the window's sides and 7pt apart. A window
+   without a sidebar starts its toolbar after the traffic lights. */
+
+.mac-toolbar {
+  flex: 0 0 var(--mac-toolbar-h);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 13px;
+  position: relative;
+  z-index: 2;
+}
+.mac-window:not(:has(.mac-sidebar)) .mac-toolbar { padding-left: 92px; }
+.mac-toolbar__spacer { flex: 1; }
+
+/* Title: 13pt bold over an 11pt subtitle, as Notes shows it. Alone, a
+   title is drawn at 15pt bold here; no screenshot anchored that size,
+   so treat it as a choice. */
+.mac-toolbar__title {
+  margin: 0 6px;
+  font: 700 15px/20px var(--mac-font);
+  letter-spacing: -.23px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mac-toolbar__title:has(.mac-toolbar__subtitle) { font: var(--mac-text-headline); letter-spacing: var(--mac-track-headline); }
+.mac-toolbar__subtitle {
+  display: block;
+  font: var(--mac-text-subheadline);
+  letter-spacing: var(--mac-track-subheadline);
+  color: var(--mac-label-secondary);
+}
+
+.mac-glass {
+  background: var(--mac-glass);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+  backdrop-filter: blur(20px) saturate(1.6);
+  box-shadow: inset 0 0 0 .5px var(--mac-glass-edge), var(--mac-glass-shadow);
+}
+
+/* One glass control: a circle for a symbol, a capsule for a word. */
+.mac-tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: var(--mac-tool-h);
+  min-width: var(--mac-tool-h);
+  padding: 0 9px;
+  border: 0;
+  border-radius: 999px;
+  color: var(--mac-label);
+  font: var(--mac-text-body);
+  letter-spacing: var(--mac-track-body);
+  cursor: default;
+}
+.mac-tool:not(.mac-glass) { background: var(--mac-glass); box-shadow: inset 0 0 0 .5px var(--mac-glass-edge), var(--mac-glass-shadow); }
+.mac-tool svg { width: 18px; height: 18px; }
+.mac-tool--prominent { background: var(--mac-accent) !important; color: var(--mac-on-accent); }
+
+/* Several controls sharing one capsule, the way Notes groups its
+   formatting tools. */
+.mac-toolgroup {
+  display: inline-flex;
+  align-items: center;
+  height: var(--mac-tool-h);
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--mac-glass);
+  box-shadow: inset 0 0 0 .5px var(--mac-glass-edge), var(--mac-glass-shadow);
+}
+.mac-toolgroup > button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  min-width: 32px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--mac-label);
+  font: var(--mac-text-body);
+}
+.mac-toolgroup > button svg { width: 18px; height: 18px; }
+.mac-toolgroup > button[aria-pressed="true"] { background: var(--mac-accent); color: var(--mac-on-accent); }
+
+/* A tab view in the toolbar: Calendar's Day / Week / Month / Year.
+   The selection is a darker pill inside the glass, not an accent fill. */
+.mac-tabs {
+  display: inline-flex;
+  align-items: center;
+  height: var(--mac-tool-h);
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--mac-glass);
+  box-shadow: inset 0 0 0 .5px var(--mac-glass-edge), var(--mac-glass-shadow);
+}
+.mac-tabs > button {
+  height: 28px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--mac-label);
+  font: var(--mac-text-body);
+  letter-spacing: var(--mac-track-body);
+}
+.mac-tabs > [aria-selected="true"] { background: var(--mac-tab-selected); }
+
+/* Search in the toolbar: a glass capsule that takes the accent as its
+   focus ring, as Notes shows. */
+.mac-toolsearch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: var(--mac-tool-h);
+  width: var(--mac-search-w, 200px);
+  padding: 0 12px;
+  border-radius: 999px;
+  background: var(--mac-glass);
+  box-shadow: inset 0 0 0 .5px var(--mac-glass-edge), var(--mac-glass-shadow);
+  color: var(--mac-label-secondary);
+}
+.mac-toolsearch input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: var(--mac-label);
+  font: var(--mac-text-body);
+  letter-spacing: var(--mac-track-body);
+  outline: none;
+}
+.mac-toolsearch:focus-within { box-shadow: 0 0 0 3px color-mix(in srgb, var(--mac-accent) 55%, transparent), var(--mac-glass-shadow); }
+
+/* ----------------------------------------------------------- Controls */
+
+/* Push buttons: 24pt capsules in Calendar and in alerts. The save panel
+   still draws them as rounded rectangles with 6pt corners;
+   .mac-btn--rect is that one. */
+.mac-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: var(--mac-control-h);
+  padding: 0 15px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--mac-control-fill);
+  color: var(--mac-label);
+  font: var(--mac-text-body);
+  letter-spacing: var(--mac-track-body);
+  white-space: nowrap;
+  cursor: default;
+}
+.mac-btn:active { background: var(--mac-control-fill-pressed); }
+.mac-btn:focus-visible { outline: 3px solid color-mix(in srgb, var(--mac-accent) 55%, transparent); outline-offset: 1px; }
+.mac-btn--default { background: var(--mac-accent); color: var(--mac-on-accent); }
+.mac-btn--default:active { background: color-mix(in srgb, var(--mac-accent) 85%, #000); }
+.mac-btn--destructive { color: var(--mac-red); }
+.mac-btn--large { height: var(--mac-control-h-large); padding: 0 18px; }
+.mac-btn--rect { border-radius: 6px; }
+.mac-btn--circle { width: var(--mac-control-h); padding: 0; }
+.mac-btn:disabled { opacity: .45; }
+/* Dialog buttons share a minimum width: Cancel and Save measure 74pt. */
+.mac-actions { display: flex; gap: 12px; justify-content: flex-end; align-items: center; }
+.mac-actions > .mac-btn { min-width: 74px; }
+.mac-actions > .mac-actions__start { margin-right: auto; }
+
+/* Pop-up button: a value with up and down chevrons, from the save
+   panel's path pop-up. */
+.mac-popup {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: var(--mac-control-h);
+  padding: 0 6px 0 10px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--mac-control-fill);
+  color: var(--mac-label);
+  font: var(--mac-text-body);
+  letter-spacing: var(--mac-track-body);
+}
+.mac-popup::after {
+  content: "";
+  width: 9px;
+  height: 14px;
+  margin-left: auto;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 14'%3E%3Cpath d='M1.5 5 4.5 2l3 3M1.5 9l3 3 3-3' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 14'%3E%3Cpath d='M1.5 5 4.5 2l3 3M1.5 9l3 3 3-3' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  opacity: .8;
+}
+
+/* Text and search fields: 26pt, white, a hairline edge, 6pt and 7pt
+   corners, from the save panel. */
+.mac-field,
+.mac-search {
+  height: var(--mac-field-h);
+  padding: 0 8px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--mac-field-bg);
+  box-shadow: inset 0 0 0 1px var(--mac-field-edge), 0 .5px 1px rgba(0, 0, 0, .04);
+  color: var(--mac-label);
+  font: var(--mac-text-body);
+  letter-spacing: var(--mac-track-body);
+}
+.mac-search {
+  border-radius: 7px;
+  padding-left: 26px;
+  background: var(--mac-field-bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='7' cy='7' r='5' fill='none' stroke='%23888' stroke-width='1.6'/%3E%3Cpath d='m11 11 3.5 3.5' stroke='%23888' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") 8px center / 13px no-repeat;
+}
+.mac-field::placeholder, .mac-search::placeholder { color: var(--mac-label-secondary); }
+.mac-field:focus, .mac-search:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--mac-accent) 70%, transparent),
+              0 0 0 3px color-mix(in srgb, var(--mac-accent) 40%, transparent);
+}
+
+/* A form label sits right-aligned before its field, in the secondary
+   colour, as the save panel's "Save As:" and "Tags:" do. */
+.mac-form { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 10px 8px; align-items: center; }
+.mac-form > label { justify-self: end; color: var(--mac-label-secondary); }
+
+/* Segmented control: a capsule track with the selected segment filled
+   in the accent, from Calendar's New / Replied. */
+.mac-segmented {
+  display: inline-flex;
+  height: var(--mac-control-h);
+  padding: 0;
+  border-radius: 999px;
+  background: var(--mac-control-fill);
+}
+.mac-segmented > label,
+.mac-segmented > button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 64px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--mac-label);
+  font: var(--mac-text-body);
+  letter-spacing: var(--mac-track-body);
+  cursor: default;
+}
+.mac-segmented input { position: absolute; opacity: 0; pointer-events: none; }
+.mac-segmented > label:has(input:checked),
+.mac-segmented > [aria-pressed="true"],
+.mac-segmented > [aria-selected="true"] { background: var(--mac-accent); color: var(--mac-on-accent); }
+.mac-segmented > label:has(input:focus-visible) { outline: 3px solid color-mix(in srgb, var(--mac-accent) 55%, transparent); }
+
+/* Checkboxes and radio buttons: a filled accent square or circle when
+   on, a plain grey fill when off, with no outline, as the HIG's macOS
+   illustrations draw them. Their size has no anchor in those images;
+   16pt is a choice. */
+.mac-check,
+.mac-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 20px;
+}
+.mac-check input,
+.mac-radio input {
+  appearance: none;
+  -webkit-appearance: none;
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  border-radius: 4px;
+  background: var(--mac-control-fill);
+  box-shadow: inset 0 0 0 .5px rgba(0, 0, 0, .08);
+  display: grid;
+  place-content: center;
+}
+.mac-radio input { border-radius: 50%; }
+.mac-check input:checked,
+.mac-check input:indeterminate,
+.mac-radio input:checked { background: var(--mac-accent); box-shadow: none; }
+.mac-check input:checked::after {
+  content: "";
+  width: 10px;
+  height: 8px;
+  background: var(--mac-on-accent);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 8'%3E%3Cpath d='M1 4.2 3.7 7 9 1' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 8'%3E%3Cpath d='M1 4.2 3.7 7 9 1' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.mac-check input:indeterminate::after { content: ""; width: 8px; height: 2px; border-radius: 1px; background: var(--mac-on-accent); }
+.mac-radio input:checked::after { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--mac-on-accent); }
+.mac-check input:focus-visible,
+.mac-radio input:focus-visible { outline: 3px solid color-mix(in srgb, var(--mac-accent) 55%, transparent); outline-offset: 1px; }
+
+/* A switch: macOS's is smaller than iOS's. Chosen proportions; no
+   macOS 26 switch was in the images. */
+.mac-switch { position: relative; display: inline-block; width: 32px; height: 18px; }
+.mac-switch input { position: absolute; inset: 0; margin: 0; opacity: 0; }
+.mac-switch span {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: var(--mac-control-fill-pressed);
+  transition: background .2s ease;
+  pointer-events: none;
+}
+.mac-switch span::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 14px;
+  border-radius: 999px;
+  background: #FFFFFF;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .25);
+  transition: transform .2s ease;
+}
+.mac-switch input:checked + span { background: var(--mac-accent); }
+.mac-switch input:checked + span::after { transform: translateX(8px); }
+.mac-switch input:focus-visible + span { outline: 3px solid color-mix(in srgb, var(--mac-accent) 55%, transparent); outline-offset: 1px; }
+
+/* Progress: an accent bar on a grey track, rounded, as drawn in the
+   HIG's macOS illustration. */
+.mac-progress {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--mac-control-fill);
+  overflow: hidden;
+}
+.mac-progress::-webkit-progress-bar { background: var(--mac-control-fill); border-radius: 999px; }
+.mac-progress::-webkit-progress-value { background: var(--mac-accent); border-radius: 999px; }
+.mac-progress::-moz-progress-bar { background: var(--mac-accent); border-radius: 999px; }
+
+/* -------------------------------------------------------------- Lists
+
+   Rows in the content area. The column view's selection measured 23pt
+   tall in #2962D9 with 5pt corners and white text; a list keeps 24. */
+
+.mac-list { margin: 0; padding: 0; list-style: none; }
+.mac-list__row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 24px;
+  padding: 3px 10px;
+  border-radius: 5px;
+}
+.mac-list__row + .mac-list__row::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 10px;
+  right: 10px;
+  height: 1px;
+  background: var(--mac-separator);
+}
+.mac-list--plain .mac-list__row + .mac-list__row::before { display: none; }
+.mac-list__title { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mac-list__detail { color: var(--mac-label-secondary); white-space: nowrap; }
+.mac-list__row[aria-selected="true"],
+.mac-list__row.is-selected { background: var(--mac-selection); color: #FFFFFF; }
+.mac-list__row[aria-selected="true"] .mac-list__detail,
+.mac-list__row.is-selected .mac-list__detail { color: rgba(255, 255, 255, .8); }
+.mac-list__row[aria-selected="true"]::before,
+.mac-list__row[aria-selected="true"] + .mac-list__row::before { display: none; }
+
+/* A table: column headers in the secondary colour, rows striped with
+   the alternating content colour. Chosen spacing, no image measured. */
+.mac-table { width: 100%; border-collapse: collapse; font: var(--mac-text-body); letter-spacing: var(--mac-track-body); }
+.mac-table th {
+  height: 28px;
+  padding: 0 10px;
+  border-bottom: 1px solid var(--mac-separator);
+  color: var(--mac-label-secondary);
+  font: 600 11px/14px var(--mac-font);
+  text-align: left;
+}
+.mac-table td { height: 24px; padding: 0 10px; white-space: nowrap; }
+.mac-table tbody tr:nth-child(even) td { background: color-mix(in srgb, var(--mac-label) 4%, transparent); }
+.mac-table tbody tr td:first-child { border-radius: 5px 0 0 5px; }
+.mac-table tbody tr td:last-child { border-radius: 0 5px 5px 0; }
+.mac-table tbody tr[aria-selected="true"] td { background: var(--mac-selection); color: #FFFFFF; }
+
+/* ------------------------------------------------------------- Menus
+
+   From Notes: 11pt corners, 5.5pt inside them the rows, each 23.5pt
+   tall, the highlighted one a solid accent pill whose 5.5pt corners
+   are concentric with the menu's. Separators stop 16pt short of the
+   edges. Text 13pt, shortcuts right-aligned in the secondary colour. */
+
+.mac-menu {
+  display: inline-flex;
+  flex-direction: column;
+  min-width: 180px;
+  padding: var(--mac-menu-inset);
+  border-radius: var(--mac-menu-radius);
+  background: var(--mac-menu-bg);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+  backdrop-filter: blur(24px) saturate(1.6);
+  box-shadow: inset 0 0 0 .5px var(--mac-menu-edge), 0 10px 30px rgba(0, 0, 0, .18), 0 2px 6px rgba(0, 0, 0, .08);
+  font: var(--mac-text-body);
+  letter-spacing: var(--mac-track-body);
+}
+.mac-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: var(--mac-menu-row);
+  padding: 0 10px 0 10px;
+  border: 0;
+  border-radius: calc(var(--mac-menu-radius) - var(--mac-menu-inset));
+  background: transparent;
+  color: var(--mac-label);
+  font: inherit;
+  letter-spacing: inherit;
+  text-align: left;
+  cursor: default;
+}
+.mac-menu__icon { flex: 0 0 16px; display: inline-flex; justify-content: center; }
+.mac-menu__icon svg { width: 15px; height: 15px; }
+.mac-menu__shortcut { margin-left: auto; padding-left: 20px; color: var(--mac-label-secondary); }
+.mac-menu__item[aria-haspopup]::after {
+  content: "";
+  margin-left: auto;
+  width: 6px;
+  height: 10px;
+  background: currentColor;
+  opacity: .6;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 6 10'%3E%3Cpath d='m1 1 4 4-4 4' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 6 10'%3E%3Cpath d='m1 1 4 4-4 4' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.mac-menu__item:hover,
+.mac-menu__item:focus-visible,
+.mac-menu__item.is-highlighted { background: var(--mac-accent); color: var(--mac-on-accent); outline: none; }
+.mac-menu__item:hover .mac-menu__shortcut,
+.mac-menu__item.is-highlighted .mac-menu__shortcut { color: inherit; opacity: .8; }
+.mac-menu__item:disabled { color: var(--mac-label-tertiary); background: transparent; }
+.mac-menu__sep { height: 1px; margin: 5px 10px; background: var(--mac-separator); }
+.mac-menu__header { padding: 6px 10px 2px; color: var(--mac-label-secondary); font: 700 11px/14px var(--mac-font); }
+
+/* ------------------------------------------------------------ Sheets
+
+   A sheet slides down over its window and dims it: white content behind
+   reads #CCCCCC, 20% black. Corners 19pt. */
+
+.mac-sheet-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 36px 24px 24px;
+  background: var(--mac-scrim);
+}
+.mac-sheet {
+  width: min(100%, var(--mac-sheet-w, 440px));
+  max-height: 100%;
+  overflow: auto;
+  padding: 28px 28px 20px;
+  border-radius: var(--mac-sheet-radius);
+  background: var(--mac-content-bg);
+  box-shadow: 0 0 0 1px var(--mac-window-edge), 0 18px 50px rgba(0, 0, 0, .25);
+}
+.mac-sheet__title { margin: 0 0 12px; font: 700 17px/22px var(--mac-font); letter-spacing: -.43px; }
+.mac-sheet .mac-actions { margin-top: 20px; }
+
+/* ------------------------------------------------------------ Alerts
+
+   260pt wide, 26pt corners, title and message left aligned at 13pt
+   (bold, then regular), and the buttons stacked full width as 28pt
+   capsules 6pt apart, the default one in the accent. */
+
+.mac-alert {
+  width: var(--mac-alert-w);
+  padding: 20px 16px 16px;
+  border-radius: var(--mac-alert-radius);
+  background: var(--mac-alert-bg);
+  box-shadow: inset 0 0 0 1.5px var(--mac-alert-rim), 0 0 0 .5px rgba(0, 0, 0, .25), 0 18px 50px rgba(0, 0, 0, .25);
+  text-align: left;
+}
+.mac-alert__icon { width: 48px; height: 48px; margin: 0 6px 10px; }
+.mac-alert__title { margin: 0 6px; font: var(--mac-text-headline); letter-spacing: var(--mac-track-headline); }
+.mac-alert__message { margin: 9px 6px 0; font: var(--mac-text-body); letter-spacing: var(--mac-track-body); }
+.mac-alert__actions { display: flex; flex-direction: column; gap: 6px; margin-top: 16px; }
+.mac-alert__actions .mac-btn { width: 100%; height: var(--mac-control-h-large); background: var(--mac-alert-secondary); font-weight: 600; }
+.mac-alert__actions .mac-btn--default { background: var(--mac-accent); color: var(--mac-on-accent); }
+.mac-alert__actions .mac-btn--destructive { color: var(--mac-red); }
+
+/* ---------------------------------------------------------- Popover
+
+   Glass, with a small arrow toward what opened it. Chosen corners; no
+   macOS 26 popover was measured. */
+
+.mac-popover {
+  position: relative;
+  padding: 14px;
+  border-radius: 16px;
+  background: var(--mac-menu-bg);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+  backdrop-filter: blur(24px) saturate(1.6);
+  box-shadow: inset 0 0 0 .5px var(--mac-menu-edge), 0 10px 30px rgba(0, 0, 0, .18);
+}
+
+/* ------------------------------------------------------- Empty state
+
+   macOS's ContentUnavailableView: centred, a large tertiary symbol, a
+   title 2 heading, a secondary sentence, an ordinary push button. Not
+   iOS's pinned full-width capsule. Composed from the HIG's text styles. */
+
+.mac-empty {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  max-width: 320px;
+  margin: 0 auto;
+  padding: 64px 20px;
+  text-align: center;
+}
+.mac-empty__glyph { color: var(--mac-label-tertiary); margin-bottom: 6px; }
+.mac-empty__glyph svg { width: 44px; height: 44px; }
+.mac-empty__title { margin: 0; font: 700 17px/22px var(--mac-font); letter-spacing: -.43px; }
+.mac-empty__body { margin: 0; color: var(--mac-label-secondary); }
+.mac-empty .mac-btn { margin-top: 10px; }
+
+/* -------------------------------------------------------- Inspector
+
+   A trailing column of grouped settings: Calendar and Pages show it
+   on the content background with no material. Chosen spacing. */
+
+.mac-inspector {
+  flex: 0 0 var(--mac-inspector-w, 260px);
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--mac-toolbar-h) 16px 16px;
+  border-left: 1px solid var(--mac-separator);
+  background: var(--mac-content-bg);
+}
+.mac-group {
+  display: grid;
+  gap: 1px;
+  margin: 0 0 16px;
+  padding: 4px 12px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--mac-label) 4%, transparent);
+}
+.mac-group__row { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 30px; }
+.mac-group__row + .mac-group__row { border-top: 1px solid var(--mac-separator); }
+.mac-group__header { margin: 0 0 6px 4px; font: 700 11px/14px var(--mac-font); color: var(--mac-label-secondary); }
+
+@media (prefers-reduced-motion: reduce) {
+  .mac-switch span, .mac-switch span::after { transition: none; }
+}
