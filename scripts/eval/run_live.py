@@ -88,7 +88,7 @@ def run(name, n, out, resume=False):
     elif HALT.is_set():
         return dict(record, status="not run")
     else:
-        env = dict(os.environ, PROJTEST_WORK=os.path.join(out, f"{name}-{n}.work"))
+        env = dict(os.environ, EVAL_WORK=os.path.join(out, f"{name}-{n}.work"))
         started = time.time()
         try:
             p = subprocess.run([sys.executable, os.path.join(HERE, cmd[0])] + cmd[1:],

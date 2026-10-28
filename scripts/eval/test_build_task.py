@@ -55,9 +55,19 @@ CODE_BLOCK = re.compile(r"```(?:swift)?\n(.*?)```", re.S)
 
 def code_only(answer):
     """Just the Swift the model wrote. Assertions about what the code does
-    must not be satisfiable by prose describing what it avoided."""
+    must not be satisfiable by prose describing what it avoided.
+
+    Sometimes the code isn't in the reply at all: the model writes it to a
+    file and gives the path. Read those files too, or a correct answer
+    grades as missing everything."""
     blocks = CODE_BLOCK.findall(answer)
-    return "\n".join(blocks) if blocks else ""
+    for path in sorted(set(re.findall(r"(/[^\s`'\"()]+\.swift)\b", answer))):
+        try:
+            with open(path, encoding="utf-8") as fh:
+                blocks.append(fh.read())
+        except OSError:
+            pass
+    return "\n".join(blocks)
 
 
 def ask(q, root):
@@ -75,6 +85,13 @@ if __name__ == "__main__":
         futs = {ex.submit(ask, q, root): lbl for lbl, q, _, _ in CASES}
         for f in cf.as_completed(futs): res[futs[f]] = f.result()
     shutil.rmtree(root, ignore_errors=True)
+    save = os.environ.get("EVAL_WORK")    # run_live.py sets this per run
+    if save:
+        os.makedirs(save, exist_ok=True)
+        for lbl, text in res.items():
+            name = re.sub(r"[^a-z0-9]+", "-", lbl.lower()).strip("-") + ".md"
+            with open(os.path.join(save, name), "w", encoding="utf-8") as fh:
+                fh.write(text + "\n\n<!-- code graded -->\n" + code_only(text))
     passed = 0
     for lbl, _q, want, avoid in CASES:
         full = res[lbl]

@@ -26,7 +26,7 @@ CHECK = os.path.join(SKILLS, "apple-design", "check_design.py")
 MODEL = "claude-opus-5"
 # Where runs build and write their transcripts. run_live.py gives each
 # repeat its own, since a run wipes its brief's folder when it starts.
-WORK = os.environ.get("PROJTEST_WORK", HERE)
+WORK = os.environ.get("EVAL_WORK", HERE)
 
 BRIEFS = {
     "p-dash": dict(

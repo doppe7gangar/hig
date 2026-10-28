@@ -86,7 +86,7 @@ def ask(query, with_skills):
 
 
 def quotes(text):
-    """ALTERED count and total quotes, per verify_quotes.py."""
+    """ALTERED count, total quotes and the altered ones, per verify_quotes.py."""
     with tempfile.NamedTemporaryFile("w", suffix=".md", delete=False) as f:
         f.write(text)
     p = subprocess.run([sys.executable, VERIFY, f.name, "--project",
@@ -94,7 +94,8 @@ def quotes(text):
     os.unlink(f.name)
     counts = {k: int(v) for k, v in re.findall(
         r"(verbatim|elided|source|truncated|altered) (\d+)", p.stdout.lower())}
-    return counts.get("altered", 0), sum(counts.values())
+    altered = re.findall(r"^\s*ALTERED: (.*)$", p.stdout, re.M)
+    return counts.get("altered", 0), sum(counts.values()), altered
 
 
 def grade(text, need, avoid, check_quotes):
@@ -109,8 +110,9 @@ def grade(text, need, avoid, check_quotes):
     if hit:
         note.append(f"has {hit}")
     if check_quotes:
-        altered, graded = quotes(text)
-        note.append(f"{graded} quotes, {altered} altered")
+        altered, graded, which = quotes(text)
+        note.append(f"{graded} quotes, {altered} altered"
+                    + "".join(f"\n                  altered: {q[:110]}" for q in which))
         ok = ok and graded > 0 and altered == 0
     return ok, "; ".join(note)
 
@@ -120,7 +122,8 @@ def main():
     ap.add_argument("--runs", type=int, default=1)
     ap.add_argument("--workers", type=int, default=3)
     ap.add_argument("--only", help="run cases whose label contains this")
-    ap.add_argument("--save", metavar="DIR", help="write every answer here")
+    ap.add_argument("--save", metavar="DIR", default=os.environ.get("EVAL_WORK"),
+                    help="write every answer here (run_live.py sets this per run)")
     a = ap.parse_args()
     global CASES
     if a.only:
