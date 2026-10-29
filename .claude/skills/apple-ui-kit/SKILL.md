@@ -66,6 +66,40 @@ colour roles, its own switch, and its own conventions that users expect.
 An iOS palette on Android is a legitimate choice when cross-platform
 brand consistency is the deliberate goal; it is a bad default.
 
+## Whole iPhone screens: start from Apple's
+
+`ios-screens.html` is four screens composed the way Apple composes them on
+the Examples page of its iOS and iPadOS 27 kit, from the kit's parts and
+nothing else: an inset list (thumbnail row, stepper, date and time
+capsules, pop-up value, switch, action row), a plain list with letter
+sections, an empty state with its symbol in a circle, and a tab bar app.
+Copy the closest one and change the content. `verify_ios_screens.py`
+holds them to Apple's numbers: the large title at y 116, an inset list
+20pt in and 362pt wide at y 183, 52pt rows and 68pt two-line rows, 39pt
+letter sections, the empty state's circle at y 334 and its 52pt capsule
+36pt in.
+
+The parts they use: `ios-largetitle` (with `ios-largetitle__subtitle`),
+`ios-list__text` + `ios-list__subtitle`, `ios-list__thumb`,
+`ios-list__accessory`, `ios-list--plain` + `ios-list__section`,
+`ios-pill`, `ios-stepper`, `ios-popup`, and `ios-empty--circle` with
+`ios-empty--fill`.
+
+What Apple's screens don't have, and a page that has them reads as a web
+page dressed as an app: tinted circles behind list-row icons (Settings
+uses a 30pt rounded square; the circle belongs to the empty state), round
+custom buttons inside rows, shadows under cards, gradients, coloured
+section backgrounds, and icons typed as characters or emoji.
+`check_design.py` fails the last one.
+
+**Real SF Symbols, on a Mac.** Every icon in the markup names its symbol
+(`data-sf-symbol="leaf.fill"`) over a drawn stand-in. The stand-ins are
+the quickest giveaway. On a Mac, `python3 sf_icons.py ./design` draws
+each named symbol with the Mac's own SF Symbols and links them in; run it
+again after adding icons. Elsewhere it leaves the drawings. Apple's
+licence allows the symbols in mock-ups for its platforms but not handed
+around on their own, so they stay in the design and out of this repo.
+
 ## macOS
 
 `macos-components.css` is the Mac's counterpart to the iOS recipes,

@@ -562,6 +562,27 @@ def check_symbols_named(path, html):
         ok(f"{name}: all {len(slots)} icon slots name their SF Symbol")
 
 
+# Characters standing in for icons: geometric shapes, dingbats, arrows,
+# stars, and emoji. The kit's chevrons (‹ ›) are type, not icons.
+GLYPH_ICONS = re.compile("[\u2190-\u21ff\u2300-\u23ff\u25a0-\u25ff\u2600-\u27bf"
+                         "\u2b00-\u2bff\U0001f000-\U0001faff]")
+
+
+def check_glyph_icons(path, html):
+    """An icon drawn with a character reads as a web page at a glance."""
+    name = os.path.basename(path)
+    text = re.sub(r"<(script|style)\b.*?</\1>|<!--.*?-->", " ", html, flags=re.S | re.I)
+    text = re.sub(r'<div class="demo__bar".*?</div>', " ", text, flags=re.S)
+    text = re.sub(r"<[^>]+>", " ", text)
+    found = sorted(set(GLYPH_ICONS.findall(text)))
+    if found:
+        bad(f"{name}: icons drawn with characters ({' '.join(found[:8])}). Apple's apps "
+            f"use SF Symbols, never shapes, stars or emoji typed as text: use an SVG "
+            f"with data-sf-symbol, and on a Mac run apple-ui-kit's sf_icons.py.")
+    else:
+        ok(f"{name}: no icons faked with characters")
+
+
 def check_hardcoded(path, html):
     """Colours written into the page instead of taken from the system."""
     name = os.path.basename(path)
@@ -1212,7 +1233,8 @@ def main():
         sys.exit(f"not a directory: {a.directory}")
 
     pages = sorted(glob.glob(os.path.join(root, "**", "*.html"), recursive=True))
-    pages = [p for p in pages if "vendor" not in os.path.relpath(p, root).split(os.sep)]
+    # vendor/ is the kit; figma/ is export_figma.py's output, not a page.
+    pages = [p for p in pages if not {"vendor", "figma"} & set(os.path.relpath(p, root).split(os.sep))]
     if not pages:
         sys.exit(f"no .html in {a.directory}. The deliverable is a working "
                  f"screen; a directory of notes is not one.")
@@ -1230,6 +1252,7 @@ def main():
         check_local_refs(p, html)
         check_states(p, html)
         check_hardcoded(p, html)
+        check_glyph_icons(p, html)
         check_token_overrides(p, html)
         check_uses_kit(p, html)
         if is_android(p, html):

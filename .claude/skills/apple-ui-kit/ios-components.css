@@ -1302,3 +1302,175 @@ body {
   gap: 12px;
   color: var(--ios-label-secondary);
 }
+
+/* ------------------------------------------------ Screen parts, iOS 27
+
+   Measured from the Examples page of Apple's iOS and iPadOS 27 kit,
+   where Apple composes whole screens from its own parts. These are the
+   pieces a screen kept reaching for and hand-rolling: the large title,
+   the plain list with letter sections, a thumbnail row, the compact date
+   and time capsules, the stepper, the pop-up value, and the empty state
+   with its symbol in a tinted circle. Hand-rolled, each came out close
+   and wrong, which is what made a page read as "almost iOS". */
+
+:root {
+  --ios-fill-tertiary: rgba(118, 118, 128, 0.12);    /* kit variable Fills/Tertiary */
+  --ios-fill-quaternary: rgba(116, 116, 128, 0.08);  /* kit variable Fills/Quaternary */
+  --ios-separator-vibrant: #E6E6E6;                  /* kit variable Separators/Vibrant */
+  /* Inset lists sit 20pt in from the screen edge on iPhone, not at the
+     16pt text margin: Apple's 362pt-wide table on a 402pt screen. */
+  --ios-list-inset: 20px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ios-fill-tertiary: rgba(118, 118, 128, 0.24);
+    --ios-fill-quaternary: rgba(118, 118, 128, 0.18);
+    --ios-separator-vibrant: rgba(255, 255, 255, 0.12);
+  }
+}
+:root[data-theme="dark"] {
+  --ios-fill-tertiary: rgba(118, 118, 128, 0.24);
+  --ios-fill-quaternary: rgba(118, 118, 128, 0.18);
+  --ios-separator-vibrant: rgba(255, 255, 255, 0.12);
+}
+
+.ios-list { margin-left: var(--ios-list-inset); margin-right: var(--ios-list-inset); }
+
+/* Large title, with its optional subtitle. 10pt under the 44pt controls,
+   16pt in; Bold 34/41 with +0.4 tracking in the vibrant label colour. */
+.ios-largetitle {
+  margin: 0 var(--ios-gutter);
+  padding-bottom: 10px;
+}
+/* Content starts 16pt under the title block: y 183 under a title alone,
+   Apple's inset list. */
+.ios-largetitle + .ios-list,
+.ios-largetitle + .ios-list__header,
+.ios-largetitle + .ios-list__section { margin-top: 16px; }
+.ios-largetitle h1,
+.ios-largetitle__title {
+  margin: 0;
+  font: 700 34px/41px var(--ios-font);
+  letter-spacing: 0.4px;
+  color: var(--ios-label-vibrant);
+}
+.ios-largetitle__subtitle {
+  margin: 0;
+  font: var(--ios-text-subhead);
+  letter-spacing: var(--ios-track-subhead);
+  color: var(--ios-label-secondary);
+}
+
+/* A row's title over a subtitle: 22pt body over 20pt subheadline, 13pt
+   above and below, is Apple's 68pt two-line row. */
+.ios-list__row:has(> .ios-list__text .ios-list__subtitle) { padding-top: 13px; padding-bottom: 13px; }
+/* A capsule or stepper keeps the row at 52pt: Apple centres the 34pt
+   control rather than padding round it. */
+.ios-list__row:has(> .ios-pill, > .ios-stepper) { padding-top: 9px; padding-bottom: 9px; }
+.ios-list__text { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.ios-list__text .ios-list__title { flex: none; }
+.ios-list__subtitle {
+  font: var(--ios-text-subhead);
+  letter-spacing: var(--ios-track-subhead);
+  color: var(--ios-label-secondary);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+/* A thumbnail takes the row's full 68pt height, square, flush with the
+   row's 16pt inset; the hairline starts after it, at the text. */
+.ios-list__thumb {
+  flex: none; width: 68px; height: 68px; margin: -14px -4px -14px 0;
+  object-fit: cover; background: var(--ios-fill-tertiary);
+}
+.ios-list__row:has(> .ios-list__thumb) + .ios-list__row::before,
+.ios-list__row + .ios-list__row:has(> .ios-list__thumb)::before { left: 96px; }
+
+/* Trailing accessory symbols (star, info) in the accent, 22pt boxes,
+   16pt apart from the detail text and each other. */
+.ios-list__accessory {
+  flex: none; display: grid; place-items: center;
+  width: 22px; height: 22px; color: var(--ios-accent);
+}
+
+/* The plain, full-width list: white, rows inset 16pt, and letter section
+   titles in Semibold 17 secondary label with an opaque hairline above. */
+.ios-list--plain {
+  margin-left: 0; margin-right: 0; border-radius: 0;
+  background: var(--ios-bg-primary, #FFFFFF);
+}
+.ios-list--plain .ios-list__row + .ios-list__row::before {
+  right: var(--ios-gutter);
+  background: var(--ios-separator-vibrant);
+}
+.ios-list__section {
+  position: sticky; top: 0; z-index: 1;
+  display: flex; align-items: flex-end;
+  height: 39px; box-sizing: border-box;
+  margin: 0 var(--ios-gutter); padding-bottom: 9px;
+  border-top: 0.5px solid var(--ios-separator-opaque, #C6C6C8);
+  background: color-mix(in srgb, var(--ios-bg-primary, #FFFFFF) 82%, transparent);
+  backdrop-filter: blur(25px);
+  font: 590 17px/22px var(--ios-font);
+  letter-spacing: -0.43px;
+  color: var(--ios-label-secondary);
+}
+
+/* Compact date and time: a capsule of tertiary fill, 11pt by 6pt around
+   body text. A date and a time sit side by side, 8pt apart. */
+.ios-pill {
+  flex: none; display: inline-flex; gap: 5px; align-items: center;
+  padding: 6px 11px; border: 0; border-radius: 999px;
+  background: var(--ios-fill-tertiary);
+  font: var(--ios-text-body); letter-spacing: var(--ios-track-body);
+  color: var(--ios-label);
+}
+.ios-pill + .ios-pill { margin-left: -4px; }
+
+/* Stepper: 92 x 32, two 46pt halves of quaternary fill split by a 24pt
+   hairline, Semibold 17 minus and plus. */
+.ios-stepper {
+  flex: none; position: relative; display: inline-flex;
+  height: 32px; border-radius: 999px; overflow: hidden;
+}
+.ios-stepper button {
+  width: 46px; height: 32px; border: 0; padding: 0;
+  background: var(--ios-fill-quaternary);
+  font: 590 17px/1 var(--ios-font); color: var(--ios-label);
+}
+.ios-stepper::after {
+  content: ""; position: absolute; left: 50%; top: 4px; width: 1px; height: 24px;
+  background: var(--ios-label-tertiary); border-radius: 8px;
+}
+
+/* Pop-up value: secondary text and the up-down chevrons, no capsule. */
+.ios-popup {
+  flex: none; display: inline-flex; gap: 6px; align-items: center;
+  border: 0; padding: 0; background: none;
+  font: var(--ios-text-body); letter-spacing: var(--ios-track-body);
+  color: var(--ios-label-secondary);
+}
+
+/* Empty state with its symbol in a circle: a 50pt circle of the accent at
+   15%, the symbol Semibold 22 in the accent, then title and message both
+   at 22pt, Semibold over Medium, 16pt below the circle. The one action is
+   a full-width 52pt capsule at the foot of the screen, 36pt in. */
+/* Two auto margins split the free space, so the message sits centred in
+   what the button leaves, as Apple's does, rather than at the top. */
+.ios-empty--circle .ios-empty__glyph {
+  margin-top: auto;
+  display: grid; place-items: center;
+  width: 50px; height: 50px; margin-bottom: 16px; border-radius: 50%;
+  background: color-mix(in srgb, var(--ios-accent) 15%, transparent);
+  color: var(--ios-accent); font: 590 22px/1 var(--ios-font);
+}
+.ios-empty--circle .ios-empty__title { font: 590 22px/1.2 var(--ios-font); letter-spacing: -0.26px; }
+.ios-empty--circle .ios-empty__body {
+  margin-top: 0; margin-bottom: 0; max-width: none;
+  font: 510 22px/1.2 var(--ios-font); letter-spacing: -0.26px;
+}
+.ios-empty--circle .ios-empty__action {
+  min-height: 52px; margin: auto 0 0; font: 510 17px/18px var(--ios-font);
+}
+/* Apple's empty state fills the whole screen behind the bars, so the
+   message centres on the screen, not on what the title leaves. */
+.ios-empty--fill { position: absolute; inset: 0; padding: 0 36px 36px; }

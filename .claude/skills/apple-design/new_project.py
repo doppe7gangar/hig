@@ -246,12 +246,10 @@ IOS_CSS = """
   .ios-navbar .ios-controls { margin-left: auto; }
   .ios-navbar__title { opacity: 0; transition: opacity .18s ease; }
   .device[data-scrolled="1"] .ios-navbar__title { opacity: 1; }
-  .largetitle { margin: 4px var(--ios-gutter, 16px) 8px;
-                font: var(--ios-text-large-title);
-                font-weight: var(--ios-weight-bold);
-                letter-spacing: var(--ios-track-large-title);
-                color: var(--ios-label); }
-  .ios-list { margin: 0 0 22px; }
+  /* The kit's large title (ios-largetitle) sets the type and spacing,
+     measured from Apple's example screens. Lists sit 4pt inside the
+     screen's 16pt gutter: Apple's 20pt inset. */
+  .ios-list { margin: 0 4px 22px; }
   .ios-tabbar__item[aria-selected="true"] { color: var(--accent-text-safe); }
 """
 
@@ -308,7 +306,7 @@ __SWITCHER__
         </button>
       </div>
     </nav>
-    <h1 class="largetitle">__SCREEN1__</h1>
+    <header class="ios-largetitle"><h1 class="largetitle">__SCREEN1__</h1></header>
     <main class="screen">
       <section class="state state--populated">
         <p class="sectionhead">Today<a class="sectionhead__action" href="#">See All</a></p>
