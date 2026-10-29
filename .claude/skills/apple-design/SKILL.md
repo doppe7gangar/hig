@@ -31,9 +31,11 @@ One screen or page takes the short path: a single primary task, with its sheets 
 
 1. Route the platform and name the one question the screen answers: `references/platform-routing.md`, `references/content-hierarchy.md`.
 2. Scaffold (step 12) and build the screen on it, with real content and its loading, empty and error states. On iOS keep its large title: a top-level iOS screen without one reads as a web page. For an iPad app scaffold `--kind ipados` and keep the glass sidebar or the tabs at the top: with the iPhone's bottom tab bar it reads as a stretched phone. For a Mac app scaffold `--kind macos` and keep the window, sidebar and toolbar: with a tab bar or 17pt text it reads as an iPad app on a desk. For an Android app scaffold `--kind android` and keep the top app bar, nav bar and Material Symbols: with a tab bar, a large title or SF Symbols it reads as an iPhone port.
-3. Run `python3 check_design.py ./design` until it passes. Keep scripts plain (`<script src>`, no `type="module"`, `import` or `export`): the design opens straight from a file, and browsers refuse to run modules there, so that part of the page silently does nothing.
+3. Make every control do something when tapped, with `prototype.js` (the scaffold copies it into the project's vendor folder) rather than a script per screen: `data-go="saved"` on a tab or sidebar row shows the screen `data-screen-id="saved"`, `data-push` opens a detail with `data-back` to return, `data-sheet` opens `data-sheet-id` and `data-dismiss` closes it, `data-toggle` flips a button or switch, and `data-toast="Saved"` confirms an action. Build every screen the navigation names: a tab that goes nowhere is the first thing a reviewer taps. A control that really is inert in the prototype takes `data-inert`.
+   Run `python3 check_design.py ./design` until it passes; it taps every control and fails the ones that do nothing. Keep scripts plain (`<script src>`, no `type="module"`, `import` or `export`): the design opens straight from a file, and browsers refuse to run modules there, so that part of the page silently does nothing.
 4. Run `python3 render_review.py ./design`, look at the screenshots, and fix what they show. Then run `python3 render_review.py ./design --check`: the screenshots and the review must describe the page as it is now, not as it was before the fixes.
-5. If the app is SwiftUI and the request includes the code, hand off (step 17).
+5. Deliver the web page and, unless the person only wants the page, the Figma file too (step 18).
+6. If the app is SwiftUI and the request includes the code, hand off (step 17).
 
 Skip the rest. Divergence candidates, cross-screen coherence, project grammar and the implementation audit exist for products with several screens; on one screen they take most of the time for little of the value. Say in one line that you took the short path. A product with screens to move between, or a request for design directions, takes the full workflow below.
 
@@ -162,6 +164,23 @@ After revision:
 python3 render_review.py ./design --check
 ```
 
+## 18. Send it to Figma
+The page is the prototype; Figma is where people comment on it and take it further. Once the design passes, export a frame for every state and every screen its controls open, in light and dark:
+
+```bash
+python3 export_figma.py ./design --dark
+```
+
+That writes figma-light-1.html and figma-dark-1.html into the design's figma folder, each standing on its own. Send each one with Figma's MCP server: call `html_to_figma` with the Figma file's key (`create_new_file` makes one; ask which team when there are several) and `cssSelector` `".figma-frame"`, then POST the file to the URL it returns:
+
+```bash
+curl -sS -f -X POST -H "Content-Type: text/html" --data-binary @design/figma/figma-light-1.html "<url>"
+```
+
+Give the person the Figma link. The frames arrive as plain layers, not as components linked to a library, and text keeps the page's fonts, so SF Pro shows as SF Pro only where Figma has it installed. Say both when you hand over.
+
+If Figma's MCP server isn't connected, say so and give the one-time setup instead of skipping the step silently: `claude mcp add --transport http figma https://mcp.figma.com/mcp`, then `/mcp` inside Claude Code to sign in.
+
 # Complete loop
 
 ```text
@@ -182,6 +201,7 @@ brief
 → rendered review
 → correction / reduction
 → rerender + completed audit checks
+→ Figma (export_figma + html_to_figma)
 → SwiftUI handoff (check_handoff + check_swiftui)
 ```
 

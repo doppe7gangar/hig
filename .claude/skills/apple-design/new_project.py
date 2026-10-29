@@ -41,6 +41,11 @@ HEAD = """<!doctype html>
 """
 
 STATE_CSS = """
+  /* Screens and sheets prototype.js switches between. A kit's own display
+     rule would otherwise beat the hidden attribute. The iPhone's screen
+     wrapper takes no box of its own, so the bars keep their layout. */
+  [data-screen-id][hidden], [data-sheet-id][hidden] { display: none !important; }
+  .tabscreen { display: contents; }
   .demo { min-height: 100vh; display: flex; flex-direction: column;
           background: var(--ios-bg); color: var(--ios-label);
           font: var(--ios-text-body); }
@@ -285,6 +290,7 @@ __SWITCHER__
      </span>
    </div>
    <div class="phone">
+    <div class="tabscreen" data-screen-id="__SLUG1__">
     <nav class="ios-navbar">
       <span class="ios-navbar__title">__SCREEN1__</span>
       <div class="ios-glass ios-controls">
@@ -319,6 +325,7 @@ __SKELROWS__
 __EMPTY__
 __ERROR__
     </main>
+    </div>
 __TABBAR__
    </div>
   </div>
@@ -823,7 +830,7 @@ def ipad_compose(model, name, screens, thing):
     for i, screen in enumerate(screens):
         sym, glyph = MAC_SYMBOLS[i % len(MAC_SYMBOLS)]
         cur = ' aria-current="page"' if i == 0 else ""
-        rows_side.append(f'        <a class="ipad-sidebar__row" href="#"{cur}><span class="ipad-sidebar__icon" '
+        rows_side.append(f'        <a class="ipad-sidebar__row" href="#" data-go="{slug(screen)}"{cur}><span class="ipad-sidebar__icon" '
                          f'data-sf-symbol="{sym}">{mac_svg(glyph, 22)}</span>'
                          f'<span class="ipad-sidebar__title">{screen}</span></a>')
     # The attribute is built outside the f-string: an expression part
@@ -831,7 +838,7 @@ def ipad_compose(model, name, screens, thing):
     tabs = []
     for i, screen in enumerate(screens):
         sel = ' aria-selected="true"' if i == 0 else ""
-        tabs.append(f'            <button class="ipad-tabbar__item" role="tab"{sel}>{screen}</button>')
+        tabs.append(f'            <button class="ipad-tabbar__item" role="tab" data-go="{slug(screen)}"{sel}>{screen}</button>')
     tabs_html = "\n".join(tabs)
     body = IPAD_TABS_BODY if model == "tabs" else IPAD_SIDEBAR_BODY
     body = (body.replace("__STATUSBAR__", IPAD_STATUSBAR)
@@ -1009,7 +1016,7 @@ def android_navbar(screens, name, svg):
     for i, screen in enumerate(screens):
         cur = ' aria-current="page"' if i == 0 else ""
         icon = svg(ANDROID_NAV_ICONS[i % len(ANDROID_NAV_ICONS)], fill=(i == 0))
-        items.append(f'      <a class="m3-nav-item" href="#"{cur}><span class="m3-nav-item__icon">'
+        items.append(f'      <a class="m3-nav-item" href="#" data-go="{slug(screen)}"{cur}><span class="m3-nav-item__icon">'
                      f'{icon}</span><span class="m3-nav-item__label">{screen}</span></a>')
     return f'    <nav class="m3-navbar" aria-label="{name}">\n' + "\n".join(items) + "\n    </nav>"
 
@@ -1086,7 +1093,7 @@ def mac_sidebar(screens):
     for i, screen in enumerate(screens):
         sym, glyph = MAC_SYMBOLS[i % len(MAC_SYMBOLS)]
         cur = ' aria-current="page"' if i == 0 else ""
-        out.append(f'        <a class="mac-sidebar__item" href="#"{cur}>'
+        out.append(f'        <a class="mac-sidebar__item" href="#" data-go="{slug(screen)}"{cur}>'
                    f'<span class="mac-sidebar__icon" data-sf-symbol="{sym}">'
                    f'{mac_svg(glyph)}</span>{screen}</a>')
     return "\n".join(out)
@@ -1318,7 +1325,7 @@ def tabs(screens):
         sym = TAB_SYMBOLS[i % len(TAB_SYMBOLS)]
         icon = (f'<svg data-sf-symbol="{sym}" viewBox="0 0 24 24" width="25" height="25" fill="none" '
                 f'stroke="currentColor" stroke-width="1.8" aria-hidden="true">{glyph}</svg>')
-        out.append(f'      <button class="ios-tabbar__item"{selected}>{icon}{screen}</button>')
+        out.append(f'      <button class="ios-tabbar__item" data-go="{slug(screen)}"{selected}>{icon}{screen}</button>')
     return "\n".join(out)
 
 
@@ -1665,6 +1672,22 @@ def main():
             sys.exit("internal: token stylesheet link not found for --sf")
         html = html.replace(tokens, tokens + '<link rel="stylesheet" '
                             'href="vendor/fonts/sf.css">\n', 1)
+    shutil.copy2(os.path.join(HERE, "prototype.js"), vendor)
+    # The first screen answers to its nav item, so prototype.js can switch
+    # to the others once they're built beside it.
+    first = slug(screens[0])
+    html = html.replace("__SLUG1__", first)
+    if 'data-screen-id="' not in html:
+        html = re.sub(r'<main class="((?:ipad-content|mac-content|m3-body)[^"]*)"',
+                      lambda m: f'<main class="{m.group(1)}" data-screen-id="{first}"', html, count=1)
+    # On a phone the review strip sits where the status bar would be and
+    # makes the design read as a web page. ?review brings it back;
+    # ?state=empty and friends work either way.
+    html = html.replace("</style>", "  @media (max-width: 460px) {\n"
+                        "    html:not(.review) .demo__bar { display: none; }\n  }\n</style>", 1)
+    tag = '<script src="vendor/prototype.js"></script>\n'
+    html = (html.replace("</body>", tag + "</body>", 1) if "</body>" in html
+            else html.rstrip("\n") + "\n" + tag)
     with open(os.path.join(out, "index.html"), "w", encoding="utf-8") as f:
         f.write(html)
 

@@ -60,7 +60,8 @@ mkdir ~/Desktop/plant-app && cd ~/Desktop/plant-app && claude
 
 > Design an iPhone app for tracking when my house plants need watering.
 
-The designs are web pages, so nothing needs Xcode or Android Studio. Open
+The designs are web pages you can tap through: tabs switch screens, rows open
+their detail, sheets open and close. Nothing needs Xcode or Android Studio. Open
 one with `open design/index.html`. On a Mac, Safari draws it in Apple's
 own SF Pro.
 
@@ -88,6 +89,7 @@ everything in `~/.hig` to take them from.
 | Use your brand | *"Our colour is #C1552E"* | A palette tuned for contrast in light and dark; on Android, a full Material scheme from the one colour |
 | Make an existing UI look like iOS | *"Make this settings page feel like an Apple app"* | Apple's measured colours, type and control sizes as tokens, plus ready CSS components |
 | Build it in React or Tailwind | *"Give me an iOS-style settings screen in React"* | Accessible React components over the same recipes, and a Tailwind v4/v3 theme |
+| Get it in Figma | *"Send it to Figma"* | A frame for every screen and state, light and dark, in a Figma file. Needs Figma's MCP server: `claude mcp add --transport http figma https://mcp.figma.com/mcp`, then `/mcp` to sign in |
 | Turn an approved design into SwiftUI | *"The design in ./design is approved. Write the SwiftUI app"* | Views per screen with a preview per state, checked against the design for anything lost |
 | Check a design or SwiftUI code | *"Review this screen before I ship it"* | Findings sorted into hard violations, soft guidance and judgment calls, each citing Apple's page |
 | Get a straight answer | *"Sheet or popover here?"*, *"Is this button too small?"* | Apple's number or rule, quoted, with where it says so |

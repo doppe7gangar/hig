@@ -647,6 +647,61 @@ COVERED_JS = r"""async () => {
 }"""
 
 
+# Every control a reviewer can tap, minus the review tools themselves and
+# whatever is marked as deliberately inert. Real navigation (a link to
+# another page) and native form fields count as alive on their own.
+CONTROLS_JS = r"""() => {
+  const sel = 'button, a[href], [role=button], [role=tab], [role=menuitem], [role=switch], ' +
+    '[onclick], [data-go], [data-push], [data-back], [data-sheet], [data-dismiss], ' +
+    '[data-toggle], [data-toast], .ios-list__row--tappable, .m3-list__item--tappable';
+  const real = 'button, a, li, [role], [tabindex], [onclick], .ios-list__row--tappable, .m3-list__item--tappable';
+  const all = [...document.querySelectorAll(sel)];
+  const out = [];
+  all.forEach((el, i) => {
+    if (el.closest('.demo__bar, [data-set], [data-screen-set], [data-inert], [disabled], [aria-disabled="true"]')) return;
+    // A container that only carries an attribute (a device holding a
+    // data-toast flag) is not a control; the controls inside it are.
+    if (!el.matches(real) && el.querySelector(sel)) return;
+    const r = el.getBoundingClientRect();
+    if (r.width < 2 || r.height < 2 || el.offsetParent === null) return;
+    const href = el.tagName === 'A' ? el.getAttribute('href') : null;
+    if (href && href !== '#' && !href.startsWith('javascript')) return;
+    const titled = el.querySelector('[class*="title"], [class*="label"], [class*="headline"]');
+    const name = (el.getAttribute('aria-label') || (titled && titled.innerText) || el.innerText || el.getAttribute('data-sf-symbol') ||
+      el.getAttribute('data-icon') || el.className || el.tagName).toString().trim().split('\n')[0].slice(0, 32);
+    out.push({ i, name });
+  });
+  const missing = [];
+  document.querySelectorAll('[data-go], [data-push]').forEach(el => {
+    const id = el.getAttribute('data-go') ?? el.getAttribute('data-push');
+    if (!document.querySelector(`[data-screen-id="${id}"]`))
+      missing.push(`${(el.innerText || el.getAttribute('aria-label') || id).trim().split('\n')[0].slice(0, 24)} -> ${id}`);
+  });
+  document.querySelectorAll('[data-sheet]').forEach(el => {
+    const id = el.getAttribute('data-sheet');
+    if (!document.querySelector(`[data-sheet-id="${id}"]`)) missing.push(`sheet ${id}`);
+  });
+  return { controls: out, missing: [...new Set(missing)] };
+}"""
+
+TAP_JS = r"""async (i) => {
+  const sel = 'button, a[href], [role=button], [role=tab], [role=menuitem], [role=switch], ' +
+    '[onclick], [data-go], [data-push], [data-back], [data-sheet], [data-dismiss], ' +
+    '[data-toggle], [data-toast], .ios-list__row--tappable, .m3-list__item--tappable';
+  const el = document.querySelectorAll(sel)[i];
+  if (!el) return true;
+  let changed = 0;
+  const mo = new MutationObserver(list => { changed += list.length; });
+  mo.observe(document.documentElement, { subtree: true, attributes: true, childList: true, characterData: true });
+  const before = location.href;
+  el.click();
+  await new Promise(r => setTimeout(r, 350));
+  mo.disconnect();
+  const after = location.href;
+  return changed > 0 || (after !== before && !/#$/.test(after));
+}"""
+
+
 BROWSER_JS = r"""() => {
 // Rendered contrast, measured rather than parsed. The CSS can be
 // perfect and the page still unreadable -- a token overridden further
@@ -902,6 +957,29 @@ def check_browser(path, brand):
         finally:
             pg.close()
 
+    def tap_check(pg):
+        """A design reviewers can't tap reads as a picture of an app."""
+        pg.goto(url + "?state=populated", wait_until="load")
+        pg.wait_for_timeout(150)
+        found = pg.evaluate(CONTROLS_JS)
+        if found["missing"]:
+            bad(f"{name}: {len(found['missing'])} control(s) lead to a screen or "
+                f"sheet that doesn't exist yet: {'; '.join(found['missing'][:5])}. "
+                f"Build it with data-screen-id / data-sheet-id (prototype.js).")
+        dead = []
+        for c in found["controls"][:80]:
+            pg.goto(url + "?state=populated", wait_until="load")
+            pg.wait_for_timeout(60)
+            if not pg.evaluate(TAP_JS, c["i"]):
+                dead.append(c["name"] or "?")
+        if dead:
+            bad(f"{name}: {len(dead)} of {len(found['controls'])} control(s) do "
+                f"nothing when tapped: {', '.join(dead[:6])}. Wire them with "
+                f"prototype.js (data-go, data-push, data-sheet, data-toggle, "
+                f"data-toast), or mark a deliberately inert one data-inert.")
+        elif found["controls"]:
+            ok(f"{name}: all {len(found['controls'])} controls respond to a tap")
+
     with sync_playwright() as p:
         launch = {"args": ["--no-sandbox"]}
         exe = chrome_path()
@@ -1058,6 +1136,9 @@ def check_browser(path, brand):
                                  f"use the --mac-text-* styles.")
                         else:
                             ok(f"{name}: text in the Mac window is sized for the Mac")
+
+                if width == widths[0] and scheme == "light":
+                    tap_check(pg)
 
                 # Every state has to actually render something.
                 for st in ("populated", "loading", "empty", "error"):

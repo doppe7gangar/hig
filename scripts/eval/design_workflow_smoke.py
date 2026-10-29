@@ -550,9 +550,9 @@ def test_android_chrome(project):
     original = open(page, encoding="utf-8").read()
     try:
         open(page, "w", encoding="utf-8").write(original.replace(
-            '<main class="m3-body">',
+            '<main class="m3-body"',
             '<nav class="ios-tabbar"><button class="ios-tabbar__item" data-sf-symbol="house">Home</button></nav>'
-            '<main class="m3-body">', 1))
+            '<main class="m3-body"', 1))
         out = run([sys.executable, CHECK, project, "--no-browser"], expect=1).stdout
         if "Apple chrome" not in out:
             raise RuntimeError("an Android design with an iOS tab bar was not called out:\n" + out)
@@ -571,9 +571,9 @@ def test_mac_chrome(project):
     original = open(page, encoding="utf-8").read()
     try:
         open(page, "w", encoding="utf-8").write(original.replace(
-            '<main class="mac-content">',
+            '<main class="mac-content"',
             '<nav class="ios-tabbar"><button class="ios-tabbar__item" data-sf-symbol="house">Home</button></nav>'
-            '<main class="mac-content">', 1))
+            '<main class="mac-content"', 1))
         out = run([sys.executable, CHECK, project, "--no-browser"], expect=1).stdout
         if "iPhone chrome" not in out:
             raise RuntimeError("a Mac design with an iOS tab bar was not called out:\n" + out)
@@ -585,6 +585,33 @@ def test_mac_chrome(project):
     finally:
         open(page, "w", encoding="utf-8").write(original)
     print("ok iPhone chrome and a missing window fail a Mac design")
+
+
+def test_taps_and_figma(project):
+    """Tabs that go nowhere and controls that do nothing fail; the Figma
+    export captures a frame per state and per screen a control opens."""
+    out = run([sys.executable, CHECK, project], expect=1).stdout
+    for want in ("doesn't exist yet", "do nothing when tapped"):
+        if want not in out:
+            raise RuntimeError(f"the tap check missed {want!r}:\n" + out)
+    page = os.path.join(project, "index.html")
+    original = open(page, encoding="utf-8").read()
+    try:
+        extra = "".join(
+            f'<div class="tabscreen" data-screen-id="{s}" hidden><h1 class="largetitle">{s.title()}</h1>'
+            f'<main class="screen"><p>{s.title()} screen</p></main></div>\n' for s in ("browse", "settings"))
+        open(page, "w", encoding="utf-8").write(original.replace('    <nav class="ios-tabbar">', extra + '    <nav class="ios-tabbar">', 1))
+        out = run([sys.executable, CHECK, project], expect=1).stdout
+        if "doesn't exist yet" in out:
+            raise RuntimeError("built screens still reported missing:\n" + out)
+        run([sys.executable, os.path.join(DESIGN, "export_figma.py"), project])
+        exported = open(os.path.join(project, "figma", "figma-light-1.html"), encoding="utf-8").read()
+        frames = exported.count('class="figma-frame"')
+        if frames < 6 or "<script" in exported or "vendor/" in exported:
+            raise RuntimeError(f"Figma export has {frames} frames or still links files")
+    finally:
+        open(page, "w", encoding="utf-8").write(original)
+    print("ok dead taps and missing screens fail; the Figma export holds every screen and state")
 
 
 def test_render_review(project):
@@ -621,6 +648,7 @@ def main():
         test_cross_platform_tokens(tmp)
         outputs = test_models(tmp)
         test_mac_chrome(outputs["mac-sidebar"])
+        test_taps_and_figma(outputs["ios-tabs"])
         test_ipad_chrome(outputs["ipad-sidebar"])
         test_android_chrome(outputs["android-tabs"])
         if a.browser:
