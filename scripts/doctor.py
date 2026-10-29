@@ -134,22 +134,36 @@ def check_counts(d, facts):
                         f"says {claimed}, actual {actual}")
 
 
-def check_verifier_count(d):
-    """The docs quote how many checks each kit verifier runs. Run them and see.
+# Each kit verifier and the skill it ships in.
+VERIFIERS = {"verify_web_ui.py": "apple-ui-kit", "verify_mac_ui.py": "apple-ui-kit",
+             "verify_android_ui.py": "android-ui-kit"}
 
-    A count on a line about the Mac kit is verify_mac_ui.py's; any other
-    is verify_web_ui.py's."""
-    claims = {"verify_web_ui.py": [], "verify_mac_ui.py": []}
+
+def verifier_for(sk, line):
+    """Whose count a line quotes. Everything in android-ui-kit's own
+    SKILL.md is its verifier's; elsewhere a line about Android or Material
+    is, a line about the Mac kit is verify_mac_ui.py's, and any other is
+    verify_web_ui.py's."""
+    if sk == "android-ui-kit" or (sk is None and re.search(
+            r"verify_android_ui|\bandroid\b|material", line, re.I)):
+        return "verify_android_ui.py"
+    if re.search(r"verify_mac_ui|\bmac(os)?\b|Mac kit", line, re.I):
+        return "verify_mac_ui.py"
+    return "verify_web_ui.py"
+
+
+def check_verifier_count(d):
+    """The docs quote how many checks each kit verifier runs. Run them and see."""
+    claims = {name: [] for name in VERIFIERS}
     for sk, path in skill_docs():
         for line in read(path).splitlines():
             for m in re.finditer(r"(\d+) checks\b", line):
-                mac = re.search(r"verify_mac_ui|\bmac(os)?\b|Mac kit", line, re.I)
-                claims["verify_mac_ui.py" if mac else "verify_web_ui.py"].append(
+                claims[verifier_for(sk, line)].append(
                     (os.path.relpath(path, REPO), int(m.group(1))))
     for name, found in claims.items():
         if not found:
             continue
-        script = os.path.join(SKILLS, "apple-ui-kit", name)
+        script = os.path.join(SKILLS, VERIFIERS[name], name)
         if not os.path.exists(script):
             d.check(False, f"{name} present")
             continue

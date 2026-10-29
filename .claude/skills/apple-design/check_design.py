@@ -40,6 +40,11 @@ except ImportError:
 
 APPLE_BLUE = {"#0088ff", "#007aff", "#0a84ff", "#0091ff"}
 
+# Every Material Symbols name, shipped with android-ui-kit, a sibling.
+_NAMES = os.path.join(os.path.dirname(HERE), "android-ui-kit", "icons", "names.txt")
+M3_ICON_NAMES = (set(l.strip() for l in open(_NAMES, encoding="utf-8") if l.strip() and not l.startswith("#"))
+                 if os.path.exists(_NAMES) else None)
+
 PASS, FAIL, WARN = [], [], []
 
 
@@ -82,12 +87,19 @@ def check_link_order(path, html):
         warn(f"{name}: links neither the tokens nor the component recipes, "
              f"so nothing here is using the measured values.")
         return
-    for group, label in ((comp, "ios-components.css"), (toks, "ios-tokens.css")):
+    for group in (comp, toks):
         if group and max(group) > min(theme):
-            bad(f"{name}: {label} is linked AFTER theme.css. It redefines "
-                f"--ios-accent and friends, so it overwrites the brand "
-                f"palette -- the page renders in Apple's blue and looks "
-                f"fine doing it. Move theme.css last.")
+            label = os.path.basename(hrefs[max(group)])
+            if label.startswith("material"):
+                bad(f"{name}: {label} is linked AFTER theme.css. It defines "
+                    f"every --md-sys-color-* role, so it overwrites the "
+                    f"brand scheme -- the page renders in the kit's baseline "
+                    f"purple and looks fine doing it. Move theme.css last.")
+            else:
+                bad(f"{name}: {label} is linked AFTER theme.css. It redefines "
+                    f"--ios-accent and friends, so it overwrites the brand "
+                    f"palette -- the page renders in Apple's blue and looks "
+                    f"fine doing it. Move theme.css last.")
             return
     ok(f"{name}: stylesheet order correct (theme.css last)")
 
@@ -159,12 +171,42 @@ def check_states(path, html):
         ok(f"{name}: populated, loading, empty and error all present")
 
 
+def check_m3_theme(root, css):
+    """A Material 3 theme: every role in both appearances, and the text
+    roles readable on what they sit on."""
+    def block(text):
+        return dict(re.findall(r"--md-sys-color-([a-z-]+):\s*(#[0-9A-Fa-f]{6})", text))
+    light = block(css.split("@media")[0])
+    dark_m = re.search(r":root\[data-theme=\"dark\"\]\s*\{(.*?)\}", css, re.S)
+    dark = block(dark_m.group(1)) if dark_m else {}
+    need = ("primary", "on-primary", "primary-container", "secondary-container", "surface",
+            "on-surface", "on-surface-variant", "surface-container", "outline-variant")
+    missing = [r for r in need if r not in light or r not in dark]
+    if missing:
+        bad(f"theme.css lacks {', '.join(missing[:4])} in "
+            f"{'light or dark' if light else 'light'}. The Material recipes "
+            f"read every role, in both appearances; regenerate it with "
+            f"android-ui-kit/build_m3_theme.py rather than writing it by hand.")
+        return css
+    ok(f"theme.css carries {len(light)} Material colour roles, light and dark")
+    for mode, roles in (("light", light), ("dark", dark)):
+        for fg, bg in (("on-primary", "primary"), ("on-surface", "surface"),
+                       ("on-surface-variant", "surface-container")):
+            r = contrast(hex_to_rgb(roles[fg]), hex_to_rgb(roles[bg]))
+            if r < 4.5:
+                bad(f"theme.css {mode}: {fg} on {bg} is {r:.2f}:1, under 4.5:1.")
+    return css
+
+
 def check_theme(root):
     p = os.path.join(root, "theme.css")
     if not os.path.exists(p):
-        bad("no theme.css. Generate one: build_theme.py '#RRGGBB' --name x")
+        bad("no theme.css. Generate one: build_theme.py '#RRGGBB' --name x "
+            "(or, for Android, android-ui-kit/build_m3_theme.py '#RRGGBB' -o theme.css)")
         return None
     css = open(p, encoding="utf-8").read()
+    if "--md-sys-color-" in css and "--ios-" not in css:
+        return check_m3_theme(root, css)
 
     bridge = re.findall(r"--ios-([a-z0-9-]+):\s*var\(--([a-z0-9-]+)-", css)
     if not bridge:
@@ -236,16 +278,16 @@ def project_css(path, html):
 def check_token_overrides(path, html):
     """A page redefining --ios-* by hand has stepped around the theme."""
     name = os.path.basename(path)
-    hits = sorted(set(re.findall(r"(--ios-[a-z0-9-]+)\s*:\s*(?!var\()[^;}]+",
+    hits = sorted(set(re.findall(r"(--(?:ios|md-sys-color)-[a-z0-9-]+)\s*:\s*(?!var\()[^;}]+",
                                  project_css(path, html))))
     if hits:
-        bad(f"{name}: redefines {len(hits)} Apple token(s) with literal "
+        bad(f"{name}: redefines {len(hits)} system token(s) with literal "
             f"values ({', '.join(hits[:4])}). That is the theme being "
             f"worked around rather than used -- the value stops following "
             f"dark mode and stops following the brand. Change the brand "
             f"colour and regenerate instead.")
     else:
-        ok(f"{name}: does not override the Apple tokens by hand")
+        ok(f"{name}: does not override the system tokens by hand")
 
 
 # Components the kit measures that carry the platform's shape. A design
@@ -263,7 +305,7 @@ TOUCH_PLATFORM = re.compile(r"\b(ios|iphone|ipad|ipados)\b", re.I)
 def kit_classes(path, html):
     """Component families the linked ios- and macos-components.css define."""
     root, families = os.path.dirname(path), set()
-    for href in re.findall(r'<link[^>]+href=["\']([^"\']*(?:ios|macos)-components\.css)["\']',
+    for href in re.findall(r'<link[^>]+href=["\']([^"\']*(?:ios|macos|material)-components\.css)["\']',
                            html, re.I):
         f = os.path.join(root, href.split("?")[0])
         if os.path.exists(f):
@@ -277,6 +319,24 @@ def kit_classes(path, html):
 # that has no place in one.
 MAC_STRUCTURAL = ("mac-window", "mac-toolbar")
 IPHONE_CHROME = ("ios-tabbar", "ios-navbar", "ios-statusbar")
+
+
+# An Android screen carries a top app bar; and none of Apple's chrome.
+M3_STRUCTURAL = ("m3-topappbar",)
+APPLE_CHROME = IPHONE_CHROME + ("mac-window", "mac-toolbar", "mac-sidebar", "ios-list")
+
+
+def is_android(path, html):
+    """An Android design: it links the Material recipes, or DESIGN.md says Android."""
+    if re.search(r'href=["\'][^"\']*material-components\.css', html, re.I):
+        return True
+    plat = target_platform(path) or ""
+    d = os.path.join(os.path.dirname(path), "DESIGN.md")
+    mode = ""
+    if os.path.exists(d):
+        m = re.search(r"^## Platform mode\s+`?([\w-]+)`?", open(d, encoding="utf-8").read(), re.M)
+        mode = m.group(1) if m else ""
+    return bool(re.search(r"\bandroid\b", plat, re.I)) or mode.lower() == "android"
 
 
 def is_mac(path, html):
@@ -331,6 +391,24 @@ def check_uses_kit(path, html):
             f"shipping the stylesheet.")
         return
 
+    if is_android(path, html):
+        chrome = [c for c in APPLE_CHROME
+                  if re.search(r'class="[^"]*\b' + re.escape(c) + r'\b', html)]
+        if chrome:
+            bad(f"{name}: an Android design using Apple chrome ({', '.join(chrome)}). "
+                f"Android has a top app bar, a nav bar and Material lists; "
+                f"material-components.css has the measured ones.")
+            return
+        missing = [c for c in M3_STRUCTURAL if c in families and c not in used]
+        if missing:
+            bad(f"{name}: an Android design without {', '.join(missing)}. The 64 dp "
+                f"bar with its 48 dp icon buttons and title-large title is the "
+                f"first thing that reads as Android; hand-built, it reads as a "
+                f"web page.")
+            return
+        ok(f"{name}: an Android screen built from {len(used)} of the kit's measured components")
+        return
+
     if is_mac(path, html):
         chrome = [c for c in IPHONE_CHROME
                   if re.search(r'class="[^"]*\b' + re.escape(c) + r'\b', html)]
@@ -360,6 +438,34 @@ def check_uses_kit(path, html):
                 f"design read as almost-iOS.")
             return
     ok(f"{name}: uses {len(used)} of the kit's measured components")
+
+
+def check_icons_named(path, html):
+    """On Android, icons are Material Symbols, named in data-icon.
+
+    The glyphs ship (Apache 2.0), so unlike SF Symbols the drawing is the
+    real one -- but the name is still what an engineer types into
+    Icons.Outlined or the symbols font, so it has to exist.
+    """
+    name = os.path.basename(path)
+    body = body_of(html)
+    if "data-sf-symbol" in body:
+        warn(f"{name}: an Android design naming SF Symbols. Android draws "
+             f"Material Symbols; android-ui-kit/icon.py prints them.")
+    icons = re.findall(r"<svg\b[^>]*>", body)
+    named = [re.search(r'data-icon="([^"]+)"', t) for t in icons]
+    unnamed = [t for t, m in zip(icons, named) if not m and 'viewBox="0 0 24 24"' in t]
+    names = sorted({m.group(1) for m in named if m})
+    if M3_ICON_NAMES is not None and names:
+        unknown = [n for n in names if n not in M3_ICON_NAMES]
+        if unknown:
+            warn(f"{name}: {len(unknown)} data-icon name(s) aren't Material "
+                 f"Symbols, so an engineer can't find them: {', '.join(unknown[:5])}")
+        else:
+            ok(f"{name}: all {len(names)} icon names are Material Symbols")
+    if unnamed:
+        warn(f"{name}: {len(unnamed)} 24 dp icon(s) without data-icon. Name the "
+             f"Material Symbol each one is -- icon.py adds it.")
 
 
 def check_symbols_named(path, html):
@@ -587,13 +693,27 @@ const lowContrast = [...seen.values()];
   const v = n => cs.getPropertyValue(n).trim();
   const body = getComputedStyle(document.body);
   const de = document.documentElement;
+  // A target is what takes the tap, not what is painted: Material draws a
+  // 40 dp button inside a 48 dp target (an absolutely placed ::after), and
+  // a checkbox's label takes the tap for its 18 dp box.
+  const extent = e => {
+    const r = e.getBoundingClientRect(); let w = r.width, h = r.height;
+    for (const p of ['::before', '::after']) {
+      const ps = getComputedStyle(e, p);
+      if (ps.content && ps.content !== 'none' && ps.position === 'absolute') {
+        w = Math.max(w, parseFloat(ps.width) || 0); h = Math.max(h, parseFloat(ps.height) || 0); }
+    }
+    return [w, h];
+  };
   const small = [...document.querySelectorAll(
       'button, a[href], input, select, [role=button]')]
     .filter(e => e.offsetParent !== null)
-    .map(e => { const r = e.getBoundingClientRect();
+    .map(e => { let [w, h] = extent(e);
+                const lab = e.closest('label');
+                if (lab) { const [lw, lh] = extent(lab); w = Math.max(w, lw); h = Math.max(h, lh); }
                 return {t: (e.textContent||e.getAttribute('aria-label')||'?')
                           .trim().slice(0, 28),
-                        w: Math.round(r.width), h: Math.round(r.height)}; })
+                        w: Math.round(w), h: Math.round(h)}; })
     .filter(o => o.w > 0 && o.h > 0 && Math.min(o.w, o.h) < (window.__HIG_MIN_TARGET || 28));
   // In a Mac window, body text is 13pt. Text runs at 16px and up, outside
   // headings and titles, are iOS sizes brought to the desk.
@@ -608,7 +728,19 @@ const lowContrast = [...seen.values()];
                sample: big.slice(0, 3).map(e => e.textContent.trim().slice(0, 24) +
                                            ' ' + getComputedStyle(e).fontSize)};
   }
+  // On Android, nothing is set smaller than label-small's 11 sp.
+  let tiny = null;
+  if (document.querySelector('.m3-device, .m3-topappbar')) {
+    const runs = [...document.querySelectorAll('body *')].filter(e =>
+      e.offsetParent !== null && !e.closest('[aria-hidden="true"], .demo__bar') &&
+      [...e.childNodes].some(n => n.nodeType === 3 && n.textContent.trim()));
+    const t = runs.filter(e => parseFloat(getComputedStyle(e).fontSize) < 11);
+    tiny = {runs: runs.length, n: t.length,
+            sample: t.slice(0, 3).map(e => e.textContent.trim().slice(0, 24) + ' ' + getComputedStyle(e).fontSize)};
+  }
   return {
+    primary: v('--md-sys-color-primary'),
+    tiny,
     accent: v('--ios-accent'),
     label: v('--ios-label'),
     bg: v('--ios-bg'),
@@ -657,8 +789,11 @@ def check_browser(path, brand):
     errors, failed = [], []
     # macOS's floor is 20x20pt and its push buttons are 24pt tall
     # (specs.md); holding a Mac window to iOS's 28 would flag Apple's own.
-    mac = is_mac(path, open(path, encoding="utf-8", errors="replace").read())
-    floor = 20 if mac else 28
+    page = open(path, encoding="utf-8", errors="replace").read()
+    mac = is_mac(path, page)
+    # Android's touch target is 48 x 48 dp, for every platform version.
+    android = is_android(path, page)
+    floor = 48 if android else 20 if mac else 28
 
     def sample(b, scheme, more):
         """Failing text runs for one appearance, optionally under IC."""
@@ -695,8 +830,8 @@ def check_browser(path, brand):
                       lambda r: failed.append(r.url))
                 pg.goto(url, wait_until="load")
                 pg.wait_for_timeout(220)
-                if mac:
-                    pg.evaluate("() => { window.__HIG_MIN_TARGET = 20; }")
+                if mac or android:
+                    pg.evaluate(f"() => {{ window.__HIG_MIN_TARGET = {floor}; }}")
                 d = pg.evaluate(BROWSER_JS)
 
                 tag = f"{name} {scheme} {width}px"
@@ -767,7 +902,13 @@ def check_browser(path, brand):
                         ok(f"{name} {scheme}: {len(treats)} surface "
                            f"treatment(s), none stranded")
 
-                    if d["accent"]:
+                    if android:
+                        if d["primary"]:
+                            ok(f"{name} {scheme}: --md-sys-color-primary resolves to {d['primary']}")
+                        else:
+                            bad(f"{name} {scheme}: --md-sys-color-primary resolves to "
+                                f"nothing. The Material recipes have no colour to use.")
+                    elif d["accent"]:
                         got = d["accent"].lower().replace(" ", "")
                         ok(f"{name} {scheme}: --ios-accent resolves to {got}")
                     else:
@@ -777,26 +918,43 @@ def check_browser(path, brand):
 
                 if width == 390 and scheme == "light":
                     fam = d["font"].lower()
-                    if "inter" in fam or "sf pro" in fam or "-apple-system" in fam:
+                    if android:
+                        if fam.startswith("roboto") or fam.startswith('"roboto'):
+                            ok(f"{name}: body font resolves to {d['font'][:44]}")
+                        else:
+                            bad(f"{name}: body font is {d['font'][:44]} -- Android "
+                                f"sets Material's type scale in Roboto; link "
+                                f"vendor/fonts/roboto.css and use --m3-type-*.")
+                    elif "inter" in fam or "sf pro" in fam or "-apple-system" in fam:
                         ok(f"{name}: body font resolves to {d['font'][:44]}")
                     else:
                         bad(f"{name}: body font is {d['font'][:44]} -- the "
                             f"vendored faces are not being used.")
                     got = (d["accent"] or "").lower().replace(" ", "")
-                    if brand and got and got.lstrip("#") != brand.lower().lstrip("#"):
+                    if brand and got and not android and got.lstrip("#") != brand.lower().lstrip("#"):
                         warn(f"{name}: --ios-accent resolves to {got} in "
                              f"light, not the brand {brand}. Check the "
                              f"bridge.")
                     if d["small"]:
                         listed = ", ".join(
                             f"{s['t']} ({s['w']}x{s['h']})" for s in d["small"])
-                        rule = ("macOS's minimum -- its default is 28"
+                        rule = ("Android's minimum touch target" if android
+                                else "macOS's minimum -- its default is 28"
                                 if mac else "which is Apple's accessibility floor -- "
                                             "the general rule is 44")
-                        warn(f"{name}: {len(d['small'])} target(s) under {floor}pt, "
+                        unit = "dp" if android else "pt"
+                        warn(f"{name}: {len(d['small'])} target(s) under {floor}{unit}, "
                              f"{rule}: {listed}")
                     else:
-                        ok(f"{name}: every visible target clears {floor}pt")
+                        ok(f"{name}: every visible target clears {floor}{'dp' if android else 'pt'}")
+                    tn = d.get("tiny")
+                    if tn and tn["runs"] >= 5:
+                        if tn["n"]:
+                            warn(f"{name}: {tn['n']} text run(s) under 11 sp "
+                                 f"({'; '.join(tn['sample'])}). Material's smallest "
+                                 f"style is label-small, 11 sp.")
+                        else:
+                            ok(f"{name}: no text under Material's 11 sp floor")
                     mt = d.get("macText")
                     if mt and mt["runs"] >= 5:
                         if mt["big"] > 0.3 * mt["runs"]:
@@ -878,7 +1036,10 @@ def main():
         check_hardcoded(p, html)
         check_token_overrides(p, html)
         check_uses_kit(p, html)
-        check_symbols_named(p, html)
+        if is_android(p, html):
+            check_icons_named(p, html)
+        else:
+            check_symbols_named(p, html)
         if not a.no_browser:
             check_browser(p, brand)
 

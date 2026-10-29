@@ -480,9 +480,10 @@ def scaffold(tmp, kind, model, name):
     if model:
         args[args.index("--screens"):args.index("--screens")] = ["--model", model]
     run(args)
-    for rel in ("index.html", "DESIGN.md", "README.md", "theme.css",
-                os.path.join("vendor", "ios-tokens.css"),
-                os.path.join("vendor", "ios-components.css")):
+    vendor = (("material-components.css", os.path.join("fonts", "roboto.css"))
+              if kind == "android" else ("ios-tokens.css", "ios-components.css"))
+    for rel in ("index.html", "DESIGN.md", "README.md", "theme.css") + tuple(
+            os.path.join("vendor", v) for v in vendor):
         exists(os.path.join(out, rel))
     run([sys.executable, CHECK, out, "--no-browser"])
     run([sys.executable, DIRECTION, out], expect=1)
@@ -505,7 +506,36 @@ def test_models(tmp):
         outputs["mac-" + model] = scaffold(tmp, "macos", model, "mac-" + model)
         exists(os.path.join(outputs["mac-" + model], "vendor", "macos-components.css"))
     print("ok macOS models")
+    for model in ("tabs", "stack"):
+        outputs["android-" + model] = scaffold(tmp, "android", model, "android-" + model)
+        theme = open(os.path.join(outputs["android-" + model], "theme.css"), encoding="utf-8").read()
+        if "--md-sys-color-primary" not in theme or "--ios-" in theme:
+            raise RuntimeError("an Android scaffold's theme.css is not a Material scheme")
+    if "m3-navbar" in open(os.path.join(outputs["android-stack"], "index.html"), encoding="utf-8").read():
+        raise RuntimeError("--model stack emitted a nav bar")
+    print("ok Android models")
     return outputs
+
+
+def test_android_chrome(project):
+    """An Android design wearing Apple chrome, or missing its top app bar, fails."""
+    page = os.path.join(project, "index.html")
+    original = open(page, encoding="utf-8").read()
+    try:
+        open(page, "w", encoding="utf-8").write(original.replace(
+            '<main class="m3-body">',
+            '<nav class="ios-tabbar"><button class="ios-tabbar__item" data-sf-symbol="house">Home</button></nav>'
+            '<main class="m3-body">', 1))
+        out = run([sys.executable, CHECK, project, "--no-browser"], expect=1).stdout
+        if "Apple chrome" not in out:
+            raise RuntimeError("an Android design with an iOS tab bar was not called out:\n" + out)
+        open(page, "w", encoding="utf-8").write(original.replace("m3-topappbar", "appbar"))
+        out = run([sys.executable, CHECK, project, "--no-browser"], expect=1).stdout
+        if "an Android design without" not in out:
+            raise RuntimeError("an Android design without its top app bar was not called out:\n" + out)
+    finally:
+        open(page, "w", encoding="utf-8").write(original)
+    print("ok Apple chrome and a missing top app bar fail an Android design")
 
 
 def test_mac_chrome(project):
@@ -564,6 +594,7 @@ def main():
         test_cross_platform_tokens(tmp)
         outputs = test_models(tmp)
         test_mac_chrome(outputs["mac-sidebar"])
+        test_android_chrome(outputs["android-tabs"])
         if a.browser:
             test_render_review(outputs["dashboard"])
     print("design workflow smoke test passed")

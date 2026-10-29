@@ -3,9 +3,9 @@
 Design, build and review apps the way Apple does, with an AI coding agent
 that reads Apple's actual rules instead of half-remembering them.
 
-Four skills for Claude Code (and any agent that reads `AGENTS.md`), plus
+Five skills for Claude Code (and any agent that reads `AGENTS.md`), plus
 Apple's full Human Interface Guidelines as offline Markdown for them to
-quote.
+quote, and a Material 3 kit so Android designs look like Android.
 
 ## Set up (one minute)
 
@@ -13,7 +13,7 @@ quote.
 curl -fsSL https://claude.ai/install.sh | bash     # Claude Code, if you don't have it
 git clone https://github.com/doppe7gangar/hig ~/hig
 mkdir -p ~/.claude/skills
-cp -R ~/hig/.claude/skills/apple-* ~/.claude/skills/
+cp -R ~/hig/.claude/skills/* ~/.claude/skills/
 pip3 install playwright && python3 -m playwright install chromium   # optional: lets it screenshot and check its designs
 ```
 
@@ -31,6 +31,7 @@ which is as close to the real thing as a mockup gets.
 |---|---|---|---|
 | Turn an idea into an app or site | *"I want an app for splitting bills with friends"* | `apple-design` | The screens and how they connect, a working HTML project, and a checker run before it's handed over |
 | Design a Mac app | *"Design a Mac app for keeping my recipes"* | `apple-design` | A Mac window with its sidebar, toolbar and four states, built from parts measured from Apple's own macOS 27 design kit |
+| Design an Android app | *"Design the Android version of my recipe app"* | `apple-design` | A phone with a top app bar, nav bar, FAB and four states, built from parts measured from Google's Material 3 Design Kit, in a Material scheme derived from your brand colour |
 | Make a web, Android, Flutter or React Native UI look like iOS | *"Make this settings page feel like an Apple app"* | `apple-ui-kit` | Apple's measured colours, type and control sizes as tokens, plus ready CSS components |
 | Build that UI in React or Tailwind | *"Give me an iOS-style settings screen in React"* | `apple-ui-kit` | Accessible React components over the same recipes, and a Tailwind v4/v3 theme on the same tokens |
 | Turn an approved design into SwiftUI | *"The design in ./design is approved. Write the SwiftUI app"* | `apple-design` | Views per screen with a preview per state, checked against the design for anything lost |
@@ -153,6 +154,7 @@ is tool-specific.
 |---|---|
 | `.claude/skills/apple-design/` | Idea → screens → scaffolded project → checked design |
 | `.claude/skills/apple-ui-kit/` | Measured iOS 27 tokens for CSS, SwiftUI, Compose, Android XML, Flutter and TypeScript, plus web components, React components, a Tailwind theme and a live [example](.claude/skills/apple-ui-kit/example.html); and macOS 27 recipes for Mac windows, with their own [example](.claude/skills/apple-ui-kit/mac-example.html) |
+| `.claude/skills/android-ui-kit/` | Material 3 for Android: the colour scheme, Roboto type scale and component recipes measured from Google's Material 3 Design Kit, Material Symbols, a theme builder that turns a brand colour into a full scheme for CSS, Compose and Android XML, and a live [example](.claude/skills/android-ui-kit/android-example.html) |
 | `.claude/skills/apple-hig/` | 2,326 rules as one-line imperatives, every spec table, an API map across 32 frameworks, 947 screenshots of real components in every state, and all 178 pages |
 | `.claude/skills/apple-motion/` | Springs, transitions, haptic pairing, Reduce Motion |
 | `content/` | The guidelines as Markdown, rebuilt from Apple's site |

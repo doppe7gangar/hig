@@ -175,6 +175,25 @@ macOS 27 design kit carries.
 and checks that a Mac design with an iPhone tab bar, or without its
 window, fails `check_design.py`.
 
+### The Android (Material 3) recipes
+
+```bash
+python3 .claude/skills/android-ui-kit/verify_android_ui.py -v
+```
+
+Measures `android-example.html` in Chromium, light and dark, in 268
+checks: the phone and its status and gesture bars, the three top app
+bars, the nav bar and its indicator, buttons, FABs, icon buttons, chips,
+cards, lists, the search bar, switches, checkboxes, radios, text fields,
+the dialog, menu, tabs, bottom sheet, snackbar and progress bar, the
+type, every colour role, and text contrast. The expected numbers are
+written into the verifier from Google's Material 3 Design Kit. It also
+holds `build_m3_theme.py` to the kit (seeded with `#6750A4` it has to
+land on the kit's scheme) and checks a brand theme reaches every
+component. `python3 scripts/eval/design_workflow_smoke.py` scaffolds
+both Android models and checks that an Android design with Apple chrome,
+or without its top app bar, fails `check_design.py`.
+
 ### The React components and the Tailwind theme
 
 ```bash

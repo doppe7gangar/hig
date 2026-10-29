@@ -21,6 +21,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 SKILLS = os.path.dirname(HERE)
 KIT = os.path.join(SKILLS, "apple-ui-kit")
+ANDROID_KIT = os.path.join(SKILLS, "android-ui-kit")
 
 sys.path.insert(0, HERE)
 import build_theme  # noqa: E402
@@ -695,6 +696,187 @@ __ERROR__
 """
 
 
+# ---------------------------------------------------------------- Android
+
+HEAD_ANDROID = """<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__NAME__</title>
+
+<!-- Order is load-bearing: fonts, the Material recipes, then the brand
+     scheme LAST so its colour roles win. -->
+<link rel="stylesheet" href="vendor/fonts/roboto.css">
+<link rel="stylesheet" href="vendor/material-components.css">
+<link rel="stylesheet" href="theme.css">
+"""
+
+ANDROID_CSS = """
+  /* An Android design is a phone on a stage, not a page: the phone keeps
+     its 412 x 917 dp and scrolls inside. On a real phone it fills it. */
+  body { margin: 0; background: var(--m3-stage); color: var(--md-sys-color-on-surface);
+         font: var(--m3-type-body-medium); letter-spacing: var(--m3-track-body-medium); }
+  .demo__bar { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+               padding: 16px 16px 0; background: var(--m3-stage); }
+  .state { display: none; }
+  [data-state="populated"] .state--populated,
+  [data-state="loading"] .state--loading,
+  [data-state="empty"] .state--empty,
+  [data-state="error"] .state--error { display: block; }
+  .skel { display: block; height: 14px; border-radius: 4px;
+          background: var(--md-sys-color-surface-container-highest);
+          animation: skel 1.4s ease-in-out infinite; }
+  @keyframes skel { 0%,100% { opacity: 1 } 50% { opacity: .5 } }
+  @media (prefers-reduced-motion: reduce) { .skel { animation: none; } }
+  @media (max-width: 460px) { .demo__bar { padding: 8px; } }
+"""
+
+ANDROID_SWITCHER = """<div class="demo__bar" role="group" aria-label="Preview state">
+  <button class="m3-chip" data-set="populated">Populated</button>
+  <button class="m3-chip" data-set="loading">Loading</button>
+  <button class="m3-chip" data-set="empty">Empty</button>
+  <button class="m3-chip" data-set="error">Error</button>
+</div>"""
+
+ANDROID_SCROLL_JS = """
+<script>
+  // The top app bar takes surface-container once content scrolls under
+  // it, as Android draws it.
+  for (const body of document.querySelectorAll('.m3-body')) {
+    const dev = body.closest('.m3-device');
+    if (!dev) continue;
+    const sync = () => { dev.dataset.scrolled = body.scrollTop > 0 ? '1' : '0'; };
+    body.addEventListener('scroll', sync, {passive: true});
+    sync();
+  }
+</script>
+"""
+
+ANDROID_BODY = """__SWITCHER__
+<div class="m3-stage" data-state="populated">
+  <div class="m3-device">
+    <div class="m3-statusbar"><span>9:30</span><span class="m3-statusbar__icons">__I_signal_wifi_4_bar__F____I_signal_cellular_4_bar__F__<svg class="m3-battery" viewBox="0 0 8 15" fill="currentColor" aria-hidden="true"><rect x="2.5" width="3" height="2" rx=".5"/><rect y="1.5" width="8" height="13.5" rx="1.5"/></svg></span></div>
+    <header class="m3-topappbar">
+      <h1 class="m3-topappbar__title">__SCREEN1__</h1>
+      <div class="m3-topappbar__actions">
+        <button class="m3-iconbtn" aria-label="Search __THING__">__I_search__</button>
+        <button class="m3-iconbtn" aria-label="More options">__I_more_vert__</button>
+      </div>
+    </header>
+    <main class="m3-body">
+      <section class="state state--populated">
+        <div class="m3-chips" role="group" aria-label="Filter __THING__">
+          <button class="m3-chip" aria-pressed="true">__I_check__All</button>
+          <button class="m3-chip" aria-pressed="false">Recent</button>
+          <button class="m3-chip" aria-pressed="false">Favourites</button>
+        </div>
+        <ul class="m3-list">
+__ROWS__
+        </ul>
+      </section>
+      <section class="state state--loading" aria-busy="true">
+        <ul class="m3-list" aria-hidden="true">
+__SKELROWS__
+        </ul>
+      </section>
+__EMPTY__
+__ERROR__
+    </main>
+    <button class="m3-fab m3-fab--anchored" aria-label="Add __SINGULAR__">__I_add__</button>
+__NAVBAR__
+    <div class="m3-gesturebar"></div>
+  </div>
+</div>
+"""
+
+ANDROID_EMPTY_PANEL = """      <section class="state state--empty">
+        <div class="m3-empty">
+          __G_inbox__
+          <h2 class="m3-empty__title">No __THING__ yet</h2>
+          <p class="m3-empty__body">__EMPTY_BODY__</p>
+          <button class="m3-btn">__I_add____EMPTY_CTA__</button>
+        </div>
+      </section>
+"""
+
+ANDROID_ERROR_PANEL = """      <section class="state state--error">
+        <div class="m3-empty">
+          __G_error__
+          <h2 class="m3-empty__title">Couldn't load __THING__</h2>
+          <p class="m3-empty__body">Check your connection and try again.</p>
+          <button class="m3-btn m3-btn--tonal">__I_refresh__Try again</button>
+        </div>
+      </section>
+"""
+
+# A nav bar holds three to five destinations; each has a Material Symbol.
+ANDROID_NAV_ICONS = ["home", "search", "bookmark", "person", "settings"]
+
+
+def _m3_icon():
+    sys.path.insert(0, ANDROID_KIT)
+    import icon  # noqa: E402  (android-ui-kit, a sibling skill)
+    return icon.svg
+
+
+def android_rows(thing):
+    demo = [("Overnight oats", "12 min · 4 servings", "Today"),
+            ("Sheet-pan chicken", "35 min · 2 servings", "Yesterday"),
+            ("Miso soup", "8 min · 2 servings", "12 Mar"),
+            ("Lemon ricotta pancakes", "25 min · 3 servings", "9 Mar"),
+            ("Weeknight dal", "40 min · 6 servings", "2 Mar")]
+    return "\n".join(
+        f'          <li><a class="m3-list__item m3-list__item--two" href="#">'
+        f'<span class="m3-list__avatar" aria-hidden="true">{title[0]}</span>'
+        f'<span class="m3-list__text"><span class="m3-list__headline">{title}</span>'
+        f'<span class="m3-list__supporting">{meta}</span></span>'
+        f'<span class="m3-list__trailing">{when}</span></a></li>'
+        for title, meta, when in demo)
+
+
+def android_skel_rows(n=5):
+    return "\n".join(
+        '          <li class="m3-list__item m3-list__item--two">'
+        '<span class="skel" style="width:40px;height:40px;border-radius:50%;flex:none"></span>'
+        f'<span class="m3-list__text"><span class="skel" style="width:{(58, 44, 66, 51, 39)[i % 5]}%"></span>'
+        '<span class="skel" style="width:34%;margin-top:10px"></span></span></li>'
+        for i in range(n))
+
+
+def android_navbar(screens, name, svg):
+    if len(screens) > 5:
+        raise ValueError("a nav bar holds three to five destinations; reconsider "
+                         "the hierarchy or use --model stack")
+    items = []
+    for i, screen in enumerate(screens):
+        cur = ' aria-current="page"' if i == 0 else ""
+        icon = svg(ANDROID_NAV_ICONS[i % len(ANDROID_NAV_ICONS)], fill=(i == 0))
+        items.append(f'      <a class="m3-nav-item" href="#"{cur}><span class="m3-nav-item__icon">'
+                     f'{icon}</span><span class="m3-nav-item__label">{screen}</span></a>')
+    return f'    <nav class="m3-navbar" aria-label="{name}">\n' + "\n".join(items) + "\n    </nav>"
+
+
+def android_compose(model, name, screens, thing):
+    svg = _m3_icon()
+    singular = thing.rstrip("s")
+    body = (ANDROID_BODY.replace("__SWITCHER__", ANDROID_SWITCHER)
+            .replace("__EMPTY__", ANDROID_EMPTY_PANEL)
+            .replace("__ERROR__", ANDROID_ERROR_PANEL)
+            .replace("__ROWS__", android_rows(thing))
+            .replace("__SKELROWS__", android_skel_rows())
+            .replace("__NAVBAR__", android_navbar(screens, name, svg) if model == "tabs" else "")
+            .replace("__EMPTY_BODY__", "Everything you save shows up here. Start with one and build from there.")
+            .replace("__EMPTY_CTA__", f"Add {singular}")
+            .replace("__SINGULAR__", singular)
+            .replace("__SCREEN1__", screens[0])
+            .replace("__NAME__", name)
+            .replace("__THING__", thing))
+    body = re.sub(r"__G_([a-z0-9_]+)__", lambda m: svg(m.group(1), cls="m3-empty__glyph"), body)
+    body = re.sub(r"__I_([a-z0-9_]+?)__F__", lambda m: svg(m.group(1), fill=True), body)
+    body = re.sub(r"__I_([a-z0-9_]+?)__", lambda m: svg(m.group(1)), body)
+    head = HEAD_ANDROID.replace("__NAME__", name)
+    return head + "\n<style>" + ANDROID_CSS + "</style>\n\n" + body + STATE_JS + ANDROID_SCROLL_JS
+
+
 # ---------------------------------------------------------------- helpers
 
 # ---------------------------------------------------------------- macOS
@@ -1034,6 +1216,8 @@ def panels(thing):
 
 
 def compose(kind, model, name, screens, thing):
+    if kind == "android":
+        return android_compose(model, name, screens, thing), model
     empty_cta, empty, error = panels(thing)
 
     if kind == "macos":
@@ -1104,18 +1288,17 @@ This scaffold deliberately separates **design direction** from infrastructure.
 - character: `__CHARACTER__`
 
 The scaffold is not the design. Replace its sample content and recompose it
-around your own hierarchy -- but keep the ios-* recipes it uses; they carry
-the measured metrics, and hand-rolling them is what makes a build read as
-almost-iOS
-around the real hierarchy. Do not preserve a region merely because the
-generator emitted it.
+around your own hierarchy -- but keep the __RECIPES__ recipes it uses; they
+carry the measured metrics, and hand-rolling them is what makes a build read
+as almost-native. Do not preserve a region merely because the generator
+emitted it.
 
 ## Infrastructure not to break
 
 Keep `theme.css` last in the stylesheet order. Keep fonts local. Regenerate
 `theme.css` instead of editing its bridge by hand:
 
-    python3 build_theme.py "__BRAND__" --name __SLUG__ -o theme.css
+    __REGEN__
 
 ## Before calling it done
 
@@ -1179,12 +1362,12 @@ def main():
     ap.add_argument("--name", required=True, help="product name")
     ap.add_argument("--brand", required=True, help='brand colour, e.g. "#C1552E"')
     ap.add_argument("--kind", default="ios",
-                    choices=["ios", "macos", "web", "marketing", "cross"],
+                    choices=["ios", "macos", "android", "web", "marketing", "cross"],
                     help="platform context")
     ap.add_argument("--model",
                     choices=["tabs", "stack", "sidebar", "workspace", "list-detail", "dashboard", "document"],
-                    help="spatial model; required for web, tabs/stack for ios, "
-                         "sidebar/document for macos")
+                    help="spatial model; required for web, tabs/stack for ios and "
+                         "android, sidebar/document for macos")
     ap.add_argument("--character", default="calm",
                     help='dominant product character, e.g. "dense", "editorial", "utilitarian"')
     ap.add_argument("--screens", default="Home,Browse,Settings",
@@ -1223,6 +1406,14 @@ def main():
         model = a.model or "sidebar"
         if model not in ("sidebar", "document"):
             sys.exit("--kind macos supports --model sidebar or document")
+    elif kind == "android":
+        if not os.path.isdir(ANDROID_KIT):
+            sys.exit(f"android-ui-kit not found next to this skill ({ANDROID_KIT}).")
+        if a.sf is not None:
+            sys.exit("--sf is for Apple platforms; Android designs are set in Roboto.")
+        model = a.model or "tabs"
+        if model not in ("tabs", "stack"):
+            sys.exit("--kind android supports --model tabs (a nav bar) or stack")
     else:
         model = a.model
 
@@ -1230,11 +1421,17 @@ def main():
     vendor = os.path.join(out, "vendor")
     os.makedirs(os.path.join(vendor, "fonts"), exist_ok=True)
 
-    shutil.copy2(os.path.join(KIT, "tokens", "ios-tokens.css"), vendor)
-    shutil.copy2(os.path.join(KIT, "ios-components.css"), vendor)
+    if kind == "android":
+        shutil.copy2(os.path.join(ANDROID_KIT, "material-components.css"), vendor)
+        for filename in os.listdir(os.path.join(ANDROID_KIT, "fonts")):
+            shutil.copy2(os.path.join(ANDROID_KIT, "fonts", filename),
+                         os.path.join(vendor, "fonts", filename))
+    else:
+        shutil.copy2(os.path.join(KIT, "tokens", "ios-tokens.css"), vendor)
+        shutil.copy2(os.path.join(KIT, "ios-components.css"), vendor)
     if kind == "macos":
         shutil.copy2(os.path.join(KIT, "macos-components.css"), vendor)
-    for filename in os.listdir(os.path.join(KIT, "fonts")):
+    for filename in ([] if kind == "android" else os.listdir(os.path.join(KIT, "fonts"))):
         # A copy of SF Pro someone dropped into the kit is theirs, not the
         # project's; it only travels with --sf.
         if filename.startswith("SF-Pro"):
@@ -1256,7 +1453,13 @@ def main():
 
     theme_name = slug(a.name)
     try:
-        css, notes, values = build_theme.build(a.brand, theme_name)
+        if kind == "android":
+            sys.path.insert(0, ANDROID_KIT)
+            import build_m3_theme  # noqa: E402  (android-ui-kit, a sibling skill)
+            m3 = build_m3_theme.scheme(a.brand)
+            css, notes, values = build_m3_theme.to_css(m3, a.brand), build_m3_theme.notes(m3), None
+        else:
+            css, notes, values = build_theme.build(a.brand, theme_name)
     except ValueError as exc:
         sys.exit(str(exc))
     with open(os.path.join(out, "theme.css"), "w", encoding="utf-8") as f:
@@ -1304,11 +1507,24 @@ def main():
               .replace("__MODEL__", chosen_model)
               .replace("__CHARACTER__", a.character)
               .replace("__SLUG__", theme_name)
+              .replace("__RECIPES__", "m3-*" if kind == "android" else "mac-*" if kind == "macos" else "ios-*")
+              .replace("__REGEN__", f'python3 build_m3_theme.py "{a.brand}" -o theme.css'
+                       if kind == "android" else
+                       f'python3 build_theme.py "{a.brand}" --name {theme_name} -o theme.css')
               .replace("__OUT__", a.out))
     with open(os.path.join(out, "README.md"), "w", encoding="utf-8") as f:
         f.write(readme)
 
-    design = (DESIGN.replace("__CHARACTER__", a.character)
+    if kind == "android":
+        DESIGN_TEXT = DESIGN.replace(
+            "For web, transfer Apple principles rather than iOS chrome. For native Apple\n"
+            "platform work, verify behavior and platform claims against `apple-hig`.",
+            "Android follows Material 3, not Apple's HIG: top app bar, nav bar, FAB,\n"
+            "Material Symbols, Roboto. android-ui-kit's SKILL.md has the components\n"
+            "and the rules.")
+    else:
+        DESIGN_TEXT = DESIGN
+    design = (DESIGN_TEXT.replace("__CHARACTER__", a.character)
               .replace("__KIND__", a.kind)
               .replace("__MODEL__", chosen_model))
     with open(os.path.join(out, "DESIGN.md"), "w", encoding="utf-8") as f:
@@ -1321,7 +1537,10 @@ def main():
     print(f"scaffolded {rel}/")
     print(f"  index.html   {a.kind} / {chosen_model}, 4 states")
     print(f"  DESIGN.md    character={a.character}; replace hierarchy placeholders")
-    print(f"  theme.css    {a.brand} -> {theme_name}-*, bridged to --ios-*")
+    if kind == "android":
+        print(f"  theme.css    {a.brand} -> a Material 3 scheme, every role, light and dark")
+    else:
+        print(f"  theme.css    {a.brand} -> {theme_name}-*, bridged to --ios-*")
     print("  vendor/      tokens, components, fonts (offline)")
     if native:
         print(f"  tokens/      {', '.join(native)} -- same values, "
@@ -1331,7 +1550,7 @@ def main():
         for note in notes:
             print("  contrast: " + note)
     print()
-    recipes = "mac-*" if kind == "macos" else "ios-*"
+    recipes = "m3-*" if kind == "android" else "mac-*" if kind == "macos" else "ios-*"
     print("next: replace DESIGN.md placeholders, recompose index.html around")
     print(f"      that hierarchy -- keeping the {recipes} recipes, which carry the")
     print("      measured metrics -- then")

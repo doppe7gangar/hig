@@ -1,6 +1,6 @@
 ---
 name: apple-design
-description: Design or redesign a whole product with Apple-level hierarchy, restraint, composition, platform awareness, adaptivity, accessibility, content integrity, interaction architecture, cross-screen coherence, project design grammar, implementation-derived grammar evidence, and rendered critique. Use whenever someone describes a product they want rather than asking about a specific control — "I want an app for splitting bills", "I'm building a dashboard for our support team", "we need a landing page", "help me make a tool that…", "can you build me…" — with or without the word design, and with or without a platform or brand colour named. Also for: starting any app, website, dashboard, marketing page or cross-platform project; deciding what screens exist and how they connect; generating a design system or brand palette; fixing a build that ships only its happy path; and turning an approved design into SwiftUI without losing screens, states or symbols on the way. If the request names a product and not a component, this skill runs first. For a specific rule or spec use apple-hig; for exact iOS values and CSS use apple-ui-kit; for animation use apple-motion.
+description: Design or redesign a whole product with Apple-level hierarchy, restraint, composition, platform awareness, adaptivity, accessibility, content integrity, interaction architecture, cross-screen coherence, project design grammar, implementation-derived grammar evidence, and rendered critique. Use whenever someone describes a product they want rather than asking about a specific control — "I want an app for splitting bills", "I'm building a dashboard for our support team", "we need a landing page", "help me make a tool that…", "can you build me…" — with or without the word design, and with or without a platform or brand colour named. Also for: starting any app, website, dashboard, marketing page or cross-platform project; deciding what screens exist and how they connect; generating a design system or brand palette; fixing a build that ships only its happy path; and turning an approved design into SwiftUI without losing screens, states or symbols on the way. If the request names a product and not a component, this skill runs first, for Android apps too: it designs those in Material 3 with android-ui-kit, so they read as Android rather than as an iPhone port. For a specific rule or spec use apple-hig; for exact iOS values and CSS use apple-ui-kit; for animation use apple-motion.
 ---
 
 # Apple Design Director
@@ -8,6 +8,7 @@ description: Design or redesign a whole product with Apple-level hierarchy, rest
 Specialists:
 - `apple-hig` — authoritative platform rules, behavior, accessibility, components, APIs
 - `apple-ui-kit` — measured iOS visual values/recipes where system appearance is not available
+- `android-ui-kit` — measured Material 3 values/recipes, for Android apps
 - `apple-motion` — interaction physics and animation
 - `apple-design` — hierarchy, content, divergence, composition, adaptivity, interaction architecture, coherence, project grammar, implementation audit, reduction, and critique
 
@@ -29,7 +30,7 @@ The measured visual corpus is iOS 27, from Apple's kit renderings, and macOS 27,
 One screen or page takes the short path: a single primary task, with its sheets and states. That's most single-page requests: an expense tracker page, a settings screen, a sign-up form.
 
 1. Route the platform and name the one question the screen answers: `references/platform-routing.md`, `references/content-hierarchy.md`.
-2. Scaffold (step 12) and build the screen on it, with real content and its loading, empty and error states. On iOS keep its large title: a top-level iOS screen without one reads as a web page. For a Mac app scaffold `--kind macos` and keep the window, sidebar and toolbar: with a tab bar or 17pt text it reads as an iPad app on a desk.
+2. Scaffold (step 12) and build the screen on it, with real content and its loading, empty and error states. On iOS keep its large title: a top-level iOS screen without one reads as a web page. For a Mac app scaffold `--kind macos` and keep the window, sidebar and toolbar: with a tab bar or 17pt text it reads as an iPad app on a desk. For an Android app scaffold `--kind android` and keep the top app bar, nav bar and Material Symbols: with a tab bar, a large title or SF Symbols it reads as an iPhone port.
 3. Run `python3 check_design.py ./design` until it passes.
 4. Run `python3 render_review.py ./design`, look at the screenshots, and fix what they show.
 5. If the app is SwiftUI and the request includes the code, hand off (step 17).
@@ -66,9 +67,13 @@ python3 new_project.py --name Pulse --brand "#5A67D8" \
 python3 new_project.py --name Pantry --brand "#2F7D5B" \
   --kind macos --model sidebar \
   --screens "All Recipes,Favorites,Recent" -o ./design
+
+python3 new_project.py --name Pantry --brand "#2F7D5B" \
+  --kind android --model tabs \
+  --screens "Home,Search,Saved,Profile" -o ./design
 ```
 
-It copies the measured kit into the project (`./design/vendor/ios-tokens.css`, `./design/vendor/ios-components.css`, and for `--kind macos` `./design/vendor/macos-components.css`), wires the brand into `theme.css`, and writes the `DESIGN.md` skeleton and the loading, empty and error states the gates check for. Replace its placeholder content with the real design. Don't paste copies of the tokens inline or rebuild the components it links. A hand-written page skips all of it, and the result looks almost like iOS instead of like iOS. Marketing pages select the editorial model on their own. If no generated model fits (`references/spatial-models.md`), scaffold the closest one and record in `DESIGN.md` where the design departs from it.
+It copies the measured kit into the project (`./design/vendor/ios-tokens.css`, `./design/vendor/ios-components.css`, and for `--kind macos` `./design/vendor/macos-components.css`; for `--kind android` Roboto and `./design/vendor/material-components.css` instead), wires the brand into `theme.css` (for Android, a Material 3 scheme derived from it), and writes the `DESIGN.md` skeleton and the loading, empty and error states the gates check for. Replace its placeholder content with the real design. Don't paste copies of the tokens inline or rebuild the components it links. A hand-written page skips all of it, and the result looks almost like iOS instead of like iOS. Marketing pages select the editorial model on their own. If no generated model fits (`references/spatial-models.md`), scaffold the closest one and record in `DESIGN.md` where the design departs from it.
 
 ## 13. Extract or inherit the project design grammar
 Read `references/design-grammar.md`.

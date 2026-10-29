@@ -91,6 +91,31 @@ Do not dress a web product in native iOS chrome unless the task truly imitates a
 
 HIG does not define the marketing layout. Use Apple-like editorial discipline, but rely on web accessibility and browser behavior rather than native-app chrome.
 
+## Android: Material 3, not an iPhone port
+
+Scaffold with `new_project.py --kind android` (`--model tabs` for three
+to five top-level destinations in a nav bar, `stack` for one) and build
+on `android-ui-kit`'s `material-components.css`. Its phone, status and
+gesture bars, top app bars, nav bar, buttons, FAB, chips, cards, lists,
+fields, controls, dialogs, sheets, menus and snackbars are measured from
+Google's Material 3 Design Kit, and `theme.css` is a full Material
+scheme derived from the brand colour the way Android derives one.
+
+What changes from iOS, and has to:
+
+- a 64 dp top app bar with a title-large title, not a large title
+- a 64 dp nav bar with a pill indicator, not a tab bar; a FAB for the
+  primary action
+- Roboto and Material's 15 type styles, not SF Pro's
+- Material Symbols, named in `data-icon`, not SF Symbols
+- surfaces as tonal containers, not grouped inset lists and blur
+- 48 dp touch targets; sentence-case button labels
+- the system back gesture, so no back-chevron text buttons
+
+Apple's HIG doesn't govern Android. Use `apple-hig` for what transfers
+(hierarchy, content, accessibility reasoning), and android-ui-kit's
+SKILL.md for the platform.
+
 ## Cross-platform (`--kind cross`)
 
 Structure transfers; appearance does not. A shared information
@@ -107,7 +132,9 @@ What the scaffolder emits for this kind:
   `theme.css` rather than copied out of it
 
 Carry the palette where brand consistency is a deliberate decision.
-Carry the *structure* always. Do not carry the chrome.
+Carry the *structure* always. Do not carry the chrome. When the Android
+side needs a design of its own, scaffold it with `--kind android`; its
+`build_m3_theme.py --format compose` hands the scheme to Compose.
 
 On Apple platforms prefer the semantic APIs over these literals —
 `Color.accentColor`, `.primary` — since they follow Dark Mode and

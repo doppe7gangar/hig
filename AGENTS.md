@@ -69,3 +69,11 @@ under *Writing*, and 12 of 30 tracked concepts have no page of their own.
   release may have changed, answer from the corpus and say it's point-in-time.
 - `patterns.md` is synthesis; anything marked **[not in corpus]** is not
   Apple's stated word.
+
+## Android
+
+Android isn't Apple's to specify. For an Android design use
+`.claude/skills/android-ui-kit/`: `SKILL.md` has the rules, and
+`material-components.css` the Material 3 recipes measured from Google's
+Material 3 Design Kit. `build_m3_theme.py` turns a brand colour into the
+full colour scheme, for CSS, Compose or Android XML.
