@@ -35,33 +35,47 @@ SwiftUI when you're ready to build for real.
 
 ## Set up
 
-One line in Terminal installs everything for every project:
+One line in Terminal installs everything, for every project:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/doppe7gangar/hig/main/install.sh | bash
 ```
 
-Run the same line again to update. To also install Playwright, which lets
-the skills screenshot and check their designs, end it with
-`| bash -s -- --checks` instead. Don't have Claude Code yet? Run
-`curl -fsSL https://claude.ai/install.sh | bash` first.
+Run the same line again to update. To also let the skills screenshot and
+check their designs, which needs Playwright, use this line instead:
 
-You don't call the skills by name. Start `claude` in any folder, describe
-what you want, and the right one picks itself.
+```bash
+curl -fsSL https://raw.githubusercontent.com/doppe7gangar/hig/main/install.sh | bash -s -- --checks
+```
+
+No Claude Code yet? Run `curl -fsSL https://claude.ai/install.sh | bash` first.
+
+**Then use it.** You don't call the skills by name. Start `claude` in a
+folder for your project, describe what you want, and the right skill
+picks itself:
+
+```bash
+mkdir ~/Desktop/plant-app && cd ~/Desktop/plant-app && claude
+```
+
+> Design an iPhone app for tracking when my house plants need watering.
 
 The designs are web pages, so nothing needs Xcode or Android Studio. Open
 one with `open design/index.html`. On a Mac, Safari draws it in Apple's
 own SF Pro.
 
-**Using another tool.** The skills are plain Markdown and Python, with
-nothing tied to one agent.
+**Using another tool.** The skills are plain Markdown, CSS and Python,
+with nothing tied to one agent. The install line leaves a copy of
+everything in `~/.hig` to take them from.
 
-- **The Claude app** (web, desktop or phone): zip a skill folder and upload
-  it in the app's skill settings. The design and kit skills are small;
-  `apple-hig` is too big to upload because of its screenshots.
+- **The Claude app** (web, desktop or phone): zip a skill and upload it
+  in the app's skill settings, e.g.
+  `cd ~/.hig/.claude/skills && zip -r ~/Desktop/apple-ui-kit.zip apple-ui-kit`.
+  The design and kit skills are small; `apple-hig` is too big to upload
+  because of its screenshots. The app can't run the checks on your Mac.
 - **Cursor, Copilot, Windsurf, Zed, aider** and anything else that reads
-  `AGENTS.md`: copy [AGENTS.md](AGENTS.md) and `.claude/skills/` into your
-  project.
+  `AGENTS.md`: copy [AGENTS.md](AGENTS.md) and `.claude/skills/` from
+  `~/.hig` into your project.
 - **No AI at all**: the kits are ordinary CSS, fonts and example pages.
   Open an example and copy the markup.
 
