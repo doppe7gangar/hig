@@ -35,17 +35,19 @@ SwiftUI when you're ready to build for real.
 
 ## Set up
 
+One line in Terminal installs everything for every project:
+
 ```bash
-curl -fsSL https://claude.ai/install.sh | bash     # Claude Code, if you don't have it
-git clone https://github.com/doppe7gangar/hig ~/hig
-mkdir -p ~/.claude/skills
-cp -R ~/hig/.claude/skills/* ~/.claude/skills/
-pip3 install playwright && python3 -m playwright install chromium   # optional: lets it screenshot and check its designs
+curl -fsSL https://raw.githubusercontent.com/doppe7gangar/hig/main/install.sh | bash
 ```
 
-That installs the skills for every project; inside this repo they load on
-their own. You don't call them by name. Describe what you want and the
-right one picks itself. To update, `git pull` and run the `cp` line again.
+Run the same line again to update. To also install Playwright, which lets
+the skills screenshot and check their designs, end it with
+`| bash -s -- --checks` instead. Don't have Claude Code yet? Run
+`curl -fsSL https://claude.ai/install.sh | bash` first.
+
+You don't call the skills by name. Start `claude` in any folder, describe
+what you want, and the right one picks itself.
 
 The designs are web pages, so nothing needs Xcode or Android Studio. Open
 one with `open design/index.html`. On a Mac, Safari draws it in Apple's
