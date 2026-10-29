@@ -14,7 +14,7 @@ Specialists:
 ## Authority rule
 Use `HIG → platform differences → system APIs/components → product composition → measured visual evidence (when available) → project grammar → design judgment`.
 
-The measured visual corpus is iOS 27, from Apple's kit renderings, and macOS 26, from Apple's Mac screenshots in the HIG (fewer components). Never present an iOS measurement as macOS evidence, or the reverse.
+The measured visual corpus is iOS 27, from Apple's kit renderings, and macOS 27, from Apple's macOS 27 design kit (fewer components). Never present an iOS measurement as macOS evidence, or the reverse.
 
 ## Governing principle
 **Do not begin by placing components. Begin by composing information.** Prefer hierarchy through position, alignment, spacing, typography, scale, grouping, disclosure, motion, or context over unnecessary containers.
@@ -23,7 +23,7 @@ The measured visual corpus is iOS 27, from Apple's kit renderings, and macOS 26,
 
 **Draw the stand-in at the symbol's weight.** Measured from SF Pro's own symbol glyphs, SF Symbols stroke at 0.08em in regular and 0.11em in semibold: `stroke-width="2"` on a 24-unit `viewBox` beside regular text, about 2.7 beside semibold, always with round caps and joins. Strokes of 1.4 to 1.7, the web icon-set default, are what made generated lists read as a website. Use the filled shape when the name ends in `.fill`, and colour by meaning, as Health does with an orange flame and a red heart, rather than putting every glyph in the accent.
 
-**Then express that hierarchy with the measured recipes, rather than rebuilding them.** Deciding structure first is not a licence to hand-roll the list, the navigation bar and the tab bar afterwards. `apple-ui-kit`'s `ios-components.css` carries the grouped-list metrics, the bar heights, the control geometry and the tracking this corpus measured from Apple's own renderings; a from-scratch approximation of them is the difference between a design that reads as iOS and one that reads as almost-iOS. Change the content, the composition and the palette. Keep the recipes. On the Mac the same goes for `macos-components.css`: the window, its traffic lights, the sidebar, the toolbar's glass controls and the 13pt controls measured from Apple's own Mac screenshots. It has fewer recipes than iOS; where it has none, compose from `apple-hig` and say so.
+**Then express that hierarchy with the measured recipes, rather than rebuilding them.** Deciding structure first is not a licence to hand-roll the list, the navigation bar and the tab bar afterwards. `apple-ui-kit`'s `ios-components.css` carries the grouped-list metrics, the bar heights, the control geometry and the tracking this corpus measured from Apple's own renderings; a from-scratch approximation of them is the difference between a design that reads as iOS and one that reads as almost-iOS. Change the content, the composition and the palette. Keep the recipes. On the Mac the same goes for `macos-components.css`: the window, its traffic lights, the sidebar, the toolbar's glass controls and the 24pt controls measured from Apple's macOS 27 design kit. It has fewer recipes than iOS; where it has none, compose from `apple-hig` and say so.
 
 ## Size the process to the request
 One screen or page takes the short path: a single primary task, with its sheets and states. That's most single-page requests: an expense tracker page, a settings screen, a sign-up form.

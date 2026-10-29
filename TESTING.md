@@ -165,10 +165,12 @@ python3 .claude/skills/apple-ui-kit/verify_mac_ui.py -v
 
 Measures `mac-example.html` in Chromium, light, dark and Increased
 Contrast: the window's corners, the traffic lights' size, pitch and
-position, the toolbar band and its glass controls, sidebar rows, menu
-rows and their concentric highlight, the alert, the sheet, the type
-sizes and the colours. Every expected number is the one
-`macos-components.css` says it measured from Apple's Mac screenshots.
+position, the toolbar band and its glass controls, the control heights
+and corners, the switch, the sidebar's width, rows and insets, menu rows
+and their highlight, table rows and selection, the alert, the sheet, the
+type and the colours, and a brand accent reaching every accent surface.
+Every expected number is the one `macos-components.css` says Apple's
+macOS 27 design kit carries.
 `python3 scripts/eval/design_workflow_smoke.py` scaffolds both Mac models
 and checks that a Mac design with an iPhone tab bar, or without its
 window, fails `check_design.py`.

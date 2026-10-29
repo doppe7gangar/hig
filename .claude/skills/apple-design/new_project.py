@@ -713,8 +713,8 @@ MAC_CSS = """
   .mac-desktop { padding: 28px 24px 40px; }
   .mac-window { --mac-window-h: min(660px, calc(100vh - 120px)); }
   .mac-content .state { padding-top: 2px; }
-  .mac-table td:first-child { display: flex; align-items: center; gap: 8px; }
-  .mac-table td:first-child svg { flex: none; color: var(--mac-label-secondary); }
+  .mac-table .skel { display: inline-block; vertical-align: middle; }
+  .mac-table .skel + .skel { margin-left: 6px; }
   .page { max-width: 640px; margin: 8px auto 40px; padding: 48px 56px;
           background: var(--mac-content-bg);
           box-shadow: 0 0 0 1px var(--mac-separator), 0 6px 24px rgba(0,0,0,.08); }
@@ -761,8 +761,8 @@ def mac_rows(thing):
     out = []
     for i, (title, t, n, mod) in enumerate(demo):
         sel = ' aria-selected="true"' if i == 0 else ""
-        out.append(f'            <tr{sel}><td><span data-sf-symbol="doc.text">'
-                   f'{mac_svg(doc, 15, 1.6)}</span>{title}</td><td>{t}</td>'
+        out.append(f'            <tr{sel}><td><span class="mac-table__icon" data-sf-symbol="doc.text">'
+                   f'{mac_svg(doc, 14, 1.6)}</span>{title}</td><td>{t}</td>'
                    f'<td>{n}</td><td>{mod}</td></tr>')
     return "\n".join(out)
 

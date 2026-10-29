@@ -35,8 +35,8 @@ Do not use remembered platform folklore when the corpus can answer the question.
 Scaffold with `new_project.py --kind macos` (`--model sidebar` for a
 library or inbox, `document` for a canvas) and build on
 `macos-components.css`. Its window, traffic lights, sidebar, toolbar glass
-controls, buttons, fields, menus, sheets and alerts are measured from
-Apple's own Mac screenshots in the HIG; it has fewer recipes than iOS, so
+controls, buttons, fields, menus, tables, sheets and alerts are measured
+from Apple's macOS 27 design kit; it has fewer recipes than iOS, so
 compose what it lacks from `apple-hig` and say so.
 
 For macOS-first work, explicitly reason about:

@@ -342,7 +342,7 @@ def check_uses_kit(path, html):
         missing = [c for c in MAC_STRUCTURAL if c in families and c not in used]
         if missing:
             bad(f"{name}: a Mac design without {', '.join(missing)}. The window, its "
-                f"26pt corners, the traffic lights and the 52pt toolbar band with "
+                f"16pt corners, the traffic lights and the 52pt toolbar band with "
                 f"its glass controls are what make it read as a Mac app; "
                 f"hand-built, it reads as a web page with a title bar.")
             return

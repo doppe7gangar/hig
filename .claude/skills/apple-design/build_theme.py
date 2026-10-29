@@ -260,6 +260,13 @@ def build(brand_hex, name):
     ic_fill_d, ic_on_d = ic_fill(accent_d, card_d, on_accent_d)
     ic_sec_d = alpha_for(LABEL_BASE_DARK, card_d)
 
+    # The Mac kit fills a selected row and a highlighted menu item with a
+    # colour of its own under white 13pt text: Apple's is #0165E2 to an
+    # accent of #0088FF. A brand gets the same, its accent darkened until
+    # white clears 4.5:1, in each appearance.
+    sel_l, _ = meet_contrast(accent_l, (255, 255, 255), 4.5)
+    sel_d, _ = meet_contrast(accent_d, (255, 255, 255), 4.5)
+
     if not ok_d:
         notes.append(
             f"in dark mode the brand hue cannot reach 4.5:1 on the "
@@ -307,6 +314,7 @@ def build(brand_hex, name):
         f"var(--{name}-accent) 15%, transparent);",
         f"  --{name}-accent-pressed: color-mix(in srgb, "
         f"var(--{name}-accent) 85%, #000);",
+        f"  --{name}-selection: {rgb_to_hex(sel_l)};",
         "",
         "  /* Label ladder: one grey, several opacities. */",
         f"  --{name}-label: #1A1A1A;",
@@ -332,6 +340,7 @@ def build(brand_hex, name):
         f"    --{name}-accent: {rgb_to_hex(accent_d)};",
         f"    --{name}-accent-text: {rgb_to_hex(text_d)};",
         f"    --{name}-on-accent: {rgb_to_hex(on_accent_d)};",
+        f"    --{name}-selection: {rgb_to_hex(sel_d)};",
         f"    --{name}-label: #F5F5F5;",
     ]
     for label, a in LABEL_ALPHAS:
@@ -382,6 +391,8 @@ def build(brand_hex, name):
         "     systemYellow is 1.25:1. This carries the label colour the",
         "     contrast pass actually chose. */",
         f"  --ios-on-accent: var(--{name}-on-accent);",
+        "  /* macos-components.css fills selections with this, not the accent. */",
+        f"  --mac-brand-selection: var(--{name}-selection);",
         f"  --ios-label: var(--{name}-label);",
         f"  --ios-label-secondary: var(--{name}-label-secondary);",
         f"  --ios-label-tertiary: var(--{name}-label-tertiary);",

@@ -29,7 +29,7 @@ which is the reason to trust the ones that don't overlap.
 | `fonts/` | **Inter, bundled** (SIL OFL) — the non-Apple fallback for SF Pro, with its licence. |
 | `ios-components.css` | **Web component recipes** built on the CSS tokens. Bars: `ios-navbar`, `ios-tabbar`, `ios-controls` (floating glass group), `ios-statusbar`. Content: `ios-list` (52pt rows, 26pt corners), `ios-empty`. Presentation: `ios-sheet`, `ios-alert`, `ios-actionsheet`. Controls: `ios-btn`, `ios-glass-btn`, `ios-switch`, `ios-segmented`, `ios-stepper`, `ios-slider`, `ios-chip`, `ios-field`, `ios-pagecontrol`. Material: `ios-glass`. Read a recipe's section of the file before using it: its selectors name the parts it expects inside. |
 | `example.html` | Working reference page. Open it to see every recipe, light and dark. |
-| `macos-components.css` | **macOS 26 recipes**, measured from Apple's own Mac screenshots: `mac-window` with its traffic lights, `mac-sidebar`, `mac-toolbar` with glass `mac-tool`, `mac-toolgroup`, `mac-tabs` and `mac-toolsearch`, `mac-btn`, `mac-popup`, `mac-field`, `mac-search`, `mac-segmented`, `mac-check`, `mac-radio`, `mac-switch`, `mac-progress`, `mac-list`, `mac-table`, `mac-menu`, `mac-sheet`, `mac-alert`, `mac-popover`, `mac-empty`, `mac-inspector`. |
+| `macos-components.css` | **macOS 27 recipes**, measured from Apple's macOS 27 design kit: `mac-window` with its traffic lights, `mac-sidebar`, `mac-toolbar` with glass `mac-tool`, `mac-toolgroup`, `mac-tabs` and `mac-toolsearch`, `mac-btn`, `mac-popup`, `mac-field`, `mac-search`, `mac-segmented`, `mac-check`, `mac-radio`, `mac-switch`, `mac-progress`, `mac-list`, `mac-table`, `mac-menu`, `mac-sheet`, `mac-alert`, `mac-popover`, `mac-empty`, `mac-inspector`. |
 | `mac-example.html` | Every macOS recipe in four windows, light and dark. `verify_mac_ui.py` measures it. |
 | `react/` | **React components** over the recipes (`ios.jsx`, types in `ios.d.ts`, `ios-react.css`), with the keyboard and screen-reader behaviour the static recipes can't have. `example.jsx` uses every one. |
 | `tailwind/` | **Tailwind themes**: `theme.css` for v4, `preset.cjs` for v3. Utilities such as `bg-ios-accent`, `rounded-ios-card` and `ios-text-body` that read the kit's variables. |
@@ -64,32 +64,38 @@ brand consistency is the deliberate goal; it is a bad default.
 ## macOS
 
 `macos-components.css` is the Mac's counterpart to the iOS recipes,
-self-contained, measured from Apple's own screenshots of macOS 26 in
-the HIG: Calendar's window, Notes with its toolbar, menu and sheet, the save
-panel, an alert, a toolbar search field. Those images don't state their
-scale and come at five different ones, so each was anchored on its 13pt
-text (macOS's body size, specs.md); anchored that way they agree to
-within a point. It covers fewer components than the iOS kit, which had
-Apple's 945 kit renderings behind it, and every value that had nothing
-to anchor it says so in the stylesheet.
+self-contained, and measured from Apple's macOS 27 design kit for Figma:
+each corner, padding, row height and colour is the value Apple's own
+components carry. Where the kit blends a translucent material over what
+is behind it (the sidebar, menus, alerts), the stylesheet gives what that
+blend renders over the surface it normally sits on. Values the kit
+doesn't carry say so in the stylesheet.
 
 What comes out of it, and what people get wrong from memory:
 
-- **Windows** have 26pt corners (panels 20, sheets 19), and the traffic
-  lights are **14pt circles on a 22pt pitch**, centred 25.5pt in from
-  the corner. Not 12 on 20; that is the old Mac.
-- **Toolbars** are a 52pt band with nothing drawn across it. The
-  controls float in it as 36pt glass circles and capsules.
-- **Sidebars** run to the top of the window under the traffic lights.
-  Rows are 30pt pills on a 32pt pitch, lined up with the close button.
-  A selected row is a light pill with **accent-coloured text and icon**,
-  not a solid accent fill. Section headers are 11pt bold in the label
-  colour.
-- **Text is 13pt**, not iOS's 17. Use the `--mac-text-*` styles.
-- **Push buttons** are 24pt capsules. An **alert** is 260pt wide, with
-  its title and message left aligned and 28pt buttons stacked full
-  width. A highlighted **menu** item is a solid accent pill inside 11pt
-  corners.
+- **Windows** and sheets have 16pt corners. The traffic lights are
+  **14pt circles 9pt apart** (a 23pt pitch), 19pt in from the window's
+  edge and centred in the 52pt toolbar band. Not 12 on 20; that is the
+  old Mac.
+- **Toolbars** are a 52pt band whose controls are 36pt glass capsules
+  holding 28pt buttons. A pressed or selected one is a grey capsule, not
+  an accent fill.
+- **Sidebars** are 240pt wide and run to the top of the window under
+  the traffic lights. Rows are 32pt; a selected row is a **grey pill**
+  with 8pt corners, inset 10pt. Icons are in the accent; the text keeps
+  its colour. Section headers are 13pt bold grey.
+- **Every regular control is 24pt**: push button, pop-up, text and
+  search field, segmented control. Push buttons are **rectangles with
+  6pt corners**, not capsules. Control text is SF Pro **Medium (510)**.
+  A switch is 54×24 with a 32×20 capsule knob.
+- **Text is 13pt**, not iOS's 17. Use the `--mac-text-*` styles, and
+  `--mac-text-control` on anything clickable.
+- A highlighted **menu** item is **#0069F9**, a selected **table** row
+  **#0165E2**, both with white text: neither is the accent. Menus have
+  12pt corners and 24pt rows; tables 20pt rows.
+- An **alert** is 260pt wide with 34pt corners, a 13pt bold title over
+  an 11pt message, left aligned, and 28pt capsule buttons stacked full
+  width.
 
 ```html
 <link rel="stylesheet" href="macos-components.css">
@@ -100,11 +106,11 @@ What comes out of it, and what people get wrong from memory:
     <nav class="mac-sidebar">
       <div class="mac-sidebar__header">Library</div>
       <a class="mac-sidebar__item" aria-current="page">
-        <span class="mac-sidebar__icon" data-sf-symbol="tray.full">…</span>All Documents</a>
+        <span class="mac-sidebar__icon" data-sf-symbol="clock">…</span>Recents</a>
     </nav>
     <div class="mac-main">
       <header class="mac-toolbar">
-        <h1 class="mac-toolbar__title">All Documents<span class="mac-toolbar__subtitle">24 documents</span></h1>
+        <h1 class="mac-toolbar__title">Recents<span class="mac-toolbar__subtitle">24 documents</span></h1>
         <span class="mac-toolbar__spacer"></span>
         <button class="mac-tool" aria-label="New Document" data-sf-symbol="plus">…</button>
       </header>
@@ -115,10 +121,11 @@ What comes out of it, and what people get wrong from memory:
 ```
 
 The accent is the HIG's system blue, or the brand when a `theme.css`
-from apple-design bridges one in; selections are derived from it. Set
-`--mac-accent` to change it by hand. The Mac kit's verifier,
-`python3 verify_mac_ui.py`, measures `mac-example.html` against all of
-this in 56 checks. For a whole Mac app, apple-design's
+from apple-design bridges one in; the bridge fills the selections and
+the menu highlight with it too. Set `--mac-accent` to change it by hand,
+with `--mac-selection` and `--mac-menu-highlight` if those should follow.
+The Mac kit's verifier, `python3 verify_mac_ui.py`, measures
+`mac-example.html` against all of this in 87 checks. For a whole Mac app, apple-design's
 `new_project.py --kind macos` scaffolds the window.
 
 ## Using it

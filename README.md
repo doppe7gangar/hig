@@ -30,7 +30,7 @@ which is as close to the real thing as a mockup gets.
 | You want to… | Say something like | Skill | You get |
 |---|---|---|---|
 | Turn an idea into an app or site | *"I want an app for splitting bills with friends"* | `apple-design` | The screens and how they connect, a working HTML project, and a checker run before it's handed over |
-| Design a Mac app | *"Design a Mac app for keeping my recipes"* | `apple-design` | A Mac window with its sidebar, toolbar and four states, built from parts measured off Apple's own Mac screenshots |
+| Design a Mac app | *"Design a Mac app for keeping my recipes"* | `apple-design` | A Mac window with its sidebar, toolbar and four states, built from parts measured from Apple's own macOS 27 design kit |
 | Make a web, Android, Flutter or React Native UI look like iOS | *"Make this settings page feel like an Apple app"* | `apple-ui-kit` | Apple's measured colours, type and control sizes as tokens, plus ready CSS components |
 | Build that UI in React or Tailwind | *"Give me an iOS-style settings screen in React"* | `apple-ui-kit` | Accessible React components over the same recipes, and a Tailwind v4/v3 theme on the same tokens |
 | Turn an approved design into SwiftUI | *"The design in ./design is approved. Write the SwiftUI app"* | `apple-design` | Views per screen with a preview per state, checked against the design for anything lost |
@@ -152,7 +152,7 @@ is tool-specific.
 | Path | What it is |
 |---|---|
 | `.claude/skills/apple-design/` | Idea → screens → scaffolded project → checked design |
-| `.claude/skills/apple-ui-kit/` | Measured iOS 27 tokens for CSS, SwiftUI, Compose, Android XML, Flutter and TypeScript, plus web components, React components, a Tailwind theme and a live [example](.claude/skills/apple-ui-kit/example.html); and macOS 26 recipes for Mac windows, with their own [example](.claude/skills/apple-ui-kit/mac-example.html) |
+| `.claude/skills/apple-ui-kit/` | Measured iOS 27 tokens for CSS, SwiftUI, Compose, Android XML, Flutter and TypeScript, plus web components, React components, a Tailwind theme and a live [example](.claude/skills/apple-ui-kit/example.html); and macOS 27 recipes for Mac windows, with their own [example](.claude/skills/apple-ui-kit/mac-example.html) |
 | `.claude/skills/apple-hig/` | 2,326 rules as one-line imperatives, every spec table, an API map across 32 frameworks, 947 screenshots of real components in every state, and all 178 pages |
 | `.claude/skills/apple-motion/` | Springs, transitions, haptic pairing, Reduce Motion |
 | `content/` | The guidelines as Markdown, rebuilt from Apple's site |

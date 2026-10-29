@@ -12,7 +12,6 @@
   body { margin: 0; }
   .row { display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; align-items: flex-start; }
   .caption { width: 100%; text-align: center; color: var(--mac-label-secondary); font: var(--mac-text-subheadline); }
-  .doc td:first-child { display: flex; align-items: center; gap: 8px; }
   .gallery { display: grid; grid-template-columns: max-content 1fr; gap: 14px 18px; align-items: center; }
   .gallery > span { color: var(--mac-label-secondary); justify-self: end; }
   .gallery > div { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
@@ -23,40 +22,39 @@
 <body>
 <div class="mac-desktop">
 
-  <!-- 1. A sidebar window: Notes, Mail and Finder are this shape. -->
+  <!-- 1. A sidebar window: Finder, Notes and Mail are this shape. -->
   <div class="mac-window" id="win">
     <div class="mac-lights" id="lights" aria-hidden="true"><span></span><span></span><span></span></div>
-    <nav class="mac-sidebar" aria-label="Library">
-      <div class="mac-sidebar__header" id="sidehead">Library</div>
+    <nav class="mac-sidebar" id="sidebar" aria-label="Library">
       <a class="mac-sidebar__item" id="side-a" href="#" aria-current="page">
-        <span class="mac-sidebar__icon" data-sf-symbol="tray.full"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13h5l2 3h4l2-3h5"/><path d="M5 5l-2 8v5a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-5l-2-8z"/></svg></span>
-        <span id="side-a-text">All Documents</span><span class="mac-sidebar__count">24</span></a>
+        <span class="mac-sidebar__icon" id="side-a-icon" data-sf-symbol="clock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/></svg></span>
+        <span id="side-a-text">Recents</span><span class="mac-sidebar__count">24</span></a>
       <a class="mac-sidebar__item" id="side-b" href="#">
         <span class="mac-sidebar__icon" data-sf-symbol="star"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg></span>Favorites</a>
-      <a class="mac-sidebar__item" href="#">
-        <span class="mac-sidebar__icon" data-sf-symbol="clock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/></svg></span>Recent</a>
-      <div class="mac-sidebar__header">Locations</div>
+      <div class="mac-sidebar__header" id="sidehead">Locations</div>
       <a class="mac-sidebar__item" href="#">
         <span class="mac-sidebar__icon" data-sf-symbol="icloud"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18h10a4 4 0 0 0 .5-8 6 6 0 0 0-11.4 1.5A3.3 3.3 0 0 0 7 18z"/></svg></span>iCloud Drive</a>
+      <a class="mac-sidebar__item" href="#">
+        <span class="mac-sidebar__icon" data-sf-symbol="tray.full"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13h5l2 3h4l2-3h5"/><path d="M5 5l-2 8v5a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-5l-2-8z"/></svg></span>Archive</a>
     </nav>
     <div class="mac-main">
       <header class="mac-toolbar" id="toolbar">
-        <h1 class="mac-toolbar__title" id="title-sub">All Documents<span class="mac-toolbar__subtitle" id="subtitle">24 documents</span></h1>
+        <h1 class="mac-toolbar__title" id="title-sub">Recents<span class="mac-toolbar__subtitle" id="subtitle">24 documents</span></h1>
         <span class="mac-toolbar__spacer"></span>
-        <div class="mac-tabs" role="tablist" id="tabs"><button role="tab" aria-selected="true">List</button><button role="tab">Gallery</button></div>
+        <div class="mac-tabs" role="tablist" id="tabs"><button role="tab" aria-selected="true">List</button><button role="tab">Gallery</button><button role="tab">Columns</button></div>
         <div class="mac-toolgroup" id="toolgroup">
           <button aria-label="Sort" data-sf-symbol="arrow.up.arrow.down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4v15M4.5 7.5 8 4l3.5 3.5M16 20V5M12.5 16.5 16 20l3.5-3.5"/></svg></button>
           <button aria-label="Share" data-sf-symbol="square.and.arrow.up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 7l4-4 4 4M6 11v8.5A1.5 1.5 0 0 0 7.5 21h9a1.5 1.5 0 0 0 1.5-1.5V11"/></svg></button>
         </div>
         <button class="mac-tool" id="tool" aria-label="More" aria-haspopup="menu" data-sf-symbol="ellipsis"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 12h.01M12 12h.01M18 12h.01"/></svg></button>
-        <label class="mac-toolsearch" id="toolsearch"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg><input type="search" placeholder="Search" aria-label="Search documents"></label>
+        <label class="mac-toolsearch" id="toolsearch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg><input type="search" placeholder="Search" aria-label="Search documents"></label>
       </header>
       <main class="mac-content">
-        <table class="mac-table doc">
-          <thead><tr><th id="th">Name</th><th>Kind</th><th>Modified</th></tr></thead>
+        <table class="mac-table" id="table">
+          <thead><tr><th id="th" aria-sort="ascending">Name</th><th>Kind</th><th>Modified</th></tr></thead>
           <tbody>
-            <tr aria-selected="true" id="selrow"><td>Quarterly plan</td><td>Keynote</td><td>Today, 09:12</td></tr>
-            <tr><td>Hiring notes</td><td>Pages</td><td>Yesterday</td></tr>
+            <tr aria-selected="true" id="selrow"><td><span class="mac-table__icon" data-sf-symbol="doc.text"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7zM14 3v4h4"/></svg></span>Quarterly plan</td><td>Keynote</td><td>Today, 09:12</td></tr>
+            <tr id="row-2"><td>Hiring notes</td><td>Pages</td><td>Yesterday</td></tr>
             <tr><td>Budget 2026</td><td>Numbers</td><td>12 Mar</td></tr>
             <tr><td>Launch checklist</td><td>Pages</td><td>9 Mar</td></tr>
           </tbody>
@@ -68,12 +66,13 @@
         <button class="mac-menu__item is-highlighted" id="menu-hi" role="menuitem">Pin Document</button>
         <button class="mac-menu__item" id="menu-2" role="menuitem">Duplicate<span class="mac-menu__shortcut">⌘D</span></button>
         <div class="mac-menu__sep" id="menu-sep" role="separator"></div>
-        <button class="mac-menu__item" role="menuitem" aria-haspopup="menu">Move To</button>
-        <button class="mac-menu__item" role="menuitem">Delete</button>
+        <div class="mac-menu__header" id="menu-head" role="presentation">Share</div>
+        <button class="mac-menu__item" role="menuitem" aria-haspopup="menu" aria-expanded="true">Send a Copy</button>
+        <button class="mac-menu__item" role="menuitem" disabled>Collaborate</button>
       </div>
     </div>
   </div>
-  <p class="caption">A sidebar window with a tab view, a tool group, a menu and search in its toolbar.</p>
+  <p class="caption">A sidebar window: a segmented control, a tool group, a menu and search in its toolbar, a table below.</p>
 
   <div class="row">
     <!-- 2. A panel: forms and controls. -->
@@ -83,23 +82,24 @@
         <header class="mac-toolbar"><h1 class="mac-toolbar__title" id="title-alone">Export</h1></header>
         <main class="mac-content">
           <div class="mac-form" style="margin-bottom: 18px">
-            <label for="f1">Save As:</label><input class="mac-field" id="field" value="Quarterly plan">
-            <label for="f2">Where:</label><span><button class="mac-popup" id="popup" style="min-width: 180px">Documents</button></span>
+            <label for="field">Save As:</label><input class="mac-field" id="field" value="Quarterly plan">
+            <label for="popup">Where:</label><span><button class="mac-popup" id="popup" style="min-width: 180px">Documents</button></span>
           </div>
           <div class="gallery">
             <span>Format</span><div><div class="mac-segmented" id="seg"><label><input type="radio" name="fmt" checked>PDF</label><label><input type="radio" name="fmt">Images</label><label><input type="radio" name="fmt">Keynote</label></div></div>
             <span>Include</span><div>
               <label class="mac-check"><input type="checkbox" id="check" checked>Comments</label>
-              <label class="mac-check"><input type="checkbox">Skipped slides</label></div>
+              <label class="mac-check"><input type="checkbox" id="check-off">Skipped slides</label></div>
             <span>Quality</span><div>
               <label class="mac-radio"><input type="radio" name="q" id="radio" checked>Best</label>
               <label class="mac-radio"><input type="radio" name="q">Smaller</label></div>
-            <span>Open after</span><div><label class="mac-switch"><input type="checkbox" id="switch" checked aria-label="Open after export"><span></span></label></div>
+            <span>Open after</span><div><label class="mac-switch" id="switch"><input type="checkbox" checked aria-label="Open after export"><span></span></label></div>
             <span>Progress</span><div style="flex: 1"><progress class="mac-progress" value="0.45"></progress></div>
             <span>Search</span><div><input class="mac-search" id="search" placeholder="Search" aria-label="Search"></div>
           </div>
           <div class="mac-actions" style="margin-top: 22px">
             <button class="mac-btn mac-actions__start">Options…</button>
+            <button class="mac-btn mac-btn--tinted">Preview</button>
             <button class="mac-btn" id="btn">Cancel</button>
             <button class="mac-btn mac-btn--default" id="btn-default">Export</button>
           </div>
@@ -108,15 +108,16 @@
     </div>
 
     <!-- 3. An alert over its window. -->
-    <div class="mac-window mac-window--inactive" style="--mac-window-w: 460px; --mac-window-h: 330px" id="alertwin">
+    <div class="mac-window mac-window--inactive" style="--mac-window-w: 460px; --mac-window-h: 360px" id="alertwin">
       <div class="mac-lights" aria-hidden="true"><span></span><span></span><span></span></div>
       <div class="layer">
         <div class="mac-alert" id="alert" role="alertdialog" aria-labelledby="at" aria-describedby="am">
-          <h2 class="mac-alert__title" id="at">Delete “Quarterly plan”?</h2>
-          <p class="mac-alert__message" id="am">You can’t undo this action.</p>
+          <h2 class="mac-alert__title" id="at">Save changes to “Quarterly plan”?</h2>
+          <p class="mac-alert__message" id="am">Your changes will be lost if you close it without saving.</p>
           <div class="mac-alert__actions">
-            <button class="mac-btn mac-btn--default" id="alert-1">Delete</button>
-            <button class="mac-btn" id="alert-2">Cancel</button>
+            <button class="mac-btn mac-btn--default" id="alert-1">Save</button>
+            <button class="mac-btn mac-btn--destructive" id="alert-2">Don’t Save</button>
+            <button class="mac-btn" id="alert-3">Cancel</button>
           </div>
         </div>
       </div>
