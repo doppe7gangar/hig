@@ -592,6 +592,61 @@ def check_hardcoded(path, html):
 
 # ------------------------------------------------------------ browser
 
+# Text that floating chrome (a tab bar, a toolbar, a banner, a FAB) still
+# paints over once every scroller is at its end. Scrolling under the chrome is
+# fine; ending under it is not -- the last rows can never be read. Only
+# the lower half of the window is looked at, so content passing under a
+# navigation bar at the top is left alone.
+COVERED_JS = r"""async () => {
+  const scrolls = [document.scrollingElement, ...document.querySelectorAll('*')]
+    .filter(e => e && e.scrollHeight > e.clientHeight + 2 &&
+      (e === document.scrollingElement || /(auto|scroll)/.test(getComputedStyle(e).overflowY)));
+  scrolls.forEach(e => { e.scrollTop = e.scrollHeight; });
+  await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+  const vh = innerHeight, seen = new Set(), out = [];
+  // Whatever the hit is, up to where its branch meets the text's, sits
+  // over the text. It only hides it if something on that branch paints:
+  // a background or a backdrop blur. A transparent stretched link does not.
+  const painter = (hit, el) => {
+    let found = null;
+    for (let e = hit; e && !e.contains(el); e = e.parentElement) {
+      const cs = getComputedStyle(e);
+      const m = cs.backgroundColor.match(/rgba?\(([^)]+)\)/);
+      const alpha = m ? (m[1].split(',')[3] === undefined ? 1 : +m[1].split(',')[3]) : 0;
+      if (alpha >= 0.3 || (cs.backdropFilter && cs.backdropFilter !== 'none')) found = e;
+    }
+    return found;
+  };
+  const walk = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  for (let n = walk.nextNode(); n; n = walk.nextNode()) {
+    const t = n.textContent.trim(), el = n.parentElement;
+    if (t.length < 2 || !el || seen.has(el)) continue;
+    const cs = getComputedStyle(el);
+    if (cs.visibility === 'hidden' || +cs.opacity === 0) continue;
+    const range = document.createRange(); range.selectNodeContents(n);
+    const r = range.getBoundingClientRect();
+    if (r.width < 2 || r.height < 2) continue;
+    const x = r.left + r.width / 2, y = r.top + r.height / 2;
+    if (y < vh * 0.5 || y > vh - 1 || x < 0 || x > innerWidth) continue;
+    let clipped = false;
+    for (let a = el.parentElement; a; a = a.parentElement) {
+      if (getComputedStyle(a).overflowY === 'visible') continue;
+      const ar = a.getBoundingClientRect();
+      if (y < ar.top || y > ar.bottom) { clipped = true; break; }
+    }
+    if (clipped) continue;
+    const hit = document.elementFromPoint(x, y);
+    if (!hit || el.contains(hit) || hit.contains(el)) continue;
+    const cover = painter(hit, el);
+    if (!cover) continue;
+    seen.add(el);
+    out.push({ text: t.slice(0, 40), by: (cover.className && cover.className.baseVal === undefined
+      ? '.' + String(cover.className).trim().split(/\s+/)[0] : cover.tagName.toLowerCase()) });
+  }
+  return out;
+}"""
+
+
 BROWSER_JS = r"""() => {
 // Rendered contrast, measured rather than parsed. The CSS can be
 // perfect and the page still unreadable -- a token overridden further
@@ -822,6 +877,7 @@ def check_browser(path, brand):
     name = os.path.basename(path)
     url = "file://" + os.path.abspath(path)
     errors, failed = [], []
+    covered_any = ran_states = False
     # macOS's floor is 20x20pt and its push buttons are 24pt tall
     # (specs.md); holding a Mac window to iOS's 28 would flag Apple's own.
     page = open(path, encoding="utf-8", errors="replace").read()
@@ -1020,6 +1076,15 @@ def check_browser(path, brand):
                         " + [...e.querySelectorAll('*')].filter(c => {"
                         "   const r = c.getBoundingClientRect();"
                         "   return r.width > 4 && r.height > 4; }).length)")
+                    ran_states = True
+                    hid = pg.evaluate(COVERED_JS)
+                    if hid:
+                        bad(f"{name}: in the '{st}' state, scrolled to the end, "
+                            f"{len(hid)} piece(s) of text are still under "
+                            f"{hid[0]['by']}: \"{hid[0]['text']}\". Pad the "
+                            f"bottom of the scrolling content by that element's "
+                            f"height so the last of it can be read.")
+                        covered_any = True
                     if not vis or not any(v > 0 for v in vis):
                         warn(f"{name}: the '{st}' state renders nothing "
                              f"visible. If the switcher was removed that is "
@@ -1029,6 +1094,18 @@ def check_browser(path, brand):
                 pg.close()
         b.close()
 
+    if not covered_any and ran_states:
+        ok(f"{name}: no text left under floating bars or banners")
+    modules = sorted({re.search(r"/([^/']+\.m?js)'", e).group(1) for e in errors
+                      if "Access to script" in e and re.search(r"/([^/']+\.m?js)'", e)})
+    if modules:
+        bad(f"{name}: {', '.join(modules)} never runs: it is loaded as a module "
+            f"(type=\"module\" or import), and browsers block modules on a page "
+            f"opened from a file. Load it with a plain <script src> and drop "
+            f"import/export, or inline it.")
+        errors = [e for e in errors if "Access to script" not in e
+                  and "net::ERR_FAILED" not in e]
+        failed = [f for f in failed if not any(f.endswith(m) for m in modules)]
     if errors:
         bad(f"{name}: {len(errors)} console error(s): {errors[0][:90]}")
     else:

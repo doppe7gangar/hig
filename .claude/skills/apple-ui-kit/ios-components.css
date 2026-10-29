@@ -524,7 +524,10 @@ body {
 /* The tab bar is a control capsule: the kit draws its edge as the
    control rim, a shadow, not as the card's border. After both blocks
    above so it wins in either appearance. */
-.ios-tabbar { border: 0; box-shadow: var(--ios-glass-control-shadow); }
+/* The glass group above sets position: relative for its falloff band,
+   which would undo the tab bar's sticky and let it scroll away with long
+   content. Sticky positions its ::before just as well. */
+.ios-tabbar { position: sticky; border: 0; box-shadow: var(--ios-glass-control-shadow); }
 
 /* The falloff band. A pseudo-element rather than another gradient on the
    background, so the backdrop-filter underneath is not disturbed. */
@@ -783,7 +786,13 @@ body {
 }
 
 /* Pinned, not trailing the copy: margin-top auto pushes it to the
-   bottom of whatever box the state occupies. */
+   bottom of whatever box the state occupies. When that box is only as
+   tall as its content, auto comes to nothing, so the body keeps 24pt
+   below it and the button never touches the copy. */
+.ios-empty__body:has(+ .ios-empty__action) {
+  margin-bottom: 24px;
+}
+
 .ios-empty__action {
   margin-top: auto;
   align-self: stretch;

@@ -31,8 +31,8 @@ One screen or page takes the short path: a single primary task, with its sheets 
 
 1. Route the platform and name the one question the screen answers: `references/platform-routing.md`, `references/content-hierarchy.md`.
 2. Scaffold (step 12) and build the screen on it, with real content and its loading, empty and error states. On iOS keep its large title: a top-level iOS screen without one reads as a web page. For an iPad app scaffold `--kind ipados` and keep the glass sidebar or the tabs at the top: with the iPhone's bottom tab bar it reads as a stretched phone. For a Mac app scaffold `--kind macos` and keep the window, sidebar and toolbar: with a tab bar or 17pt text it reads as an iPad app on a desk. For an Android app scaffold `--kind android` and keep the top app bar, nav bar and Material Symbols: with a tab bar, a large title or SF Symbols it reads as an iPhone port.
-3. Run `python3 check_design.py ./design` until it passes.
-4. Run `python3 render_review.py ./design`, look at the screenshots, and fix what they show.
+3. Run `python3 check_design.py ./design` until it passes. Keep scripts plain (`<script src>`, no `type="module"`, `import` or `export`): the design opens straight from a file, and browsers refuse to run modules there, so that part of the page silently does nothing.
+4. Run `python3 render_review.py ./design`, look at the screenshots, and fix what they show. Then run `python3 render_review.py ./design --check`: the screenshots and the review must describe the page as it is now, not as it was before the fixes.
 5. If the app is SwiftUI and the request includes the code, hand off (step 17).
 
 Skip the rest. Divergence candidates, cross-screen coherence, project grammar and the implementation audit exist for products with several screens; on one screen they take most of the time for little of the value. Say in one line that you took the short path. A product with screens to move between, or a request for design directions, takes the full workflow below.
