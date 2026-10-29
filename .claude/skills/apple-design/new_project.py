@@ -167,9 +167,10 @@ IOS_CSS = """
      DESIGN.md, where it already lives. */
   .stage { min-height: 100vh; display: grid; place-items: center;
            padding: 32px 16px; background: #0E0E10; }
-  .device { width: 393px; max-width: 100%; height: 852px; position: relative;
+  /* The iPhone in Apple's iOS 27 kit: 402 x 874 with 50pt corners. */
+  .device { width: 402px; max-width: 100%; height: 874px; position: relative;
             display: flex; flex-direction: column; overflow: hidden;
-            border-radius: 52px; background: var(--ios-bg);
+            border-radius: 50px; background: var(--ios-bg);
             box-shadow: 0 0 0 11px #1C1C1E, 0 0 0 13px #3A3A3C,
                         0 26px 60px rgba(0,0,0,.45); }
   .phone { flex: 1; min-height: 0; width: 100%; display: flex;
@@ -231,16 +232,9 @@ IOS_CSS = """
   /* At rest the bar carries no material: the large title is the screen's
      title and the area above it is just background, which is why Calendar
      and Health show content running straight up to the status bar. The
-     glass arrives together with the compact title on scroll, so the bar
-     appears exactly when it has something to hold. */
-  .device:not([data-scrolled="1"]) .ios-navbar {
-      background: none; backdrop-filter: none; border-color: transparent;
-      /* The rim is drawn as a box-shadow, so clearing the border alone
-         left the hairline exactly where the bar was meant to vanish. */
-      box-shadow: none; }
-  .device:not([data-scrolled="1"]) .ios-navbar::before { opacity: 0; }
-  .ios-navbar { transition: background .18s ease;
-                padding-top: 6px; padding-bottom: 6px; }
+     kit's .ios-navbar brings in the scroll edge effect once the script
+     below marks the device scrolled, together with the compact title. */
+  .ios-navbar { padding-top: 6px; padding-bottom: 6px; }
   /* Calendar and Pages float their actions rather than seating them in a
      bar: the capsule carries the material, the bar behind it is only
      there to hold the compact title once the large one has gone. */
@@ -694,6 +688,171 @@ __ERROR__
   </div>
 </div>
 """
+
+
+# ---------------------------------------------------------------- iPad
+
+HEAD_IPAD = HEAD.replace(
+    '<link rel="stylesheet" href="vendor/ios-components.css">\n',
+    '<link rel="stylesheet" href="vendor/ios-components.css">\n'
+    '<link rel="stylesheet" href="vendor/ipados-components.css">\n')
+
+IPAD_CSS = """
+  /* An iPad design is an iPad on a stage: the frame keeps its 1210 x 834
+     and the page scrolls inside it. On an iPad (under 1300px wide) the
+     frame drops away and the screen fills the window. */
+  .demo { background: var(--ipad-stage); }
+  .ipad-body .state { padding: 0; }
+  .ios-list { margin: 0 0 22px; }
+  .ios-list__row:has(.rowicon) { padding-top: 7px; padding-bottom: 7px; }
+  .rowicon { width: 29px; height: 29px; flex: none; display: grid;
+             place-items: center; color: var(--accent-text-safe);
+             font: var(--ios-text-title3); }
+  .ipad-tabbar__item[aria-selected="true"] { color: var(--accent-text-safe); }
+  .ipad-sidebar__icon { color: var(--accent-text-safe); }
+"""
+
+IPAD_SCROLL_JS = """
+<script>
+  // Content scrolling under the toolbar brings in the scroll edge.
+  for (const el of document.querySelectorAll('.ipad-content')) {
+    const dev = el.closest('.ipad');
+    if (!dev) continue;
+    const sync = () => { dev.dataset.scrolled = el.scrollTop > 0 ? '1' : '0'; };
+    el.addEventListener('scroll', sync, {passive: true});
+    sync();
+  }
+</script>
+"""
+
+IPAD_STATUSBAR = """    <div class="ipad-statusbar" aria-hidden="true">
+      <span class="ipad-statusbar__time">9:41<span>AM</span></span><span>Wed Apr 1</span>
+      <span class="ipad-statusbar__app">__NAME__</span>
+      <span class="ipad-statusbar__trailing"><span data-sf-symbol="wifi">__WIFI__</span><span>100%</span><span data-sf-symbol="battery.100">__BATTERY__</span></span>
+    </div>"""
+
+IPAD_STATES = """          <section class="state state--populated">
+            <ul class="ios-list">
+__ROWS__
+            </ul>
+          </section>
+          <section class="state state--loading" aria-busy="true">
+            <ul class="ios-list">
+__SKELROWS__
+            </ul>
+          </section>
+__EMPTY__
+__ERROR__"""
+
+IPAD_SIDEBAR_BODY = """<div class="demo">
+__SWITCHER__
+<div class="ipad-stage" data-state="populated">
+  <div class="ipad">
+__STATUSBAR__
+    <div class="ipad-split">
+      <nav class="ipad-sidebar" aria-label="__NAME__">
+        <div class="ipad-sidebar__toolbar">
+          <div class="ios-glass ios-controls"><button class="ios-controls__item">Edit</button></div>
+          <div class="ipad-trailing"><div class="ios-glass ios-controls"><button class="ios-controls__item" aria-label="Hide sidebar" data-sf-symbol="sidebar.left">__SIDEBAR__</button></div></div>
+        </div>
+        <label class="ipad-search"><span data-sf-symbol="magnifyingglass">__SEARCH__</span><input type="search" placeholder="Search" aria-label="Search __THING__"></label>
+__SIDEBAR_ROWS__
+      </nav>
+      <main class="ipad-content ipad-content--grouped">
+        <header class="ipad-toolbar">
+          <div class="ipad-toolbar__controls">
+            <div class="ipad-toolbar__leading"></div>
+            <div class="ipad-toolbar__trailing">
+              <div class="ios-glass ios-controls">
+                <button class="ios-controls__item" aria-label="Filter __THING__" data-sf-symbol="line.3.horizontal.decrease">__FILTER__</button>
+                <button class="ios-controls__item" aria-label="Add __SINGULAR__" data-sf-symbol="plus">__PLUS__</button>
+              </div>
+            </div>
+          </div>
+          <div class="ipad-title"><h1>__SCREEN1__</h1><p>5 __THING__</p></div>
+        </header>
+        <div class="ipad-body">
+__STATES__
+        </div>
+      </main>
+    </div>
+  </div>
+</div>
+</div>
+"""
+
+IPAD_TABS_BODY = """<div class="demo">
+__SWITCHER__
+<div class="ipad-stage" data-state="populated">
+  <div class="ipad">
+__STATUSBAR__
+    <main class="ipad-content ipad-content--grouped">
+      <header class="ipad-toolbar">
+        <div class="ipad-toolbar__controls">
+          <div class="ipad-toolbar__leading"></div>
+          <nav class="ipad-tabbar ios-glass ipad-toolbar__center" role="tablist" aria-label="__NAME__">
+            <button class="ipad-tabbar__item ipad-tabbar__item--icon" aria-label="Show sidebar" data-sf-symbol="sidebar.leading">__SIDEBAR__</button>
+__TABS__
+            <button class="ipad-tabbar__item ipad-tabbar__item--icon" aria-label="Search" data-sf-symbol="magnifyingglass">__SEARCH__</button>
+          </nav>
+          <div class="ipad-toolbar__trailing"><div class="ios-glass ios-controls"><button class="ios-controls__item" aria-label="Add __SINGULAR__" data-sf-symbol="plus">__PLUS__</button></div></div>
+        </div>
+        <div class="ipad-title"><h1>__SCREEN1__</h1><p>5 __THING__</p></div>
+      </header>
+      <div class="ipad-body">
+__STATES__
+      </div>
+    </main>
+  </div>
+</div>
+</div>
+"""
+
+IPAD_GLYPHS = {
+    "__SIDEBAR__": '<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M9 5v14"/>',
+    "__WIFI__": '<path d="M2 9a14 14 0 0 1 20 0M5.5 12.5a9 9 0 0 1 13 0M9 16a4 4 0 0 1 6 0"/><circle cx="12" cy="19" r="1"/>',
+    "__BATTERY__": '<rect x="2" y="7" width="18" height="10" rx="3"/><path d="M22 10.5v3"/>',
+}
+
+
+def ipad_compose(model, name, screens, thing):
+    empty_cta, empty, error = panels(thing)
+    if model == "tabs" and len(screens) > 6:
+        raise ValueError("an iPad tab bar holds a handful of tabs; with more, use --model sidebar")
+    rows_side = []
+    for i, screen in enumerate(screens):
+        sym, glyph = MAC_SYMBOLS[i % len(MAC_SYMBOLS)]
+        cur = ' aria-current="page"' if i == 0 else ""
+        rows_side.append(f'        <a class="ipad-sidebar__row" href="#"{cur}><span class="ipad-sidebar__icon" '
+                         f'data-sf-symbol="{sym}">{mac_svg(glyph, 22)}</span>'
+                         f'<span class="ipad-sidebar__title">{screen}</span></a>')
+    # The attribute is built outside the f-string: an expression part
+    # cannot hold a backslash before Python 3.12.
+    tabs = []
+    for i, screen in enumerate(screens):
+        sel = ' aria-selected="true"' if i == 0 else ""
+        tabs.append(f'            <button class="ipad-tabbar__item" role="tab"{sel}>{screen}</button>')
+    tabs_html = "\n".join(tabs)
+    body = IPAD_TABS_BODY if model == "tabs" else IPAD_SIDEBAR_BODY
+    body = (body.replace("__STATUSBAR__", IPAD_STATUSBAR)
+            .replace("__STATES__", IPAD_STATES)
+            .replace("__SIDEBAR_ROWS__", "\n".join(rows_side))
+            .replace("__TABS__", tabs_html)
+            .replace("__ROWS__", rows(thing))
+            .replace("__SKELROWS__", skel_rows())
+            .replace("__EMPTY__", empty)
+            .replace("__ERROR__", error)
+            .replace("__SWITCHER__", SWITCHER)
+            .replace("__SINGULAR__", thing.rstrip("s"))
+            .replace("__SCREEN1__", screens[0])
+            .replace("__EMPTY_CTA__", empty_cta)
+            .replace("__NAME__", name)
+            .replace("__THING__", thing))
+    for key, glyph in list(IPAD_GLYPHS.items()) + list(MAC_GLYPHS.items()):
+        size = 15 if key in ("__WIFI__", "__BATTERY__") else 20
+        body = body.replace(key, mac_svg(glyph, size, 1.7))
+    head = HEAD_IPAD.replace("__NAME__", name)
+    return head + "\n<style>" + STATE_CSS + IPAD_CSS + "</style>\n\n" + body + STATE_JS + IPAD_SCROLL_JS
 
 
 # ---------------------------------------------------------------- Android
@@ -1218,6 +1377,8 @@ def panels(thing):
 def compose(kind, model, name, screens, thing):
     if kind == "android":
         return android_compose(model, name, screens, thing), model
+    if kind == "ipados":
+        return ipad_compose(model, name, screens, thing), model
     empty_cta, empty, error = panels(thing)
 
     if kind == "macos":
@@ -1362,12 +1523,12 @@ def main():
     ap.add_argument("--name", required=True, help="product name")
     ap.add_argument("--brand", required=True, help='brand colour, e.g. "#C1552E"')
     ap.add_argument("--kind", default="ios",
-                    choices=["ios", "macos", "android", "web", "marketing", "cross"],
+                    choices=["ios", "ipados", "macos", "android", "web", "marketing", "cross"],
                     help="platform context")
     ap.add_argument("--model",
                     choices=["tabs", "stack", "sidebar", "workspace", "list-detail", "dashboard", "document"],
                     help="spatial model; required for web, tabs/stack for ios and "
-                         "android, sidebar/document for macos")
+                         "android, sidebar/tabs for ipados, sidebar/document for macos")
     ap.add_argument("--character", default="calm",
                     help='dominant product character, e.g. "dense", "editorial", "utilitarian"')
     ap.add_argument("--screens", default="Home,Browse,Settings",
@@ -1406,6 +1567,10 @@ def main():
         model = a.model or "sidebar"
         if model not in ("sidebar", "document"):
             sys.exit("--kind macos supports --model sidebar or document")
+    elif kind == "ipados":
+        model = a.model or "sidebar"
+        if model not in ("sidebar", "tabs"):
+            sys.exit("--kind ipados supports --model sidebar (a split view) or tabs (at the top)")
     elif kind == "android":
         if not os.path.isdir(ANDROID_KIT):
             sys.exit(f"android-ui-kit not found next to this skill ({ANDROID_KIT}).")
@@ -1431,6 +1596,8 @@ def main():
         shutil.copy2(os.path.join(KIT, "ios-components.css"), vendor)
     if kind == "macos":
         shutil.copy2(os.path.join(KIT, "macos-components.css"), vendor)
+    if kind == "ipados":
+        shutil.copy2(os.path.join(KIT, "ipados-components.css"), vendor)
     for filename in ([] if kind == "android" else os.listdir(os.path.join(KIT, "fonts"))):
         # A copy of SF Pro someone dropped into the kit is theirs, not the
         # project's; it only travels with --sf.
@@ -1507,7 +1674,8 @@ def main():
               .replace("__MODEL__", chosen_model)
               .replace("__CHARACTER__", a.character)
               .replace("__SLUG__", theme_name)
-              .replace("__RECIPES__", "m3-*" if kind == "android" else "mac-*" if kind == "macos" else "ios-*")
+              .replace("__RECIPES__", "m3-*" if kind == "android" else "mac-*" if kind == "macos"
+                       else "ios-* and ipad-*" if kind == "ipados" else "ios-*")
               .replace("__REGEN__", f'python3 build_m3_theme.py "{a.brand}" -o theme.css'
                        if kind == "android" else
                        f'python3 build_theme.py "{a.brand}" --name {theme_name} -o theme.css')
@@ -1550,7 +1718,8 @@ def main():
         for note in notes:
             print("  contrast: " + note)
     print()
-    recipes = "m3-*" if kind == "android" else "mac-*" if kind == "macos" else "ios-*"
+    recipes = ("m3-*" if kind == "android" else "mac-*" if kind == "macos"
+               else "ios-* and ipad-*" if kind == "ipados" else "ios-*")
     print("next: replace DESIGN.md placeholders, recompose index.html around")
     print(f"      that hierarchy -- keeping the {recipes} recipes, which carry the")
     print("      measured metrics -- then")

@@ -305,7 +305,7 @@ TOUCH_PLATFORM = re.compile(r"\b(ios|iphone|ipad|ipados)\b", re.I)
 def kit_classes(path, html):
     """Component families the linked ios- and macos-components.css define."""
     root, families = os.path.dirname(path), set()
-    for href in re.findall(r'<link[^>]+href=["\']([^"\']*(?:ios|macos|material)-components\.css)["\']',
+    for href in re.findall(r'<link[^>]+href=["\']([^"\']*(?:ios|ipados|macos|material)-components\.css)["\']',
                            html, re.I):
         f = os.path.join(root, href.split("?")[0])
         if os.path.exists(f):
@@ -324,6 +324,23 @@ IPHONE_CHROME = ("ios-tabbar", "ios-navbar", "ios-statusbar")
 # An Android screen carries a top app bar; and none of Apple's chrome.
 M3_STRUCTURAL = ("m3-topappbar",)
 APPLE_CHROME = IPHONE_CHROME + ("mac-window", "mac-toolbar", "mac-sidebar", "ios-list")
+
+
+# An iPad screen has a sidebar or tabs at the top -- never the iPhone's
+# bottom tab bar.
+IPAD_STRUCTURAL = ("ipad-sidebar", "ipad-tabbar")
+
+
+def is_ipad(path, html):
+    """An iPad design: it links the iPad recipes, or DESIGN.md says iPadOS."""
+    if re.search(r'href=["\'][^"\']*ipados-components\.css', html, re.I):
+        return True
+    d = os.path.join(os.path.dirname(path), "DESIGN.md")
+    if os.path.exists(d):
+        m = re.search(r"^## Platform mode\s+`?([\w-]+)`?", open(d, encoding="utf-8").read(), re.M)
+        if m and m.group(1).lower() in ("ipados", "ipad"):
+            return True
+    return False
 
 
 def is_android(path, html):
@@ -389,6 +406,24 @@ def check_uses_kit(path, html):
             f"{len(families)} component recipes. The measured values were "
             f"vendored and then bypassed -- either use them or stop "
             f"shipping the stylesheet.")
+        return
+
+    if is_ipad(path, html):
+        if re.search(r'class="[^"]*\bios-tabbar\b', html):
+            bad(f"{name}: an iPad design with the iPhone's bottom tab bar. iPadOS puts "
+                f"tabs at the top centre (.ipad-tabbar) or a sidebar beside the content "
+                f"(.ipad-sidebar); at the bottom it reads as a stretched iPhone app.")
+            return
+        mac = [c for c in ("mac-window", "mac-toolbar") if re.search(r'class="[^"]*\b' + c + r'\b', html)]
+        if mac:
+            bad(f"{name}: an iPad design using Mac chrome ({', '.join(mac)}).")
+            return
+        if not any(c in used for c in IPAD_STRUCTURAL):
+            bad(f"{name}: an iPad design with neither a sidebar nor tabs at the top. "
+                f"The 320pt glass sidebar or the top tab bar is what makes it read as "
+                f"an iPad app rather than a big iPhone; ipados-components.css has both.")
+            return
+        ok(f"{name}: an iPad layout built from {len(used)} of the kit's measured components")
         return
 
     if is_android(path, html):
@@ -794,10 +829,13 @@ def check_browser(path, brand):
     # Android's touch target is 48 x 48 dp, for every platform version.
     android = is_android(path, page)
     floor = 48 if android else 20 if mac else 28
+    # An iPad layout is looked at as an iPad: the iPad Air's landscape
+    # width, where the frame drops away, and wide enough to show it.
+    widths = (1180, 1400) if is_ipad(path, page) else (390, 430, 1280)
 
     def sample(b, scheme, more):
         """Failing text runs for one appearance, optionally under IC."""
-        kw = {"viewport": {"width": 390, "height": 900}, "color_scheme": scheme}
+        kw = {"viewport": {"width": widths[0], "height": 900}, "color_scheme": scheme}
         if more:
             kw["contrast"] = "more"
         pg = b.new_page(**kw)
@@ -820,7 +858,7 @@ def check_browser(path, brand):
                  f"the browser pass. Run `playwright install chromium`.")
             return
         for scheme in ("light", "dark"):
-            for width in (390, 430, 1280):
+            for width in widths:
                 pg = b.new_page(viewport={"width": width, "height": 900},
                                 color_scheme=scheme)
                 pg.on("console",
@@ -843,7 +881,7 @@ def check_browser(path, brand):
                 # in light only, which is how a generator that emitted an
                 # unchecked dark palette -- a navy at 1.24:1 on the dark
                 # card -- came back 18/18 ready three times running.
-                if width == 390:
+                if width == widths[0]:
                     # Anything Increased Contrast rescues is a different
                     # finding from anything it doesn't. Apple's own
                     # secondary label is 3.44:1 on white and their filled
@@ -916,7 +954,7 @@ def check_browser(path, brand):
                             f"nothing. The component recipes have no colour "
                             f"to use.")
 
-                if width == 390 and scheme == "light":
+                if width == widths[0] and scheme == "light":
                     fam = d["font"].lower()
                     if android:
                         if fam.startswith("roboto") or fam.startswith('"roboto'):
@@ -967,7 +1005,7 @@ def check_browser(path, brand):
 
                 # Every state has to actually render something.
                 for st in ("populated", "loading", "empty", "error"):
-                    if width != 390 or scheme != "light":
+                    if width != widths[0] or scheme != "light":
                         continue
                     pg.goto(url + "?state=" + st, wait_until="load")
                     pg.wait_for_timeout(120)

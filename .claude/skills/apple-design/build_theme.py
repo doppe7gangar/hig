@@ -45,6 +45,9 @@ LABEL_BASE_DARK = (235, 235, 245)
 FILL_BASE_LIGHT = (116, 116, 128)
 FILL_BASE_DARK = (118, 118, 128)
 LABEL_ALPHAS = [("secondary", 0.60), ("tertiary", 0.30), ("quaternary", 0.18)]
+# Dark is not the same ladder: Apple's iOS 27 kit has secondary at 0.7 and
+# quaternary at 0.16 over (235, 235, 245).
+LABEL_ALPHAS_DARK = [("secondary", 0.70), ("tertiary", 0.30), ("quaternary", 0.16)]
 
 # systemGray6 / secondarySystemGroupedBackground, from the Color page.
 BG_LIGHT, CARD_LIGHT = "#F2F2F7", "#FFFFFF"
@@ -316,8 +319,10 @@ def build(brand_hex, name):
         f"var(--{name}-accent) 85%, #000);",
         f"  --{name}-selection: {rgb_to_hex(sel_l)};",
         "",
-        "  /* Label ladder: one grey, several opacities. */",
-        f"  --{name}-label: #1A1A1A;",
+        "  /* Label ladder: one grey, several opacities. Text on a plain",
+        "     background is black; on glass it is the vibrant #1A1A1A. */",
+        f"  --{name}-label: #000000;",
+        f"  --{name}-label-vibrant: #1A1A1A;",
     ]
     for label, a in LABEL_ALPHAS:
         L.append(f"  --{name}-label-{label}: "
@@ -327,7 +332,7 @@ def build(brand_hex, name):
         "",
         f"  --{name}-fill: rgba({FILL_BASE_LIGHT[0]}, {FILL_BASE_LIGHT[1]}, "
         f"{FILL_BASE_LIGHT[2]}, 0.12);",
-        f"  --{name}-separator: rgba(60, 60, 67, 0.29);",
+        f"  --{name}-separator: rgba(0, 0, 0, 0.12);",
         "",
         "  /* Page behind, cards on top. Getting this pair backwards is the",
         "     fastest way to look not-quite-right. */",
@@ -341,16 +346,17 @@ def build(brand_hex, name):
         f"    --{name}-accent-text: {rgb_to_hex(text_d)};",
         f"    --{name}-on-accent: {rgb_to_hex(on_accent_d)};",
         f"    --{name}-selection: {rgb_to_hex(sel_d)};",
-        f"    --{name}-label: #F5F5F5;",
+        f"    --{name}-label: #FFFFFF;",
+        f"    --{name}-label-vibrant: #F5F5F5;",
     ]
-    for label, a in LABEL_ALPHAS:
+    for label, a in LABEL_ALPHAS_DARK:
         L.append(f"    --{name}-label-{label}: "
                  f"rgba({LABEL_BASE_DARK[0]}, {LABEL_BASE_DARK[1]}, "
                  f"{LABEL_BASE_DARK[2]}, {a});")
     L += [
         f"    --{name}-fill: rgba({FILL_BASE_DARK[0]}, {FILL_BASE_DARK[1]}, "
         f"{FILL_BASE_DARK[2]}, 0.24);",
-        f"    --{name}-separator: rgba(84, 84, 88, 0.6);",
+        f"    --{name}-separator: rgba(255, 255, 255, 0.17);",
         f"    --{name}-bg: {BG_DARK};",
         f"    --{name}-bg-card: {CARD_DARK};",
         "  }",
@@ -394,6 +400,7 @@ def build(brand_hex, name):
         "  /* macos-components.css fills selections with this, not the accent. */",
         f"  --mac-brand-selection: var(--{name}-selection);",
         f"  --ios-label: var(--{name}-label);",
+        f"  --ios-label-vibrant: var(--{name}-label-vibrant);",
         f"  --ios-label-secondary: var(--{name}-label-secondary);",
         f"  --ios-label-tertiary: var(--{name}-label-tertiary);",
         f"  --ios-bg: var(--{name}-bg);",
@@ -406,7 +413,8 @@ def build(brand_hex, name):
         "accent":        (rgb_to_hex(accent_l), rgb_to_hex(accent_d)),
         "accentText":    (rgb_to_hex(text_l), rgb_to_hex(text_d)),
         "onAccent":      (rgb_to_hex(on_accent), rgb_to_hex(on_accent_d)),
-        "label":         ("#1A1A1A", "#F5F5F5"),
+        "label":         ("#000000", "#FFFFFF"),
+        "labelVibrant":  ("#1A1A1A", "#F5F5F5"),
         "background":    (BG_LIGHT, BG_DARK),
         "backgroundCard": (CARD_LIGHT, CARD_DARK),
         "accentIncreasedContrast": (rgb_to_hex(ic_fill_l), rgb_to_hex(ic_fill_d)),

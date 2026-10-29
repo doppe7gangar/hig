@@ -136,17 +136,19 @@ def check_counts(d, facts):
 
 # Each kit verifier and the skill it ships in.
 VERIFIERS = {"verify_web_ui.py": "apple-ui-kit", "verify_mac_ui.py": "apple-ui-kit",
-             "verify_android_ui.py": "android-ui-kit"}
+             "verify_ipad_ui.py": "apple-ui-kit", "verify_android_ui.py": "android-ui-kit"}
 
 
 def verifier_for(sk, line):
     """Whose count a line quotes. Everything in android-ui-kit's own
     SKILL.md is its verifier's; elsewhere a line about Android or Material
-    is, a line about the Mac kit is verify_mac_ui.py's, and any other is
-    verify_web_ui.py's."""
+    is, a line about the iPad is verify_ipad_ui.py's, a line about the Mac
+    kit is verify_mac_ui.py's, and any other is verify_web_ui.py's."""
     if sk == "android-ui-kit" or (sk is None and re.search(
             r"verify_android_ui|\bandroid\b|material", line, re.I)):
         return "verify_android_ui.py"
+    if re.search(r"verify_ipad_ui|\bipad(os)?\b", line, re.I):
+        return "verify_ipad_ui.py"
     if re.search(r"verify_mac_ui|\bmac(os)?\b|Mac kit", line, re.I):
         return "verify_mac_ui.py"
     return "verify_web_ui.py"

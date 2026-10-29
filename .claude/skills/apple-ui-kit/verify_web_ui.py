@@ -311,6 +311,76 @@ def run(pw, scheme, c, contrast_more=False):
           "rendered text is not the platform fallback",
           f"{font['real']:.1f}px vs {font['fallback']:.1f}px")
 
+    # 9. Apple's iOS 27 design kit, cross-checked. The kit's variables and
+    # components, not memory: text black on a plain background and #1A1A1A
+    # on glass; the wide 62pt tab bar with 54pt tabs, 10pt semibold labels
+    # and a neutral selection capsule; the 62pt status bar with a 17pt
+    # clock; monochrome glass controls; a navigation bar with no material
+    # until content scrolls under it.
+    if not contrast_more:
+        kit = {"light": {"--ios-label": "rgb(0, 0, 0)", "--ios-label-vibrant": "rgb(26, 26, 26)",
+                         "--ios-bg": "rgb(242, 242, 247)", "--ios-bg-card": "rgb(255, 255, 255)",
+                         "--ios-separator": "rgba(0, 0, 0, 0.12)",
+                         "--ios-fill-vibrant-tertiary": "rgb(237, 237, 237)",
+                         "--ios-accent": "rgb(0, 136, 255)"},
+               "dark": {"--ios-label": "rgb(255, 255, 255)", "--ios-label-vibrant": "rgb(245, 245, 245)",
+                        "--ios-bg": "rgb(0, 0, 0)", "--ios-bg-card": "rgb(28, 28, 30)",
+                        "--ios-separator": "rgba(255, 255, 255, 0.17)",
+                        "--ios-fill-vibrant-tertiary": "rgb(18, 18, 18)",
+                        "--ios-accent": "rgb(0, 145, 255)"}}[scheme]
+        resolved = pg.evaluate(
+            """toks => Object.fromEntries(toks.map(t => { const e = document.createElement('span');
+                 e.style.color = 'var(' + t + ')'; document.body.appendChild(e);
+                 const v = getComputedStyle(e).color; e.remove(); return [t, v]; }))""",
+            list(kit))
+        for t, want in kit.items():
+            c(resolved[t] == want, f"kit: {t} is the iOS 27 kit's value", f"{resolved[t]} want {want}")
+        g = pg.evaluate(
+            """() => { const cs = (e, p) => getComputedStyle(e, p || null);
+                 const bar = document.querySelector('#tabbar');
+                 const sel = bar.querySelector('[aria-selected="true"]');
+                 const off = bar.querySelector('.ios-tabbar__item:not([aria-selected="true"])');
+                 const sb = document.querySelector('.ios-statusbar');
+                 const isl = document.querySelector('.ios-statusbar__island');
+                 const ctl = document.querySelector('#controls');
+                 const nav = document.querySelector('.ios-navbar');
+                 return {barH: bar.getBoundingClientRect().height, barM: cs(bar).marginLeft,
+                   tabH: sel.getBoundingClientRect().height, tabFont: cs(off).fontSize,
+                   tabLh: cs(off).lineHeight, tabW: cs(off).fontWeight, offColor: cs(off).color,
+                   selBg: cs(sel).backgroundColor, selColor: cs(sel).color,
+                   sbH: sb.getBoundingClientRect().height, sbFont: cs(sb).fontSize, sbW: cs(sb).fontWeight,
+                   islW: isl.getBoundingClientRect().width, islH: isl.getBoundingClientRect().height,
+                   ctlH: ctl.getBoundingClientRect().height, ctlColor: cs(ctl.querySelector('button')).color,
+                   ctlShadow: cs(ctl).boxShadow, navBg: cs(nav).backgroundColor,
+                   navEdge: cs(nav, '::before').opacity,
+                   title: cs(document.querySelector('.ios-navbar__title')).color,
+                   body: cs(document.body).color}; }""")
+        c(g["barH"] == 62, "kit: tab bar capsule is 62pt", str(g["barH"]))
+        c(g["barM"] == "21px", "kit: tab bar floats 21pt from the sides", g["barM"])
+        c(g["tabH"] == 54, "kit: tabs are 54pt", str(g["tabH"]))
+        c((g["tabFont"], g["tabLh"], g["tabW"]) == ("10px", "12px", "590"),
+          "kit: tab labels are 10/12 semibold", f"{g['tabFont']}/{g['tabLh']} {g['tabW']}")
+        c(g["offColor"] == kit["--ios-label-vibrant"], "kit: unselected tabs are the vibrant label, not grey", g["offColor"])
+        c(g["selBg"] == kit["--ios-fill-vibrant-tertiary"], "kit: the selected tab sits on the neutral capsule", g["selBg"])
+        c(g["selColor"] == kit["--ios-accent"], "kit: the selected tab takes the accent", g["selColor"])
+        c(g["sbH"] == 62, "kit: status bar is 62pt", str(g["sbH"]))
+        c((g["sbFont"], g["sbW"]) == ("17px", "590"), "kit: status bar time is 17pt semibold",
+          f"{g['sbFont']} {g['sbW']}")
+        c((round(g["islW"]), round(g["islH"])) == (95, 37), "kit: Dynamic Island is 95 x 37",
+          f"{g['islW']} x {g['islH']}")
+        c(g["ctlH"] == 44, "kit: glass controls are 44pt", str(g["ctlH"]))
+        c(g["ctlColor"] == kit["--ios-label-vibrant"], "kit: glass controls are monochrome", g["ctlColor"])
+        c("0.5px" in g["ctlShadow"], "kit: glass controls carry the 0.5pt rim", g["ctlShadow"][:60])
+        c(g["navBg"] == "rgba(0, 0, 0, 0)" and float(g["navEdge"]) == 0,
+          "kit: the navigation bar has no material at rest", f"{g['navBg']} edge {g['navEdge']}")
+        c(g["title"] == kit["--ios-label-vibrant"], "kit: the bar title is the vibrant label", g["title"])
+        c(g["body"] == kit["--ios-label"], "kit: body text is the plain label", g["body"])
+        pg.evaluate("() => document.querySelector('.ios-navbar').classList.add('is-scrolled')")
+        pg.wait_for_timeout(260)
+        edge = pg.evaluate("() => getComputedStyle(document.querySelector('.ios-navbar'), '::before').opacity")
+        c(float(edge) > .9, "kit: scrolled content brings in the scroll edge effect", edge)
+        pg.evaluate("() => document.querySelector('.ios-navbar').classList.remove('is-scrolled')")
+
     # 8. no horizontal overflow at a phone width
     c(pg.evaluate("()=>document.documentElement.scrollWidth") <= 430,
       "no horizontal overflow at 430px")

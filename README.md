@@ -30,6 +30,7 @@ which is as close to the real thing as a mockup gets.
 | You want to… | Say something like | Skill | You get |
 |---|---|---|---|
 | Turn an idea into an app or site | *"I want an app for splitting bills with friends"* | `apple-design` | The screens and how they connect, a working HTML project, and a checker run before it's handed over |
+| Design an iPad app | *"Design the iPad version of my recipe app"* | `apple-design` | A split view with the glass sidebar, or tabs at the top, in an iPad frame, built from parts measured from Apple's iPadOS 27 design kit |
 | Design a Mac app | *"Design a Mac app for keeping my recipes"* | `apple-design` | A Mac window with its sidebar, toolbar and four states, built from parts measured from Apple's own macOS 27 design kit |
 | Design an Android app | *"Design the Android version of my recipe app"* | `apple-design` | A phone with a top app bar, nav bar, FAB and four states, built from parts measured from Google's Material 3 Design Kit, in a Material scheme derived from your brand colour |
 | Make a web, Android, Flutter or React Native UI look like iOS | *"Make this settings page feel like an Apple app"* | `apple-ui-kit` | Apple's measured colours, type and control sizes as tokens, plus ready CSS components |
@@ -74,7 +75,7 @@ its source.
 | Text contrast | 4.5:1 up to 17 pt; 3:1 at 18 pt or bold |
 | iOS text sizes (default) | Large Title 34 · Title 1 28 · Title 2 22 · Title 3 20 · Body 17 · Subhead 15 · Footnote 13 · Caption 12 / 11 |
 | Accent colour | `#0088FF` (not `#007AFF`) |
-| Primary label | `#1A1A1A` (not pure black) |
+| Text colour | black on a plain background; `#1A1A1A` on glass — bars, buttons, tabs |
 
 ## Find the guidance for what you're building
 
@@ -153,7 +154,7 @@ is tool-specific.
 | Path | What it is |
 |---|---|
 | `.claude/skills/apple-design/` | Idea → screens → scaffolded project → checked design |
-| `.claude/skills/apple-ui-kit/` | Measured iOS 27 tokens for CSS, SwiftUI, Compose, Android XML, Flutter and TypeScript, plus web components, React components, a Tailwind theme and a live [example](.claude/skills/apple-ui-kit/example.html); and macOS 27 recipes for Mac windows, with their own [example](.claude/skills/apple-ui-kit/mac-example.html) |
+| `.claude/skills/apple-ui-kit/` | Measured iOS 27 tokens for CSS, SwiftUI, Compose, Android XML, Flutter and TypeScript, plus web components, React components, a Tailwind theme and a live [example](.claude/skills/apple-ui-kit/example.html); iPadOS 27 layouts — split view, tabs at the top, sheets, popovers — with their own [example](.claude/skills/apple-ui-kit/ipad-example.html); and macOS 27 recipes for Mac windows, with their own [example](.claude/skills/apple-ui-kit/mac-example.html) |
 | `.claude/skills/android-ui-kit/` | Material 3 for Android: the colour scheme, Roboto type scale and component recipes measured from Google's Material 3 Design Kit, Material Symbols, a theme builder that turns a brand colour into a full scheme for CSS, Compose and Android XML, and a live [example](.claude/skills/android-ui-kit/android-example.html) |
 | `.claude/skills/apple-hig/` | 2,326 rules as one-line imperatives, every spec table, an API map across 32 frameworks, 947 screenshots of real components in every state, and all 178 pages |
 | `.claude/skills/apple-motion/` | Springs, transitions, haptic pairing, Reduce Motion |

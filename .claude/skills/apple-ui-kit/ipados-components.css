@@ -1,0 +1,326 @@
+/* iPadOS 27 layout recipes for the web, so an iPad design reads as an
+ * iPad app rather than a stretched iPhone screen.
+ *
+ * Measured from Apple's iOS and iPadOS 27 design kit for Figma: the
+ * iPad Pro 11-inch frame, the 32pt status bar that carries the app's
+ * menu, the split view's 320pt Liquid Glass sidebar with its toolbar,
+ * search field, 44pt rows and section headers, the top toolbar whose
+ * buttons float as glass, the tab bar that moves to the top centre, the
+ * title block, sheets and popovers with their 38pt corners. A few values
+ * the kit doesn't draw are chosen, and say so where they are set.
+ *
+ * Builds on the iPhone kit, which carries the tokens, the glass and the
+ * controls:
+ *
+ *     <link rel="stylesheet" href="fonts/inter.css">
+ *     <link rel="stylesheet" href="tokens/ios-tokens.css">
+ *     <link rel="stylesheet" href="ios-components.css">
+ *     <link rel="stylesheet" href="ipados-components.css">
+ *     <link rel="stylesheet" href="theme.css">
+ *
+ * The shape of an iPad app, which is the part a mockup most often gets
+ * wrong: a sidebar or a tab bar at the TOP, never a bottom tab bar; the
+ * toolbar's buttons as separate glass capsules over the content, not a
+ * bar; a large title under them; sheets that float centred with the
+ * screen dimmed behind, and popovers that point at what opened them.
+ */
+
+[class^="ipad"], [class*=" ipad"] { box-sizing: border-box; }
+
+:root {
+  /* iPad Pro 11-inch, landscape, as the kit frames it. */
+  --ipad-w: 1210px;
+  --ipad-h: 834px;
+  --ipad-screen-radius: 30px;              /* the kit's Other/Cut Corners */
+  --ipad-stage: #E8E8ED;
+
+  --ipad-sidebar-w: 320px;
+  /* The sidebar is glass: the kit's Sidebar - BG - Active (#DAE6F2) laid
+     over the wallpaper by luminosity, then mostly desaturated. Over a
+     neutral backdrop that renders #DADADA; an inactive window #EFEFEF. */
+  --ipad-sidebar-bg: #DADADA;
+  --ipad-sidebar-bg-inactive: #EFEFEF;
+  /* The selected row: Fills - Vibrant/Tertiary laid on with plus-darker,
+     18 off each channel -- 8.3% black on the sidebar. */
+  --ipad-sidebar-selection: rgba(0, 0, 0, 0.083);
+
+  /* Sheets and popovers share the kit's --popover-corner-radius. */
+  --ipad-sheet-radius: 38px;
+  --ipad-sheet-w: 936px;
+  --ipad-sheet-shadow: 0 15px 37.5px rgba(0, 0, 0, 0.18);
+  --ipad-grabber: #CCCCCC;                 /* the kit's Fills - Vibrant/Primary */
+  --ipad-popover-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+  --ipad-popover-bg: var(--ios-bg-elevated, #FFFFFF);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ipad-stage: #0E0E10;
+    /* Chosen, not measured: the kit draws the sidebar only in light. */
+    --ipad-sidebar-bg: #1E1E20;
+    --ipad-sidebar-bg-inactive: #161618;
+    --ipad-sidebar-selection: rgba(255, 255, 255, 0.1);
+    --ipad-grabber: #5A5A5E;
+    /* Chosen: the kit draws popovers in light only. A step above the
+       elevated background, with a rim, so one reads over a dark list. */
+    --ipad-popover-bg: #2C2C2E;
+    --ipad-popover-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.12), 0 10px 50px rgba(0, 0, 0, 0.5);
+  }
+}
+
+
+/* ================================================================ frame */
+
+/* The iPad: a 1210 x 834 screen with 30pt corners in a black bezel with
+   a silver rim. Below 1300px wide the frame drops away and the screen
+   fills the window, which is what you want when the page is opened on
+   an actual iPad. */
+.ipad-stage {
+  min-height: 100vh;
+  display: flex; flex-wrap: wrap; gap: 48px; justify-content: center; align-items: flex-start;
+  padding: 40px 24px 56px;
+  background: var(--ipad-stage);
+}
+.ipad {
+  position: relative; flex: none; box-sizing: content-box;
+  width: var(--ipad-w); height: var(--ipad-h);
+  border: 40px solid #0B0B0C;
+  border-radius: calc(var(--ipad-screen-radius) + 40px);
+  box-shadow: 0 0 0 2px #8E8F91, 0 0 0 3.5px #D2D3D5, 0 30px 80px rgba(0, 0, 0, 0.25);
+  overflow: hidden; isolation: isolate;
+  display: flex; flex-direction: column;
+  background: var(--ios-bg-primary, #FFFFFF);
+  color: var(--ios-label);
+  font: var(--ios-text-body); letter-spacing: var(--ios-track-body);
+  -webkit-font-smoothing: antialiased;
+}
+.ipad--portrait { --ipad-w: 834px; --ipad-h: 1210px; }
+.ipad > .ipad-split, .ipad > .ipad-content { flex: 1; min-height: 0; }
+@media (max-width: 1300px) {
+  .ipad-stage { padding: 0; gap: 0; }
+  .ipad { width: 100vw; height: 100dvh; border: 0; border-radius: 0; box-shadow: none; }
+}
+
+/* Status bar: 32pt over the top of everything, 16pt in. The time and
+   date lead; the app's menu -- its name in bold -- follows; Wi-Fi, the
+   battery percentage and the battery trail. All 14pt, medium. */
+.ipad-statusbar {
+  position: absolute; left: 0; right: 0; top: 0; z-index: 50;   /* above a sheet's dim, as the kit shows it */
+  display: flex; align-items: center; gap: 8px;
+  height: 32px; padding: 0 16px;
+  font: 510 14px/16px var(--ios-font); color: var(--ios-label);
+  font-variant-numeric: tabular-nums;
+  pointer-events: none; user-select: none;
+}
+.ipad-statusbar__time { display: flex; gap: 2px; }
+.ipad-statusbar__app { padding: 0 16px; font-weight: 700; }
+.ipad-statusbar__trailing { margin-left: auto; display: flex; align-items: center; gap: 5px; }
+.ipad-statusbar__trailing svg { display: block; }
+
+
+/* =========================================================== split view */
+
+.ipad-split { display: flex; height: 100%; min-height: 0; }
+
+/* Sidebar: 320pt, the full height, starting under the status bar (32pt
+   top padding) with 10pt in from its edges. */
+.ipad-sidebar {
+  flex: none; width: var(--ipad-sidebar-w);
+  display: flex; flex-direction: column;
+  padding: 32px 10px 10px;
+  background: var(--ipad-sidebar-bg);
+  overflow-y: auto; overscroll-behavior: contain;
+}
+.ipad--inactive .ipad-sidebar { background: var(--ipad-sidebar-bg-inactive); }
+
+/* Its toolbar: Edit leads as a text capsule, glass buttons trail 12pt
+   apart, 10pt above the search field. */
+.ipad-sidebar__toolbar { display: flex; align-items: center; gap: 12px; padding-bottom: 10px; }
+.ipad-sidebar__toolbar > :last-child:not(:first-child) { margin-left: auto; }
+.ipad-sidebar__toolbar .ipad-trailing { margin-left: auto; display: flex; gap: 12px; }
+
+/* Search: a 44pt capsule in Fills/Secondary, 11pt padding, an 8pt gap
+   after the magnifying glass, 20pt under it before the rows. */
+.ipad-search {
+  display: flex; align-items: center; gap: 8px;
+  height: 44px; padding: 0 11px; margin-bottom: 20px;
+  border-radius: 999px;
+  background: var(--ios-fill-secondary, rgba(120, 120, 128, 0.16));
+  color: var(--ios-label-vibrant-secondary);
+}
+.ipad-search svg { flex: none; }
+.ipad-search input {
+  flex: 1; min-width: 0; height: 22px; padding: 0; border: 0; outline: 0; background: none;
+  font: var(--ios-text-body); letter-spacing: -0.08px; color: var(--ios-label);
+}
+.ipad-search input::placeholder { color: var(--ios-label-vibrant-secondary); opacity: 1; }
+.ipad-search input::-webkit-search-cancel-button { display: none; }
+
+/* Rows: 44pt, 10pt before a 34pt symbol column in the accent, 4pt to the
+   title in body, detail trailing in the vibrant secondary label. The
+   selected row becomes a full-width capsule. */
+.ipad-sidebar__row {
+  display: flex; align-items: center; gap: 4px;
+  min-height: 44px; padding: 0 16px 0 10px;
+  border-radius: 999px;
+  color: var(--ios-label); text-decoration: none;
+  font: var(--ios-text-body); letter-spacing: var(--ios-track-body);
+  -webkit-tap-highlight-color: transparent;
+}
+.ipad-sidebar__icon {
+  flex: none; width: 34px; display: grid; place-items: center;
+  color: var(--ios-accent);
+}
+.ipad-sidebar__icon svg { width: 22px; height: 22px; }
+.ipad-sidebar__title { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ipad-sidebar__detail { flex: none; padding-left: 8px; color: var(--ios-label-vibrant-secondary); }
+.ipad-sidebar__row[aria-current], .ipad-sidebar__row[aria-selected="true"] {
+  background: var(--ipad-sidebar-selection);
+}
+.ipad-sidebar__row--indent { padding-left: 34px; }
+
+/* Section header: 21pt above, 11pt below, 12pt in, body size in the
+   secondary label, with a detail and a disclosure chevron trailing. */
+.ipad-sidebar__header {
+  display: flex; align-items: center; gap: 8px;
+  margin: 0; padding: 21px 12px 11px;
+  font: var(--ios-text-body); letter-spacing: var(--ios-track-body);
+  color: var(--ios-label-secondary);
+}
+.ipad-sidebar__header > :first-child { flex: 1; }
+.ipad-sidebar__header svg { color: var(--ios-label-vibrant); }
+
+
+/* ============================================================== content */
+
+/* The detail column: the primary background, scrolling under the
+   floating toolbar, which starts under the status bar. */
+.ipad-content {
+  position: relative; flex: 1; min-width: 0;
+  display: flex; flex-direction: column;
+  background: var(--ios-bg-primary, #FFFFFF);
+  overflow-y: auto; overscroll-behavior: contain;
+}
+.ipad-content--grouped { background: var(--ios-bg); }
+
+/* Toolbar: no bar, just its controls -- 10pt in, under the status bar,
+   leading and trailing glass groups 12pt apart, a centred tab bar or
+   title -- then the large title block. */
+.ipad-toolbar {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; flex-direction: column; gap: 10px;
+  padding: 32px 10px 10px;
+}
+.ipad-toolbar__controls { position: relative; display: flex; align-items: center; justify-content: space-between; min-height: 44px; }
+.ipad-toolbar__leading, .ipad-toolbar__trailing { display: flex; align-items: center; gap: 12px; }
+.ipad-toolbar__center {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  font: var(--ios-text-headline); letter-spacing: var(--ios-track-headline);
+  color: var(--ios-label-vibrant); white-space: nowrap;
+}
+.ipad-toolbar::before {
+  content: ""; position: absolute; inset: 0 0 -24px; z-index: -1; pointer-events: none;
+  background: linear-gradient(to bottom, var(--ipad-toolbar-edge, var(--ios-bg-primary, #FFFFFF)) 45%, transparent);
+  backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+          mask-image: linear-gradient(to bottom, #000 55%, transparent);
+  opacity: 0; transition: opacity .18s ease;
+}
+.ipad-toolbar.is-scrolled::before, [data-scrolled="1"] .ipad-toolbar::before { opacity: .92; }
+.ipad-content--grouped .ipad-toolbar { --ipad-toolbar-edge: var(--ios-bg); }
+
+/* Title block: 4pt under the controls, 10pt further in, the large title
+   in bold at 34/41 and an optional subtitle in 15pt medium. Both are
+   vibrant labels: they sit in the scroll edge, over whatever scrolls. */
+.ipad-title { display: flex; flex-direction: column; gap: 2px; padding: 4px 10px 0; }
+.ipad-title h1, .ipad-title__text {
+  margin: 0; font: var(--ios-text-large-title); font-weight: 700;
+  letter-spacing: var(--ios-track-large-title); color: var(--ios-label-vibrant);
+}
+.ipad-title p, .ipad-title__subtitle {
+  margin: 0; font: 510 15px/20px var(--ios-font); letter-spacing: -0.23px;
+  color: var(--ios-label-vibrant-secondary);
+}
+
+/* The page body under the title: the 20pt the title block indents. */
+.ipad-body { padding: 8px 20px 32px; }
+
+
+/* ============================================================== tab bar */
+
+/* iPadOS puts the tab bar at the top, centred over the content: a glass
+   capsule with 4pt around 36pt tabs. Tabs are 15pt medium in the vibrant
+   label with 18pt to each side; the selected one sits on the neutral
+   capsule in the accent. A sidebar toggle can lead and search trail, each
+   54pt wide. */
+.ipad-tabbar {
+  display: inline-flex; align-items: center;
+  padding: 4px; border: 0; border-radius: 999px;
+  box-shadow: var(--ios-glass-control-shadow);
+}
+.ipad-tabbar__item {
+  position: relative; display: inline-flex; align-items: center; justify-content: center;
+  height: 36px; padding: 0 18px; margin: 0; border: 0; border-radius: 999px; background: none;
+  font: 510 15px/20px var(--ios-font); letter-spacing: -0.23px;
+  color: var(--ios-label-vibrant); white-space: nowrap; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.ipad-tabbar__item--icon { width: 54px; padding: 0; }
+.ipad-tabbar__item svg { width: 19px; height: 19px; }
+.ipad-tabbar__item[aria-selected="true"] {
+  background: var(--ios-fill-vibrant-tertiary); color: var(--ios-accent);
+}
+.ipad-tabbar__item:focus-visible { outline: 3px solid var(--ios-accent); outline-offset: 2px; }
+
+
+/* ======================================================= sheet, popover */
+
+/* The dim behind a sheet: the kit's Overlays/Default, 20% black. */
+.ipad-scrim {
+  position: absolute; inset: 0; z-index: 40;
+  display: flex; justify-content: center; align-items: flex-start;
+  background: var(--ios-overlay, rgba(0, 0, 0, 0.2));
+}
+
+/* A sheet floats centred under the status bar: 38pt corners, the
+   elevated background, a soft 15/37.5 shadow. A 60 x 4 grabber sits
+   6pt from its top; its toolbar is the same floating controls, 10pt in,
+   with the title centred. */
+.ipad-sheet {
+  position: relative; margin-top: 32px;
+  width: min(var(--ipad-sheet-w), 100% - 48px); max-height: calc(100% - 64px);
+  display: flex; flex-direction: column; overflow: hidden;
+  border-radius: var(--ipad-sheet-radius);
+  background: var(--ios-bg-elevated, #FFFFFF);
+  box-shadow: var(--ipad-sheet-shadow);
+}
+.ipad-sheet--form { width: min(580px, 100% - 48px); }
+.ipad-sheet__grabber {
+  flex: none; display: block; width: 60px; height: 4px; margin: 6px auto 0;
+  border-radius: 2px; background: var(--ipad-grabber);
+}
+.ipad-sheet .ipad-toolbar { position: relative; padding-top: 0; }
+.ipad-sheet__body { padding: 8px 20px 24px; overflow-y: auto; }
+
+/* A popover: the same 38pt corners on near-white glass, a 10/50 shadow
+   at 30%, and a 56 x 13 arrow pointing at its source. Set
+   --ipad-popover-arrow to the source's x within the popover when it
+   isn't centred over it. */
+.ipad-popover {
+  position: absolute; z-index: 45;
+  width: 420px; min-height: 120px;
+  border-radius: var(--ipad-sheet-radius);
+  background: var(--ipad-popover-bg);
+  box-shadow: var(--ipad-popover-shadow);
+}
+.ipad-popover::after {
+  content: ""; position: absolute; left: var(--ipad-popover-arrow, 50%); bottom: -13px; width: 56px; height: 13px; margin-left: -28px;
+  background: inherit;
+  clip-path: path("M0 0 C 12 0 18 2 23 9 Q 28 15 33 9 C 38 2 44 0 56 0 Z");
+}
+.ipad-popover--below::after { top: -13px; bottom: auto; transform: scaleY(-1); }
+.ipad-popover__body { padding: 20px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ipad-toolbar::before { transition: none; }
+}

@@ -94,7 +94,7 @@ cd ~/Documents/GitHub/hig
 python3 scripts/verify_web_ui.py -v
 ```
 
-170 checks in a real browser, across light, dark, and increased
+218 checks in a real browser, across light, dark, and increased
 contrast. It asserts computed values rather than appearance: every token
 resolves, the type scale lands on the HIG's numbers to the pixel, the
 switch measures 64×28 with a 38×24 pill knob travelling 22px, hit targets clear 44px,
@@ -174,6 +174,23 @@ macOS 27 design kit carries.
 `python3 scripts/eval/design_workflow_smoke.py` scaffolds both Mac models
 and checks that a Mac design with an iPhone tab bar, or without its
 window, fails `check_design.py`.
+
+### The iPadOS recipes
+
+```bash
+python3 .claude/skills/apple-ui-kit/verify_ipad_ui.py -v
+```
+
+Measures `ipad-example.html` in Chromium, light and dark, in 67 checks:
+the iPad's screen and corners, the 32pt status bar with the app's menu,
+the 320pt sidebar's background, toolbar, search field, rows, symbol
+column, selection and headers, the floating toolbar controls, the tab
+bar at the top centre, the title block, the sheet and its grabber, the
+popover and its arrow, and the dim. The expected numbers are written
+into the verifier from Apple's iOS and iPadOS 27 design kit.
+`python3 scripts/eval/design_workflow_smoke.py` scaffolds both iPad
+models and checks that an iPad design with the iPhone's bottom tab bar,
+or with neither a sidebar nor tabs at the top, fails `check_design.py`.
 
 ### The Android (Material 3) recipes
 

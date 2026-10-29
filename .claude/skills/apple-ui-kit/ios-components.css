@@ -27,16 +27,23 @@
 
 
 :root {
-  /* Not measured. The kit exports components on transparent or
-     placeholder backgrounds, so there is no screenshot to read a page
-     background off. These are the grouped-content pairing iOS Settings
-     uses: a grey page with white cards floating on it, inverting to a
-     black page with near-black cards in dark. Getting this backwards --
-     white page, grey cards -- is the single fastest way to make a web
-     page read as "not quite iOS". */
-  --ios-bg: #F2F2F7;          /* systemGroupedBackground: the page */
-  --ios-bg-card: #FFFFFF;     /* secondarySystemGroupedBackground: rows */
-  --ios-separator: rgba(60, 60, 67, 0.29);
+  /* The grouped-content pairing iOS Settings uses: a grey page with
+     white cards floating on it, inverting to a black page with
+     near-black cards in dark. Apple's iOS 27 kit names them Backgrounds
+     - Grouped/Primary and /Secondary, and the tokens carry both
+     appearances, so these follow dark mode on their own. Getting this
+     backwards -- white page, grey cards -- is the single fastest way to
+     make a web page read as "not quite iOS". --ios-separator comes from
+     the tokens too: the kit's Separators/Non-opaque. */
+  --ios-bg: var(--ios-bg-grouped, #F2F2F7);
+  --ios-bg-card: var(--ios-bg-grouped-secondary, #FFFFFF);
+
+  /* Liquid Glass controls -- tab bars, floating buttons, button groups
+     -- carry this rim in Apple's iOS 27 kit: a 0.5pt #E8E8E8 hairline,
+     a #D0D0D0 rim on each side and an almost invisible drop, not a
+     floating-card shadow. The dark value is chosen, not measured. */
+  --ios-glass-control-shadow: 1.25px 0 0 -0.75px #D0D0D0, -1.25px 0 0 -0.75px #D0D0D0,
+                              0 0 0 0.5px #E8E8E8, 0 8px 15px rgba(0, 0, 0, 0.02);
 
   /* iOS 26 rounded grouped sections up. Read off Apple's own screens in
      the HIG, a circle fit to the corner gives 26pt on the Calendar New
@@ -49,9 +56,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --ios-bg: #000000;
-    --ios-bg-card: #1C1C1E;
-    --ios-separator: rgba(84, 84, 88, 0.6);
+    --ios-glass-control-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.14), 0 8px 15px rgba(0, 0, 0, 0.24);
   }
 }
 
@@ -78,6 +83,10 @@
     --ios-accent: #1E6EF4;                   /* Color page, IC light */
     --ios-red: #E9152D;                      /* Color page, IC light */
     --ios-label-secondary: rgba(60, 60, 67, 0.72);  /* 4.74:1 on card */
+    /* The kit's vibrant secondary, #727272, is 4.81:1 on white and 4.31:1
+       on the grouped grey; under Increased Contrast it darkens. Chosen:
+       the kit publishes no Increased Contrast value for it. */
+    --ios-label-vibrant-secondary: #5C5C5C;         /* 5.97:1 on #F2F2F7 */
   }
 }
 
@@ -88,7 +97,7 @@
        the platform matters more than the ratio already being fine. */
     --ios-accent: #5CB8FF;                   /* Color page, IC dark */
     --ios-red: #FF6165;                      /* Color page, IC dark */
-    --ios-label-secondary: rgba(235, 235, 245, 0.698);
+    --ios-label-secondary: rgba(235, 235, 245, 0.8);  /* above the kit's 0.7; chosen */
   }
 }
 
@@ -383,7 +392,7 @@ body {
   font: var(--ios-text-footnote);
   font-weight: var(--ios-weight-semibold);
   letter-spacing: var(--ios-track-footnote);
-  color: var(--ios-label);
+  color: var(--ios-label-vibrant);
   cursor: pointer;
   white-space: nowrap;
 }
@@ -404,52 +413,56 @@ body {
 
 /* ------------------------------------------------------------- Tab bar
 
-   Bottom-anchored, safe-area aware. The selected item takes the accent;
-   the rest sit at secondary. */
+   Measured from Apple's iOS 27 design kit. A Liquid Glass capsule
+   floating 21pt in from each side and 21pt above the bottom edge -- wide,
+   not a pill hugging its items -- holding equal tabs 54pt tall that
+   overlap by 8pt. Each tab is an 18pt symbol over a 10pt semibold label
+   in the vibrant label colour; the selected one sits on a neutral capsule
+   (Fills - Vibrant/Tertiary) and takes the accent. Unselected tabs are
+   near-black, not grey: grey was the old bar. */
 
 .ios-tabbar {
-  /* iOS 26 floats the tab bar: a translucent capsule inset from the
-     edges with content scrolling underneath it, not a full-bleed bar
-     ruled off by a hairline. The kit already measured the Liquid Glass
-     material and then shaped this like the bar it replaced -- which is
-     the most visible thing on any screen, sitting at the bottom of all
-     of them, and the surest tell that a mockup predates the current OS.
-     Compare App Store, Apple TV, Health: all capsule, all floating. */
   position: sticky;
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 10px);
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 21px);
   z-index: 10;
-  width: max-content;
-  max-width: calc(100% - 24px);
-  margin: -62px auto 10px;          /* negative, so content passes under */
   display: flex;
-  justify-content: center;
-  gap: 2px;
-  padding: 5px 6px;
+  margin: -83px 21px 21px;          /* 62 + 21, so content passes under */
+  padding: 4px 6px;
   border-width: 0;
   border-radius: 999px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, .16), 0 2px 6px rgba(0, 0, 0, .08);
+  box-shadow: var(--ios-glass-control-shadow);
 }
 
 .ios-tabbar__item {
-  flex: 0 0 auto;
-  min-height: 49px;                 /* iOS tab bar height */
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  height: 54px;
+  margin-right: -8px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2px;
-  font: var(--ios-text-caption2);
-  color: var(--ios-label-secondary);
-  background: none;
+  gap: 1px;
+  padding: 6px 8px 7px;
   border: none;
-  cursor: pointer;
-  padding: 0 15px;
-  min-height: 46px;
   border-radius: 999px;
+  background: none;
+  cursor: pointer;
+  font: 590 10px/12px var(--ios-font);
+  color: var(--ios-label-vibrant);
 }
 
+.ios-tabbar__item:last-child { margin-right: 0; }
+
+/* The symbol row is 28pt: an 18pt symbol with its own padding. */
+.ios-tabbar__item > svg { width: 24px; height: 24px; margin: 2px 0; flex: none; }
+.ios-tabbar__item > span:first-child { display: block; height: 28px; font-size: 18px; line-height: 28px; }
+
 .ios-tabbar__item[aria-selected="true"] {
-  background: color-mix(in srgb, var(--ios-accent) 14%, transparent); color: var(--ios-accent); }
+  background: var(--ios-fill-vibrant-tertiary);
+  color: var(--ios-accent);
+}
 
 /* --------------------------------------------------------------- Material
 
@@ -479,7 +492,6 @@ body {
 
 .ios-glass,
 .ios-material,
-.ios-navbar,
 .ios-tabbar {
   position: relative;
   background: linear-gradient(
@@ -499,7 +511,6 @@ body {
 @media (prefers-color-scheme: dark) {
   .ios-glass,
   .ios-material,
-  .ios-navbar,
   .ios-tabbar {
     border-color: rgba(255, 255, 255, .10);
     box-shadow:
@@ -510,11 +521,15 @@ body {
   }
 }
 
+/* The tab bar is a control capsule: the kit draws its edge as the
+   control rim, a shadow, not as the card's border. After both blocks
+   above so it wins in either appearance. */
+.ios-tabbar { border: 0; box-shadow: var(--ios-glass-control-shadow); }
+
 /* The falloff band. A pseudo-element rather than another gradient on the
    background, so the backdrop-filter underneath is not disturbed. */
 .ios-glass::before,
 .ios-material::before,
-.ios-navbar::before,
 .ios-tabbar::before {
   content: "";
   position: absolute;
@@ -580,7 +595,7 @@ body {
   border-radius: 999px;
   font: var(--ios-text-body);
   font-weight: 590;
-  color: var(--ios-label);
+  color: var(--ios-label-vibrant);
   cursor: pointer;
   transition: transform .12s ease;
 }
@@ -592,8 +607,13 @@ body {
   outline-offset: 2px;
 }
 
-/* Bars are the other place glass belongs: content scrolls underneath, so
-   there is always something to refract. */
+/* The navigation bar, as Apple's iOS 27 kit draws it: no bar at all. Its
+   buttons float as glass controls (.ios-controls) 16pt in from the
+   edges, the title sits in the vibrant label, and the only material is
+   the scroll edge effect -- a soft blur of whatever has scrolled under
+   it, fading out downward. Set .is-scrolled on the bar, or
+   data-scrolled="1" on an ancestor, once content is underneath; at rest
+   the area above the large title is just the page. */
 .ios-navbar {
   position: sticky;
   top: 0;
@@ -602,23 +622,39 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 10px var(--ios-gutter);
-  padding-top: calc(10px + env(safe-area-inset-top, 0px));
-  border-width: 0 0 0.5px 0;
-  border-radius: 0;
-  color: var(--ios-accent);
+  min-height: 54px;
+  padding: 0 var(--ios-gutter) 10px;
+  padding-top: env(safe-area-inset-top, 0px);
+  color: var(--ios-label-vibrant);
   font: var(--ios-text-body);
 }
 
+.ios-navbar::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 -24px;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(to bottom, var(--ios-navbar-edge, var(--ios-bg)) 45%, transparent);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+          mask-image: linear-gradient(to bottom, #000 55%, transparent);
+  opacity: 0;
+  transition: opacity .18s ease;
+}
+
+.ios-navbar.is-scrolled::before,
+[data-scrolled="1"] .ios-navbar::before { opacity: .92; }
+
 .ios-navbar__title {
-  color: var(--ios-label);
+  color: var(--ios-label-vibrant);
   font: var(--ios-text-headline);
 }
 
 @media (prefers-reduced-transparency: reduce) {
   .ios-glass,
   .ios-glass--clear,
-  .ios-navbar,
   .ios-tabbar {
     background: var(--ios-bg-card);
     backdrop-filter: none;
@@ -646,14 +682,18 @@ body {
    plain controls inside it, and a hairline separates them the way it
    separates list rows. */
 
+/* Apple's iOS 27 kit: a 44pt capsule, symbols on a 56pt pitch with no
+   rule between them, drawn in the vibrant label -- monochrome, not the
+   accent. The accent is for the one prominent action, filled. */
 .ios-controls {
   display: inline-flex;
   align-items: stretch;
-  padding: 3px;
-  gap: 0;
+  height: var(--ios-hit-target);
+  padding: 0 2px;
+  gap: 12px;
   border-width: 0;
   border-radius: 999px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, .14), 0 1px 3px rgba(0, 0, 0, .08);
+  box-shadow: var(--ios-glass-control-shadow);
 }
 
 .ios-controls--vertical {
@@ -670,41 +710,22 @@ body {
      edge, which is the hardest place to hit accurately. */
   min-height: var(--ios-hit-target);
   min-width: var(--ios-hit-target);
-  padding: 0 14px;
+  padding: 0 12px;
   border: 0;
   border-radius: 999px;
   background: transparent;
-  color: var(--ios-accent);
+  color: var(--ios-label-vibrant);
   font: var(--ios-text-body);
+  font-weight: var(--ios-weight-medium);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
+.ios-controls__item:has(> svg:only-child) { padding: 0; }
+/* One symbol alone is a 44pt glass circle, as the kit draws it. */
+.ios-controls:has(> .ios-controls__item:only-child > svg:only-child) { padding: 0; }
 
-/* A hairline between siblings, never on the ends. Drawn as a positioned
-   element rather than an inset shadow or a border: the item is fully
-   rounded, so either of those follows the corner and the divider comes
-   out as an arc rather than a rule. */
 .ios-controls__item { position: relative; }
-.ios-controls__item + .ios-controls__item::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 22%;
-  bottom: 22%;
-  width: 1px;
-  transform: scaleX(.5);
-  background: var(--ios-separator);
-  pointer-events: none;
-}
-.ios-controls--vertical .ios-controls__item + .ios-controls__item::before {
-  left: 22%;
-  right: 22%;
-  top: 0;
-  bottom: auto;
-  width: auto;
-  height: 1px;
-  transform: scaleY(.5);
-}
+.ios-controls--vertical { height: auto; padding: 2px 0; }
 
 .ios-controls__item:active { transform: scale(.94); }
 .ios-controls__item:focus-visible {
@@ -785,35 +806,43 @@ body {
    pass off the artwork as the original. */
 
 .ios-statusbar {
+  /* Apple's iOS 27 kit: 62pt tall, the time and the indicators each
+     centred in the space either side of the Dynamic Island, the time in
+     17pt semibold -- body size, not the 13pt it is easy to assume. */
   position: relative;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 54px;
-  padding: 0 38px 0 52px;
+  align-items: flex-start;
+  height: 62px;
+  padding: 3px 8px 0;
   color: var(--ios-label);
-  font: var(--ios-text-footnote);
-  font-weight: var(--ios-weight-semibold);
+  font: 590 17px/22px var(--ios-font);
   font-variant-numeric: tabular-nums;
   user-select: none;
 }
 
+.ios-statusbar > :first-child {
+  flex: 1;
+  margin-top: 17px;
+  text-align: center;
+}
+
 .ios-statusbar__island {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 13px;
-  width: 122px;
-  height: 36px;
+  flex: none;
+  width: 95px;
+  height: 37px;
+  margin-top: 8px;
   border-radius: 999px;
   background: #000;
   pointer-events: none;
 }
 
 .ios-statusbar__indicators {
+  flex: 1;
   display: flex;
   align-items: center;
-  gap: 7px;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 21px;
 }
 
 .ios-statusbar__indicators svg { display: block; }
@@ -849,14 +878,14 @@ body {
 
 .ios-alert__title {
   margin: 0;
-  color: var(--ios-label);
+  color: var(--ios-label-vibrant);
   font: var(--ios-text-headline);
   letter-spacing: var(--ios-track-headline);
 }
 
 .ios-alert__message {
   margin: 4px 0 0;
-  color: var(--ios-label);
+  color: var(--ios-label-vibrant);
   font: var(--ios-text-subhead);
   letter-spacing: var(--ios-track-subhead);
 }
@@ -883,7 +912,7 @@ body {
 /* Cancel is a filled grey capsule here, not a plain text button. */
 .ios-alert__cancel {
   background: var(--ios-fill-control);
-  color: var(--ios-label);
+  color: var(--ios-label-vibrant);
 }
 
 /* ----------------------------------------------------- Action sheet
@@ -917,7 +946,7 @@ body {
 
 .ios-actionsheet__title {
   margin: 0;
-  color: var(--ios-label);
+  color: var(--ios-label-vibrant);
   font: var(--ios-text-headline);
   letter-spacing: var(--ios-track-headline);
 }
@@ -946,7 +975,7 @@ body {
   min-height: 50px;
   border-radius: 999px;
   background: var(--ios-fill-control);
-  color: var(--ios-label);
+  color: var(--ios-label-vibrant);
   font: var(--ios-text-body);
   letter-spacing: var(--ios-track-body);
 }
@@ -1021,7 +1050,7 @@ body {
   text-align: center;
   font: var(--ios-text-headline);
   letter-spacing: var(--ios-track-headline);
-  color: var(--ios-label);
+  color: var(--ios-label-vibrant);
 }
 
 .ios-sheet__btn {
@@ -1065,7 +1094,7 @@ body {
   background: var(--ios-fill-control);
   font: var(--ios-text-body);
   letter-spacing: var(--ios-track-body);
-  color: var(--ios-label);
+  color: var(--ios-label-vibrant);
   cursor: pointer;
 }
 
@@ -1108,7 +1137,7 @@ body {
   justify-content: center;
   border: 0;
   background: transparent;
-  color: var(--ios-label);
+  color: var(--ios-label-vibrant);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }

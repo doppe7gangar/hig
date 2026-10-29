@@ -18,7 +18,7 @@ not agree with the palette that circulates on the web:
 
     accent    #0088FF   not the #007AFF everyone hand-codes
     red       #FF383C   not #FF3B30
-    label     #1A1A1A   not pure black
+    label     black on a plain background, but #1A1A1A on glass
 
 Values that *do* match Apple's published semantics are what make the rest
 credible: the switch measures #34C759 light and #30D158 dark, exactly
@@ -46,7 +46,10 @@ TOKENS_JSON = os.path.join(REFS, "ui-kit-tokens.json")
 # picked out of artwork that is mostly white; ("alpha", v) matches a
 # translucent value, for the label and fill ladders.
 ROLES = {
-    "label": [
+    # A glass button's label is the *vibrant* label. It was once taken for
+    # the primary label, which put #1A1A1A on every line of body text; the
+    # kit's variables (below) say plain text is black.
+    "label-vibrant": [
         ("Buttons/Light_Label - Symbol - Default", "light", "top"),
         ("Buttons/Dark_Label - Symbol - Default", "dark", "top"),
     ],
@@ -84,6 +87,71 @@ ROLES = {
         ("Text Fields/Dark_Placeholder", "dark", "top"),
     ],
 }
+
+# Apple's iOS 27 design kit for Figma names its system colours as
+# variables, in a light and a dark mode. A variable is what the system
+# colour *is*; a rendering is what one component drew with it. Where a
+# role has a variable, the variable wins, and every rendering-measured
+# value that also has one is checked against it. That cross-check is how
+# the old "label" turned out to be the vibrant label off a glass button:
+# the kit's Labels/Primary is black, and #1A1A1A is Labels - Vibrant,
+# for text on glass.
+#
+# role: (variable, light, dark)
+KIT_VARIABLES = {
+    "label": ("Labels/Primary", "#000000", "#FFFFFF"),
+    "label-secondary": ("Labels/Secondary", "rgba(60, 60, 67, 0.6)", "rgba(235, 235, 245, 0.7)"),
+    "label-tertiary": ("Labels/Tertiary", "rgba(60, 60, 67, 0.3)", "rgba(235, 235, 245, 0.3)"),
+    "label-quaternary": ("Labels/Quaternary", "rgba(60, 60, 67, 0.18)", "rgba(235, 235, 245, 0.16)"),
+    "label-vibrant": ("Labels - Vibrant/Primary", "#1A1A1A", "#F5F5F5"),
+    "label-vibrant-secondary": ("Labels - Vibrant/Secondary", "#727272", "#8A8A8A"),
+    "fill-vibrant-tertiary": ("Fills - Vibrant/Tertiary", "#EDEDED", "#121212"),
+    "fill-secondary": ("Fills/Secondary", "rgba(120, 120, 128, 0.16)", None),
+    "separator": ("Separators/Non-opaque", "rgba(0, 0, 0, 0.12)", "rgba(255, 255, 255, 0.17)"),
+    "separator-opaque": ("Separators/Opaque", "#C6C6C8", "#38383A"),
+    "bg-primary": ("Backgrounds/Primary", "#FFFFFF", "#000000"),
+    "bg-secondary": ("Backgrounds/Secondary", "#F2F2F7", "#1C1C1E"),
+    "bg-tertiary": ("Backgrounds/Tertiary", "#FFFFFF", "#2C2C2E"),
+    "bg-elevated": ("Backgrounds/Primary - Elevated", "#FFFFFF", "#1C1C1E"),
+    "bg-grouped": ("Backgrounds - Grouped/Primary", "#F2F2F7", "#000000"),
+    "bg-grouped-secondary": ("Backgrounds - Grouped/Secondary", "#FFFFFF", "#1C1C1E"),
+    "bg-grouped-tertiary": ("Backgrounds - Grouped/Tertiary", "#F2F2F7", "#2C2C2E"),
+    "overlay": ("Overlays/Default", "rgba(0, 0, 0, 0.2)", None),
+    "accent": ("Accents/Blue", "#0088FF", "#0091FF"),
+    "red": ("Accents/Red", "#FF383C", "#FF4245"),
+    "orange": ("Accents/Orange", "#FF8D28", "#FF9230"),
+    "yellow": ("Accents/Yellow", "#FFCC00", "#FFD600"),
+    "green": ("Accents/Green", "#34C759", "#30D158"),
+    "mint": ("Accents/Mint", "#00C8B3", "#00DAC3"),
+    "teal": ("Accents/Teal", "#00C3D0", "#00D2E0"),
+    "cyan": ("Accents/Cyan", "#00C0E8", "#3CD3FE"),
+    "blue": ("Accents/Blue", "#0088FF", "#0091FF"),
+    "indigo": ("Accents/Indigo", "#6155F5", "#6D7CFF"),
+    "purple": ("Accents/Purple", "#CB30E0", "#DB34F2"),
+    "pink": ("Accents/Pink", "#FF2D55", "#FF375F"),
+    "brown": ("Accents/Brown", "#AC7F5E", "#B78A66"),
+    "gray": ("Grays/Gray", "#8E8E93", "#8E8E93"),
+    "gray-2": ("Grays/Gray 2", "#AEAEB2", "#636366"),
+    "gray-3": ("Grays/Gray 3", "#C7C7CC", "#48484A"),
+    "gray-4": ("Grays/Gray 4", "#D1D1D6", "#3A3A3C"),
+    "gray-5": ("Grays/Gray 5", "#E5E5EA", "#2C2C2E"),
+    "gray-6": ("Grays/Gray 6", "#F2F2F7", "#1C1C1E"),
+}
+
+
+def kit_colour(css):
+    """A KIT_VARIABLES value as the dict the rendering measurements use."""
+    m = re.match(r"rgba\((\d+), (\d+), (\d+), ([\d.]+)\)", css)
+    if m:
+        r, g, b, a = int(m[1]), int(m[2]), int(m[3]), float(m[4])
+        return {"hex": f"#{r:02X}{g:02X}{b:02X}", "alpha": a, "css": css}
+    return {"hex": css.upper(), "alpha": 1.0, "css": css.upper()}
+
+
+def rgba_of(col):
+    h = col["hex"].lstrip("#")
+    return tuple(int(h[i:i + 2], 16) for i in (0, 2, 4)) + (col["alpha"],)
+
 
 # Geometry read off the rendered shapes, in points. Kept separate from
 # colour because it doesn't vary by appearance.
@@ -270,6 +338,21 @@ def main():
             mode = appearance or "light"
             resolved[(role, mode)] = (col, row["file"])
 
+    # The kit's variables win; a measurement that disagrees is reported.
+    disagree = []
+    for role, (var, light, dark) in KIT_VARIABLES.items():
+        for mode, css in (("light", light), ("dark", dark)):
+            if css is None:
+                continue
+            col = kit_colour(css)
+            prev = resolved.get((role, mode))
+            if prev:
+                a, b = rgba_of(prev[0]), rgba_of(col)
+                if max(abs(x - y) for x, y in zip(a[:3], b[:3])) > 2 or abs(a[3] - b[3]) > .02:
+                    disagree.append(f"--ios-{role} {mode}: measured {prev[0]['css']} "
+                                    f"({prev[1]}), kit variable {var} is {col['css']}")
+            resolved[(role, mode)] = (col, f"kit variable {var}")
+
     geo = {}
     for name, (sub, *fields) in GEOMETRY.items():
         row = find(sub, None)
@@ -287,6 +370,10 @@ def main():
         print(f"  --ios-{role:18} {mode:5} {col['css']:28} <- {src}")
     for name, (vals, src) in geo.items():
         print(f"  {name:24}       {vals}")
+    if disagree:
+        print("\nRENDERINGS THAT DISAGREE WITH THE KIT'S VARIABLES (the variable is used):")
+        for d in disagree:
+            print("  " + d)
     if misses:
         print("\nUNRESOLVED (fix ROLES or re-extract):")
         for m in misses:
@@ -302,13 +389,15 @@ def main():
 
 def build_css(resolved, geo):
     roles = sorted({r for r, _ in resolved})
-    L = ["/* Apple iOS 27 design tokens, measured from the UI kit renderings.",
+    L = ["/* Apple iOS 27 design tokens: the system colours from the variables in",
+         " * Apple's iOS 27 design kit, cross-checked against measurements of the",
+         " * kit's renderings, plus geometry measured off those renderings.",
          " *",
          " * Generated by scripts/build_design_tokens.py -- do not hand-edit.",
-         " * Each value carries the file it was measured from. These are the",
-         " * iOS 27 values and they differ from the palette that circulates",
-         " * online: the accent is #0088FF, not #007AFF, and the primary label",
-         " * is #1A1A1A, not black.",
+         " * Each value carries its source. These are the iOS 27 values and they",
+         " * differ from the palette that circulates online: the accent is",
+         " * #0088FF, not #007AFF. Text is black on a plain background",
+         " * (--ios-label) and #1A1A1A on glass (--ios-label-vibrant).",
          " */", "", ":root {"]
 
     for role in roles:
@@ -394,9 +483,13 @@ def build_css(resolved, geo):
             "     is why the measurements can be trusted; these add the nine",
             "     colours nobody measured and the grey ramp. */",
         ]
-        for name, v in sorted(sysc.items()):
-            L.append(f"  --ios-{slug(name)}: {v[0]};")
-        for name, v in sorted(grays.items()):
+        # A colour the kit's variables already gave is written once, above,
+        # with its dark value; the published table confirms it here.
+        for name, v in sorted(sysc.items()) + sorted(grays.items()):
+            if slug(name) in roles:
+                if resolved[(slug(name), "light")][0]["hex"] != v[0]:
+                    L.append(f"  /* {name}: the Color page says {v[0]} */")
+                continue
             L.append(f"  --ios-{slug(name)}: {v[0]};")
         L.append("")
 
@@ -448,7 +541,8 @@ def build_css(resolved, geo):
 # has no notion of it.
 
 NATIVE_CAUTION = [
-    "Measured from Apple's iOS 27 UI kit renderings. Generated by",
+    "From Apple's iOS 27 design kit: its colour variables, and",
+    "measurements of its renderings. Generated by",
     "scripts/build_design_tokens.py -- do not hand-edit.",
     "",
     "On Apple platforms, prefer the semantic APIs (Color.accentColor,",
@@ -460,7 +554,8 @@ NATIVE_CAUTION = [
 ]
 
 CROSS_CAUTION = [
-    "Measured from Apple's iOS 27 UI kit renderings. Generated by",
+    "From Apple's iOS 27 design kit: its colour variables, and",
+    "measurements of its renderings. Generated by",
     "scripts/build_design_tokens.py -- do not hand-edit.",
     "",
     "On Android, this is Apple's palette on a platform with its own.",

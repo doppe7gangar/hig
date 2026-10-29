@@ -1,6 +1,6 @@
 ---
 name: apple-ui-kit
-description: Apple's iOS 27 design values — colour, type scale, control geometry, interaction states — measured from Apple's real UI kit and exported for every platform: CSS custom properties, Design Tokens JSON, SwiftUI, Jetpack Compose, Android XML, Flutter/Dart, and TypeScript for React Native. Plus ready web component recipes measured against iOS 26/27: navigation bar, tab bar, grouped lists, sheets, alerts, action sheets, buttons, switches, segmented controls, steppers, sliders, date chips, page controls, empty states, status bar, Liquid Glass, as CSS classes, as accessible React components, and as a Tailwind v4/v3 theme. Use whenever UI should look like Apple's on a target that has no system palette to ask — a web app, landing page, dashboard, React/Vue/Svelte component, a Mac app mockup, Android or Flutter or React Native app, or a design system — and whenever someone says "make it look like Apple", "iOS style", "Apple aesthetic", or asks for a polished app UI with Apple as the obvious reference. Values are measured, not remembered: the accent is #0088FF, not the #007AFF that circulates online, and the primary label is #1A1A1A, not black. Also use when reviewing UI that is trying to look Apple-like and getting details wrong. For Apple's actual rules — which control to use, how layouts adapt, platform differences — and for native SwiftUI/UIKit/AppKit work, use the apple-hig skill.
+description: Apple's iOS 27 design values — colour, type scale, control geometry, interaction states — measured from Apple's real UI kit and exported for every platform: CSS custom properties, Design Tokens JSON, SwiftUI, Jetpack Compose, Android XML, Flutter/Dart, and TypeScript for React Native. Plus ready web component recipes measured against iOS 27: navigation bar, tab bar, grouped lists, sheets, alerts, action sheets, buttons, switches, segmented controls, steppers, sliders, date chips, page controls, empty states, status bar, Liquid Glass, as CSS classes, as accessible React components, and as a Tailwind v4/v3 theme; and iPadOS 27 layouts — the split view with its glass sidebar, the tab bar at the top, sheets and popovers — measured from Apple's iOS and iPadOS 27 design kit. Use whenever UI should look like Apple's on a target that has no system palette to ask — a web app, landing page, dashboard, React/Vue/Svelte component, an iPad or Mac app mockup, Android or Flutter or React Native app, or a design system — and whenever someone says "make it look like Apple", "iOS style", "Apple aesthetic", or asks for a polished app UI with Apple as the obvious reference. Values are measured, not remembered, and checked against the colour variables in Apple's iOS 27 design kit: the accent is #0088FF, not the #007AFF that circulates online, and text is black on a plain background but #1A1A1A on glass. Also use when reviewing UI that is trying to look Apple-like and getting details wrong. For Apple's actual rules — which control to use, how layouts adapt, platform differences — and for native SwiftUI/UIKit/AppKit work, use the apple-hig skill.
 ---
 
 # Apple UI for the web
@@ -18,10 +18,12 @@ control geometry, state treatments and materials are stated nowhere. The
 UI kit renderings carry those, because a screenshot of a real component
 is a rendering of the real values.
 
-So this skill has two sources, and says which is which. Published values
-come from the Color page. Measured values come from the kit — and every
-measured value that overlaps the published table matches it exactly,
-which is the reason to trust the ones that don't overlap.
+So this skill has three sources, and says which is which. Published
+values come from the Color page. The colour variables in Apple's iOS and
+iPadOS 27 design kit for Figma name every system colour in light and dark.
+Measured values come from the kit's renderings — and every measured value
+that overlaps either of the others matches it, which is the reason to
+trust the ones that don't overlap.
 
 | File | What it is |
 |---|---|
@@ -31,6 +33,8 @@ which is the reason to trust the ones that don't overlap.
 | `example.html` | Working reference page. Open it to see every recipe, light and dark. |
 | `macos-components.css` | **macOS 27 recipes**, measured from Apple's macOS 27 design kit: `mac-window` with its traffic lights, `mac-sidebar`, `mac-toolbar` with glass `mac-tool`, `mac-toolgroup`, `mac-tabs` and `mac-toolsearch`, `mac-btn`, `mac-popup`, `mac-field`, `mac-search`, `mac-segmented`, `mac-check`, `mac-radio`, `mac-switch`, `mac-progress`, `mac-list`, `mac-table`, `mac-menu`, `mac-sheet`, `mac-alert`, `mac-popover`, `mac-empty`, `mac-inspector`. |
 | `mac-example.html` | Every macOS recipe in four windows, light and dark. `verify_mac_ui.py` measures it. |
+| `ipados-components.css` | **iPadOS 27 layouts** on top of the iPhone recipes, measured from Apple's iOS and iPadOS 27 design kit: the `ipad` frame and `ipad-statusbar`, `ipad-split` with the glass `ipad-sidebar` (toolbar, `ipad-search`, rows, headers), `ipad-content` with the floating `ipad-toolbar`, `ipad-tabbar` at the top centre and `ipad-title`, `ipad-sheet`, `ipad-popover`, `ipad-scrim`. |
+| `ipad-example.html` | Three iPads — a split view with a popover, tabs at the top, a sheet — light and dark. `verify_ipad_ui.py` measures it. |
 | `react/` | **React components** over the recipes (`ios.jsx`, types in `ios.d.ts`, `ios-react.css`), with the keyboard and screen-reader behaviour the static recipes can't have. `example.jsx` uses every one. |
 | `tailwind/` | **Tailwind themes**: `theme.css` for v4, `preset.cjs` for v3. Utilities such as `bg-ios-accent`, `rounded-ios-card` and `ios-text-body` that read the kit's variables. |
 | `ui-kit-tokens.json` | **Every measurement**, 945 renderings × colours + geometry + state. Query it for anything the recipes don't cover. |
@@ -40,6 +44,7 @@ which is the reason to trust the ones that don't overlap.
 | Building for | Use | Note |
 |---|---|---|
 | Web, any framework | `tokens/ios-tokens.css` + `ios-components.css` | Recipes included |
+| An iPad app, as a mockup | `ipados-components.css` over the iOS recipes | Split view, top tab bar, sheets; see **iPadOS** below |
 | A Mac app, as a mockup | `macos-components.css` | Window, sidebar, toolbar, controls; see **macOS** below |
 | React Native / JS | `tokens/tokens.ts` | Colours + metrics, typed |
 | Android (Compose) | `tokens/AppleKitTokens.kt` | Light and dark objects |
@@ -127,6 +132,46 @@ with `--mac-selection` and `--mac-menu-highlight` if those should follow.
 The Mac kit's verifier, `python3 verify_mac_ui.py`, measures
 `mac-example.html` against all of this in 87 checks. For a whole Mac app, apple-design's
 `new_project.py --kind macos` scaffolds the window.
+
+## iPadOS
+
+An iPad app is not a big iPhone. `ipados-components.css` carries the
+iPadOS 27 shapes from Apple's iOS and iPadOS 27 design kit, on top of the
+iPhone recipes:
+
+- **The frame**: iPad Pro 11-inch, 1210 x 834 with 30pt screen corners; under 1300px wide (an actual iPad) the frame drops away.
+- **Status bar**: 32pt, 16pt in, 14pt medium — the time, the date, then the app's menu, its name in bold.
+- **Split view**: a 320pt Liquid Glass sidebar (#DADADA as the kit renders it; #EFEFEF when the window is inactive) starting under the status bar, 10pt in. Its toolbar is an Edit capsule and 44pt glass circles; under it a 44pt search capsule in Fills/Secondary, then 44pt rows: a 34pt symbol column in the accent, the title in body, detail in the vibrant secondary label. The selected row is a full-width capsule; section headers sit 21pt above and 11pt below in the secondary label.
+- **Toolbar**: no bar. Glass controls float 10pt in under the status bar — one symbol is a 44pt circle, a group puts symbols on a 56pt pitch — with the large title, 34/41 bold, and an optional 15pt medium subtitle below, both vibrant. Content scrolling under them brings in the scroll edge effect.
+- **Tabs at the top**: iPadOS puts the tab bar at the top centre — a glass capsule with 4pt around 36pt tabs in 15pt medium, the selected one on the neutral capsule in the accent, a 54pt sidebar toggle leading and search trailing. Never the iPhone's bottom tab bar.
+- **Sheets** float centred under the status bar, 936pt wide, with 38pt corners, a 60 x 4 grabber and the window dimmed 20%. **Popovers** share the 38pt corners and point a 56 x 13 arrow at their source.
+
+```html
+<link rel="stylesheet" href="tokens/ios-tokens.css">
+<link rel="stylesheet" href="ios-components.css">
+<link rel="stylesheet" href="ipados-components.css">
+
+<div class="ipad">
+  <div class="ipad-statusbar">…<span class="ipad-statusbar__app">Mail</span>…</div>
+  <div class="ipad-split">
+    <nav class="ipad-sidebar">
+      <a class="ipad-sidebar__row" aria-current="page">
+        <span class="ipad-sidebar__icon" data-sf-symbol="tray">…</span>
+        <span class="ipad-sidebar__title">Inbox</span></a>
+    </nav>
+    <main class="ipad-content">
+      <header class="ipad-toolbar">
+        <div class="ipad-toolbar__controls">…</div>
+        <div class="ipad-title"><h1>Inbox</h1></div>
+      </header>
+    </main>
+  </div>
+</div>
+```
+
+The iPad kit's verifier, `python3 verify_ipad_ui.py`, measures
+`ipad-example.html` against all of this in 67 checks. For a whole iPad
+app, apple-design's `new_project.py --kind ipados` scaffolds it.
 
 ## Using it
 
@@ -247,9 +292,16 @@ obviously broken:
 |---|---|---|
 | Accent blue | `#0088FF` | `#007AFF` |
 | Destructive red | `#FF383C` light / `#FF4245` dark | `#FF3B30` / `#FF453A` |
-| Primary label | `#1A1A1A` light / `#F5F5F5` dark | `#000000` / `#FFFFFF` |
+| Text on glass — bars, buttons, tabs | `#1A1A1A` light / `#F5F5F5` dark | `#000000` / `#FFFFFF` |
+| Plain text | `#000000` / `#FFFFFF` | `#1A1A1A` everywhere, from this kit's own past |
 
 Two independent things back these up, and they cover different values.
+
+The second row is a correction. An earlier version of this kit read its
+"label" off a glass button and put `#1A1A1A` on every line of text; the
+kit's variables name two labels — Labels/Primary, black, and Labels -
+Vibrant/Primary, `#1A1A1A`, for text on glass — and the tokens now carry
+both as `--ios-label` and `--ios-label-vibrant`.
 
 **External agreement** where Apple's semantics are known: the switch
 reads `#34C759` light and `#30D158` dark, exactly systemGreen for each
@@ -261,11 +313,11 @@ how many separate components the same hex turns up in:
 
 | Value | Components |
 |---|---|
-| `#1A1A1A` label | **15** |
+| `#1A1A1A` label on glass | **15** |
 | `#0088FF` accent | **9** |
 | `#0091FF` accent dark | **8** |
 | `#FF383C` red | **5** |
-| `#F5F5F5` label dark | **5** |
+| `#F5F5F5` label on glass, dark | **5** |
 
 A misread of one PNG cannot put the same hex in fifteen unrelated
 components. Note the inversion: the values that disagree with the
@@ -485,9 +537,13 @@ computed values, not appearance: every token resolves, the type scale
 lands on the specs.md numbers to the pixel, the switch measures 64x28
 with a 38×24 pill knob travelling 22px, hit targets clear 44px, separators skip each
 list's first row, the grouped backgrounds are the right way round, and
-every colour pair meets the contrast it should, and a bundled face
-actually renders rather than falling through to a substitute. 170 checks
-across light, dark, and increased contrast.
+every colour pair meets the contrast it should, a bundled face
+actually renders rather than falling through to a substitute, and the
+iOS 27 kit's own shapes hold: the 62pt tab bar with 54pt tabs and 10pt
+labels, the 62pt status bar with its 17pt clock, monochrome glass
+controls, a navigation bar with no material until content scrolls under
+it, and plain and glass text in their two labels. 218 checks across
+light, dark, and increased contrast.
 
 ## Rules, not just looks
 

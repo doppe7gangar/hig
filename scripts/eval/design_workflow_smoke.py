@@ -506,6 +506,10 @@ def test_models(tmp):
         outputs["mac-" + model] = scaffold(tmp, "macos", model, "mac-" + model)
         exists(os.path.join(outputs["mac-" + model], "vendor", "macos-components.css"))
     print("ok macOS models")
+    for model in ("sidebar", "tabs"):
+        outputs["ipad-" + model] = scaffold(tmp, "ipados", model, "ipad-" + model)
+        exists(os.path.join(outputs["ipad-" + model], "vendor", "ipados-components.css"))
+    print("ok iPad models")
     for model in ("tabs", "stack"):
         outputs["android-" + model] = scaffold(tmp, "android", model, "android-" + model)
         theme = open(os.path.join(outputs["android-" + model], "theme.css"), encoding="utf-8").read()
@@ -515,6 +519,29 @@ def test_models(tmp):
         raise RuntimeError("--model stack emitted a nav bar")
     print("ok Android models")
     return outputs
+
+
+def test_ipad_chrome(project):
+    """An iPad design with the iPhone's bottom tab bar, or with neither a
+    sidebar nor tabs at the top, fails."""
+    page = os.path.join(project, "index.html")
+    original = open(page, encoding="utf-8").read()
+    try:
+        open(page, "w", encoding="utf-8").write(original.replace(
+            '<main class="ipad-content',
+            '<nav class="ios-tabbar"><button class="ios-tabbar__item" data-sf-symbol="house">Home</button></nav>'
+            '<main class="ipad-content', 1))
+        out = run([sys.executable, CHECK, project, "--no-browser"], expect=1).stdout
+        if "bottom tab bar" not in out:
+            raise RuntimeError("an iPad design with an iPhone tab bar was not called out:\n" + out)
+        open(page, "w", encoding="utf-8").write(
+            original.replace("ipad-sidebar", "side").replace("ipad-tabbar", "tabs"))
+        out = run([sys.executable, CHECK, project, "--no-browser"], expect=1).stdout
+        if "neither a sidebar nor tabs" not in out:
+            raise RuntimeError("an iPad design without a sidebar or tabs was not called out:\n" + out)
+    finally:
+        open(page, "w", encoding="utf-8").write(original)
+    print("ok an iPhone tab bar, or no sidebar or tabs, fails an iPad design")
 
 
 def test_android_chrome(project):
@@ -594,6 +621,7 @@ def main():
         test_cross_platform_tokens(tmp)
         outputs = test_models(tmp)
         test_mac_chrome(outputs["mac-sidebar"])
+        test_ipad_chrome(outputs["ipad-sidebar"])
         test_android_chrome(outputs["android-tabs"])
         if a.browser:
             test_render_review(outputs["dashboard"])

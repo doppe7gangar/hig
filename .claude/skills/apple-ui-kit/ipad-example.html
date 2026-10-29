@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iPadOS recipes</title>
+<!-- Every recipe in ipados-components.css, light and dark. verify_ipad_ui.py
+     measures this page; the ids are its handles. The drawings are stand-ins
+     for the SF Symbols each data-sf-symbol names. -->
+<link rel="stylesheet" href="fonts/inter.css">
+<link rel="stylesheet" href="tokens/ios-tokens.css">
+<link rel="stylesheet" href="ios-components.css">
+<link rel="stylesheet" href="ipados-components.css">
+<style>
+  body { margin: 0; }
+  .caption { width: 100%; margin: -24px 0 0; text-align: center; color: var(--ios-label-secondary); font: var(--ios-text-subhead); }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .tile { height: 180px; border-radius: 26px; background: var(--ios-bg-secondary); }
+  .ios-list { margin: 0; }
+</style>
+</head>
+<body>
+<div class="ipad-stage">
+
+  <!-- 1. A split view: the sidebar beside a list, with a popover open from
+       the toolbar. Mail, Notes and Files are this shape. -->
+  <div class="ipad" id="ipad-split">
+    <div class="ipad-statusbar" id="statusbar" aria-hidden="true">
+      <span class="ipad-statusbar__time">9:41<span>AM</span></span><span>Wed Apr 1</span>
+      <span class="ipad-statusbar__app" id="statusbar-app">Mail</span>
+      <span class="ipad-statusbar__trailing">
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="currentColor" data-sf-symbol="wifi"><path d="M7 2.2c1.9 0 3.6.7 4.9 1.9l1-1A8.3 8.3 0 0 0 7 .8 8.3 8.3 0 0 0 1.1 3.1l1 1A6.9 6.9 0 0 1 7 2.2zm0 2.9c1.1 0 2.1.4 2.9 1.1l1-1A5.6 5.6 0 0 0 7 3.7a5.6 5.6 0 0 0-3.9 1.5l1 1c.8-.7 1.8-1.1 2.9-1.1zM7 8l1.5-1.5a2.1 2.1 0 0 0-3 0z"/></svg>
+        <span>100%</span>
+        <svg width="27" height="13" viewBox="0 0 27 13" data-sf-symbol="battery.100"><rect x="0.6" y="0.6" width="23.3" height="11.8" rx="3.8" fill="none" stroke="currentColor" stroke-opacity=".38" stroke-width="1.1"/><rect x="2.2" y="2.2" width="20" height="8.6" rx="2.4" fill="currentColor"/><path d="M25.4 4.6v3.8a2 2 0 0 0 0-3.8z" fill="currentColor" fill-opacity=".38"/></svg>
+      </span>
+    </div>
+    <div class="ipad-split">
+      <nav class="ipad-sidebar" id="sidebar" aria-label="Mailboxes">
+        <div class="ipad-sidebar__toolbar" id="sidebar-toolbar">
+          <div class="ios-glass ios-controls" id="edit"><button class="ios-controls__item">Edit</button></div>
+          <div class="ipad-trailing">
+            <div class="ios-glass ios-controls" id="circle"><button class="ios-controls__item" aria-label="New mailbox" data-sf-symbol="folder.badge.plus"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4l2 2h9A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z"/></svg></button></div>
+            <div class="ios-glass ios-controls"><button class="ios-controls__item" aria-label="Hide sidebar" data-sf-symbol="sidebar.left"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M9 5v14"/></svg></button></div>
+          </div>
+        </div>
+        <label class="ipad-search" id="search">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" data-sf-symbol="magnifyingglass"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+          <input type="search" placeholder="Search" aria-label="Search mail">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" data-sf-symbol="mic.fill"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0 0 12 0" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M11 17h2v4h-2z"/></svg>
+        </label>
+        <a class="ipad-sidebar__row" id="row" href="#"><span class="ipad-sidebar__icon" data-sf-symbol="tray"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13h5l2 3h4l2-3h5"/><path d="M5 5l-2 8v5a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-5l-2-8z"/></svg></span><span class="ipad-sidebar__title" id="row-title">All Inboxes</span><span class="ipad-sidebar__detail" id="row-detail">12</span></a>
+        <a class="ipad-sidebar__row" id="row-selected" href="#" aria-current="page"><span class="ipad-sidebar__icon" data-sf-symbol="star"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg></span><span class="ipad-sidebar__title">VIP</span><span class="ipad-sidebar__detail">3</span></a>
+        <a class="ipad-sidebar__row" href="#"><span class="ipad-sidebar__icon" data-sf-symbol="flag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M5 21V4h11l-2 4 2 4H5"/></svg></span><span class="ipad-sidebar__title">Flagged</span></a>
+        <p class="ipad-sidebar__header" id="header"><span>Mailboxes</span><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" data-sf-symbol="chevron.down"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></p>
+        <a class="ipad-sidebar__row" href="#"><span class="ipad-sidebar__icon" data-sf-symbol="paperplane"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M21 3 3 10.5l7 3 3 7z"/><path d="m10 13.5 5-5"/></svg></span><span class="ipad-sidebar__title">Sent</span></a>
+        <a class="ipad-sidebar__row" href="#"><span class="ipad-sidebar__icon" data-sf-symbol="archivebox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 5h18v4H3zM5 9v10h14V9M10 13h4"/></svg></span><span class="ipad-sidebar__title">Archive</span></a>
+      </nav>
+      <main class="ipad-content ipad-content--grouped" id="content">
+        <header class="ipad-toolbar" id="toolbar">
+          <div class="ipad-toolbar__controls">
+            <div class="ipad-toolbar__leading"><div class="ios-glass ios-controls" id="back"><button class="ios-controls__item" aria-label="Back" data-sf-symbol="chevron.backward"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button></div></div>
+            <div class="ipad-toolbar__trailing">
+              <div class="ios-glass ios-controls" id="group">
+                <button class="ios-controls__item" aria-label="Filter" data-sf-symbol="line.3.horizontal.decrease"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M7 12h10M10 17h4"/></svg></button>
+                <button class="ios-controls__item" aria-label="Sort" id="sort" data-sf-symbol="arrow.up.arrow.down"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4v15M4.5 7.5 8 4l3.5 3.5M16 20V5M12.5 16.5 16 20l3.5-3.5"/></svg></button>
+                <button class="ios-controls__item" aria-label="Compose" data-sf-symbol="square.and.pencil"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"/><path d="M17 3.5l3.5 3.5-8 8H9v-3.5z"/></svg></button>
+              </div>
+            </div>
+          </div>
+          <div class="ipad-title" id="title"><h1 id="title-text">VIP</h1><p id="subtitle">3 unread</p></div>
+        </header>
+        <div class="ipad-body">
+          <ul class="ios-list">
+            <li class="ios-list__row ios-list__row--tappable"><span class="ios-list__title">Quarterly plan</span><span class="ios-list__value">9:12</span></li>
+            <li class="ios-list__row ios-list__row--tappable"><span class="ios-list__title">Hiring notes</span><span class="ios-list__value">Yesterday</span></li>
+            <li class="ios-list__row ios-list__row--tappable"><span class="ios-list__title">Launch checklist</span><span class="ios-list__value">Monday</span></li>
+          </ul>
+        </div>
+        <div class="ipad-popover ipad-popover--below" id="popover" style="right: 10px; top: 100px; width: 320px; --ipad-popover-arrow: 240px" role="dialog" aria-label="Sort by">
+          <ul class="ios-list" style="background: transparent"><li class="ios-list__row"><span class="ios-list__title">Date</span></li><li class="ios-list__row"><span class="ios-list__title">Sender</span></li><li class="ios-list__row"><span class="ios-list__title">Subject</span></li></ul>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- 2. Tabs at the top: Music, TV and the App Store are this shape. -->
+  <div class="ipad" id="ipad-tabs">
+    <div class="ipad-statusbar" aria-hidden="true"><span class="ipad-statusbar__time">9:41<span>AM</span></span><span>Wed Apr 1</span><span class="ipad-statusbar__app">Music</span><span class="ipad-statusbar__trailing"><span>100%</span></span></div>
+    <main class="ipad-content" id="content-tabs">
+      <header class="ipad-toolbar">
+        <div class="ipad-toolbar__controls">
+          <div class="ipad-toolbar__leading"></div>
+          <nav class="ipad-tabbar ios-glass ipad-toolbar__center" id="tabbar" role="tablist" aria-label="Sections">
+            <button class="ipad-tabbar__item ipad-tabbar__item--icon" id="tab-sidebar" aria-label="Show sidebar" data-sf-symbol="sidebar.leading"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M9 5v14"/></svg></button>
+            <button class="ipad-tabbar__item" role="tab" aria-selected="true" id="tab-selected">Home</button>
+            <button class="ipad-tabbar__item" role="tab" id="tab">New</button>
+            <button class="ipad-tabbar__item" role="tab">Radio</button>
+            <button class="ipad-tabbar__item" role="tab">Library</button>
+            <button class="ipad-tabbar__item ipad-tabbar__item--icon" aria-label="Search" data-sf-symbol="magnifyingglass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg></button>
+          </nav>
+          <div class="ipad-toolbar__trailing"><div class="ios-glass ios-controls"><button class="ios-controls__item" aria-label="Account" data-sf-symbol="person.crop.circle"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="10" r="3"/><path d="M6.5 18.5c1.5-2.2 3.4-3 5.5-3s4 .8 5.5 3"/></svg></button></div></div>
+        </div>
+        <div class="ipad-title"><h1>Home</h1></div>
+      </header>
+      <div class="ipad-body"><div class="grid"><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div></div></div>
+    </main>
+  </div>
+
+  <!-- 3. A sheet over its window. -->
+  <div class="ipad" id="ipad-sheet">
+    <div class="ipad-statusbar" aria-hidden="true"><span class="ipad-statusbar__time">9:41<span>AM</span></span><span>Wed Apr 1</span><span class="ipad-statusbar__app">Notes</span><span class="ipad-statusbar__trailing"><span>100%</span></span></div>
+    <main class="ipad-content"><header class="ipad-toolbar"><div class="ipad-title"><h1>Notes</h1></div></header></main>
+    <div class="ipad-scrim" id="scrim">
+      <section class="ipad-sheet" id="sheet" role="dialog" aria-labelledby="sheet-title" style="height: 640px">
+        <span class="ipad-sheet__grabber" id="grabber"></span>
+        <header class="ipad-toolbar">
+          <div class="ipad-toolbar__controls">
+            <div class="ipad-toolbar__leading"><div class="ios-glass ios-controls"><button class="ios-controls__item" aria-label="Close" data-sf-symbol="xmark"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div></div>
+            <h2 class="ipad-toolbar__center" id="sheet-title">New Note</h2>
+            <div class="ipad-toolbar__trailing"><button class="ios-glass ios-glass--prominent ios-glass-btn" aria-label="Done" data-sf-symbol="checkmark" style="width: 44px; padding: 0"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button></div>
+          </div>
+        </header>
+        <div class="ipad-sheet__body"><p style="margin: 0; color: var(--ios-label-secondary)">A sheet floats centred with the window dimmed behind it, and the same floating controls as any toolbar.</p></div>
+      </section>
+    </div>
+  </div>
+  <p class="caption">Three iPads: a split view with a popover, tabs at the top, and a sheet. The same markup renders dark under prefers-color-scheme.</p>
+</div>
+</body>
+</html>

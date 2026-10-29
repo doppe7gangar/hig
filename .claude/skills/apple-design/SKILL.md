@@ -15,7 +15,7 @@ Specialists:
 ## Authority rule
 Use `HIG → platform differences → system APIs/components → product composition → measured visual evidence (when available) → project grammar → design judgment`.
 
-The measured visual corpus is iOS 27, from Apple's kit renderings, and macOS 27, from Apple's macOS 27 design kit (fewer components). Never present an iOS measurement as macOS evidence, or the reverse.
+The measured visual corpus is iOS 27, from Apple's kit renderings checked against the colour variables in Apple's iOS and iPadOS 27 design kit; iPadOS 27 layouts from that same kit; and macOS 27, from Apple's macOS 27 design kit (fewer components). Never present an iOS measurement as macOS evidence, or the reverse.
 
 ## Governing principle
 **Do not begin by placing components. Begin by composing information.** Prefer hierarchy through position, alignment, spacing, typography, scale, grouping, disclosure, motion, or context over unnecessary containers.
@@ -30,7 +30,7 @@ The measured visual corpus is iOS 27, from Apple's kit renderings, and macOS 27,
 One screen or page takes the short path: a single primary task, with its sheets and states. That's most single-page requests: an expense tracker page, a settings screen, a sign-up form.
 
 1. Route the platform and name the one question the screen answers: `references/platform-routing.md`, `references/content-hierarchy.md`.
-2. Scaffold (step 12) and build the screen on it, with real content and its loading, empty and error states. On iOS keep its large title: a top-level iOS screen without one reads as a web page. For a Mac app scaffold `--kind macos` and keep the window, sidebar and toolbar: with a tab bar or 17pt text it reads as an iPad app on a desk. For an Android app scaffold `--kind android` and keep the top app bar, nav bar and Material Symbols: with a tab bar, a large title or SF Symbols it reads as an iPhone port.
+2. Scaffold (step 12) and build the screen on it, with real content and its loading, empty and error states. On iOS keep its large title: a top-level iOS screen without one reads as a web page. For an iPad app scaffold `--kind ipados` and keep the glass sidebar or the tabs at the top: with the iPhone's bottom tab bar it reads as a stretched phone. For a Mac app scaffold `--kind macos` and keep the window, sidebar and toolbar: with a tab bar or 17pt text it reads as an iPad app on a desk. For an Android app scaffold `--kind android` and keep the top app bar, nav bar and Material Symbols: with a tab bar, a large title or SF Symbols it reads as an iPhone port.
 3. Run `python3 check_design.py ./design` until it passes.
 4. Run `python3 render_review.py ./design`, look at the screenshots, and fix what they show.
 5. If the app is SwiftUI and the request includes the code, hand off (step 17).
@@ -69,11 +69,15 @@ python3 new_project.py --name Pantry --brand "#2F7D5B" \
   --screens "All Recipes,Favorites,Recent" -o ./design
 
 python3 new_project.py --name Pantry --brand "#2F7D5B" \
+  --kind ipados --model sidebar \
+  --screens "All Recipes,Favorites,Recent" -o ./design
+
+python3 new_project.py --name Pantry --brand "#2F7D5B" \
   --kind android --model tabs \
   --screens "Home,Search,Saved,Profile" -o ./design
 ```
 
-It copies the measured kit into the project (`./design/vendor/ios-tokens.css`, `./design/vendor/ios-components.css`, and for `--kind macos` `./design/vendor/macos-components.css`; for `--kind android` Roboto and `./design/vendor/material-components.css` instead), wires the brand into `theme.css` (for Android, a Material 3 scheme derived from it), and writes the `DESIGN.md` skeleton and the loading, empty and error states the gates check for. Replace its placeholder content with the real design. Don't paste copies of the tokens inline or rebuild the components it links. A hand-written page skips all of it, and the result looks almost like iOS instead of like iOS. Marketing pages select the editorial model on their own. If no generated model fits (`references/spatial-models.md`), scaffold the closest one and record in `DESIGN.md` where the design departs from it.
+It copies the measured kit into the project (`./design/vendor/ios-tokens.css`, `./design/vendor/ios-components.css`, for `--kind ipados` `./design/vendor/ipados-components.css`, and for `--kind macos` `./design/vendor/macos-components.css`; for `--kind android` Roboto and `./design/vendor/material-components.css` instead), wires the brand into `theme.css` (for Android, a Material 3 scheme derived from it), and writes the `DESIGN.md` skeleton and the loading, empty and error states the gates check for. Replace its placeholder content with the real design. Don't paste copies of the tokens inline or rebuild the components it links. A hand-written page skips all of it, and the result looks almost like iOS instead of like iOS. Marketing pages select the editorial model on their own. If no generated model fits (`references/spatial-models.md`), scaffold the closest one and record in `DESIGN.md` where the design departs from it.
 
 ## 13. Extract or inherit the project design grammar
 Read `references/design-grammar.md`.

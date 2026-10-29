@@ -69,6 +69,14 @@ Do not generate desktop inspector/table/sidebar candidates for iPhone merely to 
 
 Do not treat iPad as a scaled iPhone. Consider width, split relationships, sidebars, adaptable tabs, inspectors, pointer/keyboard use, and multitasking where the task benefits.
 
+Scaffold with `new_project.py --kind ipados` (`--model sidebar` for a
+split view, `tabs` for the tab bar at the top) and build on
+`ipados-components.css`, measured from Apple's iOS and iPadOS 27 design
+kit: the 320pt glass sidebar with its 44pt rows, the toolbar whose
+buttons float as glass with the large title under them, the tab bar at
+the top centre, sheets and popovers with 38pt corners. The iPhone's
+bottom tab bar has no place on an iPad; `check_design.py` fails it.
+
 ## visionOS
 
 Candidates must respect eyes-and-hands interaction, depth, windows/volumes/immersive spaces, and 60pt interaction guidance where applicable. Do not reuse touch-only assumptions.
