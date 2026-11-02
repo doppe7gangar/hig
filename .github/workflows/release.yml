@@ -4,7 +4,8 @@ name: release
 # below has passed:
 #
 #   - the whole suite in checks.yml, as on every push
-#   - the tag is a version (v1.2.3), on main, and install.sh says the same
+#   - the tag is a version (v1.2.3), on main, and install.sh and the
+#     plugin's version say the same
 #   - nothing of Apple's in the tree, and every third-party file matches
 #     its licence, with Material Symbols compared against their source
 #
@@ -53,6 +54,10 @@ jobs:
           fi
           if ! grep -q "^VERSION=\"${GITHUB_REF_NAME}\"$" install.sh; then
             echo "::error::install.sh has $(grep '^VERSION=' install.sh); set it to ${GITHUB_REF_NAME} first"; exit 1
+          fi
+          plugin=$(python -c "import json; print(json.load(open('.claude-plugin/plugin.json'))['version'])")
+          if [ "v${plugin}" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::.claude-plugin/plugin.json has version ${plugin}; set it to ${GITHUB_REF_NAME#v} first"; exit 1
           fi
 
       - name: Nothing of Apple's copied in

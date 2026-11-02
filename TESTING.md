@@ -363,6 +363,31 @@ outline and fill has to match path for path. The test breaks one thing at
 a time -- a reworded licence, a missing skill licence, an unlisted image,
 a swapped font, NOTICE dropping a component -- and each has to fail.
 
+### The plugin
+
+```bash
+python3 scripts/eval/test_plugin.py
+```
+
+The plugin's pieces, without a model: the marketplace and plugin manifests
+agree with each other and with `install.sh`'s version, `claude plugin
+validate` passes (when the `claude` command is installed; CI installs it),
+every command and agent has the frontmatter it needs and every path it names
+exists, the agents can't edit files, and the hooks and the GitHub Action do
+what they say. The SwiftUI hook reports a seeded file's violations
+(violations first), stays quiet on a clean file, a non-Swift file and a
+repeat, and never fails an edit. The commit guard denies a commit or push
+that would take SF Pro along, follows `git -C` and a leading `cd` to the
+right repository, lets the commit through once git ignores the font, still
+catches a font already staged, and turns off with `HIG_COMMIT_GUARD=off`. The
+Action passes clean SwiftUI and a fresh design, fails the seeded app with an
+annotation at each line, and only reports with `fail-on: none`. CI also runs
+the Action itself, as another repository would.
+
+To try the plugin in Claude Code without installing it, start
+`claude --plugin-dir ~/Documents/GitHub/hig` in another folder and run
+`/hig:ask how big must a button be on iPhone?`.
+
 ### What a design hands on
 
 ```bash

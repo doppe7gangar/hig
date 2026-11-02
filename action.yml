@@ -1,0 +1,49 @@
+name: HIG checks
+description: Check SwiftUI against Apple's Human Interface Guidelines, and app designs for anything they mustn't publish, with each finding on the pull request's diff.
+author: doppe7gangar
+branding:
+  icon: check-circle
+  color: blue
+
+inputs:
+  swiftui:
+    description: Swift files or folders to check, one per line or separated by spaces.
+    required: false
+    default: ""
+  designs:
+    description: Design folders made with the hig plugin's design workflow, checked for what they mustn't publish.
+    required: false
+    default: ""
+  purpose:
+    description: "publish (default): the rules for anything leaving your hands. mockup: the rules for a working mockup."
+    required: false
+    default: publish
+  fail-on:
+    description: "violation (default) fails on HIG violations and design problems; guidance also fails on Apple's advice; none only reports."
+    required: false
+    default: violation
+  ios:
+    description: Deployment target for SF Symbol availability, e.g. 17.
+    required: false
+    default: ""
+
+runs:
+  using: composite
+  steps:
+    - name: Read fonts' name tables
+      if: inputs.designs != ''
+      shell: bash
+      run: |
+        python3 -m pip install --quiet --disable-pip-version-check --user fonttools brotli 2>/dev/null \
+          || python3 -m pip install --quiet --disable-pip-version-check --break-system-packages fonttools brotli \
+          || echo "::warning::fontTools didn't install; fonts in WOFF2 other than the kit's can't be read"
+
+    - name: Check against the HIG and what a design may publish
+      shell: bash
+      env:
+        HIG_SWIFTUI: ${{ inputs.swiftui }}
+        HIG_DESIGNS: ${{ inputs.designs }}
+        HIG_PURPOSE: ${{ inputs.purpose }}
+        HIG_FAIL_ON: ${{ inputs.fail-on }}
+        HIG_IOS: ${{ inputs.ios }}
+      run: python3 "$GITHUB_ACTION_PATH/scripts/hig_action.py"

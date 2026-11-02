@@ -1,0 +1,27 @@
+---
+description: Answer a question about Apple's Human Interface Guidelines from the official page itself, with the link, the platform each figure applies to, and any quotes checked word for word.
+argument-hint: "<question>"
+disable-model-invocation: true
+---
+
+# Ask the HIG
+
+The question: $ARGUMENTS
+
+Scripts and references live in `${CLAUDE_PLUGIN_ROOT}/.claude/skills/apple-hig/`; below, `H` stands for that folder.
+
+1. **Find the page.** `grep -i "<topic>" H/references/topics.md`. When the
+   concern isn't a component (empty states, errors, contrast), look in
+   `H/references/concepts.md`, which says where the guidance is filed.
+2. **Read it on Apple's site.** `python3 H/hig_page.py <slug>`, with
+   `--section "<heading>"` or `--grep <word>` for just the part that answers.
+3. **Answer** in your own words with the link. Give every figure with its
+   platform, since most tables differ per platform. Quote only a short
+   passage you just read, copied exactly.
+4. **Check the quotes** before sending: pipe the draft to
+   `python3 H/check_quotes.py -`, and fix anything it doesn't call
+   VERBATIM or ELIDED.
+
+If the page can't be fetched, say so. Answer from `H/references/numbers.md`
+and `concepts.md`, label anything else as your understanding rather than
+Apple's statement, and give the link to check.

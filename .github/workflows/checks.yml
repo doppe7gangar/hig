@@ -79,5 +79,44 @@ jobs:
           python scripts/check_licences.py
           python scripts/eval/test_check_licences.py
 
+      - name: The plugin, its hooks and the GitHub Action
+        run: |
+          npm install --global --silent @anthropic-ai/claude-code@^2
+          python scripts/eval/test_plugin.py
+
       - name: Docs match the files
         run: python scripts/doctor.py
+
+  action:
+    # The GitHub Action as other repositories use it: it has to pass clean
+    # work and fail an app with seeded HIG violations.
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Something clean to check
+        run: |
+          python3 .claude/skills/apple-design/new_project.py --name Pantry --brand "#C1552E" \
+            --kind ios --model tabs -o "$RUNNER_TEMP/design"
+          mkdir -p "$RUNNER_TEMP/clean"
+          printf 'import SwiftUI\n\nstruct V: View {\n    var body: some View {\n        Text("Hello").font(.body)\n    }\n}\n' > "$RUNNER_TEMP/clean/V.swift"
+
+      - name: The action passes clean work
+        uses: ./
+        with:
+          swiftui: ${{ runner.temp }}/clean
+          designs: ${{ runner.temp }}/design
+
+      - name: The action fails the seeded app
+        id: seeded
+        continue-on-error: true
+        uses: ./
+        with:
+          swiftui: scripts/eval/reallife/fixture
+
+      - name: It must have failed
+        if: steps.seeded.outcome != 'failure'
+        run: |
+          echo "::error::the action passed an app with seeded HIG violations"
+          exit 1

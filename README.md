@@ -36,7 +36,20 @@ rather than carrying a copy.
 
 ## Set up
 
-Download the installer for a release, read it, then run it:
+**In Claude Code, install the plugin.** Type these inside Claude Code:
+
+```text
+/plugin marketplace add doppe7gangar/hig
+/plugin install hig@hig
+```
+
+On Claude Code 2.1.275 or later, `/plugin install hig --marketplace doppe7gangar/hig`
+does both in one step. The plugin brings the five skills, plus
+[commands, review agents and automatic checks](#commands-agents-and-checks), and `/plugin`
+updates it when a new version is out.
+
+**Or install the skills alone, pinned to a release.** Download the
+installer for a release, read it, then run it:
 
 ```bash
 curl -fsSLO https://github.com/doppe7gangar/hig/releases/download/v1.0.0/install.sh
@@ -52,6 +65,9 @@ saved first, and other skills you have aren't touched. `bash install.sh
 puts back what you had; `--checks` also installs Playwright, which lets the
 skills screenshot and check their designs. A newer release comes with its
 own installer: download that one the same way.
+
+Use one or the other: with both, every skill loads twice. To move from the
+installer to the plugin, run `bash install.sh --rollback` first.
 
 No Claude Code yet? Run `curl -fsSL https://claude.ai/install.sh | bash` first.
 
@@ -113,6 +129,7 @@ copied in rather than reinvented. **It didn't if** you see `#007AFF`
 anywhere. That's the old accent from search results.
 
 For a whole product, grade what's on disk, not what the transcript says:
+`/hig:check ./design` with the plugin, or with the installer
 
 ```bash
 python3 ~/.claude/skills/apple-design/check_design.py ./design
@@ -130,6 +147,60 @@ More recipes, and what good output looks like for each, are in
 | [`android-ui-kit`](.claude/skills/android-ui-kit/SKILL.md) | Material 3: the colour scheme, Roboto type scale and components from Google's kit, Material Symbols, and a theme builder for CSS, Compose and Android XML |
 | [`apple-hig`](.claude/skills/apple-hig/SKILL.md) | Apple's guidelines, put to work: which official page answers a question, the figures reached for most, an API map across 32 frameworks, 3,150 system components by name, and a SwiftUI checker |
 | [`apple-motion`](.claude/skills/apple-motion/SKILL.md) | Springs, transitions, haptic pairing, Reduce Motion |
+
+## Commands, agents and checks
+
+The plugin adds these on top of the skills. The skills pick themselves from
+what you ask; the commands are for when you know which step you want.
+
+| Command | What it does |
+|---|---|
+| `/hig:design <what you want>` | A brief to a working, checked prototype: settle the screens, scaffold, build, check in a browser, render and review |
+| `/hig:check [folder]` | Every mechanical check on a design (taps, states, contrast, use of the kit, licences), fixed until it passes |
+| `/hig:review [files]` | A review of SwiftUI, UIKit, AppKit or a design against the HIG: violations, guidance and judgment, each linked to Apple's page |
+| `/hig:ask <question>` | The answer from Apple's page itself, with the link, each figure's platform, and quotes checked word for word |
+| `/hig:figma [folder]` | Every screen and state into Figma, light and dark |
+| `/hig:handoff [design] [app]` | The design into SwiftUI, checked for anything lost on the way |
+| `/hig:ship [folder]` | Ready to publish: it won't call a design ready while it carries SF Pro, SF Symbols or a file without its licence |
+
+Two agents take the reading-heavy work into their own context, so your
+conversation stays on the design. Claude hands work to them when it fits,
+or ask for one by name, e.g. `@agent-hig:reviewer look at SettingsView.swift`:
+
+- **`hig:reviewer`** reviews code or a design against the HIG, reading
+  Apple's pages, and returns findings sorted into violations, guidance and
+  judgment. It doesn't edit anything.
+- **`hig:design-critic`** renders a design, holds each screen against the
+  platform's own example screens, and ranks what most gives it away as not
+  native.
+
+Two checks run by themselves:
+
+- **After Claude writes or edits a `.swift` file**, `check_swiftui.py` runs
+  on it and the violations go straight back to Claude to fix.
+- **Before `git commit` or `git push`**, every design in the repository is
+  checked, and the command is stopped if SF Pro, SF Symbols or Apple's
+  images would go along with it.
+
+To turn either off, set `HIG_SWIFTUI_HOOK` or `HIG_COMMIT_GUARD` to `off`
+in the `env` of `~/.claude/settings.json`.
+
+### In your own CI
+
+The same checks run as a GitHub Action, with each finding on the pull
+request's diff at its line:
+
+```yaml
+- uses: actions/checkout@v4
+- uses: doppe7gangar/hig@v1.0.0
+  with:
+    swiftui: MyApp     # Swift files or folders
+    designs: design    # design folders, checked before they're published
+```
+
+`fail-on: guidance` also fails on Apple's advice; `fail-on: none` only
+reports. `purpose: mockup` applies the rules for a working mockup instead of
+a published one.
 
 ## How it stays right
 
@@ -250,6 +321,9 @@ python3 ~/.claude/skills/android-ui-kit/build_m3_theme.py "#C1552E" --format com
 | Path | What it is |
 |---|---|
 | `.claude/skills/` | The five skills above, each with its own `SKILL.md` |
+| `skills/`, `agents/`, `hooks/` | The plugin's commands, agents and automatic checks |
+| `.claude-plugin/` | The plugin and its marketplace, for `/plugin install` |
+| `action.yml` | The GitHub Action |
 | `scripts/` | The token builders and the checks |
 | `docs/` | The images on this page |
 | [AGENTS.md](AGENTS.md) | The same routing for agents that don't read `.claude/skills/` |
@@ -273,10 +347,12 @@ exported as PNGs: point `APPLE_UI_KIT_PNGS` at the folder and run
 Apple's licence doesn't allow passing those resources on, so they never
 come into this repo.
 
-To release: set `VERSION` in `install.sh` to the new tag, commit, then push
-the tag (`git tag v1.1.0 && git push origin v1.1.0`). The release workflow
-runs the whole suite, refuses a tag that isn't a version on `main` or that
-`install.sh` disagrees with, checks every third-party file against its
+To release: set `VERSION` in `install.sh` to the new tag and `version` in
+`.claude-plugin/plugin.json` to the same number without the `v`, commit,
+then push the tag (`git tag v1.1.0 && git push origin v1.1.0`). Plugin users
+get the update through `/plugin` once the version changes. The release
+workflow runs the whole suite, refuses a tag that isn't a version on `main`
+or that either file disagrees with, checks every third-party file against its
 licence and Material Symbols against their source, and only then publishes
 `install.sh` pinned to that commit, with `licences.json` (each third-party
 file, its licence and where it comes from) and checksums for every file.
