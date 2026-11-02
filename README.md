@@ -264,6 +264,7 @@ python3 scripts/fetch_platform_metadata.py  # which platforms each page covers
 python3 scripts/scrape_frameworks.py        # the system component names
 python3 scripts/doctor.py                   # every count and claim in the docs still true?
 python3 scripts/provenance_guard.py         # nothing of Apple's copied in
+python3 scripts/check_licences.py           # every third-party file against its licence
 ```
 
 Re-measuring a kit needs your own copy of Apple's design resources,
@@ -271,6 +272,14 @@ exported as PNGs: point `APPLE_UI_KIT_PNGS` at the folder and run
 `scripts/extract_ui_kit_tokens.py`, then `scripts/build_design_tokens.py`.
 Apple's licence doesn't allow passing those resources on, so they never
 come into this repo.
+
+To release: set `VERSION` in `install.sh` to the new tag, commit, then push
+the tag (`git tag v1.1.0 && git push origin v1.1.0`). The release workflow
+runs the whole suite, refuses a tag that isn't a version on `main` or that
+`install.sh` disagrees with, checks every third-party file against its
+licence and Material Symbols against their source, and only then publishes
+`install.sh` pinned to that commit, with `licences.json` (each third-party
+file, its licence and where it comes from) and checksums for every file.
 
 Testing the skills themselves: [TESTING.md](TESTING.md) for the reference
 and kit skills, [DESIGN_TESTING.md](DESIGN_TESTING.md) for the design

@@ -1,7 +1,8 @@
 name: checks
 
-# Every push to main and every pull request runs the whole suite. The
-# provenance step comes first: Apple's text or images coming back fails the
+# Every push to main and every pull request runs the whole suite, and so
+# does every release before it is published (release.yml calls this). The
+# provenance step comes first: Apple's text or images turning up fails the
 # build before anything else runs.
 
 on:
@@ -9,6 +10,7 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+  workflow_call:
 
 permissions:
   contents: read
@@ -71,6 +73,11 @@ jobs:
 
       - name: What a design hands on
         run: python scripts/eval/test_check_distribution.py
+
+      - name: Third-party licences
+        run: |
+          python scripts/check_licences.py
+          python scripts/eval/test_check_licences.py
 
       - name: Docs match the files
         run: python scripts/doctor.py

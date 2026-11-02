@@ -61,8 +61,11 @@ Roboto typeface
   .claude/skills/android-ui-kit/fonts/ (licence: LICENSE-Roboto.txt)
 
 Material Symbols (outlines, fills and name list)
-  Copyright Google LLC
+  Copyright Google LLC (https://github.com/google/material-design-icons)
   Apache License 2.0
+  The paths on a 24-unit grid as packaged by Iconify
+  (https://github.com/iconify/icon-sets); scripts/check_licences.py --upstream
+  compares every one with that source
   .claude/skills/android-ui-kit/icons/ (licence: LICENSE-Material-Symbols.txt)
 
 apple-motion references

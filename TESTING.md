@@ -345,6 +345,24 @@ Runs three briefs of different kinds through a fresh agent with all four
 skills installed, and grades each by running the checker on whatever it
 produced.
 
+### Third-party files against their licences
+
+```bash
+python3 scripts/check_licences.py             # offline, on every push
+python3 scripts/check_licences.py --upstream  # Material Symbols against their source
+python3 scripts/eval/test_check_licences.py   # and that it fails when it should
+```
+
+Each third-party component is checked against what NOTICE says about it:
+its files are there, its licence text beside them is that licence word
+for word, each font's name table names the same family, holder and
+licence, and every font, image and icon file in the repo belongs to a
+component or to the repo's own work. With `--upstream` it fetches
+Material Symbols from Iconify's repository, at a pinned commit, and every
+outline and fill has to match path for path. The test breaks one thing at
+a time -- a reworded licence, a missing skill licence, an unlisted image,
+a swapped font, NOTICE dropping a component -- and each has to fail.
+
 ### What a design hands on
 
 ```bash
