@@ -21,6 +21,12 @@ To send a file to Figma, with Figma's MCP server connected:
        --data-binary @design/figma/figma-light-1.html "<that URL>"
 The reply holds the Figma link. The frames arrive as plain layers, not as
 components, and the text keeps the page's font names.
+
+The files carry everything the page uses, so if the design has SF Pro or
+SF Symbols from your Mac, so do they. That is fine for importing a mockup
+of an Apple-platform app into your own Figma file, and the folder goes
+into the design's .gitignore so it isn't committed; check_distribution.py
+says the same before anything is published.
 """
 
 import argparse
@@ -157,6 +163,18 @@ body {{ display: flex; flex-wrap: wrap; align-items: flex-start; gap: 120px; pad
             f'<body>\n{body}\n</body></html>\n')
 
 
+def keep_out_of_git(design, out):
+    rel = os.path.relpath(out, design).replace(os.sep, "/")
+    if rel.startswith(".."):
+        return
+    ignore = os.path.join(design, ".gitignore")
+    lines = open(ignore, encoding="utf-8").read().splitlines() if os.path.isfile(ignore) else []
+    if rel + "/" not in lines:
+        with open(ignore, "a", encoding="utf-8") as f:
+            f.write("# Figma exports embed SF Pro / SF Symbols from this Mac; Apple's "
+                    "licence: not for redistribution\n" + rel + "/\n")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("design", help="the design folder, holding index.html")
@@ -186,6 +204,10 @@ def main():
             written.append((path, frames[n:n + LIMIT]))
     for path, frames in written:
         print(f"{path}: {len(frames)} frame(s) -- {', '.join(l for l, _ in frames)}")
+    if "SF Symbols drawn on this Mac" in css or re.search(r"SF-Pro\.(ttf|otf|woff2?)", css):
+        keep_out_of_git(a.design, out)
+        print("\nThese files embed SF Pro or SF Symbols from your Mac: fine to import as a "
+              "mockup, not to publish. The folder is now in the design's .gitignore.")
     print('\nSend each with Figma\'s html_to_figma (cssSelector ".figma-frame"), then POST the '
           'file to the URL it returns:\n  curl -sS -X POST -H "Content-Type: text/html" '
           '--data-binary @<file> "<url>"')

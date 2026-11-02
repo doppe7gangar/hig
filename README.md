@@ -291,6 +291,12 @@ trusting any triggering result.
 - Bundled with their licences: Inter and Roboto (SIL Open Font License)
   and Material Symbols (Apache 2.0). `apple-motion` adapts MIT-licensed
   material. [NOTICE](NOTICE) lists where every file comes from.
+- Designs carry their licences too. `new_project.py` writes the licence of
+  everything it copies into a design, and
+  `python3 .claude/skills/apple-design/check_distribution.py ./design --purpose publish`
+  checks a design before it's shared or published: it fails on SF Pro and
+  SF Symbols from your Mac, Apple's design-resource images, fonts or icons
+  without their licence, and images nobody recorded.
 
 ## License
 

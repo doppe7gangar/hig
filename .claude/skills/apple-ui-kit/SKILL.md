@@ -98,7 +98,9 @@ the quickest giveaway. On a Mac, `python3 sf_icons.py ./design` draws
 each named symbol with the Mac's own SF Symbols and links them in; run it
 again after adding icons. Elsewhere it leaves the drawings. Apple's
 licence allows the symbols in mock-ups for its platforms but not handed
-around on their own, so they stay in the design and out of this repo.
+around on their own, so they stay in the design and out of this repo; a
+design for Android, the web or a marketing site gets none. apple-design's
+`check_distribution.py` fails any design that would publish them.
 
 ## macOS
 

@@ -345,6 +345,26 @@ Runs three briefs of different kinds through a fresh agent with all four
 skills installed, and grades each by running the checker on whatever it
 produced.
 
+### What a design hands on
+
+```bash
+pip3 install fonttools brotli        # once; reads fonts' name tables
+python3 scripts/eval/test_check_distribution.py
+```
+
+`check_distribution.py` is the check a design passes before it's shared
+or published. The test scaffolds every kind of design `new_project.py`
+makes and requires each to pass `--purpose publish` as generated, licences
+and all. Then it plants, one at a time, what a design picks up on the way:
+SF Pro under its own name and renamed, SF Pro embedded in a Figma export,
+SF Symbols from `sf_icons.py` in an iPad design and in an Android one, an
+SF Symbols template, a design-resource rendering, an image hot-linked from
+Apple, an SF Pro webfont, an image and a font nobody recorded, an embedded
+image, Inter without its licence, Material Symbols without theirs, SF Pro
+already committed to git. Each has to fail where it should and pass where
+it may: SF Pro and SF Symbols pass in a mockup for an Apple platform while
+git ignores them, and nowhere else.
+
 ---
 
 ## 6. One command that checks the rest

@@ -181,6 +181,15 @@ Give the person the Figma link. The frames arrive as plain layers, not as compon
 
 If Figma's MCP server isn't connected, say so and give the one-time setup instead of skipping the step silently: `claude mcp add --transport http figma https://mcp.figma.com/mcp`, then `/mcp` inside Claude Code to sign in.
 
+## 19. Before it leaves your hands
+A design picks things up on the way that may not go where it goes: your own SF Pro from `--sf`, SF Symbols drawn by `sf_icons.py`, both embedded again in the Figma export, images someone dropped in. Before a design is pushed to a public repo, deployed, zipped for someone or attached anywhere, run:
+
+```bash
+python3 check_distribution.py ./design --purpose publish
+```
+
+It lists every file with its origin and licence, and fails on Apple's fonts and symbols (recognised by what they are, not what they're called), images from Apple's design resources or hot-linked from Apple's sites, the kit's files or fonts without the licence that has to travel with them, and any image or font nobody recorded in `assets.json`. Without `--purpose publish` it checks a working mockup: SF Pro and SF Symbols pass there in a design for Apple's platforms as long as git ignores them, and fail in an Android, web or marketing design. `new_project.py` writes a NOTICES.md into the design's vendor folder, with the licence files the check looks for; keep them with the design. A pass means nothing it knows to look for was found, not that every use is licensed: say so when you hand over.
+
 # Complete loop
 
 ```text
@@ -203,6 +212,7 @@ brief
 → rerender + completed audit checks
 → Figma (export_figma + html_to_figma)
 → SwiftUI handoff (check_handoff + check_swiftui)
+→ before it's shared or published (check_distribution --purpose publish)
 ```
 
 # Final standard

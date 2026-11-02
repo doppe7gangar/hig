@@ -1445,7 +1445,8 @@ This scaffold deliberately separates **design direction** from infrastructure.
     index.html      starter composition + four reachable states
     DESIGN.md       rationale to replace before polishing
     theme.css       generated from __BRAND__; regenerate, do not hand-edit
-    vendor/         measured tokens, component recipes, local fonts
+    vendor/         measured tokens, component recipes, local fonts, and
+                    NOTICES.md with the licence of each
 
 ## Chosen direction
 
@@ -1469,6 +1470,17 @@ Keep `theme.css` last in the stylesheet order. Keep fonts local. Regenerate
 ## Before calling it done
 
     python3 check_design.py __OUT__
+
+## Before it leaves your hands
+
+    python3 check_distribution.py __OUT__ --purpose publish
+
+`vendor/` holds the kit's files, fonts and their licences; NOTICES.md says
+which is which. Keep the licence files with the design wherever it goes.
+SF Pro and SF Symbols from your own Mac are for mockups of apps for Apple's
+platforms only: `.gitignore` keeps them out of commits, and the check above
+fails while they're in the folder. Record images and fonts you add in
+`assets.json`, with where they come from and their licence.
 
 After the mechanical check passes, read
 `references/visual-critique.md` and perform the reduction pass. A mechanically
@@ -1520,6 +1532,60 @@ Before polish:
 
 Then run `check_design.py` and the visual critique.
 """
+
+
+def write_notices(out, copied, kind, sf=False):
+    """vendor/NOTICES.md for people, vendor/manifest.json for check_distribution.py."""
+    import hashlib
+    import json
+
+    def group(test):
+        return sorted(r[len("vendor/"):] for r, src in copied.items() if test(r, src))
+
+    kit = group(lambda r, s: not s.endswith((".woff2", ".txt")) and "/LICENSE" not in s)
+    rows = [("the hig design kit: " + ", ".join(kit),
+             "Copyright 2026 doppe7gangar", "Apache 2.0", "LICENSE-hig.txt")]
+    inter = group(lambda r, s: "InterVariable" in s)
+    if inter:
+        rows.append((", ".join(inter), "Inter, Copyright 2016 The Inter Project Authors",
+                     "SIL Open Font License 1.1", "fonts/LICENSE-Inter.txt"))
+    roboto = group(lambda r, s: os.path.basename(s).startswith("roboto-"))
+    if roboto:
+        rows.append((", ".join(roboto), "Roboto, Copyright 2011 The Roboto Project Authors",
+                     "SIL Open Font License 1.1", "fonts/LICENSE-Roboto.txt"))
+    if kind == "android":
+        rows.append(("the Material Symbols icons drawn inline in index.html",
+                     "Material Symbols, Copyright Google LLC", "Apache 2.0",
+                     "icons/LICENSE-Material-Symbols.txt"))
+    lines = ["# What's in vendor/, and its licences", "",
+             "Written by new_project.py. Keep this file and the licence files with the",
+             "design wherever it goes, and run check_distribution.py with",
+             "--purpose publish before the design leaves your hands.", "",
+             "| What | From | Licence | Licence text |", "|---|---|---|---|"]
+    lines += [f"| {w} | {f} | {l} | `{t}` |" for w, f, l, t in rows]
+    lines += ["", "Not passed on:", "",
+              "- SF Pro, if you added your own copy (`fonts/SF-Pro.ttf`), and SF Symbols",
+              "  drawn on your Mac by sf_icons.py (`sf-symbols.css`). Apple's licences",
+              "  cover mockups of apps for Apple's platforms, not redistribution, so",
+              "  `.gitignore` keeps them out of commits. Remove them before publishing.",
+              "- Images and fonts you add yourself aren't listed here: record them in",
+              "  `assets.json` at the top of the design, with their source and licence.", ""]
+    if sf:
+        lines.insert(lines.index("Not passed on:") + 1, "")
+        lines.insert(lines.index("Not passed on:") + 2,
+                     "This design has your own SF Pro in `fonts/SF-Pro.ttf`.")
+    with open(os.path.join(out, "vendor", "NOTICES.md"), "w", encoding="utf-8") as f:
+        f.write("\n".join(lines))
+    files = {}
+    for rel, src in sorted(copied.items()):
+        with open(os.path.join(out, rel), "rb") as fh:
+            digest = hashlib.sha256(fh.read()).hexdigest()
+        licence = ("licence text" if "LICENSE" in os.path.basename(src) else
+                   "OFL-1.1" if src.endswith(".woff2") else "Apache-2.0")
+        files[rel] = {"origin": src, "sha256": digest, "licence": licence}
+    with open(os.path.join(out, "vendor", "manifest.json"), "w", encoding="utf-8") as f:
+        json.dump({"generator": "new_project.py", "files": files}, f, indent=1)
+        f.write("\n")
 
 
 def main():
@@ -1591,25 +1657,37 @@ def main():
     vendor = os.path.join(out, "vendor")
     os.makedirs(os.path.join(vendor, "fonts"), exist_ok=True)
 
+    # Every file copied in, so NOTICES.md and manifest.json can say where
+    # each came from and check_distribution.py can tell them from yours.
+    copied = {}
+
+    def vend(src, rel):
+        dst = os.path.join(out, rel)
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        shutil.copy2(src, dst)
+        copied[rel] = os.path.relpath(src, SKILLS).replace(os.sep, "/")
+
     if kind == "android":
-        shutil.copy2(os.path.join(ANDROID_KIT, "material-components.css"), vendor)
-        for filename in os.listdir(os.path.join(ANDROID_KIT, "fonts")):
-            shutil.copy2(os.path.join(ANDROID_KIT, "fonts", filename),
-                         os.path.join(vendor, "fonts", filename))
+        vend(os.path.join(ANDROID_KIT, "material-components.css"), "vendor/material-components.css")
+        for filename in sorted(os.listdir(os.path.join(ANDROID_KIT, "fonts"))):
+            vend(os.path.join(ANDROID_KIT, "fonts", filename), f"vendor/fonts/{filename}")
+        # The icons are written into the page, so their licence comes too.
+        vend(os.path.join(ANDROID_KIT, "icons", "LICENSE-Material-Symbols.txt"),
+             "vendor/icons/LICENSE-Material-Symbols.txt")
     else:
-        shutil.copy2(os.path.join(KIT, "tokens", "ios-tokens.css"), vendor)
-        shutil.copy2(os.path.join(KIT, "ios-components.css"), vendor)
+        vend(os.path.join(KIT, "tokens", "ios-tokens.css"), "vendor/ios-tokens.css")
+        vend(os.path.join(KIT, "ios-components.css"), "vendor/ios-components.css")
     if kind == "macos":
-        shutil.copy2(os.path.join(KIT, "macos-components.css"), vendor)
+        vend(os.path.join(KIT, "macos-components.css"), "vendor/macos-components.css")
     if kind == "ipados":
-        shutil.copy2(os.path.join(KIT, "ipados-components.css"), vendor)
-    for filename in ([] if kind == "android" else os.listdir(os.path.join(KIT, "fonts"))):
+        vend(os.path.join(KIT, "ipados-components.css"), "vendor/ipados-components.css")
+    for filename in ([] if kind == "android" else sorted(os.listdir(os.path.join(KIT, "fonts")))):
         # A copy of SF Pro someone dropped into the kit is theirs, not the
         # project's; it only travels with --sf.
         if filename.startswith("SF-Pro"):
             continue
-        shutil.copy2(os.path.join(KIT, "fonts", filename),
-                     os.path.join(vendor, "fonts", filename))
+        vend(os.path.join(KIT, "fonts", filename), f"vendor/fonts/{filename}")
+    vend(os.path.join(HERE, "LICENSE"), "vendor/LICENSE-hig.txt")
 
     if a.sf is not None:
         sf = a.sf or os.path.join(KIT, "fonts", "SF-Pro.ttf")
@@ -1670,7 +1748,8 @@ def main():
             sys.exit("internal: token stylesheet link not found for --sf")
         html = html.replace(tokens, tokens + '<link rel="stylesheet" '
                             'href="vendor/fonts/sf.css">\n', 1)
-    shutil.copy2(os.path.join(HERE, "prototype.js"), vendor)
+    vend(os.path.join(HERE, "prototype.js"), "vendor/prototype.js")
+    write_notices(out, copied, kind, sf=a.sf is not None)
     # The first screen answers to its nav item, so prototype.js can switch
     # to the others once they're built beside it.
     first = slug(screens[0])
@@ -1746,6 +1825,9 @@ def main():
     print("      measured metrics -- then")
     print(f"      python3 {check_rel} {rel}")
     print("      perform references/visual-critique.md")
+    dist_rel = min(os.path.relpath(os.path.join(HERE, "check_distribution.py")),
+                   os.path.join(HERE, "check_distribution.py"), key=len)
+    print(f"before it's shared or published: python3 {dist_rel} {rel} --purpose publish")
     return 0
 
 

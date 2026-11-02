@@ -18,7 +18,10 @@ Apple's systems.
 
 The symbols stay in your design, not in this repo: Apple's licence allows
 them in mock-ups of apps for its platforms, not handed around on their
-own. The design's .gitignore lists the stylesheet for that reason.
+own. The design's .gitignore lists the stylesheet for that reason, and a
+design for Android, the web or a marketing site gets no symbols at all:
+it says so and keeps its drawn icons. apple-design's check_distribution.py
+fails any design that would publish them.
 """
 
 import argparse
@@ -97,13 +100,39 @@ def link(design):
                     "vendor/sf-symbols.css\n")
 
 
+APPLE_PLATFORMS = {"ios", "ipados", "macos", "watchos", "visionos", "tvos", "cross"}
+
+
+def platform_of(design):
+    """The platform new_project.py recorded for the design, or None."""
+    for name, pattern in (("DESIGN.md", r"## Platform mode\s+`([a-z]+)`"),
+                          ("README.md", r"kind:\s*`([a-z]+)`")):
+        path = os.path.join(design, name)
+        if os.path.isfile(path):
+            m = re.search(pattern, open(path, encoding="utf-8", errors="replace").read())
+            if m:
+                return m.group(1)
+    index = os.path.join(design, "index.html")
+    if os.path.isfile(index) and "material-components.css" in open(index, encoding="utf-8").read():
+        return "android"
+    return None
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("design", help="the design folder")
+    ap.add_argument("--platform", help="the platform the design is for, when DESIGN.md "
+                    "doesn't say (ios, ipados, macos, watchos, visionos, tvos)")
     a = ap.parse_args()
     names = names_in(a.design)
     if not names:
         print("no data-sf-symbol names in this design; nothing to draw")
+        return 0
+    plat = (a.platform or platform_of(a.design) or "").lower()
+    if plat and plat not in APPLE_PLATFORMS:
+        print(f"this is a {plat} design. Apple's licence covers SF Symbols in mockups of apps "
+              f"for Apple's platforms, so it keeps its drawn icons. Use the platform's own "
+              f"icons instead (Material Symbols for Android).")
         return 0
     if platform.system() != "Darwin":
         print(f"{len(names)} symbols named, but SF Symbols only exist on a Mac. The design "

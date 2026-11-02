@@ -33,7 +33,7 @@ jobs:
 
       - name: Install Playwright and Chromium
         run: |
-          python -m pip install --quiet playwright pillow
+          python -m pip install --quiet playwright pillow fonttools brotli
           python -m playwright install --with-deps chromium
 
       - name: Installer parses
@@ -68,6 +68,9 @@ jobs:
 
       - name: Tailwind theme
         run: python scripts/eval/test_tailwind_theme.py
+
+      - name: What a design hands on
+        run: python scripts/eval/test_check_distribution.py
 
       - name: Docs match the files
         run: python scripts/doctor.py
