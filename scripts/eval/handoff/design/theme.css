@@ -1,0 +1,8 @@
+/* Ledger's brand, wired into the kit's accent. */
+:root {
+  --ledger-accent: #2F7D5B;
+  --ios-accent: var(--ledger-accent);
+}
+@media (prefers-color-scheme: dark) {
+  :root { --ledger-accent: #3DA676; }
+}

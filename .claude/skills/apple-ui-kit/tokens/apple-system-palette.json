@@ -1,0 +1,121 @@
+{
+ "source": "https://developer.apple.com/design/human-interface-guidelines/color",
+ "columns": [
+  "light",
+  "dark",
+  "light, Increased Contrast",
+  "dark, Increased Contrast"
+ ],
+ "system": {
+  "Red": [
+   "#FF383C",
+   "#FF4245",
+   "#E9152D",
+   "#FF6165"
+  ],
+  "Orange": [
+   "#FF8D28",
+   "#FF9230",
+   "#C55300",
+   "#FFA056"
+  ],
+  "Yellow": [
+   "#FFCC00",
+   "#FFD600",
+   "#A16A00",
+   "#FEDF43"
+  ],
+  "Green": [
+   "#34C759",
+   "#30D158",
+   "#008932",
+   "#4AD968"
+  ],
+  "Mint": [
+   "#00C8B3",
+   "#00DAC3",
+   "#008575",
+   "#54DFCB"
+  ],
+  "Teal": [
+   "#00C3D0",
+   "#00D2E0",
+   "#008198",
+   "#3BDDEC"
+  ],
+  "Cyan": [
+   "#00C0E8",
+   "#3CD3FE",
+   "#007EAE",
+   "#6DD9FF"
+  ],
+  "Blue": [
+   "#0088FF",
+   "#0091FF",
+   "#1E6EF4",
+   "#5CB8FF"
+  ],
+  "Indigo": [
+   "#6155F5",
+   "#6D7CFF",
+   "#564ADE",
+   "#A7AAFF"
+  ],
+  "Purple": [
+   "#CB30E0",
+   "#DB34F2",
+   "#B02FC2",
+   "#EA8DFF"
+  ],
+  "Pink": [
+   "#FF2D55",
+   "#FF375F",
+   "#E7124D",
+   "#FF8AC4"
+  ],
+  "Brown": [
+   "#AC7F5E",
+   "#B78A66",
+   "#956D51",
+   "#DBA679"
+  ]
+ },
+ "grays": {
+  "Gray": [
+   "#8E8E93",
+   "#8E8E93",
+   "#6C6C70",
+   "#AEAEB2"
+  ],
+  "Gray (2)": [
+   "#AEAEB2",
+   "#636366",
+   "#8E8E93",
+   "#7C7C80"
+  ],
+  "Gray (3)": [
+   "#C7C7CC",
+   "#48484A",
+   "#AEAEB2",
+   "#545456"
+  ],
+  "Gray (4)": [
+   "#D1D1D6",
+   "#3A3A3C",
+   "#BCBCC0",
+   "#444446"
+  ],
+  "Gray (5)": [
+   "#E5E5EA",
+   "#2C2C2E",
+   "#D8D8DC",
+   "#363638"
+  ],
+  "Gray (6)": [
+   "#F2F2F7",
+   "#1C1C1E",
+   "#EBEBF0",
+   "#242426"
+  ]
+ }
+}

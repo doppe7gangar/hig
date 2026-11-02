@@ -1,0 +1,73 @@
+name: checks
+
+# Every push to main and every pull request runs the whole suite. The
+# provenance step comes first: Apple's text or images coming back fails the
+# build before anything else runs.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Nothing of Apple's copied in
+        run: python3 scripts/provenance_guard.py
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Playwright and Chromium
+        run: |
+          python -m pip install --quiet playwright pillow
+          python -m playwright install --with-deps chromium
+
+      - name: Installer parses
+        run: bash -n install.sh
+
+      - name: iPhone kit
+        run: python .claude/skills/apple-ui-kit/verify_web_ui.py
+
+      - name: iPad kit
+        run: python .claude/skills/apple-ui-kit/verify_ipad_ui.py
+
+      - name: Mac kit
+        run: python .claude/skills/apple-ui-kit/verify_mac_ui.py
+
+      - name: iPhone screens against Apple's examples
+        run: python .claude/skills/apple-ui-kit/verify_ios_screens.py
+
+      - name: Android kit
+        run: python .claude/skills/android-ui-kit/verify_android_ui.py
+
+      - name: Design workflow
+        run: python scripts/eval/design_workflow_smoke.py
+
+      - name: SwiftUI checker
+        run: python scripts/eval/test_check_swiftui.py
+
+      - name: Quote checker
+        run: python scripts/eval/test_check_quotes.py
+
+      - name: React components
+        run: python scripts/eval/test_react_kit.py
+
+      - name: Tailwind theme
+        run: python scripts/eval/test_tailwind_theme.py
+
+      - name: Docs match the files
+        run: python scripts/doctor.py

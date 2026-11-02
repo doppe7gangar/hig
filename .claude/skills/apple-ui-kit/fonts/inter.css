@@ -1,0 +1,40 @@
+/* Inter, bundled as the non-Apple fallback for SF Pro.
+ *
+ * SF Pro cannot be shipped: its licence covers designing for Apple
+ * platforms, not self-hosting as a webfont. It also doesn't need to be
+ * shipped -- on macOS and iOS `-apple-system` already resolves to it.
+ * The gap is everywhere else, where the stack used to land on Segoe UI
+ * or Roboto and the typography stopped looking Apple-ish at all.
+ *
+ * Inter is the closest open face to SF and is SIL OFL 1.1, which permits
+ * bundling and web use. LICENSE-Inter.txt travels with it, as the
+ * licence requires.
+ *
+ * The variable font carries an optical-size axis (opsz 14-32) alongside
+ * weight, which is the same trick SF plays with Text and Display cuts:
+ * tighter spacing and smaller apertures as type grows. font-optical-
+ * sizing: auto in the token stylesheet turns it on, so large titles
+ * tighten the way they do on an Apple device rather than just scaling up.
+ *
+ *     <link rel="stylesheet" href="fonts/inter.css">
+ *     <link rel="stylesheet" href="tokens/ios-tokens.css">
+ *
+ * Load this first if you want it; skip it and everything still works,
+ * because the stack falls through to the platform font.
+ */
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("InterVariable.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("InterVariable-Italic.woff2") format("woff2");
+}

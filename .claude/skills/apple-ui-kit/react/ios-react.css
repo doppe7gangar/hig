@@ -1,0 +1,83 @@
+/* What the React components add to ios-components.css: where modals sit
+   on the page, the button stretched over a tappable row, and the large
+   title. Load it after the kit. Nothing here restates a kit value. */
+
+/* A top-level screen's large title. */
+.ios-largetitle {
+  margin: 4px var(--ios-gutter, 16px) 8px;
+  font: var(--ios-text-large-title);
+  font-weight: var(--ios-weight-bold);
+  letter-spacing: var(--ios-track-large-title);
+  color: var(--ios-label);
+}
+
+/* The bar at rest, under a large title: no material, no compact title.
+   Both arrive together once the large title has scrolled away. */
+.ios-navbar { position: sticky; top: 0; z-index: 10; transition: background .18s ease; }
+.ios-navbar .ios-controls { margin-left: auto; }
+.ios-navbar__title { transition: opacity .18s ease; }
+.ios-navbar--at-rest {
+  background: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-color: transparent;
+  box-shadow: none;
+}
+.ios-navbar--at-rest::before { opacity: 0; }
+.ios-navbar--at-rest .ios-navbar__title { opacity: 0; }
+
+/* The real control on a tappable row: a button or link over the whole
+   row, under the row's own content visually, on top for the pointer. */
+.ios-list__action {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.ios-list__action:active { background: var(--ios-fill-control); }
+.ios-list__action:focus-visible {
+  outline: 2px solid var(--ios-accent);
+  outline-offset: -2px;
+}
+/* Content outside a list keeps the list's gutter. */
+.ios-inset { margin: 0 var(--ios-gutter, 16px); }
+
+/* A control in the row stays reachable above the stretched button. */
+.ios-list__row > .ios-switch,
+.ios-list__row > .ios-stepper,
+.ios-list__row > .ios-chip,
+.ios-list__row > .ios-segmented { position: relative; z-index: 1; }
+
+/* Modal layers. The scrim is the kit's; these only place the surface. */
+.ios-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+}
+.ios-layer > :not(.ios-sheet-scrim) { position: relative; }
+.ios-layer--sheet { align-items: flex-end; }
+.ios-layer--sheet > .ios-sheet {
+  width: 100%;
+  max-width: 700px;
+  max-height: calc(100% - 48px);
+  overflow-y: auto;
+}
+.ios-layer--center { align-items: center; }
+.ios-layer--bottom { align-items: flex-end; padding: 0 8px calc(env(safe-area-inset-bottom, 0px) + 8px); }
+
+.ios-sheet:focus, .ios-alert:focus, .ios-actionsheet:focus { outline: none; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .ios-layer--sheet > .ios-sheet { animation: ios-sheet-in .35s cubic-bezier(.2, .9, .3, 1); }
+  .ios-layer--bottom > .ios-actionsheet { animation: ios-sheet-in .3s cubic-bezier(.2, .9, .3, 1); }
+  .ios-layer--center > .ios-alert { animation: ios-alert-in .2s ease-out; }
+}
+@keyframes ios-sheet-in { from { transform: translateY(100%); } }
+@keyframes ios-alert-in { from { transform: scale(1.1); opacity: 0; } }

@@ -1,0 +1,95 @@
+hig
+Copyright 2026 doppe7gangar
+
+This product is licensed under the Apache License, Version 2.0 (see
+LICENSE). The licence covers the original work in this repository only,
+listed first below. It does not grant any right in the third-party
+material listed after it, which keeps its own licence, nor in material
+that is not included here.
+
+scripts/provenance_guard.py checks the parts a machine can: CI fails if an
+image or font appears that isn't listed in this file, or if Apple's fonts,
+images or text turn up.
+
+Original work
+-------------
+
+Skill instructions and references
+  .claude/skills/*/SKILL.md and references/ (apple-motion's references
+  excepted, below). The apple-hig references hold page titles and official
+  addresses, a short set of key figures, API names and summaries written
+  for this project, each linked to Apple's page; none of Apple's text.
+
+Scripts and checks
+  scripts/, and the .py, .swift and .js files under .claude/skills/
+
+CSS recipes, React and Tailwind components
+  .claude/skills/apple-ui-kit/ and .claude/skills/android-ui-kit/
+  Values measured from Apple's and Google's design kits are recorded as
+  figures, with their source in a comment.
+
+Design tokens
+  .claude/skills/apple-ui-kit/tokens/
+  Generated from the measurements. apple-system-palette.json and
+  sf-pro-tracking.json hold figures published on Apple's Color and
+  Typography pages, with the page each comes from.
+
+Example and template pages
+  *-example.html and ios-screens.html, built from the recipes. The icons
+  are hand-drawn stand-ins, not SF Symbols.
+
+Preview images
+  docs/iphone.png, docs/ipad.png, docs/mac.png, docs/android.png
+  Screenshots of the example pages, rendered with Inter.
+
+Third-party material included
+-----------------------------
+
+Inter typeface
+  Copyright (c) 2016 The Inter Project Authors (https://github.com/rsms/inter)
+  SIL Open Font License 1.1
+  .claude/skills/apple-ui-kit/fonts/ (licence: LICENSE-Inter.txt)
+
+Roboto typeface
+  Copyright 2011 The Roboto Project Authors (https://github.com/googlefonts/roboto-classic)
+  SIL Open Font License 1.1
+  .claude/skills/android-ui-kit/fonts/ (licence: LICENSE-Roboto.txt)
+
+Material Symbols (outlines, fills and name list)
+  Copyright Google LLC
+  Apache License 2.0
+  .claude/skills/android-ui-kit/icons/ (licence: LICENSE-Material-Symbols.txt)
+
+apple-motion references
+  Adapted from apple-design-skills (skills/apple-design-motion)
+  Copyright (c) 2026 s1gmamale1
+  MIT License
+  .claude/skills/apple-motion/references/ (licence: ../LICENSE.txt)
+
+Not included, and not licensed by this repository
+-------------------------------------------------
+
+Belonging to Apple Inc.:
+
+  The Human Interface Guidelines. The skills link to the official pages
+  and read them there.
+
+  Apple Design Resources, including the iOS, iPadOS and macOS design kits.
+  Only measured figures are recorded; re-measuring uses your own copy
+  (APPLE_UI_KIT_PNGS).
+
+  SF Pro and Apple's other fonts. Apple devices use their own system copy;
+  elsewhere you can use your own download (apple-ui-kit/fonts/sf.css).
+
+  SF Symbols. Drawn on your own Mac into your own project (sf_icons.py),
+  with names checked against your Mac (sf_symbols.py).
+
+Belonging to Google LLC:
+
+  The Material Design guidelines and the Material 3 Design Kit. Only
+  measured figures are recorded, beyond the Material Symbols above.
+
+Apple, iPhone, iPad, Mac, macOS, iPadOS, watchOS, tvOS, visionOS, SF Pro
+and SF Symbols are trademarks of Apple Inc. Android and Material Design are
+trademarks of Google LLC. This project is not affiliated with or endorsed
+by either company.

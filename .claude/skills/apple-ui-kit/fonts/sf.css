@@ -1,0 +1,39 @@
+/* SF Pro, from your own copy. The kit doesn't ship it.
+ *
+ * Apple's licence for SF Pro doesn't allow redistributing it, so it isn't
+ * here. On a Mac, iPhone or iPad you don't need it: -apple-system at the
+ * front of --ios-font is already the system's SF Pro.
+ *
+ * Elsewhere, if you have Apple's SF Pro download (developer.apple.com/fonts),
+ * you can use your own copy for mockups:
+ *
+ *   1. Copy SF-Pro.ttf next to this file. A Mac with SF Pro installed has
+ *      it at /Library/Fonts/SF-Pro.ttf. On Windows or Linux, extract it
+ *      from Apple's download with 7-Zip.
+ *   2. Link this file after the tokens:
+ *        <link rel="stylesheet" href="tokens/ios-tokens.css">
+ *        <link rel="stylesheet" href="fonts/sf.css">
+ *
+ * Don't link it without the font file next to it: the browser reports the
+ * missing file and falls back to Inter. Keep the font out of commits and
+ * off public sites -- Apple's licence covers mockups for Apple platforms.
+ *
+ * Why the file rather than an installed copy found by name: SF-Pro.ttf is
+ * a variable font whose optical size defaults to Display. Loaded from a
+ * file, the browser sets the optical size from the text size, so body text
+ * gets Text spacing and titles get Display spacing, as on the device.
+ * Found by name on Linux, it set 17pt text 11% too tight.
+ */
+
+@font-face {
+  font-family: "SF Pro";
+  font-style: normal;
+  font-weight: 1 1000;
+  font-display: swap;
+  src: url("SF-Pro.ttf") format("truetype");
+}
+
+:root {
+  --ios-font: -apple-system, BlinkMacSystemFont, "SF Pro", "Inter",
+      system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}

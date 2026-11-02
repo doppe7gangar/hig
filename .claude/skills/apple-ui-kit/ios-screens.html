@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iOS 27 screen templates</title>
+<!-- Four whole screens, composed the way Apple composes them on the
+     Examples page of its iOS and iPadOS 27 kit, from the kit's parts and
+     nothing else. Start a screen from the closest one rather than from a
+     blank page: a layout invented from memory is what reads as a web page
+     dressed as an app. verify_ios_screens.py holds the geometry to
+     Apple's numbers. -->
+<link rel="stylesheet" href="fonts/inter.css">
+<link rel="stylesheet" href="tokens/ios-tokens.css">
+<link rel="stylesheet" href="ios-components.css">
+<style>
+  body { margin: 0; padding: 40px; display: flex; flex-wrap: wrap; gap: 40px;
+         background: #DADADF; font-family: var(--ios-font); }
+  @media (prefers-color-scheme: dark) { body { background: #111113; } }
+  .screen { position: relative; width: 402px; height: 874px; overflow: hidden;
+            display: flex; flex-direction: column; border-radius: 44px;
+            background: var(--ios-bg); color: var(--ios-label); }
+  .screen--plain { background: var(--ios-bg-primary); }
+  .screen .fill { flex: 1; }
+  .ios-btn--link { border: 0; background: none; padding: 0; width: 100%;
+                   font: var(--ios-text-body); color: var(--ios-accent); }
+  .ios-list__row--action { justify-content: center; }
+  .screen--plain .ios-navbar { background: transparent; }
+</style>
+</head>
+<body>
+<section class="screen" id="inset" aria-label="Inset list"><div class="ios-statusbar" aria-hidden="true"><span>9:41</span><span class="ios-statusbar__island"></span><span class="ios-statusbar__indicators">
+  <svg width="19" height="13" viewBox="0 0 19 13" fill="currentColor"><rect x="0" y="9" width="3" height="4" rx="1"/><rect x="5" y="6.5" width="3" height="6.5" rx="1"/><rect x="10" y="3.5" width="3" height="9.5" rx="1"/><rect x="15" y="0" width="3" height="13" rx="1"/></svg>
+  <svg width="27" height="13" viewBox="0 0 27 13"><rect x="0.6" y="0.6" width="23.3" height="11.8" rx="3.8" fill="none" stroke="currentColor" stroke-opacity=".38" stroke-width="1.1"/><rect x="2.2" y="2.2" width="20" height="8.6" rx="2.4" fill="currentColor"/></svg></span></div>
+<nav class="ios-navbar"><div class="ios-glass ios-controls"><button class="ios-controls__item" aria-label="Back" data-inert><svg data-sf-symbol="chevron.left" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button></div><div class="ios-glass ios-controls"><button class="ios-controls__item" aria-label="Share" data-inert><svg data-sf-symbol="square.and.arrow.up" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4M6 11v8.5A1.5 1.5 0 0 0 7.5 21h9a1.5 1.5 0 0 0 1.5-1.5V11"/></svg></button><button class="ios-controls__item" aria-label="More" data-inert><svg data-sf-symbol="ellipsis" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="19" cy="12" r="1.6" fill="currentColor"/></svg></button></div></nav>
+<header class="ios-largetitle"><h1>Monstera</h1></header>
+<ul class="ios-list">
+  <li class="ios-list__row ios-list__row--tappable"><img class="ios-list__thumb" alt=""><span class="ios-list__text"><span class="ios-list__title">Photos</span><span class="ios-list__subtitle">12 since March</span></span><span class="ios-list__chevron">›</span></li>
+  <li class="ios-list__row"><span class="ios-list__title">Water every</span><span class="ios-list__value">7 days</span><span class="ios-stepper"><button aria-label="Fewer days" data-inert>−</button><button aria-label="More days" data-inert>+</button></span></li>
+  <li class="ios-list__row"><span class="ios-list__title">Last watered</span><button class="ios-pill" data-inert>Oct 26</button><button class="ios-pill" data-inert>8:05 AM</button></li>
+  <li class="ios-list__row"><span class="ios-list__title">Light</span><button class="ios-popup" data-inert>Bright, indirect <svg data-sf-symbol="chevron.up.chevron.down" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 9l4-4 4 4M8 15l4 4 4-4"/></svg></button></li>
+  <li class="ios-list__row ios-list__row--tappable"><span class="ios-list__title">Room</span><span class="ios-list__value">Living room</span><span class="ios-list__chevron">›</span></li>
+  <li class="ios-list__row"><span class="ios-list__title">Reminders</span><label class="ios-switch"><input type="checkbox" checked><span class="ios-switch__track"></span></label></li>
+  <li class="ios-list__row ios-list__row--action"><button class="ios-btn--link" data-inert>Water Now</button></li>
+</ul></section>
+<section class="screen screen--plain" id="plain" aria-label="Plain list"><div class="ios-statusbar" aria-hidden="true"><span>9:41</span><span class="ios-statusbar__island"></span><span class="ios-statusbar__indicators">
+  <svg width="19" height="13" viewBox="0 0 19 13" fill="currentColor"><rect x="0" y="9" width="3" height="4" rx="1"/><rect x="5" y="6.5" width="3" height="6.5" rx="1"/><rect x="10" y="3.5" width="3" height="9.5" rx="1"/><rect x="15" y="0" width="3" height="13" rx="1"/></svg>
+  <svg width="27" height="13" viewBox="0 0 27 13"><rect x="0.6" y="0.6" width="23.3" height="11.8" rx="3.8" fill="none" stroke="currentColor" stroke-opacity=".38" stroke-width="1.1"/><rect x="2.2" y="2.2" width="20" height="8.6" rx="2.4" fill="currentColor"/></svg></span></div>
+<nav class="ios-navbar"><div class="ios-glass ios-controls"><button class="ios-controls__item" aria-label="Back" data-inert><svg data-sf-symbol="chevron.left" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button></div><div class="ios-glass ios-controls"><button class="ios-controls__item" aria-label="Search" data-inert><svg data-sf-symbol="magnifyingglass" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></button><button class="ios-controls__item" aria-label="Add plant" data-inert><svg data-sf-symbol="plus" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></div></nav>
+<header class="ios-largetitle"><h1>Plants</h1></header>
+<div class="ios-list__section">B</div>
+<ul class="ios-list ios-list--plain"><li class="ios-list__row ios-list__row--tappable"><span class="ios-list__title">Boston fern</span></li><li class="ios-list__row ios-list__row--tappable"><span class="ios-list__title">Bird of paradise</span></li></ul>
+<div class="ios-list__section">C</div>
+<ul class="ios-list ios-list--plain"><li class="ios-list__row ios-list__row--tappable"><span class="ios-list__title">Calathea</span></li><li class="ios-list__row ios-list__row--tappable"><span class="ios-list__title">Cast-iron plant</span></li></ul>
+<div class="ios-list__section">F</div>
+<ul class="ios-list ios-list--plain"><li class="ios-list__row ios-list__row--tappable"><span class="ios-list__title">Fiddle-leaf fig</span></li></ul>
+<div class="ios-list__section">M</div>
+<ul class="ios-list ios-list--plain"><li class="ios-list__row ios-list__row--tappable"><span class="ios-list__title">Monstera</span></li></ul>
+</section>
+<section class="screen screen--plain" id="empty" aria-label="Empty state"><div class="ios-statusbar" aria-hidden="true"><span>9:41</span><span class="ios-statusbar__island"></span><span class="ios-statusbar__indicators">
+  <svg width="19" height="13" viewBox="0 0 19 13" fill="currentColor"><rect x="0" y="9" width="3" height="4" rx="1"/><rect x="5" y="6.5" width="3" height="6.5" rx="1"/><rect x="10" y="3.5" width="3" height="9.5" rx="1"/><rect x="15" y="0" width="3" height="13" rx="1"/></svg>
+  <svg width="27" height="13" viewBox="0 0 27 13"><rect x="0.6" y="0.6" width="23.3" height="11.8" rx="3.8" fill="none" stroke="currentColor" stroke-opacity=".38" stroke-width="1.1"/><rect x="2.2" y="2.2" width="20" height="8.6" rx="2.4" fill="currentColor"/></svg></span></div>
+<nav class="ios-navbar"><div class="ios-glass ios-controls"><button class="ios-controls__item" aria-label="Back" data-inert><svg data-sf-symbol="chevron.left" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button></div><div class="ios-glass ios-controls"><button class="ios-controls__item" aria-label="More" data-inert><svg data-sf-symbol="ellipsis" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="19" cy="12" r="1.6" fill="currentColor"/></svg></button></div></nav>
+<header class="ios-largetitle"><h1>Today</h1></header>
+<div class="ios-empty ios-empty--circle ios-empty--fill">
+  <span class="ios-empty__glyph"><svg data-sf-symbol="checkmark" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+  <h2 class="ios-empty__title">All Watered</h2>
+  <p class="ios-empty__body">Nothing needs water today</p>
+  <button class="ios-btn ios-btn--filled ios-empty__action" data-inert>Add Plant</button>
+</div></section>
+<section class="screen" id="tabs" aria-label="Tab bar app"><div class="ios-statusbar" aria-hidden="true"><span>9:41</span><span class="ios-statusbar__island"></span><span class="ios-statusbar__indicators">
+  <svg width="19" height="13" viewBox="0 0 19 13" fill="currentColor"><rect x="0" y="9" width="3" height="4" rx="1"/><rect x="5" y="6.5" width="3" height="6.5" rx="1"/><rect x="10" y="3.5" width="3" height="9.5" rx="1"/><rect x="15" y="0" width="3" height="13" rx="1"/></svg>
+  <svg width="27" height="13" viewBox="0 0 27 13"><rect x="0.6" y="0.6" width="23.3" height="11.8" rx="3.8" fill="none" stroke="currentColor" stroke-opacity=".38" stroke-width="1.1"/><rect x="2.2" y="2.2" width="20" height="8.6" rx="2.4" fill="currentColor"/></svg></span></div>
+<nav class="ios-navbar"><span></span><div class="ios-glass ios-controls"><button class="ios-controls__item" aria-label="Add plant" data-inert><svg data-sf-symbol="plus" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></div></nav>
+<header class="ios-largetitle"><h1>Today</h1><p class="ios-largetitle__subtitle">3 plants need water</p></header>
+<div class="ios-list__header">Needs Water</div>
+<ul class="ios-list">
+  <li class="ios-list__row ios-list__row--tappable"><span class="ios-list__text"><span class="ios-list__title">Fiddle-leaf fig</span><span class="ios-list__subtitle">2 days overdue</span></span><span class="ios-list__chevron">›</span></li>
+  <li class="ios-list__row ios-list__row--tappable"><span class="ios-list__text"><span class="ios-list__title">Calathea</span><span class="ios-list__subtitle">Due today</span></span><span class="ios-list__chevron">›</span></li>
+  <li class="ios-list__row ios-list__row--tappable"><span class="ios-list__text"><span class="ios-list__title">Boston fern</span><span class="ios-list__subtitle">Due today</span></span><span class="ios-list__chevron">›</span></li>
+</ul>
+<div class="fill"></div>
+<nav class="ios-tabbar">
+  <button class="ios-tabbar__item" aria-selected="true" data-inert><svg data-sf-symbol="leaf.fill" viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19c0-9 6-14 15-14 0 9-5 15-14 15"/><path d="M5 19l7-7"/></svg>Today</button>
+  <button class="ios-tabbar__item" data-inert><svg data-sf-symbol="house.fill" viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 4l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Rooms</button>
+  <button class="ios-tabbar__item" data-inert><svg data-sf-symbol="calendar" viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2.5"/><path d="M4 10h16M8 3v4M16 3v4"/></svg>Schedule</button>
+</nav></section>
+</body>
+</html>

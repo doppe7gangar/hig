@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Material 3 recipes</title>
+<!-- Every recipe in material-components.css, light and dark. verify_android_ui.py
+     measures this page; the ids are its handles. -->
+<link rel="stylesheet" href="fonts/roboto.css">
+<link rel="stylesheet" href="material-components.css">
+<style>
+  body { margin: 0; }
+  .caption { width: 100%; margin: -16px 0 0; text-align: center; color: var(--md-sys-color-on-surface-variant); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 12px; padding: 0 16px 16px; }
+  .sheet { display: grid; grid-template-columns: max-content 1fr; gap: 20px 24px; align-items: center; padding: 24px;
+           border-radius: 28px; background: var(--md-sys-color-surface); color: var(--md-sys-color-on-surface); }
+  .sheet > span { color: var(--md-sys-color-on-surface-variant); justify-self: end; }
+  .sheet > div { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .stack { display: flex; flex-direction: column; gap: 16px; padding: 16px; }
+  .menu-at { position: absolute; z-index: 12; right: 12px; top: 108px; }
+  .controls { padding: 0 0 8px; }
+</style>
+</head>
+<body>
+<div class="m3-stage">
+
+  <!-- 1. A home screen: search, filter chips, a gallery, a list, a FAB
+       and a nav bar. Most apps start here. -->
+  <div class="m3-device" id="phone-home">
+    <div class="m3-statusbar" id="sb"><span id="sb-time">9:30</span><span class="m3-statusbar__icons"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="signal_wifi_4_bar" aria-hidden="true"><path d="M12 21L0 9q2.375-2.425 5.488-3.713T12 4t6.513 1.288T24 9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" data-icon="signal_cellular_4_bar" aria-hidden="true"><path d="M2 22L22 2v20z"/></svg><svg class="m3-battery" viewBox="0 0 8 15" fill="currentColor" aria-hidden="true"><rect x="2.5" width="3" height="2" rx=".5"/><rect y="1.5" width="8" height="13.5" rx="1.5"/></svg></span></div>
+    <header class="m3-topappbar" id="tab">
+      <button class="m3-iconbtn" id="tab-lead" aria-label="Open navigation"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="menu" aria-hidden="true"><path d="M3 18v-2h18v2zm0-5v-2h18v2zm0-5V6h18v2z"/></svg></button>
+      <h1 class="m3-topappbar__title" id="tab-title">Library</h1>
+      <div class="m3-topappbar__actions"><button class="m3-iconbtn" id="tab-more" aria-label="More options"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="more_vert" aria-hidden="true"><path d="M12 20q-.825 0-1.412-.587T10 18t.588-1.412T12 16t1.413.588T14 18t-.587 1.413T12 20m0-6q-.825 0-1.412-.587T10 12t.588-1.412T12 10t1.413.588T14 12t-.587 1.413T12 14m0-6q-.825 0-1.412-.587T10 6t.588-1.412T12 4t1.413.588T14 6t-.587 1.413T12 8"/></svg></button></div>
+    </header>
+    <main class="m3-body">
+      <div class="m3-search-wrap"><label class="m3-search" id="search"><span class="m3-iconbtn" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="search" aria-hidden="true"><path d="m19.6 21l-6.3-6.3q-.75.6-1.725.95T9.5 16q-2.725 0-4.612-1.888T3 9.5t1.888-4.612T9.5 3t4.613 1.888T16 9.5q0 1.1-.35 2.075T14.7 13.3l6.3 6.3zM9.5 14q1.875 0 3.188-1.312T14 9.5t-1.312-3.187T9.5 5T6.313 6.313T5 9.5t1.313 3.188T9.5 14"/></svg></span><input type="search" placeholder="Search recipes" aria-label="Search recipes"><button class="m3-iconbtn" aria-label="Account"><span class="m3-list__avatar">A</span></button></label></div>
+      <div class="m3-chips" id="chips" role="group" aria-label="Filter">
+        <button class="m3-chip" id="chip-sel" aria-pressed="true"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="check" aria-hidden="true"><path d="m9.55 18l-5.7-5.7l1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4z"/></svg>All</button>
+        <button class="m3-chip" id="chip" aria-pressed="false">Breakfast</button>
+        <button class="m3-chip" aria-pressed="false">Dinner</button>
+        <button class="m3-chip" aria-pressed="false">Baking</button>
+        <button class="m3-chip" aria-pressed="false">Quick</button>
+      </div>
+      <h2 class="m3-section-header" id="section">Recent</h2>
+      <div class="grid">
+        <a class="m3-media" id="media" href="#"><span class="m3-media__image m3-placeholder" id="media-image"></span><span class="m3-media__title" id="media-title">Overnight oats</span><span class="m3-media__meta" id="media-meta">Updated today</span></a>
+        <a class="m3-media" href="#"><span class="m3-media__image m3-placeholder"></span><span class="m3-media__title">Miso soup</span><span class="m3-media__meta">Updated yesterday</span></a>
+      </div>
+      <ul class="m3-list m3-list--divided" id="list">
+        <li><a class="m3-list__item m3-list__item--two" id="li-2l" href="#"><span class="m3-list__avatar" id="li-avatar">S</span><span class="m3-list__text"><span class="m3-list__headline" id="li-headline">Sheet-pan chicken</span><span class="m3-list__supporting" id="li-support">35 min · serves 2</span></span><span class="m3-list__trailing" id="li-trailing">2 d</span></a></li>
+        <li><a class="m3-list__item m3-list__item--three" id="li-3l" href="#"><span class="m3-list__thumb m3-placeholder" id="li-thumb"></span><span class="m3-list__text"><span class="m3-list__headline">Weeknight dal</span><span class="m3-list__supporting">Red lentils, tomato and cumin, simmered while the rice cooks.</span></span></a></li>
+        <li><a class="m3-list__item" id="li-1l" href="#"><svg viewBox="0 0 24 24" class="m3-list__icon" fill="currentColor" data-icon="schedule" aria-hidden="true"><path d="m15.3 16.7l1.4-1.4l-3.7-3.7V7h-2v5.4zM12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q3.325 0 5.663-2.337T20 12t-2.337-5.663T12 4T6.337 6.338T4 12t2.338 5.663T12 20"/></svg><span class="m3-list__text"><span class="m3-list__headline">Cook later</span></span></a></li>
+      </ul>
+    </main>
+    <button class="m3-fab m3-fab--anchored" id="fab" aria-label="New recipe"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="add" aria-hidden="true"><path d="M11 13H5v-2h6V5h2v6h6v2h-6v6h-2z"/></svg></button>
+    <nav class="m3-navbar" id="nav" aria-label="Main">
+      <a class="m3-nav-item" id="nav-active" href="#" aria-current="page"><span class="m3-nav-item__icon" id="nav-active-icon"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="home" aria-hidden="true"><path d="M4 21V9l8-6l8 6v12h-6v-7h-4v7z"/></svg></span><span class="m3-nav-item__label" id="nav-active-label">Home</span></a>
+      <a class="m3-nav-item" id="nav-item" href="#"><span class="m3-nav-item__icon"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="bookmark" aria-hidden="true"><path d="M5 21V5q0-.825.588-1.412T7 3h10q.825 0 1.413.588T19 5v16l-7-3zm2-3.05l5-2.15l5 2.15V5H7zM7 5h10z"/></svg></span><span class="m3-nav-item__label">Saved</span></a>
+      <a class="m3-nav-item" href="#"><span class="m3-nav-item__icon"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="notifications" aria-hidden="true"><path d="M4 19v-2h2v-7q0-2.075 1.25-3.687T10.5 4.2v-.7q0-.625.438-1.062T12 2t1.063.438T13.5 3.5v.7q2 .5 3.25 2.113T18 10v7h2v2zm8 3q-.825 0-1.412-.587T10 20h4q0 .825-.587 1.413T12 22m-4-5h8v-7q0-1.65-1.175-2.825T12 6T9.175 7.175T8 10z"/></svg><span class="m3-badge" id="badge">3</span></span><span class="m3-nav-item__label">Updates</span></a>
+      <a class="m3-nav-item" href="#"><span class="m3-nav-item__icon"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="person" aria-hidden="true"><path d="M9.175 10.825Q8 9.65 8 8t1.175-2.825T12 4t2.825 1.175T16 8t-1.175 2.825T12 12t-2.825-1.175M4 20v-2.8q0-.85.438-1.562T5.6 14.55q1.55-.775 3.15-1.162T12 13t3.25.388t3.15 1.162q.725.375 1.163 1.088T20 17.2V20zm2-2h12v-.8q0-.275-.137-.5t-.363-.35q-1.35-.675-2.725-1.012T12 15t-2.775.338T6.5 16.35q-.225.125-.363.35T6 17.2zm7.413-8.587Q14 8.825 14 8t-.587-1.412T12 6t-1.412.588T10 8t.588 1.413T12 10t1.413-.587M12 18"/></svg></span><span class="m3-nav-item__label">Profile</span></a>
+    </nav>
+    <div class="m3-gesturebar" id="gesture"></div>
+  </div>
+
+  <!-- 2. A form: a medium flexible app bar, tabs, text fields and every
+       control, with a snackbar. -->
+  <div class="m3-device" id="phone-form">
+    <div class="m3-statusbar"><span>9:30</span><span class="m3-statusbar__icons"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="signal_wifi_4_bar" aria-hidden="true"><path d="M12 21L0 9q2.375-2.425 5.488-3.713T12 4t6.513 1.288T24 9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" data-icon="signal_cellular_4_bar" aria-hidden="true"><path d="M2 22L22 2v20z"/></svg><svg class="m3-battery" viewBox="0 0 8 15" fill="currentColor" aria-hidden="true"><rect x="2.5" width="3" height="2" rx=".5"/><rect y="1.5" width="8" height="13.5" rx="1.5"/></svg></span></div>
+    <header class="m3-topappbar m3-topappbar--medium" id="tab-medium">
+      <button class="m3-iconbtn" aria-label="Back"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="arrow_back" aria-hidden="true"><path d="m7.825 13l5.6 5.6L12 20l-8-8l8-8l1.425 1.4l-5.6 5.6H20v2z"/></svg></button>
+      <h1 class="m3-topappbar__title" id="tab-medium-title">New recipe</h1>
+      <div class="m3-topappbar__actions"><button class="m3-iconbtn" aria-label="Attach"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="attach_file" aria-hidden="true"><path d="M18 15.75q0 2.6-1.825 4.425T11.75 22t-4.425-1.825T5.5 15.75V6.5q0-1.875 1.313-3.187T10 2t3.188 1.313T14.5 6.5v8.75q0 1.15-.8 1.95t-1.95.8t-1.95-.8t-.8-1.95V6h2v9.25q0 .325.213.538t.537.212t.538-.213t.212-.537V6.5q-.025-1.05-.737-1.775T10 4t-1.775.725T7.5 6.5v9.25q-.025 1.775 1.225 3.013T11.75 20q1.75 0 2.975-1.237T16 15.75V6h2z"/></svg></button><button class="m3-iconbtn" aria-label="More options"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="more_vert" aria-hidden="true"><path d="M12 20q-.825 0-1.412-.587T10 18t.588-1.412T12 16t1.413.588T14 18t-.587 1.413T12 20m0-6q-.825 0-1.412-.587T10 12t.588-1.412T12 10t1.413.588T14 12t-.587 1.413T12 14m0-6q-.825 0-1.412-.587T10 6t.588-1.412T12 4t1.413.588T14 6t-.587 1.413T12 8"/></svg></button></div>
+    </header>
+    <div class="m3-tabs" role="tablist" id="tabs"><button role="tab" aria-selected="true" id="tab-sel"><span id="tab-sel-label">Details</span></button><button role="tab" aria-selected="false" id="tab-off"><span>Ingredients</span></button><button role="tab" aria-selected="false"><span>Steps</span></button></div>
+    <main class="m3-body">
+      <div class="m3-form">
+        <div><label class="m3-field" id="field"><input placeholder=" " value="Overnight oats"><span class="m3-field__label" id="field-label">Name</span></label></div>
+        <div><label class="m3-field" id="field-empty"><input placeholder=" "><span class="m3-field__label" id="field-empty-label">Cuisine</span></label></div>
+        <div><label class="m3-field m3-field--outlined" id="field-out"><input placeholder=" " value="4"><span class="m3-field__label">Servings</span></label><p class="m3-field__support" id="field-support">Between 1 and 12</p></div>
+        <div class="m3-btngroup" role="radiogroup" aria-label="Difficulty" id="btngroup"><label id="bg-sel"><input type="radio" name="d" checked>Easy</label><label id="bg-mid"><input type="radio" name="d">Medium</label><label><input type="radio" name="d">Hard</label></div>
+        <div class="m3-progress" id="progress" role="progressbar" aria-label="Saved" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="--value: .45"></div>
+      </div>
+      <ul class="m3-list controls">
+        <li class="m3-list__item"><span class="m3-list__text"><span class="m3-list__headline">Vegetarian</span></span><label class="m3-switch" id="switch-on"><input type="checkbox" role="switch" checked aria-label="Vegetarian"><span></span></label></li>
+        <li class="m3-list__item"><span class="m3-list__text"><span class="m3-list__headline">Contains nuts</span></span><label class="m3-switch" id="switch-off"><input type="checkbox" role="switch" aria-label="Contains nuts"><span></span></label></li>
+      </ul>
+      <div style="padding: 0 4px">
+        <label class="m3-check" id="check"><input type="checkbox" checked>Share with family</label>
+        <label class="m3-check" id="check-off"><input type="checkbox">Print card</label><br>
+        <label class="m3-radio" id="radio"><input type="radio" name="vis" checked>Private</label>
+        <label class="m3-radio" id="radio-off"><input type="radio" name="vis">Public</label>
+      </div>
+      <div class="m3-btn-row" style="padding: 16px">
+        <button class="m3-btn" id="btn"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="check" aria-hidden="true"><path d="m9.55 18l-5.7-5.7l1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4z"/></svg>Save</button>
+        <button class="m3-btn m3-btn--tonal" id="btn-tonal">Draft</button>
+        <button class="m3-btn m3-btn--outlined" id="btn-outlined">Preview</button>
+        <button class="m3-btn m3-btn--elevated" id="btn-elevated">Share</button>
+        <button class="m3-btn m3-btn--text" id="btn-text">Discard</button>
+      </div>
+    </main>
+    <div class="m3-snackbar m3-snackbar--anchored" id="snackbar" role="status"><span class="m3-snackbar__text" id="snackbar-text">Draft saved</span><button class="m3-btn m3-btn--text" id="snackbar-action">Undo</button></div>
+    <div class="m3-gesturebar"></div>
+  </div>
+
+  <!-- 3. A dialog over a screen of cards, under a large flexible app bar. -->
+  <div class="m3-device" id="phone-dialog">
+    <div class="m3-statusbar"><span>9:30</span><span class="m3-statusbar__icons"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="signal_wifi_4_bar" aria-hidden="true"><path d="M12 21L0 9q2.375-2.425 5.488-3.713T12 4t6.513 1.288T24 9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" data-icon="signal_cellular_4_bar" aria-hidden="true"><path d="M2 22L22 2v20z"/></svg><svg class="m3-battery" viewBox="0 0 8 15" fill="currentColor" aria-hidden="true"><rect x="2.5" width="3" height="2" rx=".5"/><rect y="1.5" width="8" height="13.5" rx="1.5"/></svg></span></div>
+    <header class="m3-topappbar m3-topappbar--large" id="tab-large">
+      <button class="m3-iconbtn" aria-label="Back"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="arrow_back" aria-hidden="true"><path d="m7.825 13l5.6 5.6L12 20l-8-8l8-8l1.425 1.4l-5.6 5.6H20v2z"/></svg></button>
+      <h1 class="m3-topappbar__title" id="tab-large-title">Plans</h1>
+      <div class="m3-topappbar__actions"><button class="m3-iconbtn" aria-label="Search"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="search" aria-hidden="true"><path d="m19.6 21l-6.3-6.3q-.75.6-1.725.95T9.5 16q-2.725 0-4.612-1.888T3 9.5t1.888-4.612T9.5 3t4.613 1.888T16 9.5q0 1.1-.35 2.075T14.7 13.3l6.3 6.3zM9.5 14q1.875 0 3.188-1.312T14 9.5t-1.312-3.187T9.5 5T6.313 6.313T5 9.5t1.313 3.188T9.5 14"/></svg></button></div>
+    </header>
+    <main class="m3-body">
+      <div class="stack">
+        <article class="m3-card m3-card--elevated" id="card-elevated"><div class="m3-card__body"><h2 class="m3-card__title" id="card-title">This week</h2><p class="m3-card__subhead" id="card-subhead">Five dinners, one shop.</p></div><div class="m3-card__actions"><button class="m3-btn m3-btn--text">Edit</button><button class="m3-btn">Open</button></div></article>
+        <article class="m3-card m3-card--filled" id="card-filled"><div class="m3-card__body"><h2 class="m3-card__title">Next week</h2><p class="m3-card__subhead">Not planned yet.</p></div></article>
+        <article class="m3-card m3-card--outlined" id="card-outlined"><div class="m3-card__body"><h2 class="m3-card__title">Archive</h2><p class="m3-card__subhead">Twelve past plans.</p></div></article>
+      </div>
+    </main>
+    <div class="m3-gesturebar"></div>
+    <div class="m3-scrim" id="scrim">
+      <div class="m3-dialog" id="dialog" role="alertdialog" aria-labelledby="dt" aria-describedby="dd">
+        <h2 class="m3-dialog__title" id="dt">Discard this plan?</h2>
+        <p class="m3-dialog__body" id="dd">The recipes stay in your library. Only the plan is removed.</p>
+        <div class="m3-dialog__actions" id="dialog-actions"><button class="m3-btn m3-btn--text">Cancel</button><button class="m3-btn m3-btn--text" id="dialog-confirm">Discard</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. A menu open from the app bar's overflow button. -->
+  <div class="m3-device" id="phone-menu">
+    <div class="m3-statusbar"><span>9:30</span><span class="m3-statusbar__icons"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="signal_wifi_4_bar" aria-hidden="true"><path d="M12 21L0 9q2.375-2.425 5.488-3.713T12 4t6.513 1.288T24 9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" data-icon="signal_cellular_4_bar" aria-hidden="true"><path d="M2 22L22 2v20z"/></svg><svg class="m3-battery" viewBox="0 0 8 15" fill="currentColor" aria-hidden="true"><rect x="2.5" width="3" height="2" rx=".5"/><rect y="1.5" width="8" height="13.5" rx="1.5"/></svg></span></div>
+    <header class="m3-topappbar m3-topappbar--center" id="tab-center">
+      <button class="m3-iconbtn" aria-label="Back"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="arrow_back" aria-hidden="true"><path d="m7.825 13l5.6 5.6L12 20l-8-8l8-8l1.425 1.4l-5.6 5.6H20v2z"/></svg></button>
+      <h1 class="m3-topappbar__title" id="tab-center-title">Shopping list</h1>
+      <div class="m3-topappbar__actions"><button class="m3-iconbtn" aria-label="More options" aria-expanded="true"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="more_vert" aria-hidden="true"><path d="M12 20q-.825 0-1.412-.587T10 18t.588-1.412T12 16t1.413.588T14 18t-.587 1.413T12 20m0-6q-.825 0-1.412-.587T10 12t.588-1.412T12 10t1.413.588T14 12t-.587 1.413T12 14m0-6q-.825 0-1.412-.587T10 6t.588-1.412T12 4t1.413.588T14 6t-.587 1.413T12 8"/></svg></button></div>
+    </header>
+    <main class="m3-body">
+      <ul class="m3-list">
+        <li class="m3-list__item"><svg viewBox="0 0 24 24" class="m3-list__icon" fill="currentColor" data-icon="grocery" aria-hidden="true"><path d="M16 22q-2.5 0-4.25-1.75T10 16t1.75-4.25T16 10t4.25 1.75T22 16t-1.75 4.25T16 22m0-2q1.65 0 2.825-1.175T20 16t-1.175-2.825T16 12t-2.825 1.175T12 16t1.175 2.825T16 20M4 20q-.825 0-1.412-.587T2 18v-7.6q0-.2.038-.4t.112-.4l2-4.6H4q-.425 0-.712-.288T3 4V3q0-.425.288-.712T4 2h7q.425 0 .713.288T12 3v1q0 .425-.288.713T11 5h-.15l1.65 3.8q-.475.25-.9.525t-.8.625L8.7 5H6.3L4 10.4V18h4.25q.125.525.337 1.038T9.1 20zM16 9q-1.05 0-1.775-.725T13.5 6.5t.725-1.775T16 4zq0-1.05.725-1.775T18.5 6.5t1.775.725T21 9zm0 7"/></svg><span class="m3-list__text"><span class="m3-list__headline">Rolled oats</span></span><span class="m3-list__trailing">500 g</span></li>
+        <li class="m3-list__item"><svg viewBox="0 0 24 24" class="m3-list__icon" fill="currentColor" data-icon="grocery" aria-hidden="true"><path d="M16 22q-2.5 0-4.25-1.75T10 16t1.75-4.25T16 10t4.25 1.75T22 16t-1.75 4.25T16 22m0-2q1.65 0 2.825-1.175T20 16t-1.175-2.825T16 12t-2.825 1.175T12 16t1.175 2.825T16 20M4 20q-.825 0-1.412-.587T2 18v-7.6q0-.2.038-.4t.112-.4l2-4.6H4q-.425 0-.712-.288T3 4V3q0-.425.288-.712T4 2h7q.425 0 .713.288T12 3v1q0 .425-.288.713T11 5h-.15l1.65 3.8q-.475.25-.9.525t-.8.625L8.7 5H6.3L4 10.4V18h4.25q.125.525.337 1.038T9.1 20zM16 9q-1.05 0-1.775-.725T13.5 6.5t.725-1.775T16 4zq0-1.05.725-1.775T18.5 6.5t1.775.725T21 9zm0 7"/></svg><span class="m3-list__text"><span class="m3-list__headline">Red lentils</span></span><span class="m3-list__trailing">1 kg</span></li>
+        <li class="m3-list__item"><svg viewBox="0 0 24 24" class="m3-list__icon" fill="currentColor" data-icon="grocery" aria-hidden="true"><path d="M16 22q-2.5 0-4.25-1.75T10 16t1.75-4.25T16 10t4.25 1.75T22 16t-1.75 4.25T16 22m0-2q1.65 0 2.825-1.175T20 16t-1.175-2.825T16 12t-2.825 1.175T12 16t1.175 2.825T16 20M4 20q-.825 0-1.412-.587T2 18v-7.6q0-.2.038-.4t.112-.4l2-4.6H4q-.425 0-.712-.288T3 4V3q0-.425.288-.712T4 2h7q.425 0 .713.288T12 3v1q0 .425-.288.713T11 5h-.15l1.65 3.8q-.475.25-.9.525t-.8.625L8.7 5H6.3L4 10.4V18h4.25q.125.525.337 1.038T9.1 20zM16 9q-1.05 0-1.775-.725T13.5 6.5t.725-1.775T16 4zq0-1.05.725-1.775T18.5 6.5t1.775.725T21 9zm0 7"/></svg><span class="m3-list__text"><span class="m3-list__headline">Miso paste</span></span><span class="m3-list__trailing">1 jar</span></li>
+      </ul>
+    </main>
+    <div class="m3-gesturebar"></div>
+    <div class="menu-at">
+      <div class="m3-menu" id="menu" role="menu" aria-label="More options">
+        <button class="m3-menu__item" id="menu-item" role="menuitem"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="content_copy" aria-hidden="true"><path d="M9 18q-.825 0-1.412-.587T7 16V4q0-.825.588-1.412T9 2h9q.825 0 1.413.588T20 4v12q0 .825-.587 1.413T18 18zm0-2h9V4H9zm-4 6q-.825 0-1.412-.587T3 20V6h2v14h11v2zm4-6V4z"/></svg>Copy list</button>
+        <button class="m3-menu__item" role="menuitem"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="share" aria-hidden="true"><path d="M17 22q-1.25 0-2.125-.875T14 19q0-.15.075-.7L7.05 14.2q-.4.375-.925.588T5 15q-1.25 0-2.125-.875T2 12t.875-2.125T5 9q.6 0 1.125.213t.925.587l7.025-4.1q-.05-.175-.062-.337T14 5q0-1.25.875-2.125T17 2t2.125.875T20 5t-.875 2.125T17 8q-.6 0-1.125-.213T14.95 7.2l-7.025 4.1q.05.175.063.338T8 12t-.012.363t-.063.337l7.025 4.1q.4-.375.925-.587T17 16q1.25 0 2.125.875T20 19t-.875 2.125T17 22m0-2q.425 0 .713-.287T18 19t-.288-.712T17 18t-.712.288T16 19t.288.713T17 20M5 13q.425 0 .713-.288T6 12t-.288-.712T5 11t-.712.288T4 12t.288.713T5 13m12.713-7.288Q18 5.426 18 5t-.288-.712T17 4t-.712.288T16 5t.288.713T17 6t.713-.288M17 5"/></svg>Share</button>
+        <div class="m3-menu__divider" id="menu-divider" role="separator"></div>
+        <button class="m3-menu__item" role="menuitem"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="delete" aria-hidden="true"><path d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zM9 17h2V8H9zm4 0h2V8h-2zM7 6v13z"/></svg>Clear checked<span class="m3-menu__trailing">2</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. A bottom sheet over a recipe. -->
+  <div class="m3-device" id="phone-sheet">
+    <div class="m3-statusbar"><span>9:30</span><span class="m3-statusbar__icons"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="signal_wifi_4_bar" aria-hidden="true"><path d="M12 21L0 9q2.375-2.425 5.488-3.713T12 4t6.513 1.288T24 9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" data-icon="signal_cellular_4_bar" aria-hidden="true"><path d="M2 22L22 2v20z"/></svg><svg class="m3-battery" viewBox="0 0 8 15" fill="currentColor" aria-hidden="true"><rect x="2.5" width="3" height="2" rx=".5"/><rect y="1.5" width="8" height="13.5" rx="1.5"/></svg></span></div>
+    <header class="m3-topappbar">
+      <button class="m3-iconbtn" aria-label="Back"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="arrow_back" aria-hidden="true"><path d="m7.825 13l5.6 5.6L12 20l-8-8l8-8l1.425 1.4l-5.6 5.6H20v2z"/></svg></button>
+      <h1 class="m3-topappbar__title">Overnight oats</h1>
+      <div class="m3-topappbar__actions"><button class="m3-iconbtn" aria-label="Favourite"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="favorite" aria-hidden="true"><path d="m12 21l-1.45-1.3q-2.525-2.275-4.175-3.925T3.75 12.812T2.388 10.4T2 8.15Q2 5.8 3.575 4.225T7.5 2.65q1.3 0 2.475.55T12 4.75q.85-1 2.025-1.55t2.475-.55q2.35 0 3.925 1.575T22 8.15q0 1.15-.387 2.25t-1.363 2.412t-2.625 2.963T13.45 19.7zm0-2.7q2.4-2.15 3.95-3.687t2.45-2.675t1.25-2.026T20 8.15q0-1.5-1-2.5t-2.5-1q-1.175 0-2.175.662T12.95 7h-1.9q-.375-1.025-1.375-1.687T7.5 4.65q-1.5 0-2.5 1t-1 2.5q0 .875.35 1.763t1.25 2.025t2.45 2.675T12 18.3m0-6.825"/></svg></button><button class="m3-iconbtn" aria-label="Share"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="share" aria-hidden="true"><path d="M17 22q-1.25 0-2.125-.875T14 19q0-.15.075-.7L7.05 14.2q-.4.375-.925.588T5 15q-1.25 0-2.125-.875T2 12t.875-2.125T5 9q.6 0 1.125.213t.925.587l7.025-4.1q-.05-.175-.062-.337T14 5q0-1.25.875-2.125T17 2t2.125.875T20 5t-.875 2.125T17 8q-.6 0-1.125-.213T14.95 7.2l-7.025 4.1q.05.175.063.338T8 12t-.012.363t-.063.337l7.025 4.1q.4-.375.925-.587T17 16q1.25 0 2.125.875T20 19t-.875 2.125T17 22m0-2q.425 0 .713-.287T18 19t-.288-.712T17 18t-.712.288T16 19t.288.713T17 20M5 13q.425 0 .713-.288T6 12t-.288-.712T5 11t-.712.288T4 12t.288.713T5 13m12.713-7.288Q18 5.426 18 5t-.288-.712T17 4t-.712.288T16 5t.288.713T17 6t.713-.288M17 5"/></svg></button></div>
+    </header>
+    <main class="m3-body">
+      <span class="m3-placeholder" style="height: 240px; margin: 0 16px; border-radius: 28px"></span>
+      <h2 class="m3-section-header" style="margin-top: 8px">Ingredients</h2>
+      <ul class="m3-list" style="padding-top: 0">
+        <li class="m3-list__item"><svg viewBox="0 0 24 24" class="m3-list__icon" fill="currentColor" data-icon="grocery" aria-hidden="true"><path d="M16 22q-2.5 0-4.25-1.75T10 16t1.75-4.25T16 10t4.25 1.75T22 16t-1.75 4.25T16 22m0-2q1.65 0 2.825-1.175T20 16t-1.175-2.825T16 12t-2.825 1.175T12 16t1.175 2.825T16 20M4 20q-.825 0-1.412-.587T2 18v-7.6q0-.2.038-.4t.112-.4l2-4.6H4q-.425 0-.712-.288T3 4V3q0-.425.288-.712T4 2h7q.425 0 .713.288T12 3v1q0 .425-.288.713T11 5h-.15l1.65 3.8q-.475.25-.9.525t-.8.625L8.7 5H6.3L4 10.4V18h4.25q.125.525.337 1.038T9.1 20zM16 9q-1.05 0-1.775-.725T13.5 6.5t.725-1.775T16 4zq0-1.05.725-1.775T18.5 6.5t1.775.725T21 9zm0 7"/></svg><span class="m3-list__text"><span class="m3-list__headline">Rolled oats</span></span><span class="m3-list__trailing">80 g</span></li>
+        <li class="m3-list__item"><svg viewBox="0 0 24 24" class="m3-list__icon" fill="currentColor" data-icon="water_drop" aria-hidden="true"><path d="M12.275 19q.3-.025.513-.238T13 18.25q0-.35-.225-.562T12.2 17.5q-1.025.075-2.175-.562t-1.45-2.313q-.05-.275-.262-.45T7.825 14q-.35 0-.575.263t-.15.612q.425 2.275 2 3.25t3.175.875m-5.987.65Q4 17.3 4 13.8q0-2.5 1.988-5.437T12 2q4.025 3.425 6.013 6.363T20 13.8q0 3.5-2.287 5.85T12 22t-5.712-2.35M16.3 18.238Q18 16.475 18 13.8q0-1.825-1.513-4.125T12 4.65Q9.025 7.375 7.513 9.675T6 13.8q0 2.675 1.7 4.438T12 20t4.3-1.763M12 12"/></svg><span class="m3-list__text"><span class="m3-list__headline">Milk</span></span><span class="m3-list__trailing">200 ml</span></li>
+      </ul>
+    </main>
+    <div class="m3-gesturebar"></div>
+    <div class="m3-scrim"></div>
+    <section class="m3-sheet" id="sheet" aria-labelledby="sh">
+      <span class="m3-sheet__handle" id="sheet-handle"></span>
+      <h2 class="m3-sheet__title" id="sh">Add to shopping list</h2>
+      <ul class="m3-list">
+        <li><button class="m3-list__item" id="sheet-item"><svg viewBox="0 0 24 24" class="m3-list__icon" fill="currentColor" data-icon="checklist" aria-hidden="true"><path d="M5.55 19L2 15.45l1.4-1.4l2.125 2.125l4.25-4.25l1.4 1.425zm0-8L2 7.45l1.4-1.4l2.125 2.125l4.25-4.25l1.4 1.425zM13 17v-2h9v2zm0-8V7h9v2z"/></svg><span class="m3-list__text"><span class="m3-list__headline">All ingredients</span></span></button></li>
+        <li><button class="m3-list__item"><svg viewBox="0 0 24 24" class="m3-list__icon" fill="currentColor" data-icon="edit" aria-hidden="true"><path d="M5 19h1.425L16.2 9.225L14.775 7.8L5 17.575zm-2 2v-4.25L16.2 3.575q.3-.275.663-.425t.762-.15t.775.15t.65.45L20.425 5q.3.275.438.65T21 6.4q0 .4-.137.763t-.438.662L7.25 21zM19 6.4L17.6 5zm-3.525 2.125l-.7-.725L16.2 9.225z"/></svg><span class="m3-list__text"><span class="m3-list__headline">Choose ingredients</span></span></button></li>
+      </ul>
+    </section>
+  </div>
+  <p class="caption">Five screens: home, a form, a dialog, a menu and a bottom sheet. The same markup renders the dark scheme under prefers-color-scheme or data-theme="dark".</p>
+
+  <!-- 5. The rest of the set, unframed. -->
+  <div class="sheet" id="gallery">
+    <span>FABs</span><div><button class="m3-fab" aria-label="Edit"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="edit" aria-hidden="true"><path d="M5 19h1.425L16.2 9.225L14.775 7.8L5 17.575zm-2 2v-4.25L16.2 3.575q.3-.275.663-.425t.762-.15t.775.15t.65.45L20.425 5q.3.275.438.65T21 6.4q0 .4-.137.763t-.438.662L7.25 21zM19 6.4L17.6 5zm-3.525 2.125l-.7-.725L16.2 9.225z"/></svg></button><button class="m3-fab m3-fab--medium" id="fab-medium" aria-label="Edit"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="edit" aria-hidden="true"><path d="M5 19h1.425L16.2 9.225L14.775 7.8L5 17.575zm-2 2v-4.25L16.2 3.575q.3-.275.663-.425t.762-.15t.775.15t.65.45L20.425 5q.3.275.438.65T21 6.4q0 .4-.137.763t-.438.662L7.25 21zM19 6.4L17.6 5zm-3.525 2.125l-.7-.725L16.2 9.225z"/></svg></button><button class="m3-fab m3-fab--large" id="fab-large" aria-label="Edit"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="edit" aria-hidden="true"><path d="M5 19h1.425L16.2 9.225L14.775 7.8L5 17.575zm-2 2v-4.25L16.2 3.575q.3-.275.663-.425t.762-.15t.775.15t.65.45L20.425 5q.3.275.438.65T21 6.4q0 .4-.137.763t-.438.662L7.25 21zM19 6.4L17.6 5zm-3.525 2.125l-.7-.725L16.2 9.225z"/></svg></button><button class="m3-fab m3-fab--extended" id="fab-extended"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="edit" aria-hidden="true"><path d="M5 19h1.425L16.2 9.225L14.775 7.8L5 17.575zm-2 2v-4.25L16.2 3.575q.3-.275.663-.425t.762-.15t.775.15t.65.45L20.425 5q.3.275.438.65T21 6.4q0 .4-.137.763t-.438.662L7.25 21zM19 6.4L17.6 5zm-3.525 2.125l-.7-.725L16.2 9.225z"/></svg>Compose</button></div>
+    <span>Icon buttons</span><div><button class="m3-iconbtn" id="ib-standard" aria-label="Favourite"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="favorite" aria-hidden="true"><path d="m12 21l-1.45-1.3q-2.525-2.275-4.175-3.925T3.75 12.812T2.388 10.4T2 8.15Q2 5.8 3.575 4.225T7.5 2.65q1.3 0 2.475.55T12 4.75q.85-1 2.025-1.55t2.475-.55q2.35 0 3.925 1.575T22 8.15q0 1.15-.387 2.25t-1.363 2.412t-2.625 2.963T13.45 19.7zm0-2.7q2.4-2.15 3.95-3.687t2.45-2.675t1.25-2.026T20 8.15q0-1.5-1-2.5t-2.5-1q-1.175 0-2.175.662T12.95 7h-1.9q-.375-1.025-1.375-1.687T7.5 4.65q-1.5 0-2.5 1t-1 2.5q0 .875.35 1.763t1.25 2.025t2.45 2.675T12 18.3m0-6.825"/></svg></button><button class="m3-iconbtn m3-iconbtn--filled" id="ib-filled" aria-label="Favourite"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="favorite" aria-hidden="true"><path d="m12 21l-1.45-1.3q-2.525-2.275-4.175-3.925T3.75 12.812T2.388 10.4T2 8.15Q2 5.8 3.575 4.225T7.5 2.65q1.3 0 2.475.55T12 4.75q.85-1 2.025-1.55t2.475-.55q2.35 0 3.925 1.575T22 8.15q0 1.15-.387 2.25t-1.363 2.412t-2.625 2.963T13.45 19.7z"/></svg></button><button class="m3-iconbtn m3-iconbtn--tonal" id="ib-tonal" aria-label="Favourite"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="favorite" aria-hidden="true"><path d="m12 21l-1.45-1.3q-2.525-2.275-4.175-3.925T3.75 12.812T2.388 10.4T2 8.15Q2 5.8 3.575 4.225T7.5 2.65q1.3 0 2.475.55T12 4.75q.85-1 2.025-1.55t2.475-.55q2.35 0 3.925 1.575T22 8.15q0 1.15-.387 2.25t-1.363 2.412t-2.625 2.963T13.45 19.7zm0-2.7q2.4-2.15 3.95-3.687t2.45-2.675t1.25-2.026T20 8.15q0-1.5-1-2.5t-2.5-1q-1.175 0-2.175.662T12.95 7h-1.9q-.375-1.025-1.375-1.687T7.5 4.65q-1.5 0-2.5 1t-1 2.5q0 .875.35 1.763t1.25 2.025t2.45 2.675T12 18.3m0-6.825"/></svg></button><button class="m3-iconbtn m3-iconbtn--outlined" id="ib-outlined" aria-label="Favourite"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="favorite" aria-hidden="true"><path d="m12 21l-1.45-1.3q-2.525-2.275-4.175-3.925T3.75 12.812T2.388 10.4T2 8.15Q2 5.8 3.575 4.225T7.5 2.65q1.3 0 2.475.55T12 4.75q.85-1 2.025-1.55t2.475-.55q2.35 0 3.925 1.575T22 8.15q0 1.15-.387 2.25t-1.363 2.412t-2.625 2.963T13.45 19.7zm0-2.7q2.4-2.15 3.95-3.687t2.45-2.675t1.25-2.026T20 8.15q0-1.5-1-2.5t-2.5-1q-1.175 0-2.175.662T12.95 7h-1.9q-.375-1.025-1.375-1.687T7.5 4.65q-1.5 0-2.5 1t-1 2.5q0 .875.35 1.763t1.25 2.025t2.45 2.675T12 18.3m0-6.825"/></svg></button><button class="m3-iconbtn m3-iconbtn--filled m3-iconbtn--square" id="ib-square" aria-label="Favourite"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="favorite" aria-hidden="true"><path d="m12 21l-1.45-1.3q-2.525-2.275-4.175-3.925T3.75 12.812T2.388 10.4T2 8.15Q2 5.8 3.575 4.225T7.5 2.65q1.3 0 2.475.55T12 4.75q.85-1 2.025-1.55t2.475-.55q2.35 0 3.925 1.575T22 8.15q0 1.15-.387 2.25t-1.363 2.412t-2.625 2.963T13.45 19.7z"/></svg></button></div>
+    <span>Buttons</span><div><button class="m3-btn m3-btn--medium" id="btn-medium"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="send" aria-hidden="true"><path d="M3 20V4l19 8zm2-3l11.85-5L5 7v3.5l6 1.5l-6 1.5zm0 0V7z"/></svg>Send</button><button class="m3-btn" disabled id="btn-disabled">Disabled</button></div>
+    <span>Chips</span><div><button class="m3-chip m3-chip--assist" id="chip-assist"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="calendar_today" aria-hidden="true"><path d="M5 22q-.825 0-1.412-.587T3 20V6q0-.825.588-1.412T5 4h1V2h2v2h8V2h2v2h1q.825 0 1.413.588T21 6v14q0 .825-.587 1.413T19 22zm0-2h14V10H5zM5 8h14V6H5zm0 0V6z"/></svg>Add to calendar</button><button class="m3-chip m3-chip--assist m3-chip--elevated" id="chip-elevated"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="local_shipping" aria-hidden="true"><path d="M3.875 19.125Q3 18.25 3 17H1V6q0-.825.588-1.412T3 4h14v4h3l3 4v5h-2q0 1.25-.875 2.125T18 20t-2.125-.875T15 17H9q0 1.25-.875 2.125T6 20t-2.125-.875m2.838-1.412Q7 17.425 7 17t-.288-.712T6 16t-.712.288T5 17t.288.713T6 18t.713-.288M3 15h.8q.425-.45.975-.725T6 14t1.225.275T8.2 15H15V6H3zm15.713 2.713Q19 17.425 19 17t-.288-.712T18 16t-.712.288T17 17t.288.713T18 18t.713-.288M17 13h4.25L19 10h-2zm-8-2.5"/></svg>Track order</button></div>
+    <span>Rail</span><div><nav class="m3-navrail" id="rail" aria-label="Rail" style="padding-top: 8px"><a class="m3-nav-item" href="#" aria-current="page"><span class="m3-nav-item__icon"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="inbox" aria-hidden="true"><path d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21zm8.725-5.55Q14.5 14.9 14.8 14H19V5H5v9h4.2q.3.9 1.075 1.45T12 16t1.725-.55"/></svg></span><span class="m3-nav-item__label">Inbox</span></a><a class="m3-nav-item" href="#"><span class="m3-nav-item__icon"><svg viewBox="0 0 24 24" fill="currentColor" data-icon="send" aria-hidden="true"><path d="M3 20V4l19 8zm2-3l11.85-5L5 7v3.5l6 1.5l-6 1.5zm0 0V7z"/></svg></span><span class="m3-nav-item__label">Sent</span></a></nav></div>
+  </div>
+</div>
+</body>
+</html>

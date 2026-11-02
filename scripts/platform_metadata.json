@@ -1,0 +1,936 @@
+{
+ "accessibility": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "action-button": [
+  "ios",
+  "watchos"
+ ],
+ "action-sheets": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "watchos"
+ ],
+ "activity-rings": [
+  "ios",
+  "ipados",
+  "watchos"
+ ],
+ "activity-views": [
+  "ios",
+  "ipados",
+  "visionos"
+ ],
+ "airplay": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "alerts": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "always-on": [
+  "ios",
+  "watchos"
+ ],
+ "app-clips": [
+  "ios",
+  "ipados"
+ ],
+ "app-icons": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "app-shortcuts": [
+  "ios",
+  "ipados",
+  "visionos",
+  "watchos"
+ ],
+ "apple-pay": [
+  "ios",
+  "ipados",
+  "macos",
+  "visionos",
+  "watchos"
+ ],
+ "apple-pencil-and-scribble": [
+  "ipados"
+ ],
+ "augmented-reality": [
+  "ios",
+  "ipados",
+  "visionos"
+ ],
+ "boxes": [
+  "ios",
+  "ipados",
+  "macos",
+  "visionos"
+ ],
+ "branding": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "buttons": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "camera-control": [
+  "ios"
+ ],
+ "carekit": [
+  "ios",
+  "ipados"
+ ],
+ "carplay": [
+  "ios"
+ ],
+ "charting-data": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "charts": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "collaboration-and-sharing": [
+  "ios",
+  "ipados",
+  "macos",
+  "visionos",
+  "watchos"
+ ],
+ "collections": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos"
+ ],
+ "color": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "color-wells": [
+  "ios",
+  "ipados",
+  "macos",
+  "visionos"
+ ],
+ "column-views": [
+  "macos"
+ ],
+ "combo-boxes": [
+  "macos"
+ ],
+ "complications": [
+  "watchos"
+ ],
+ "context-menus": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos"
+ ],
+ "controls": [
+  "ios",
+  "ipados",
+  "macos"
+ ],
+ "dark-mode": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos"
+ ],
+ "digit-entry-views": [
+  "tvos"
+ ],
+ "digital-crown": [
+  "visionos",
+  "watchos"
+ ],
+ "disclosure-controls": [
+  "ios",
+  "ipados",
+  "macos",
+  "visionos"
+ ],
+ "dock-menus": [
+  "macos"
+ ],
+ "drag-and-drop": [
+  "ios",
+  "ipados",
+  "macos",
+  "visionos"
+ ],
+ "edit-menus": [
+  "ios",
+  "ipados",
+  "macos",
+  "visionos"
+ ],
+ "entering-data": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "eyes": [
+  "visionos"
+ ],
+ "feedback": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "file-management": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "focus-and-selection": [
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos"
+ ],
+ "game-center": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "game-controls": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos"
+ ],
+ "gauges": [
+  "ios",
+  "ipados",
+  "macos",
+  "visionos",
+  "watchos"
+ ],
+ "generative-ai": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "gestures": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "going-full-screen": [
+  "ios",
+  "ipados",
+  "macos"
+ ],
+ "gyro-and-accelerometer": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "healthkit": [
+  "ios",
+  "ipados",
+  "watchos"
+ ],
+ "home-screen-quick-actions": [
+  "ios",
+  "ipados"
+ ],
+ "homekit": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "icloud": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "icons": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "id-verifier": [
+  "ios"
+ ],
+ "image-views": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "image-wells": [
+  "macos"
+ ],
+ "images": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "imessage-apps-and-stickers": [
+  "ios",
+  "ipados"
+ ],
+ "immersive-experiences": [
+  "visionos"
+ ],
+ "in-app-purchase": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "inclusion": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "keyboards": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos"
+ ],
+ "labels": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "launching": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "layout": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "lists-and-tables": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "live-activities": [
+  "ios",
+  "ipados",
+  "macos",
+  "watchos"
+ ],
+ "live-photos": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos"
+ ],
+ "live-viewing-apps": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "loading": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "lockups": [
+  "tvos"
+ ],
+ "mac-catalyst": [
+  "ipados",
+  "macos"
+ ],
+ "machine-learning": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "managing-accounts": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "managing-notifications": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "maps": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "materials": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "menus": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "modality": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "motion": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "multitasking": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos"
+ ],
+ "nearby-interactions": [
+  "ios",
+  "ipados",
+  "watchos"
+ ],
+ "nfc": [
+  "ios",
+  "ipados"
+ ],
+ "notifications": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "offering-help": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "onboarding": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "ornaments": [
+  "visionos"
+ ],
+ "outline-views": [
+  "macos"
+ ],
+ "page-controls": [
+  "ios",
+  "ipados",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "panels": [
+  "macos"
+ ],
+ "path-controls": [
+  "macos"
+ ],
+ "photo-editing": [
+  "ios",
+  "ipados",
+  "macos"
+ ],
+ "pickers": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "playing-audio": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "playing-haptics": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "playing-video": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "pointing-devices": [
+  "ios",
+  "ipados",
+  "macos",
+  "visionos"
+ ],
+ "pop-up-buttons": [
+  "ios",
+  "ipados",
+  "macos",
+  "visionos"
+ ],
+ "popovers": [
+  "ios",
+  "ipados",
+  "macos",
+  "visionos"
+ ],
+ "printing": [
+  "ios",
+  "ipados",
+  "macos",
+  "visionos"
+ ],
+ "privacy": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "progress-indicators": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "pull-down-buttons": [
+  "ios",
+  "ipados",
+  "macos",
+  "visionos"
+ ],
+ "rating-indicators": [
+  "macos"
+ ],
+ "ratings-and-reviews": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "remotes": [
+  "tvos"
+ ],
+ "researchkit": [
+  "ios",
+  "ipados"
+ ],
+ "right-to-left": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "scroll-views": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "search-fields": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "searching": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "segmented-controls": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos"
+ ],
+ "settings": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "sf-symbols": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "shareplay": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos"
+ ],
+ "shazamkit": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "sheets": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "sidebars": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos"
+ ],
+ "sign-in-with-apple": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "siri": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "sliders": [
+  "ios",
+  "ipados",
+  "macos",
+  "visionos",
+  "watchos"
+ ],
+ "snippets": [
+  "ios",
+  "ipados",
+  "macos"
+ ],
+ "spatial-layout": [
+  "visionos"
+ ],
+ "split-views": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "status-bars": [
+  "ios",
+  "ipados"
+ ],
+ "steppers": [
+  "ios",
+  "ipados",
+  "macos",
+  "visionos"
+ ],
+ "tab-bars": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos"
+ ],
+ "tab-views": [
+  "macos",
+  "watchos"
+ ],
+ "tap-to-pay-on-iphone": [
+  "ios"
+ ],
+ "text-fields": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "text-views": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "the-menu-bar": [
+  "ipados",
+  "macos"
+ ],
+ "toggles": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "token-fields": [
+  "macos"
+ ],
+ "toolbars": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "top-shelf": [
+  "tvos"
+ ],
+ "typography": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "undo-and-redo": [
+  "ios",
+  "ipados",
+  "macos",
+  "visionos"
+ ],
+ "virtual-keyboards": [
+  "ios",
+  "ipados",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "voiceover": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ],
+ "wallet": [
+  "ios",
+  "ipados",
+  "macos",
+  "visionos",
+  "watchos"
+ ],
+ "watch-faces": [
+  "watchos"
+ ],
+ "web-views": [
+  "ios",
+  "ipados",
+  "macos",
+  "visionos"
+ ],
+ "widgets": [
+  "ios",
+  "ipados",
+  "macos",
+  "watchos",
+  "visionos"
+ ],
+ "windows": [
+  "ipados",
+  "macos",
+  "visionos"
+ ],
+ "workouts": [
+  "ios",
+  "ipados",
+  "watchos"
+ ],
+ "writing": [
+  "ios",
+  "ipados",
+  "macos",
+  "tvos",
+  "visionos",
+  "watchos"
+ ]
+}

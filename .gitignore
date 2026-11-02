@@ -1,0 +1,17 @@
+scripts/__pycache__/
+*.pyc
+.DS_Store
+
+# Scraper cache: re-fetchable, no reason to version it.
+.cache/
+
+# Harness scratch: projtest and the older skill runners write whole
+# generated projects here. Regenerated on every run, never reviewed.
+scripts/eval/pwork/
+scripts/eval/pout/
+scripts/eval/work/
+scripts/eval/out/
+
+# SF Pro can't be redistributed. fonts/sf.css uses your own copy of it;
+# keep that copy out of commits, whatever form it's in.
+SF-Pro*

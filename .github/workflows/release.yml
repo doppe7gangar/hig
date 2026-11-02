@@ -1,0 +1,53 @@
+name: release
+
+# Pushing a tag such as v1.0.0 publishes that release. The installer
+# attached to it has the release's commit written in, so it can check that
+# what it downloads is exactly what was released. A file can't hold its own
+# commit's ID, which is why it's built here rather than committed.
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Nothing of Apple's copied in
+        run: python3 scripts/provenance_guard.py
+
+      - name: Docs match the files
+        run: python3 scripts/doctor.py --fast
+
+      - name: Pin the installer to this release
+        run: |
+          mkdir dist
+          sed -e "s/^VERSION=\".*\"/VERSION=\"${GITHUB_REF_NAME}\"/" \
+              -e "s/^COMMIT=\"\"/COMMIT=\"${GITHUB_SHA}\"/" install.sh > dist/install.sh
+          grep -q "^COMMIT=\"${GITHUB_SHA}\"$" dist/install.sh
+          grep -q "^VERSION=\"${GITHUB_REF_NAME}\"$" dist/install.sh
+          bash -n dist/install.sh
+          (cd dist && sha256sum install.sh > install.sh.sha256)
+
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sum=$(cut -d' ' -f1 dist/install.sh.sha256)
+          gh release create "$GITHUB_REF_NAME" dist/install.sh dist/install.sh.sha256 \
+            --title "$GITHUB_REF_NAME" \
+            --notes "Install this release:
+
+          \`\`\`bash
+          curl -fsSLO https://github.com/${GITHUB_REPOSITORY}/releases/download/${GITHUB_REF_NAME}/install.sh
+          less install.sh
+          bash install.sh
+          \`\`\`
+
+          The installer checks it is installing commit \`${GITHUB_SHA}\`.
+          SHA-256 of install.sh: \`${sum}\`"
