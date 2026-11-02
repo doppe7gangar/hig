@@ -34,7 +34,7 @@ SKILLS = os.path.normpath(os.path.join(HERE, "..", "..", ".claude", "skills"))
 # Quotes used to be graded against a copy of the HIG kept in the skill.
 # That copy is gone (Apple's text isn't ours to ship), so quotes are now
 # counted, and checked by hand against the linked page.
-VERIFY = os.path.join(SKILLS, "apple-hig", "verify_quotes.py")
+VERIFY = os.path.join(SKILLS, "hig-guide", "verify_quotes.py")
 MODEL, TIMEOUT = "claude-opus-5", 600
 
 # (label, query, required patterns, forbidden patterns, grade quotes)

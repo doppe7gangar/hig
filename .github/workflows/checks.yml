@@ -42,19 +42,19 @@ jobs:
         run: bash -n install.sh
 
       - name: iPhone kit
-        run: python .claude/skills/apple-ui-kit/verify_web_ui.py
+        run: python .claude/skills/ui-kit-for-apple-platforms/verify_web_ui.py
 
       - name: iPad kit
-        run: python .claude/skills/apple-ui-kit/verify_ipad_ui.py
+        run: python .claude/skills/ui-kit-for-apple-platforms/verify_ipad_ui.py
 
       - name: Mac kit
-        run: python .claude/skills/apple-ui-kit/verify_mac_ui.py
+        run: python .claude/skills/ui-kit-for-apple-platforms/verify_mac_ui.py
 
       - name: iPhone screens against Apple's examples
-        run: python .claude/skills/apple-ui-kit/verify_ios_screens.py
+        run: python .claude/skills/ui-kit-for-apple-platforms/verify_ios_screens.py
 
       - name: Android kit
-        run: python .claude/skills/android-ui-kit/verify_android_ui.py
+        run: python .claude/skills/ui-kit-for-android/verify_android_ui.py
 
       - name: Design workflow
         run: python scripts/eval/design_workflow_smoke.py
@@ -97,7 +97,7 @@ jobs:
 
       - name: Something clean to check
         run: |
-          python3 .claude/skills/apple-design/new_project.py --name Pantry --brand "#C1552E" \
+          python3 .claude/skills/design-workflow/new_project.py --name Pantry --brand "#C1552E" \
             --kind ios --model tabs -o "$RUNNER_TEMP/design"
           mkdir -p "$RUNNER_TEMP/clean"
           printf 'import SwiftUI\n\nstruct V: View {\n    var body: some View {\n        Text("Hello").font(.body)\n    }\n}\n' > "$RUNNER_TEMP/clean/V.swift"

@@ -22,7 +22,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 BUILD = os.path.abspath(os.path.join(HERE, "..", ".."))
 SKILLS = os.path.join(BUILD, ".claude", "skills")
-CHECK = os.path.join(SKILLS, "apple-design", "check_design.py")
+CHECK = os.path.join(SKILLS, "design-workflow", "check_design.py")
 MODEL = "claude-opus-5"
 # Where runs build and write their transcripts. run_live.py gives each
 # repeat its own, since a run wipes its brief's folder when it starts.
@@ -84,10 +84,10 @@ BRIEFS = {
 def install(dst):
     d = os.path.join(dst, ".claude", "skills")
     os.makedirs(d, exist_ok=True)
-    for name in ("apple-hig", "apple-ui-kit", "apple-motion", "apple-design"):
+    for name in ("hig-guide", "ui-kit-for-apple-platforms", "motion-for-apple-platforms", "design-workflow"):
         # The whole skill, screenshots included: that is what the README
-        # tells people to copy, and apple-design's references point into
-        # apple-ui-kit's measured recipes.
+        # tells people to copy, and design-workflow's references point into
+        # ui-kit-for-apple-platforms's measured recipes.
         shutil.copytree(os.path.join(SKILLS, name), os.path.join(d, name),
                         ignore=shutil.ignore_patterns("__pycache__"))
 
@@ -127,8 +127,8 @@ def run(name, spec):
                     parts.append(b["text"])
                 if b.get("type") == "tool_use":
                     blob = json.dumps(b.get("input", {}))
-                    for s in ("apple-hig", "apple-ui-kit", "apple-motion",
-                              "apple-design"):
+                    for s in ("hig-guide", "ui-kit-for-apple-platforms", "motion-for-apple-platforms",
+                              "design-workflow"):
                         if s in blob:
                             skills.add(s)
                     for t in ("new_project.py", "check_design.py",

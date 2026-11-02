@@ -24,7 +24,7 @@ import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
-KIT = os.path.join(REPO, ".claude", "skills", "apple-ui-kit")
+KIT = os.path.join(REPO, ".claude", "skills", "ui-kit-for-apple-platforms")
 DEPS = os.path.join(HERE, "out", "tailwind-deps")
 VERSIONS = {"v4": ["tailwindcss@4.0.14", "@tailwindcss/cli@4.0.14"], "v3": ["tailwindcss@3.4.17"]}
 

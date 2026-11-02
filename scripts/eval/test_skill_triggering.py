@@ -35,34 +35,34 @@ DEFAULT_MODEL = "claude-opus-5"
 DEFAULT_TIMEOUT = 600
 
 DEFAULT_CASES = [
-    # Platform questions all land on apple-hig: the per-platform skills were
-    # folded into apple-hig, so there is one skill to win them.
+    # Platform questions all land on hig-guide: the per-platform skills were
+    # folded into hig-guide, so there is one skill to win them.
     {"query": "my mac app's toolbar just feels off compared to native apps, 9 icon "
               "buttons crammed up top and a search box on the left. what am i doing wrong",
-     "expect": "apple-hig"},
+     "expect": "hig-guide"},
     {"query": "adding a watchOS companion to our fitness app. what can i actually put "
               "on the watch face and how much info fits in a complication",
-     "expect": "apple-hig"},
+     "expect": "hig-guide"},
     {"query": "porting our iPad app to Vision Pro. where should windows go in space and "
               "does the navigation need to change",
-     "expect": "apple-hig"},
+     "expect": "hig-guide"},
     {"query": "building a reading app for iphone + ipad, 7 top level sections. tab bar "
               "or sidebar on the iPad specifically",
-     "expect": "apple-hig"},
+     "expect": "hig-guide"},
     {"query": "our designer used a fixed 13pt font everywhere in the iOS app and QA "
               "flagged it as an accessibility problem. whats the minimum we should support",
-     "expect": "apple-hig"},
+     "expect": "hig-guide"},
     # A product rather than a control: the design skill should start it.
     {"query": "i want an app for splitting bills with friends. add a bill, split it, "
               "see who owes what, settle up",
-     "expect": "apple-design"},
+     "expect": "design-workflow"},
     # Apple's look on a target with no system palette.
     {"query": "make this react settings page look like an iOS settings screen, right "
               "now it's just default browser buttons and checkboxes",
-     "expect": "apple-ui-kit"},
+     "expect": "ui-kit-for-apple-platforms"},
     {"query": "my swiftui sheet slides up with a linear 0.3s animation and it feels "
               "dead. how should it move",
-     "expect": "apple-motion"},
+     "expect": "motion-for-apple-platforms"},
     # Near-misses: Apple-adjacent but not UI design. A skill that fires here is
     # interrupting work it can't help with, which is its own kind of failure.
     {"query": "xcode 26 keeps failing my archive with 'no profiles for com.acme.app "

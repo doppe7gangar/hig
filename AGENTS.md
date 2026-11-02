@@ -25,7 +25,7 @@ official page instead of recalling it.
 
 ## Where things are
 
-All paths under `.claude/skills/apple-hig/`:
+All paths under `.claude/skills/hig-guide/`:
 
 | File | Answers |
 |---|---|
@@ -35,7 +35,7 @@ All paths under `.claude/skills/apple-hig/`:
 | `references/patterns.md` | **"What do I write?"** — correct-by-default SwiftUI scaffolding |
 | `references/api-map.md` | HIG concept → exact API, 30+ frameworks |
 | `references/framework-index.md` | 3,150 SwiftUI, UIKit and AppKit components by name, linked to their documentation |
-| `hig_page.py` | Prints a HIG page, fetched from Apple's site: `python3 .claude/skills/apple-hig/hig_page.py sheets --section "Platform considerations"` |
+| `hig_page.py` | Prints a HIG page, fetched from Apple's site: `python3 .claude/skills/hig-guide/hig_page.py sheets --section "Platform considerations"` |
 | `check_quotes.py` | Looks every quote in an answer up on the pages it links, and flags any that aren't Apple's words |
 | `check_swiftui.py` | HIG problems in SwiftUI code that the code alone decides, before shipping |
 | `sf_symbols.py` | Run `--install` once on a Mac: the checkers then flag SF Symbol names that don't exist or need a newer OS |
@@ -44,7 +44,7 @@ All paths under `.claude/skills/apple-hig/`:
 
 **Find the page, then read it on Apple's site.** `grep -i "sheet"
 references/topics.md` gives the official address;
-`python3 .claude/skills/apple-hig/hig_page.py <page>` prints it from
+`python3 .claude/skills/hig-guide/hig_page.py <page>` prints it from
 Apple's site, and you read the part that matters. If it can't be fetched,
 say so, answer from `numbers.md`, `concepts.md` and `patterns.md`, and
 give the link.
@@ -78,7 +78,7 @@ under *Writing*, and 12 of 30 tracked concepts have no page of their own.
 ## Android
 
 Android isn't Apple's to specify. For an Android design use
-`.claude/skills/android-ui-kit/`: `SKILL.md` has the rules, and
+`.claude/skills/ui-kit-for-android/`: `SKILL.md` has the rules, and
 `material-components.css` the Material 3 recipes measured from Google's
 Material 3 Design Kit. `build_m3_theme.py` turns a brand colour into the
 full colour scheme, for CSS, Compose or Android XML.

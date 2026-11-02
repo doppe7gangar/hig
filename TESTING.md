@@ -3,14 +3,14 @@
 Four ways, cheapest first. You need nothing installed for the first one.
 
 Paths below assume the repo is where GitHub Desktop puts it,
-`~/Documents/GitHub/hig`. Adjust if you cloned somewhere else.
+`~/Documents/GitHub/onplatform`. Adjust if you cloned somewhere else.
 
 ---
 
 ## 1. Look at it (no setup)
 
 ```bash
-open ~/Documents/GitHub/hig/.claude/skills/apple-ui-kit/example.html
+open ~/Documents/GitHub/onplatform/.claude/skills/ui-kit-for-apple-platforms/example.html
 ```
 
 One screen, using every recipe the way a real app would rather than
@@ -34,7 +34,7 @@ Install it once, for every project:
 
 ```bash
 mkdir -p ~/.claude/skills
-cp -R ~/Documents/GitHub/hig/.claude/skills/apple-ui-kit ~/.claude/skills/
+cp -R ~/Documents/GitHub/onplatform/.claude/skills/ui-kit-for-apple-platforms ~/.claude/skills/
 ```
 
 Then in any empty folder:
@@ -51,8 +51,8 @@ Ask for something ordinary:
 
 **What tells you it worked:**
 
-- It opens `apple-ui-kit` or `apple-design` before writing any CSS. A
-  request for a whole page or app goes through `apple-design`, which
+- It opens `ui-kit-for-apple-platforms` or `design-workflow` before writing any CSS. A
+  request for a whole page or app goes through `design-workflow`, which
   scaffolds the project and brings the kit in; that's expected and can
   take half an hour, because it runs its own checks.
 - It copies `ios-tokens.css` and `ios-components.css` in rather than
@@ -90,7 +90,7 @@ python3 -m playwright install chromium
 Then:
 
 ```bash
-cd ~/Documents/GitHub/hig
+cd ~/Documents/GitHub/onplatform
 python3 scripts/verify_web_ui.py -v
 ```
 
@@ -122,7 +122,7 @@ between platforms. Each one names the file it was measured from.
 ## 4. Test the HIG reference skill
 
 ```bash
-cp -R ~/Documents/GitHub/hig/.claude/skills/apple-hig ~/.claude/skills/
+cp -R ~/Documents/GitHub/onplatform/.claude/skills/hig-guide ~/.claude/skills/
 ```
 
 Ask questions where you can check the answer:
@@ -145,13 +145,13 @@ Or paste real SwiftUI and ask for a review before shipping.
 ### Checking SwiftUI without a model
 
 ```bash
-python3 ~/.claude/skills/apple-hig/check_swiftui.py MyApp/
+python3 ~/.claude/skills/hig-guide/check_swiftui.py MyApp/
 python3 scripts/eval/test_check_swiftui.py    # the checker against a seeded app
 ```
 
-On a Mac, `python3 ~/.claude/skills/apple-hig/sf_symbols.py --install`
+On a Mac, `python3 ~/.claude/skills/hig-guide/sf_symbols.py --install`
 copies the SF Symbol names, renames and release versions from macOS or
-Xcode into `~/.cache/apple-hig/`, and both checkers start flagging names
+Xcode into `~/.cache/hig-guide/`, and both checkers start flagging names
 that don't exist or need a newer OS. If it finds nothing, point `--from`
 at a folder holding `name_availability.plist`.
 `python3 scripts/eval/test_sf_symbols.py` tests the reading and the checks
@@ -160,7 +160,7 @@ against a small stand-in list, since Apple's own can't be committed here.
 ### The macOS recipes
 
 ```bash
-python3 .claude/skills/apple-ui-kit/verify_mac_ui.py -v
+python3 .claude/skills/ui-kit-for-apple-platforms/verify_mac_ui.py -v
 ```
 
 Measures `mac-example.html` in Chromium, light, dark and Increased
@@ -178,7 +178,7 @@ window, fails `check_design.py`.
 ### The iPadOS recipes
 
 ```bash
-python3 .claude/skills/apple-ui-kit/verify_ipad_ui.py -v
+python3 .claude/skills/ui-kit-for-apple-platforms/verify_ipad_ui.py -v
 ```
 
 Measures `ipad-example.html` in Chromium, light and dark, in 67 checks:
@@ -195,7 +195,7 @@ or with neither a sidebar nor tabs at the top, fails `check_design.py`.
 ### The Android (Material 3) recipes
 
 ```bash
-python3 .claude/skills/android-ui-kit/verify_android_ui.py -v
+python3 .claude/skills/ui-kit-for-android/verify_android_ui.py -v
 ```
 
 Measures `android-example.html` in Chromium, light and dark, in 268
@@ -231,7 +231,7 @@ use into `scripts/eval/out/`.
 ### Checking a handoff from design to SwiftUI
 
 ```bash
-python3 .claude/skills/apple-design/check_handoff.py ./design ./MyApp
+python3 .claude/skills/design-workflow/check_handoff.py ./design ./MyApp
 python3 scripts/eval/test_check_handoff.py
 ```
 
@@ -249,7 +249,7 @@ Every claim in an answer should carry a link to Apple's page. Copy the
 answer, then:
 
 ```bash
-pbpaste | python3 ~/.claude/skills/apple-hig/check_quotes.py -
+pbpaste | python3 ~/.claude/skills/hig-guide/check_quotes.py -
 ```
 
 It fetches each HIG page the answer links and grades every quoted span:
@@ -263,7 +263,7 @@ should also be the one for the platform you asked about.
 
 ## What "working" does not mean
 
-`apple-ui-kit` carries Apple's *appearance* to platforms that have no
+`ui-kit-for-apple-platforms` carries Apple's *appearance* to platforms that have no
 system palette to ask. On the web specifically it can't carry:
 
 - **Liquid Glass** — the live refraction has no browser equivalent. The
@@ -289,7 +289,7 @@ fix it. Not a bug to report.
 
 ## 5. Test the design skill on a whole brief
 
-The other three answer questions. `apple-design` starts projects, so it
+The other three answer questions. `design-workflow` starts projects, so it
 needs testing differently: not "is the answer right" but "is the thing
 on disk actually wired up".
 
@@ -305,7 +305,7 @@ real design, and runs `check_design.py` before handing it over.
 ### Grade it with the checker, not by reading
 
 ```bash
-python3 .claude/skills/apple-design/check_design.py ./design
+python3 .claude/skills/design-workflow/check_design.py ./design
 ```
 
 This is the part worth insisting on. Three earlier rounds of this were
@@ -328,7 +328,7 @@ confirm it fails:
 ```bash
 cp -r design broken
 sed -i 's|vendor/fonts/inter.css|https://fonts.googleapis.com/css2?family=Inter|' broken/index.html
-python3 .claude/skills/apple-design/check_design.py broken   # must exit 1
+python3 .claude/skills/design-workflow/check_design.py broken   # must exit 1
 ```
 
 Moving `theme.css` above the component sheet, deleting the empty and
@@ -379,14 +379,14 @@ what they say. The SwiftUI hook reports a seeded file's violations
 repeat, and never fails an edit. The commit guard denies a commit or push
 that would take SF Pro along, follows `git -C` and a leading `cd` to the
 right repository, lets the commit through once git ignores the font, still
-catches a font already staged, and turns off with `HIG_COMMIT_GUARD=off`. The
+catches a font already staged, and turns off with `ONPLATFORM_COMMIT_GUARD=off`. The
 Action passes clean SwiftUI and a fresh design, fails the seeded app with an
 annotation at each line, and only reports with `fail-on: none`. CI also runs
 the Action itself, as another repository would.
 
 To try the plugin in Claude Code without installing it, start
-`claude --plugin-dir ~/Documents/GitHub/hig` in another folder and run
-`/hig:ask how big must a button be on iPhone?`.
+`claude --plugin-dir ~/Documents/GitHub/onplatform` in another folder and run
+`/onplatform:ask how big must a button be on iPhone?`.
 
 ### What a design hands on
 
@@ -456,13 +456,13 @@ brief.
 
 ---
 
-## 7. Where `apple-motion` comes from
+## 7. Where `motion-for-apple-platforms` comes from
 
-`apple-motion` fills a real gap: the HIG covers motion as principle
-and has no spring parameters at all. It defers values to `apple-ui-kit` and principles to
-`apple-hig`, and says plainly which of its own claims are API fact and
+`motion-for-apple-platforms` fills a real gap: the HIG covers motion as principle
+and has no spring parameters at all. It defers values to `ui-kit-for-apple-platforms` and principles to
+`hig-guide`, and says plainly which of its own claims are API fact and
 which are one author's observation.
 
 Its references are adapted from the MIT-licensed apple-design-skills
-collection, with Apple values reconciled against `apple-ui-kit`'s
-measurements; the notice is in `.claude/skills/apple-motion/LICENSE.txt`.
+collection, with Apple values reconciled against `ui-kit-for-apple-platforms`'s
+measurements; the notice is in `.claude/skills/motion-for-apple-platforms/LICENSE.txt`.

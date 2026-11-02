@@ -15,7 +15,7 @@ import sys
 import tempfile
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-DESIGN = os.path.join(ROOT, ".claude", "skills", "apple-design")
+DESIGN = os.path.join(ROOT, ".claude", "skills", "design-workflow")
 NEW = os.path.join(DESIGN, "new_project.py")
 DIV = os.path.join(DESIGN, "check_divergence.py")
 INT = os.path.join(DESIGN, "check_interaction.py")

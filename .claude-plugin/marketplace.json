@@ -1,5 +1,5 @@
 {
-  "name": "hig",
+  "name": "onplatform",
   "owner": {
     "name": "doppe7gangar",
     "url": "https://github.com/doppe7gangar"
@@ -7,9 +7,9 @@
   "description": "Agent skills, design workflows, review agents and checks for app designs that read as native on Apple's platforms and Android.",
   "plugins": [
     {
-      "name": "hig",
+      "name": "onplatform",
       "source": "./",
-      "description": "Five skills (apple-hig, apple-design, apple-ui-kit, apple-motion, android-ui-kit), workflow commands from brief to Figma and SwiftUI, review agents, and checks that run after Swift edits and before commits.",
+      "description": "Five skills (hig-guide, design-workflow, ui-kit-for-apple-platforms, motion-for-apple-platforms, ui-kit-for-android), workflow commands from brief to Figma and SwiftUI, review agents, and checks that run after Swift edits and before commits.",
       "category": "design",
       "tags": ["apple", "hig", "ios", "macos", "swiftui", "android", "material-3", "design", "figma"]
     }

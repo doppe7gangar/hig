@@ -13,7 +13,7 @@ If nothing was named, review the Apple-platform UI this branch changed:
 keeping `.swift` files and design folders (an `index.html` beside a `vendor/`
 folder).
 
-Hand the reading to the `hig:reviewer` agent. Give it the paths, the target
+Hand the reading to the `onplatform:reviewer` agent. Give it the paths, the target
 platforms if you know them, and what each screen is for. It reads Apple's
 pages in its own context and returns the findings. If the agent isn't
 available, follow its method yourself: `${CLAUDE_PLUGIN_ROOT}/agents/reviewer.md`.

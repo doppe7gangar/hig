@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """After a .swift file is written or edited: what the HIG would flag in it.
 
-Runs apple-hig's check_swiftui.py on the one file and hands the findings
+Runs hig-guide's check_swiftui.py on the one file and hands the findings
 back to Claude as context: violations and API problems listed, guidance
 counted. Says nothing when the file is clean, isn't Swift, or reports the
 same findings it reported last time. Never blocks: the edit has happened,
 and the findings are for fixing next.
 
-Off with HIG_SWIFTUI_HOOK=off in the environment (settings.json "env").
+Off with ONPLATFORM_SWIFTUI_HOOK=off in the environment (settings.json "env").
 """
 
 import hashlib
@@ -17,7 +17,7 @@ import subprocess
 import sys
 
 ROOT = os.environ.get("CLAUDE_PLUGIN_ROOT") or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CHECKER = os.path.join(ROOT, ".claude", "skills", "apple-hig", "check_swiftui.py")
+CHECKER = os.path.join(ROOT, ".claude", "skills", "hig-guide", "check_swiftui.py")
 SHOWN = 10
 
 
@@ -45,7 +45,7 @@ def seen_before(session, path, digest):
 
 
 def main():
-    if os.environ.get("HIG_SWIFTUI_HOOK", "").lower() in ("off", "0", "false", "no"):
+    if os.environ.get("ONPLATFORM_SWIFTUI_HOOK", "").lower() in ("off", "0", "false", "no"):
         return 0
     try:
         event = json.load(sys.stdin)

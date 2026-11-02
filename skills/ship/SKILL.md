@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 The folder: $ARGUMENTS. If none was named, use `./design`.
 
-Scripts live in `${CLAUDE_PLUGIN_ROOT}/.claude/skills/apple-design/`; below, `D` stands for that folder.
+Scripts live in `${CLAUDE_PLUGIN_ROOT}/.claude/skills/design-workflow/`; below, `D` stands for that folder.
 
 1. `python3 D/check_design.py <folder>`: it has to work before it goes anywhere.
 2. `python3 D/check_distribution.py <folder> --purpose publish --manifest <folder>/vendor/distribution.json`

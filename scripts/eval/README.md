@@ -26,7 +26,7 @@ failure mode is silent — you get a number, and the number looks fine.
 description optimizer (`scripts/run_loop.py`) does not install the skill it
 is optimizing. It writes a stub *command* into `.claude/commands/`
 containing only the description text under a generated name like
-`apple-hig-skill-698268f4`, then measures whether Claude invokes that. For a
+`hig-guide-skill-698268f4`, then measures whether Claude invokes that. For a
 skill whose value is its instructions, that's a fair proxy. For a 178-page
 reference corpus it is not: the thing being offered contains nothing worth
 opening, and the name doesn't look like the skill. It reported 0–11% recall.
@@ -51,11 +51,11 @@ rather than a process that died.
 
 ## Interpreting results
 
-Every platform question should land on `apple-hig`: the per-platform
+Every platform question should land on `hig-guide`: the per-platform
 skills were folded into it. The routing cases that
 matter most are between the four skills — a product brief should start
-`apple-design`, a web page meant to look like iOS should reach
-`apple-ui-kit`, a stiff animation `apple-motion`. Loading a second skill
+`design-workflow`, a web page meant to look like iOS should reach
+`ui-kit-for-apple-platforms`, a stiff animation `motion-for-apple-platforms`. Loading a second skill
 alongside the expected one is fine; missing the expected one is not.
 
 ## Did the skill change the answer?

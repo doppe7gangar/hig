@@ -1,4 +1,4 @@
-# hig
+# onplatform
 
 **Make AI-built app designs look native on iPhone, iPad, Mac and Android.**
 
@@ -39,11 +39,11 @@ rather than carrying a copy.
 **In Claude Code, install the plugin.** Type these inside Claude Code:
 
 ```text
-/plugin marketplace add doppe7gangar/hig
-/plugin install hig@hig
+/plugin marketplace add doppe7gangar/onplatform
+/plugin install onplatform@onplatform
 ```
 
-On Claude Code 2.1.275 or later, `/plugin install hig --marketplace doppe7gangar/hig`
+On Claude Code 2.1.275 or later, `/plugin install onplatform --marketplace doppe7gangar/onplatform`
 does both in one step. The plugin brings the five skills, plus
 [commands, review agents and automatic checks](#commands-agents-and-checks), and `/plugin`
 updates it when a new version is out.
@@ -52,7 +52,7 @@ updates it when a new version is out.
 installer for a release, read it, then run it:
 
 ```bash
-curl -fsSLO https://github.com/doppe7gangar/hig/releases/download/v1.0.0/install.sh
+curl -fsSLO https://github.com/doppe7gangar/onplatform/releases/download/v1.0.0/install.sh
 less install.sh
 bash install.sh
 ```
@@ -88,16 +88,16 @@ own SF Pro.
 
 **Using another tool.** The skills are plain Markdown, CSS and Python,
 with nothing tied to one agent. The install line leaves a copy of
-everything in `~/.hig` to take them from.
+everything in `~/.onplatform` to take them from.
 
 - **The Claude app** (web, desktop or phone): zip a skill and upload it
   in the app's skill settings, e.g.
-  `cd ~/.hig/.claude/skills && zip -r ~/Desktop/apple-ui-kit.zip apple-ui-kit`.
+  `cd ~/.onplatform/.claude/skills && zip -r ~/Desktop/ui-kit-for-apple-platforms.zip ui-kit-for-apple-platforms`.
   Each skill is small enough to upload. The app can't run the checks on
   your Mac.
 - **Cursor, Copilot, Windsurf, Zed, aider** and anything else that reads
   `AGENTS.md`: copy [AGENTS.md](AGENTS.md) and `.claude/skills/` from
-  `~/.hig` into your project.
+  `~/.onplatform` into your project.
 - **No AI at all**: the kits are ordinary CSS, fonts and example pages.
   Open an example and copy the markup.
 
@@ -129,10 +129,10 @@ copied in rather than reinvented. **It didn't if** you see `#007AFF`
 anywhere. That's the old accent from search results.
 
 For a whole product, grade what's on disk, not what the transcript says:
-`/hig:check ./design` with the plugin, or with the installer
+`/onplatform:check ./design` with the plugin, or with the installer
 
 ```bash
-python3 ~/.claude/skills/apple-design/check_design.py ./design
+python3 ~/.claude/skills/design-workflow/check_design.py ./design
 ```
 
 More recipes, and what good output looks like for each, are in
@@ -142,11 +142,11 @@ More recipes, and what good output looks like for each, are in
 
 | Skill | What it does |
 |---|---|
-| [`apple-design`](.claude/skills/apple-design/SKILL.md) | Runs the job: idea, screens, a scaffolded project for iPhone, iPad, Mac, Android or the web, a checked design, then SwiftUI |
-| [`apple-ui-kit`](.claude/skills/apple-ui-kit/SKILL.md) | Apple's measured values and parts: iOS 27 tokens for CSS, SwiftUI, Compose, Android XML, Flutter and TypeScript; web, React and Tailwind components; iPadOS 27 layouts; macOS 27 windows |
-| [`android-ui-kit`](.claude/skills/android-ui-kit/SKILL.md) | Material 3: the colour scheme, Roboto type scale and components from Google's kit, Material Symbols, and a theme builder for CSS, Compose and Android XML |
-| [`apple-hig`](.claude/skills/apple-hig/SKILL.md) | Apple's guidelines, put to work: which official page answers a question, the figures reached for most, an API map across 32 frameworks, 3,150 system components by name, and a SwiftUI checker |
-| [`apple-motion`](.claude/skills/apple-motion/SKILL.md) | Springs, transitions, haptic pairing, Reduce Motion |
+| [`design-workflow`](.claude/skills/design-workflow/SKILL.md) | Runs the job: idea, screens, a scaffolded project for iPhone, iPad, Mac, Android or the web, a checked design, then SwiftUI |
+| [`ui-kit-for-apple-platforms`](.claude/skills/ui-kit-for-apple-platforms/SKILL.md) | Apple's measured values and parts: iOS 27 tokens for CSS, SwiftUI, Compose, Android XML, Flutter and TypeScript; web, React and Tailwind components; iPadOS 27 layouts; macOS 27 windows |
+| [`ui-kit-for-android`](.claude/skills/ui-kit-for-android/SKILL.md) | Material 3: the colour scheme, Roboto type scale and components from Google's kit, Material Symbols, and a theme builder for CSS, Compose and Android XML |
+| [`hig-guide`](.claude/skills/hig-guide/SKILL.md) | Apple's guidelines, put to work: which official page answers a question, the figures reached for most, an API map across 32 frameworks, 3,150 system components by name, and a SwiftUI checker |
+| [`motion-for-apple-platforms`](.claude/skills/motion-for-apple-platforms/SKILL.md) | Springs, transitions, haptic pairing, Reduce Motion |
 
 ## Commands, agents and checks
 
@@ -155,22 +155,22 @@ what you ask; the commands are for when you know which step you want.
 
 | Command | What it does |
 |---|---|
-| `/hig:design <what you want>` | A brief to a working, checked prototype: settle the screens, scaffold, build, check in a browser, render and review |
-| `/hig:check [folder]` | Every mechanical check on a design (taps, states, contrast, use of the kit, licences), fixed until it passes |
-| `/hig:review [files]` | A review of SwiftUI, UIKit, AppKit or a design against the HIG: violations, guidance and judgment, each linked to Apple's page |
-| `/hig:ask <question>` | The answer from Apple's page itself, with the link, each figure's platform, and quotes checked word for word |
-| `/hig:figma [folder]` | Every screen and state into Figma, light and dark |
-| `/hig:handoff [design] [app]` | The design into SwiftUI, checked for anything lost on the way |
-| `/hig:ship [folder]` | Ready to publish: it won't call a design ready while it carries SF Pro, SF Symbols or a file without its licence |
+| `/onplatform:design <what you want>` | A brief to a working, checked prototype: settle the screens, scaffold, build, check in a browser, render and review |
+| `/onplatform:check [folder]` | Every mechanical check on a design (taps, states, contrast, use of the kit, licences), fixed until it passes |
+| `/onplatform:review [files]` | A review of SwiftUI, UIKit, AppKit or a design against the HIG: violations, guidance and judgment, each linked to Apple's page |
+| `/onplatform:ask <question>` | The answer from Apple's page itself, with the link, each figure's platform, and quotes checked word for word |
+| `/onplatform:figma [folder]` | Every screen and state into Figma, light and dark |
+| `/onplatform:handoff [design] [app]` | The design into SwiftUI, checked for anything lost on the way |
+| `/onplatform:ship [folder]` | Ready to publish: it won't call a design ready while it carries SF Pro, SF Symbols or a file without its licence |
 
 Two agents take the reading-heavy work into their own context, so your
 conversation stays on the design. Claude hands work to them when it fits,
-or ask for one by name, e.g. `@agent-hig:reviewer look at SettingsView.swift`:
+or ask for one by name, e.g. `@agent-onplatform:reviewer look at SettingsView.swift`:
 
-- **`hig:reviewer`** reviews code or a design against the HIG, reading
+- **`onplatform:reviewer`** reviews code or a design against the HIG, reading
   Apple's pages, and returns findings sorted into violations, guidance and
   judgment. It doesn't edit anything.
-- **`hig:design-critic`** renders a design, holds each screen against the
+- **`onplatform:design-critic`** renders a design, holds each screen against the
   platform's own example screens, and ranks what most gives it away as not
   native.
 
@@ -182,7 +182,7 @@ Two checks run by themselves:
   checked, and the command is stopped if SF Pro, SF Symbols or Apple's
   images would go along with it.
 
-To turn either off, set `HIG_SWIFTUI_HOOK` or `HIG_COMMIT_GUARD` to `off`
+To turn either off, set `ONPLATFORM_SWIFTUI_HOOK` or `ONPLATFORM_COMMIT_GUARD` to `off`
 in the `env` of `~/.claude/settings.json`.
 
 ### In your own CI
@@ -192,7 +192,7 @@ request's diff at its line:
 
 ```yaml
 - uses: actions/checkout@v4
-- uses: doppe7gangar/hig@v1.0.0
+- uses: doppe7gangar/onplatform@v1.0.0
   with:
     swiftui: MyApp     # Swift files or folders
     designs: design    # design folders, checked before they're published
@@ -232,7 +232,7 @@ docs is still true.
 ## The numbers you'll reach for most
 
 From the guidelines and the design kits. Each one is in
-`.claude/skills/apple-hig/references/numbers.md` or a kit's tokens, with its
+`.claude/skills/hig-guide/references/numbers.md` or a kit's tokens, with its
 source.
 
 | What | Value |
@@ -268,14 +268,14 @@ Each link opens Apple's page.
 | The same app on another device | [iOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-ios) · [iPadOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-ipados) · [macOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-macos) · [watchOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-watchos) · [tvOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-tvos) · [visionOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-visionos) · [games](https://developer.apple.com/design/human-interface-guidelines/designing-for-games) |
 | An AI feature | [Generative AI](https://developer.apple.com/design/human-interface-guidelines/generative-ai) · [Machine learning](https://developer.apple.com/design/human-interface-guidelines/machine-learning) |
 
-Everything else: **[every page, with the platforms it covers](.claude/skills/apple-hig/references/topics.md)**, or [the guidelines on Apple's site](https://developer.apple.com/design/human-interface-guidelines).
+Everything else: **[every page, with the platforms it covers](.claude/skills/hig-guide/references/topics.md)**, or [the guidelines on Apple's site](https://developer.apple.com/design/human-interface-guidelines).
 
 ## Without an AI
 
 The references are plain Markdown, so a terminal is enough:
 
 ```bash
-cd ~/.claude/skills/apple-hig/references
+cd ~/.claude/skills/hig-guide/references
 grep -i sheet topics.md                # the official page, and its platforms
 grep -A12 "^## Buttons" numbers.md     # the numbers
 grep -A4 "^\*\*Sheets\*\*" api-map.md   # the SwiftUI / UIKit / AppKit API
@@ -285,8 +285,8 @@ Read what Apple says, from Apple's site, and check an answer's quotes
 against the pages it links:
 
 ```bash
-python3 ~/.claude/skills/apple-hig/hig_page.py sheets --section "Platform considerations"
-pbpaste | python3 ~/.claude/skills/apple-hig/check_quotes.py -
+python3 ~/.claude/skills/hig-guide/hig_page.py sheets --section "Platform considerations"
+pbpaste | python3 ~/.claude/skills/hig-guide/check_quotes.py -
 ```
 
 Check SwiftUI code before it ships, for fixed font sizes, colours that
@@ -294,17 +294,17 @@ won't adapt, unlabelled icon buttons, destructive buttons without the role
 and small targets, each finding citing its page:
 
 ```bash
-python3 ~/.claude/skills/apple-hig/check_swiftui.py MyApp/
+python3 ~/.claude/skills/hig-guide/check_swiftui.py MyApp/
 ```
 
 Check SwiftUI written from one of the mockups, screen by screen and state
 by state, for titles, tabs, symbols and controls lost on the way:
 
 ```bash
-python3 ~/.claude/skills/apple-design/check_handoff.py ./design MyApp/
+python3 ~/.claude/skills/design-workflow/check_handoff.py ./design MyApp/
 ```
 
-On a Mac, run `python3 ~/.claude/skills/apple-hig/sf_symbols.py --install`
+On a Mac, run `python3 ~/.claude/skills/hig-guide/sf_symbols.py --install`
 once and the checks cover SF Symbol names too. A misspelt name, or one
 newer than your deployment target, draws nothing and nothing warns you.
 It copies the names from your own Mac, not the symbols, so nothing of
@@ -313,7 +313,7 @@ Apple's ships here.
 Turn a brand colour into an Android colour scheme for Compose:
 
 ```bash
-python3 ~/.claude/skills/android-ui-kit/build_m3_theme.py "#C1552E" --format compose -o Color.kt
+python3 ~/.claude/skills/ui-kit-for-android/build_m3_theme.py "#C1552E" --format compose -o Color.kt
 ```
 
 ## What's in here
@@ -371,14 +371,14 @@ trusting any triggering result.
 - SF Pro isn't included either: Apple's licence doesn't allow
   redistributing it. Macs and iPhones use their own copy anyway, and
   elsewhere pages fall back to Inter. If you have Apple's SF Pro download,
-  `.claude/skills/apple-ui-kit/fonts/sf.css` explains how to use your own
+  `.claude/skills/ui-kit-for-apple-platforms/fonts/sf.css` explains how to use your own
   copy for mockups; `sf_icons.py` does the same for SF Symbols on a Mac.
 - Bundled with their licences: Inter and Roboto (SIL Open Font License)
-  and Material Symbols (Apache 2.0). `apple-motion` adapts MIT-licensed
+  and Material Symbols (Apache 2.0). `motion-for-apple-platforms` adapts MIT-licensed
   material. [NOTICE](NOTICE) lists where every file comes from.
 - Designs carry their licences too. `new_project.py` writes the licence of
   everything it copies into a design, and
-  `python3 .claude/skills/apple-design/check_distribution.py ./design --purpose publish`
+  `python3 .claude/skills/design-workflow/check_distribution.py ./design --purpose publish`
   checks a design before it's shared or published: it fails on SF Pro and
   SF Symbols from your Mac, Apple's design-resource images, fonts or icons
   without their licence, and images nobody recorded.

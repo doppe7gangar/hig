@@ -10,7 +10,7 @@ CSS, so a token added there shows up here the next time this runs.
     python3 scripts/build_tailwind.py           # write both
     python3 scripts/build_tailwind.py --check   # exit 1 if either is stale
 
-Writes, into .claude/skills/apple-ui-kit/tailwind/:
+Writes, into .claude/skills/ui-kit-for-apple-platforms/tailwind/:
     theme.css   Tailwind v4:  @import "tailwindcss"; then this file
     preset.cjs  Tailwind v3:  presets: [require("./preset.cjs")]
 """
@@ -20,7 +20,7 @@ import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-KIT = os.path.join(os.path.dirname(HERE), ".claude", "skills", "apple-ui-kit")
+KIT = os.path.join(os.path.dirname(HERE), ".claude", "skills", "ui-kit-for-apple-platforms")
 SOURCES = [os.path.join(KIT, "tokens", "ios-tokens.css"), os.path.join(KIT, "ios-components.css")]
 OUT = os.path.join(KIT, "tailwind")
 

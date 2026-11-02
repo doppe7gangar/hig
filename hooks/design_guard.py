@@ -8,7 +8,7 @@ check_distribution.py on every design folder in the repository and denies
 the command when a file that fails would go with it: tracked already, or
 not ignored by git. Anything else it finds is left to the checks themselves.
 
-Off with HIG_COMMIT_GUARD=off in the environment (settings.json "env").
+Off with ONPLATFORM_COMMIT_GUARD=off in the environment (settings.json "env").
 """
 
 import json
@@ -20,7 +20,7 @@ import sys
 import tempfile
 
 ROOT = os.environ.get("CLAUDE_PLUGIN_ROOT") or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CHECKER = os.path.join(ROOT, ".claude", "skills", "apple-design", "check_distribution.py")
+CHECKER = os.path.join(ROOT, ".claude", "skills", "design-workflow", "check_distribution.py")
 GIT_SEND = re.compile(r"(?:^|[;&|(]\s*|\s)git(?:\s+-[Cc]\s+\S+|\s+--?[\w-]+(?:=\S+)?)*\s+(commit|push)\b")
 SKIP = {".git", "node_modules", ".venv", "venv", "__pycache__", "build", "dist", ".build", "DerivedData"}
 MAX_DEPTH, MAX_DIRS = 6, 4000
@@ -80,7 +80,7 @@ def problems(root, design):
 
 
 def main():
-    if os.environ.get("HIG_COMMIT_GUARD", "").lower() in ("off", "0", "false", "no"):
+    if os.environ.get("ONPLATFORM_COMMIT_GUARD", "").lower() in ("off", "0", "false", "no"):
         return 0
     try:
         event = json.load(sys.stdin)
@@ -106,7 +106,7 @@ def main():
     reason = (f"git {verb} would take files along that a design mustn't publish:\n{shown}\n"
               f"Remove them, or keep them out of git (.gitignore, and git rm --cached for one "
               f"already committed), then run python3 {CHECKER} <design> to confirm. "
-              f"This guard is on because the hig plugin is; HIG_COMMIT_GUARD=off turns it off.")
+              f"This guard is on because the onplatform plugin is; ONPLATFORM_COMMIT_GUARD=off turns it off.")
     print(json.dumps({"hookSpecificOutput": {"hookEventName": "PreToolUse",
                                              "permissionDecision": "deny",
                                              "permissionDecisionReason": reason}}))

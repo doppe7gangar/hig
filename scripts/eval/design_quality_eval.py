@@ -17,12 +17,12 @@ import sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 SKILLS = os.path.join(ROOT, ".claude", "skills")
-CHECK = os.path.join(SKILLS, "apple-design", "check_design.py")
-DIRECTION = os.path.join(SKILLS, "apple-design", "check_direction.py")
-DIVERGENCE = os.path.join(SKILLS, "apple-design", "check_divergence.py")
-CONTENT = os.path.join(SKILLS, "apple-design", "check_content.py")
-INTERACTION = os.path.join(SKILLS, "apple-design", "check_interaction.py")
-COHERENCE = os.path.join(SKILLS, "apple-design", "check_coherence.py")
+CHECK = os.path.join(SKILLS, "design-workflow", "check_design.py")
+DIRECTION = os.path.join(SKILLS, "design-workflow", "check_direction.py")
+DIVERGENCE = os.path.join(SKILLS, "design-workflow", "check_divergence.py")
+CONTENT = os.path.join(SKILLS, "design-workflow", "check_content.py")
+INTERACTION = os.path.join(SKILLS, "design-workflow", "check_interaction.py")
+COHERENCE = os.path.join(SKILLS, "design-workflow", "check_coherence.py")
 
 BRIEFS = {
     "analytics": "Design a desktop-first web support analytics product: ticket volume, SLA health, response time, staffing. Brand #1F6FEB. Apple sensibility without iOS chrome.",
@@ -46,7 +46,7 @@ BRIEFS = {
 def install_skills(root):
     dst = os.path.join(root, ".claude", "skills")
     os.makedirs(dst, exist_ok=True)
-    for name in ("apple-hig", "apple-ui-kit", "apple-motion", "apple-design"):
+    for name in ("hig-guide", "ui-kit-for-apple-platforms", "motion-for-apple-platforms", "design-workflow"):
         shutil.copytree(os.path.join(SKILLS, name), os.path.join(dst, name), ignore=shutil.ignore_patterns("__pycache__"))
 
 

@@ -7,7 +7,7 @@ import sys
 import tempfile
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-AUDIT = os.path.join(ROOT, ".claude", "skills", "apple-design", "audit_grammar.py")
+AUDIT = os.path.join(ROOT, ".claude", "skills", "design-workflow", "audit_grammar.py")
 
 
 def run(args, expect=0):

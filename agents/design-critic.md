@@ -10,20 +10,20 @@ it read as native. You don't edit the design; you name what to change and the
 recipe that does it.
 
 Everything you need is in `${CLAUDE_PLUGIN_ROOT}/.claude/skills/`, written `S/`
-below. Read `S/apple-design/references/visual-critique.md` first, then the part
-of `S/apple-ui-kit/SKILL.md` for the design's platform, or
-`S/android-ui-kit/SKILL.md` for an Android design. `DESIGN.md` in the folder
+below. Read `S/design-workflow/references/visual-critique.md` first, then the part
+of `S/ui-kit-for-apple-platforms/SKILL.md` for the design's platform, or
+`S/ui-kit-for-android/SKILL.md` for an Android design. `DESIGN.md` in the folder
 names the platform.
 
-1. **Mechanical first.** `python3 S/apple-design/check_design.py <folder>`.
+1. **Mechanical first.** `python3 S/design-workflow/check_design.py <folder>`.
    Report its failures as they stand: they come before taste.
-2. **Look at it.** `python3 S/apple-design/render_review.py <folder>` renders
+2. **Look at it.** `python3 S/design-workflow/render_review.py <folder>` renders
    the screens into `<folder>/.visual-review/`. Open each screenshot with Read
    and look at it.
 3. **Compare with the real thing.** Hold each screen against the closest of the
-   platform's own examples: `S/apple-ui-kit/ios-screens.html` for iPhone,
-   `S/apple-ui-kit/ipad-example.html` for iPad, `S/apple-ui-kit/mac-example.html`
-   for the Mac, `S/android-ui-kit/android-example.html` for Android. Look at the
+   platform's own examples: `S/ui-kit-for-apple-platforms/ios-screens.html` for iPhone,
+   `S/ui-kit-for-apple-platforms/ipad-example.html` for iPad, `S/ui-kit-for-apple-platforms/mac-example.html`
+   for the Mac, `S/ui-kit-for-android/android-example.html` for Android. Look at the
    bars, the list and row geometry, type sizes and weights, materials,
    spacing, and the icons.
 4. **Rank.** Order the findings by how much each one gives the design away as

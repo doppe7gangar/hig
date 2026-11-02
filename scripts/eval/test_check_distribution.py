@@ -23,8 +23,8 @@ import tempfile
 import zlib
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-DESIGN = os.path.join(ROOT, ".claude", "skills", "apple-design")
-KIT = os.path.join(ROOT, ".claude", "skills", "apple-ui-kit")
+DESIGN = os.path.join(ROOT, ".claude", "skills", "design-workflow")
+KIT = os.path.join(ROOT, ".claude", "skills", "ui-kit-for-apple-platforms")
 SCAFFOLD = os.path.join(DESIGN, "new_project.py")
 CHECK = os.path.join(DESIGN, "check_distribution.py")
 SF_ICONS = os.path.join(KIT, "sf_icons.py")
@@ -132,7 +132,7 @@ def main():
         manifest = json.load(open(os.path.join(made["ios"], "vendor", "manifest.json")))
         expect("vendor/manifest.json records each copied file's origin",
                (0 if manifest["files"]["vendor/ios-components.css"]["origin"]
-                == "apple-ui-kit/ios-components.css" else 1, ""), 0)
+                == "ui-kit-for-apple-platforms/ios-components.css" else 1, ""), 0)
 
         print("SF Pro:")
         sf = fake_font(os.path.join(base, "SF-Pro.ttf"), "SF Pro",
@@ -243,7 +243,7 @@ def main():
                "Inter Variable (SIL OFL) without its licence")
         d = scaffold(base, "android", "tabs")
         os.remove(os.path.join(d, "vendor", "icons", "LICENSE-Material-Symbols.txt"))
-        os.remove(os.path.join(d, "vendor", "LICENSE-hig.txt"))
+        os.remove(os.path.join(d, "vendor", "LICENSE-onplatform.txt"))
         expect("Material Symbols and the kit without the Apache text fail when published",
                audit(d, "publish"), 1, "Material Symbols icon(s)")
 
@@ -258,7 +258,7 @@ def main():
         expect("node_modules is named, not audited", audit(d, "publish", "--manifest", out), 0,
                "not audited")
         m = json.load(open(out))
-        kit = [f for f in m["files"] if f["origin"] == "apple-ui-kit/ios-components.css"]
+        kit = [f for f in m["files"] if f["origin"] == "ui-kit-for-apple-platforms/ios-components.css"]
         expect("--manifest lists each file with its origin, licence and hash",
                (0 if kit and kit[0]["licence"] == "Apache-2.0" and len(kit[0]["sha256"]) == 64
                 else 1, json.dumps(m)[:400]), 0)

@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 The question: $ARGUMENTS
 
-Scripts and references live in `${CLAUDE_PLUGIN_ROOT}/.claude/skills/apple-hig/`; below, `H` stands for that folder.
+Scripts and references live in `${CLAUDE_PLUGIN_ROOT}/.claude/skills/hig-guide/`; below, `H` stands for that folder.
 
 1. **Find the page.** `grep -i "<topic>" H/references/topics.md`. When the
    concern isn't a component (empty states, errors, contrast), look in

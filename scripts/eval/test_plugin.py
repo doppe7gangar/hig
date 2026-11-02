@@ -12,7 +12,7 @@
 - The commit guard denies a commit or push that would take SF Pro along,
   allows it once git ignores the font, ignores commands that aren't commits
   or pushes, finds the repository through `git -C` and `cd`, and turns off
-  with HIG_COMMIT_GUARD=off.
+  with ONPLATFORM_COMMIT_GUARD=off.
 
 Needs fontTools, for the stand-in SF Pro.
 """
@@ -29,7 +29,7 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 sys.path.insert(0, os.path.dirname(__file__))
 from test_check_distribution import fake_font  # noqa: E402
 
-SCAFFOLD = os.path.join(ROOT, ".claude", "skills", "apple-design", "new_project.py")
+SCAFFOLD = os.path.join(ROOT, ".claude", "skills", "design-workflow", "new_project.py")
 FAILED = []
 
 
@@ -85,8 +85,8 @@ def main():
     expect("the five skills load from .claude/skills",
            plugin.get("skills") == ["./.claude/skills/"]
            and all(os.path.isfile(os.path.join(ROOT, ".claude", "skills", s, "SKILL.md"))
-                   for s in ("apple-hig", "apple-design", "apple-ui-kit", "apple-motion",
-                             "android-ui-kit")))
+                   for s in ("hig-guide", "design-workflow", "ui-kit-for-apple-platforms", "motion-for-apple-platforms",
+                             "ui-kit-for-android")))
 
     print("commands and agents:")
     named = []
@@ -96,7 +96,7 @@ def main():
         fields, body = frontmatter(path)
         ok = bool(fields and fields.get("description") and fields.get("argument-hint")
                   and fields.get("disable-model-invocation") == "true")
-        expect(f"/hig:{c} has a description, an argument hint, and runs only when called", ok, fields)
+        expect(f"/onplatform:{c} has a description, an argument hint, and runs only when called", ok, fields)
         named += plugin_paths(body)
     for a in sorted(os.listdir(os.path.join(ROOT, "agents"))):
         fields, body = frontmatter(os.path.join(ROOT, "agents", a))
@@ -105,7 +105,7 @@ def main():
         ok = bool(fields and fields.get("name") and fields.get("description")
                   and fields.get("tools") and set(fields) <= supported
                   and "Edit" not in fields["tools"] and "Write" not in fields["tools"])
-        expect(f"agent hig:{fields and fields.get('name')}: named, described, read-only", ok, fields)
+        expect(f"agent onplatform:{fields and fields.get('name')}: named, described, read-only", ok, fields)
         named += plugin_paths(body)
     hooks_text = open(os.path.join(ROOT, "hooks", "hooks.json")).read()
     json.loads(hooks_text)
@@ -139,8 +139,8 @@ def main():
     expect("a non-Swift file stays quiet", rc == 0 and out == "", out)
     rc, out = hook("swiftui_check.py", "not json")
     expect("bad input never fails the edit", rc == 0 and out == "", out)
-    rc, out = hook("swiftui_check.py", dict(event, session_id="t2"), {"HIG_SWIFTUI_HOOK": "off"})
-    expect("HIG_SWIFTUI_HOOK=off turns it off", rc == 0 and out == "", out)
+    rc, out = hook("swiftui_check.py", dict(event, session_id="t2"), {"ONPLATFORM_SWIFTUI_HOOK": "off"})
+    expect("ONPLATFORM_SWIFTUI_HOOK=off turns it off", rc == 0 and out == "", out)
     shutil.rmtree(data, ignore_errors=True)
 
     print("commit guard:")
@@ -171,8 +171,8 @@ def main():
         expect("so is a leading cd", rc == 0 and '"deny"' in out, out)
         rc, out = hook("design_guard.py", dict(commit, tool_input={"command": "git status"}))
         expect("git status passes untouched", rc == 0 and out == "", out)
-        rc, out = hook("design_guard.py", commit, {"HIG_COMMIT_GUARD": "off"})
-        expect("HIG_COMMIT_GUARD=off turns it off", rc == 0 and out == "", out)
+        rc, out = hook("design_guard.py", commit, {"ONPLATFORM_COMMIT_GUARD": "off"})
+        expect("ONPLATFORM_COMMIT_GUARD=off turns it off", rc == 0 and out == "", out)
         open(os.path.join(repo, "design", ".gitignore"), "w").write("vendor/fonts/SF-Pro.ttf\n")
         rc, out = hook("design_guard.py", commit)
         expect("once git ignores the font, the commit goes ahead", rc == 0 and out == "", out)
@@ -185,7 +185,7 @@ def main():
         shutil.rmtree(base, ignore_errors=True)
 
     print("GitHub Action:")
-    action = os.path.join(ROOT, "scripts", "hig_action.py")
+    action = os.path.join(ROOT, "scripts", "action_checks.py")
     work = tempfile.mkdtemp(prefix="hig-action-")
     try:
         os.makedirs(os.path.join(work, "clean"))
@@ -196,29 +196,29 @@ def main():
                         "android", "-o", os.path.join(work, "design")], check=True, capture_output=True)
 
         def act(**env):
-            e = {k: v for k, v in os.environ.items() if not k.startswith("HIG_")}
+            e = {k: v for k, v in os.environ.items() if not k.startswith("ONPLATFORM_")}
             e.update(env, GITHUB_STEP_SUMMARY=os.path.join(work, "summary.md"))
             return subprocess.run([sys.executable, action], capture_output=True, text=True, env=e)
 
-        p = act(HIG_SWIFTUI=os.path.join(work, "clean"), HIG_DESIGNS=os.path.join(work, "design"))
+        p = act(ONPLATFORM_SWIFTUI=os.path.join(work, "clean"), ONPLATFORM_DESIGNS=os.path.join(work, "design"))
         expect("clean SwiftUI and a fresh design pass", p.returncode == 0, p.stdout + p.stderr)
         expect("...and the run gets a summary",
-               "## HIG checks" in open(os.path.join(work, "summary.md")).read())
+               "## onplatform checks" in open(os.path.join(work, "summary.md")).read())
         seeded_dir = os.path.join("scripts", "eval", "reallife", "fixture")
         p = subprocess.run([sys.executable, action], capture_output=True, text=True, cwd=ROOT,
-                           env=dict({k: v for k, v in os.environ.items() if not k.startswith("HIG_")},
-                                    HIG_SWIFTUI=seeded_dir))
+                           env=dict({k: v for k, v in os.environ.items() if not k.startswith("ONPLATFORM_")},
+                                    ONPLATFORM_SWIFTUI=seeded_dir))
         expect("the seeded app fails, each finding annotated at its file and line",
                p.returncode == 1 and re.search(r"^::error file=scripts/eval/reallife/fixture/\w+\.swift,"
                                                r"line=\d+,title=HIG violation", p.stdout, re.M), p.stdout[-800:])
-        p = act(HIG_SWIFTUI=os.path.join(ROOT, seeded_dir), HIG_FAIL_ON="none")
+        p = act(ONPLATFORM_SWIFTUI=os.path.join(ROOT, seeded_dir), ONPLATFORM_FAIL_ON="none")
         expect("fail-on: none only reports", p.returncode == 0, p.stdout[-400:])
         open(os.path.join(work, "design", "vendor", "sf-symbols.css"), "w").write(
             "/* SF Symbols drawn on this Mac by sf_icons.py. */")
-        p = act(HIG_DESIGNS=os.path.join(work, "design"))
+        p = act(ONPLATFORM_DESIGNS=os.path.join(work, "design"))
         expect("a design carrying SF Symbols fails, annotated", p.returncode == 1 and "::error file=" in p.stdout,
                p.stdout[-800:])
-        p = act(HIG_SWIFTUI="x", HIG_PURPOSE="sometimes")
+        p = act(ONPLATFORM_SWIFTUI="x", ONPLATFORM_PURPOSE="sometimes")
         expect("a bad input is refused", p.returncode == 2, p.stdout)
     finally:
         shutil.rmtree(work, ignore_errors=True)

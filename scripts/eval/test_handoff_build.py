@@ -5,7 +5,7 @@ The design is the one in handoff/design, without the Swift beside it.
 The model gets the skills and one line asking for the app, and what it
 writes is graded on disk:
 
-- a skill was consulted (apple-design or apple-hig);
+- a skill was consulted (design-workflow or hig-guide);
 - check_handoff.py finds every screen, tab, state, symbol and component
   the design decided;
 - check_swiftui.py finds no HIG violations;
@@ -30,7 +30,7 @@ import time
 HERE = os.path.dirname(os.path.abspath(__file__))
 SKILLS = os.path.normpath(os.path.join(HERE, "..", "..", ".claude", "skills"))
 DESIGN = os.path.join(HERE, "handoff", "design")
-KIT = os.path.join(SKILLS, "apple-ui-kit")
+KIT = os.path.join(SKILLS, "ui-kit-for-apple-platforms")
 MODEL, TIMEOUT = "claude-opus-5", 3600
 
 PROMPT = ("the design in ./design is approved. write the SwiftUI app for it "
@@ -98,7 +98,7 @@ def run(*args):
 def grade(root, skills=None, finished=True, minutes=None):
     checks = []
     if skills is not None:
-        used = [s for s in skills if "apple-design" in s or "apple-hig" in s]
+        used = [s for s in skills if "design-workflow" in s or "hig-guide" in s]
         checks.append((bool(used), "a skill was consulted",
                        ", ".join(skills) or "no skill was invoked"))
     if minutes is not None:
@@ -106,7 +106,7 @@ def grade(root, skills=None, finished=True, minutes=None):
     swift = swift_root(root)
     checks.append((swift is not None, "SwiftUI was written", swift or "no .swift files"))
     if swift:
-        code, out = run(os.path.join(SKILLS, "apple-design", "check_handoff.py"),
+        code, out = run(os.path.join(SKILLS, "design-workflow", "check_handoff.py"),
                         os.path.join(root, "design"), swift)
         missing = [l.strip() for l in out.splitlines() if l.startswith("  FAIL")]
         warns = [l.strip() for l in out.splitlines() if l.startswith("  warn")]
@@ -115,7 +115,7 @@ def grade(root, skills=None, finished=True, minutes=None):
                        "; ".join(missing)[:600] or (tail[0] if tail else out[-300:])))
         for w in warns:
             print("   handoff " + w[:200])
-        code, out = run(os.path.join(SKILLS, "apple-hig", "check_swiftui.py"), swift)
+        code, out = run(os.path.join(SKILLS, "hig-guide", "check_swiftui.py"), swift)
         summary = [l for l in out.splitlines() if "violations," in l]
         vio = [l.strip() for l in out.splitlines() if l.strip().startswith(swift)][:6]
         checks.append((code == 0, "check_swiftui: no HIG violations",

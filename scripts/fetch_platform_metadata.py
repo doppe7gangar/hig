@@ -18,7 +18,7 @@ import urllib.error
 import urllib.request
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TOPICS = os.path.join(REPO, ".claude", "skills", "apple-hig", "references", "topics.md")
+TOPICS = os.path.join(REPO, ".claude", "skills", "hig-guide", "references", "topics.md")
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "platform_metadata.json")
 DATA_BASE = "https://developer.apple.com/tutorials/data/design/human-interface-guidelines"
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"

@@ -52,26 +52,26 @@ ICONIFY_URL = ("https://raw.githubusercontent.com/iconify/icon-sets/"
 
 COMPONENTS = [
     {"name": "Inter", "licence": "OFL-1.1",
-     "files": [f"{SKILLS}/apple-ui-kit/fonts/InterVariable.woff2",
-               f"{SKILLS}/apple-ui-kit/fonts/InterVariable-Italic.woff2"],
-     "licence_file": f"{SKILLS}/apple-ui-kit/fonts/LICENSE-Inter.txt",
+     "files": [f"{SKILLS}/ui-kit-for-apple-platforms/fonts/InterVariable.woff2",
+               f"{SKILLS}/ui-kit-for-apple-platforms/fonts/InterVariable-Italic.woff2"],
+     "licence_file": f"{SKILLS}/ui-kit-for-apple-platforms/fonts/LICENSE-Inter.txt",
      "holder": "The Inter Project Authors", "family": "Inter",
      "source": "https://github.com/rsms/inter"},
     {"name": "Roboto", "licence": "OFL-1.1",
-     "files": [f"{SKILLS}/android-ui-kit/fonts/roboto-*.woff2"],
-     "licence_file": f"{SKILLS}/android-ui-kit/fonts/LICENSE-Roboto.txt",
+     "files": [f"{SKILLS}/ui-kit-for-android/fonts/roboto-*.woff2"],
+     "licence_file": f"{SKILLS}/ui-kit-for-android/fonts/LICENSE-Roboto.txt",
      "holder": "The Roboto Project Authors", "family": "Roboto",
      "source": "https://github.com/googlefonts/roboto-classic"},
     {"name": "Material Symbols", "licence": "Apache-2.0",
-     "files": [f"{SKILLS}/android-ui-kit/icons/material-symbols.json",
-               f"{SKILLS}/android-ui-kit/icons/names.txt"],
-     "licence_file": f"{SKILLS}/android-ui-kit/icons/LICENSE-Material-Symbols.txt",
+     "files": [f"{SKILLS}/ui-kit-for-android/icons/material-symbols.json",
+               f"{SKILLS}/ui-kit-for-android/icons/names.txt"],
+     "licence_file": f"{SKILLS}/ui-kit-for-android/icons/LICENSE-Material-Symbols.txt",
      "holder": "Google",
      "source": "https://github.com/google/material-design-icons, on a 24-unit grid as "
                f"packaged by Iconify (github.com/iconify/icon-sets at {ICONIFY_COMMIT[:7]})"},
-    {"name": "apple-motion references", "licence": "MIT",
-     "files": [f"{SKILLS}/apple-motion/references/*.md"],
-     "licence_file": f"{SKILLS}/apple-motion/LICENSE.txt",
+    {"name": "motion-for-apple-platforms references", "licence": "MIT",
+     "files": [f"{SKILLS}/motion-for-apple-platforms/references/*.md"],
+     "licence_file": f"{SKILLS}/motion-for-apple-platforms/LICENSE.txt",
      "holder": "s1gmamale1", "source": "apple-design-skills (skills/apple-design-motion)"},
 ]
 
@@ -182,7 +182,7 @@ def check_upstream(comp, files):
             "Google" not in (info.get("author") or {}).get("name", ""):
         problem(f"Material Symbols upstream no longer says Apache-2.0 by Google: {info}")
         return False
-    icons = json.loads(read(f"{SKILLS}/android-ui-kit/icons/material-symbols.json"))
+    icons = json.loads(read(f"{SKILLS}/ui-kit-for-android/icons/material-symbols.json"))
     names = set(up["icons"]) | set(up.get("aliases", {}))
 
     def paths(name):
@@ -204,7 +204,7 @@ def check_upstream(comp, files):
                 ok = False
             else:
                 matched += 1
-    listed = [l.strip() for l in read(f"{SKILLS}/android-ui-kit/icons/names.txt").splitlines()
+    listed = [l.strip() for l in read(f"{SKILLS}/ui-kit-for-android/icons/names.txt").splitlines()
               if l.strip() and not l.startswith("#")]
     absent = [x for x in listed if x.replace("_", "-") not in names
               and x.replace("_", "-") + "-outline" not in names]

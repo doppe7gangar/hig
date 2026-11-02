@@ -20,7 +20,7 @@ import subprocess
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-CLONE_SKILL = os.path.join(HERE, "clone", ".claude", "skills", "apple-hig")
+CLONE_SKILL = os.path.join(HERE, "clone", ".claude", "skills", "hig-guide")
 PROJECT = os.path.join(HERE, "HabitApp")
 MODEL = "claude-opus-5"
 
@@ -33,7 +33,7 @@ PROMPTS = {
 
 
 def install_skill():
-    dst = os.path.join(PROJECT, ".claude", "skills", "apple-hig")
+    dst = os.path.join(PROJECT, ".claude", "skills", "hig-guide")
     if os.path.isdir(dst):
         return
     os.makedirs(os.path.dirname(dst), exist_ok=True)
@@ -66,7 +66,7 @@ def run(name, prompt):
                     parts.append(b["text"])
                 if b.get("type") == "tool_use":
                     blob = json.dumps(b.get("input", {}))
-                    if "apple-hig" in blob:
+                    if "hig-guide" in blob:
                         used_skill = True
                     for r in ("topics.md", "numbers.md", "api-map.md",
                               "framework-index.md", "concepts.md", "patterns.md",

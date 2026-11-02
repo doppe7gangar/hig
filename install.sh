@@ -2,7 +2,7 @@
 # Installs the skills into ~/.claude/skills, for every Claude Code project.
 #
 # Safest: download, read, then run.
-#     curl -fsSLO https://github.com/doppe7gangar/hig/releases/download/v1.0.0/install.sh
+#     curl -fsSLO https://github.com/doppe7gangar/onplatform/releases/download/v1.0.0/install.sh
 #     less install.sh
 #     bash install.sh
 #
@@ -12,25 +12,25 @@
 #     --version TAG     install another release (default: the one this script is for)
 #     --checks          also install Playwright, for the design checks
 #
-# What it does: fetches the release into ~/.hig, checks it is the exact
+# What it does: fetches the release into ~/.onplatform, checks it is the exact
 # commit this script was published with, saves your current copies of the
-# five skills to ~/.claude/skills/.hig-backups/<time>/, then puts the new
+# five skills to ~/.claude/skills/.onplatform-backups/<time>/, then puts the new
 # ones in place. Other skills you have are not touched. If you edited one
 # of the five yourself, it says so before replacing it; your edit is in
 # the backup either way.
 
 set -euo pipefail
 
-REPO="${HIG_REPO:-https://github.com/doppe7gangar/hig}"
+REPO="${ONPLATFORM_REPO:-https://github.com/doppe7gangar/onplatform}"
 VERSION="v1.0.0"
 # The commit the release above points at. A tag can be moved; a commit
 # can't, so this is what's checked. Filled in when the release is made.
 COMMIT=""
-SRC="${HIG_DIR:-$HOME/.hig}"
+SRC="${ONPLATFORM_DIR:-$HOME/.onplatform}"
 DEST="$HOME/.claude/skills"
-BACKUPS="$DEST/.hig-backups"
-STAMP_FILE="$DEST/.hig-installed"
-SKILLS="android-ui-kit apple-design apple-hig apple-motion apple-ui-kit"
+BACKUPS="$DEST/.onplatform-backups"
+STAMP_FILE="$DEST/.onplatform-installed"
+SKILLS="ui-kit-for-android design-workflow hig-guide motion-for-apple-platforms ui-kit-for-apple-platforms"
 
 DRY=0; ROLLBACK=0; CHECKS=0
 while [ $# -gt 0 ]; do
@@ -59,10 +59,10 @@ if [ "$ROLLBACK" = 1 ]; then
   for s in $SKILLS; do
     if [ -d "$last/$s" ]; then
       [ "$DRY" = 1 ] && { say "  would restore $s"; continue; }
-      rm -rf "${DEST:?}/$s.hig-new"
-      cp -R "$last/$s" "$DEST/$s.hig-new"
+      rm -rf "${DEST:?}/$s.onplatform-new"
+      cp -R "$last/$s" "$DEST/$s.onplatform-new"
       rm -rf "${DEST:?}/$s"
-      mv "$DEST/$s.hig-new" "$DEST/$s"
+      mv "$DEST/$s.onplatform-new" "$DEST/$s"
       say "  restored $s"
     elif [ -d "$DEST/$s" ] && [ -f "$last/.absent-$s" ]; then
       [ "$DRY" = 1 ] && { say "  would remove $s (it wasn't installed before)"; continue; }
@@ -133,10 +133,10 @@ if [ "$changes" = 0 ]; then say "Nothing to do."; else
     if [ -d "$DEST/$s" ]; then cp -R "$DEST/$s" "$backup/$s"; else touch "$backup/.absent-$s"; fi
   done
   for s in $SKILLS; do
-    rm -rf "${DEST:?}/$s.hig-new"
-    cp -R "$SRC/.claude/skills/$s" "$DEST/$s.hig-new"
+    rm -rf "${DEST:?}/$s.onplatform-new"
+    cp -R "$SRC/.claude/skills/$s" "$DEST/$s.onplatform-new"
     rm -rf "${DEST:?}/$s"
-    mv "$DEST/$s.hig-new" "$DEST/$s"
+    mv "$DEST/$s.onplatform-new" "$DEST/$s"
   done
   {
     echo "version $VERSION $got"
@@ -153,7 +153,7 @@ if [ "$CHECKS" = 1 ]; then
     python3 -m playwright install chromium
   else
     say "pip refused (common with Homebrew's Python). Use a virtual environment:"
-    say "  python3 -m venv ~/.hig-env && source ~/.hig-env/bin/activate"
+    say "  python3 -m venv ~/.onplatform-env && source ~/.onplatform-env/bin/activate"
     say "  pip install playwright pillow && python -m playwright install chromium"
   fi
 fi

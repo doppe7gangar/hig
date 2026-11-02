@@ -9,7 +9,7 @@ disable-model-invocation: true
 The folder: $ARGUMENTS. If none was named, use `./design`, or the folder
 here that holds `index.html` and `DESIGN.md`.
 
-Scripts live in `${CLAUDE_PLUGIN_ROOT}/.claude/skills/apple-design/`; below, `D` stands for that folder.
+Scripts live in `${CLAUDE_PLUGIN_ROOT}/.claude/skills/design-workflow/`; below, `D` stands for that folder.
 
 1. `python3 D/check_design.py <folder>`. It drives a real browser. If
    Playwright is missing, run it with `--no-browser`, say the browser checks

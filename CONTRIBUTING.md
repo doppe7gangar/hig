@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for improving hig. Please submit small, focused changes with tests.
+Thank you for improving onplatform. Please submit small, focused changes with tests.
 
 ## Before a pull request
 

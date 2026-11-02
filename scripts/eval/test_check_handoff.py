@@ -18,8 +18,8 @@ import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SKILLS = os.path.normpath(os.path.join(HERE, "..", "..", ".claude", "skills"))
-CHECK = os.path.join(SKILLS, "apple-design", "check_handoff.py")
-SWIFTUI = os.path.join(SKILLS, "apple-hig", "check_swiftui.py")
+CHECK = os.path.join(SKILLS, "design-workflow", "check_handoff.py")
+SWIFTUI = os.path.join(SKILLS, "hig-guide", "check_swiftui.py")
 DESIGN = os.path.join(HERE, "handoff", "design")
 SWIFT = os.path.join(HERE, "handoff", "swift")
 VIEW = os.path.join("Ledger", "ExpensesView.swift")

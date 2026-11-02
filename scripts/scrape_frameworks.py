@@ -35,7 +35,7 @@ import urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
-REFS = os.path.join(REPO, ".claude", "skills", "apple-hig", "references")
+REFS = os.path.join(REPO, ".claude", "skills", "hig-guide", "references")
 CACHE = os.path.join(REPO, ".cache", "frameworks")
 
 BASE = "https://developer.apple.com/tutorials/data/documentation"

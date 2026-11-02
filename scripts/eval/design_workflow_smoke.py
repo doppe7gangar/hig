@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Smoke-test deterministic parts of the apple-design workflow.
+"""Smoke-test deterministic parts of the design-workflow workflow.
 
 No model call. It verifies platform-aware reference routing, structural
 divergence evidence, content-design evidence, interaction-architecture
@@ -15,7 +15,7 @@ import sys
 import tempfile
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-DESIGN = os.path.join(ROOT, ".claude", "skills", "apple-design")
+DESIGN = os.path.join(ROOT, ".claude", "skills", "design-workflow")
 SELECT = os.path.join(DESIGN, "select_references.py")
 SCAFFOLD = os.path.join(DESIGN, "new_project.py")
 CHECK = os.path.join(DESIGN, "check_design.py")
@@ -47,7 +47,7 @@ def test_reference_selector(tmp):
          "analytics dashboard filters search status settings",
          "--model", "dashboard", "--platform", "ios", "--limit", "5", "-o", ios])
     text = open(ios, encoding="utf-8").read()
-    if "developer.apple.com/design/human-interface-guidelines/" not in text or "apple-ui-kit/" not in text:
+    if "developer.apple.com/design/human-interface-guidelines/" not in text or "ui-kit-for-apple-platforms/" not in text:
         raise RuntimeError("iOS selector lost HIG or measured visual provenance")
 
     mac = os.path.join(tmp, "REFERENCES-macos.md")
@@ -640,7 +640,7 @@ def main():
     for path in (SELECT, SCAFFOLD, CHECK, DIRECTION, DIVERGENCE, CONTENT,
                  INTERACTION, RENDER):
         exists(path)
-    with tempfile.TemporaryDirectory(prefix="apple-design-smoke-") as tmp:
+    with tempfile.TemporaryDirectory(prefix="design-workflow-smoke-") as tmp:
         test_reference_selector(tmp)
         test_content_gate(tmp)
         test_interaction_gate(tmp)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Do the React components work from a keyboard and a screen reader?
 
-Bundles apple-ui-kit/react/example.jsx, which uses every component,
+Bundles ui-kit-for-apple-platforms/react/example.jsx, which uses every component,
 serves it, and drives it in Chromium the way a person without a mouse
 would: Tab to a row and press Enter, arrow through the segmented control
 and the tabs, Space on the switch, open the sheet and try to Tab out of
@@ -28,7 +28,7 @@ import tempfile
 import threading
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-KIT = os.path.normpath(os.path.join(HERE, "..", "..", ".claude", "skills", "apple-ui-kit"))
+KIT = os.path.normpath(os.path.join(HERE, "..", "..", ".claude", "skills", "ui-kit-for-apple-platforms"))
 DEPS = os.path.join(HERE, "out", "react-deps")
 PACKAGES = ["react@18.3.1", "react-dom@18.3.1", "esbuild@0.24.0", "axe-core@4.10.2"]
 

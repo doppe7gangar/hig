@@ -34,21 +34,21 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FORBIDDEN = [
     "content/",
     "ios-27-ui-kit_assets/",
-    ".claude/skills/apple-hig/assets/",
-    ".claude/skills/apple-hig/references/pages/",
-    ".claude/skills/apple-hig/references/rules.md",
-    ".claude/skills/apple-hig/references/platform-diffs.md",
-    ".claude/skills/apple-hig/references/specs.md",
-    ".claude/skills/apple-hig/references/components.md",
-    ".claude/skills/apple-hig/references/assets-index.md",
+    ".claude/skills/hig-guide/assets/",
+    ".claude/skills/hig-guide/references/pages/",
+    ".claude/skills/hig-guide/references/rules.md",
+    ".claude/skills/hig-guide/references/platform-diffs.md",
+    ".claude/skills/hig-guide/references/specs.md",
+    ".claude/skills/hig-guide/references/components.md",
+    ".claude/skills/hig-guide/references/assets-index.md",
 ]
 
 # Every image and font the repo may hold, and why. NOTICE says where each
 # comes from; add a file there and here together.
 ALLOWED = [
     re.compile(r"^docs/(iphone|ipad|mac|android)\.png$"),          # our own renders
-    re.compile(r"^\.claude/skills/apple-ui-kit/fonts/InterVariable(-Italic)?\.woff2$"),  # SIL OFL
-    re.compile(r"^\.claude/skills/android-ui-kit/fonts/roboto-[a-z-]+\.woff2$"),         # SIL OFL
+    re.compile(r"^\.claude/skills/ui-kit-for-apple-platforms/fonts/InterVariable(-Italic)?\.woff2$"),  # SIL OFL
+    re.compile(r"^\.claude/skills/ui-kit-for-android/fonts/roboto-[a-z-]+\.woff2$"),         # SIL OFL
 ]
 BINARY = re.compile(r"\.(png|jpe?g|gif|webp|heic|tiff?|bmp|ico|pdf|psd|sketch|fig|"
                     r"ttf|otf|woff2?|eot|mp4|mov)$", re.I)

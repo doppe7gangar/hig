@@ -19,7 +19,7 @@ import sys
 import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-SKILL = os.path.normpath(os.path.join(HERE, "..", "..", ".claude", "skills", "apple-hig"))
+SKILL = os.path.normpath(os.path.join(HERE, "..", "..", ".claude", "skills", "hig-guide"))
 MODEL = "claude-opus-5"
 TIMEOUT = 600
 
@@ -71,7 +71,7 @@ def make_project():
     root = tempfile.mkdtemp(prefix="hig-full-")
     dst = os.path.join(root, ".claude", "skills")
     os.makedirs(dst)
-    shutil.copytree(SKILL, os.path.join(dst, "apple-hig"))
+    shutil.copytree(SKILL, os.path.join(dst, "hig-guide"))
     return root
 
 

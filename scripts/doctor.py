@@ -75,7 +75,7 @@ def skill_docs():
 def truth():
     """Ground truth, derived rather than declared."""
     t = {}
-    hig = os.path.join(SKILLS, "apple-hig")
+    hig = os.path.join(SKILLS, "hig-guide")
     refs = os.path.join(hig, "references")
 
     topics = os.path.join(refs, "topics.md")
@@ -88,7 +88,7 @@ def truth():
     if os.path.exists(api):
         t["frameworks"] = read(api).count("\n### ")
 
-    kit = os.path.join(SKILLS, "apple-ui-kit", "ui-kit-tokens.json")
+    kit = os.path.join(SKILLS, "ui-kit-for-apple-platforms", "ui-kit-tokens.json")
     if os.path.exists(kit):
         t["measurements"] = len(json.load(open(kit)))
     return t
@@ -127,16 +127,16 @@ def check_counts(d, facts):
 
 
 # Each kit verifier and the skill it ships in.
-VERIFIERS = {"verify_web_ui.py": "apple-ui-kit", "verify_mac_ui.py": "apple-ui-kit",
-             "verify_ipad_ui.py": "apple-ui-kit", "verify_android_ui.py": "android-ui-kit"}
+VERIFIERS = {"verify_web_ui.py": "ui-kit-for-apple-platforms", "verify_mac_ui.py": "ui-kit-for-apple-platforms",
+             "verify_ipad_ui.py": "ui-kit-for-apple-platforms", "verify_android_ui.py": "ui-kit-for-android"}
 
 
 def verifier_for(sk, line):
-    """Whose count a line quotes. Everything in android-ui-kit's own
+    """Whose count a line quotes. Everything in ui-kit-for-android's own
     SKILL.md is its verifier's; elsewhere a line about Android or Material
     is, a line about the iPad is verify_ipad_ui.py's, a line about the Mac
     kit is verify_mac_ui.py's, and any other is verify_web_ui.py's."""
-    if sk == "android-ui-kit" or (sk is None and re.search(
+    if sk == "ui-kit-for-android" or (sk is None and re.search(
             r"verify_android_ui|\bandroid\b|material", line, re.I)):
         return "verify_android_ui.py"
     if re.search(r"verify_ipad_ui|\bipad(os)?\b", line, re.I):
@@ -187,7 +187,7 @@ def check_script_refs(d):
     only form that still works once someone copies the skill into
     ~/.claude/skills/, and so the form the skills should prefer.
 
-    The bare case went unchecked until apple-design's instructions moved
+    The bare case went unchecked until design-workflow's instructions moved
     off `scripts/` and onto its own bundled tools: coverage of that skill
     silently dropped by three checks, and a rename would have broken the
     documented command with nothing to catch it.
@@ -207,7 +207,7 @@ def check_script_refs(d):
         # Only invocations -- `python3 foo.py`. A bare mention in prose
         # ("doctor.py fails the build if...") is describing a tool, not
         # telling anyone to run it from here, and flagging those made the
-        # check cry wolf on apple-ui-kit's perfectly correct sentence.
+        # check cry wolf on ui-kit-for-apple-platforms's perfectly correct sentence.
         for m in re.finditer(
                 r"python3\s+((?:\.\./)?[\w./-]*[\w-]+\.py)\b", text):
             ref = m.group(1)
@@ -235,13 +235,13 @@ def check_skill_paths(d):
         base = os.path.join(SKILLS, sk)
         text = read(path)
         # Any backticked directory/file path, not only the four known
-        # prefixes. apple-hig's SKILL.md pointed at https://developer.apple.com/design/human-interface-guidelines/buttons
+        # prefixes. hig-guide's SKILL.md pointed at https://developer.apple.com/design/human-interface-guidelines/buttons
         # ten times over, including the routing table that decides which
         # page to open -- correct inside references/, where those files
         # live, and dead from the skill root where SKILL.md sits. The
         # prefix-limited pattern could not see it.
-        # `../apple-hig/...` is how one skill points into a sibling, the
-        # same form apple-design already uses for apple-ui-kit. Resolved
+        # `../hig-guide/...` is how one skill points into a sibling, the
+        # same form design-workflow already uses for ui-kit-for-apple-platforms. Resolved
         # against the skills root so the reference is checked rather than
         # skipped -- a cross-skill path is exactly the kind that rots.
         for m in re.finditer(r"`((?:\.\./)?[\w-]+/[\w./ -]*[\w-]+\.\w+)`", text):
@@ -322,8 +322,8 @@ def check_corroboration(d, min_components=2):
     mean nothing else in the kit backs it up, so it should be checked by
     hand before being trusted.
     """
-    tokens = os.path.join(SKILLS, "apple-ui-kit", "tokens", "ios-tokens.css")
-    kit = os.path.join(SKILLS, "apple-ui-kit", "ui-kit-tokens.json")
+    tokens = os.path.join(SKILLS, "ui-kit-for-apple-platforms", "tokens", "ios-tokens.css")
+    kit = os.path.join(SKILLS, "ui-kit-for-apple-platforms", "ui-kit-tokens.json")
     if not (os.path.exists(tokens) and os.path.exists(kit)):
         return
     # Strip CSS comments first. The header explains that the accent is
@@ -339,7 +339,7 @@ def check_corroboration(d, min_components=2):
     # text, do not need corroborating against the kit -- a stated value
     # beats an inferred one. Several of them (pink, orange, yellow, two
     # greys) simply never appear in the components that were rendered.
-    palette = os.path.join(SKILLS, "apple-ui-kit", "tokens", "apple-system-palette.json")
+    palette = os.path.join(SKILLS, "ui-kit-for-apple-platforms", "tokens", "apple-system-palette.json")
     published = set()
     if os.path.exists(palette):
         data = json.load(open(palette))

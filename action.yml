@@ -1,4 +1,4 @@
-name: HIG checks
+name: onplatform checks
 description: Check SwiftUI against Apple's Human Interface Guidelines, and app designs for anything they mustn't publish, with each finding on the pull request's diff.
 author: doppe7gangar
 branding:
@@ -11,7 +11,7 @@ inputs:
     required: false
     default: ""
   designs:
-    description: Design folders made with the hig plugin's design workflow, checked for what they mustn't publish.
+    description: Design folders made with the onplatform plugin's design workflow, checked for what they mustn't publish.
     required: false
     default: ""
   purpose:
@@ -41,9 +41,9 @@ runs:
     - name: Check against the HIG and what a design may publish
       shell: bash
       env:
-        HIG_SWIFTUI: ${{ inputs.swiftui }}
-        HIG_DESIGNS: ${{ inputs.designs }}
-        HIG_PURPOSE: ${{ inputs.purpose }}
-        HIG_FAIL_ON: ${{ inputs.fail-on }}
-        HIG_IOS: ${{ inputs.ios }}
-      run: python3 "$GITHUB_ACTION_PATH/scripts/hig_action.py"
+        ONPLATFORM_SWIFTUI: ${{ inputs.swiftui }}
+        ONPLATFORM_DESIGNS: ${{ inputs.designs }}
+        ONPLATFORM_PURPOSE: ${{ inputs.purpose }}
+        ONPLATFORM_FAIL_ON: ${{ inputs.fail-on }}
+        ONPLATFORM_IOS: ${{ inputs.ios }}
+      run: python3 "$GITHUB_ACTION_PATH/scripts/action_checks.py"

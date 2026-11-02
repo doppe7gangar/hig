@@ -10,11 +10,11 @@ The brief: $ARGUMENTS
 
 If no brief came with the command, ask for one in a sentence and stop.
 
-Scripts live in `${CLAUDE_PLUGIN_ROOT}/.claude/skills/apple-design/`; below, `D` stands for that folder.
+Scripts live in `${CLAUDE_PLUGIN_ROOT}/.claude/skills/design-workflow/`; below, `D` stands for that folder.
 
-1. **Load the method.** Invoke the `hig:apple-design` skill and follow it. It
-   brings in `hig:apple-hig`, `hig:apple-ui-kit`, `hig:apple-motion` and
-   `hig:android-ui-kit` as the work needs them. For a one-screen request,
+1. **Load the method.** Invoke the `onplatform:design-workflow` skill and follow it. It
+   brings in `onplatform:hig-guide`, `onplatform:ui-kit-for-apple-platforms`, `onplatform:motion-for-apple-platforms` and
+   `onplatform:ui-kit-for-android` as the work needs them. For a one-screen request,
    take its short path.
 2. **Settle the brief before drawing:** the platform, who it's for, the
    screens and the states each one has. Ask only what can't be inferred, and
@@ -26,9 +26,9 @@ Scripts live in `${CLAUDE_PLUGIN_ROOT}/.claude/skills/apple-design/`; below, `D`
 5. **Check until it passes:** `python3 D/check_design.py ./design`. It taps
    every control and fails the ones that do nothing. Then render it with
    `python3 D/render_review.py ./design` and work through the review. For a
-   second pair of eyes, hand the folder to the `hig:design-critic` agent.
+   second pair of eyes, hand the folder to the `onplatform:design-critic` agent.
 6. **Licences:** `python3 D/check_distribution.py ./design`.
 7. **Hand over:** what you built, how to open it (`open design/index.html`),
-   what passed, what you assumed, and what comes next: `/hig:figma` to send
-   it to Figma, `/hig:handoff` for SwiftUI, and `/hig:ship` before it's
+   what passed, what you assumed, and what comes next: `/onplatform:figma` to send
+   it to Figma, `/onplatform:handoff` for SwiftUI, and `/onplatform:ship` before it's
    shared or published.

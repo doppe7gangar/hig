@@ -27,7 +27,7 @@ import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SKILLS = os.path.normpath(os.path.join(HERE, "..", "..", ".claude", "skills"))
-HIG = os.path.join(SKILLS, "apple-hig")
+HIG = os.path.join(SKILLS, "hig-guide")
 sys.path.insert(0, HIG)
 import sf_symbols  # noqa: E402
 
@@ -174,7 +174,7 @@ def main():
         os.makedirs(page)
         with open(os.path.join(page, "index.html"), "w") as fh:
             fh.write(HTML)
-        check_design = os.path.join(SKILLS, "apple-design", "check_design.py")
+        check_design = os.path.join(SKILLS, "design-workflow", "check_design.py")
         code, out = run(check_design, page, "--no-browser", env=env)
         line = next((l for l in out.splitlines() if "aren't SF Symbols" in l), "")
         expect("fork.knif (did you mean fork.knife?)" in line and "expense.tray" in line,

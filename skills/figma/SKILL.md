@@ -8,10 +8,10 @@ disable-model-invocation: true
 
 The folder: $ARGUMENTS. If none was named, use `./design`.
 
-1. `python3 ${CLAUDE_PLUGIN_ROOT}/.claude/skills/apple-design/export_figma.py <folder> --dark`
+1. `python3 ${CLAUDE_PLUGIN_ROOT}/.claude/skills/design-workflow/export_figma.py <folder> --dark`
    writes `figma/figma-light-1.html` and `figma/figma-dark-1.html` (more
    numbered files once there are over 20 frames).
-2. Follow step 18 of the `hig:apple-design` skill to send each file: call
+2. Follow step 18 of the `onplatform:design-workflow` skill to send each file: call
    Figma's `html_to_figma` with the file's key and `cssSelector`
    `".figma-frame"`, then POST the file to the URL it returns.
 3. Give the person the Figma link. The frames arrive as plain layers, not

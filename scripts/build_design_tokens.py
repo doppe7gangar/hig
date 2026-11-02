@@ -36,7 +36,7 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
-REFS = os.path.join(REPO, ".claude", "skills", "apple-ui-kit")
+REFS = os.path.join(REPO, ".claude", "skills", "ui-kit-for-apple-platforms")
 TOKENS_JSON = os.path.join(REFS, "ui-kit-tokens.json")
 
 # role -> (file substring, appearance, how to choose the colour)
@@ -194,10 +194,10 @@ def read_tracking():
 
     On Apple platforms the font's own trak table does this. Browsers
     ignore trak, so it has to be applied as letter-spacing. The figures
-    live in apple-ui-kit/tokens/sf-pro-tracking.json, as data, with the
+    live in ui-kit-for-apple-platforms/tokens/sf-pro-tracking.json, as data, with the
     page they come from.
     """
-    path = os.path.join(REPO, ".claude", "skills", "apple-ui-kit", "tokens",
+    path = os.path.join(REPO, ".claude", "skills", "ui-kit-for-apple-platforms", "tokens",
                         "sf-pro-tracking.json")
     if not os.path.exists(path):
         return {}
@@ -216,7 +216,7 @@ def read_tracking():
 # which were previously approximated by darkening until the ratio cleared
 # 4.5:1.
 # The figures from that table, kept as data with the page they come from.
-PALETTE = os.path.join(REPO, ".claude", "skills", "apple-ui-kit", "tokens",
+PALETTE = os.path.join(REPO, ".claude", "skills", "ui-kit-for-apple-platforms", "tokens",
                        "apple-system-palette.json")
 
 

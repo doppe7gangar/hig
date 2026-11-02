@@ -55,7 +55,7 @@ def make_project():
     root = tempfile.mkdtemp(prefix="hig-v4-")
     dst = os.path.join(root, ".claude", "skills")
     os.makedirs(dst)
-    shutil.copytree(os.path.join(SKILLS_SRC, "apple-hig"), os.path.join(dst, "apple-hig"))
+    shutil.copytree(os.path.join(SKILLS_SRC, "hig-guide"), os.path.join(dst, "hig-guide"))
     return root
 
 

@@ -1,4 +1,4 @@
-# Testing the apple-design workflow
+# Testing the design-workflow workflow
 
 The design skill now has three different quality gates:
 
@@ -27,18 +27,18 @@ python3 scripts/eval/design_workflow_smoke.py --browser
 ### iOS / measured visual evidence
 
 ```bash
-python3 .claude/skills/apple-design/select_references.py \
+python3 .claude/skills/design-workflow/select_references.py \
   --query "plant watering list detail add edit" \
   --model stack --platform ios \
   -o /tmp/REFERENCES-ios.md
 ```
 
-Expected: links to Apple's HIG pages plus the measured `apple-ui-kit` recipe for each component.
+Expected: links to Apple's HIG pages plus the measured `ui-kit-for-apple-platforms` recipe for each component.
 
 ### macOS / HIG-first, no fake measured Mac visuals
 
 ```bash
-python3 .claude/skills/apple-design/select_references.py \
+python3 .claude/skills/design-workflow/select_references.py \
   --query "mail sidebar toolbar search list detail menus" \
   --model list-detail --platform macos \
   -o /tmp/REFERENCES-macos.md
@@ -60,7 +60,7 @@ Use `references/design-direction-template.md` to expand/replace the scaffolded `
 Then run:
 
 ```bash
-python3 .claude/skills/apple-design/check_direction.py ./design
+python3 .claude/skills/design-workflow/check_direction.py ./design
 ```
 
 It should fail until `DESIGN.md` contains:
@@ -83,7 +83,7 @@ Do not treat a mechanically valid project with a placeholder `DESIGN.md` as desi
 Example:
 
 ```bash
-python3 .claude/skills/apple-design/new_project.py \
+python3 .claude/skills/design-workflow/new_project.py \
   --name Pulse --brand "#5A67D8" \
   --kind web --model dashboard --character dense \
   --screens "Overview,Reports,Settings" \
@@ -95,19 +95,19 @@ Fill `DESIGN.md`, select/inspect references, then recompose the starter page aro
 Direction gate:
 
 ```bash
-python3 .claude/skills/apple-design/check_direction.py /tmp/pulse-design
+python3 .claude/skills/design-workflow/check_direction.py /tmp/pulse-design
 ```
 
 Mechanical gate:
 
 ```bash
-python3 .claude/skills/apple-design/check_design.py /tmp/pulse-design
+python3 .claude/skills/design-workflow/check_design.py /tmp/pulse-design
 ```
 
 Rendered review:
 
 ```bash
-python3 .claude/skills/apple-design/render_review.py /tmp/pulse-design
+python3 .claude/skills/design-workflow/render_review.py /tmp/pulse-design
 ```
 
 Inspect every image under `.visual-review/`. Write findings as:
@@ -117,7 +117,7 @@ Inspect every image under `.visual-review/`. Write findings as:
 Fill `VISUAL_REVIEW.md`, revise, rerender when needed, replace every `[PENDING]`, set status to `COMPLETE`, then:
 
 ```bash
-python3 .claude/skills/apple-design/render_review.py /tmp/pulse-design --check
+python3 .claude/skills/design-workflow/render_review.py /tmp/pulse-design --check
 ```
 
 ## 5. What to inspect in screenshots
@@ -159,7 +159,7 @@ It calls the design agent, runs both `check_direction.py` and `check_design.py -
 The benchmark criteria live in:
 
 ```text
-.claude/skills/apple-design/references/benchmark-suite.md
+.claude/skills/design-workflow/references/benchmark-suite.md
 ```
 
 A suite where every build is mechanically valid but every product uses the same sidebar/card architecture is a failed design system.

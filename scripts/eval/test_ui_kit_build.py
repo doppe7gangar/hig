@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Does apple-ui-kit get used when someone builds a web page, and used right?
+"""Does ui-kit-for-apple-platforms get used when someone builds a web page, and used right?
 
 TESTING.md's manual check, automated: ask for an ordinary page that should
 feel like an Apple app, then grade what landed on disk rather than what the
@@ -8,9 +8,9 @@ copied in rather than reinvented, colours through var(--ios-*) rather than
 raw hex, and no #007AFF, the pre-iOS 26 accent that search results still
 hand out.
 
-Either skill may take the request. A product brief belongs to apple-design,
+Either skill may take the request. A product brief belongs to design-workflow,
 which brings the kit in by scaffolding; a bare restyle belongs to
-apple-ui-kit. The first run went through apple-design, skipped the scaffold,
+ui-kit-for-apple-platforms. The first run went through design-workflow, skipped the scaffold,
 and hand-built every component around correctly copied colours -- which is
 why the kit's component classes are checked, not just its tokens.
 
@@ -20,7 +20,7 @@ The page is then rendered, light and dark, and any console error fails it.
     python3 scripts/eval/test_ui_kit_build.py --save /tmp/uikit   # keep the output
     python3 scripts/eval/test_ui_kit_build.py --grade ./design    # grade an existing build
 
-A request that goes through apple-design runs its whole workflow, gates
+A request that goes through design-workflow runs its whole workflow, gates
 included, and took 30 minutes and more in testing. A run that hits the
 limit is still graded on what it had written, so a slow build and a
 broken one don't look the same.
@@ -155,8 +155,8 @@ def main():
             (f"finished within {TIMEOUT // 60} minutes", finished,
              f"{minutes:.0f} min" if finished
              else "graded on what it had written"),
-            ("apple-ui-kit or apple-design was consulted",
-             bool({"apple-ui-kit", "apple-design"} & set(skills)),
+            ("ui-kit-for-apple-platforms or design-workflow was consulted",
+             bool({"ui-kit-for-apple-platforms", "design-workflow"} & set(skills)),
              ",".join(skills) or "no skill"),
         ]
     checks += [

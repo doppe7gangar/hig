@@ -1,13 +1,13 @@
 {
-  "name": "hig",
+  "name": "onplatform",
   "version": "1.0.0",
   "description": "Make AI-built app designs look native on iPhone, iPad, Mac and Android: Apple's guidelines routed to the official pages, kits measured from Apple's and Google's design kits, design workflows from brief to Figma and SwiftUI, review agents, and checks that run as you work.",
   "author": {
     "name": "doppe7gangar",
     "url": "https://github.com/doppe7gangar"
   },
-  "homepage": "https://github.com/doppe7gangar/hig",
-  "repository": "https://github.com/doppe7gangar/hig",
+  "homepage": "https://github.com/doppe7gangar/onplatform",
+  "repository": "https://github.com/doppe7gangar/onplatform",
   "license": "Apache-2.0",
   "keywords": ["apple", "hig", "human-interface-guidelines", "ios", "ipados", "macos", "swiftui", "android", "material-3", "design", "ui-kit", "figma"],
   "skills": ["./.claude/skills/"]

@@ -22,7 +22,7 @@ import sys
 import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-CHECK = os.path.normpath(os.path.join(HERE, "..", "..", ".claude", "skills", "apple-hig",
+CHECK = os.path.normpath(os.path.join(HERE, "..", "..", ".claude", "skills", "hig-guide",
                                       "check_swiftui.py"))
 FIXTURE = os.path.join(HERE, "reallife", "fixture")
 sys.path.insert(0, os.path.dirname(CHECK))

@@ -12,7 +12,7 @@ import sys
 import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-CHECK = os.path.join(HERE, "..", "..", ".claude", "skills", "apple-hig", "check_quotes.py")
+CHECK = os.path.join(HERE, "..", "..", ".claude", "skills", "hig-guide", "check_quotes.py")
 URL = "https://developer.apple.com/design/human-interface-guidelines/stand-in-page"
 PAGE = """# Stand-in page
 
@@ -33,8 +33,8 @@ def run(answer, cache):
 
 def main():
     cache = tempfile.mkdtemp(prefix="quotes-")
-    os.makedirs(os.path.join(cache, "apple-hig", "pages"))
-    open(os.path.join(cache, "apple-hig", "pages", "stand-in-page.md"), "w").write(PAGE)
+    os.makedirs(os.path.join(cache, "hig-guide", "pages"))
+    open(os.path.join(cache, "hig-guide", "pages", "stand-in-page.md"), "w").write(PAGE)
     bad = []
 
     code, out = run(f'Per [the page]({URL}), "Keep every primary control within easy reach, '

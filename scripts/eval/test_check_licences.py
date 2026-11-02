@@ -54,19 +54,19 @@ def main():
         check(d, "the repo as it is passes", 0, "0 problem(s)")
 
         d = fresh()
-        p = os.path.join(d, ".claude/skills/apple-ui-kit/fonts/LICENSE-Inter.txt")
+        p = os.path.join(d, ".claude/skills/ui-kit-for-apple-platforms/fonts/LICENSE-Inter.txt")
         open(p, "w").write(open(p).read().replace("free of charge", "for a fee", 1))
         check(d, "a reworded OFL fails", 1, "not the OFL-1.1 text")
 
         d = fresh()
-        p = os.path.join(d, ".claude/skills/android-ui-kit/icons/LICENSE-Material-Symbols.txt")
+        p = os.path.join(d, ".claude/skills/ui-kit-for-android/icons/LICENSE-Material-Symbols.txt")
         open(p, "w").write(open(p).read().replace("perpetual, worldwide", "revocable", 1))
         check(d, "a reworded Apache text fails", 1, "not the Apache-2.0 text")
 
         d = fresh()
-        os.remove(os.path.join(d, ".claude/skills/apple-hig/LICENSE"))
+        os.remove(os.path.join(d, ".claude/skills/hig-guide/LICENSE"))
         subprocess.run(["git", "-C", d, "add", "-A"], check=True)
-        check(d, "a skill without its LICENSE fails", 1, "apple-hig/LICENSE: missing")
+        check(d, "a skill without its LICENSE fails", 1, "hig-guide/LICENSE: missing")
 
         d = fresh()
         shutil.copy(os.path.join(d, "docs/iphone.png"), os.path.join(d, "docs/extra.png"))
@@ -74,8 +74,8 @@ def main():
         check(d, "an image no component covers fails", 1, "docs/extra.png: a font, image or icon")
 
         d = fresh()
-        shutil.copy(os.path.join(d, ".claude/skills/apple-ui-kit/fonts/InterVariable.woff2"),
-                    os.path.join(d, ".claude/skills/android-ui-kit/fonts/roboto-greek-wght-normal.woff2"))
+        shutil.copy(os.path.join(d, ".claude/skills/ui-kit-for-apple-platforms/fonts/InterVariable.woff2"),
+                    os.path.join(d, ".claude/skills/ui-kit-for-android/fonts/roboto-greek-wght-normal.woff2"))
         check(d, "a font swapped for another family fails", 1, "not Roboto")
 
         d = fresh()
@@ -84,7 +84,7 @@ def main():
         check(d, "NOTICE dropping a component fails", 1, "NOTICE doesn't mention Material Symbols")
 
         d = fresh()
-        open(os.path.join(d, ".claude/skills/apple-ui-kit/LICENSE-Other.txt"), "w").write("MIT\n")
+        open(os.path.join(d, ".claude/skills/ui-kit-for-apple-platforms/LICENSE-Other.txt"), "w").write("MIT\n")
         subprocess.run(["git", "-C", d, "add", "-A"], check=True)
         check(d, "a licence file for something unlisted fails", 1, "a licence file for something")
     finally:

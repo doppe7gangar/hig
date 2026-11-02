@@ -35,7 +35,7 @@ REPO = os.path.dirname(HERE)
 # Apple's iOS 27 UI kit, exported as PNGs from your own copy of Apple's design
 # resources. It isn't in this repo: Apple's licence doesn't allow passing it on.
 ASSETS = os.environ.get("APPLE_UI_KIT_PNGS", os.path.expanduser("~/apple-ui-kit-pngs"))
-KIT = os.path.join(REPO, ".claude", "skills", "apple-ui-kit", "ios-components.css")
+KIT = os.path.join(REPO, ".claude", "skills", "ui-kit-for-apple-platforms", "ios-components.css")
 
 # family -> the class that implements it. Deliberately explicit: a
 # generated guess would quietly go stale in exactly the way this exists
