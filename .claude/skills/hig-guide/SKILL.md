@@ -1,6 +1,6 @@
 ---
 name: hig-guide
-description: Working with Apple's Human Interface Guidelines — review UI code or designs against what Apple actually says, pick the right control or presentation (sheet vs popover vs alert vs full-screen, tab bar vs sidebar vs split view), look up exact figures (tap targets, type sizes, contrast ratios, icon dimensions), find the SwiftUI/UIKit/AppKit API that implements a piece of guidance, and adapt a design across iOS, iPadOS, macOS, tvOS, visionOS and watchOS. It routes every question to the right official HIG page (an index of all of them, with the platforms each covers), keeps the figures reached for most (text sizes, contrast, target sizes, type styles), maps guidance to 32+ frameworks' APIs, lists 3,150 system components by name, and checks SwiftUI code and SF Symbol names. Apple's own wording is read from developer.apple.com when it's needed, never from memory. Use whenever building, reviewing, critiquing or fixing UI for an Apple platform — including SwiftUI, UIKit and AppKit code review — and whenever a question turns on what Apple actually specifies rather than general UI instinct. Trigger on Apple platform UI work even when the HIG is never mentioned: "is this button too small", "should this be a sheet or a popover", "why does my Mac app feel wrong", "make this work on iPad", "is this accessible", "what SwiftUI view do I use for this", app icons, Dark Mode, Dynamic Type, VoiceOver, SF Symbols, Liquid Glass.
+description: Apple's Human Interface Guidelines, put to work: review UI code or designs against what Apple actually says, choose the right control or presentation (sheet, popover, alert or full screen; tab bar, sidebar or split view), look up exact figures (tap targets, type sizes, contrast, icon sizes), find the SwiftUI, UIKit or AppKit API behind a piece of guidance, and adapt a design across iOS, iPadOS, macOS, tvOS, visionOS and watchOS. It routes each question to the official page and reads Apple's wording there, never from memory, and checks SwiftUI code and SF Symbol names. Use for building, reviewing or fixing any Apple-platform UI, including SwiftUI, UIKit and AppKit code review, and whenever an answer turns on what Apple specifies rather than general instinct, even when the HIG isn't mentioned: "is this button too small", "sheet or popover?", "why does my Mac app feel wrong", "make this work on iPad", "is this accessible", app icons, Dark Mode, Dynamic Type, VoiceOver, SF Symbols, Liquid Glass.
 ---
 
 # Apple Human Interface Guidelines
@@ -82,10 +82,12 @@ The failure mode is forty observations of mixed importance. Scope it:
    pressed and disabled states especially: they're the ones reimplementations
    get wrong. The kit in `../ui-kit-for-apple-platforms` draws them as measured.
 6. **Sort findings by force**, and say which is which:
-   - **Violation**: Apple states a rule with a number, and the design misses
-     it. *Contrast is 4.05:1 where 4.5:1 is required below 17 pt.*
-   - **Guidance**: Apple prefers or advises against, with no threshold.
-     Deviating is defensible with a reason.
+   - **Violation**: Apple states the rule, a figure to meet or something to
+     always or never do, and the design breaks it. *Contrast is 4.05:1 where
+     4.5:1 is required below 17 pt*; *an icon-only button with no label for
+     VoiceOver*. `check_swiftui.py` sorts its findings the same way.
+   - **Guidance**: Apple prefers or advises against, or the answer depends on
+     something the code can't show. Deviating is defensible with a reason.
    - **Judgment**: Apple doesn't address it. Say so rather than inventing a
      rule to back a preference.
 

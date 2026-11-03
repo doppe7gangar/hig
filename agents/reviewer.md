@@ -54,8 +54,10 @@ Return exactly this shape:
 
 Rules that keep a review worth trusting:
 
-- A **violation** needs a stated rule with a number. Prefer-or-avoid advice is
-  guidance, however strongly you feel about it.
+- A **violation** is a rule Apple states, a figure to meet or something to
+  always or never do, that the code breaks; `check_swiftui.py` uses the same
+  line. Prefer-or-avoid advice is guidance, however strongly you feel about
+  it, and so is anything that depends on what the code can't show.
 - Quote only text you just read on Apple's page, copied exactly, and keep it
   short; otherwise use your own words. When your draft quotes Apple, pipe it to
   `python3 H/check_quotes.py -` and fix anything it doesn't call VERBATIM or

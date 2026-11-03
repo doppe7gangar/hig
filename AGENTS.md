@@ -54,8 +54,10 @@ constraints.
 
 **Reviewing existing UI** → scope to the components actually present, read
 their pages, then sort findings into:
-- **Violations** — a stated rule with a number. Objective.
-- **Guidance** — prefer/avoid without a threshold. Deviable with reason.
+- **Violations** — Apple states the rule (a figure to meet, or something to
+  always or never do) and the code breaks it. Objective.
+- **Guidance** — Apple says prefer or avoid, or the answer depends on what
+  the code can't show. Deviable with reason.
 - **Judgment** — the HIG is silent. Say so instead of inventing a rule.
 
 Presenting a preference as a violation is the fastest way to lose trust in

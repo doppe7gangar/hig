@@ -88,6 +88,13 @@ def main():
                    for s in ("hig-guide", "design-workflow", "ui-kit-for-apple-platforms", "motion-for-apple-platforms",
                              "ui-kit-for-android")))
 
+    # Claude Code cuts a skill's description at 1,536 characters in the list
+    # it chooses skills from, so anything past that never reaches the model.
+    for d in sorted(os.listdir(os.path.join(ROOT, ".claude", "skills"))):
+        fields, _ = frontmatter(os.path.join(ROOT, ".claude", "skills", d, "SKILL.md"))
+        n = len((fields or {}).get("description", ""))
+        expect(f"{d}'s description fits the 1,536-character listing ({n})", 0 < n <= 1536)
+
     print("commands and agents:")
     named = []
     commands = sorted(os.listdir(os.path.join(ROOT, "skills")))

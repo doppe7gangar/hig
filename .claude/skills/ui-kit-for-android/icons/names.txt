@@ -1321,7 +1321,6 @@ eraser_size_3
 eraser_size_4
 eraser_size_5
 error
-error_circle
 error_circle_rounded
 error_med
 escalator

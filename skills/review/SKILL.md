@@ -20,10 +20,10 @@ available, follow its method yourself: `${CLAUDE_PLUGIN_ROOT}/agents/reviewer.md
 
 Present what comes back in three groups, each finding with its link:
 
-- **Violations:** Apple states a rule with a number and the code misses it.
-  Give the line and the fix.
-- **Guidance:** Apple prefers or advises against, with no threshold.
-  Deviating is defensible with a reason.
+- **Violations:** Apple states the rule (a figure to meet, or something to
+  always or never do) and the code breaks it. Give the line and the fix.
+- **Guidance:** Apple prefers or advises against, or the answer depends on
+  something the code can't show. Deviating is defensible with a reason.
 - **Judgment:** the HIG doesn't address it. Say so, rather than inventing a
   rule.
 
