@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: android-design
+description: A whole product brief, android. Graded on what lands on disk: the measured kit used rather than rebuilt, the states, the platform's own parts.
+tags: [design, slow]
+runs: 1

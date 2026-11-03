@@ -388,6 +388,35 @@ To try the plugin in Claude Code without installing it, start
 `claude --plugin-dir ~/Documents/GitHub/onplatform` in another folder and run
 `/onplatform:ask how big must a button be on iPhone?`.
 
+### Measure what the plugin adds
+
+```bash
+claude plugin eval . --trust-plugin --tag quick --scaffold \
+  --allow-tools Bash "WebFetch(domain:developer.apple.com)"
+claude plugin eval . --trust-plugin --tag design --scaffold \
+  --allow-tools Bash Write Edit "WebFetch(domain:developer.apple.com)"
+```
+
+`evals/` holds cases that `claude plugin eval` runs twice: once with the
+plugin and once without, so the score says what the plugin adds rather than
+what Claude does anyway. Each run is a real session on your account, so it
+costs usage; `--runs 1` and `--max-cost-usd` keep a first try cheap. On Linux,
+shell commands need `bubblewrap` and `socat` for the sandbox they run in.
+
+- **`quick`**: a HIG question, which has to give each platform's figure,
+  both of Apple's figures for iPhone (the 44×44 default and the 28×28
+  minimum) and a link to Apple's page; and a review of the seeded SwiftUI
+  app, which has to name the VoiceOver labels, the fixed font sizes and the
+  missing destructive role, and keep the 30-point buttons out of the
+  violations.
+- **`design`**: two whole briefs, an iPhone app and an Android one, graded
+  on what lands on disk: the measured kit copied in rather than rebuilt, its
+  recipes in the page, the empty state, no `#007AFF`, and for Android
+  Material Symbols with no SF Symbols or iOS tab bar.
+
+The `evals` workflow in GitHub Actions runs the same suite on demand, once
+an `ANTHROPIC_API_KEY` secret is set.
+
 ### What a design hands on
 
 ```bash

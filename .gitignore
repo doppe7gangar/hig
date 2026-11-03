@@ -15,3 +15,6 @@ scripts/eval/out/
 # SF Pro can't be redistributed. fonts/sf.css uses your own copy of it;
 # keep that copy out of commits, whatever form it's in.
 SF-Pro*
+
+# claude plugin eval writes its runs here
+evals/results/

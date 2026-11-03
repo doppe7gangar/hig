@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: swiftui-review
+description: A review of a SwiftUI app with seeded problems. It has to find the real violations and not inflate guidance into rules.
+tags: [quick]
+context:
+  scaffold_script: scaffold.sh

@@ -1,0 +1,67 @@
+name: evals
+
+# Runs the eval suite in evals/ with the plugin and without it, and reports
+# what the plugin adds. It calls the model, so it needs an ANTHROPIC_API_KEY
+# repository secret and costs real usage: it runs only when started from
+# the Actions tab.
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "quick: a HIG answer and a SwiftUI review. design: two whole products, slower and dearer."
+        type: choice
+        options: [quick, design]
+        default: quick
+      runs:
+        description: Runs per case, with and without the plugin each
+        default: "3"
+      max-cost:
+        description: Stop starting runs past this estimated cost, in US dollars
+        default: "20"
+
+permissions:
+  contents: read
+
+jobs:
+  evals:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Claude Code, the sandbox its shell commands run in, and a browser
+        run: |
+          sudo apt-get install -y -q bubblewrap socat
+          # Ubuntu 24.04 keeps unprivileged user namespaces from bubblewrap.
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 || true
+          npm install --global --silent @anthropic-ai/claude-code@^2
+          python -m pip install --quiet playwright pillow fonttools brotli
+          python -m playwright install --with-deps chromium
+
+      - name: The suite, with and without the plugin
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TAG: ${{ inputs.tag }}
+          RUNS: ${{ inputs.runs }}
+          MAX_COST: ${{ inputs.max-cost }}
+        run: |
+          claude plugin eval . --trust-plugin --tag "$TAG" --runs "$RUNS" --scaffold \
+            --allow-tools Bash Write Edit "WebFetch(domain:developer.apple.com)" \
+            --max-cost-usd "$MAX_COST" --no-publish --json evals-result.json
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evals
+          path: |
+            evals-result.json
+            evals/results/
