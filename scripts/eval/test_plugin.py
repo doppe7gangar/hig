@@ -127,6 +127,28 @@ def main():
     else:
         print("  skip claude plugin validate (the claude command isn't installed)")
 
+    print("eval cases:")
+    # An unquoted YAML value holding ": " reads as a second key, and the
+    # case silently fails to load when the suite runs.
+    bad = []
+    for d in sorted(os.listdir(os.path.join(ROOT, "evals"))):
+        for name in ("case.yaml", "prompt.md"):
+            path = os.path.join(ROOT, "evals", d, name)
+            if not os.path.isfile(path):
+                continue
+            text = open(path, encoding="utf-8").read()
+            head = text.split("---")[1] if name == "prompt.md" else text
+            for line in head.splitlines():
+                m = re.match(r"^\s*[\w-]+: (.*)$", line)
+                if m and not m.group(1).startswith(("\"", "'", "[", "{")) and ": " in m.group(1):
+                    bad.append(f"{d}/{name}: {line.strip()[:60]}")
+    cases = [d for d in os.listdir(os.path.join(ROOT, "evals"))
+             if os.path.isfile(os.path.join(ROOT, "evals", d, "prompt.md"))]
+    expect(f"all {len(cases)} eval cases parse (no unquoted ': ')", cases and not bad, bad)
+    for d in cases:
+        graders = os.path.join(ROOT, "evals", d, "graders")
+        expect(f"eval {d} has graders", os.path.isdir(graders) and os.listdir(graders))
+
     print("SwiftUI hook:")
     data = tempfile.mkdtemp(prefix="hig-data-")
     seeded = os.path.join(ROOT, "scripts", "eval", "reallife", "fixture", "ContentView.swift")
