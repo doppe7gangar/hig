@@ -384,7 +384,6 @@ def slug_for(name):
 
 def page(slug, refresh=False):
     """(title, url, markdown) for one page, from the cache or Apple's site."""
-    os.makedirs(cache_dir(), exist_ok=True)
     cached = os.path.join(cache_dir(), slug + ".md")
     url = f"{SITE_BASE}{ROOT_PATH}/{slug}"
     if not refresh and os.path.exists(cached) and time.time() - os.path.getmtime(cached) < WEEK:
@@ -397,8 +396,15 @@ def page(slug, refresh=False):
     # Text only: an image becomes its description.
     md = re.sub(r"!\[([^\]]*)\]\([^)]*\)",
                 lambda m: f"[image: {m.group(1)}]" if m.group(1) else "", md)
-    with open(cached, "w", encoding="utf-8") as f:
-        f.write(md)
+    # The cache only saves a fetch. Where it can't be written (a sandbox that
+    # allows writes only to the project, a read-only home) the page still
+    # comes back; it's fetched again next time.
+    try:
+        os.makedirs(cache_dir(), exist_ok=True)
+        with open(cached, "w", encoding="utf-8") as f:
+            f.write(md)
+    except OSError:
+        pass
     return title, url, md
 
 

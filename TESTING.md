@@ -402,6 +402,9 @@ plugin and once without, so the score says what the plugin adds rather than
 what Claude does anyway. Each run is a real session on your account, so it
 costs usage; `--runs 1` and `--max-cost-usd` keep a first try cheap. On Linux,
 shell commands need `bubblewrap` and `socat` for the sandbox they run in.
+Run it as an ordinary user, as on a Mac or a CI runner: run as root, the
+sandbox leaves shell commands nothing they can write to, so the design cases
+can't scaffold and score 0 with the plugin, which says nothing about it.
 
 - **`quick`**: a HIG question, which has to give each platform's figure,
   both of Apple's figures for iPhone (the 44×44 default and the 28×28
